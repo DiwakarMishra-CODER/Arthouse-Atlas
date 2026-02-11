@@ -1,0 +1,248 @@
+/**
+ * Motion Overlays - Visual Effects for Cinematic Atmosphere
+ * 
+ * Subtle overlays to enhance the arthouse aesthetic:
+ * - Film grain textures
+ * - Vignette effects
+ * - Chromatic aberration
+ * - Mood-based visual treatments
+ * 
+ * All effects are GPU-accelerated and extremely subtle (opacity ≤ 5%)
+ */
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Film Grain Overlay */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.film-grain-overlay {
+    position: relative;
+    isolation: isolate;
+    /* Create stacking context */
+}
+
+.film-grain-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    opacity: 0.5;
+    z-index: 1;
+}
+
+/* Animated grain (for hero sections) */
+.film-grain-overlay.animated::before {
+    animation: grain-drift 8s steps(10) infinite;
+}
+
+@keyframes grain-drift {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    10% {
+        transform: translate(-2%, -2%);
+    }
+
+    20% {
+        transform: translate(-4%, 2%);
+    }
+
+    30% {
+        transform: translate(2%, -3%);
+    }
+
+    40% {
+        transform: translate(-3%, 4%);
+    }
+
+    50% {
+        transform: translate(4%, -2%);
+    }
+
+    60% {
+        transform: translate(-2%, 3%);
+    }
+
+    70% {
+        transform: translate(3%, -4%);
+    }
+
+    80% {
+        transform: translate(-4%, -3%);
+    }
+
+    90% {
+        transform: translate(2%, 4%);
+    }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Vignette Overlay */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.vignette-overlay {
+    position: relative;
+}
+
+.vignette-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center,
+            transparent 0%,
+            transparent 50%,
+            rgba(0, 0, 0, 0.3) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Stronger vignette for dramatic effect */
+.vignette-overlay.strong::after {
+    background: radial-gradient(circle at center,
+            transparent 0%,
+            transparent 40%,
+            rgba(0, 0, 0, 0.5) 100%);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Chromatic Aberration (very subtle) */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.chromatic-aberration {
+    position: relative;
+}
+
+.chromatic-aberration::before,
+.chromatic-aberration::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0.03;
+}
+
+.chromatic-aberration::before {
+    transform: translateX(-1px);
+    filter: drop-shadow(1px 0 0 #ff0000);
+}
+
+.chromatic-aberration::after {
+    transform: translateX(1px);
+    filter: drop-shadow(-1px 0 0 #0000ff);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Mood-Based Overlays */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Dreamlike - Soft blur + drifting grain */
+.mood-dreamlike {
+    position: relative;
+}
+
+.mood-dreamlike::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+            rgba(127, 154, 148, 0.05) 0%,
+            rgba(181, 131, 96, 0.03) 100%);
+    backdrop-filter: blur(0.5px);
+    pointer-events: none;
+    animation: dreamlike-drift 12s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes dreamlike-drift {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(1.01);
+    }
+}
+
+/* Bleak - Darker vignette + reduced saturation */
+.mood-bleak {
+    position: relative;
+    filter: saturate(0.7) contrast(1.1);
+}
+
+.mood-bleak::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center,
+            transparent 0%,
+            transparent 30%,
+            rgba(0, 0, 0, 0.4) 80%,
+            rgba(0, 0, 0, 0.6) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Fragmented - Slow crossfades + slight jitter */
+.mood-fragmented {
+    position: relative;
+    animation: fragmented-jitter 0.3s steps(2) infinite;
+}
+
+@keyframes fragmented-jitter {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(0.5px, -0.5px);
+    }
+}
+
+.mood-fragmented::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 255, 255, 0.01) 2px,
+            rgba(255, 255, 255, 0.01) 4px);
+    pointer-events: none;
+    opacity: 0.5;
+    z-index: 1;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Accessibility: Respect Reduced Motion */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .film-grain-overlay.animated::before,
+    .mood-dreamlike::before,
+    .mood-fragmented {
+        animation: none;
+    }
+
+    .mood-dreamlike::before {
+        opacity: 0.3;
+        transform: none;
+    }
+
+    .mood-fragmented {
+        transform: none;
+    }
+}

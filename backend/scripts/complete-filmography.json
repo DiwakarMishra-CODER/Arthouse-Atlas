@@ -1,0 +1,2122 @@
+{
+  "totalFilms": 352,
+  "byTier": {
+    "tier1": 163,
+    "tier2": 95,
+    "tier3": 94
+  },
+  "films": [
+    {
+      "title": "The Kid",
+      "year": 1921,
+      "tier": 2,
+      "arthouseScore": 45
+    },
+    {
+      "title": "Nosferatu",
+      "year": 1922,
+      "tier": 2,
+      "arthouseScore": 54
+    },
+    {
+      "title": "Battleship Potemkin",
+      "year": 1925,
+      "tier": 1,
+      "arthouseScore": 78
+    },
+    {
+      "title": "The Gold Rush",
+      "year": 1925,
+      "tier": 2,
+      "arthouseScore": 37
+    },
+    {
+      "title": "The General",
+      "year": 1926,
+      "tier": 1,
+      "arthouseScore": 27
+    },
+    {
+      "title": "Metropolis",
+      "year": 1927,
+      "tier": 1,
+      "arthouseScore": 57
+    },
+    {
+      "title": "Sunrise: A Song of Two Humans",
+      "year": 1927,
+      "tier": 1,
+      "arthouseScore": 56
+    },
+    {
+      "title": "The Passion of Joan of Arc",
+      "year": 1928,
+      "tier": 1,
+      "arthouseScore": 83
+    },
+    {
+      "title": "Man with a Movie Camera",
+      "year": 1929,
+      "tier": 1,
+      "arthouseScore": 66
+    },
+    {
+      "title": "Pandora's Box",
+      "year": 1929,
+      "tier": 1,
+      "arthouseScore": 76
+    },
+    {
+      "title": "City Lights",
+      "year": 1931,
+      "tier": 1,
+      "arthouseScore": 53
+    },
+    {
+      "title": "M",
+      "year": 1931,
+      "tier": 2,
+      "arthouseScore": 74
+    },
+    {
+      "title": "Modern Times",
+      "year": 1936,
+      "tier": 1,
+      "arthouseScore": 48
+    },
+    {
+      "title": "Grand Illusion",
+      "year": 1937,
+      "tier": 1,
+      "arthouseScore": 85
+    },
+    {
+      "title": "The Rules of the Game",
+      "year": 1939,
+      "tier": 1,
+      "arthouseScore": 70
+    },
+    {
+      "title": "Rebecca",
+      "year": 1940,
+      "tier": 2,
+      "arthouseScore": 44
+    },
+    {
+      "title": "The Grapes of Wrath",
+      "year": 1940,
+      "tier": 1,
+      "arthouseScore": 50
+    },
+    {
+      "title": "The Great Dictator",
+      "year": 1940,
+      "tier": 1,
+      "arthouseScore": 43
+    },
+    {
+      "title": "The Maltese Falcon",
+      "year": 1941,
+      "tier": 1,
+      "arthouseScore": 39
+    },
+    {
+      "title": "Shadow of a Doubt",
+      "year": 1943,
+      "tier": 1,
+      "arthouseScore": 45
+    },
+    {
+      "title": "Double Indemnity",
+      "year": 1944,
+      "tier": 2,
+      "arthouseScore": 37
+    },
+    {
+      "title": "Beauty and the Beast",
+      "year": 1946,
+      "tier": 3,
+      "arthouseScore": 73
+    },
+    {
+      "title": "Notorious",
+      "year": 1946,
+      "tier": 2,
+      "arthouseScore": 41
+    },
+    {
+      "title": "Black Narcissus",
+      "year": 1947,
+      "tier": 1,
+      "arthouseScore": 63
+    },
+    {
+      "title": "Bicycle Thieves",
+      "year": 1948,
+      "tier": 1,
+      "arthouseScore": 74
+    },
+    {
+      "title": "Rope",
+      "year": 1948,
+      "tier": 2,
+      "arthouseScore": 53
+    },
+    {
+      "title": "The Red Shoes",
+      "year": 1948,
+      "tier": 1,
+      "arthouseScore": 74
+    },
+    {
+      "title": "The Third Man",
+      "year": 1949,
+      "tier": 1,
+      "arthouseScore": 55
+    },
+    {
+      "title": "Rashomon",
+      "year": 1950,
+      "tier": 1,
+      "arthouseScore": 75
+    },
+    {
+      "title": "Sunset Boulevard",
+      "year": 1950,
+      "tier": 1,
+      "arthouseScore": 47
+    },
+    {
+      "title": "The Young and the Damned",
+      "year": 1950,
+      "tier": 3,
+      "arthouseScore": 67
+    },
+    {
+      "title": "Strangers on a Train",
+      "year": 1951,
+      "tier": 2,
+      "arthouseScore": 38
+    },
+    {
+      "title": "Ikiru",
+      "year": 1952,
+      "tier": 1,
+      "arthouseScore": 77
+    },
+    {
+      "title": "Umberto D.",
+      "year": 1952,
+      "tier": 1,
+      "arthouseScore": 72
+    },
+    {
+      "title": "Tokyo Story",
+      "year": 1953,
+      "tier": 1,
+      "arthouseScore": 75
+    },
+    {
+      "title": "Dial M for Murder",
+      "year": 1954,
+      "tier": 2,
+      "arthouseScore": 37
+    },
+    {
+      "title": "La Strada",
+      "year": 1954,
+      "tier": 1,
+      "arthouseScore": 72
+    },
+    {
+      "title": "Rear Window",
+      "year": 1954,
+      "tier": 2,
+      "arthouseScore": 32
+    },
+    {
+      "title": "Sabrina",
+      "year": 1954,
+      "tier": 2,
+      "arthouseScore": 48
+    },
+    {
+      "title": "Seven Samurai",
+      "year": 1954,
+      "tier": 2,
+      "arthouseScore": 65
+    },
+    {
+      "title": "Pather Panchali",
+      "year": 1955,
+      "tier": 1,
+      "arthouseScore": 76
+    },
+    {
+      "title": "Rififi",
+      "year": 1955,
+      "tier": 3,
+      "arthouseScore": 77
+    },
+    {
+      "title": "The Night of the Hunter",
+      "year": 1955,
+      "tier": 1,
+      "arthouseScore": 52
+    },
+    {
+      "title": "A Man Escaped",
+      "year": 1956,
+      "tier": 3,
+      "arthouseScore": 77
+    },
+    {
+      "title": "The Killing",
+      "year": 1956,
+      "tier": 2,
+      "arthouseScore": 37
+    },
+    {
+      "title": "The Man Who Knew Too Much",
+      "year": 1956,
+      "tier": 2,
+      "arthouseScore": 37
+    },
+    {
+      "title": "Paths of Glory",
+      "year": 1957,
+      "tier": 2,
+      "arthouseScore": 56
+    },
+    {
+      "title": "The Cranes Are Flying",
+      "year": 1957,
+      "tier": 1,
+      "arthouseScore": 80
+    },
+    {
+      "title": "The Seventh Seal",
+      "year": 1957,
+      "tier": 1,
+      "arthouseScore": 64
+    },
+    {
+      "title": "Wild Strawberries",
+      "year": 1957,
+      "tier": 3,
+      "arthouseScore": 75
+    },
+    {
+      "title": "Witness for the Prosecution",
+      "year": 1957,
+      "tier": 2,
+      "arthouseScore": 50
+    },
+    {
+      "title": "Vertigo",
+      "year": 1958,
+      "tier": 1,
+      "arthouseScore": 39
+    },
+    {
+      "title": "Black Orpheus",
+      "year": 1959,
+      "tier": 1,
+      "arthouseScore": 64
+    },
+    {
+      "title": "Hiroshima Mon Amour",
+      "year": 1959,
+      "tier": 1,
+      "arthouseScore": 87
+    },
+    {
+      "title": "Night and Fog",
+      "year": 1959,
+      "tier": 3,
+      "arthouseScore": 81
+    },
+    {
+      "title": "North by Northwest",
+      "year": 1959,
+      "tier": 2,
+      "arthouseScore": 30
+    },
+    {
+      "title": "Some Like It Hot",
+      "year": 1959,
+      "tier": 2,
+      "arthouseScore": 43
+    },
+    {
+      "title": "The 400 Blows",
+      "year": 1959,
+      "tier": 1,
+      "arthouseScore": 75
+    },
+    {
+      "title": "Breathless",
+      "year": 1960,
+      "tier": 1,
+      "arthouseScore": 72
+    },
+    {
+      "title": "Eyes Without a Face",
+      "year": 1960,
+      "tier": 3,
+      "arthouseScore": 77
+    },
+    {
+      "title": "L'Avventura",
+      "year": 1960,
+      "tier": 1,
+      "arthouseScore": 76
+    },
+    {
+      "title": "La Dolce Vita",
+      "year": 1960,
+      "tier": 1,
+      "arthouseScore": 69
+    },
+    {
+      "title": "Peeping Tom",
+      "year": 1960,
+      "tier": 3,
+      "arthouseScore": 60
+    },
+    {
+      "title": "Psycho",
+      "year": 1960,
+      "tier": 2,
+      "arthouseScore": 34
+    },
+    {
+      "title": "Rocco and His Brothers",
+      "year": 1960,
+      "tier": 1,
+      "arthouseScore": 76
+    },
+    {
+      "title": "Spartacus",
+      "year": 1960,
+      "tier": 2,
+      "arthouseScore": 54
+    },
+    {
+      "title": "The Apartment",
+      "year": 1960,
+      "tier": 1,
+      "arthouseScore": 53
+    },
+    {
+      "title": "The Virgin Spring",
+      "year": 1960,
+      "tier": 3,
+      "arthouseScore": 80
+    },
+    {
+      "title": "Two Women",
+      "year": 1960,
+      "tier": 3,
+      "arthouseScore": 78
+    },
+    {
+      "title": "Last Year at Marienbad",
+      "year": 1961,
+      "tier": 1,
+      "arthouseScore": 75
+    },
+    {
+      "title": "Through a Glass Darkly",
+      "year": 1961,
+      "tier": 3,
+      "arthouseScore": 69
+    },
+    {
+      "title": "Viridiana",
+      "year": 1961,
+      "tier": 1,
+      "arthouseScore": 70
+    },
+    {
+      "title": "Yojimbo",
+      "year": 1961,
+      "tier": 2,
+      "arthouseScore": 72
+    },
+    {
+      "title": "Il Sorpasso",
+      "year": 1962,
+      "tier": 3,
+      "arthouseScore": 62
+    },
+    {
+      "title": "Jules and Jim",
+      "year": 1962,
+      "tier": 2,
+      "arthouseScore": 81
+    },
+    {
+      "title": "Knife in the Water",
+      "year": 1962,
+      "tier": 1,
+      "arthouseScore": 69
+    },
+    {
+      "title": "La Jetée",
+      "year": 1962,
+      "tier": 1,
+      "arthouseScore": 71
+    },
+    {
+      "title": "Lawrence of Arabia",
+      "year": 1962,
+      "tier": 3,
+      "arthouseScore": 62
+    },
+    {
+      "title": "Sanjuro",
+      "year": 1962,
+      "tier": 3,
+      "arthouseScore": 62
+    },
+    {
+      "title": "The Exterminating Angel",
+      "year": 1962,
+      "tier": 3,
+      "arthouseScore": 60
+    },
+    {
+      "title": "The Trial",
+      "year": 1962,
+      "tier": 3,
+      "arthouseScore": 81
+    },
+    {
+      "title": "8½",
+      "year": 1963,
+      "tier": 1,
+      "arthouseScore": 86
+    },
+    {
+      "title": "High and Low",
+      "year": 1963,
+      "tier": 2,
+      "arthouseScore": 75
+    },
+    {
+      "title": "The Birds",
+      "year": 1963,
+      "tier": 2,
+      "arthouseScore": 37
+    },
+    {
+      "title": "The Leopard",
+      "year": 1963,
+      "tier": 1,
+      "arthouseScore": 75
+    },
+    {
+      "title": "The Silence",
+      "year": 1963,
+      "tier": 1,
+      "arthouseScore": 76
+    },
+    {
+      "title": "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
+      "year": 1964,
+      "tier": 2,
+      "arthouseScore": 56
+    },
+    {
+      "title": "Marriage Italian Style",
+      "year": 1964,
+      "tier": 3,
+      "arthouseScore": 78
+    },
+    {
+      "title": "The Gospel According to St. Matthew",
+      "year": 1964,
+      "tier": 1,
+      "arthouseScore": 70
+    },
+    {
+      "title": "The Umbrellas of Cherbourg",
+      "year": 1964,
+      "tier": 1,
+      "arthouseScore": 76
+    },
+    {
+      "title": "Pierrot le Fou",
+      "year": 1965,
+      "tier": 1,
+      "arthouseScore": 76
+    },
+    {
+      "title": "Repulsion",
+      "year": 1965,
+      "tier": 3,
+      "arthouseScore": 65
+    },
+    {
+      "title": "Andrei Rublev",
+      "year": 1966,
+      "tier": 1,
+      "arthouseScore": 76
+    },
+    {
+      "title": "Blow-Up",
+      "year": 1966,
+      "tier": 1,
+      "arthouseScore": 66
+    },
+    {
+      "title": "Persona",
+      "year": 1966,
+      "tier": 1,
+      "arthouseScore": 82
+    },
+    {
+      "title": "The Battle of Algiers",
+      "year": 1966,
+      "tier": 1,
+      "arthouseScore": 85
+    },
+    {
+      "title": "Belle de Jour",
+      "year": 1967,
+      "tier": 1,
+      "arthouseScore": 79
+    },
+    {
+      "title": "2001: A Space Odyssey",
+      "year": 1968,
+      "tier": 1,
+      "arthouseScore": 41
+    },
+    {
+      "title": "Once Upon a Time in the West",
+      "year": 1968,
+      "tier": 3,
+      "arthouseScore": 75
+    },
+    {
+      "title": "Romeo and Juliet",
+      "year": 1968,
+      "tier": 3,
+      "arthouseScore": 74
+    },
+    {
+      "title": "Rosemary's Baby",
+      "year": 1968,
+      "tier": 2,
+      "arthouseScore": 50
+    },
+    {
+      "title": "The Color of Pomegranates",
+      "year": 1969,
+      "tier": 1,
+      "arthouseScore": 68
+    },
+    {
+      "title": "Z",
+      "year": 1969,
+      "tier": 1,
+      "arthouseScore": 70
+    },
+    {
+      "title": "A Clockwork Orange",
+      "year": 1971,
+      "tier": 1,
+      "arthouseScore": 35
+    },
+    {
+      "title": "Harold and Maude",
+      "year": 1971,
+      "tier": 2,
+      "arthouseScore": 48
+    },
+    {
+      "title": "The Last Picture Show",
+      "year": 1971,
+      "tier": 1,
+      "arthouseScore": 54
+    },
+    {
+      "title": "Aguirre, the Wrath of God",
+      "year": 1972,
+      "tier": 1,
+      "arthouseScore": 65
+    },
+    {
+      "title": "Solaris",
+      "year": 1972,
+      "tier": 1,
+      "arthouseScore": 57
+    },
+    {
+      "title": "The Discreet Charm of the Bourgeoisie",
+      "year": 1972,
+      "tier": 1,
+      "arthouseScore": 63
+    },
+    {
+      "title": "The Godfather",
+      "year": 1972,
+      "tier": 1,
+      "arthouseScore": 31
+    },
+    {
+      "title": "Amarcord",
+      "year": 1973,
+      "tier": 1,
+      "arthouseScore": 78
+    },
+    {
+      "title": "Day for Night",
+      "year": 1973,
+      "tier": 3,
+      "arthouseScore": 69
+    },
+    {
+      "title": "The Last Detail",
+      "year": 1973,
+      "tier": 1,
+      "arthouseScore": 42
+    },
+    {
+      "title": "The Spirit of the Beehive",
+      "year": 1973,
+      "tier": 1,
+      "arthouseScore": 62
+    },
+    {
+      "title": "Chinatown",
+      "year": 1974,
+      "tier": 2,
+      "arthouseScore": 47
+    },
+    {
+      "title": "The Conversation",
+      "year": 1974,
+      "tier": 1,
+      "arthouseScore": 47
+    },
+    {
+      "title": "The Godfather Part II",
+      "year": 1974,
+      "tier": 2,
+      "arthouseScore": 30
+    },
+    {
+      "title": "We All Loved Each Other So Much",
+      "year": 1974,
+      "tier": 3,
+      "arthouseScore": 72
+    },
+    {
+      "title": "Barry Lyndon",
+      "year": 1975,
+      "tier": 2,
+      "arthouseScore": 80
+    },
+    {
+      "title": "Jeanne Dielman, 23, quai du Commerce, 1080 Bruxelles",
+      "year": 1975,
+      "tier": 1,
+      "arthouseScore": 69
+    },
+    {
+      "title": "Mirror",
+      "year": 1975,
+      "tier": 2,
+      "arthouseScore": 86
+    },
+    {
+      "title": "The Other Side of the Mirror",
+      "year": 1975,
+      "tier": 1,
+      "arthouseScore": 52
+    },
+    {
+      "title": "Taxi Driver",
+      "year": 1976,
+      "tier": 1,
+      "arthouseScore": 50
+    },
+    {
+      "title": "The Tenant",
+      "year": 1976,
+      "tier": 2,
+      "arthouseScore": 84
+    },
+    {
+      "title": "Midnight Express",
+      "year": 1978,
+      "tier": 3,
+      "arthouseScore": 60
+    },
+    {
+      "title": "The Deer Hunter",
+      "year": 1978,
+      "tier": 1,
+      "arthouseScore": 74
+    },
+    {
+      "title": "Apocalypse Now",
+      "year": 1979,
+      "tier": 1,
+      "arthouseScore": 62
+    },
+    {
+      "title": "Being There",
+      "year": 1979,
+      "tier": 2,
+      "arthouseScore": 53
+    },
+    {
+      "title": "Stalker",
+      "year": 1979,
+      "tier": 1,
+      "arthouseScore": 58
+    },
+    {
+      "title": "The Castle of Cagliostro",
+      "year": 1979,
+      "tier": 2,
+      "arthouseScore": 55
+    },
+    {
+      "title": "Raging Bull",
+      "year": 1980,
+      "tier": 2,
+      "arthouseScore": 47
+    },
+    {
+      "title": "The Elephant Man",
+      "year": 1980,
+      "tier": 1,
+      "arthouseScore": 58
+    },
+    {
+      "title": "The Shining",
+      "year": 1980,
+      "tier": 2,
+      "arthouseScore": 53
+    },
+    {
+      "title": "Fanny and Alexander",
+      "year": 1982,
+      "tier": 1,
+      "arthouseScore": 63
+    },
+    {
+      "title": "The King of Comedy",
+      "year": 1982,
+      "tier": 2,
+      "arthouseScore": 47
+    },
+    {
+      "title": "Nausicaä of the Valley of the Wind",
+      "year": 1984,
+      "tier": 2,
+      "arthouseScore": 55
+    },
+    {
+      "title": "Paris, Texas",
+      "year": 1984,
+      "tier": 1,
+      "arthouseScore": 67
+    },
+    {
+      "title": "The Killing Fields",
+      "year": 1984,
+      "tier": 3,
+      "arthouseScore": 73
+    },
+    {
+      "title": "Ran",
+      "year": 1985,
+      "tier": 2,
+      "arthouseScore": 70
+    },
+    {
+      "title": "Blue Velvet",
+      "year": 1986,
+      "tier": 1,
+      "arthouseScore": 51
+    },
+    {
+      "title": "Castle in the Sky",
+      "year": 1986,
+      "tier": 2,
+      "arthouseScore": 55
+    },
+    {
+      "title": "Jean de Florette",
+      "year": 1986,
+      "tier": 3,
+      "arthouseScore": 75
+    },
+    {
+      "title": "The Name of the Rose",
+      "year": 1986,
+      "tier": 3,
+      "arthouseScore": 70
+    },
+    {
+      "title": "The Sacrifice",
+      "year": 1986,
+      "tier": 1,
+      "arthouseScore": 74
+    },
+    {
+      "title": "Full Metal Jacket",
+      "year": 1987,
+      "tier": 2,
+      "arthouseScore": 64
+    },
+    {
+      "title": "The Last Emperor",
+      "year": 1987,
+      "tier": 1,
+      "arthouseScore": 86
+    },
+    {
+      "title": "Wings of Desire",
+      "year": 1987,
+      "tier": 1,
+      "arthouseScore": 76
+    },
+    {
+      "title": "Akira",
+      "year": 1988,
+      "tier": 1,
+      "arthouseScore": 55
+    },
+    {
+      "title": "My Neighbor Totoro",
+      "year": 1988,
+      "tier": 1,
+      "arthouseScore": 47
+    },
+    {
+      "title": "The Big Blue",
+      "year": 1988,
+      "tier": 3,
+      "arthouseScore": 61
+    },
+    {
+      "title": "The Last Temptation of Christ",
+      "year": 1988,
+      "tier": 1,
+      "arthouseScore": 42
+    },
+    {
+      "title": "Do the Right Thing",
+      "year": 1989,
+      "tier": 1,
+      "arthouseScore": 50
+    },
+    {
+      "title": "Kiki's Delivery Service",
+      "year": 1989,
+      "tier": 2,
+      "arthouseScore": 55
+    },
+    {
+      "title": "My Left Foot: The Story of Christy Brown",
+      "year": 1989,
+      "tier": 3,
+      "arthouseScore": 67
+    },
+    {
+      "title": "The Killer",
+      "year": 1989,
+      "tier": 3,
+      "arthouseScore": 60
+    },
+    {
+      "title": "Close-Up",
+      "year": 1990,
+      "tier": 1,
+      "arthouseScore": 79
+    },
+    {
+      "title": "GoodFellas",
+      "year": 1990,
+      "tier": 1,
+      "arthouseScore": 40
+    },
+    {
+      "title": "A Brighter Summer Day",
+      "year": 1991,
+      "tier": 1,
+      "arthouseScore": 76
+    },
+    {
+      "title": "Barton Fink",
+      "year": 1991,
+      "tier": 3,
+      "arthouseScore": 62
+    },
+    {
+      "title": "Mediterraneo",
+      "year": 1991,
+      "tier": 3,
+      "arthouseScore": 69
+    },
+    {
+      "title": "Raise the Red Lantern",
+      "year": 1991,
+      "tier": 3,
+      "arthouseScore": 70
+    },
+    {
+      "title": "The Double Life of Véronique",
+      "year": 1991,
+      "tier": 1,
+      "arthouseScore": 62
+    },
+    {
+      "title": "Malcolm X",
+      "year": 1992,
+      "tier": 2,
+      "arthouseScore": 58
+    },
+    {
+      "title": "Porco Rosso",
+      "year": 1992,
+      "tier": 2,
+      "arthouseScore": 53
+    },
+    {
+      "title": "The Piano",
+      "year": 1993,
+      "tier": 1,
+      "arthouseScore": 72
+    },
+    {
+      "title": "Three Colors: Blue",
+      "year": 1993,
+      "tier": 1,
+      "arthouseScore": 79
+    },
+    {
+      "title": "Tombstone",
+      "year": 1993,
+      "tier": 2,
+      "arthouseScore": 30
+    },
+    {
+      "title": "Chungking Express",
+      "year": 1994,
+      "tier": 1,
+      "arthouseScore": 70
+    },
+    {
+      "title": "Three Colors: Red",
+      "year": 1994,
+      "tier": 2,
+      "arthouseScore": 81
+    },
+    {
+      "title": "Vive L'Amour",
+      "year": 1994,
+      "tier": 1,
+      "arthouseScore": 67
+    },
+    {
+      "title": "A Little Princess",
+      "year": 1995,
+      "tier": 2,
+      "arthouseScore": 44
+    },
+    {
+      "title": "Before Sunrise",
+      "year": 1995,
+      "tier": 1,
+      "arthouseScore": 72
+    },
+    {
+      "title": "Casino",
+      "year": 1995,
+      "tier": 2,
+      "arthouseScore": 70
+    },
+    {
+      "title": "Fallen Angels",
+      "year": 1995,
+      "tier": 2,
+      "arthouseScore": 56
+    },
+    {
+      "title": "Se7en",
+      "year": 1995,
+      "tier": 2,
+      "arthouseScore": 19
+    },
+    {
+      "title": "The White Balloon",
+      "year": 1995,
+      "tier": 1,
+      "arthouseScore": 70
+    },
+    {
+      "title": "Whisper of the Heart",
+      "year": 1995,
+      "tier": 3,
+      "arthouseScore": 72
+    },
+    {
+      "title": "Breaking the Waves",
+      "year": 1996,
+      "tier": 3,
+      "arthouseScore": 64
+    },
+    {
+      "title": "Fargo",
+      "year": 1996,
+      "tier": 2,
+      "arthouseScore": 58
+    },
+    {
+      "title": "Secrets & Lies",
+      "year": 1996,
+      "tier": 3,
+      "arthouseScore": 65
+    },
+    {
+      "title": "Boogie Nights",
+      "year": 1997,
+      "tier": 2,
+      "arthouseScore": 55
+    },
+    {
+      "title": "Lost Highway",
+      "year": 1997,
+      "tier": 2,
+      "arthouseScore": 84
+    },
+    {
+      "title": "Princess Mononoke",
+      "year": 1997,
+      "tier": 2,
+      "arthouseScore": 50
+    },
+    {
+      "title": "Taste of Cherry",
+      "year": 1997,
+      "tier": 1,
+      "arthouseScore": 70
+    },
+    {
+      "title": "The Game",
+      "year": 1997,
+      "tier": 2,
+      "arthouseScore": 47
+    },
+    {
+      "title": "Central Station",
+      "year": 1998,
+      "tier": 3,
+      "arthouseScore": 70
+    },
+    {
+      "title": "The Big Lebowski",
+      "year": 1998,
+      "tier": 2,
+      "arthouseScore": 43
+    },
+    {
+      "title": "The Thin Red Line",
+      "year": 1998,
+      "tier": 1,
+      "arthouseScore": 56
+    },
+    {
+      "title": "Eyes Wide Shut",
+      "year": 1999,
+      "tier": 2,
+      "arthouseScore": 60
+    },
+    {
+      "title": "Fight Club",
+      "year": 1999,
+      "tier": 2,
+      "arthouseScore": 54
+    },
+    {
+      "title": "Girl, Interrupted",
+      "year": 1999,
+      "tier": 3,
+      "arthouseScore": 64
+    },
+    {
+      "title": "Magnolia",
+      "year": 1999,
+      "tier": 2,
+      "arthouseScore": 49
+    },
+    {
+      "title": "Rosetta",
+      "year": 1999,
+      "tier": 1,
+      "arthouseScore": 60
+    },
+    {
+      "title": "The Color of Paradise",
+      "year": 1999,
+      "tier": 1,
+      "arthouseScore": 72
+    },
+    {
+      "title": "The Straight Story",
+      "year": 1999,
+      "tier": 2,
+      "arthouseScore": 47
+    },
+    {
+      "title": "A Dog's Will",
+      "year": 2000,
+      "tier": 3,
+      "arthouseScore": 61
+    },
+    {
+      "title": "Billy Elliot",
+      "year": 2000,
+      "tier": 3,
+      "arthouseScore": 80
+    },
+    {
+      "title": "In the Mood for Love",
+      "year": 2000,
+      "tier": 1,
+      "arthouseScore": 71
+    },
+    {
+      "title": "Malena",
+      "year": 2000,
+      "tier": 3,
+      "arthouseScore": 69
+    },
+    {
+      "title": "Memento",
+      "year": 2000,
+      "tier": 1,
+      "arthouseScore": 32
+    },
+    {
+      "title": "Platform",
+      "year": 2000,
+      "tier": 1,
+      "arthouseScore": 78
+    },
+    {
+      "title": "The Taste of Others",
+      "year": 2000,
+      "tier": 1,
+      "arthouseScore": 66
+    },
+    {
+      "title": "Werckmeister Harmonies",
+      "year": 2000,
+      "tier": 1,
+      "arthouseScore": 85
+    },
+    {
+      "title": "Yi Yi",
+      "year": 2000,
+      "tier": 1,
+      "arthouseScore": 80
+    },
+    {
+      "title": "Mulholland Drive",
+      "year": 2001,
+      "tier": 1,
+      "arthouseScore": 81
+    },
+    {
+      "title": "My Sassy Girl",
+      "year": 2001,
+      "tier": 3,
+      "arthouseScore": 76
+    },
+    {
+      "title": "Spirited Away",
+      "year": 2001,
+      "tier": 1,
+      "arthouseScore": 38
+    },
+    {
+      "title": "The Lord of the Rings: The Fellowship of the Ring",
+      "year": 2001,
+      "tier": 2,
+      "arthouseScore": 28
+    },
+    {
+      "title": "The Man Who Wasn't There",
+      "year": 2001,
+      "tier": 2,
+      "arthouseScore": 66
+    },
+    {
+      "title": "Y Tu Mamá También",
+      "year": 2001,
+      "tier": 3,
+      "arthouseScore": 66
+    },
+    {
+      "title": "City of God",
+      "year": 2002,
+      "tier": 1,
+      "arthouseScore": 65
+    },
+    {
+      "title": "Distant",
+      "year": 2002,
+      "tier": 1,
+      "arthouseScore": 63
+    },
+    {
+      "title": "Hero",
+      "year": 2002,
+      "tier": 1,
+      "arthouseScore": 53
+    },
+    {
+      "title": "The Lord of the Rings: The Two Towers",
+      "year": 2002,
+      "tier": 2,
+      "arthouseScore": 25
+    },
+    {
+      "title": "The Pianist",
+      "year": 2002,
+      "tier": 1,
+      "arthouseScore": 76
+    },
+    {
+      "title": "Dogville",
+      "year": 2003,
+      "tier": 3,
+      "arthouseScore": 69
+    },
+    {
+      "title": "Goodbye, Dragon Inn",
+      "year": 2003,
+      "tier": 1,
+      "arthouseScore": 62
+    },
+    {
+      "title": "Lost in Translation",
+      "year": 2003,
+      "tier": 1,
+      "arthouseScore": 75
+    },
+    {
+      "title": "Memories of Murder",
+      "year": 2003,
+      "tier": 1,
+      "arthouseScore": 73
+    },
+    {
+      "title": "Oldboy",
+      "year": 2003,
+      "tier": 1,
+      "arthouseScore": 59
+    },
+    {
+      "title": "Spring, Summer, Fall, Winter... and Spring",
+      "year": 2003,
+      "tier": 3,
+      "arthouseScore": 80
+    },
+    {
+      "title": "The Lord of the Rings: The Return of the King",
+      "year": 2003,
+      "tier": 1,
+      "arthouseScore": 25
+    },
+    {
+      "title": "Around the World in 80 Days",
+      "year": 2004,
+      "tier": 1,
+      "arthouseScore": 17
+    },
+    {
+      "title": "Before Sunset",
+      "year": 2004,
+      "tier": 2,
+      "arthouseScore": 53
+    },
+    {
+      "title": "Harry Potter and the Prisoner of Azkaban",
+      "year": 2004,
+      "tier": 2,
+      "arthouseScore": 28
+    },
+    {
+      "title": "Howl's Moving Castle",
+      "year": 2004,
+      "tier": 2,
+      "arthouseScore": 47
+    },
+    {
+      "title": "Nobody Knows",
+      "year": 2004,
+      "tier": 1,
+      "arthouseScore": 74
+    },
+    {
+      "title": "The Machinist",
+      "year": 2004,
+      "tier": 3,
+      "arthouseScore": 63
+    },
+    {
+      "title": "The Motorcycle Diaries",
+      "year": 2004,
+      "tier": 3,
+      "arthouseScore": 65
+    },
+    {
+      "title": "Batman Begins",
+      "year": 2005,
+      "tier": 2,
+      "arthouseScore": 50
+    },
+    {
+      "title": "Brokeback Mountain",
+      "year": 2005,
+      "tier": 1,
+      "arthouseScore": 69
+    },
+    {
+      "title": "Good Night, and Good Luck.",
+      "year": 2005,
+      "tier": 1,
+      "arthouseScore": 78
+    },
+    {
+      "title": "Lady Vengeance",
+      "year": 2005,
+      "tier": 2,
+      "arthouseScore": 75
+    },
+    {
+      "title": "Pride & Prejudice",
+      "year": 2005,
+      "tier": 3,
+      "arthouseScore": 71
+    },
+    {
+      "title": "The Proposition",
+      "year": 2005,
+      "tier": 1,
+      "arthouseScore": 40
+    },
+    {
+      "title": "Children of Men",
+      "year": 2006,
+      "tier": 2,
+      "arthouseScore": 45
+    },
+    {
+      "title": "Pan's Labyrinth",
+      "year": 2006,
+      "tier": 1,
+      "arthouseScore": 62
+    },
+    {
+      "title": "Still Life",
+      "year": 2006,
+      "tier": 1,
+      "arthouseScore": 66
+    },
+    {
+      "title": "The Departed",
+      "year": 2006,
+      "tier": 2,
+      "arthouseScore": 60
+    },
+    {
+      "title": "The Host",
+      "year": 2006,
+      "tier": 1,
+      "arthouseScore": 57
+    },
+    {
+      "title": "The Lives of Others",
+      "year": 2006,
+      "tier": 1,
+      "arthouseScore": 74
+    },
+    {
+      "title": "The Prestige",
+      "year": 2006,
+      "tier": 2,
+      "arthouseScore": 48
+    },
+    {
+      "title": "4 Months, 3 Weeks and 2 Days",
+      "year": 2007,
+      "tier": 1,
+      "arthouseScore": 68
+    },
+    {
+      "title": "Elite Squad",
+      "year": 2007,
+      "tier": 3,
+      "arthouseScore": 60
+    },
+    {
+      "title": "No Country for Old Men",
+      "year": 2007,
+      "tier": 1,
+      "arthouseScore": 27
+    },
+    {
+      "title": "The Diving Bell and the Butterfly",
+      "year": 2007,
+      "tier": 1,
+      "arthouseScore": 80
+    },
+    {
+      "title": "There Will Be Blood",
+      "year": 2007,
+      "tier": 1,
+      "arthouseScore": 50
+    },
+    {
+      "title": "This Is England",
+      "year": 2007,
+      "tier": 3,
+      "arthouseScore": 63
+    },
+    {
+      "title": "Zodiac",
+      "year": 2007,
+      "tier": 2,
+      "arthouseScore": 28
+    },
+    {
+      "title": "Departures",
+      "year": 2008,
+      "tier": 3,
+      "arthouseScore": 73
+    },
+    {
+      "title": "Il Divo",
+      "year": 2008,
+      "tier": 2,
+      "arthouseScore": 72
+    },
+    {
+      "title": "Ponyo",
+      "year": 2008,
+      "tier": 2,
+      "arthouseScore": 55
+    },
+    {
+      "title": "The Curious Case of Benjamin Button",
+      "year": 2008,
+      "tier": 2,
+      "arthouseScore": 33
+    },
+    {
+      "title": "The Dark Knight",
+      "year": 2008,
+      "tier": 2,
+      "arthouseScore": 40
+    },
+    {
+      "title": "Waltz with Bashir",
+      "year": 2008,
+      "tier": 1,
+      "arthouseScore": 77
+    },
+    {
+      "title": "A Prophet",
+      "year": 2009,
+      "tier": 1,
+      "arthouseScore": 75
+    },
+    {
+      "title": "Fantastic Mr. Fox",
+      "year": 2009,
+      "tier": 2,
+      "arthouseScore": 28
+    },
+    {
+      "title": "Home",
+      "year": 2009,
+      "tier": 3,
+      "arthouseScore": 87
+    },
+    {
+      "title": "Mother",
+      "year": 2009,
+      "tier": 2,
+      "arthouseScore": 79
+    },
+    {
+      "title": "The White Ribbon",
+      "year": 2009,
+      "tier": 3,
+      "arthouseScore": 68
+    },
+    {
+      "title": "Certified Copy",
+      "year": 2010,
+      "tier": 1,
+      "arthouseScore": 71
+    },
+    {
+      "title": "Inception",
+      "year": 2010,
+      "tier": 2,
+      "arthouseScore": 33
+    },
+    {
+      "title": "My Name Is Khan",
+      "year": 2010,
+      "tier": 3,
+      "arthouseScore": 76
+    },
+    {
+      "title": "Shutter Island",
+      "year": 2010,
+      "tier": 2,
+      "arthouseScore": 40
+    },
+    {
+      "title": "The Social Network",
+      "year": 2010,
+      "tier": 1,
+      "arthouseScore": 42
+    },
+    {
+      "title": "Uncle Boonmee Who Can Recall His Past Lives",
+      "year": 2010,
+      "tier": 1,
+      "arthouseScore": 48
+    },
+    {
+      "title": "A Separation",
+      "year": 2011,
+      "tier": 1,
+      "arthouseScore": 75
+    },
+    {
+      "title": "Polisse",
+      "year": 2011,
+      "tier": 3,
+      "arthouseScore": 72
+    },
+    {
+      "title": "The Intouchables",
+      "year": 2011,
+      "tier": 3,
+      "arthouseScore": 62
+    },
+    {
+      "title": "The Skin I Live In",
+      "year": 2011,
+      "tier": 3,
+      "arthouseScore": 66
+    },
+    {
+      "title": "The Tree of Life",
+      "year": 2011,
+      "tier": 1,
+      "arthouseScore": 41
+    },
+    {
+      "title": "We Need to Talk About Kevin",
+      "year": 2011,
+      "tier": 3,
+      "arthouseScore": 65
+    },
+    {
+      "title": "Amour",
+      "year": 2012,
+      "tier": 3,
+      "arthouseScore": 79
+    },
+    {
+      "title": "Holy Motors",
+      "year": 2012,
+      "tier": 1,
+      "arthouseScore": 54
+    },
+    {
+      "title": "Moonrise Kingdom",
+      "year": 2012,
+      "tier": 2,
+      "arthouseScore": 48
+    },
+    {
+      "title": "Searching for Sugar Man",
+      "year": 2012,
+      "tier": 3,
+      "arthouseScore": 77
+    },
+    {
+      "title": "The Act of Killing",
+      "year": 2012,
+      "tier": 1,
+      "arthouseScore": 74
+    },
+    {
+      "title": "The Dark Knight Rises",
+      "year": 2012,
+      "tier": 2,
+      "arthouseScore": 53
+    },
+    {
+      "title": "The Hunt",
+      "year": 2012,
+      "tier": 3,
+      "arthouseScore": 72
+    },
+    {
+      "title": "The Master",
+      "year": 2012,
+      "tier": 1,
+      "arthouseScore": 45
+    },
+    {
+      "title": "About Time",
+      "year": 2013,
+      "tier": 3,
+      "arthouseScore": 61
+    },
+    {
+      "title": "Her",
+      "year": 2013,
+      "tier": 1,
+      "arthouseScore": 34
+    },
+    {
+      "title": "Hope",
+      "year": 2013,
+      "tier": 3,
+      "arthouseScore": 72
+    },
+    {
+      "title": "Human Capital",
+      "year": 2013,
+      "tier": 3,
+      "arthouseScore": 70
+    },
+    {
+      "title": "Ida",
+      "year": 2013,
+      "tier": 1,
+      "arthouseScore": 75
+    },
+    {
+      "title": "Like Father, Like Son",
+      "year": 2013,
+      "tier": 3,
+      "arthouseScore": 72
+    },
+    {
+      "title": "Tangerines",
+      "year": 2013,
+      "tier": 3,
+      "arthouseScore": 74
+    },
+    {
+      "title": "The Garden of Words",
+      "year": 2013,
+      "tier": 3,
+      "arthouseScore": 74
+    },
+    {
+      "title": "The Grandmaster",
+      "year": 2013,
+      "tier": 1,
+      "arthouseScore": 56
+    },
+    {
+      "title": "The Great Beauty",
+      "year": 2013,
+      "tier": 1,
+      "arthouseScore": 75
+    },
+    {
+      "title": "The Hobbit: The Desolation of Smaug",
+      "year": 2013,
+      "tier": 2,
+      "arthouseScore": 35
+    },
+    {
+      "title": "The Wind Rises",
+      "year": 2013,
+      "tier": 2,
+      "arthouseScore": 87
+    },
+    {
+      "title": "The Wolf of Wall Street",
+      "year": 2013,
+      "tier": 2,
+      "arthouseScore": 27
+    },
+    {
+      "title": "Under the Skin",
+      "year": 2013,
+      "tier": 1,
+      "arthouseScore": 41
+    },
+    {
+      "title": "Boyhood",
+      "year": 2014,
+      "tier": 1,
+      "arthouseScore": 42
+    },
+    {
+      "title": "Gone Girl",
+      "year": 2014,
+      "tier": 2,
+      "arthouseScore": 37
+    },
+    {
+      "title": "Inherent Vice",
+      "year": 2014,
+      "tier": 1,
+      "arthouseScore": 40
+    },
+    {
+      "title": "Interstellar",
+      "year": 2014,
+      "tier": 2,
+      "arthouseScore": 25
+    },
+    {
+      "title": "Leviathan",
+      "year": 2014,
+      "tier": 1,
+      "arthouseScore": 32
+    },
+    {
+      "title": "Pride",
+      "year": 2014,
+      "tier": 3,
+      "arthouseScore": 72
+    },
+    {
+      "title": "Sorry If I Call You Love",
+      "year": 2014,
+      "tier": 3,
+      "arthouseScore": 68
+    },
+    {
+      "title": "Still Alice",
+      "year": 2014,
+      "tier": 3,
+      "arthouseScore": 74
+    },
+    {
+      "title": "The Grand Budapest Hotel",
+      "year": 2014,
+      "tier": 1,
+      "arthouseScore": 39
+    },
+    {
+      "title": "Tribes of the Moon: The Making of Nightbreed",
+      "year": 2014,
+      "tier": 1,
+      "arthouseScore": 48
+    },
+    {
+      "title": "Winter Sleep",
+      "year": 2014,
+      "tier": 3,
+      "arthouseScore": 70
+    },
+    {
+      "title": "Amy",
+      "year": 2015,
+      "tier": 3,
+      "arthouseScore": 72
+    },
+    {
+      "title": "Room",
+      "year": 2015,
+      "tier": 3,
+      "arthouseScore": 60
+    },
+    {
+      "title": "Slow West",
+      "year": 2015,
+      "tier": 1,
+      "arthouseScore": 53
+    },
+    {
+      "title": "The Assassin",
+      "year": 2015,
+      "tier": 1,
+      "arthouseScore": 53
+    },
+    {
+      "title": "The Second Mother",
+      "year": 2015,
+      "tier": 3,
+      "arthouseScore": 72
+    },
+    {
+      "title": "Dangal",
+      "year": 2016,
+      "tier": 3,
+      "arthouseScore": 62
+    },
+    {
+      "title": "Hacksaw Ridge",
+      "year": 2016,
+      "tier": 3,
+      "arthouseScore": 68
+    },
+    {
+      "title": "In This Corner of the World",
+      "year": 2016,
+      "tier": 3,
+      "arthouseScore": 88
+    },
+    {
+      "title": "Manchester by the Sea",
+      "year": 2016,
+      "tier": 1,
+      "arthouseScore": 54
+    },
+    {
+      "title": "Moonlight",
+      "year": 2016,
+      "tier": 1,
+      "arthouseScore": 44
+    },
+    {
+      "title": "The Handmaiden",
+      "year": 2016,
+      "tier": 1,
+      "arthouseScore": 76
+    },
+    {
+      "title": "The Salesman",
+      "year": 2016,
+      "tier": 1,
+      "arthouseScore": 72
+    },
+    {
+      "title": "Toni Erdmann",
+      "year": 2016,
+      "tier": 1,
+      "arthouseScore": 52
+    },
+    {
+      "title": "BPM (Beats per Minute)",
+      "year": 2017,
+      "tier": 3,
+      "arthouseScore": 75
+    },
+    {
+      "title": "Bad Genius",
+      "year": 2017,
+      "tier": 3,
+      "arthouseScore": 62
+    },
+    {
+      "title": "Breathe",
+      "year": 2017,
+      "tier": 3,
+      "arthouseScore": 69
+    },
+    {
+      "title": "Dunkirk",
+      "year": 2017,
+      "tier": 2,
+      "arthouseScore": 51
+    },
+    {
+      "title": "Capernaum",
+      "year": 2018,
+      "tier": 3,
+      "arthouseScore": 75
+    },
+    {
+      "title": "Dogman",
+      "year": 2018,
+      "tier": 3,
+      "arthouseScore": 72
+    },
+    {
+      "title": "Isle of Dogs",
+      "year": 2018,
+      "tier": 2,
+      "arthouseScore": 25
+    },
+    {
+      "title": "Roma",
+      "year": 2018,
+      "tier": 1,
+      "arthouseScore": 65
+    },
+    {
+      "title": "Shoplifters",
+      "year": 2018,
+      "tier": 1,
+      "arthouseScore": 82
+    },
+    {
+      "title": "The Favourite",
+      "year": 2018,
+      "tier": 3,
+      "arthouseScore": 65
+    },
+    {
+      "title": "Jojo Rabbit",
+      "year": 2019,
+      "tier": 3,
+      "arthouseScore": 61
+    },
+    {
+      "title": "Les Misérables",
+      "year": 2019,
+      "tier": 3,
+      "arthouseScore": 77
+    },
+    {
+      "title": "Parasite",
+      "year": 2019,
+      "tier": 1,
+      "arthouseScore": 51
+    },
+    {
+      "title": "Portrait of a Lady on Fire",
+      "year": 2019,
+      "tier": 1,
+      "arthouseScore": 82
+    },
+    {
+      "title": "The Irishman",
+      "year": 2019,
+      "tier": 2,
+      "arthouseScore": 53
+    },
+    {
+      "title": "The Traitor",
+      "year": 2019,
+      "tier": 3,
+      "arthouseScore": 72
+    },
+    {
+      "title": "Another Round",
+      "year": 2020,
+      "tier": 3,
+      "arthouseScore": 64
+    },
+    {
+      "title": "Feel the Beat",
+      "year": 2020,
+      "tier": 3,
+      "arthouseScore": 71
+    },
+    {
+      "title": "The Father",
+      "year": 2020,
+      "tier": 3,
+      "arthouseScore": 84
+    },
+    {
+      "title": "Drive My Car",
+      "year": 2021,
+      "tier": 1,
+      "arthouseScore": 81
+    },
+    {
+      "title": "Fatherhood",
+      "year": 2021,
+      "tier": 3,
+      "arthouseScore": 65
+    },
+    {
+      "title": "The Hand of God",
+      "year": 2021,
+      "tier": 2,
+      "arthouseScore": 74
+    },
+    {
+      "title": "The Worst Person in the World",
+      "year": 2021,
+      "tier": 1,
+      "arthouseScore": 63
+    },
+    {
+      "title": "20th Century Girl",
+      "year": 2022,
+      "tier": 3,
+      "arthouseScore": 76
+    },
+    {
+      "title": "Aftersun",
+      "year": 2022,
+      "tier": 1,
+      "arthouseScore": 69
+    },
+    {
+      "title": "Argentina 1985",
+      "year": 2022,
+      "tier": 3,
+      "arthouseScore": 78
+    },
+    {
+      "title": "Close",
+      "year": 2022,
+      "tier": 3,
+      "arthouseScore": 65
+    },
+    {
+      "title": "Decision to Leave",
+      "year": 2022,
+      "tier": 1,
+      "arthouseScore": 61
+    },
+    {
+      "title": "Guillermo del Toro's Pinocchio",
+      "year": 2022,
+      "tier": 2,
+      "arthouseScore": 28
+    },
+    {
+      "title": "The Woman King",
+      "year": 2022,
+      "tier": 3,
+      "arthouseScore": 66
+    },
+    {
+      "title": "TÁR",
+      "year": 2022,
+      "tier": 1,
+      "arthouseScore": 48
+    },
+    {
+      "title": "Monster",
+      "year": 2023,
+      "tier": 3,
+      "arthouseScore": 72
+    },
+    {
+      "title": "Oppenheimer",
+      "year": 2023,
+      "tier": 2,
+      "arthouseScore": 53
+    },
+    {
+      "title": "Perfect Days",
+      "year": 2023,
+      "tier": 2,
+      "arthouseScore": 69
+    }
+  ]
+}

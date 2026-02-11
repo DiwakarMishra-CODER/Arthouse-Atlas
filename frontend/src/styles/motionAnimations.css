@@ -1,0 +1,213 @@
+/**
+ * Motion Animations - Keyframes for Cinematic Effects
+ * 
+ * Smooth, elegant animations inspired by arthouse cinema.
+ * Uses slow, contemplative timing and subtle easing.
+ * 
+ * Timing philosophy:
+ * - Slow: 8-10s (Ken Burns zoom)
+ * - Medium: 3-4s (Crossfades)
+ * - Fast: 0.3-0.5s (UI reveals)
+ */
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Ken Burns Effect - Slow Zoom */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@keyframes ken-burns-zoom {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes ken-burns-zoom-reverse {
+    from {
+        transform: scale(1.05);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+/* Ken Burns with subtle pan */
+@keyframes ken-burns-pan-left {
+    from {
+        transform: scale(1) translateX(0);
+    }
+
+    to {
+        transform: scale(1.05) translateX(-2%);
+    }
+}
+
+@keyframes ken-burns-pan-right {
+    from {
+        transform: scale(1) translateX(0);
+    }
+
+    to {
+        transform: scale(1.05) translateX(2%);
+    }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Typography Reveals */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fade-in-down {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Crossfade Transitions */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.crossfade-enter {
+    opacity: 0;
+}
+
+.crossfade-enter-active {
+    opacity: 1;
+    transition: opacity 1000ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.crossfade-exit {
+    opacity: 1;
+}
+
+.crossfade-exit-active {
+    opacity: 0;
+    transition: opacity 1000ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Utility Classes for Common Animations */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.animate-ken-burns {
+    animation: ken-burns-zoom 8s ease-out forwards;
+    will-change: transform;
+}
+
+.animate-ken-burns-slow {
+    animation: ken-burns-zoom 12s ease-out forwards;
+    will-change: transform;
+}
+
+.animate-fade-in-up {
+    animation: fade-in-up 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-fade-in-down {
+    animation: fade-in-down 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-fade-in {
+    animation: fade-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Staggered Reveals (for multiple elements) */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.stagger-reveal>*:nth-child(1) {
+    animation-delay: 0ms;
+}
+
+.stagger-reveal>*:nth-child(2) {
+    animation-delay: 100ms;
+}
+
+.stagger-reveal>*:nth-child(3) {
+    animation-delay: 200ms;
+}
+
+.stagger-reveal>*:nth-child(4) {
+    animation-delay: 300ms;
+}
+
+.stagger-reveal>*:nth-child(5) {
+    animation-delay: 400ms;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Cinematic Easing Functions */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.ease-cinematic {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ease-contemplative {
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.ease-slow-reveal {
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Accessibility: Respect Reduced Motion */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .animate-ken-burns,
+    .animate-ken-burns-slow {
+        animation: none;
+        transform: none;
+    }
+}
