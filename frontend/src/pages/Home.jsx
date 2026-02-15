@@ -14,7 +14,7 @@ const Home = () => {
             </div>
 
             {/* MANIFESTO SECTION - Replaces Recently Added */}
-            <section className="relative py-32 px-6 border-y border-white/5">
+            <section className="relative py-32 px-4 md:px-0 border-y border-white/5">
                 <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
                     {/* LEFT: The Question */}
@@ -22,7 +22,7 @@ const Home = () => {
                         {/* Decorative background element */}
                         <span className="absolute -top-20 -left-10 text-[12rem] font-serif text-white/5 select-none pointer-events-none leading-none">?</span>
 
-                        <h2 className="relative z-10 text-5xl md:text-7xl font-cinzel text-primary tracking-tighter mb-6 leading-tight">
+                        <h2 className="relative z-10 text-4xl md:text-7xl font-cinzel text-primary tracking-tighter mb-6 leading-tight">
                             What is an <br />
                             <span className="text-accent-primary">Arthouse Movie?</span>
                         </h2>

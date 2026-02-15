@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { userAPI } from '../services/api';
 import AnimatedStillReel from './motion/AnimatedStillReel';
@@ -8,14 +8,13 @@ const MovieCard = ({ movie, showActions = true }) => {
     const { isAuthenticated, user, refreshUser } = useAuth();
     const [loading, setLoading] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
-    const [isTapped, setIsTapped] = useState(false);
 
     const isFavorited = user?.favorites?.some(fav => fav._id === movie._id || fav === movie._id);
     const isInWatchlist = user?.watchlist?.some(item => item._id === movie._id || item === movie._id);
 
     // Motion system support
     const hasStills = movie.stills && movie.stills.length > 0;
-    const isMotionActive = isHovered || isTapped;
+    const isMotionActive = isHovered;
 
     const handleFavorite = async (e) => {
         e.preventDefault();
@@ -59,15 +58,34 @@ const MovieCard = ({ movie, showActions = true }) => {
         }
     };
 
-    const handleTap = (e) => {
-        // On mobile, first tap activates reel, second tap follows link
-        if (window.innerWidth < 768 && hasStills) {
-            if (!isTapped) {
-                e.preventDefault();
-                setIsTapped(true);
-                // Auto-deactivate after 10 seconds
-                setTimeout(() => setIsTapped(false), 10000);
-            }
+    const timerRef = useRef(null);
+    const isLongPress = useRef(false);
+
+    // Touch-and-Hold Logic
+    const handleTouchStart = () => {
+        isLongPress.current = false;
+        timerRef.current = setTimeout(() => {
+            isLongPress.current = true;
+            setIsHovered(true); // Trigger the "hover" effect
+        }, 500); // 500ms delay
+    };
+
+    const handleTouchEnd = () => {
+        if (timerRef.current) clearTimeout(timerRef.current);
+        setIsHovered(false); // Unmount immediately on release
+    };
+
+    const handleTouchMove = () => {
+        // If user scrolls, cancel the long press
+        if (timerRef.current) clearTimeout(timerRef.current);
+        setIsHovered(false);
+    };
+
+    const handleClick = (e) => {
+        if (isLongPress.current) {
+            e.preventDefault(); // Stop navigation
+            e.stopPropagation();
+            isLongPress.current = false; // Reset
         }
     };
 
@@ -77,7 +95,10 @@ const MovieCard = ({ movie, showActions = true }) => {
             className="group block"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            onClick={handleTap}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            onTouchMove={handleTouchMove}
+            onClick={handleClick}
         >
             <div className="relative overflow-hidden rounded-lg bg-cinema-gray hover:ring-2 hover:ring-cinema-accent transition-all duration-300">
                 {/* Poster / Animated Reel */}

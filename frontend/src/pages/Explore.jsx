@@ -384,7 +384,7 @@ const Explore = () => {
                             loading ? (
                                 <LoadingSkeleton />
                             ) : movies.length > 0 ? (
-                                <div className="masonry-grid">
+                                <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 md:gap-6">
                                     {movies.map((movie) => (
                                         <div key={movie._id} className="relative hover:z-50">
                                             <PosterCard
