@@ -2,7 +2,7 @@
 
 > A curated digital archive for the modern cinephile. Explore the world of arthouse cinema through Directors, Movements, and Studios.
 
-![Arthouse Atlas Homepage](./assets/homepage.png)
+![Arthouse Atlas Homepage](./assets/homepage_v2.png)
 *(The Arthouse Atlas Experience)*
 
 ## 🌟 Introduction
