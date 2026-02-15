@@ -1,0 +1,383 @@
+Rank,Title,Year,Director,Canon Score,TMDB Rating
+1,Millennium Mambo,2001,Hou Hsiao-hsien,100,7.011
+2,Hope,2013,Lee Joon-ik,100,8.397
+3,Il Sorpasso,1962,Dino Risi,100,8.223
+4,Once Upon a Time in the West,1968,Sergio Leone,100,8.283
+5,Howl's Moving Castle,2004,Hayao Miyazaki,100,8.4
+6,Rear Window,1954,Alfred Hitchcock,100,8.348
+7,Night and Fog,1959,Alain Resnais,100,8.235
+8,We All Loved Each Other So Much,1974,Ettore Scola,100,8.285
+9,Mirror,1975,Andrei Tarkovsky,100,7.945
+10,Witness for the Prosecution,1957,Billy Wilder,100,8.215
+11,Paths of Glory,1957,Stanley Kubrick,100,8.26
+12,High and Low,1963,Akira Kurosawa,100,8.343
+13,Princess Mononoke,1997,Hayao Miyazaki,100,8.3
+14,Psycho,1960,Alfred Hitchcock,100,8.421
+15,The Shining,1980,Stanley Kubrick,100,8.206
+16,Seven Samurai,1954,Akira Kurosawa,100,8.452
+17,Oldboy,2003,Park Chan-wook,100,8.244
+18,The Pianist,2002,Roman Polanski,100,8.379
+19,Hiroshima Mon Amour,1959,Alain Resnais,100,7.687
+20,8½,1963,Federico Fellini,100,8.121
+21,City Lights,1931,Charlie Chaplin,100,8.262
+22,Grand Illusion,1937,Jean Renoir,100,7.866
+23,Ikiru,1952,Akira Kurosawa,100,8.316
+24,The Great Dictator,1940,Charlie Chaplin,100,8.3
+25,Parasite,2019,Bong Joon Ho,100,8.495
+26,Apocalypse Now,1979,Francis Ford Coppola,100,8.268
+27,City of God,2002,Fernando Meirelles,100,8.426
+28,Spirited Away,2001,Hayao Miyazaki,100,8.533
+29,Sunset Boulevard,1950,Billy Wilder,100,8.288
+30,Modern Times,1936,Charlie Chaplin,100,8.284
+31,A Brighter Summer Day,1991,Edward Yang,100,8.3
+32,Lost Highway,1997,David Lynch,99,7.547
+33,Wings of Desire,1987,Wim Wenders,99,7.772
+34,Persona,1966,Ingmar Bergman,97,8.141
+35,Shoplifters,2018,Hirokazu Kore-eda,97,7.847
+36,L'Eclisse,1962,Michelangelo Antonioni,96,7.7
+37,"Rome, Open City",1945,Roberto Rossellini,96,8.02
+38,The Trial,1962,Orson Welles,96,7.4
+39,Three Colors: Red,1994,Krzysztof Kieślowski,96,7.911
+40,Jules and Jim,1962,François Truffaut,96,7.5
+41,Marriage Italian Style,1964,Vittorio De Sica,96,7.704
+42,Amarcord,1973,Federico Fellini,96,7.897
+43,Mulholland Drive,2001,David Lynch,96,7.804
+44,Ran,1985,Akira Kurosawa,95,8
+45,Barry Lyndon,1975,Stanley Kubrick,95,7.991
+46,"Spring, Summer, Fall, Winter... and Spring",2003,Kim Ki-duk,95,7.8
+47,The Virgin Spring,1960,Ingmar Bergman,95,7.845
+48,Yi Yi,2000,Edward Yang,95,7.9
+49,Amour,2012,Michael Haneke,94,7.8
+50,Close-Up,1990,Abbas Kiarostami,94,7.952
+51,Three Colors: Blue,1993,Krzysztof Kieślowski,94,7.637
+52,Belle de Jour,1967,Luis Buñuel,94,7.324
+53,Two Women,1960,Vittorio De Sica,93,7.8
+54,Platform,2000,Jia Zhangke,93,7
+55,Battleship Potemkin,1925,Sergei Eisenstein,93,7.607
+56,A Man Escaped,1956,Robert Bresson,92,7.947
+57,L'Avventura,1960,Michelangelo Antonioni,91,7.533
+58,The Silence,1963,Ingmar Bergman,91,7.504
+59,Rocco and His Brothers,1960,Luchino Visconti,91,7.99
+60,The Handmaiden,2016,Park Chan-wook,91,8.194
+61,Andrei Rublev,1966,Andrei Tarkovsky,91,7.963
+62,Pierrot le Fou,1965,Jean-Luc Godard,91,7.347
+63,Au Hasard Balthazar,1966,Robert Bresson,90,7.535
+64,Sansho the Bailiff,1954,Kenji Mizoguchi,90,8.079
+65,Diary of a Country Priest,1951,Robert Bresson,90,7.514
+66,Nights of Cabiria,1957,Federico Fellini,90,7.988
+67,Wild Strawberries,1957,Ingmar Bergman,90,8.093
+68,Lady Vengeance,2005,Park Chan-wook,90,7.5
+69,Sanjuro,1962,Akira Kurosawa,90,7.95
+70,Tokyo Story,1953,Yasujirō Ozu,90,8.163
+71,"Aguirre, the Wrath of God",1972,Werner Herzog,90,7.455
+72,The 400 Blows,1959,François Truffaut,90,8.024
+73,The Great Beauty,2013,Paolo Sorrentino,90,7.505
+74,A Separation,2011,Asghar Farhadi,90,7.895
+75,Ida,2013,Paweł Pawlikowski,90,7.2
+76,Last Year at Marienbad,1961,Alain Resnais,90,7.4
+77,Rashomon,1950,Akira Kurosawa,90,8.047
+78,The Leopard,1963,Luchino Visconti,90,7.72
+79,A Hidden Life,2019,Terrence Malick,89,7.2
+80,The Hand of God,2021,Paolo Sorrentino,89,7.5
+81,The Lives of Others,2006,Florian Henckel von Donnersmarck,89,8.039
+82,Nobody Knows,2004,Hirokazu Kore-eda,89,7.972
+83,Bicycle Thieves,1948,Vittorio De Sica,89,8.174
+84,The Sacrifice,1986,Andrei Tarkovsky,89,7.692
+85,The Passenger,1975,Michelangelo Antonioni,88,7.2
+86,Ugetsu,1953,Kenji Mizoguchi,88,8.002
+87,In This Corner of the World,2016,Sunao Katabuchi,88,7.907
+88,The Rules of the Game,1939,Jean Renoir,88,7.495
+89,Chungking Express,1994,Wong Kar-Wai,88,8
+90,Hero,2002,Zhang Yimou,88,7.503
+91,Beau Travail,2000,Claire Denis,87,7.06
+92,Taipei Story,1985,Edward Yang,87,7.5
+93,Where Is The Friend's House?,1987,Abbas Kiarostami,87,7.902
+94,Yojimbo,1961,Akira Kurosawa,87,8.09
+95,Il Divo,2008,Paolo Sorrentino,87,7.623
+96,"Like Father, Like Son",2013,Hirokazu Kore-eda,87,7.69
+97,The Wind Rises,2013,Hayao Miyazaki,87,7.791
+98,Monster,2023,Hirokazu Kore-eda,87,7.927
+99,Home,2009,Yann Arthus-Bertrand,87,7.807
+100,Day for Night,1973,François Truffaut,87,7.758
+101,The Seventh Seal,1957,Ingmar Bergman,87,8.163
+102,La Strada,1954,Federico Fellini,87,7.914
+103,Umberto D.,1952,Vittorio De Sica,87,7.9
+104,Breathless,1960,Jean-Luc Godard,87,7.5
+105,La Dolce Vita,1960,Federico Fellini,87,8
+106,The Salesman,2016,Asghar Farhadi,87,7.252
+107,No Bears,2022,Jafar Panahi,86,6.8
+108,The Piano Teacher,2001,Michael Haneke,86,7.3
+109,The Exterminating Angel,1962,Luis Buñuel,86,7.9
+110,In the Mood for Love,2000,Wong Kar-Wai,86,8.1
+111,Certified Copy,2010,Abbas Kiarostami,86,6.99
+112,Fanny and Alexander,1982,Ingmar Bergman,86,7.786
+113,The Wind Will Carry Us,1999,Abbas Kiarostami,85,7.128
+114,Mouchette,1967,Robert Bresson,85,7.433
+115,Pickpocket,1959,Robert Bresson,85,7.267
+116,Caché,2005,Michael Haneke,85,7.034
+117,L'Âge d'or,1930,Luis Buñuel,85,6.755
+118,Raise the Red Lantern,1991,Zhang Yimou,85,7.926
+119,Winter Sleep,2014,Nuri Bilge Ceylan,85,7.5
+120,Werckmeister Harmonies,2000,Béla Tarr,85,7.853
+121,The Double Life of Véronique,1991,Krzysztof Kieślowski,85,7.491
+122,Viridiana,1961,Luis Buñuel,85,7.646
+123,The Gospel According to St. Matthew,1964,Pier Paolo Pasolini,85,7.4
+124,Pan's Labyrinth,2006,Guillermo del Toro,85,7.757
+125,The Battle of Algiers,1966,Gillo Pontecorvo,85,7.883
+126,The White Balloon,1995,Jafar Panahi,85,7.44
+127,Taste of Cherry,1997,Abbas Kiarostami,85,7.678
+128,Terrorizers,1986,Edward Yang,84,7.402
+129,Red Desert,1964,Michelangelo Antonioni,84,7.341
+130,Through a Glass Darkly,1961,Ingmar Bergman,84,7.776
+131,Perfect Days,2023,Wim Wenders,84,7.78
+132,Dogville,2003,Lars von Trier,84,7.757
+133,The Tenant,1976,Roman Polanski,84,7.607
+134,The Father,2020,Florian Zeller,84,8.099
+135,F for Fake,1973,Orson Welles,83,7.4
+136,The Favourite,2018,Yorgos Lanthimos,83,7.5
+137,The White Ribbon,2009,Michael Haneke,83,7.482
+138,The Elephant Man,1980,David Lynch,83,8.05
+139,The Passion of Joan of Arc,1928,Carl Theodor Dreyer,83,8
+140,Stalker,1979,Andrei Tarkovsky,83,8.112
+141,Rebels of the Neon God,1994,Tsai Ming-liang,82,7.3
+142,The Young and the Damned,1950,Luis Buñuel,82,8.028
+143,Vive L'Amour,1994,Tsai Ming-liang,82,7.26
+144,"Paris, Texas",1984,Wim Wenders,82,8.089
+145,Portrait of a Lady on Fire,2019,Céline Sciamma,82,8.107
+146,Solaris,1972,Andrei Tarkovsky,82,7.787
+147,Un Chien Andalou,1929,Luis Buñuel,81,7.399
+148,The Skin I Live In,2011,Pedro Almodóvar,81,7.491
+149,Y Tu Mamá También,2001,Alfonso Cuarón,81,7.418
+150,Fallen Angels,1995,Wong Kar-Wai,81,7.7
+151,Man with a Movie Camera,1929,Dziga Vertov,81,7.837
+152,Blow-Up,1966,Michelangelo Antonioni,81,7.324
+153,Drive My Car,2021,Ryūsuke Hamaguchi,81,7.439
+154,The Discreet Charm of the Bourgeoisie,1972,Luis Buñuel,81,7.467
+155,The Apartment,1960,Billy Wilder,81,8.195
+156,The Grandmaster,2013,Wong Kar-Wai,81,6.6
+157,La Jetée,1962,Chris Marker,81,7.871
+158,Still Life,2006,Jia Zhangke,81,7.221
+159,White Material,2010,Claire Denis,80,6.8
+160,Code Unknown,2000,Michael Haneke,80,6.725
+161,Children of Men,2006,Alfonso Cuarón,80,7.611
+162,Secrets & Lies,1996,Mike Leigh,80,7.567
+163,We Need to Talk About Kevin,2011,Lynne Ramsay,80,7.543
+164,Roma,2018,Alfonso Cuarón,80,7.624
+165,The Cranes Are Flying,1957,Mikhail Kalatozov,80,7.9
+166,The Diving Bell and the Butterfly,2007,Julian Schnabel,80,7.575
+167,Satantango,1994,Béla Tarr,79,8.099
+168,Breaking the Waves,1996,Lars von Trier,79,7.491
+169,Mother,2009,Bong Joon Ho,79,7.7
+170,Full Metal Jacket,1987,Stanley Kubrick,79,8.123
+171,La Chinoise,1967,Jean-Luc Godard,78,6.9
+172,Rope,1948,Alfred Hitchcock,78,7.9
+173,Argentina 1985,2022,Santiago Mitre,78,7.828
+174,"Good Night, and Good Luck.",2005,George Clooney,78,7.076
+175,The Assassin,2015,Hou Hsiao-hsien,78,6.381
+176,Distant,2002,Nuri Bilge Ceylan,78,7.095
+177,It Was Just an Accident,2025,Jafar Panahi,77,7.158
+178,The Zone of Interest,2023,Jonathan Glazer,77,7.005
+179,Japón,2003,Carlos Reygadas,77,6.6
+180,Flowers of Shanghai,1998,Hou Hsiao-hsien,77,6.835
+181,L'Atalante,1934,Jean Vigo,77,7.502
+182,Les Misérables,2019,Ladj Ly,77,7.567
+183,Searching for Sugar Man,2012,Malik Bendjelloul,77,7.89
+184,Rififi,1955,Jules Dassin,77,7.777
+185,Eyes Without a Face,1960,Georges Franju,77,7.6
+186,Whisper of the Heart,1995,Yoshifumi Kondo,77,7.948
+187,"Goodbye, Dragon Inn",2003,Tsai Ming-liang,77,6.753
+188,Waltz with Bashir,2008,Ari Folman,77,7.683
+189,Holy Motors,2012,Leos Carax,77,6.98
+190,My Sassy Girl,2001,Kwak Jae-yong,76,7.525
+191,The Umbrellas of Cherbourg,1964,Jacques Demy,76,7.388
+192,Pather Panchali,1955,Satyajit Ray,76,7.831
+193,Pandora's Box,1929,G.W. Pabst,76,7.5
+194,Decision to Leave,2022,Park Chan-wook,76,7.3
+195,"Je T'Aime, Je T'Aime",1968,Alain Resnais,75,6.469
+196,Spartacus,1960,Stanley Kubrick,75,7.535
+197,Jean de Florette,1986,Claude Berri,75,7.7
+198,BPM (Beats per Minute),2017,Robin Campillo,75,7.706
+199,The Gold Rush,1925,Charlie Chaplin,75,7.983
+200,Capernaum,2018,Nadine Labaki,75,8.144
+201,Eyes Wide Shut,1999,Stanley Kubrick,75,7.482
+202,Lost in Translation,2003,Sofia Coppola,75,7.387
+203,A Prophet,2009,Jacques Audiard,75,7.572
+204,There Will Be Blood,2007,Paul Thomas Anderson,75,8.079
+205,Taxi Driver,1976,Martin Scorsese,75,8.131
+206,Tropical Malady,2004,Apichatpong Weerasethakul,74,6.703
+207,Sans Soleil,1983,Chris Marker,74,7.425
+208,Romeo and Juliet,1968,Franco Zeffirelli,74,7.404
+209,Still Alice,2014,Wash Westmoreland,74,7.5
+210,The Garden of Words,2013,Makoto Shinkai,74,7.6
+211,Tangerines,2013,Zaza Urushadze,74,7.654
+212,M,1931,Fritz Lang,74,8.066
+213,Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb,1964,Stanley Kubrick,74,8.124
+214,The Act of Killing,2012,Joshua Oppenheimer,74,7.665
+215,The Deer Hunter,1978,Michael Cimino,74,7.984
+216,The Red Shoes,1948,Emeric Pressburger,74,8
+217,The Turin Horse,2011,Béla Tarr,73,7.61
+218,The Killing Fields,1984,Roland Joffé,73,7.457
+219,Beauty and the Beast,1946,Jean Cocteau,73,7.498
+220,The Kid,1921,Charlie Chaplin,73,8.147
+221,Departures,2008,Yojiro Takita,73,7.845
+222,Memories of Murder,2003,Bong Joon Ho,73,8.1
+223,Woman in the Dunes,1964,Hiroshi Teshigahara,72,8.2
+224,The Cabinet of Dr. Caligari,1920,Robert Wiene,72,7.926
+225,The Traitor,2019,Marco Bellocchio,72,7.653
+226,Pride,2014,Matthew Warchus,72,7.69
+227,Lawrence of Arabia,1962,David Lean,72,7.998
+228,The Second Mother,2015,Anna Muylaert,72,8.031
+229,Amy,2015,Asif Kapadia,72,7.579
+230,Polisse,2011,Maïwenn,72,7.776
+231,The Hunt,2012,Thomas Vinterberg,72,8.097
+232,Raging Bull,1980,Martin Scorsese,72,7.917
+233,Dogman,2018,Matteo Garrone,72,7.523
+234,Before Sunrise,1995,Richard Linklater,72,7.969
+235,The Piano,1993,Jane Campion,72,7.377
+236,The Color of Paradise,1999,Majid Majidi,72,7.557
+237,The Mother and the Whore,1973,Jean Eustache,71,7.3
+238,Some Like It Hot,1959,Billy Wilder,71,8.1
+239,Uncle Boonmee Who Can Recall His Past Lives,2010,Apichatpong Weerasethakul,71,6.652
+240,The Thin Red Line,1998,Terrence Malick,71,7.447
+241,Petite Maman,2021,Céline Sciamma,70,7.138
+242,An Elephant Sitting Still,2018,Hu Bo,70,7.705
+243,Hands Over the City,1963,Francesco Rosi,70,7.4
+244,The Name of the Rose,1986,Jean-Jacques Annaud,70,7.489
+245,Human Capital,2013,Paolo Virzì,70,7.448
+246,Boogie Nights,1997,Paul Thomas Anderson,70,7.629
+247,Central Station,1998,Walter Salles,70,8.14
+248,Z,1969,Costa-Gavras,70,7.769
+249,Malena,2000,Giuseppe Tornatore,69,7.429
+250,Breathe,2017,Andy Serkis,69,7.448
+251,Porco Rosso,1992,Hayao Miyazaki,69,7.794
+252,Rebecca,1940,Alfred Hitchcock,69,7.9
+253,Mediterraneo,1991,Gabriele Salvatores,69,7.623
+254,Brokeback Mountain,2005,Ang Lee,69,7.786
+255,Aftersun,2022,Charlotte Wells,69,7.671
+256,"Jeanne Dielman, 23, quai du Commerce, 1080 Bruxelles",1975,Chantal Akerman,69,7.401
+257,Knife in the Water,1962,Roman Polanski,69,7.286
+258,The Secret Agent,2025,Kleber Mendonça Filho,68,8.026
+259,Zama,2017,Lucrecia Martel,68,6.6
+260,The House Is Black,1963,Forugh Farrokhzad,68,7.363
+261,Ordet,1955,Carl Theodor Dreyer,68,7.945
+262,"4 Months, 3 Weeks and 2 Days",2007,Cristian Mungiu,68,7.532
+263,The Color of Pomegranates,1969,Sergei Parajanov,68,7.326
+264,Anatomy of a Fall,2023,Justine Triet,67,7.5
+265,A Little Princess,1995,Alfonso Cuarón,67,7.618
+266,My Left Foot: The Story of Christy Brown,1989,Jim Sheridan,67,7.524
+267,The Grand Budapest Hotel,2014,Wes Anderson,67,8.033
+268,Metropolis,1927,Fritz Lang,67,8.102
+269,Fallen Leaves,2023,Aki Kaurismäki,66,7.138
+270,India Song,1975,Marguerite Duras,66,6.347
+271,Sabrina,1954,Billy Wilder,66,7.51
+272,The Man Who Wasn't There,2001,Joel Coen,66,7.517
+273,Moonrise Kingdom,2012,Wes Anderson,66,7.674
+274,The Taste of Others,2000,Agnès Jaoui,66,6.822
+275,Blue Velvet,1986,David Lynch,66,7.613
+276,2001: A Space Odyssey,1968,Stanley Kubrick,66,8.06
+277,Sunrise: A Song of Two Humans,1927,F. W. Murnau,66,7.826
+278,Gertrud,1964,Carl Theodor Dreyer,65,7.207
+279,The Motorcycle Diaries,2004,Walter Salles,65,7.41
+280,Repulsion,1965,Roman Polanski,65,7.391
+281,Castle in the Sky,1986,Hayao Miyazaki,65,7.966
+282,North by Northwest,1959,Alfred Hitchcock,65,7.978
+283,Close,2022,Lukas Dhont,65,7.788
+284,Nausicaä of the Valley of the Wind,1984,Hayao Miyazaki,65,7.9
+285,The King of Comedy,1982,Martin Scorsese,65,7.783
+286,Kiki's Delivery Service,1989,Hayao Miyazaki,65,7.827
+287,Akira,1988,Katsuhiro Otomo,65,7.938
+288,All We Imagine as Light,2024,Payal Kapadia,64,6.849
+289,Magnolia,1999,Paul Thomas Anderson,64,7.728
+290,Another Round,2020,Thomas Vinterberg,64,7.635
+291,"Girl, Interrupted",1999,James Mangold,64,7.569
+292,Black Orpheus,1959,Marcel Camus,64,6.96
+293,The Tree of Life,2011,Terrence Malick,64,6.7
+294,Vertigo,1958,Alfred Hitchcock,64,8.2
+295,The Hour of the Furnaces,1968,Fernando E. Solanas,63,7.1
+296,Memories of Underdevelopment,1968,Tomás Gutiérrez Alea,63,7.216
+297,Horse Money,2014,Pedro Costa,63,7.2
+298,This Is England,2007,Shane Meadows,63,7.474
+299,Fantastic Mr. Fox,2009,Wes Anderson,63,7.813
+300,Before Sunset,2004,Richard Linklater,63,7.811
+301,The Machinist,2004,Brad Anderson,63,7.525
+302,Black Narcissus,1947,Michael Powell,63,7.499
+303,The Worst Person in the World,2021,Joachim Trier,63,7.4
+304,Pacifiction,2022,Albert Serra,62,6.232
+305,La Ciénaga,2001,Lucrecia Martel,62,6.923
+306,Barton Fink,1991,Joel Coen,62,7.458
+307,The Straight Story,1999,David Lynch,62,7.724
+308,Bad Genius,2017,Nattawut Poonpiriya,62,7.868
+309,Dial M for Murder,1954,Alfred Hitchcock,62,8.006
+310,Double Indemnity,1944,Billy Wilder,62,8.107
+311,The Conversation,1974,Francis Ford Coppola,62,7.5
+312,The Spirit of the Beehive,1973,Víctor Erice,62,7.632
+313,The Night of the Hunter,1955,Charles Laughton,62,7.869
+314,The Big Blue,1988,Luc Besson,61,7.449
+315,Do Not Expect Too Much from the End of the World,2023,Radu Jude,60,7.034
+316,First Cow,2020,Kelly Reichardt,60,7.1
+317,Saint Omer,2022,Alice Diop,60,6.2
+318,The Child,2005,Luc Dardenne,60,7.1
+319,Vampyr,1932,Carl Theodor Dreyer,60,7.278
+320,Peeping Tom,1960,Michael Powell,60,7.4
+321,Midnight Express,1978,Alan Parker,60,7.449
+322,The Killer,1989,John Woo,60,7.593
+323,Rosemary's Baby,1968,Roman Polanski,60,7.821
+324,Rosetta,1999,Luc Dardenne,60,7.176
+325,The Grapes of Wrath,1940,John Ford,60,7.818
+326,The Master,2012,Paul Thomas Anderson,60,7.114
+327,Shadow of a Doubt,1943,Alfred Hitchcock,60,7.509
+328,A Clockwork Orange,1971,Stanley Kubrick,60,8.181
+329,La Chimera,2023,Alice Rohrwacher,59,7.28
+330,La Flor,2019,Mariano Llinás,59,7.21
+331,Performance,1970,Nicolas Roeg,59,6.72
+332,Vitalina Varela,2019,Pedro Costa,58,6.662
+333,Fargo,1996,Joel Coen,58,7.85
+334,Malcolm X,1992,Spike Lee,58,7.54
+335,Inherent Vice,2014,Paul Thomas Anderson,58,6.542
+336,Chinatown,1974,Roman Polanski,57,7.915
+337,The Last Temptation of Christ,1988,Martin Scorsese,57,7.215
+338,The General,1926,Clyde Bruckman,57,7.9
+339,My Neighbor Totoro,1988,Hayao Miyazaki,57,8.064
+340,The Host,2006,Bong Joon Ho,57,6.976
+341,Notorious,1946,Alfred Hitchcock,56,7.747
+342,Sentimental Value,2025,Joachim Trier,55,7.6
+343,The Wolf of Wall Street,2013,Martin Scorsese,55,8.025
+344,The Castle of Cagliostro,1979,Hayao Miyazaki,55,7.507
+345,The Third Man,1949,Carol Reed,55,7.9
+346,Nosferatu,1922,F. W. Murnau,54,7.7
+347,The Last Picture Show,1971,Peter Bogdanovich,54,7.6
+348,Manchester by the Sea,2016,Kenneth Lonergan,54,7.547
+349,Oppenheimer,2023,Christopher Nolan,53,8.041
+350,Being There,1979,Hal Ashby,53,7.588
+351,Strangers on a Train,1951,Alfred Hitchcock,53,7.664
+352,Slow West,2015,John Maclean,53,6.685
+353,EO,2022,Jerzy Skolimowski,52,6.524
+354,The Killing,1956,Stanley Kubrick,52,7.647
+355,The Man Who Knew Too Much,1956,Alfred Hitchcock,52,7.5
+356,The Birds,1963,Alfred Hitchcock,52,7.5
+357,Toni Erdmann,2016,Maren Ade,52,6.956
+358,The Other Side of the Mirror,1975,Jesús Franco,52,5.1
+359,Dunkirk,2017,Christopher Nolan,51,7.5
+360,Do the Right Thing,1989,Spike Lee,50,7.77
+361,The Earth is Thirsty,1930,Yuli Raizman,48,0
+362,Harold and Maude,1971,Hal Ashby,48,7.604
+363,TÁR,2022,Todd Field,48,7.089
+364,The Big Lebowski,1998,Joel Coen,46,7.84
+365,Gerry,2002,Gus Van Sant,45,6.062
+366,Dante's Inferno,1911,Giuseppe de Liguoro,44,6.581
+367,Her,2013,Spike Jonze,44,7.844
+368,Moonlight,2016,Barry Jenkins,44,7.364
+369,Elephant,2003,Gus Van Sant,42,7.033
+370,Memento,2000,Christopher Nolan,42,8.178
+371,The Last Detail,1973,Hal Ashby,42,7
+372,Boyhood,2014,Richard Linklater,42,7.492
+373,Tabu: A Story of the South Seas,1931,F. W. Murnau,41,7.096
+374,Under the Skin,2013,Jonathan Glazer,41,6.1
+375,Ten Dark Women,2002,Kon Ichikawa,40,0
+376,The Proposition,2005,John Hillcoat,40,7.025
+377,"Sorry, Baby",2025,Eva Victor,39,6.908
+378,Week-end,1967,David McNeil,38,0
+379,First Reformed,2018,Paul Schrader,37,6.98
+380,No Country for Old Men,2007,Joel Coen,37,7.947
+381,Leviathan,2014,George P. Cosmatos,32,5.96
+382,Smokey Joe's Cafe: The Songs of Leiber and Stoller,2002,Don Roy King,24,4.2

@@ -114,7 +114,7 @@ const Recommendations = () => {
                 ) : recommendations.length > 0 ? (
                     <div className="masonry-grid">
                         {recommendations.map((movie) => (
-                            <div key={movie._id}>
+                            <div key={movie._id} className="relative hover:z-50">
                                 <PosterCard movie={movie} />
                             </div>
                         ))}

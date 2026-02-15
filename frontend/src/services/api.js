@@ -33,6 +33,7 @@ export const authAPI = {
 // Movies API
 export const moviesAPI = {
   getMovies: (params) => api.get('/movies', { params }),
+  getTitles: () => api.get('/movies/titles'),
   getMovieById: (id) => api.get(`/movies/${id}`),
   getDirectors: () => api.get('/movies/directors/list'),
   getTags: () => api.get('/movies/tags/list'),
@@ -45,6 +46,7 @@ export const userAPI = {
   removeFromFavorites: (movieId) => api.delete(`/users/favorites/${movieId}`),
   addToWatchlist: (movieId) => api.post(`/users/watchlist/${movieId}`),
   removeFromWatchlist: (movieId) => api.delete(`/users/watchlist/${movieId}`),
+  toggleWatched: (movieId) => api.post(`/users/watched/${movieId}`),
   getRecommendations: () => api.get('/users/recommendations')
 };
 

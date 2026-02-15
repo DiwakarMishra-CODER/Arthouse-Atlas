@@ -122,6 +122,26 @@ const movieSchema = new mongoose.Schema({
     type: String,  // URL to public domain video clip (optional, for classics only)
     default: null
   },
+  trailerUrl: {
+    type: String,  // YouTube embed URL from TMDB (for hover-to-play previews)
+    default: null
+  },
+  // Arthouse-critical metadata from TMDB
+  cinematographers: [{
+    type: String,
+    index: true  // Enable filtering by DoP
+  }],
+  composers: [{
+    type: String
+  }],
+  productionCompanies: [{
+    type: String,
+    index: true  // Enable filtering by production company (e.g., A24)
+  }],
+  backdropUrl: {
+    type: String,  // High-res 16:9 backdrop from TMDB (for UI wallpapers)
+    default: null
+  },
   motionMood: {
     type: String,  // Visual mood for motion overlays: 'dreamlike', 'bleak', 'fragmented'
     enum: [null, 'dreamlike', 'bleak', 'fragmented'],

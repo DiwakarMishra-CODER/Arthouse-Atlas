@@ -7,7 +7,12 @@ import Register from './pages/Register';
 import Explore from './pages/Explore';
 import MovieDetail from './pages/MovieDetail';
 import Profile from './pages/Profile';
-import Recommendations from './pages/Recommendations';
+
+import Directors from './pages/Directors';
+import DirectorDetail from './pages/DirectorDetail';
+import Movements from './pages/Movements';
+import Studios from './pages/Studios';
+import Starfield from './components/Starfield';
 
 
 const ProtectedRoute = ({ children }) => {
@@ -26,32 +31,32 @@ const ProtectedRoute = ({ children }) => {
 
 function AppRoutes() {
   return (
-    <div className="min-h-screen film-grain">
+    <div className="relative min-h-screen bg-[#050505] text-white selection:bg-accent-primary selection:text-black overflow-x-hidden film-grain">
+      <Starfield />
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/explore" element={<Explore />} />
-        <Route path="/movie/:id" element={<MovieDetail />} />
+      <div className="relative z-10">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/movie/:id" element={<MovieDetail />} />
+          <Route path="/directors" element={<Directors />} />
+          <Route path="/directors/:id" element={<DirectorDetail />} />
+          <Route path="/movements" element={<Movements />} />
+          <Route path="/studios" element={<Studios />} />
 
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/recommendations"
-          element={
-            <ProtectedRoute>
-              <Recommendations />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+
+        </Routes>
+      </div>
     </div>
   );
 }

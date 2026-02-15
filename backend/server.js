@@ -6,6 +6,9 @@ import authRoutes from './routes/authRoutes.js';
 import movieRoutes from './routes/movieRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import discoveryRoutes from './routes/discoveryRoutes.js';
+import directorRoutes from './routes/directorRoutes.js';
+import movementRoutes from './routes/movementRoutes.js';
+import studioRoutes from './routes/studioRoutes.js';
 
 dotenv.config();
 
@@ -25,6 +28,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/movies', movieRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/discover', discoveryRoutes);
+app.use('/api/directors', directorRoutes);
+app.use('/api/movements', movementRoutes);
+app.use('/api/studios', studioRoutes);
 
 // Root route
 app.get('/', (req, res) => {

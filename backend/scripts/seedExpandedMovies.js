@@ -7,10 +7,12 @@ import Movie from '../models/Movie.js';
 import { generateTags } from '../services/taggingService.js';
 import { calculateArthouseScore } from '../services/arthouseScoring.js';
 
-dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Load .env from backend directory (parent of scripts)
+dotenv.config({ path: path.join(__dirname, '..', '.env') });
 
 const seedExpandedMovies = async () => {
   try {

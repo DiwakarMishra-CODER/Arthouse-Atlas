@@ -39,6 +39,9 @@ export const registerUser = async (req, res) => {
         _id: user._id,
         username: user.username,
         email: user.email,
+        favorites: user.favorites,
+        watchlist: user.watchlist,
+        watched: user.watched,
         token: generateToken(user._id)
       });
     } else {
@@ -62,13 +65,16 @@ export const loginUser = async (req, res) => {
     }
 
     // Check for user
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).populate('favorites watchlist watched');
 
     if (user && (await user.comparePassword(password))) {
       res.json({
         _id: user._id,
         username: user.username,
         email: user.email,
+        favorites: user.favorites,
+        watchlist: user.watchlist,
+        watched: user.watched,
         token: generateToken(user._id)
       });
     } else {
@@ -84,13 +90,20 @@ export const loginUser = async (req, res) => {
 // @access  Private
 export const getMe = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id)
-      .select('-password')
-      .populate('favorites', 'title year posterUrl')
-      .populate('watchlist', 'title year posterUrl');
-    
-    res.json(user);
+    const user = await User.findById(req.user._id).populate('favorites watchlist watched');
+    res.json({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      profileImage: user.profileImage,
+      favorites: user.favorites,
+      watchlist: user.watchlist,
+      watched: user.watched,
+      isAdmin: user.isAdmin
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
+

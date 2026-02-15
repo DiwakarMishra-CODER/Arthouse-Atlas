@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import GoogleAuthButton from '../components/GoogleAuthButton';
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const Login = () => {
     });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -54,6 +56,15 @@ const Login = () => {
                         </div>
                     )}
 
+
+                    <GoogleAuthButton text="Sign in with Google" />
+
+                    <div className="flex items-center my-4">
+                        <div className="h-px bg-white/20 flex-1"></div>
+                        <span className="px-4 text-gray-500 text-sm">OR</span>
+                        <div className="h-px bg-white/20 flex-1"></div>
+                    </div>
+
                     <div>
                         <label htmlFor="email" className="block text-sm uppercase tracking-wider text-muted mb-3">
                             Email
@@ -65,7 +76,7 @@ const Login = () => {
                             required
                             value={formData.email}
                             onChange={handleChange}
-                            className="w-full px-4 py-4 bg-surface border border-white/10 text-gray-200 placeholder-muted focus:outline-none focus:border-accent-primary/50"
+                            className="w-full px-4 py-4 bg-surface border border-white/10 text-gray-200 placeholder-muted focus:outline-none focus:border-accent-primary/50 rounded-xl"
                             placeholder="your@email.com"
                         />
                     </div>
@@ -74,22 +85,33 @@ const Login = () => {
                         <label htmlFor="password" className="block text-sm uppercase tracking-wider text-muted mb-3">
                             Password
                         </label>
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            required
-                            value={formData.password}
-                            onChange={handleChange}
-                            className="w-full px-4 py-4 bg-surface border border-white/10 text-gray-200 placeholder-muted focus:outline-none focus:border-accent-primary/50"
-                            placeholder="••••••••"
-                        />
+                        <div className="relative">
+                            <input
+                                id="password"
+                                name="password"
+                                type={showPassword ? "text" : "password"}
+                                required
+                                value={formData.password}
+                                onChange={handleChange}
+                                className="w-full px-4 py-4 bg-surface border border-white/10 text-gray-200 placeholder-muted focus:outline-none focus:border-accent-primary/50 rounded-xl pr-10"
+                                placeholder="••••••••"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors focus:outline-none"
+                            >
+                                <span className="material-icons-round text-xl">
+                                    {showPassword ? 'visibility_off' : 'visibility'}
+                                </span>
+                            </button>
+                        </div>
                     </div>
 
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full py-4 bg-accent-primary/10 border border-accent-primary/30 text-accent-primary tracking-wide uppercase text-sm hover:bg-accent-primary/20 transition-colors disabled:opacity-50"
+                        className="w-full py-4 bg-accent-primary/10 border border-accent-primary/30 text-accent-primary tracking-wide uppercase text-sm hover:bg-accent-primary/20 transition-colors disabled:opacity-50 rounded-xl"
                     >
                         {loading ? 'Signing in...' : 'Sign In'}
                     </button>
