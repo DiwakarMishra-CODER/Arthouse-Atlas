@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 import PosterCard from '../components/PosterCard';
 
 const DirectorDetail = () => {
@@ -15,7 +15,7 @@ const DirectorDetail = () => {
 
     const fetchDirector = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/directors/${id}`);
+            const response = await api.get(`/directors/${id}`);
             setDirector(response.data.data);
             setFilms(response.data.data.films || []);
         } catch (error) {

@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ const Studios = () => {
     useEffect(() => {
         const fetchStudios = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/studios');
+                const response = await api.get('/studios');
                 setStudios(response.data);
             } catch (error) {
                 console.error('Failed to fetch studios:', error);

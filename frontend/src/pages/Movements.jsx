@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 import { MdArrowOutward } from 'react-icons/md';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import PosterCard from '../components/PosterCard';
@@ -14,7 +14,7 @@ const Movements = () => {
     useEffect(() => {
         const fetchMovements = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/movements');
+                const response = await api.get('/movements');
                 setMovements(response.data);
             } catch (error) {
                 console.error('Failed to fetch movements:', error);
