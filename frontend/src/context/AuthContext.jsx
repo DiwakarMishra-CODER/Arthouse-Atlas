@@ -63,7 +63,8 @@ export const AuthProvider = ({ children }) => {
         logout,
         loading,
         isAuthenticated: !!user,
-        refreshUser: fetchUser
+        refreshUser: fetchUser,
+        setUser // Expose setUser for manual updates (Google Auth)
     };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

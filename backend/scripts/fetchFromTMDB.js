@@ -4,10 +4,11 @@ import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 
-dotenv.config();
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Load .env from backend directory (parent of scripts)
+dotenv.config({ path: path.join(__dirname, '..', '.env') });
 
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
@@ -65,6 +66,16 @@ const fetchMovieFromTMDB = async (title, year = null) => {
       .filter(person => person.job === "Director")
       .map(d => d.name);
 
+    // Extract cinematographers (Director of Photography)
+    const cinematographers = creditsResponse.data.crew
+      .filter(person => person.job === "Director of Photography")
+      .map(c => c.name);
+
+    // Extract composers (Original Music Composer)
+    const composers = creditsResponse.data.crew
+      .filter(person => person.job === "Original Music Composer")
+      .map(c => c.name);
+
     // 4️⃣ Fetch keywords
     const keywordsResponse = await tmdb.get(`/movie/${movieId}/keywords`, {
       params: { api_key: TMDB_API_KEY }
@@ -91,7 +102,14 @@ const fetchMovieFromTMDB = async (title, year = null) => {
         : null,
       genres: movie.genres.map(g => g.name),
       keywords,
-      tmdbId: movie.id
+      tmdbId: movie.id,
+      // Arthouse-critical metadata
+      cinematographers,
+      composers,
+      productionCompanies: movie.production_companies?.map(c => c.name) || [],
+      backdropUrl: movie.backdrop_path
+        ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
+        : null
     };
   } catch (error) {
     if (error.response) {
@@ -102,6 +120,56 @@ const fetchMovieFromTMDB = async (title, year = null) => {
       );
     } else {
       console.error(`❌ Error fetching ${title}:`, error.message);
+    }
+    return null;
+  }
+};
+
+/**
+ * Fetch movie metadata by TMDB ID (for enriching existing library)
+ * Returns only the arthouse-critical metadata fields
+ */
+export const fetchMovieDetailsById = async (tmdbId) => {
+  try {
+    // 1️⃣ Fetch details
+    const detailsResponse = await tmdb.get(`/movie/${tmdbId}`, {
+      params: { api_key: TMDB_API_KEY }
+    });
+
+    // 2️⃣ Fetch credits
+    const creditsResponse = await tmdb.get(`/movie/${tmdbId}/credits`, {
+      params: { api_key: TMDB_API_KEY }
+    });
+
+    // Extract cinematographers (Director of Photography)
+    const cinematographers = creditsResponse.data.crew
+      .filter(person => person.job === "Director of Photography")
+      .map(c => c.name);
+
+    // Extract composers (Original Music Composer)
+    const composers = creditsResponse.data.crew
+      .filter(person => person.job === "Original Music Composer")
+      .map(c => c.name);
+
+    const movie = detailsResponse.data;
+
+    return {
+      cinematographers,
+      composers,
+      productionCompanies: movie.production_companies?.map(c => c.name) || [],
+      backdropUrl: movie.backdrop_path
+        ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
+        : null
+    };
+  } catch (error) {
+    if (error.response) {
+      console.error(
+        `❌ Error fetching tmdbId ${tmdbId}:`,
+        error.response.status,
+        error.response.data
+      );
+    } else {
+      console.error(`❌ Error fetching tmdbId ${tmdbId}:`, error.message);
     }
     return null;
   }

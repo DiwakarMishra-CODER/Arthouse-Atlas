@@ -29,9 +29,16 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Movie'
   }],
+  watched: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Movie'
+  }],
   createdAt: {
     type: Date,
     default: Date.now
+  },
+  profileImage: {
+    type: String
   }
 });
 

@@ -44,7 +44,7 @@ const Profile = () => {
                     {user.favorites && user.favorites.length > 0 ? (
                         <div className="masonry-grid">
                             {user.favorites.map((movie) => (
-                                <div key={movie._id}>
+                                <div key={movie._id} className="relative hover:z-50">
                                     <PosterCard movie={movie} />
                                 </div>
                             ))}
@@ -62,8 +62,32 @@ const Profile = () => {
                     )}
                 </div>
 
-                {/* Watchlist */}
+                {/* Watched History */}
                 <div>
+                    <div className="mb-10">
+                        <h2 className="font-serif text-4xl text-gray-100 mb-2">Watched History</h2>
+                        <p className="text-muted">
+                            {user.watched?.length || 0} {user.watched?.length === 1 ? 'film' : 'films'}
+                        </p>
+                    </div>
+
+                    {user.watched && user.watched.length > 0 ? (
+                        <div className="masonry-grid">
+                            {user.watched.map((movie) => (
+                                <div key={movie._id} className="relative hover:z-50">
+                                    <PosterCard movie={movie} />
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-20 border border-white/10">
+                            <p className="text-muted text-lg">No films watched yet</p>
+                        </div>
+                    )}
+                </div>
+
+                {/* Watchlist */}
+                <div className="mt-24">
                     <div className="mb-10">
                         <h2 className="font-serif text-4xl text-gray-100 mb-2">Watchlist</h2>
                         <p className="text-muted">
@@ -74,7 +98,7 @@ const Profile = () => {
                     {user.watchlist && user.watchlist.length > 0 ? (
                         <div className="masonry-grid">
                             {user.watchlist.map((movie) => (
-                                <div key={movie._id}>
+                                <div key={movie._id} className="relative hover:z-50">
                                     <PosterCard movie={movie} />
                                 </div>
                             ))}

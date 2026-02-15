@@ -85,36 +85,36 @@
   }
 
   .masonry-grid {
-    column-count: 6;
-    column-gap: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1.5rem;
   }
 
   .masonry-grid>* {
-    break-inside: avoid;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
   }
 
   @media (max-width: 1536px) {
     .masonry-grid {
-      column-count: 5;
+      grid-template-columns: repeat(5, 1fr);
     }
   }
 
   @media (max-width: 1280px) {
     .masonry-grid {
-      column-count: 4;
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 
   @media (max-width: 1024px) {
     .masonry-grid {
-      column-count: 3;
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 
   @media (max-width: 640px) {
     .masonry-grid {
-      column-count: 2;
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 }
@@ -143,4 +143,14 @@
   transition-property: background-color, border-color, color, fill, stroke, opacity, transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+/* React Portal Animation */
+@keyframes expandCard {
+  from {
+    top: var(--origin-top);
+    left: var(--origin-left);
+    width: var(--origin-width);
+    aspect-ratio: 2/3;
+  }
 }
