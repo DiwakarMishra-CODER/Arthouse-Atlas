@@ -2,8 +2,8 @@
 
 > A curated digital archive for the modern cinephile. Explore the world of arthouse cinema through Directors, Movements, and Studios.
 
-![Project Banner](https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2070&auto=format&fit=crop)
-*(Replace this link with a screenshot of your actual Starfield Homepage later)*
+![Arthouse Atlas Homepage](./assets/homepage.png)
+*(The Arthouse Atlas Experience)*
 
 ## 🌟 Introduction
 **Arthouse Atlas** is a MERN stack application designed to move beyond the algorithmic noise of mainstream streaming. It focuses on **human curation**, allowing users to navigate cinema history through interconnected constellations of Directors, Art Movements, and Production Studios.
