@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import GoogleAuthButton from '../components/GoogleAuthButton';
-import axios from 'axios';
+import api from '../services/api';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -24,7 +24,7 @@ const Register = () => {
             console.log("1. Google Popup Finished. Response:", response); // Debug Log
 
             // 1. Send Google Token to Backend
-            const res = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/users/google`, {
+            const res = await api.post('/users/google', {
                 token: response.code || response.access_token
             });
 

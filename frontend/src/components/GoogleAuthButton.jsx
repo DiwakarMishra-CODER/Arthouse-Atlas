@@ -1,5 +1,5 @@
 import { useGoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
+import api from '../services/api';
 import { useNavigate } from 'react-router-dom';
 
 const GoogleAuthButton = ({ text = "Continue with Google", onSuccess }) => {
@@ -14,7 +14,7 @@ const GoogleAuthButton = ({ text = "Continue with Google", onSuccess }) => {
 
             try {
                 // Send access token to backend
-                const res = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/users/google`, {
+                const res = await api.post('/users/google', {
                     token: tokenResponse.access_token
                 });
 

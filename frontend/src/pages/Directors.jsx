@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 import { MdSearch } from 'react-icons/md';
 import Dropdown from '../components/Dropdown';
 
@@ -16,7 +16,7 @@ const Directors = () => {
 
     const fetchDirectors = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/directors');
+            const response = await api.get('/directors');
             setDirectors(response.data.data);
         } catch (error) {
             console.error('Failed to fetch directors:', error);
