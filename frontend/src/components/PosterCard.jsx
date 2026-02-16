@@ -11,6 +11,7 @@ const PosterCard = ({ movie, showActions = true }) => {
     const [showTrailer, setShowTrailer] = useState(false);
     const [coords, setCoords] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [isMobileExpanded, setIsMobileExpanded] = useState(false); // Mobile state
     const hoverTimeoutRef = useRef(null);
     const closeTimeoutRef = useRef(null);
     const cardRef = useRef(null);
@@ -107,10 +108,36 @@ const PosterCard = ({ movie, showActions = true }) => {
             setIsHovered(false);
             setShowTrailer(false);
             setCoords(null);
+            setIsMobileExpanded(false); // Reset mobile state
         }, 100);
 
         if (hoverTimeoutRef.current) {
             clearTimeout(hoverTimeoutRef.current);
+        }
+    };
+
+    // Mobile Click Handler
+    const handleMobileClick = (e) => {
+        if (window.innerWidth < 768) {
+            // If not expanded, prevent navigation and expand
+            if (!isMobileExpanded) {
+                e.preventDefault();
+                e.stopPropagation(); // Stop event bubbling
+
+                if (cardRef.current) {
+                    const rect = cardRef.current.getBoundingClientRect();
+                    setCoords({
+                        top: rect.top + window.scrollY,
+                        left: rect.left + window.scrollX,
+                        width: rect.width,
+                        height: rect.height
+                    });
+                    setShowTrailer(true);
+                    setIsMobileExpanded(true);
+                }
+            }
+            // If already expanded, let the Link navigation happen naturally (to details page)
+            // or if they clicked a specific action button inside the portal, that logic takes over
         }
     };
 
@@ -144,6 +171,7 @@ const PosterCard = ({ movie, showActions = true }) => {
             {/* Base Card - Always visible acting as placeholder/anchor */}
             <Link
                 to={`/movie/${movie._id}`}
+                onClick={handleMobileClick}
                 className={`block aspect-poster bg-surface overflow-hidden relative ${isExpanded ? 'opacity-0' : 'opacity-100'}`}
             >
                 {movie.posterUrl ? (
@@ -161,7 +189,7 @@ const PosterCard = ({ movie, showActions = true }) => {
                 {/* Hover Overlay (Only visible when NOT expanded) */}
                 <div className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-300 ${isHovered && !isExpanded ? 'opacity-100' : 'opacity-0'
                     }`}>
-                    <div className={`absolute bottom-0 left-0 right-0 p-4 transition-all duration-300 ${isHovered && !isExpanded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+                    <div className={`absolute bottom-0 left-0 right-0 p-4 transition-all duration-300 hidden md:block ${isHovered && !isExpanded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
                         }`}>
                         <h3 className="font-serif text-lg text-white mb-1 line-clamp-2">
                             {movie.title}

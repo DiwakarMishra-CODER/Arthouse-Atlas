@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
+import { MdTune, MdShuffle, MdClose, MdSearch } from 'react-icons/md';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { moviesAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import toast, { Toaster } from 'react-hot-toast';
 import FilterPanel from '../components/FilterPanel';
+import Dropdown from '../components/Dropdown';
 import PosterCard from '../components/PosterCard';
 import LoadingSkeleton from '../components/LoadingSkeleton';
 
@@ -11,6 +13,7 @@ const Explore = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const location = useLocation();
     const { user, setUser } = useAuth();
+    const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
     // Lazy initialize state from sessionStorage
     const [movies, setMovies] = useState(() => {
@@ -341,7 +344,8 @@ const Explore = () => {
 
             <div className="max-w-[1800px] mx-auto px-8">
                 {/* Page Header */}
-                <div className="mb-12 flex items-center justify-between">
+                {/* Page Header (Desktop Only) */}
+                <div className="hidden md:flex mb-12 items-center justify-between">
                     <div>
                         <h1 className="font-serif text-6xl text-gray-100 mb-4">Explore</h1>
                         <p className="text-muted text-lg">
@@ -363,33 +367,171 @@ const Explore = () => {
                     </button>
                 </div>
 
-                <div className="flex gap-12">
-                    {/* Filter Sidebar */}
-                    <FilterPanel
-                        allTags={allTags}
-                        allGenres={allGenres}
-                        allDirectors={allDirectors}
-                        allTitles={allTitles}
-                        selectedTags={selectedTags}
-                        onTagToggle={handleTagToggle}
-                        filters={filters}
-                        onFilterChange={handleFilterChange}
-                        onSearch={handleSearch}
-                        onClear={handleClearFilters}
-                    />
+                {/* Mobile Action Bar (Visible only on mobile) */}
+                <div className="md:hidden flex items-center gap-2 mb-6 sticky top-20 z-30 bg-[#050505]/95 backdrop-blur-sm py-2">
+                    <div className="relative flex-1">
+                        <MdSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 z-10" />
+                        <Dropdown
+                            options={allTitles.map((t) => ({ value: t.title, label: t.title }))}
+                            value={filters.search}
+                            onChange={(val) => {
+                                handleFilterChange({ target: { name: 'search', value: val } });
+                            }}
+                            placeholder="Search titles..."
+                            searchable={true}
+                            className="w-full"
+                            triggerClassName="pl-12"
+                        />
+                    </div>
+                    <button
+                        onClick={() => setIsMobileFilterOpen(true)}
+                        className="p-2.5 bg-white/10 rounded-lg text-white hover:bg-white/20 transition-colors"
+                        aria-label="Open filters"
+                    >
+                        <MdTune size={24} />
+                    </button>
+                    <button
+                        onClick={handleShuffle}
+                        className="p-2.5 bg-white/10 rounded-lg text-[#C5A059] hover:bg-white/20 transition-colors"
+                        aria-label="Shuffle"
+                    >
+                        <MdShuffle size={24} />
+                    </button>
+                </div>
 
-                    {/* Results Grid */}
-                    < div className="flex-1" >
+                {/* Mobile Filter Drawer Overlay */}
+                {isMobileFilterOpen && (
+                    <div className="fixed inset-0 z-50 bg-black flex flex-col pt-6 pb-20 px-6 overflow-y-auto animate-in slide-in-from-bottom duration-300">
+                        <div className="flex items-center justify-between mb-8">
+                            <h2 className="text-2xl font-serif text-white">Filters</h2>
+                            <button
+                                onClick={() => setIsMobileFilterOpen(false)}
+                                className="p-2 text-white hover:text-accent-primary"
+                            >
+                                <MdClose size={32} />
+                            </button>
+                        </div>
+
+                        <div className="space-y-8 flex-1">
+                            {/* Reusing Filter Logic (Duplicated for Mobile Drawer) */}
+                            {/* Genre */}
+                            <div>
+                                <h3 className="text-lg text-gray-300 mb-2 font-serif">Genre</h3>
+                                <Dropdown
+                                    options={allGenres.map((g) => ({ value: g, label: g }))}
+                                    value={filters.genre}
+                                    onChange={(val) => handleFilterChange({ target: { name: 'genre', value: val } })}
+                                    placeholder="All Genres"
+                                    className="w-full"
+                                />
+                            </div>
+
+                            {/* Decade */}
+                            <div>
+                                <h3 className="text-lg text-gray-300 mb-2 font-serif">Decade</h3>
+                                <Dropdown
+                                    options={[1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020].map((d) => ({ value: d, label: `${d}s` }))}
+                                    value={filters.decade}
+                                    onChange={(val) => handleFilterChange({ target: { name: 'decade', value: val } })}
+                                    placeholder="All Decades"
+                                    className="w-full"
+                                />
+                            </div>
+
+                            {/* Director */}
+                            <div>
+                                <h3 className="text-lg text-gray-300 mb-2 font-serif">Director</h3>
+                                <Dropdown
+                                    options={allDirectors.sort().map((d) => ({ value: d, label: d }))}
+                                    value={filters.director}
+                                    onChange={(val) => handleFilterChange({ target: { name: 'director', value: val } })}
+                                    placeholder="Search Directors..."
+                                    searchable={true}
+                                    className="w-full"
+                                />
+                            </div>
+
+                            {/* Tags */}
+                            <div>
+                                <h3 className="text-lg text-gray-300 mb-2 font-serif">Mood & Style</h3>
+                                <div className="flex flex-wrap gap-2">
+                                    {selectedTags.length > 0 ? (
+                                        selectedTags.map(tag => (
+                                            <span key={tag} onClick={() => handleTagToggle(tag)} className="bg-accent-primary/20 text-accent-primary px-3 py-1 rounded-full text-sm border border-accent-primary/30 cursor-pointer flex items-center gap-1">
+                                                {tag} <MdClose size={14} />
+                                            </span>
+                                        ))
+                                    ) : (
+                                        <span className="text-gray-500 italic text-sm">No moods selected</span>
+                                    )}
+                                    <button
+                                        onClick={() => {
+                                            // Open full mood selector? Or just show a few common ones?
+                                            // For now, let's list all tags in a scrolling area or just rely on the existing dropdown logic if we can port it.
+                                            // Simplified for drawer: List all avail tags in a scrolling box
+                                        }}
+                                        className="hidden" // Placeholder
+                                    >Add</button>
+                                </div>
+                                <div className="mt-4 max-h-40 overflow-y-auto border border-white/10 rounded-lg p-2">
+                                    {allTags.sort().map(tag => (
+                                        <div key={tag} onClick={() => handleTagToggle(tag)} className={`px-2 py-1.5 cursor-pointer text-sm ${selectedTags.includes(tag) ? 'text-accent-primary font-medium' : 'text-gray-400'}`}>
+                                            {tag} {selectedTags.includes(tag) && '✓'}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="mt-8 space-y-3">
+                            <button
+                                onClick={() => {
+                                    handleSearch({ preventDefault: () => { } });
+                                    setIsMobileFilterOpen(false);
+                                }}
+                                className="w-full py-4 bg-accent-primary/10 border border-accent-primary/30 text-accent-primary tracking-wide uppercase font-bold hover:bg-accent-primary/20 transition-colors rounded-xl"
+                            >
+                                Apply Filters
+                            </button>
+                            <button
+                                onClick={handleClearFilters}
+                                className="w-full py-4 border border-white/10 text-gray-400 tracking-wide uppercase hover:bg-white/5 hover:text-white transition-colors rounded-xl"
+                            >
+                                Clear All
+                            </button>
+                        </div>
+                    </div>
+                )}
+
+
+                <div className="flex gap-12">
+                    {/* Filter Sidebar - HIDDEN ON MOBILE */}
+                    <div className="hidden md:block">
+                        <FilterPanel
+                            allTags={allTags}
+                            allGenres={allGenres}
+                            allDirectors={allDirectors}
+                            allTitles={allTitles}
+                            selectedTags={selectedTags}
+                            onTagToggle={handleTagToggle}
+                            filters={filters}
+                            onFilterChange={handleFilterChange}
+                            onSearch={handleSearch}
+                            onClear={handleClearFilters}
+                        />
+                    </div>
+
+                    {/* Results Grid - 2 cols mobile, 3/4/5 desktop */}
+                    <div className="flex-1">
                         {
                             loading ? (
                                 <LoadingSkeleton />
                             ) : movies.length > 0 ? (
-                                <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 md:gap-6">
+                                <div className="grid grid-cols-3 gap-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 md:gap-6">
                                     {movies.map((movie) => (
                                         <div key={movie._id} className="relative hover:z-50">
                                             <PosterCard
                                                 movie={movie}
-
                                             />
                                         </div>
                                     ))}
@@ -409,8 +551,8 @@ const Explore = () => {
                                     </button>
                                 </div>
                             )}
-                    </div >
-                </div >
+                    </div>
+                </div>
             </div >
         </div >
     );

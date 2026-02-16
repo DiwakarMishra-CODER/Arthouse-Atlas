@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { MdAccountCircle, MdPerson, MdLogout } from 'react-icons/md';
+import { MdAccountCircle, MdPerson, MdLogout, MdClose } from 'react-icons/md';
 import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
@@ -147,7 +147,7 @@ const Navbar = () => {
 
                     {/* Mobile Menu Button */}
                     <button
-                        className="md:hidden z-50 relative w-10 h-10 flex flex-col justify-center items-center gap-1.5 focus:outline-none"
+                        className="md:hidden z-[1000] relative w-10 h-10 flex flex-col justify-center items-center gap-1.5 focus:outline-none"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                         aria-label="Toggle menu"
                     >
@@ -159,67 +159,58 @@ const Navbar = () => {
             </div>
 
             {/* Mobile Menu Overlay */}
-            <div className={`fixed inset-0 bg-black/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center transition-all duration-300 ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
-                <div className="flex flex-col items-center gap-8 text-center">
-                    <Link
-                        to="/explore"
-                        onClick={closeMobileMenu}
-                        className="text-2xl font-serif text-white hover:text-accent-primary transition-colors"
+            {isMobileMenuOpen && (
+                <div
+                    style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100vh',
+                        backgroundColor: '#000000', /* PURE HEX BLACK */
+                        zIndex: 9999,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '2rem'
+                    }}
+                >
+                    {/* Close Button */}
+                    <button
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="absolute top-6 right-6 text-white hover:text-accent-primary transition-colors"
+                        aria-label="Close menu"
                     >
-                        Explore
-                    </Link>
-                    <Link
-                        to="/directors"
-                        onClick={closeMobileMenu}
-                        className="text-2xl font-serif text-white hover:text-accent-primary transition-colors"
-                    >
-                        Directors
-                    </Link>
-                    <Link
-                        to="/movements"
-                        onClick={closeMobileMenu}
-                        className="text-2xl font-serif text-white hover:text-accent-primary transition-colors"
-                    >
-                        Movements
-                    </Link>
-                    <Link
-                        to="/studios"
-                        onClick={closeMobileMenu}
-                        className="text-2xl font-serif text-white hover:text-accent-primary transition-colors"
-                    >
-                        Studios
-                    </Link>
+                        <MdClose size={32} />
+                    </button>
 
-                    <div className="w-16 h-px bg-white/10 my-4"></div>
+                    {/* Explicit Links */}
+                    <Link to="/" onClick={closeMobileMenu} className="text-2xl text-white font-serif hover:text-accent-primary transition-colors">Home</Link>
+                    <Link to="/explore" onClick={closeMobileMenu} className="text-2xl text-white font-serif hover:text-accent-primary transition-colors">Explore</Link>
+                    <Link to="/directors" onClick={closeMobileMenu} className="text-2xl text-white font-serif hover:text-accent-primary transition-colors">Directors</Link>
+                    <Link to="/movements" onClick={closeMobileMenu} className="text-2xl text-white font-serif hover:text-accent-primary transition-colors">Movements</Link>
+                    <Link to="/studios" onClick={closeMobileMenu} className="text-2xl text-white font-serif hover:text-accent-primary transition-colors">Studios</Link>
 
                     {isAuthenticated ? (
                         <>
-                            <div className="text-gray-400 text-sm uppercase tracking-widest mb-2">
-                                {user?.username}
-                            </div>
-                            <Link
-                                to="/profile"
-                                onClick={closeMobileMenu}
-                                className="text-xl text-white hover:text-accent-primary transition-colors flex items-center gap-2"
-                            >
-                                <MdPerson /> My Profile
-                            </Link>
+                            <Link to="/profile" onClick={closeMobileMenu} className="text-2xl text-white font-serif hover:text-accent-primary transition-colors">Profile</Link>
                             <button
                                 onClick={() => {
                                     logout();
                                     closeMobileMenu();
                                 }}
-                                className="text-xl text-red-400 hover:text-red-300 transition-colors flex items-center gap-2"
+                                className="text-xl text-red-500 mt-4 font-serif hover:text-red-400 transition-colors border border-red-500 px-6 py-2 rounded"
                             >
-                                <MdLogout /> Sign Out
+                                Sign Out
                             </button>
                         </>
                     ) : (
-                        <div className="flex flex-col gap-6 mt-4">
+                        <div className="flex flex-col gap-6 mt-4 items-center">
                             <Link
                                 to="/login"
                                 onClick={closeMobileMenu}
-                                className="text-xl text-white hover:text-accent-primary transition-colors"
+                                className="text-xl text-white hover:text-accent-primary transition-colors font-serif"
                             >
                                 Sign In
                             </Link>
@@ -233,7 +224,7 @@ const Navbar = () => {
                         </div>
                     )}
                 </div>
-            </div>
+            )}
         </nav >
     );
 };
