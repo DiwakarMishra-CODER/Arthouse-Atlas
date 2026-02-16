@@ -7,7 +7,8 @@ const Dropdown = ({
     onChange,
     placeholder = 'Select...',
     searchable = false,
-    className = ''
+    className = '',
+    triggerClassName = ''
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -40,7 +41,7 @@ const Dropdown = ({
             <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                className={`w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-left flex justify-between items-center gap-2 transition-all duration-300 hover:bg-white/10 focus:outline-none focus:border-accent-primary/50 text-sm tracking-wide ${isOpen ? 'border-accent-primary/50 bg-white/10' : ''
+                className={`w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-left flex justify-between items-center gap-2 transition-all duration-300 hover:bg-white/10 focus:outline-none focus:border-accent-primary/50 text-sm tracking-wide ${triggerClassName} ${isOpen ? 'border-accent-primary/50 bg-white/10' : ''
                     }`}
             >
                 <span className={selectedOption ? 'text-gray-200' : 'text-muted'}>

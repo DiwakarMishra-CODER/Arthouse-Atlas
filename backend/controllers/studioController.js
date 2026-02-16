@@ -6,7 +6,9 @@ import Studio from '../models/Studio.js';
 // @access  Public
 export const getStudios = async (req, res) => {
   try {
-    const studios = await Studio.find({}).sort({ sortOrder: 1 });
+    const studios = await Studio.find({})
+      .populate('featuredFilms.movieId')
+      .sort({ sortOrder: 1 });
     res.json(studios);
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -7,14 +7,14 @@ import LoadingSkeleton from '../components/LoadingSkeleton';
 const Home = () => {
 
     return (
-        <div className="min-h-screen pt-24">
+        <div className="min-h-screen pt-0 md:pt-24">
             {/* Hero Section */}
-            <div className="relative w-full mb-24">
+            <div className="relative w-full mb-12 md:mb-24 -mt-16 md:mt-0 pt-0 bg-black">
                 <HeroFeature />
             </div>
 
             {/* MANIFESTO SECTION - Replaces Recently Added */}
-            <section className="relative py-32 px-4 md:px-0 border-y border-white/5">
+            <section className="relative py-10 md:py-32 px-4 md:px-0 border-y border-white/5">
                 <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
                     {/* LEFT: The Question */}

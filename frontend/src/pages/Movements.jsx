@@ -114,8 +114,73 @@ const Movements = () => {
                         </div>
 
                         {/* Content Container - Grid Refactor */}
-                        <div className="relative z-10 h-full w-full pl-24 pr-8 lg:pl-32 pt-24">
-                            <div className="container mx-auto h-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <div className="relative z-10 h-full w-full pl-0 md:pl-24 pr-0 md:pr-8 lg:pl-32 pt-0 md:pt-24 text-white">
+
+                            {/* MOBILE VIEW (Readable Scrolling Layout) */}
+                            <div className="md:hidden min-h-screen w-full flex flex-col pt-28 pb-10 bg-black text-white">
+                                {/* Header (Restored Size) */}
+                                <div className="flex flex-col items-center text-center px-6 mb-6">
+                                    <div className="text-[#C5A059] text-xs tracking-[0.2em] uppercase mb-2">
+                                        {movement.era}
+                                    </div>
+                                    <h1 className="text-3xl font-serif font-bold leading-tight text-white mb-2">
+                                        {movement.title}
+                                    </h1>
+                                </div>
+
+                                {/* Info Block (Readable) */}
+                                <div className="px-4">
+                                    <div className="w-full bg-[#111] border-l-2 border-[#C5A059] p-4 my-4 rounded-r">
+                                        <p className="text-base italic text-gray-200">
+                                            "{movement.vibe}"
+                                        </p>
+                                    </div>
+                                    <p className="text-sm text-gray-400 leading-relaxed px-4 text-center line-clamp-4 mb-4">
+                                        {movement.philosophy}
+                                    </p>
+                                </div>
+
+                                {/* Tags (Readable Row) */}
+                                <div className="flex flex-wrap justify-center gap-2 px-6 mb-6">
+                                    {movement.visualSignatures.map((sig, i) => (
+                                        <span key={i} className="px-3 py-1 bg-white/5 rounded-full text-xs text-gray-300 border border-white/10">
+                                            {sig}
+                                        </span>
+                                    ))}
+                                </div>
+
+                                {/* Film Grid (Clean 3-Column) */}
+                                <div className="px-2 mt-4">
+                                    <div className="grid grid-cols-3 gap-2">
+                                        {movement.essentialFilms.map((film, idx) => {
+                                            const movieData = {
+                                                ...(film.movieId && typeof film.movieId === 'object' ? film.movieId : {}),
+                                                _id: film.movieId?._id || film.movieId || `missing-${idx}`,
+                                                title: film.title || film.movieId?.title,
+                                                year: film.year || film.movieId?.year,
+                                                posterUrl: film.posterUrl || film.movieId?.posterUrl,
+                                                directors: film.movieId?.directors || []
+                                            };
+
+                                            return (
+                                                <div key={idx} className="relative z-0 hover:z-50">
+                                                    {film.movieId ? (
+                                                        <PosterCard movie={movieData} />
+                                                    ) : (
+                                                        <div className="aspect-[2/3] bg-white/5 border border-white/10 rounded overflow-hidden flex flex-col items-center justify-center opacity-50">
+                                                            <span className="text-xl mb-1">🎞️</span>
+                                                            <span className="text-[10px] text-center px-1 text-white/50 line-clamp-2">{film.title}</span>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* DESKTOP VIEW */}
+                            <div className="container mx-auto h-full hidden md:grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
 
                                 {/* Zone 1: Title & Vibe (Left Side - Cols 1-7) */}
                                 <div className="col-span-1 lg:col-span-7 flex flex-col justify-center h-full relative z-20">
