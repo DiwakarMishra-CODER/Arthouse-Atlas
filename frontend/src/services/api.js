@@ -42,10 +42,8 @@ export const moviesAPI = {
 
 // User API
 export const userAPI = {
-  addToFavorites: (movieId) => api.post(`/users/favorites/${movieId}`),
-  removeFromFavorites: (movieId) => api.delete(`/users/favorites/${movieId}`),
-  addToWatchlist: (movieId) => api.post(`/users/watchlist/${movieId}`),
-  removeFromWatchlist: (movieId) => api.delete(`/users/watchlist/${movieId}`),
+  toggleFavorite: (movieId) => api.post(`/users/favorites/${movieId}`),
+  toggleWatchlist: (movieId) => api.post(`/users/watchlist/${movieId}`),
   toggleWatched: (movieId) => api.post(`/users/watched/${movieId}`),
   getRecommendations: () => api.get('/users/recommendations')
 };

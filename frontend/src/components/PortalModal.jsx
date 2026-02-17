@@ -2,7 +2,7 @@ import { createPortal } from 'react-dom';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { userAPI } from '../services/api';
+import { useMovie } from '../context/MovieContext';
 
 const PortalModal = ({ movie, coords, onClose, onMouseEnter, onMouseLeave }) => {
     const { isAuthenticated, user, refreshUser } = useAuth();
@@ -35,9 +35,7 @@ const PortalModal = ({ movie, coords, onClose, onMouseEnter, onMouseLeave }) => 
         }
     };
 
-    const isFavorited = user?.favorites?.some(fav => fav._id === movie._id || fav === movie._id);
-    const isInWatchlist = user?.watchlist?.some(item => item._id === movie._id || item === movie._id);
-    const isWatched = user?.watched?.some(item => item._id === movie._id || item === movie._id);
+    const { isFavorite, isInWatchlist, toggleFavorite, toggleWatchlist } = useMovie();
 
     // Extract YouTube video ID
     const getYouTubeId = (url) => {
@@ -75,37 +73,7 @@ const PortalModal = ({ movie, coords, onClose, onMouseEnter, onMouseLeave }) => 
     // For now, let it float naturally, maybe clamped to top padding
     // if (top < padding) top = padding; // Uncomment if we want to force it down
 
-    const handleFavorite = async (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (!isAuthenticated) return;
-        setLoading(true);
-        try {
-            if (isFavorited) await userAPI.removeFromFavorites(movie._id);
-            else await userAPI.addToFavorites(movie._id);
-            await refreshUser();
-        } catch (error) {
-            console.error('Failed to toggle favorite:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
 
-    const handleWatchlist = async (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (!isAuthenticated) return;
-        setLoading(true);
-        try {
-            if (isInWatchlist) await userAPI.removeFromWatchlist(movie._id);
-            else await userAPI.addToWatchlist(movie._id);
-            await refreshUser();
-        } catch (error) {
-            console.error('Failed to toggle watchlist:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
 
 
 
@@ -201,23 +169,30 @@ const PortalModal = ({ movie, coords, onClose, onMouseEnter, onMouseLeave }) => 
                                 {isAuthenticated && (
                                     <>
                                         <button
-                                            onClick={handleWatchlist}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                                toggleWatchlist(movie);
+                                            }}
                                             className="flex items-center justify-center w-8 h-8 border-2 border-gray-400 rounded-full hover:border-white text-white transition pointer-events-auto"
-                                            title={isInWatchlist ? "Remove from List" : "Add to List"}
+                                            title={isInWatchlist(movie._id) ? "Remove from List" : "Add to List"}
                                         >
-                                            {isInWatchlist ? (
+                                            {isInWatchlist(movie._id) ? (
                                                 <svg className="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" /></svg>
                                             ) : (
                                                 <svg className="w-3 h-3 fill-white" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" /></svg>
                                             )}
                                         </button>
-
                                         <button
-                                            onClick={handleFavorite}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                                toggleFavorite(movie);
+                                            }}
                                             className="flex items-center justify-center w-8 h-8 border-2 border-gray-400 rounded-full hover:border-white text-white transition pointer-events-auto"
-                                            title={isFavorited ? "Unfavorite" : "Favorite"}
+                                            title={isFavorite(movie._id) ? "Unfavorite" : "Favorite"}
                                         >
-                                            <svg className={`w-3 h-3 ${isFavorited ? 'fill-red-500 stroke-red-500' : 'stroke-white fill-none'}`} viewBox="0 0 24 24" strokeWidth="2">                                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                            <svg className={`w-3 h-3 ${isFavorite(movie._id) ? 'fill-red-500 stroke-red-500' : 'stroke-white fill-none'}`} viewBox="0 0 24 24" strokeWidth="2">                                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                                             </svg>
                                         </button>
                                     </>

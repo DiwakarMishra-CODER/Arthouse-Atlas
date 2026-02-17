@@ -13,81 +13,66 @@ const generateToken = (id) => {
   });
 };
 
-// @desc    Add movie to favorites
+// @desc    Toggle favorite status
 // @route   POST /api/users/favorites/:movieId
 // @access  Private
-export const addToFavorites = async (req, res) => {
+export const toggleFavorite = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
-    const movie = await Movie.findById(req.params.movieId);
+    const movieId = req.params.movieId;
 
+    // Check if valid movie
+    const movie = await Movie.findById(movieId);
     if (!movie) {
-      return res.status(404).json({ message: 'Movie not found' });
+        return res.status(404).json({ message: 'Movie not found' });
     }
 
-    if (user.favorites.includes(req.params.movieId)) {
-      return res.status(400).json({ message: 'Movie already in favorites' });
+    // Check if exists using toString() comparison
+    const existingIndex = user.favorites.findIndex(id => id.toString() === movieId);
+
+    if (existingIndex > -1) {
+        // Remove
+        user.favorites.splice(existingIndex, 1);
+        await user.save();
+        res.json({ message: 'Removed from favorites', favorites: user.favorites, isFavorite: false });
+    } else {
+        // Add
+        user.favorites.push(movieId);
+        await user.save();
+        res.json({ message: 'Added to favorites', favorites: user.favorites, isFavorite: true });
     }
-
-    user.favorites.push(req.params.movieId);
-    await user.save();
-
-    res.json({ message: 'Movie added to favorites', favorites: user.favorites });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-// @desc    Remove movie from favorites
-// @route   DELETE /api/users/favorites/:movieId
-// @access  Private
-export const removeFromFavorites = async (req, res) => {
-  try {
-    const user = await User.findById(req.user._id).populate('favorites watchlist watched');
-    user.favorites = user.favorites.filter(id => id.toString() !== req.params.movieId);
-    await user.save();
-
-    res.json({ message: 'Movie removed from favorites', favorites: user.favorites });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-// @desc    Add movie to watchlist
+// @desc    Toggle watchlist status
 // @route   POST /api/users/watchlist/:movieId
 // @access  Private
-export const addToWatchlist = async (req, res) => {
+export const toggleWatchlist = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).populate('favorites watchlist watched');
-    const movie = await Movie.findById(req.params.movieId);
+    const user = await User.findById(req.user._id);
+    const movieId = req.params.movieId;
 
+    // Check if valid movie
+    const movie = await Movie.findById(movieId);
     if (!movie) {
       return res.status(404).json({ message: 'Movie not found' });
     }
 
-    if (user.watchlist.includes(req.params.movieId)) {
-      return res.status(400).json({ message: 'Movie already in watchlist' });
+    const existingIndex = user.watchlist.findIndex(id => id.toString() === movieId);
+
+    if (existingIndex > -1) {
+      // Remove
+      user.watchlist.splice(existingIndex, 1);
+      await user.save();
+      res.json({ message: 'Removed from watchlist', watchlist: user.watchlist, isInWatchlist: false });
+    } else {
+      // Add
+      user.watchlist.push(movieId);
+      await user.save();
+      res.json({ message: 'Added to watchlist', watchlist: user.watchlist, isInWatchlist: true });
     }
-
-    user.watchlist.push(req.params.movieId);
-    await user.save();
-
-    res.json({ message: 'Movie added to watchlist', watchlist: user.watchlist });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-// @desc    Remove movie from watchlist
-// @route   DELETE /api/users/watchlist/:movieId
-// @access  Private
-export const removeFromWatchlist = async (req, res) => {
-  try {
-    const user = await User.findById(req.user._id).populate('favorites watchlist watched');
-    user.watchlist = user.watchlist.filter(id => id.toString() !== req.params.movieId);
-    await user.save();
-
-    res.json({ message: 'Movie removed from watchlist', watchlist: user.watchlist });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
