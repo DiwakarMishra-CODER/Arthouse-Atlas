@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { moviesAPI, userAPI } from '../services/api';
+import { moviesAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import { useMovie } from '../context/MovieContext';
 import TagChip from '../components/TagChip';
 import LoadingSkeleton from '../components/LoadingSkeleton';
 
@@ -28,23 +29,16 @@ const MovieDetail = () => {
         }
     };
 
-    const isFavorited = user?.favorites?.some(fav => fav._id === id || fav === id);
-    const isInWatchlist = user?.watchlist?.some(item => item._id === id || item === id);
-    const isWatched = user?.watched?.some(item => item._id === id || item === id);
+    const { isFavorite, isInWatchlist, isWatched, toggleFavorite, toggleWatchlist, toggleWatched } = useMovie();
 
+    // Local loading state for button feedback
     const handleFavorite = async () => {
         if (!isAuthenticated) return;
-
         setActionLoading(true);
         try {
-            if (isFavorited) {
-                await userAPI.removeFromFavorites(id);
-            } else {
-                await userAPI.addToFavorites(id);
-            }
-            await refreshUser();
+            await toggleFavorite(id);
         } catch (error) {
-            console.error('Failed to toggle favorite:', error);
+            console.error(error);
         } finally {
             setActionLoading(false);
         }
@@ -52,17 +46,11 @@ const MovieDetail = () => {
 
     const handleWatchlist = async () => {
         if (!isAuthenticated) return;
-
         setActionLoading(true);
         try {
-            if (isInWatchlist) {
-                await userAPI.removeFromWatchlist(id);
-            } else {
-                await userAPI.addToWatchlist(id);
-            }
-            await refreshUser();
+            await toggleWatchlist(id);
         } catch (error) {
-            console.error('Failed to toggle watchlist:', error);
+            console.error(error);
         } finally {
             setActionLoading(false);
         }
@@ -70,13 +58,11 @@ const MovieDetail = () => {
 
     const handleWatched = async () => {
         if (!isAuthenticated) return;
-
         setActionLoading(true);
         try {
-            await userAPI.toggleWatched(id);
-            await refreshUser();
+            await toggleWatched(id);
         } catch (error) {
-            console.error('Failed to toggle watched:', error);
+            console.error(error);
         } finally {
             setActionLoading(false);
         }
@@ -183,25 +169,37 @@ const MovieDetail = () => {
                         {isAuthenticated && (
                             <div className="flex items-center justify-center gap-4">
                                 <button
-                                    onClick={handleWatchlist}
-                                    title={isInWatchlist ? "Remove from Watchlist" : "Add to Watchlist"}
-                                    className={`w-12 h-12 rounded-xl border border-white/20 flex items-center justify-center transition-colors ${isInWatchlist ? 'bg-white text-black' : 'text-white hover:bg-white/10'}`}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        toggleWatchlist(movie);
+                                    }}
+                                    title={isInWatchlist(id) ? "Remove from Watchlist" : "Add to Watchlist"}
+                                    className={`w-12 h-12 rounded-xl border border-white/20 flex items-center justify-center transition-colors ${isInWatchlist(id) ? 'bg-white text-black' : 'text-white hover:bg-white/10'}`}
                                 >
-                                    <span className="material-icons-round text-2xl">{isInWatchlist ? 'bookmark' : 'bookmark_border'}</span>
+                                    <span className="material-icons-round text-2xl">{isInWatchlist(id) ? 'bookmark' : 'bookmark_border'}</span>
                                 </button>
                                 <button
-                                    onClick={handleWatched}
-                                    title={isWatched ? "Mark as Watched" : "Mark as Unwatched"}
-                                    className={`w-12 h-12 rounded-xl border border-white/20 flex items-center justify-center transition-colors ${isWatched ? 'bg-white text-black' : 'text-white hover:bg-white/10'}`}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        toggleWatched(movie);
+                                    }}
+                                    title={isWatched(id) ? "Mark as Watched" : "Mark as Unwatched"}
+                                    className={`w-12 h-12 rounded-xl border border-white/20 flex items-center justify-center transition-colors ${isWatched(id) ? 'bg-white text-black' : 'text-white hover:bg-white/10'}`}
                                 >
-                                    <span className="material-icons-round text-2xl">{isWatched ? 'check_circle' : 'radio_button_unchecked'}</span>
+                                    <span className="material-icons-round text-2xl">{isWatched(id) ? 'check_circle' : 'radio_button_unchecked'}</span>
                                 </button>
                                 <button
-                                    onClick={handleFavorite}
-                                    title={isFavorited ? "Remove from Favorites" : "Add to Favorites"}
-                                    className={`w-12 h-12 rounded-xl border border-white/20 flex items-center justify-center transition-colors ${isFavorited ? 'bg-red-500 border-red-500 text-white' : 'text-white hover:bg-white/10'}`}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        toggleFavorite(movie);
+                                    }}
+                                    title={isFavorite(id) ? "Remove from Favorites" : "Add to Favorites"}
+                                    className={`w-12 h-12 rounded-xl border border-white/20 flex items-center justify-center transition-colors ${isFavorite(id) ? 'bg-red-500 border-red-500 text-white' : 'text-white hover:bg-white/10'}`}
                                 >
-                                    <span className="material-icons-round text-2xl">{isFavorited ? 'favorite' : 'favorite_border'}</span>
+                                    <span className="material-icons-round text-2xl">{isFavorite(id) ? 'favorite' : 'favorite_border'}</span>
                                 </button>
                             </div>
                         )}
@@ -240,7 +238,7 @@ const MovieDetail = () => {
                 </p>
 
                 {/* Credits Grid */}
-                <div className="grid grid-cols-2 gap-4 w-full text-left mt-4 border-t border-white/10 pt-6">
+                <div className="grid grid-cols-2 gap-4 w-full text-left mt-4 border-t border-white/10 pt-6 px-4">
                     {creditsSections.map((section, idx) => (
                         <div key={idx} className="mb-2">
                             <div className="text-[#C5A059] text-xs uppercase mb-1">{section.label}</div>
@@ -317,37 +315,49 @@ const MovieDetail = () => {
 
                                         {/* 1. WATCHED (Checkmark Circle) */}
                                         <button
-                                            onClick={handleWatched}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                                toggleWatched(movie);
+                                            }}
                                             disabled={actionLoading}
-                                            title={isWatched ? "Mark as Unwatched" : "Mark as Watched"}
+                                            title={isWatched(id) ? "Mark as Unwatched" : "Mark as Watched"}
                                             className="flex-1 h-14 border border-white/20 rounded-xl transition-all duration-300 flex items-center justify-center group hover:bg-white hover:text-black"
                                         >
                                             <span className="material-icons-round text-2xl">
-                                                {isWatched ? 'check_circle' : 'radio_button_unchecked'}
+                                                {isWatched(id) ? 'check_circle' : 'radio_button_unchecked'}
                                             </span>
                                         </button>
 
                                         {/* 2. WATCHLIST (Bookmark) */}
                                         <button
-                                            onClick={handleWatchlist}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                                toggleWatchlist(movie);
+                                            }}
                                             disabled={actionLoading}
-                                            title={isInWatchlist ? "Remove from Watchlist" : "Add to Watchlist"}
+                                            title={isInWatchlist(id) ? "Remove from Watchlist" : "Add to Watchlist"}
                                             className="flex-1 h-14 border border-white/20 rounded-xl transition-all duration-300 flex items-center justify-center group hover:bg-white hover:text-black"
                                         >
                                             <span className="material-icons-round text-2xl">
-                                                {isInWatchlist ? 'bookmark' : 'bookmark_border'}
+                                                {isInWatchlist(id) ? 'bookmark' : 'bookmark_border'}
                                             </span>
                                         </button>
 
                                         {/* 3. FAVORITE (Heart) */}
                                         <button
-                                            onClick={handleFavorite}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                                toggleFavorite(movie);
+                                            }}
                                             disabled={actionLoading}
-                                            title={isFavorited ? "Remove from Favorites" : "Add to Favorites"}
+                                            title={isFavorite(id) ? "Remove from Favorites" : "Add to Favorites"}
                                             className="flex-1 h-14 border border-white/20 rounded-xl transition-all duration-300 flex items-center justify-center group hover:bg-white hover:text-black"
                                         >
                                             <span className="material-icons-round text-2xl">
-                                                {isFavorited ? 'favorite' : 'favorite_border'}
+                                                {isFavorite(id) ? 'favorite' : 'favorite_border'}
                                             </span>
                                         </button>
 
