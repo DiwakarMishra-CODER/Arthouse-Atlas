@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { useAuth } from './AuthContext';
 import { userAPI } from '../services/api';
 
@@ -19,13 +19,19 @@ export const MovieProvider = ({ children }) => {
     const [favorites, setFavorites] = useState([]);
     const [watchlist, setWatchlist] = useState([]);
     const [watched, setWatched] = useState([]);
+    const [ratings, setRatings] = useState([]);
+
+    // Guard against rapid double-clicks causing duplicate API calls
+    const pendingToggles = useRef(new Set());
 
     // 1. Initial Load from LocalStorage (Run ONCE on mount)
     useEffect(() => {
         const storedFavs = JSON.parse(localStorage.getItem("favorites")) || [];
         const storedWatch = JSON.parse(localStorage.getItem("watchlist")) || [];
+        const storedRatings = JSON.parse(localStorage.getItem("ratings")) || [];
         setFavorites(storedFavs);
         setWatchlist(storedWatch);
+        setRatings(storedRatings);
     }, []);
 
     // 2. Sync with User from DB (Run when user changes)
@@ -55,6 +61,10 @@ export const MovieProvider = ({ children }) => {
         localStorage.setItem("watched", JSON.stringify(watched));
     }, [watched]);
 
+    useEffect(() => {
+        localStorage.setItem("ratings", JSON.stringify(ratings));
+    }, [ratings]);
+
     // Helper: Check if movie is in favorites
     const isFavorite = (movieId) => {
         return favorites.some(m => (m._id === movieId || m.id === movieId || m === movieId));
@@ -72,75 +82,96 @@ export const MovieProvider = ({ children }) => {
 
     const toggleFavorite = async (movie) => {
         if (!isAuthenticated) return;
-
-        // Ensure we have an ID
         const movieId = movie._id || movie.id || movie;
-        const movieObj = typeof movie === 'object' ? movie : { _id: movieId }; // Minimal object if passed ID only
+        // Block if already in-flight
+        if (pendingToggles.current.has(`fav-${movieId}`)) return;
+        pendingToggles.current.add(`fav-${movieId}`);
 
-        // Optimistic Update
+        const movieObj = typeof movie === 'object' ? movie : { _id: movieId };
         setFavorites((prev) => {
             if (isFavorite(movieId)) {
-                return prev.filter((m) => (m._id || m.id || m) !== movieId); // REMOVE
+                return prev.filter((m) => (m._id || m.id || m) !== movieId);
             } else {
-                return [...prev, movieObj]; // ADD
+                return [...prev, movieObj];
             }
         });
 
-        // Backend Sync
         try {
             await userAPI.toggleFavorite(movieId);
         } catch (error) {
             console.error('Failed to toggle favorite:', error);
-            // Revert on failure involves complex logic, skipping for "Nuclear" simple approach
-            // causing a re-fetch of user would correct it eventually.
+        } finally {
+            pendingToggles.current.delete(`fav-${movieId}`);
         }
     };
 
     const toggleWatchlist = async (movie) => {
         if (!isAuthenticated) return;
-
         const movieId = movie._id || movie.id || movie;
-        const movieObj = typeof movie === 'object' ? movie : { _id: movieId };
+        // Block if already in-flight
+        if (pendingToggles.current.has(`wl-${movieId}`)) return;
+        pendingToggles.current.add(`wl-${movieId}`);
 
-        // Optimistic Update
+        const movieObj = typeof movie === 'object' ? movie : { _id: movieId };
         setWatchlist((prev) => {
             if (isInWatchlist(movieId)) {
-                return prev.filter((m) => (m._id || m.id || m) !== movieId); // REMOVE
+                return prev.filter((m) => (m._id || m.id || m) !== movieId);
             } else {
-                return [...prev, movieObj]; // ADD
+                return [...prev, movieObj];
             }
         });
 
-        // Backend Sync
         try {
             await userAPI.toggleWatchlist(movieId);
         } catch (error) {
             console.error('Failed to toggle watchlist:', error);
+        } finally {
+            pendingToggles.current.delete(`wl-${movieId}`);
         }
     };
 
     const toggleWatched = async (movie) => {
         if (!isAuthenticated) return;
-
         const movieId = movie._id || movie.id || movie;
-        const movieObj = typeof movie === 'object' ? movie : { _id: movieId };
+        // Block if already in-flight
+        if (pendingToggles.current.has(`wd-${movieId}`)) return;
+        pendingToggles.current.add(`wd-${movieId}`);
 
-        // Optimistic Update
+        const movieObj = typeof movie === 'object' ? movie : { _id: movieId };
         setWatched((prev) => {
             if (isWatched(movieId)) {
-                return prev.filter((m) => (m._id || m.id || m) !== movieId); // REMOVE
+                return prev.filter((m) => (m._id || m.id || m) !== movieId);
             } else {
-                return [...prev, movieObj]; // ADD
+                return [...prev, movieObj];
             }
         });
 
-        // Backend Sync
         try {
             await userAPI.toggleWatched(movieId);
         } catch (error) {
             console.error('Failed to toggle watched:', error);
+        } finally {
+            pendingToggles.current.delete(`wd-${movieId}`);
         }
     };
+
+    // Rating helpers
+    const setMovieRating = (movie, score) => {
+        const movieId = movie._id || movie.id;
+        setRatings((prev) => {
+            const existing = prev.find((r) => r.id === movieId);
+            // Clicking same score toggles it off
+            if (existing && existing.rating === score) {
+                return prev.filter((r) => r.id !== movieId);
+            }
+            if (existing) {
+                return prev.map((r) => r.id === movieId ? { ...r, rating: score } : r);
+            }
+            return [...prev, { id: movieId, rating: score, movie }];
+        });
+    };
+
+    const getMovieRating = (id) => ratings.find((r) => r.id === id)?.rating || 0;
 
     const value = {
         isFavorite,
@@ -151,7 +182,10 @@ export const MovieProvider = ({ children }) => {
         toggleWatched,
         favorites,
         watchlist,
-        watched
+        watched,
+        ratings,
+        setMovieRating,
+        getMovieRating,
     };
 
     return <MovieContext.Provider value={value}>{children}</MovieContext.Provider>;

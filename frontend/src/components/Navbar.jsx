@@ -89,6 +89,16 @@ const Navbar = () => {
                             Studios
                         </Link>
 
+                        <Link
+                            to="/recommendations"
+                            className={`text-sm tracking-wide uppercase ${isActive('/recommendations')
+                                ? 'text-accent-primary'
+                                : 'text-muted hover:text-gray-100'
+                                }`}
+                        >
+                            For You
+                        </Link>
+
                         {isAuthenticated ? (
                             <div className="relative" ref={profileMenuRef}>
                                 <button
@@ -191,6 +201,7 @@ const Navbar = () => {
                     <Link to="/directors" onClick={closeMobileMenu} className="text-2xl text-white font-serif hover:text-accent-primary transition-colors">Directors</Link>
                     <Link to="/movements" onClick={closeMobileMenu} className="text-2xl text-white font-serif hover:text-accent-primary transition-colors">Movements</Link>
                     <Link to="/studios" onClick={closeMobileMenu} className="text-2xl text-white font-serif hover:text-accent-primary transition-colors">Studios</Link>
+                    <Link to="/recommendations" onClick={closeMobileMenu} className="text-2xl text-white font-serif hover:text-accent-primary transition-colors">For You</Link>
 
                     {isAuthenticated ? (
                         <>

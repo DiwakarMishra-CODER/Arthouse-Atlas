@@ -21,25 +21,17 @@ export const toggleFavorite = async (req, res) => {
     const user = await User.findById(req.user._id);
     const movieId = req.params.movieId;
 
-    // Check if valid movie
     const movie = await Movie.findById(movieId);
-    if (!movie) {
-        return res.status(404).json({ message: 'Movie not found' });
-    }
+    if (!movie) return res.status(404).json({ message: 'Movie not found' });
 
-    // Check if exists using toString() comparison
-    const existingIndex = user.favorites.findIndex(id => id.toString() === movieId);
+    const isFavorite = user.favorites.some(id => id.toString() === movieId);
 
-    if (existingIndex > -1) {
-        // Remove
-        user.favorites.splice(existingIndex, 1);
-        await user.save();
-        res.json({ message: 'Removed from favorites', favorites: user.favorites, isFavorite: false });
+    if (isFavorite) {
+      await User.findByIdAndUpdate(req.user._id, { $pull: { favorites: movieId } });
+      return res.json({ message: 'Removed from favorites', isFavorite: false });
     } else {
-        // Add
-        user.favorites.push(movieId);
-        await user.save();
-        res.json({ message: 'Added to favorites', favorites: user.favorites, isFavorite: true });
+      await User.findByIdAndUpdate(req.user._id, { $addToSet: { favorites: movieId } });
+      return res.json({ message: 'Added to favorites', isFavorite: true });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -54,24 +46,17 @@ export const toggleWatchlist = async (req, res) => {
     const user = await User.findById(req.user._id);
     const movieId = req.params.movieId;
 
-    // Check if valid movie
     const movie = await Movie.findById(movieId);
-    if (!movie) {
-      return res.status(404).json({ message: 'Movie not found' });
-    }
+    if (!movie) return res.status(404).json({ message: 'Movie not found' });
 
-    const existingIndex = user.watchlist.findIndex(id => id.toString() === movieId);
+    const isInWatchlist = user.watchlist.some(id => id.toString() === movieId);
 
-    if (existingIndex > -1) {
-      // Remove
-      user.watchlist.splice(existingIndex, 1);
-      await user.save();
-      res.json({ message: 'Removed from watchlist', watchlist: user.watchlist, isInWatchlist: false });
+    if (isInWatchlist) {
+      await User.findByIdAndUpdate(req.user._id, { $pull: { watchlist: movieId } });
+      return res.json({ message: 'Removed from watchlist', isInWatchlist: false });
     } else {
-      // Add
-      user.watchlist.push(movieId);
-      await user.save();
-      res.json({ message: 'Added to watchlist', watchlist: user.watchlist, isInWatchlist: true });
+      await User.findByIdAndUpdate(req.user._id, { $addToSet: { watchlist: movieId } });
+      return res.json({ message: 'Added to watchlist', isInWatchlist: true });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -86,26 +71,17 @@ export const toggleWatched = async (req, res) => {
     const user = await User.findById(req.user._id);
     const movieId = req.params.movieId;
 
-    // Check if valid movie
     const movie = await Movie.findById(movieId);
-    if (!movie) {
-        return res.status(404).json({ message: 'Movie not found' });
-    }
+    if (!movie) return res.status(404).json({ message: 'Movie not found' });
 
-    const index = user.watched.indexOf(movieId);
+    const isWatched = user.watched.some(id => id.toString() === movieId);
 
-    if (index > -1) {
-        // Remove
-        user.watched.splice(index, 1);
-        await user.save();
-        res.json({ message: 'Removed from watched', watched: user.watched, isWatched: false });
+    if (isWatched) {
+      await User.findByIdAndUpdate(req.user._id, { $pull: { watched: movieId } });
+      return res.json({ message: 'Removed from watched', isWatched: false });
     } else {
-        // Add
-        user.watched.push(movieId);
-        // Optional: Remove from watchlist if they watched it?
-        // user.watchlist = user.watchlist.filter(id => id.toString() !== movieId);
-        await user.save();
-        res.json({ message: 'Marked as watched', watched: user.watched, isWatched: true });
+      await User.findByIdAndUpdate(req.user._id, { $addToSet: { watched: movieId } });
+      return res.json({ message: 'Marked as watched', isWatched: true });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
