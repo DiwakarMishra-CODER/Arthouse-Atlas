@@ -263,11 +263,8 @@ const MovieDetail = () => {
                     <div className="mt-8 border-t border-white/10 pt-6 w-full overflow-hidden">
                         <div className="flex items-center justify-between mb-4 pr-4">
                             <h3 className="text-sm text-gray-400 font-cinzel uppercase tracking-widest">
-                                Global Availability
+                                Watch Movie
                             </h3>
-                            <span className="text-[10px] text-white/30 uppercase tracking-widest hidden sm:block">
-                                VPN may be required
-                            </span>
                         </div>
 
                         {providers === null ? (
@@ -476,11 +473,8 @@ const MovieDetail = () => {
                             <div className="mt-8 border-t border-white/10 pt-6 w-full overflow-hidden">
                                 <div className="flex items-center justify-between mb-4 pr-4">
                                     <h3 className="text-sm text-gray-400 font-cinzel uppercase tracking-widest">
-                                        Global Availability
+                                        Watch Movie
                                     </h3>
-                                    <span className="text-[10px] text-white/30 uppercase tracking-widest hidden sm:block">
-                                        VPN may be required
-                                    </span>
                                 </div>
 
                                 {providers === null ? (
