@@ -32,6 +32,11 @@ app.use('/api/directors', directorRoutes);
 app.use('/api/movements', movementRoutes);
 app.use('/api/studios', studioRoutes);
 
+// Keep-Alive Ping Route for Render (no DB, no auth, instant response)
+app.get('/api/ping', (req, res) => {
+  res.status(200).json({ message: 'Server is awake', timestamp: new Date() });
+});
+
 // Root route
 app.get('/', (req, res) => {
   res.json({ message: 'Arthouse Atlas API' });
