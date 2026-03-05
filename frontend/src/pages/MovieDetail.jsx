@@ -267,6 +267,15 @@ const MovieDetail = () => {
                 {/* Navbar Spacer */}
                 <div className="h-16" />
 
+                {/* Desktop Back Button */}
+                <button
+                    onClick={() => navigate(-1)}
+                    className="absolute top-24 left-8 z-50 flex items-center justify-center w-12 h-12 bg-black/40 hover:bg-black/80 rounded-full text-white backdrop-blur-md transition-all border border-white/10 hover:border-white/30"
+                    aria-label="Go back"
+                >
+                    <span className="material-icons-round text-2xl">arrow_back</span>
+                </button>
+
                 {/* Cinematic Hero Section */}
                 <div className="relative w-full h-[65vh] overflow-hidden">
                     {/* Background Image */}

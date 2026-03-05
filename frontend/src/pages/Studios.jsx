@@ -146,7 +146,7 @@ const Studios = () => {
                                         {studio.featuredFilms.slice(0, 4).map((film, idx) => (
                                             <Link
                                                 key={idx}
-                                                to={`/movie/${film.movieId}`}
+                                                to={`/movie/${film.movieId?._id || film.movieId}`}
                                                 className={`
                                                     /* 1. LAYOUT & SHAPE (Applied to Link) */
                                                     block relative w-36 h-56 rounded-lg shadow-2xl border border-white/10
@@ -176,8 +176,8 @@ const Studios = () => {
                                                 `}
                                             >
                                                 <img
-                                                    src={film.posterUrl}
-                                                    alt={film.title}
+                                                    src={film.posterUrl || film.movieId?.posterUrl}
+                                                    alt={film.title || film.movieId?.title}
                                                     className="w-full h-full object-cover"
                                                 />
                                             </Link>
