@@ -14,6 +14,56 @@ const MovieDetail = () => {
     const [movie, setMovie] = useState(null);
     const [loading, setLoading] = useState(true);
     const [actionLoading, setActionLoading] = useState(false);
+    const [providers, setProviders] = useState(null);
+
+    useEffect(() => {
+        // Guard clause: Don't run until the movie data is loaded
+        const tmdbId = movie?.tmdbId;
+
+        if (!tmdbId) return;
+
+        const fetchProviders = async () => {
+            try {
+                const response = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}/watch/providers?api_key=${import.meta.env.VITE_TMDB_API_KEY}`);
+                const data = await response.json();
+
+                const uniqueProviders = new Map();
+
+                if (data.results) {
+                    // Check only India and US
+                    const allowedCountries = ['IN', 'US'];
+
+                    allowedCountries.forEach(countryCode => {
+                        const countryData = data.results[countryCode];
+
+                        if (countryData) {
+                            // The categories we want to check
+                            const categories = ['flatrate', 'rent', 'buy', 'free'];
+
+                            categories.forEach(category => {
+                                if (countryData[category]) {
+                                    countryData[category].forEach(provider => {
+                                        // Deduplicate using provider_id
+                                        if (!uniqueProviders.has(provider.provider_id)) {
+                                            uniqueProviders.set(provider.provider_id, provider);
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+
+                // Convert Map back to an array and update state
+                setProviders(Array.from(uniqueProviders.values()));
+            } catch (error) {
+                console.error("Failed to fetch providers:", error);
+                setProviders([]);
+            }
+        };
+
+        fetchProviders();
+    }, [movie]);
 
     useEffect(() => {
         fetchMovie();
@@ -209,6 +259,47 @@ const MovieDetail = () => {
                     {/* Star Rating */}
                     <StarRating movie={movie} />
 
+                    {/* STREAMING AVAILABILITY */}
+                    <div className="mt-8 border-t border-white/10 pt-6 w-full overflow-hidden">
+                        <div className="flex items-center justify-between mb-4 pr-4">
+                            <h3 className="text-sm text-gray-400 font-cinzel uppercase tracking-widest">
+                                Global Availability
+                            </h3>
+                            <span className="text-[10px] text-white/30 uppercase tracking-widest hidden sm:block">
+                                VPN may be required
+                            </span>
+                        </div>
+
+                        {providers === null ? (
+                            <div className="animate-pulse h-8 w-32 bg-white/5 rounded"></div>
+                        ) : providers.length > 0 ? (
+                            <div className="flex overflow-x-auto gap-3 items-center pb-4 pr-4 custom-scrollbar">
+                                {providers.map((provider) => (
+                                    <a
+                                        key={provider.provider_id}
+                                        href={`https://www.google.com/search?q=Watch+${encodeURIComponent(movie?.title || "movie")}+on+${encodeURIComponent(provider.provider_name)}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex-shrink-0 flex items-center gap-2 bg-white/5 pr-3 rounded-full border border-white/10 transition-colors hover:border-[#C5A059]/50 cursor-pointer"
+                                    >
+                                        <img
+                                            src={`https://image.tmdb.org/t/p/w45${provider.logo_path}`}
+                                            alt={provider.provider_name}
+                                            className="w-8 h-8 object-cover rounded-l-full"
+                                        />
+                                        <span className="text-xs font-mono text-gray-300 whitespace-nowrap">
+                                            {provider.provider_name}
+                                        </span>
+                                    </a>
+                                ))}
+                            </div>
+                        ) : (
+                            <p className="text-[#C5A059] italic font-serif text-sm">
+                                Currently in the Vault
+                            </p>
+                        )}
+                    </div>
+
                 </div>
 
                 {/* Mobile Tags Section (Genres & Moods) */}
@@ -296,8 +387,8 @@ const MovieDetail = () => {
                     <div className="flex flex-col md:flex-row gap-8">
 
                         {/* Floating Poster */}
-                        <div className="flex-shrink-0 mx-auto md:mx-0">
-                            <div className="w-40 md:w-64 lg:w-72 aspect-[2/3] rounded-lg shadow-2xl overflow-hidden ring-1 ring-white/20">
+                        <div className="flex-shrink-0 mx-auto md:mx-0 w-full md:w-64 lg:w-72">
+                            <div className="w-40 md:w-full aspect-[2/3] mx-auto rounded-lg shadow-2xl overflow-hidden ring-1 ring-white/20">
                                 {movie.posterUrl ? (
                                     <img
                                         src={movie.posterUrl}
@@ -380,6 +471,47 @@ const MovieDetail = () => {
 
                             {/* Star Rating */}
                             <StarRating movie={movie} />
+
+                            {/* STREAMING AVAILABILITY */}
+                            <div className="mt-8 border-t border-white/10 pt-6 w-full overflow-hidden">
+                                <div className="flex items-center justify-between mb-4 pr-4">
+                                    <h3 className="text-sm text-gray-400 font-cinzel uppercase tracking-widest">
+                                        Global Availability
+                                    </h3>
+                                    <span className="text-[10px] text-white/30 uppercase tracking-widest hidden sm:block">
+                                        VPN may be required
+                                    </span>
+                                </div>
+
+                                {providers === null ? (
+                                    <div className="animate-pulse h-8 w-32 bg-white/5 rounded"></div>
+                                ) : providers.length > 0 ? (
+                                    <div className="flex overflow-x-auto gap-3 items-center pb-4 pr-4 custom-scrollbar">
+                                        {providers.map((provider) => (
+                                            <a
+                                                key={provider.provider_id}
+                                                href={`https://www.google.com/search?q=Watch+${encodeURIComponent(movie?.title || "movie")}+on+${encodeURIComponent(provider.provider_name)}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex-shrink-0 flex items-center gap-2 bg-white/5 pr-3 rounded-full border border-white/10 transition-colors hover:border-[#C5A059]/50 cursor-pointer"
+                                            >
+                                                <img
+                                                    src={`https://image.tmdb.org/t/p/w45${provider.logo_path}`}
+                                                    alt={provider.provider_name}
+                                                    className="w-8 h-8 object-cover rounded-l-full"
+                                                />
+                                                <span className="text-xs font-mono text-gray-300 whitespace-nowrap">
+                                                    {provider.provider_name}
+                                                </span>
+                                            </a>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <p className="text-[#C5A059] italic font-serif text-sm">
+                                        Currently in the Vault
+                                    </p>
+                                )}
+                            </div>
                         </div>
 
                         {/* Text Info */}

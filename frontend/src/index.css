@@ -154,3 +154,17 @@
     aspect-ratio: 2/3;
   }
 }
+
+.custom-scrollbar::-webkit-scrollbar {
+  height: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(197, 160, 89, 0.5);
+  /* Gold */
+  border-radius: 10px;
+}
