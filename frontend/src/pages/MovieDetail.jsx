@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { useMovie } from '../context/MovieContext';
 import TagChip from '../components/TagChip';
 import LoadingSkeleton from '../components/LoadingSkeleton';
+import StarRating from '../components/StarRating';
 
 const MovieDetail = () => {
     const { id } = useParams();
@@ -205,6 +206,9 @@ const MovieDetail = () => {
                         )}
                     </div>
 
+                    {/* Star Rating */}
+                    <StarRating movie={movie} />
+
                 </div>
 
                 {/* Mobile Tags Section (Genres & Moods) */}
@@ -364,6 +368,9 @@ const MovieDetail = () => {
                                     </div>
                                 </div>
                             )}
+
+                            {/* Star Rating */}
+                            <StarRating movie={movie} />
                         </div>
 
                         {/* Text Info */}

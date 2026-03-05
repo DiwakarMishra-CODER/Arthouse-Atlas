@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useMovie } from '../context/MovieContext';
 import PosterCard from '../components/PosterCard';
 import LoadingSkeleton from '../components/LoadingSkeleton';
 
 const Profile = () => {
     const { user, loading } = useAuth();
+    const { ratings } = useMovie();
+    const sortedRatings = [...ratings].sort((a, b) => b.rating - a.rating);
 
     if (loading) {
         return (
@@ -132,6 +135,44 @@ const Profile = () => {
                         <p className="text-gray-500 font-cinzel italic text-sm">Your watchlist is empty.</p>
                     </div>
                 )}
+
+                {/* Ratings Section — Mobile */}
+                <div className="flex items-end gap-2 mb-6 border-b border-white/10 pb-4 mt-12">
+                    <h1 className="text-3xl font-cinzel text-white">Your Ratings</h1>
+                    <span className="text-[#C5A059] text-xs font-mono mb-1">
+                        ({sortedRatings.length})
+                    </span>
+                </div>
+
+                {sortedRatings.length > 0 ? (
+                    <div className="grid grid-cols-3 gap-3">
+                        {sortedRatings.map((item) => (
+                            <div key={item.id} className="flex flex-col group">
+                                <Link to={`/movie/${item.id}`}>
+                                    <img
+                                        src={item.movie?.posterUrl}
+                                        alt={item.movie?.title}
+                                        className="w-full aspect-[2/3] object-cover rounded shadow-lg border border-white/5 group-hover:border-[#C5A059]/50 transition-colors"
+                                    />
+                                </Link>
+                                <div className="flex justify-center gap-1 mt-1.5">
+                                    {[1, 2, 3, 4, 5].map((star) => (
+                                        <span
+                                            key={star}
+                                            className={`text-base ${item.rating >= star ? 'text-[#C5A059]' : 'text-white/30'}`}
+                                        >
+                                            ★
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="text-center mt-10">
+                        <p className="text-gray-500 font-cinzel italic text-sm">No films rated yet.</p>
+                    </div>
+                )}
             </div>
 
             {/* DESKTOP VIEW */}
@@ -219,6 +260,46 @@ const Profile = () => {
                         ) : (
                             <div className="text-center py-20 border border-white/10">
                                 <p className="text-muted text-lg">No films in watchlist</p>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Ratings — Desktop */}
+                    <div className="mt-24">
+                        <div className="mb-10">
+                            <h2 className="font-serif text-4xl text-gray-100 mb-2">Your Ratings</h2>
+                            <p className="text-muted">
+                                {sortedRatings.length} {sortedRatings.length === 1 ? 'film' : 'films'} rated
+                            </p>
+                        </div>
+
+                        {sortedRatings.length > 0 ? (
+                            <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                                {sortedRatings.map((item) => (
+                                    <div key={item.id} className="flex flex-col group">
+                                        <Link to={`/movie/${item.id}`}>
+                                            <img
+                                                src={item.movie?.posterUrl}
+                                                alt={item.movie?.title}
+                                                className="w-full aspect-[2/3] object-cover rounded-lg shadow-xl border border-white/5 group-hover:border-[#C5A059]/50 transition-colors duration-300"
+                                            />
+                                        </Link>
+                                        <div className="flex justify-center gap-1.5 mt-2">
+                                            {[1, 2, 3, 4, 5].map((star) => (
+                                                <span
+                                                    key={star}
+                                                    className={`text-xl ${item.rating >= star ? 'text-[#C5A059]' : 'text-white/30'}`}
+                                                >
+                                                    ★
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="text-center py-20 border border-white/10">
+                                <p className="text-muted text-lg">No films rated yet</p>
                             </div>
                         )}
                     </div>

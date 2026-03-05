@@ -13,6 +13,7 @@ import Directors from './pages/Directors';
 import DirectorDetail from './pages/DirectorDetail';
 import Movements from './pages/Movements';
 import Studios from './pages/Studios';
+import Recommendations from './pages/Recommendations';
 import Starfield from './components/Starfield';
 
 
@@ -46,6 +47,7 @@ function AppRoutes() {
           <Route path="/directors/:id" element={<DirectorDetail />} />
           <Route path="/movements" element={<Movements />} />
           <Route path="/studios" element={<Studios />} />
+          <Route path="/recommendations" element={<Recommendations />} />
 
           <Route
             path="/profile"
