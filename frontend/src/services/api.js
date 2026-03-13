@@ -45,7 +45,7 @@ export const userAPI = {
   toggleFavorite: (movieId) => api.post(`/users/favorites/${movieId}`),
   toggleWatchlist: (movieId) => api.post(`/users/watchlist/${movieId}`),
   toggleWatched: (movieId) => api.post(`/users/watched/${movieId}`),
-  getRecommendations: () => api.get('/users/recommendations')
+  getRecommendations: () => api.get('/users/recommendations', { params: { _t: Date.now() } })
 };
 
 export default api;

@@ -83,7 +83,7 @@ const Recommendations = () => {
                             Your Taste Profile
                         </h2>
                         <p className="text-muted mb-6">
-                            Analyzing <span className="text-accent-primary font-medium">{basedOn.favoredMoviesCount}</span> films you've favorited
+                            Analyzing <span className="text-accent-primary font-medium">{basedOn.favoredMoviesCount}</span> films from your taste profile
                         </p>
                         {basedOn.tags && basedOn.tags.length > 0 && (
                             <div>

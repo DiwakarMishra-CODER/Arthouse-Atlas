@@ -88,76 +88,120 @@ export const toggleWatched = async (req, res) => {
   }
 };
 
-// @desc    Get user recommendations
-// @route   GET /api/users/recommendations
-// @access  Private
 export const getRecommendations = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).populate('favorites');
+    const user = await User.findById(req.user._id)
+      .populate('favorites', 'derivedTags directors movements decade')
+      .populate('watched', 'derivedTags directors movements decade')
+      .populate('watchlist', 'derivedTags directors movements decade');
 
-    if (user.favorites.length === 0) {
+    if (user.favorites.length === 0 && user.watched.length === 0 && user.watchlist.length === 0) {
       return res.json({ 
-        message: 'Like some movies first to get recommendations',
+        message: 'Interact with some movies first to get recommendations',
         recommendations: []
       });
     }
 
-    // Aggregate tags from favorites
-    const favoredTags = {};
-    const favoredDirectors = new Set();
+    const tagMap = new Map();
+    const directorMap = new Map();
+    const movementMap = new Map();
+    const decadeMap = new Map();
 
-    user.favorites.forEach(movie => {
-      movie.derivedTags.forEach(tag => {
-        favoredTags[tag] = (favoredTags[tag] || 0) + 1;
+    const processList = (list, weight) => {
+      list.forEach(movie => {
+        if (movie.derivedTags) {
+          movie.derivedTags.forEach(tag => tagMap.set(tag, (tagMap.get(tag) || 0) + weight));
+        }
+        if (movie.directors) {
+          movie.directors.forEach(dir => directorMap.set(dir, (directorMap.get(dir) || 0) + weight));
+        }
+        if (movie.movements) {
+          movie.movements.forEach(mov => movementMap.set(mov, (movementMap.get(mov) || 0) + weight));
+        }
+        if (movie.decade) {
+          decadeMap.set(movie.decade, (decadeMap.get(movie.decade) || 0) + weight);
+        }
       });
-      movie.directors.forEach(dir => favoredDirectors.add(dir));
-    });
+    };
 
-    // Get top tags
-    const topTags = Object.entries(favoredTags)
-      .sort(([, a], [, b]) => b - a)
-      .slice(0, 5)
-      .map(([tag]) => tag);
+    processList(user.favorites, 3.0);
+    processList(user.watched, 1.5);
+    processList(user.watchlist, 1.0);
 
-    // Find similar movies
-    const favoritedIds = user.favorites.map(m => m._id);
-    
-    const recommendations = await Movie.find({
-      _id: { $nin: [...favoritedIds, ...user.watchlist, ...user.watched] }, // Also exclude watched
-      $or: [
-        { derivedTags: { $in: topTags } },
-        { directors: { $in: Array.from(favoredDirectors) } }
-      ]
+    const interactedIds = [
+      ...user.favorites.map(m => m._id),
+      ...user.watched.map(m => m._id),
+      ...user.watchlist.map(m => m._id)
+    ];
+
+    const candidates = await Movie.find({
+      _id: { $nin: interactedIds }
     })
-    .limit(20)
-    .sort({ createdAt: -1 })
-    .select('title year posterUrl directors trailerUrl genres runtime arthouseScore derivedTags');
+    .sort({ baseCanonScore: -1 })
+    .limit(200)
+    .select('title year posterUrl directors trailerUrl genres runtime arthouseScore derivedTags movements decade baseCanonScore')
+    .lean();
 
-    // Score recommendations based on tag overlap
-    const scoredRecs = recommendations.map(movie => {
-      let score = 0;
-      movie.derivedTags.forEach(tag => {
-        if (favoredTags[tag]) {
-          score += favoredTags[tag];
+    const scoredCandidates = candidates.map(candidate => {
+      let recommendationScore = 0;
+
+      if (candidate.derivedTags) {
+        candidate.derivedTags.forEach(tag => {
+          if (tagMap.has(tag)) recommendationScore += tagMap.get(tag) * 1.5;
+        });
+      }
+
+      if (candidate.directors) {
+        candidate.directors.forEach(dir => {
+          if (directorMap.has(dir)) recommendationScore += 20;
+        });
+      }
+
+      if (candidate.movements) {
+        candidate.movements.forEach(mov => {
+          if (movementMap.has(mov)) recommendationScore += movementMap.get(mov) * 2.0;
+        });
+      }
+
+      if (candidate.decade) {
+        if (decadeMap.has(candidate.decade) && decadeMap.get(candidate.decade) > 0) {
+          recommendationScore += 5;
         }
-      });
-      movie.directors.forEach(dir => {
-        if (favoredDirectors.has(dir)) {
-          score += 3; // Director match is weighted higher
-        }
-      });
-      return { movie, score };
+      }
+
+      if (candidate.baseCanonScore) {
+        recommendationScore += candidate.baseCanonScore * 0.1;
+      }
+
+      return {
+        ...candidate,
+        recommendationScore
+      };
     });
 
-    // Sort by score and return
-    scoredRecs.sort((a, b) => b.score - a.score);
-    const sortedRecommendations = scoredRecs.slice(0, 10).map(r => r.movie);
+    scoredCandidates.sort((a, b) => b.recommendationScore - a.recommendationScore);
+    
+    // Take the top 30 mathematically best matches
+    const top30Matches = scoredCandidates.slice(0, 30);
+    
+    // Shuffle the array using Fisher-Yates algorithm
+    for (let i = top30Matches.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [top30Matches[i], top30Matches[j]] = [top30Matches[j], top30Matches[i]];
+    }
+
+    // Return exactly 10 shuffled recommendations
+    const recommendations = top30Matches.slice(0, 10);
+
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
 
     res.json({
-      recommendations: sortedRecommendations,
+      recommendations,
       basedOn: {
-        tags: topTags,
-        favoredMoviesCount: user.favorites.length
+        tags: Array.from(tagMap.entries()).sort((a, b) => b[1] - a[1]).slice(0, 5).map(e => e[0]),
+        favoredMoviesCount: user.favorites.length + user.watched.length + user.watchlist.length
       }
     });
   } catch (error) {
