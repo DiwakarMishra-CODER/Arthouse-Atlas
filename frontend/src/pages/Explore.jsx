@@ -348,9 +348,6 @@ const Explore = () => {
                 <div className="hidden md:flex mb-12 items-center justify-between">
                     <div>
                         <h1 className="font-serif text-6xl text-gray-100 mb-4">Explore</h1>
-                        <p className="text-muted text-lg">
-                            {movies.length} {movies.length === 1 ? 'film' : 'films'} found
-                        </p>
                     </div>
 
                     {/* Shuffle Button */}
