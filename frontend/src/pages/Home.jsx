@@ -1,10 +1,27 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import HeroFeature from '../components/HeroFeature';
 import PosterCard from '../components/PosterCard';
 import LoadingSkeleton from '../components/LoadingSkeleton';
+import { useAuth } from '../context/AuthContext';
+import { userAPI } from '../services/api';
 
 const Home = () => {
+    const { isAuthenticated } = useAuth();
+    const [picks, setPicks] = useState([]);
+    const [picksLoading, setPicksLoading] = useState(true);
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            userAPI.getRecommendations()
+                .then(res => setPicks(res.data.recommendations?.slice(0, 6) || []))
+                .catch(() => setPicks([]))
+                .finally(() => setPicksLoading(false));
+        } else {
+            setPicksLoading(false);
+        }
+    }, [isAuthenticated]);
 
     return (
         <div className="min-h-screen pt-0 md:pt-24">
@@ -100,6 +117,59 @@ const Home = () => {
                         </div>
                     </Link>
 
+                </div>
+            </section>
+
+            {/* FOR YOU SECTION */}
+            <section className="relative py-16 px-6 border-t border-white/5">
+                <div className="max-w-7xl mx-auto">
+                    <div className="flex items-end justify-between mb-8">
+                        <div>
+                            <h2 className="text-3xl md:text-4xl font-cinzel text-[#C5A059] tracking-tight">Curated for you</h2>
+                        </div>
+                        {isAuthenticated && picks.length > 0 && (
+                            <Link
+                                to="/recommendations"
+                                className="text-sm font-mono text-gray-400 hover:text-[#C5A059] transition-colors tracking-widest uppercase flex items-center gap-2"
+                            >
+                                See All <span className="text-lg">›</span>
+                            </Link>
+                        )}
+                    </div>
+
+                    {!isAuthenticated ? (
+                        <div className="flex items-center justify-between p-8 border border-white/10 rounded-2xl bg-white/[0.02]">
+                            <div>
+                                <p className="text-base text-gray-300 font-serif mb-1">Sign in to unlock recommendations</p>
+                                <p className="text-sm text-gray-500">We'll learn your taste and curate a personal film library.</p>
+                            </div>
+                            <Link
+                                to="/login"
+                                className="flex-shrink-0 ml-6 px-6 py-3 border border-[#C5A059]/40 text-[#C5A059] text-sm font-mono tracking-widest uppercase hover:bg-[#C5A059]/10 transition-colors rounded-lg"
+                            >
+                                Sign In
+                            </Link>
+                        </div>
+                    ) : picksLoading ? (
+                        <div className="flex gap-4 overflow-hidden">
+                            {[...Array(6)].map((_, i) => (
+                                <div key={i} className="flex-shrink-0 w-40 md:w-48 aspect-[2/3] rounded-xl bg-white/5 animate-pulse" />
+                            ))}
+                        </div>
+                    ) : picks.length > 0 ? (
+                        <div className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar">
+                            {picks.map(movie => (
+                                <div key={movie._id} className="flex-shrink-0 w-40 md:w-48 hover:z-50 relative">
+                                    <PosterCard movie={movie} />
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="p-8 border border-white/10 rounded-2xl bg-white/[0.02] text-center">
+                            <p className="text-gray-400 font-serif italic mb-4">Like, watch, or save some films to get personalised picks.</p>
+                            <Link to="/explore" className="text-sm text-[#C5A059] font-mono uppercase tracking-widest hover:underline">Start Exploring →</Link>
+                        </div>
+                    )}
                 </div>
             </section>
 
