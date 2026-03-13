@@ -35,6 +35,7 @@ export const moviesAPI = {
   getMovies: (params) => api.get('/movies', { params }),
   getTitles: () => api.get('/movies/titles'),
   getMovieById: (id) => api.get(`/movies/${id}`),
+  getSimilarMovies: (id) => api.get(`/movies/${id}/similar`),
   getDirectors: () => api.get('/movies/directors/list'),
   getTags: () => api.get('/movies/tags/list'),
   getGenres: () => api.get('/movies/genres/list')
