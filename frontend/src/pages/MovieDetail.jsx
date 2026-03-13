@@ -6,6 +6,7 @@ import { useMovie } from '../context/MovieContext';
 import TagChip from '../components/TagChip';
 import LoadingSkeleton from '../components/LoadingSkeleton';
 import StarRating from '../components/StarRating';
+import PosterCard from '../components/PosterCard';
 
 const MovieDetail = () => {
     const { id } = useParams();
@@ -15,6 +16,7 @@ const MovieDetail = () => {
     const [loading, setLoading] = useState(true);
     const [actionLoading, setActionLoading] = useState(false);
     const [providers, setProviders] = useState(null);
+    const [similarMovies, setSimilarMovies] = useState([]);
 
     useEffect(() => {
         // Guard clause: Don't run until the movie data is loaded
@@ -67,7 +69,17 @@ const MovieDetail = () => {
 
     useEffect(() => {
         fetchMovie();
+        fetchSimilarMovies();
     }, [id]);
+
+    const fetchSimilarMovies = async () => {
+        try {
+            const response = await moviesAPI.getSimilarMovies(id);
+            setSimilarMovies(response.data);
+        } catch (error) {
+            console.error('Failed to fetch similar movies:', error);
+        }
+    };
 
     const fetchMovie = async () => {
         try {
@@ -260,42 +272,40 @@ const MovieDetail = () => {
                     <StarRating movie={movie} />
 
                     {/* STREAMING AVAILABILITY */}
-                    <div className="mt-8 border-t border-white/10 pt-6 w-full overflow-hidden">
-                        <div className="flex items-center justify-between mb-4 pr-4">
-                            <h3 className="text-sm text-gray-400 font-cinzel uppercase tracking-widest">
-                                Watch Movie
-                            </h3>
-                        </div>
-
-                        {providers === null ? (
-                            <div className="animate-pulse h-8 w-32 bg-white/5 rounded"></div>
-                        ) : providers.length > 0 ? (
-                            <div className="flex overflow-x-auto gap-3 items-center pb-4 pr-4 custom-scrollbar">
-                                {providers.map((provider) => (
-                                    <a
-                                        key={provider.provider_id}
-                                        href={`https://www.google.com/search?q=Watch+${encodeURIComponent(movie?.title || "movie")}+on+${encodeURIComponent(provider.provider_name)}`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex-shrink-0 flex items-center gap-2 bg-white/5 pr-3 rounded-full border border-white/10 transition-colors hover:border-[#C5A059]/50 cursor-pointer"
-                                    >
-                                        <img
-                                            src={`https://image.tmdb.org/t/p/w45${provider.logo_path}`}
-                                            alt={provider.provider_name}
-                                            className="w-8 h-8 object-cover rounded-l-full"
-                                        />
-                                        <span className="text-xs font-mono text-gray-300 whitespace-nowrap">
-                                            {provider.provider_name}
-                                        </span>
-                                    </a>
-                                ))}
+                    {(providers === null || providers.length > 0) && (
+                        <div className="mt-8 border-t border-white/10 pt-6 w-full overflow-hidden">
+                            <div className="flex items-center justify-between mb-4 pr-4">
+                                <h3 className="text-sm text-gray-400 font-cinzel uppercase tracking-widest">
+                                    Watch Movie
+                                </h3>
                             </div>
-                        ) : (
-                            <p className="text-[#C5A059] italic font-serif text-sm">
-                                Currently in the Vault
-                            </p>
-                        )}
-                    </div>
+
+                            {providers === null ? (
+                                <div className="animate-pulse h-8 w-32 bg-white/5 rounded"></div>
+                            ) : (
+                                <div className="flex overflow-x-auto gap-3 items-center pb-4 pr-4 custom-scrollbar">
+                                    {providers.map((provider) => (
+                                        <a
+                                            key={provider.provider_id}
+                                            href={`https://www.google.com/search?q=Watch+${encodeURIComponent(movie?.title || "movie")}+on+${encodeURIComponent(provider.provider_name)}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex-shrink-0 flex items-center gap-2 bg-white/5 pr-3 rounded-full border border-white/10 transition-colors hover:border-[#C5A059]/50 cursor-pointer"
+                                        >
+                                            <img
+                                                src={`https://image.tmdb.org/t/p/w45${provider.logo_path}`}
+                                                alt={provider.provider_name}
+                                                className="w-8 h-8 object-cover rounded-l-full"
+                                            />
+                                            <span className="text-xs font-mono text-gray-300 whitespace-nowrap">
+                                                {provider.provider_name}
+                                            </span>
+                                        </a>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    )}
 
                 </div>
 
@@ -470,42 +480,40 @@ const MovieDetail = () => {
                             <StarRating movie={movie} />
 
                             {/* STREAMING AVAILABILITY */}
-                            <div className="mt-8 border-t border-white/10 pt-6 w-full overflow-hidden">
-                                <div className="flex items-center justify-between mb-4 pr-4">
-                                    <h3 className="text-sm text-gray-400 font-cinzel uppercase tracking-widest">
-                                        Watch Movie
-                                    </h3>
-                                </div>
-
-                                {providers === null ? (
-                                    <div className="animate-pulse h-8 w-32 bg-white/5 rounded"></div>
-                                ) : providers.length > 0 ? (
-                                    <div className="flex overflow-x-auto gap-3 items-center pb-4 pr-4 custom-scrollbar">
-                                        {providers.map((provider) => (
-                                            <a
-                                                key={provider.provider_id}
-                                                href={`https://www.google.com/search?q=Watch+${encodeURIComponent(movie?.title || "movie")}+on+${encodeURIComponent(provider.provider_name)}`}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="flex-shrink-0 flex items-center gap-2 bg-white/5 pr-3 rounded-full border border-white/10 transition-colors hover:border-[#C5A059]/50 cursor-pointer"
-                                            >
-                                                <img
-                                                    src={`https://image.tmdb.org/t/p/w45${provider.logo_path}`}
-                                                    alt={provider.provider_name}
-                                                    className="w-8 h-8 object-cover rounded-l-full"
-                                                />
-                                                <span className="text-xs font-mono text-gray-300 whitespace-nowrap">
-                                                    {provider.provider_name}
-                                                </span>
-                                            </a>
-                                        ))}
+                            {(providers === null || providers.length > 0) && (
+                                <div className="mt-8 border-t border-white/10 pt-6 w-full overflow-hidden">
+                                    <div className="flex items-center justify-between mb-4 pr-4">
+                                        <h3 className="text-sm text-gray-400 font-cinzel uppercase tracking-widest">
+                                            Watch Movie
+                                        </h3>
                                     </div>
-                                ) : (
-                                    <p className="text-[#C5A059] italic font-serif text-sm">
-                                        Currently in the Vault
-                                    </p>
-                                )}
-                            </div>
+
+                                    {providers === null ? (
+                                        <div className="animate-pulse h-8 w-32 bg-white/5 rounded"></div>
+                                    ) : (
+                                        <div className="flex overflow-x-auto gap-3 items-center pb-4 pr-4 custom-scrollbar">
+                                            {providers.map((provider) => (
+                                                <a
+                                                    key={provider.provider_id}
+                                                    href={`https://www.google.com/search?q=Watch+${encodeURIComponent(movie?.title || "movie")}+on+${encodeURIComponent(provider.provider_name)}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="flex-shrink-0 flex items-center gap-2 bg-white/5 pr-3 rounded-full border border-white/10 transition-colors hover:border-[#C5A059]/50 cursor-pointer"
+                                                >
+                                                    <img
+                                                        src={`https://image.tmdb.org/t/p/w45${provider.logo_path}`}
+                                                        alt={provider.provider_name}
+                                                        className="w-8 h-8 object-cover rounded-l-full"
+                                                    />
+                                                    <span className="text-xs font-mono text-gray-300 whitespace-nowrap">
+                                                        {provider.provider_name}
+                                                    </span>
+                                                </a>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
                         </div>
 
                         {/* Text Info */}
@@ -604,6 +612,22 @@ const MovieDetail = () => {
                             )}
                         </div>
                     </div>
+
+                    {/* Similar Movies Section */}
+                    {similarMovies.length > 0 && (
+                        <div className="mt-24 mb-12">
+                            <h2 className="font-serif text-3xl text-gray-100 mb-8 px-4 flex items-center gap-4">
+                                <span className="h-[1px] flex-1 bg-white/10"></span>
+                                Similar Films
+                                <span className="h-[1px] flex-1 bg-white/10"></span>
+                            </h2>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 px-4">
+                                {similarMovies.map(movie => (
+                                    <PosterCard key={movie._id} movie={movie} />
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </>

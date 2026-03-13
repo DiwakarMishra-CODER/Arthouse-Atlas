@@ -168,7 +168,6 @@ const PosterCard = ({ movie, showActions = true }) => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
-            {/* Base Card - Always visible acting as placeholder/anchor */}
             <Link
                 to={`/movie/${movie._id}`}
                 onClick={handleMobileClick}

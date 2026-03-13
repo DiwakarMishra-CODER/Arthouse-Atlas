@@ -5,7 +5,8 @@ import {
   getDirectors,
   getTags,
   getGenres,
-  getAllTitles
+  getAllTitles,
+  getSimilarMovies
 } from '../controllers/movieController.js';
 
 const router = express.Router();
@@ -16,6 +17,7 @@ router.get('/titles', getAllTitles);
 router.get('/directors/list', getDirectors);
 router.get('/tags/list', getTags);
 router.get('/genres/list', getGenres);
+router.get('/:id/similar', getSimilarMovies);
 router.get('/:id', getMovieById);
 
 export default router;

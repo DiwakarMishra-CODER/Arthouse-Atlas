@@ -219,6 +219,78 @@ export const getMovieById = async (req, res) => {
   }
 };
 
+// @desc    Get similar movies for a specific movie ID
+// @route   GET /api/movies/:id/similar
+// @access  Public
+export const getSimilarMovies = async (req, res) => {
+  try {
+    const movie = await Movie.findById(req.params.id).lean();
+
+    if (!movie) {
+      return res.status(404).json({ message: 'Movie not found' });
+    }
+
+    // Build lists of attributes for comparison
+    const targetTags = movie.derivedTags || [];
+    const targetGenres = movie.genres || [];
+    const targetDirectors = movie.directors || [];
+    const targetMovements = movie.movements || [];
+
+    // Query for movies that share ANY of these attributes (excluding the target movie itself)
+    const candidates = await Movie.find({
+      _id: { $ne: movie._id },
+      $or: [
+        { derivedTags: { $in: targetTags } },
+        { genres: { $in: targetGenres } },
+        { directors: { $in: targetDirectors } },
+        { movements: { $in: targetMovements } }
+      ]
+    })
+    .select('title posterUrl year directors derivedTags genres movements')
+    .limit(100) // Keep the candidate pool manageable
+    .lean();
+
+    // Score candidates based on overlap
+    const scoredCandidates = candidates.map(candidate => {
+      let score = 0;
+
+      // 3 points for shared director (highest correlation)
+      const sharedDirectors = candidate.directors?.filter(d => targetDirectors.includes(d)).length || 0;
+      score += sharedDirectors * 3;
+
+      // 2 points for shared movement
+      const sharedMovements = candidate.movements?.filter(m => targetMovements.includes(m)).length || 0;
+      score += sharedMovements * 2;
+
+      // 1.5 points for shared derived tags (strong thematic correlation)
+      const sharedTags = candidate.derivedTags?.filter(t => targetTags.includes(t)).length || 0;
+      score += sharedTags * 1.5;
+
+      // 1 point for shared genres (broader correlation)
+      const sharedGenres = candidate.genres?.filter(g => targetGenres.includes(g)).length || 0;
+      score += sharedGenres * 1;
+
+      return {
+        ...candidate,
+        similarityScore: score
+      };
+    });
+
+    // Sort by highest similarity score
+    scoredCandidates.sort((a, b) => b.similarityScore - a.similarityScore);
+
+    // Return the top 10
+    const topSimilar = scoredCandidates.slice(0, 10);
+
+    // Add brief cache headers since this data rarely changes rapidly
+    res.setHeader('Cache-Control', 'public, max-age=3600');
+    
+    res.json(topSimilar);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // @desc    Get unique directors list
 // @route   GET /api/movies/directors/list
 // @access  Public
