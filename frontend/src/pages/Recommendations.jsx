@@ -6,7 +6,7 @@ import LoadingSkeleton from '../components/LoadingSkeleton';
 import { useAuth } from '../context/AuthContext';
 
 const Recommendations = () => {
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, loading: authLoading } = useAuth();
     const [recommendations, setRecommendations] = useState([]);
     const [basedOn, setBasedOn] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -21,6 +21,7 @@ const Recommendations = () => {
     }, [isAuthenticated]);
 
     const fetchRecommendations = async () => {
+        setLoading(true);
         try {
             const response = await userAPI.getRecommendations();
             setRecommendations(response.data.recommendations || []);
@@ -35,6 +36,14 @@ const Recommendations = () => {
             setLoading(false);
         }
     };
+
+    if (authLoading) {
+        return (
+            <div className="min-h-screen pt-24">
+                <LoadingSkeleton />
+            </div>
+        );
+    }
 
     if (!isAuthenticated) {
         return (
