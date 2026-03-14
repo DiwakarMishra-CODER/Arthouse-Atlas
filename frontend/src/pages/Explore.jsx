@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { MdTune, MdShuffle, MdClose, MdSearch } from 'react-icons/md';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { moviesAPI } from '../services/api';
@@ -15,20 +15,38 @@ const Explore = () => {
     const { user, setUser } = useAuth();
     const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
-    // Lazy initialize state from sessionStorage
+    const [page, setPage] = useState(() => {
+        const saved = sessionStorage.getItem('explore_page_v4');
+        return saved ? parseInt(saved, 10) : 1;
+    });
+
+    const [hasMore, setHasMore] = useState(() => {
+        const saved = sessionStorage.getItem('explore_hasMore_v4');
+        return saved ? saved === 'true' : true;
+    });
+    
+    // Used to track if a page change was triggered by scrolling
+    const isScrollFetch = useRef(false);
+
     const [movies, setMovies] = useState(() => {
-        const saved = sessionStorage.getItem('explore_movies_v3');
+        const saved = sessionStorage.getItem('explore_movies_v4');
         return saved ? JSON.parse(saved) : [];
     });
 
     const [loading, setLoading] = useState(() => {
-        // If we have movies, we aren't loading
-        const savedMovies = sessionStorage.getItem('explore_movies_v3');
-        return !savedMovies;
+        const savedMovies = sessionStorage.getItem('explore_movies_v4');
+        if (!savedMovies) return true;
+        try {
+            return JSON.parse(savedMovies).length === 0;
+        } catch (e) {
+            return true;
+        }
     });
 
+    const [isFetchingNextPage, setIsFetchingNextPage] = useState(false);
+
     const [filters, setFilters] = useState(() => {
-        const saved = sessionStorage.getItem('explore_filters_v3');
+        const saved = sessionStorage.getItem('explore_filters_v4');
         return saved ? JSON.parse(saved) : {
             search: searchParams.get('search') || '',
             director: searchParams.get('director') || '',
@@ -43,7 +61,7 @@ const Explore = () => {
     const [allTitles, setAllTitles] = useState([]);
 
     const [selectedTags, setSelectedTags] = useState(() => {
-        const saved = sessionStorage.getItem('explore_tags_v3');
+        const saved = sessionStorage.getItem('explore_tags_v4');
         if (saved) return JSON.parse(saved);
         const tagsParam = searchParams.get('tags');
         const moodParam = searchParams.get('mood');
@@ -74,23 +92,52 @@ const Explore = () => {
 
     // Track shuffle mode and seed
     const [isShuffled, setIsShuffled] = useState(() => {
-        const saved = sessionStorage.getItem('explore_is_shuffled_v3');
+        const saved = sessionStorage.getItem('explore_is_shuffled_v4');
         return saved === 'true'; // Default false (Curated) unless saved as true
     });
 
     const [shuffleSeed, setShuffleSeed] = useState(() => {
-        const saved = sessionStorage.getItem('explore_seed_v3');
+        const saved = sessionStorage.getItem('explore_seed_v4');
         return saved ? parseInt(saved, 10) : Date.now();
     });
 
     // Save state to sessionStorage whenever it changes
     useEffect(() => {
-        sessionStorage.setItem('explore_movies_v3', JSON.stringify(movies));
-        sessionStorage.setItem('explore_filters_v3', JSON.stringify(filters));
-        sessionStorage.setItem('explore_tags_v3', JSON.stringify(selectedTags));
-        sessionStorage.setItem('explore_is_shuffled_v3', isShuffled.toString());
-        sessionStorage.setItem('explore_seed_v3', shuffleSeed.toString());
-    }, [movies, filters, selectedTags, isShuffled, shuffleSeed]);
+        sessionStorage.setItem('explore_movies_v4', JSON.stringify(movies));
+        sessionStorage.setItem('explore_filters_v4', JSON.stringify(filters));
+        sessionStorage.setItem('explore_tags_v4', JSON.stringify(selectedTags));
+        sessionStorage.setItem('explore_is_shuffled_v4', isShuffled.toString());
+        sessionStorage.setItem('explore_seed_v4', shuffleSeed.toString());
+        sessionStorage.setItem('explore_page_v4', page.toString());
+        sessionStorage.setItem('explore_hasMore_v4', hasMore.toString());
+    }, [movies, filters, selectedTags, isShuffled, shuffleSeed, page, hasMore]);
+
+    const loadingRef = useRef(loading || isFetchingNextPage);
+    useEffect(() => {
+        loadingRef.current = loading || isFetchingNextPage;
+    }, [loading, isFetchingNextPage]);
+
+    // Infinite Scroll Observer
+    const observer = useRef();
+    const lastMovieElementRef = useCallback(node => {
+        if (loadingRef.current) return;
+        if (observer.current) observer.current.disconnect();
+        observer.current = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && hasMore) {
+                isScrollFetch.current = true;
+                setPage(prevPage => prevPage + 1);
+            }
+        });
+        if (node) observer.current.observe(node);
+    }, [hasMore]);
+
+    // Handle Infinite Scroll Fetch
+    useEffect(() => {
+        if (isScrollFetch.current) {
+            fetchMovies({ page: page, resetData: false });
+            isScrollFetch.current = false;
+        }
+    }, [page]);
 
     // Scroll Restoration
     useEffect(() => {
@@ -156,7 +203,8 @@ const Explore = () => {
         const shuffleChanged = isShuffled !== prevShuffleRef.current;
 
         if (filtersChanged || tagsChanged || shuffleChanged) {
-            fetchMovies();
+            setPage(1);
+            fetchMovies({ page: 1, resetData: true });
         }
 
         // Update refs
@@ -172,10 +220,8 @@ const Explore = () => {
         if (filters.search === prevFiltersRef.current.search) return;
 
         const timer = setTimeout(() => {
-            fetchMovies();
-            // Upate ref to current search so we don't re-run or block future valid same-updates (though state change implies diff)
-            // Actually, simply updating the ref in the previous effect is cleaner if we include search in deps?
-            // No, we want debouncing ONLY for search.
+            setPage(1);
+            fetchMovies({ page: 1, resetData: true });
             prevFiltersRef.current = { ...prevFiltersRef.current, search: filters.search };
         }, 500);
 
@@ -225,14 +271,21 @@ const Explore = () => {
         const forceShuffle = typeof options === 'boolean' ? options : options?.forceShuffle || false;
         const overrideFilters = options?.filters || null;
         const overrideTags = options?.tags || null;
+        const targetPage = options?.page || page;
+        const resetData = options?.resetData !== undefined ? options.resetData : false;
 
-        setLoading(true);
+        if (resetData || targetPage === 1) {
+            setLoading(true);
+        } else {
+            setIsFetchingNextPage(true);
+        }
+        
         try {
             // Use overrides if provided, otherwise use current state
             const activeFilters = overrideFilters || filters;
             const activeTags = overrideTags || selectedTags;
 
-            const params = { ...activeFilters, limit: 500 };
+            const params = { ...activeFilters, limit: 20, page: targetPage };
 
             const effectiveShuffle = forceShuffle || isShuffled;
 
@@ -254,12 +307,28 @@ const Explore = () => {
                 params.tags = activeTags.join(',');
             }
             const response = await moviesAPI.getMovies(params);
-            setMovies(response.data.movies);
+            
+            if (resetData || targetPage === 1) {
+                setMovies(response.data.movies);
+            } else {
+                setMovies(prev => {
+                    const existingIds = new Set(prev.map(m => m._id));
+                    const newMovies = response.data.movies.filter(m => !existingIds.has(m._id));
+                    return [...prev, ...newMovies];
+                });
+            }
+            
+            // Critical fix for infinite loops: only true if there are actually more pages AND we got movies back
+            setHasMore(targetPage < response.data.pages && response.data.movies.length > 0);
 
         } catch (error) {
             console.error('Failed to fetch movies:', error);
         } finally {
-            setLoading(false);
+            if (resetData || targetPage === 1) {
+                setLoading(false);
+            } else {
+                setIsFetchingNextPage(false);
+            }
         }
     };
 
@@ -267,7 +336,8 @@ const Explore = () => {
         const newSeed = Date.now();
         setShuffleSeed(newSeed);
         setIsShuffled(true);
-        fetchMovies({ forceShuffle: true });
+        setPage(1);
+        fetchMovies({ forceShuffle: true, page: 1, resetData: true });
     };
 
     const handleClearFilters = () => {
@@ -283,14 +353,13 @@ const Explore = () => {
         sessionStorage.removeItem('arthouse_explore_state');
 
         // 4. Force immediate re-fetch with empty values (bypassing state update lag)
+        setPage(1);
         fetchMovies({
             filters: emptyFilters,
             tags: [],
-            forceShuffle: false // preserve current shuffle state or reset? User said "snaps back to full database", implies default? 
-            // Usually "Clear All" means "Show me everything".
-            // If they were shuffled, maybe keep shuffled? Or reset to curated?
-            // "App snaps back to full database". 
-            // Let's assume standard "curated" default if no shuffle.
+            page: 1,
+            resetData: true,
+            forceShuffle: false 
         });
     };
 
@@ -319,7 +388,8 @@ const Explore = () => {
     const handleSearch = (e) => {
         e.preventDefault();
         sessionStorage.removeItem('arthouse_explore_state');
-        fetchMovies();
+        setPage(1);
+        fetchMovies({ page: 1, resetData: true });
     };
 
     const handleTagToggle = (tag) => {
@@ -524,15 +594,30 @@ const Explore = () => {
                             loading ? (
                                 <LoadingSkeleton />
                             ) : movies.length > 0 ? (
-                                <div className="grid grid-cols-3 gap-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 md:gap-6">
-                                    {movies.map((movie) => (
-                                        <div key={movie._id} className="relative hover:z-50">
-                                            <PosterCard
-                                                movie={movie}
-                                            />
+                                <>
+                                    <div className="grid grid-cols-3 gap-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 md:gap-6">
+                                        {movies.map((movie, index) => {
+                                            if (movies.length === index + 1) {
+                                                return (
+                                                    <div ref={lastMovieElementRef} key={movie._id} className="relative hover:z-50">
+                                                        <PosterCard movie={movie} />
+                                                    </div>
+                                                );
+                                            } else {
+                                                return (
+                                                    <div key={movie._id} className="relative hover:z-50">
+                                                        <PosterCard movie={movie} />
+                                                    </div>
+                                                );
+                                            }
+                                        })}
+                                    </div>
+                                    {hasMore && movies.length > 0 && !loading && (
+                                        <div className="py-12 flex justify-center">
+                                            <div className="w-8 h-8 border-2 border-[#C5A059] border-t-transparent rounded-full animate-spin"></div>
                                         </div>
-                                    ))}
-                                </div>
+                                    )}
+                                </>
                             ) : (
                                 <div className="text-center py-20">
                                     <p className="text-muted text-lg mb-4">No films match your criteria</p>
@@ -540,7 +625,8 @@ const Explore = () => {
                                         onClick={() => {
                                             setFilters({ search: '', director: '', genre: '', decade: '' });
                                             setSelectedTags([]);
-                                            fetchMovies();
+                                            setPage(1);
+                                            fetchMovies({ page: 1, resetData: true });
                                         }}
                                         className="px-6 py-3 border border-accent-primary/30 text-accent-primary text-sm tracking-wide uppercase hover:bg-accent-primary/10 transition-colors"
                                     >

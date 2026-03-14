@@ -238,9 +238,9 @@ const MovieDetail = () => {
                                         toggleWatchlist(movie);
                                     }}
                                     title={isInWatchlist(id) ? "Remove from Watchlist" : "Add to Watchlist"}
-                                    className={`w-12 h-12 rounded-xl border border-white/20 flex items-center justify-center transition-colors ${isInWatchlist(id) ? 'bg-white text-black' : 'text-white hover:bg-white/10'}`}
+                                    className={`w-12 h-12 rounded-xl border flex items-center justify-center transition-colors ${isInWatchlist(id) ? 'border-blue-500 text-blue-500 bg-blue-500/10' : 'border-white/20 text-white hover:bg-white/10'}`}
                                 >
-                                    <span className="material-icons-round text-2xl">{isInWatchlist(id) ? 'bookmark' : 'bookmark_border'}</span>
+                                    <span className={`material-icons-round text-2xl ${isInWatchlist(id) ? 'material-icons' : ''}`}>{isInWatchlist(id) ? 'bookmark' : 'bookmark_border'}</span>
                                 </button>
                                 <button
                                     onClick={(e) => {
@@ -249,9 +249,9 @@ const MovieDetail = () => {
                                         toggleWatched(movie);
                                     }}
                                     title={isWatched(id) ? "Mark as Watched" : "Mark as Unwatched"}
-                                    className={`w-12 h-12 rounded-xl border border-white/20 flex items-center justify-center transition-colors ${isWatched(id) ? 'bg-white text-black' : 'text-white hover:bg-white/10'}`}
+                                    className={`w-12 h-12 rounded-xl border flex items-center justify-center transition-colors ${isWatched(id) ? 'border-green-500 text-green-500 bg-green-500/10' : 'border-white/20 text-white hover:bg-white/10'}`}
                                 >
-                                    <span className="material-icons-round text-2xl">{isWatched(id) ? 'check_circle' : 'radio_button_unchecked'}</span>
+                                    <span className={`material-icons-round text-2xl ${isWatched(id) ? 'material-icons' : ''}`}>{isWatched(id) ? 'check_circle' : 'radio_button_unchecked'}</span>
                                 </button>
                                 <button
                                     onClick={(e) => {
@@ -260,9 +260,9 @@ const MovieDetail = () => {
                                         toggleFavorite(movie);
                                     }}
                                     title={isFavorite(id) ? "Remove from Favorites" : "Add to Favorites"}
-                                    className={`w-12 h-12 rounded-xl border border-white/20 flex items-center justify-center transition-colors ${isFavorite(id) ? 'bg-red-500 border-red-500 text-white' : 'text-white hover:bg-white/10'}`}
+                                    className={`w-12 h-12 rounded-xl border flex items-center justify-center transition-colors ${isFavorite(id) ? 'border-red-500 text-red-500 bg-red-500/10' : 'border-white/20 text-white hover:bg-white/10'}`}
                                 >
-                                    <span className="material-icons-round text-2xl">{isFavorite(id) ? 'favorite' : 'favorite_border'}</span>
+                                    <span className={`material-icons-round text-2xl ${isFavorite(id) ? 'material-icons' : ''}`}>{isFavorite(id) ? 'favorite' : 'favorite_border'}</span>
                                 </button>
                             </div>
                         )}
@@ -433,9 +433,9 @@ const MovieDetail = () => {
                                             }}
                                             disabled={actionLoading}
                                             title={isWatched(id) ? "Mark as Unwatched" : "Mark as Watched"}
-                                            className="flex-1 h-14 border border-white/20 rounded-xl transition-all duration-300 flex items-center justify-center group hover:bg-white hover:text-black"
+                                            className={`flex-1 h-14 border rounded-xl transition-all duration-300 flex items-center justify-center group ${isWatched(id) ? 'border-green-500 text-green-500 bg-green-500/10' : 'border-white/20 text-white hover:border-green-500 hover:text-green-500 hover:bg-green-500/10'}`}
                                         >
-                                            <span className="material-icons-round text-2xl">
+                                            <span className={`material-icons-round text-2xl ${isWatched(id) ? 'material-icons' : ''}`}>
                                                 {isWatched(id) ? 'check_circle' : 'radio_button_unchecked'}
                                             </span>
                                         </button>
@@ -449,9 +449,9 @@ const MovieDetail = () => {
                                             }}
                                             disabled={actionLoading}
                                             title={isInWatchlist(id) ? "Remove from Watchlist" : "Add to Watchlist"}
-                                            className="flex-1 h-14 border border-white/20 rounded-xl transition-all duration-300 flex items-center justify-center group hover:bg-white hover:text-black"
+                                            className={`flex-1 h-14 border rounded-xl transition-all duration-300 flex items-center justify-center group ${isInWatchlist(id) ? 'border-blue-500 text-blue-500 bg-blue-500/10' : 'border-white/20 text-white hover:border-blue-500 hover:text-blue-500 hover:bg-blue-500/10'}`}
                                         >
-                                            <span className="material-icons-round text-2xl">
+                                            <span className={`material-icons-round text-2xl ${isInWatchlist(id) ? 'material-icons' : ''}`}>
                                                 {isInWatchlist(id) ? 'bookmark' : 'bookmark_border'}
                                             </span>
                                         </button>
@@ -465,9 +465,9 @@ const MovieDetail = () => {
                                             }}
                                             disabled={actionLoading}
                                             title={isFavorite(id) ? "Remove from Favorites" : "Add to Favorites"}
-                                            className="flex-1 h-14 border border-white/20 rounded-xl transition-all duration-300 flex items-center justify-center group hover:bg-white hover:text-black"
+                                            className={`flex-1 h-14 border rounded-xl transition-all duration-300 flex items-center justify-center group ${isFavorite(id) ? 'border-red-500 text-red-500 bg-red-500/10' : 'border-white/20 text-white hover:border-red-500 hover:text-red-500 hover:bg-red-500/10'}`}
                                         >
-                                            <span className="material-icons-round text-2xl">
+                                            <span className={`material-icons-round text-2xl ${isFavorite(id) ? 'material-icons' : ''}`}>
                                                 {isFavorite(id) ? 'favorite' : 'favorite_border'}
                                             </span>
                                         </button>
