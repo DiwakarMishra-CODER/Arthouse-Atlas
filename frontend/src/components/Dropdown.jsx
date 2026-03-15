@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { MdArrowDropDown, MdCheck } from 'react-icons/md';
+import { MdArrowDropDown, MdCheck, MdClose } from 'react-icons/md';
 
 const Dropdown = ({
     options = [],
@@ -38,17 +38,34 @@ const Dropdown = ({
     return (
         <div className={`relative ${className}`} ref={dropdownRef}>
             {/* Trigger Button */}
-            <button
-                type="button"
-                onClick={() => setIsOpen(!isOpen)}
-                className={`w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-left flex justify-between items-center gap-2 transition-all duration-300 hover:bg-white/10 focus:outline-none focus:border-accent-primary/50 text-sm tracking-wide ${triggerClassName} ${isOpen ? 'border-accent-primary/50 bg-white/10' : ''
-                    }`}
-            >
-                <span className={selectedOption ? 'text-gray-200' : 'text-muted'}>
-                    {selectedOption ? selectedOption.label : placeholder}
-                </span>
-                <MdArrowDropDown className={`text-xl text-muted transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
-            </button>
+            <div className="relative w-full group">
+                <button
+                    type="button"
+                    onClick={() => setIsOpen(!isOpen)}
+                    className={`w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-left flex justify-between items-center gap-2 transition-all duration-300 hover:bg-white/10 focus:outline-none focus:border-accent-primary/50 text-sm tracking-wide ${triggerClassName} ${isOpen ? 'border-accent-primary/50 bg-white/10' : ''
+                        }`}
+                >
+                    <span className={`truncate ${selectedOption ? 'text-gray-200' : 'text-muted'}`}>
+                        {selectedOption ? selectedOption.label : placeholder}
+                    </span>
+                    <div className="flex items-center gap-1">
+                        {value && (
+                            <div
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onChange('');
+                                    setSearchQuery('');
+                                }}
+                                className="p-1 hover:bg-white/10 rounded-full transition-colors cursor-pointer text-muted hover:text-white"
+                                title="Clear selection"
+                            >
+                                <MdClose className="text-sm" />
+                            </div>
+                        )}
+                        <MdArrowDropDown className={`text-xl text-muted transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                    </div>
+                </button>
+            </div>
 
             {/* Dropdown Menu */}
             {isOpen && (
@@ -71,20 +88,6 @@ const Dropdown = ({
 
                     {/* Options List */}
                     <div className="overflow-y-auto custom-scrollbar flex-1">
-                        {/* Reset Option (if value exists) */}
-                        {value && (
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    onChange('');
-                                    setIsOpen(false);
-                                    setSearchQuery('');
-                                }}
-                                className="w-full px-4 py-2.5 text-left text-sm text-muted hover:text-white hover:bg-white/10 transition-colors border-b border-white/5"
-                            >
-                                Clear Selection
-                            </button>
-                        )}
 
                         {filteredOptions.length > 0 ? (
                             filteredOptions.map((option) => (
