@@ -189,8 +189,12 @@ const MovieDetail = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
                     {/* Back Button Overlay */}
-                    <button onClick={() => navigate(-1)} className="absolute top-4 left-4 p-2 bg-black/50 rounded-full text-white z-20 backdrop-blur-sm">
-                        <span className="material-icons-round">arrow_back</span>
+                    <button 
+                        onClick={() => navigate(-1)} 
+                        className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center bg-black/50 rounded-full text-white z-20 backdrop-blur-sm border border-white/10"
+                        aria-label="Go back"
+                    >
+                        <span className="material-icons-round text-2xl">arrow_back</span>
                     </button>
                 </div>
 
@@ -248,10 +252,10 @@ const MovieDetail = () => {
                                         e.stopPropagation();
                                         toggleWatched(movie);
                                     }}
-                                    title={isWatched(id) ? "Mark as Watched" : "Mark as Unwatched"}
+                                    title={isWatched(id) ? "Mark as Unwatched" : "Mark as Watched"}
                                     className={`w-12 h-12 rounded-xl border flex items-center justify-center transition-colors ${isWatched(id) ? 'border-green-500 text-green-500 bg-green-500/10' : 'border-white/20 text-white hover:bg-white/10'}`}
                                 >
-                                    <span className={`material-icons-round text-2xl ${isWatched(id) ? 'material-icons' : ''}`}>{isWatched(id) ? 'check_circle' : 'radio_button_unchecked'}</span>
+                                    <span className={`material-icons-round text-2xl ${isWatched(id) ? 'material-icons' : ''}`}>{isWatched(id) ? 'check_circle' : 'check_circle_outline'}</span>
                                 </button>
                                 <button
                                     onClick={(e) => {
@@ -436,7 +440,7 @@ const MovieDetail = () => {
                                             className={`flex-1 h-14 border rounded-xl transition-all duration-300 flex items-center justify-center group ${isWatched(id) ? 'border-green-500 text-green-500 bg-green-500/10' : 'border-white/20 text-white hover:border-green-500 hover:text-green-500 hover:bg-green-500/10'}`}
                                         >
                                             <span className={`material-icons-round text-2xl ${isWatched(id) ? 'material-icons' : ''}`}>
-                                                {isWatched(id) ? 'check_circle' : 'radio_button_unchecked'}
+                                                {isWatched(id) ? 'check_circle' : 'check_circle_outline'}
                                             </span>
                                         </button>
 

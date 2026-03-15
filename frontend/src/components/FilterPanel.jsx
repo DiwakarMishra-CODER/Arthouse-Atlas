@@ -37,7 +37,7 @@ const FilterPanel = ({
                     options={allTitles.map((t) => ({ value: t.title, label: t.title }))}
                     value={filters.search}
                     onChange={(val) => onFilterChange({ target: { name: 'search', value: val } })}
-                    placeholder="Search Titles..."
+                    placeholder="Search..."
                     searchable={true}
                     className="w-full"
                 />

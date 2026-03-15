@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { MdTune, MdShuffle, MdClose, MdSearch } from 'react-icons/md';
+import { createPortal } from 'react-dom';
+import { MdTune, MdShuffle, MdClose, MdSearch, MdArrowBack } from 'react-icons/md';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { moviesAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
@@ -444,7 +445,7 @@ const Explore = () => {
                             onChange={(val) => {
                                 handleFilterChange({ target: { name: 'search', value: val } });
                             }}
-                            placeholder="Search titles..."
+                            placeholder="Search..."
                             searchable={true}
                             className="w-full"
                             triggerClassName="pl-12"
@@ -467,16 +468,20 @@ const Explore = () => {
                 </div>
 
                 {/* Mobile Filter Drawer Overlay */}
-                {isMobileFilterOpen && (
-                    <div className="fixed inset-0 z-50 bg-black flex flex-col pt-6 pb-20 px-6 overflow-y-auto animate-in slide-in-from-bottom duration-300">
-                        <div className="flex items-center justify-between mb-8">
-                            <h2 className="text-2xl font-serif text-white">Filters</h2>
+                {isMobileFilterOpen && createPortal(
+                    <div className="fixed inset-0 z-[99999] bg-black flex flex-col pt-12 pb-20 px-6 overflow-y-auto animate-in slide-in-from-bottom duration-300">
+                        <div className="flex items-center gap-4 mb-8 bg-black">
                             <button
-                                onClick={() => setIsMobileFilterOpen(false)}
-                                className="p-2 text-white hover:text-accent-primary"
+                                onClick={() => {
+                                    setIsMobileFilterOpen(false);
+                                    window.scrollTo(0, 0); // Reset scroll on close
+                                }}
+                                className="p-2 -ml-2 text-white hover:text-accent-primary transition-colors active:scale-95"
+                                aria-label="Go back"
                             >
-                                <MdClose size={32} />
+                                <MdArrowBack size={32} />
                             </button>
+                            <h2 className="text-2xl font-serif text-white">Filters</h2>
                         </div>
 
                         <div className="space-y-8 flex-1">
@@ -567,7 +572,8 @@ const Explore = () => {
                                 Clear All
                             </button>
                         </div>
-                    </div>
+                    </div>,
+                    document.body
                 )}
 
 

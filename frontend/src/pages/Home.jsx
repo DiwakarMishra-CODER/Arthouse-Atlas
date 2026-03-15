@@ -51,7 +51,7 @@ const Home = () => {
                     {/* RIGHT: The Answer */}
                     <div className="relative">
                         <div className="absolute -inset-4 bg-primary/5 rounded-lg blur-xl -z-10"></div>
-                        <div className="border-l-2 border-primary pl-8 md:pl-12 py-4">
+                        <div className="border-l-0 md:border-l-2 border-primary pl-0 md:pl-12 py-4">
                             <p className="text-xl md:text-2xl text-gray-300 leading-relaxed font-serif">
                                 <span className="text-accent-primary font-bold italic">Cinema as high art.</span> A rejection of the formulaic in favor of the visionary.
                             </p>
@@ -138,14 +138,14 @@ const Home = () => {
                     </div>
 
                     {!isAuthenticated ? (
-                        <div className="flex items-center justify-between p-8 border border-white/10 rounded-2xl bg-white/[0.02]">
+                        <div className="flex flex-col items-start gap-6 p-8 border border-white/10 rounded-2xl bg-white/[0.02]">
                             <div>
                                 <p className="text-base text-gray-300 font-serif mb-1">Sign in to unlock recommendations</p>
                                 <p className="text-sm text-gray-500">We'll learn your taste and curate a personal film library.</p>
                             </div>
                             <Link
                                 to="/login"
-                                className="flex-shrink-0 ml-6 px-6 py-3 border border-[#C5A059]/40 text-[#C5A059] text-sm font-mono tracking-widest uppercase hover:bg-[#C5A059]/10 transition-colors rounded-lg"
+                                className="flex-shrink-0 px-6 py-3 border border-[#C5A059]/40 text-[#C5A059] text-sm font-mono tracking-widest uppercase hover:bg-[#C5A059]/10 transition-colors rounded-lg"
                             >
                                 Sign In
                             </Link>
