@@ -25,9 +25,6 @@ const Explore = () => {
         const saved = sessionStorage.getItem('explore_hasMore_v4');
         return saved ? saved === 'true' : true;
     });
-    
-    // Used to track if a page change was triggered by scrolling
-    const isScrollFetch = useRef(false);
 
     const [movies, setMovies] = useState(() => {
         const saved = sessionStorage.getItem('explore_movies_v4');
@@ -113,32 +110,65 @@ const Explore = () => {
         sessionStorage.setItem('explore_hasMore_v4', hasMore.toString());
     }, [movies, filters, selectedTags, isShuffled, shuffleSeed, page, hasMore]);
 
-    const loadingRef = useRef(loading || isFetchingNextPage);
-    useEffect(() => {
-        loadingRef.current = loading || isFetchingNextPage;
-    }, [loading, isFetchingNextPage]);
-
-    // Infinite Scroll Observer
     const observer = useRef();
+
+    const loadMoreMovies = useCallback(async () => {
+        if (loading || isFetchingNextPage || !hasMore) return;
+
+        setIsFetchingNextPage(true);
+        const nextPage = page + 1;
+
+        try {
+            const params = { ...filters, limit: 20, page: nextPage };
+            const effectiveShuffle = isShuffled;
+
+            if (effectiveShuffle) {
+                params.random = 'true';
+                params._t = Date.now();
+            } else {
+                params.curated = 'true';
+            }
+
+            const hasFilters = filters.search || filters.director || filters.genre || filters.decade || selectedTags.length > 0;
+            if (hasFilters) {
+                delete params.curated;
+                delete params.random;
+            }
+
+            if (selectedTags.length > 0) {
+                params.tags = selectedTags.join(',');
+            }
+
+            const response = await moviesAPI.getMovies(params);
+
+            setMovies(prev => {
+                const existingIds = new Set(prev.map(m => m._id));
+                const newMovies = response.data.movies.filter(m => !existingIds.has(m._id));
+                return [...prev, ...newMovies];
+            });
+
+            setPage(nextPage);
+            setHasMore(nextPage < response.data.pages && response.data.movies.length > 0);
+
+        } catch (error) {
+            console.error('Failed to load more movies:', error);
+        } finally {
+            setIsFetchingNextPage(false);
+        }
+    }, [page, loading, isFetchingNextPage, hasMore, filters, selectedTags, isShuffled]);
+
     const lastMovieElementRef = useCallback(node => {
-        if (loadingRef.current) return;
+        if (loading || isFetchingNextPage) return;
         if (observer.current) observer.current.disconnect();
+
         observer.current = new IntersectionObserver(entries => {
             if (entries[0].isIntersecting && hasMore) {
-                isScrollFetch.current = true;
-                setPage(prevPage => prevPage + 1);
+                loadMoreMovies();
             }
         });
-        if (node) observer.current.observe(node);
-    }, [hasMore]);
 
-    // Handle Infinite Scroll Fetch
-    useEffect(() => {
-        if (isScrollFetch.current) {
-            fetchMovies({ page: page, resetData: false });
-            isScrollFetch.current = false;
-        }
-    }, [page]);
+        if (node) observer.current.observe(node);
+    }, [loading, isFetchingNextPage, hasMore, loadMoreMovies]);
 
     // Scroll Restoration
     useEffect(() => {
