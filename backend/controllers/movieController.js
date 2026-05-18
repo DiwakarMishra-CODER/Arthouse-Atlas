@@ -246,7 +246,7 @@ export const getSimilarMovies = async (req, res) => {
         { movements: { $in: targetMovements } }
       ]
     })
-    .select('title posterUrl year directors derivedTags genres movements')
+    .select('title posterUrl year directors derivedTags genres movements trailerUrl')
     .limit(100) // Keep the candidate pool manageable
     .lean();
 
@@ -354,5 +354,30 @@ export const getGenres = async (req, res) => {
     res.json(genres.sort());
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Get watch providers for a movie by MongoDB ID
+// @route   GET /api/movies/:id/providers
+// @access  Public
+export const getMovieProviders = async (req, res) => {
+  try {
+    const movie = await Movie.findById(req.params.id);
+    if (!movie || !movie.tmdbId) {
+      return res.status(404).json({ message: 'Movie or TMDB ID not found' });
+    }
+
+    const apiKey = process.env.TMDB_API_KEY;
+    if (!apiKey) {
+      return res.status(500).json({ message: 'TMDB API key not configured on backend' });
+    }
+
+    const response = await fetch(`https://api.themoviedb.org/3/movie/${movie.tmdbId}/watch/providers?api_key=${apiKey}`);
+    const data = await response.json();
+
+    res.json(data.results || {});
+  } catch (error) {
+    console.error('Failed to fetch movie providers from TMDB:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };

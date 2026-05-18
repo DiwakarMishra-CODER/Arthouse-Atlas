@@ -177,7 +177,7 @@ const PosterCard = ({ movie, showActions = true }) => {
                     <img
                         src={movie.posterUrl}
                         alt={movie.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     />
                 ) : (
                     <div className="w-full h-full flex items-center justify-center text-muted text-sm">

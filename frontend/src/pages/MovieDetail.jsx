@@ -20,23 +20,21 @@ const MovieDetail = () => {
 
     useEffect(() => {
         // Guard clause: Don't run until the movie data is loaded
-        const tmdbId = movie?.tmdbId;
-
-        if (!tmdbId) return;
+        if (!movie?._id) return;
 
         const fetchProviders = async () => {
             try {
-                const response = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}/watch/providers?api_key=${import.meta.env.VITE_TMDB_API_KEY}`);
-                const data = await response.json();
+                const response = await moviesAPI.getMovieProviders(movie._id);
+                const results = response.data;
 
                 const uniqueProviders = new Map();
 
-                if (data.results) {
+                if (results) {
                     // Check only India and US
                     const allowedCountries = ['IN', 'US'];
 
                     allowedCountries.forEach(countryCode => {
-                        const countryData = data.results[countryCode];
+                        const countryData = results[countryCode];
 
                         if (countryData) {
                             // The categories we want to check
@@ -627,7 +625,9 @@ const MovieDetail = () => {
                             </h2>
                             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 px-4">
                                 {similarMovies.map(movie => (
-                                    <PosterCard key={movie._id} movie={movie} />
+                                    <div key={movie._id} className="relative hover:z-50">
+                                        <PosterCard movie={movie} />
+                                    </div>
                                 ))}
                             </div>
                         </div>
