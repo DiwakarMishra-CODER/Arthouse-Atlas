@@ -49,3 +49,8 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+
+# Personal notes
+INTERVIEW_PREP.md
+QUICK_REVISION.md
+package-lock.json
