@@ -1,4 +1,5 @@
 import Movie from '../models/Movie.js';
+import { getErrorResponse } from '../utils/errorResponse.js';
 
 const shuffleArray = (array) => {
   const shuffled = [...array]; // Create a copy to avoid mutating original
@@ -178,7 +179,9 @@ export const getMovies = async (req, res) => {
       total
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };
 
@@ -215,7 +218,9 @@ export const getMovieById = async (req, res) => {
         directorId
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };
 
@@ -287,7 +292,9 @@ export const getSimilarMovies = async (req, res) => {
     
     res.json(topSimilar);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };
 
@@ -299,7 +306,9 @@ export const getDirectors = async (req, res) => {
     const directors = await Movie.distinct('directors');
     res.json(directors.sort());
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };
 
@@ -329,7 +338,9 @@ export const getTags = async (req, res) => {
     
     res.json(filteredTags.sort());
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };
 
@@ -341,7 +352,9 @@ export const getAllTitles = async (req, res) => {
     const titles = await Movie.find({}).select('title _id').sort('title');
     res.json(titles);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };
 
@@ -353,7 +366,9 @@ export const getGenres = async (req, res) => {
     const genres = await Movie.distinct('genres');
     res.json(genres.sort());
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };
 
@@ -378,6 +393,7 @@ export const getMovieProviders = async (req, res) => {
     res.json(data.results || {});
   } catch (error) {
     console.error('Failed to fetch movie providers from TMDB:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };

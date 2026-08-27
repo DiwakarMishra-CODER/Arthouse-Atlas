@@ -1,5 +1,6 @@
 
 import Studio from '../models/Studio.js';
+import { getErrorResponse } from '../utils/errorResponse.js';
 
 // @desc    Get all studios
 // @route   GET /api/studios
@@ -11,7 +12,9 @@ export const getStudios = async (req, res) => {
       .sort({ sortOrder: 1 });
     res.json(studios);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };
 
@@ -27,6 +30,8 @@ export const getStudioById = async (req, res) => {
       res.status(404).json({ message: 'Studio not found' });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };

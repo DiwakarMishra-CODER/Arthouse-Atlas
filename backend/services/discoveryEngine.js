@@ -126,7 +126,7 @@ export const SORT_OPTIONS = {
   CURATED: 'curated',        // Default ExploreScore
   INFLUENCE: 'influence',     // BaseCanonScore
   HIDDEN_GEMS: 'gems',       // RarityBoost + low showCount
-  NEW_NOTABLE: 'new'         // RecencyBoost + festival wins
+  NEW_NOTABLE: 'new'         // RecencyBoost + canon score
 };
 
 export const applySortOption = (films, sortBy) => {
@@ -143,8 +143,8 @@ export const applySortOption = (films, sortBy) => {
     
     case SORT_OPTIONS.NEW_NOTABLE:
       return films.sort((a, b) => {
-        const scoreA = calculateRecencyBoost(a.year) + (a.festivalWins?.length || 0) * 5;
-        const scoreB = calculateRecencyBoost(b.year) + (b.festivalWins?.length || 0) * 5;
+        const scoreA = calculateRecencyBoost(a.year) + (a.baseCanonScore || 0) * 0.2;
+        const scoreB = calculateRecencyBoost(b.year) + (b.baseCanonScore || 0) * 0.2;
         return scoreB - scoreA;
       });
     

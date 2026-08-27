@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import GoogleAuthButton from '../components/GoogleAuthButton';
-import api from '../services/api';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -16,36 +15,8 @@ const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    const { register, setUser } = useAuth();
+    const { register } = useAuth();
     const navigate = useNavigate();
-
-    const handleGoogleSuccess = async (response) => {
-        try {
-            console.log("1. Google Popup Finished. Response:", response); // Debug Log
-
-            // 1. Send Google Token to Backend
-            const res = await api.post('/users/google', {
-                token: response.code || response.access_token
-            });
-
-            console.log("2. Backend Verified. User Data:", res.data); // Debug Log
-
-            // 2. CRITICAL STEP: Save to Local Storage
-            localStorage.setItem('token', res.data.token);
-            localStorage.setItem('userInfo', JSON.stringify(res.data));
-
-            // 3. Update Global State
-            setUser(res.data);
-
-            // 4. Navigate AFTER saving
-            console.log("3. Saving complete. Navigating...");
-            navigate('/');
-
-        } catch (err) {
-            console.error("Google Auth Failed:", err);
-            setError(err.response?.data?.message || 'Google Signup Failed');
-        }
-    };
 
     const handleChange = (e) => {
         setFormData({

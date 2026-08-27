@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import Movie from '../models/Movie.js';
-import { calculateBaseCanonScore } from '../services/baseCanonScoring.js';
+import { calculateBaseCanonScore, calculateDepthScore } from '../services/baseCanonScoring.js';
 import { assignMoods } from '../services/moodService.js';
 
 dotenv.config();
@@ -18,24 +18,24 @@ const migrateDiscoveryFields = async () => {
   let updated = 0;
   
   for (const film of allFilms) {
-    // Calculate BaseCanonScore
+    // Calculate BaseCanonScore and DepthScore
     const baseCanonScore = calculateBaseCanonScore(film);
-    
+    const depthScore = calculateDepthScore(film);
+
     // Assign moods
     const moods = assignMoods(film);
-    
-    // Update film
+
+    // Update film (movements is intentionally left untouched here — it's
+    // populated separately by syncMovementMovies.js and must not be reset)
     await Movie.updateOne(
       { _id: film._id },
       {
         $set: {
           baseCanonScore,
+          depthScore,
           moods: new Map(Object.entries(moods)),
           showCount: 0,
-          lastShownAt: null,
-          festivalWins: [],
-          movements: [],
-          depthScore: 50
+          lastShownAt: null
         }
       }
     );

@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.join(__dirname, '..', '.env') });
 
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
-const MONGODB_URI = 'mongodb+srv://REDACTED:REDACTED@REDACTED/arthouse_atlas?retryWrites=true&w=majority&appName=arthouse-atlas';
+const MONGODB_URI = process.env.MONGODB_URI;
 
 const missingFilms = [
   { title: "The Souvenir: Part II", year: 2021 },

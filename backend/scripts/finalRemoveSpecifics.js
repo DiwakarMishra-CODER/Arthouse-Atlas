@@ -1,8 +1,11 @@
 
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 import Movie from '../models/Movie.js';
 
-const MONGODB_URI = 'mongodb+srv://REDACTED:REDACTED@REDACTED/arthouse_atlas?retryWrites=true&w=majority&appName=arthouse-atlas';
+dotenv.config();
+
+const MONGODB_URI = process.env.MONGODB_URI;
 
 const finalCleanup = async () => {
     try {

@@ -161,6 +161,15 @@ const syncMovementMovies = async () => {
                         posterUrl: movie.posterUrl
                     });
                     totalLinked++;
+
+                    // Write the link back onto the Movie side too, so movie.movements
+                    // isn't permanently empty (it was only ever populated in this direction).
+                    if (!movie.movements?.includes(movement.title)) {
+                        await Movie.updateOne(
+                            { _id: movie._id },
+                            { $addToSet: { movements: movement.title } }
+                        );
+                    }
                 } else {
                     // Keep existing data if string or object
                     updatedEssentials.push(typeof film === 'string' ? { title: film } : film);

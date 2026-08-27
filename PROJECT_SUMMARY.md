@@ -1,20 +1,20 @@
-# Arthouse Atlas — Quick Revision (Read Before Interview)
+# Arthouse Atlas — Project Summary
 
 ---
 
-## The One-Line Pitch
-> "A full-stack MERN film discovery platform for 497 curated arthouse films, with a recommendation engine that learns your taste from your favorites, watchlist, and watched history."
+## Overview
+> A full-stack MERN film discovery platform for 497 curated arthouse films, with a recommendation engine that learns user taste from favorites, watchlist, and watched history.
 
 ---
 
-## Stack (say this in 10 seconds)
+## Stack
 **React + Vite → Express API → MongoDB**
 Deployed: Vercel (frontend) + Render (backend)
 Auth: JWT + Google OAuth
 
 ---
 
-## 5 Numbers to Remember
+## 5 Key Numbers
 - **497** films
 - **15** derivedTags
 - **12** cinematic movements
@@ -37,8 +37,8 @@ Auth: JWT + Google OAuth
 |---|---|
 | arthouseScore | Is it arthouse at all? |
 | baseCanonScore | How canonical/important historically? |
-| recommendationScore | Matches THIS user's taste? |
-| similarityScore | Similar to THIS specific film? |
+| recommendationScore | Matches this user's taste? |
+| similarityScore | Similar to this specific film? |
 | exploreScore | How to rank it on Explore today? |
 | moodScore | Fits current mood/decade filter? |
 
@@ -47,12 +47,12 @@ Auth: JWT + Google OAuth
 
 ---
 
-## Recommendation Engine — Say This
-> "Build a taste profile from interactions (favorites 3×, watched 1.5×, watchlist 1×) across 4 dimensions: tags, directors, movements, decade. Score 200 unseen films against that profile. Movements get highest weight — most reliable signal in arthouse cinema. Shuffle top 30, return 10 so results feel fresh."
+## Recommendation Engine — Summary
+A taste profile is built from interactions (favorites 3×, watched 1.5×, watchlist 1×) across 4 dimensions: tags, directors, movements, decade. 200 unseen films are scored against that profile. Movements get the highest weight — the most reliable signal in arthouse cinema. Top 30 matches are shuffled, 10 returned, so results feel fresh.
 
 ---
 
-## baseCanonScore Formula (just know the components)
+## baseCanonScore Formula
 1. Critical consensus — 35% (TMDB rating, adjusted for vote count reliability)
 2. Historical importance — 25% (tier + age + festival wins)
 3. Auteur importance — 20% (master auteurs = 100, established = 75, unknown = 50)
@@ -71,11 +71,16 @@ Auth: JWT + Google OAuth
 ---
 
 ## JWT Auth — 3 Steps
-1. Login → server creates token with your user ID inside → sent to frontend
+1. Login → server creates token with user ID inside → sent to frontend
 2. Frontend saves in localStorage → axios interceptor adds it to every request
-3. Backend middleware verifies it → knows who you are
+3. Backend middleware verifies it → identifies the user
 
-**Google OAuth:** Google token → backend verifies with Google → finds/creates user → returns your own JWT
+**Google OAuth:** Google token → backend verifies with Google → finds/creates user → returns the app's own JWT
+
+---
+
+## Security & Configuration
+Secrets (database URI, JWT signing key, API keys) live only in environment variables — `.env` locally (gitignored), platform environment settings in production (Render for backend, Vercel for frontend). Credentials are rotated periodically as standard practice; rotation only requires updating the value in the hosting provider's dashboard, since the app reads config at runtime rather than hardcoding it.
 
 ---
 
@@ -83,67 +88,65 @@ Auth: JWT + Google OAuth
 - 15 fixed tags (slow, dreamlike, surreal, bleak, contemplative etc.)
 - Assigned by keyword matching against synopsis + keywords + genres
 - Calculated once at seed time, stored permanently
-- Tags are FIXED on films — what's personalised is how much YOU like each tag
+- Tags are fixed on films — what's personalised is how much a given user favors each tag
 
 ---
 
 ## Movements — Key Points
 - 12 movements (French New Wave, Italian Neorealism, Slow Cinema etc.)
-- Assigned MANUALLY — required real film knowledge
+- Assigned manually — required real film knowledge
 - Get highest weight (×2.0) in recommendations — strongest taste signal
 - Added later as a feature, not present from the start
 
 ---
 
-## Optimistic UI (important concept)
-MovieContext updates local state IMMEDIATELY, then fires API call.
-Result: UI feels instant. If API fails, state was already updated (acceptable tradeoff for UX).
-Double-click prevention: `pendingToggles` ref blocks duplicate in-flight requests.
+## Optimistic UI
+MovieContext updates local state immediately, then fires the API call, so the UI feels instant. Double-click prevention uses a `pendingToggles` ref to block duplicate in-flight requests.
 
 ---
 
 ## Explore Page — 3 Things to Know
 1. **Infinite scroll** — IntersectionObserver on last card triggers next page load
-2. **Scroll restoration** — sessionStorage saves position + filters so back button works
+2. **Scroll restoration** — sessionStorage saves position + filters so back navigation works
 3. **Shuffle quality floor** — arthouseScore ≥ 70 films reserved for first 50 slots in shuffle mode
 
 ---
 
 ## Backend & Express — Quick Points
 
-**What is Express?** Framework that lets you define what happens when requests come in. Routes direct to controllers. Controllers do the work.
+**Express** — framework that defines what happens when requests come in. Routes direct to controllers; controllers do the work.
 
 **Request journey:** Frontend axios call → server.js middleware → routes file → controller → MongoDB → response back
 
-**Routes** = map of URL → function. No logic.
-**Controllers** = actual logic. Talk to DB, send response.
+**Routes** = map of URL → function, no logic.
+**Controllers** = actual logic; talk to DB, send response.
 
-**req** = what client sent (params, query, body, user)
-**res** = how you reply (res.json, res.status)
+**req** = what the client sent (params, query, body, user)
+**res** = how the server replies (res.json, res.status)
 
-**Middleware** = code that runs before controller. Global (cors, json parser) or route-specific (protect).
+**Middleware** = code that runs before the controller. Global (cors, json parser) or route-specific (protect).
 
-**CORS** = server telling browser "I allow requests from this frontend." Currently open to all origins — know how to restrict it.
+**CORS** = server telling the browser which origins it allows requests from. Currently open to all origins.
 
-**Ping route** = wakes Render server before user needs it. No DB, instant response. Shows deployment awareness.
+**Ping route** = wakes the Render server before it's needed. No DB, instant response.
 
 ---
 
 ## Auth — Quick Points
 
-**JWT** = wristband. Server creates it on login with your user ID inside. Signed with a secret — can't be faked. Expires 30 days.
+**JWT** = signed token created on login with the user ID inside. Can't be forged. Expires after 30 days.
 
 **Journey:** Login → token saved in localStorage → axios interceptor attaches it to every request → backend middleware verifies it → req.user set
 
-**Why JWT over sessions?** Stateless — server stores nothing. No DB lookup on every request. Scales easily.
+**Why JWT over sessions:** stateless — server stores nothing, no DB lookup on every request, scales easily.
 
-**bcrypt** = passwords hashed before storing. Can't be reversed. On login: hash the attempt, compare to stored hash.
+**bcrypt** = passwords hashed before storing, never reversible. On login: hash the attempt, compare to the stored hash.
 
-**Google OAuth** = Google verifies identity → backend gets name/email → finds/creates user → returns YOUR own JWT. Same flow after that.
+**Google OAuth** = Google verifies identity → backend gets name/email → finds/creates user → returns the app's own JWT. Same flow after that.
 
-**Protected routes** = `protect` middleware sits before controller. Invalid token → 401, stops. Valid → req.user attached → controller runs.
+**Protected routes** = `protect` middleware sits before the controller. Invalid token → 401, stops. Valid → req.user attached → controller runs.
 
-**Current limitation** = no auto-logout on JWT expiry. Fix: axios response interceptor for 401s.
+**Current limitation** = no auto-logout on JWT expiry. Planned fix: axios response interceptor for 401s.
 
 ---
 
@@ -158,21 +161,21 @@ Double-click prevention: `pendingToggles` ref blocks duplicate in-flight request
 
 ---
 
-## Honest Limitations (say these confidently)
-- No auto-logout when JWT expires (would add axios response interceptor)
+## Known Limitations
+- No auto-logout when JWT expires (planned fix: axios response interceptor)
 - Tagging is keyword-based — misses semantic matches
 - Discovery routes (moodScore/decadeScore) built but not fully wired to frontend
 - Auteur lists are hardcoded
 
 ---
 
-## If They Ask "Why did you use X?"
+## Design Rationale
 - **MongoDB:** Film metadata is irregular (varied directors, genres, wins) — flexible schema fits better than rigid SQL tables
 - **JWT:** Stateless — server doesn't store sessions, scales easily
 - **Movements ×2.0:** Strongest taste signal in arthouse cinema specifically
-- **Top 30 → shuffle → 10:** Direct top 10 gives same list every visit — shuffle adds freshness
+- **Top 30 → shuffle → 10:** Direct top 10 gives the same list every visit — shuffle adds freshness
 - **Favorites 3×:** Liking something is a stronger taste signal than just watching or saving it
 
 ---
 
-*Full details → INTERVIEW_PREP.md*
+*Full details → TECHNICAL_OVERVIEW.md*

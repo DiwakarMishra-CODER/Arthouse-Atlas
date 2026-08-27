@@ -2,6 +2,13 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import Movie from '../models/Movie.js';
 import { calculateArthouseScore } from '../services/arthouseScoring.js';
+import {
+  calculateBaseCanonScore,
+  calculateCriticalConsensus,
+  calculateFormalInnovation,
+  calculateCulturalInfluence,
+  calculateDepthScore
+} from '../services/baseCanonScoring.js';
 
 dotenv.config();
 
@@ -20,8 +27,16 @@ const recalculateAllScores = async () => {
 
     for (const movie of movies) {
       const oldScore = movie.baseCanonScore || 0;
-      const newScore = calculateArthouseScore(movie);
-      
+
+      // Refresh the sub-scores that feed into baseCanonScore, then persist them
+      movie.criticalConsensus = calculateCriticalConsensus(movie);
+      movie.formalInnovation = calculateFormalInnovation(movie);
+      movie.culturalInfluence = calculateCulturalInfluence(movie);
+      movie.depthScore = calculateDepthScore(movie);
+
+      movie.arthouseScore = calculateArthouseScore(movie);
+      const newScore = calculateBaseCanonScore(movie);
+
       const scoreDifference = newScore - oldScore;
 
       // Update the movie

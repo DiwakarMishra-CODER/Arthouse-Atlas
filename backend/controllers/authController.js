@@ -1,5 +1,6 @@
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
+import { getErrorResponse } from '../utils/errorResponse.js';
 
 // Generate JWT token
 const generateToken = (id) => {
@@ -18,6 +19,10 @@ export const registerUser = async (req, res) => {
     // Validation
     if (!username || !email || !password) {
       return res.status(400).json({ message: 'Please provide all fields' });
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res.status(400).json({ message: 'Please provide a valid email address' });
     }
 
     // Check if user exists
@@ -48,7 +53,9 @@ export const registerUser = async (req, res) => {
       res.status(400).json({ message: 'Invalid user data' });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };
 
@@ -81,7 +88,9 @@ export const loginUser = async (req, res) => {
       res.status(401).json({ message: 'Invalid credentials' });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };
 
@@ -102,7 +111,9 @@ export const getMe = async (req, res) => {
       isAdmin: user.isAdmin
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };
 

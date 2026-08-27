@@ -46,12 +46,7 @@ export const calculateHistoricalImportance = (film) => {
   else if (age > 50) score += 15; // 1955-1975
   else if (age > 30) score += 10; // 1975-1995
   else if (age > 10) score += 5;  // 1995-2015
-  
-  // Festival wins bonus
-  if (film.festivalWins && film.festivalWins.length > 0) {
-    score += Math.min(film.festivalWins.length * 5, 10);
-  }
-  
+
   return Math.min(score, 100);
 };
 
@@ -118,6 +113,27 @@ export const calculateCulturalInfluence = (film) => {
   return Math.min(score, 100);
 };
 
+// Tags that indicate a slower, more introspective/thematically dense film
+const DEPTH_TAGS = ['contemplative', 'existential', 'melancholic', 'philosophical', 'meditative', 'slow', 'austere', 'poetic', 'minimalist'];
+
+export const calculateDepthScore = (film) => {
+  let score = 50; // baseline
+
+  const tags = film.derivedTags || [];
+  const matchedTags = tags.filter(tag => DEPTH_TAGS.includes(tag));
+  score += matchedTags.length * 8;
+
+  const genres = film.genres || [];
+  if (genres.includes('Drama')) score += 10;
+  if (genres.includes('Documentary')) score += 8;
+  if (genres.includes('War') || genres.includes('History')) score += 5;
+
+  if (film.runtime > 150) score += 10;
+  else if (film.runtime > 120) score += 5;
+
+  return Math.max(0, Math.min(100, score));
+};
+
 export const calculateBaseCanonScore = (film) => {
   const criticalConsensus = calculateCriticalConsensus(film);
   const historicalImportance = calculateHistoricalImportance(film);
@@ -142,5 +158,6 @@ export default {
   calculateHistoricalImportance,
   calculateAuteurImportance,
   calculateFormalInnovation,
-  calculateCulturalInfluence
+  calculateCulturalInfluence,
+  calculateDepthScore
 };

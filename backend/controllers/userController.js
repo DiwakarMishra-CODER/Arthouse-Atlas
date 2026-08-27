@@ -4,6 +4,7 @@ import Movie from '../models/Movie.js';
 import { OAuth2Client } from 'google-auth-library';
 import jwt from 'jsonwebtoken';
 import axios from 'axios';
+import { getErrorResponse } from '../utils/errorResponse.js';
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -34,7 +35,9 @@ export const toggleFavorite = async (req, res) => {
       return res.json({ message: 'Added to favorites', isFavorite: true });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };
 
@@ -59,7 +62,9 @@ export const toggleWatchlist = async (req, res) => {
       return res.json({ message: 'Added to watchlist', isInWatchlist: true });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };
 
@@ -84,7 +89,9 @@ export const toggleWatched = async (req, res) => {
       return res.json({ message: 'Marked as watched', isWatched: true });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };
 
@@ -173,6 +180,10 @@ export const getRecommendations = async (req, res) => {
         recommendationScore += candidate.baseCanonScore * 0.1;
       }
 
+      if (candidate.arthouseScore) {
+        recommendationScore += candidate.arthouseScore * 0.05;
+      }
+
       return {
         ...candidate,
         recommendationScore
@@ -205,7 +216,9 @@ export const getRecommendations = async (req, res) => {
       }
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };
 

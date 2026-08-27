@@ -1,6 +1,6 @@
-# Arthouse Atlas — Interview Revision Guide
+# Arthouse Atlas — Technical Overview
 
-Everything you need to explain this project confidently. Read this before any interview.
+A detailed look at the architecture, scoring systems, and engineering decisions behind Arthouse Atlas.
 
 ---
 
@@ -10,8 +10,8 @@ A full-stack MERN web application — a curated discovery platform for ~497 arth
 
 **Live site:** arthouse-atlas.vercel.app
 
-**One-line pitch:**
-> "Arthouse Atlas is a film discovery platform for world cinema. It curates 497 arthouse films and organises them by director, movement, and studio. The personalisation layer — a recommendation engine — learns your taste from your favorites, watchlist, and watched history and suggests films you haven't seen."
+**Summary:**
+> Arthouse Atlas is a film discovery platform for world cinema. It curates 497 arthouse films and organises them by director, movement, and studio. The personalisation layer — a recommendation engine — learns user taste from favorites, watchlist, and watched history and suggests films the user hasn't seen.
 
 ---
 
@@ -39,14 +39,11 @@ MongoDB  (Movie, User, Director, Movement, Studio collections)
 Streaming providers, trailers, backdrops fetched on demand
 ```
 
-### What is an SPA?
-The browser downloads everything once. React Router fakes navigation — updates the URL and swaps components without ever reloading the page. That's why clicking between pages feels instant.
+### SPA Navigation
+The browser downloads everything once. React Router fakes navigation — updates the URL and swaps components without ever reloading the page, which is why navigation feels instant.
 
-### What is axios?
-A library for making HTTP requests. Cleaner than raw `fetch`. The main reason you used it: **interceptors** — code that runs automatically before every request. Your interceptor reads the JWT from localStorage and attaches it to every API call so you never have to do it manually.
-
-### What is JSON?
-A universal text format. Your React app and Express server run on different computers — they can't share memory or call each other's functions. The only way they can talk is by sending text over HTTP. JSON is the agreed format for that text.
+### HTTP Client
+Requests go through axios rather than raw `fetch`, primarily for **interceptors** — code that runs automatically before every request. An interceptor reads the JWT from `localStorage` and attaches it to every API call automatically.
 
 ### HTTP Status Codes
 - `200` — OK
@@ -70,9 +67,9 @@ On logout: removes token, clears user.
 ### MovieContext
 Holds: `favorites`, `watchlist`, `watched` arrays + toggle functions
 
-Uses **optimistic UI** — updates local state immediately before the API call resolves. Feels instant to the user.
+Uses **optimistic UI** — updates local state immediately before the API call resolves, so it feels instant to the user.
 
-Uses a `pendingToggles` ref (a Set) to prevent duplicate API calls if user double-clicks.
+Uses a `pendingToggles` ref (a Set) to prevent duplicate API calls on rapid double-clicks.
 
 Syncs to localStorage so state survives page refresh.
 
@@ -88,9 +85,7 @@ Syncs to localStorage so state survives page refresh.
 4. Every API request: axios interceptor reads token → adds `Authorization: Bearer <token>` header
 5. `authMiddleware.js` on backend: verifies token → extracts user ID → attaches `req.user`
 
-**JWT contains:** your MongoDB user ID, signed with a secret only the server knows. Nobody can fake it.
-**Expires:** after 30 days. After that, token is invalid and requests return 401.
-**Current limitation:** app doesn't auto-logout on 401. A production fix would be an axios response interceptor that clears token and redirects to login on any 401 response.
+The JWT payload carries the MongoDB user ID, signed with a secret only the server knows, so it can't be forged. It expires after 30 days; a known follow-up is adding an axios response interceptor that clears the token and redirects to login on any 401.
 
 ### Google OAuth Flow
 
@@ -98,12 +93,22 @@ Syncs to localStorage so state survives page refresh.
 2. Frontend sends that access token to `POST /api/users/google`
 3. Backend calls `https://www.googleapis.com/oauth2/v3/userinfo` to verify it and get name/email/picture
 4. Backend finds or creates the user in MongoDB
-5. Backend returns your own JWT — same flow as email login from this point
+5. Backend returns its own JWT — same flow as email login from this point
 
-**Why your own JWT at the end?** So your entire auth system stays consistent. Whether you logged in with email or Google, the rest of the app always uses your JWT. No special cases.
+Converting to the app's own JWT keeps the rest of the auth system consistent regardless of login method — no special cases downstream.
 
 ### Password Security
 Passwords are never stored in plain text. Before saving, bcrypt hashes the password with salt rounds=10. On login, `bcrypt.compare()` checks the candidate password against the stored hash.
+
+---
+
+## Security & Configuration
+
+All secrets (database credentials, JWT signing key, third-party API keys) are supplied via environment variables — never committed to source control. `.env` files are gitignored on both frontend and backend, with `.env.example` templates checked in to document required variables without exposing values.
+
+Database credentials are rotated periodically as a standard precaution, independent of any specific incident — a credential rotation only requires updating the value in the hosting provider's environment settings (Render for the backend) and restarting the service; no code changes are needed since the app reads `MONGODB_URI` at runtime.
+
+Error responses avoid leaking internal implementation details (stack traces, raw driver errors) to the client — failures are caught and translated into generic client-safe messages, with details logged server-side only.
 
 ---
 
@@ -147,8 +152,7 @@ profileImage, createdAt
 - `stills[]` — scene screenshots from TMDB
 - `tmdbId` — foreign key to TMDB (streaming providers fetched live)
 
-**Why MongoDB not SQL?**
-Film data is irregular — some films have 1 director, some have 3. Some have festival wins, some don't. MongoDB's flexible documents handle this naturally. SQL would need many nullable columns or join tables.
+**Why MongoDB over SQL:** Film data is irregular — some films have 1 director, some have 3; some have festival wins, some don't. MongoDB's flexible documents handle this naturally, where SQL would need many nullable columns or join tables.
 
 ---
 
@@ -170,7 +174,7 @@ austere       lyrical       enigmatic
 3. Tags scored above 0, sorted by score, top 5 assigned to the film
 4. Calculated once at seed time, stored permanently
 
-**Important:** Tags are fixed on the film. What's personalised is how much weight each tag carries in YOUR taste profile.
+Tags are fixed on the film. What's personalised is how much weight each tag carries in a given user's taste profile.
 
 ---
 
@@ -191,8 +195,7 @@ austere       lyrical       enigmatic
 12. Third Cinema / Latin American (1960s–1970s)
 ```
 
-**How assigned:** Manually when seeding. Required real film knowledge — not algorithm-generated.
-**Why highest weight in recommendations:** In arthouse cinema, liking one French New Wave film strongly predicts liking others. More reliable signal than genres or tags.
+Assigned manually during seeding, since this required genuine film knowledge rather than being algorithm-derived. Movements carry the highest weight in recommendations because, in arthouse cinema, liking one French New Wave film strongly predicts liking others — a more reliable signal than genres or tags.
 
 ---
 
@@ -215,7 +218,7 @@ austere       lyrical       enigmatic
 **Question:** Is this film actually arthouse?
 
 **Formula — 6 components, max 100:**
-- Popularity (25 pts) — low popularity = arthouse indicator; classics get legacy bonus instead
+- Popularity (25 pts) — low popularity = arthouse indicator; classics get a legacy bonus instead
 - Vote pattern (20 pts) — high rating + small audience = arthouse sweet spot
 - Genre (20 pts) — Drama/Documentary adds; Action/Sci-Fi subtracts (classics and auteurs immune)
 - Tags (20 pts) — contemplative/existential/slow/austere = +5 each
@@ -224,8 +227,7 @@ austere       lyrical       enigmatic
 
 **Masterpiece floor:** rating > 8.2 → score never drops below 85
 
-**Interview answer:**
-> "I needed to filter out mainstream films. arthouseScore looks at six signals — popularity, rating pattern, genres, mood tags, country of origin, and director reputation. Low popularity scores higher because arthouse films are niche by nature. French, Italian, Japanese, Iranian cinema gets a bonus. Mainstream genres get penalised — unless it's a classic or auteur film."
+Six signals combine to filter mainstream films out: popularity, rating pattern, genre, mood tags, country of origin, and director reputation. Low popularity scores higher because arthouse films are niche by nature; French, Italian, Japanese, and Iranian cinema gets a bonus; mainstream genres are penalised unless the film is a recognised classic or auteur work.
 
 ---
 
@@ -254,8 +256,7 @@ austere       lyrical       enigmatic
 
 **CulturalInfluence:** Vote count brackets + tier + age/rating combinations
 
-**Interview answer:**
-> "baseCanonScore answers how canonical a film is — not just whether it's good, but whether it matters historically. Five components: critical consensus, historical importance based on age and tier and festival wins, director auteur status, formal innovation, and cultural influence. Calculated once at seed time and stored permanently — a film's place in history doesn't change."
+This score answers how canonical a film is — not just whether it's good, but whether it matters historically. Five components combine: critical consensus, historical importance (age, tier, festival wins), director auteur status, formal innovation, and cultural influence. Calculated once at seed time and stored permanently, since a film's place in history doesn't change.
 
 ---
 
@@ -283,14 +284,11 @@ tagMap[tag]      = favorites_with_tag × 3.0
 **Step 3 — Return results:**
 Sort 200 candidates → take top 30 → Fisher-Yates shuffle → return 10
 
-**Why shuffle top 30 not just return top 10?**
-Returning top 10 directly gives the same list every visit. Shuffling top 30 gives taste-matched but varied results — feels alive.
+**Why shuffle top 30 instead of returning top 10 directly:** returning the top 10 directly would give the same list every visit. Shuffling the top 30 gives taste-matched but varied results, so the page feels alive.
 
-**Why no caching?**
-If user just favorited something, next visit must reflect that. Cache-Control: no-store.
+**Why no caching:** if a user just favorited something, the next visit must reflect that immediately — `Cache-Control: no-store`.
 
-**Interview answer:**
-> "I build a taste profile from the user's interactions — favorites weighted 3×, watched 1.5×, watchlist 1×. That profile captures tags, directors, movements, and decade preferences. I score 200 unseen films against that profile. Movements get the highest weight because they're the most reliable taste signal in arthouse cinema. Top 30 matches get shuffled, 10 returned — so results feel fresh every visit."
+A taste profile is built from the user's interactions — favorites weighted 3×, watched 1.5×, watchlist 1×. That profile captures tags, directors, movements, and decade preferences. 200 unseen films are scored against that profile. Movements get the highest weight because they're the most reliable taste signal in arthouse cinema. The top 30 matches are shuffled, and 10 are returned, so results feel fresh on every visit.
 
 ---
 
@@ -308,8 +306,7 @@ Fetch 100 candidates sharing any attribute → score → sort → return top 10.
 
 **Used:** Similar Films section on MovieDetail page.
 
-**Interview answer:**
-> "For similar films I find all films sharing any attribute with the current film — director, movement, tags, genres — then rank by how much overlap there is. Director match scores highest because it's the strongest similarity signal."
+All films sharing any attribute with the current film — director, movement, tags, genres — are gathered, then ranked by overlap. Director match scores highest since it's the strongest similarity signal.
 
 ---
 
@@ -323,26 +320,26 @@ Fetch 100 candidates sharing any attribute → score → sort → return top 10.
 0.10 × RotationNoise     (small daily random variation)
 ```
 
-Also increments `showCount` on every film returned — so rarity tracking stays accurate over time.
+Also increments `showCount` on every film returned, so rarity tracking stays accurate over time.
 
 ---
 
 ### 6. moodScore / decadeScore / combinedScore
-Built for advanced discovery filtering. Routes exist (`/api/discover/...`) but not fully wired to the main Explore frontend yet — planned feature.
+Built for advanced discovery filtering. Routes exist (`/api/discover/...`) but are not fully wired to the main Explore frontend yet — a planned feature.
 
 ---
 
 ## The Explore Page — Key Engineering
 
-**Infinite scroll:** `IntersectionObserver` on the last card. When it enters viewport → load next page. Guard prevents duplicate calls.
+**Infinite scroll:** `IntersectionObserver` on the last card. When it enters viewport → load next page. A guard prevents duplicate calls.
 
-**Scroll restoration:** `movies`, `page`, `filters`, `scrollY` all persisted to `sessionStorage`. Navigate away and back → land exactly where you left off.
+**Scroll restoration:** `movies`, `page`, `filters`, `scrollY` are all persisted to `sessionStorage`. Navigating away and back returns to the exact previous position.
 
-**Curated mode:** Hand-picked 25 films appear first, then rest sorted by tier + arthouseScore.
+**Curated mode:** Hand-picked 25 films appear first, then the rest sorted by tier + arthouseScore.
 
-**Shuffle mode:** `arthouseScore ≥ 70` films reserved for first 50 slots. Quality doesn't get buried in random mode.
+**Shuffle mode:** `arthouseScore ≥ 70` films are reserved for the first 50 slots, so quality doesn't get buried in random mode.
 
-**Search debounce:** 500ms delay before firing search API call — avoids a request on every keystroke.
+**Search debounce:** 500ms delay before firing the search API call, avoiding a request on every keystroke.
 
 ---
 
@@ -370,19 +367,11 @@ TMDB raw data (synopsis, keywords, genres, ratings)
 
 ## Backend & Express
 
-### What is a Backend?
-The frontend (React) runs in the browser. The backend (Node.js + Express) runs on a server. The frontend can't directly touch the database — it asks the backend. The backend talks to MongoDB and sends data back.
-
-### What is Express?
-A framework that lets you define what happens when different requests come in:
-```js
-app.get('/api/movies', getMovies)
-app.post('/api/auth/login', loginUser)
-```
-Without Express you'd manually parse every URL, method, and body. Express handles that boilerplate.
+### Role of the Backend
+The frontend (React) runs in the browser and cannot directly touch the database — it asks the backend, which talks to MongoDB and sends data back.
 
 ### server.js — The Entry Point
-First file that runs when backend starts. Acts as a reception desk:
+First file that runs when the backend starts:
 ```js
 app.use(cors())                          // allow browser requests
 app.use(express.json())                  // parse JSON body
@@ -392,7 +381,7 @@ app.use('/api/auth', authRoutes)
 app.listen(5000)
 ```
 
-### How a Request Travels
+### Request Flow
 User opens Explore page:
 1. Frontend: `axios.get('/api/movies?curated=true&limit=20')`
 2. server.js: cors() runs → express.json() runs → handed to movieRoutes
@@ -401,14 +390,14 @@ User opens Explore page:
 5. Response travels back to browser
 
 ### Routes vs Controllers
-**Routes** — just a map. URL + which function. No logic:
+**Routes** — just a map of URL to function, no logic:
 ```js
 router.get('/', getMovies)
 router.get('/:id', getMovieById)
 router.get('/:id/similar', getSimilarMovies)
 ```
 
-**Controllers** — actual logic. Talk to database, send response:
+**Controllers** — actual logic; talk to database, send response:
 ```js
 export const getMovieById = async (req, res) => {
   const movie = await Movie.findById(req.params.id)
@@ -417,7 +406,7 @@ export const getMovieById = async (req, res) => {
 }
 ```
 
-**Why separate?** Routes file stays clean — one glance tells you every endpoint.
+Keeping routes and controllers separate keeps the routes file readable — every endpoint is visible at a glance.
 
 ### req and res
 Every controller receives two objects:
@@ -428,13 +417,13 @@ Every controller receives two objects:
 - `req.body.email` — from JSON body
 - `req.user` — attached by auth middleware after JWT check
 
-**res** — how you reply:
+**res** — how the server replies:
 - `res.json({ movies })` — send data, status 200
 - `res.status(404).json({ message: 'Not found' })` — send error
 - `res.status(201).json({ user, token })` — created successfully
 
 ### Middleware
-Code that runs on every request BEFORE it reaches the controller. Like a security checkpoint.
+Code that runs on every request before it reaches the controller.
 
 **Global middleware** (runs on every request):
 ```js
@@ -446,23 +435,17 @@ app.use(express.json())   // parse incoming JSON
 ```js
 router.get('/recommendations', protect, getRecommendations)
 ```
-`protect` runs first → if JWT invalid → 401, stops here → controller never runs.
+`protect` runs first; if the JWT is invalid, it returns 401 and stops there — the controller never runs.
 
 ### CORS
-Your frontend is at `arthouse-atlas.vercel.app`. Your backend is at `onrender.com`. Different domains.
-
-By default browsers block requests between different origins (Same Origin Policy) — a security rule to prevent malicious sites from making requests on your behalf.
-
-CORS lets the server say "I allow requests from this frontend":
+The frontend is at `arthouse-atlas.vercel.app`, the backend at `onrender.com` — different domains. Browsers block cross-origin requests by default (Same Origin Policy). CORS lets the server say which origins are allowed:
 ```js
 app.use(cors())  // currently allows all origins
 ```
-
-For production you'd restrict it:
+For production this would be restricted:
 ```js
 app.use(cors({ origin: 'https://arthouse-atlas.vercel.app' }))
 ```
-**Interview point:** Current implementation is open — you know how to tighten it.
 
 ### The Ping Route
 ```js
@@ -470,11 +453,9 @@ app.get('/api/ping', (req, res) => {
   res.status(200).json({ message: 'Server is awake' })
 })
 ```
-Render's free tier shuts server down after 15 minutes of inactivity. Cold start = ~30 seconds of bad UX. Frontend pings this on app load to wake the server before the user needs it. No DB query, no auth — instant response.
+Render's free tier shuts the server down after 15 minutes of inactivity, and a cold start costs roughly 30 seconds. The frontend pings this route on app load to wake the server before it's actually needed — no DB query, no auth, just an instant response.
 
-**Interview point:** Shows you understand real deployment constraints.
-
-### Your 7 Route Groups
+### Route Groups
 | Route | What it handles |
 |---|---|
 | `/api/auth` | Register, login, get profile |
@@ -490,23 +471,22 @@ Render's free tier shuts server down after 15 minutes of inactivity. Cold start 
 ## Authentication — Deep Dive
 
 ### The Problem Auth Solves
-HTTP is stateless — every request is brand new, server has no memory. So every request needs to carry proof of identity. That proof is the JWT token.
+HTTP is stateless — every request is brand new, and the server has no memory of prior ones. Every request needs to carry proof of identity, which is what the JWT token provides.
 
-### What is a JWT?
+### JWT Structure
 Three parts: `header.payload.signature`
 
 - **Header** — token type and algorithm
-- **Payload** — your MongoDB user ID baked in: `{ "id": "64a1f2b3c..." }`
-- **Signature** — payload encrypted with JWT_SECRET. Only your server knows the secret. Nobody can fake or tamper with it.
+- **Payload** — the MongoDB user ID baked in: `{ "id": "64a1f2b3c..." }`
+- **Signature** — payload encrypted with `JWT_SECRET`. Only the server knows the secret, so the token can't be forged or tampered with.
 
-Changes every login — generated fresh each time.
+A fresh token is generated on every login.
 
 ### JWT Token Journey
 **Step 1 — Login:**
 ```js
 jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '30d' })
 ```
-Token created with user ID inside. Expires in 30 days.
 
 **Step 2 — Saved in browser:**
 ```js
@@ -528,35 +508,30 @@ req.user = await User.findById(decoded.id)
 next()
 ```
 
-**After 30 days:** `jwt.verify` throws → returns 401 → currently fails silently. Fix: axios response interceptor to auto-logout on 401.
+After 30 days, `jwt.verify` throws and the request returns 401; a known follow-up is an axios response interceptor that auto-logs-out on 401.
 
-### Why JWT over Sessions?
-Sessions store data on the server (in memory or DB) and give you a session ID. Every request: server looks up that session ID.
-
-JWT is stateless — server stores nothing. Identity is encoded in the token itself. Verifies mathematically — no DB lookup. Scales horizontally without shared session storage.
+### JWT vs Sessions
+Sessions store data on the server (memory or DB) and hand out a session ID — every request requires a server-side lookup. JWT is stateless: identity is encoded in the token itself, verified mathematically with no DB lookup, and scales horizontally without shared session storage.
 
 ### bcrypt — Password Security
-Passwords are NEVER stored in plain text.
+Passwords are never stored in plain text.
 
-**On register/save** — pre-save hook runs automatically:
+**On register/save** — a pre-save hook runs automatically:
 ```js
 const salt = await bcrypt.genSalt(10)   // salt rounds = 10 (runs 1024 times)
 this.password = await bcrypt.hash(this.password, salt)
 ```
-Original password is gone. Only the hash is stored.
 
 **On login:**
 ```js
 bcrypt.compare(candidatePassword, this.password)  // hashes attempt, compares
 ```
-You can never reverse a hash. You hash the attempt and see if it matches.
-
-**Analogy:** Like a fingerprint. Can't reconstruct the finger from the print. But you can press the finger again and check if it matches.
+A hash can't be reversed — the attempt is hashed and compared to the stored hash, like matching a fingerprint rather than reconstructing a finger from one.
 
 ### Google OAuth Flow
-**Step 1** — User clicks "Sign in with Google" → Google gives frontend an access token
+**Step 1** — User clicks "Sign in with Google" → Google gives the frontend an access token
 
-**Step 2** — Frontend sends it to backend:
+**Step 2** — Frontend sends it to the backend:
 ```
 POST /api/users/google  { token: "google_access_token" }
 ```
@@ -576,11 +551,11 @@ if (!user) {
   user = await User.create({ username: name, email, password: randomPassword, profileImage: picture })
 }
 ```
-Random password because schema requires it — Google users never use it.
+A random password is used because the schema requires one — Google users never need it.
 
-**Step 5** — Return your own JWT. Same as email login from this point.
+**Step 5** — Return the app's own JWT, identical to the email-login flow from this point.
 
-**Why convert to your own JWT?** Entire app is built around JWT. Converting immediately means zero special cases anywhere else — clean and consistent.
+Converting to the app's own JWT immediately means zero special cases anywhere downstream — the rest of the app is agnostic to how the user logged in.
 
 ### Protected Routes
 ```js
@@ -604,8 +579,8 @@ Request → protect runs
 
 ## Frontend Overview
 
-### What is a React SPA?
-Everything lives in one HTML file. React Router fakes navigation — updates URL and swaps components without page reloads. That's why navigation feels instant.
+### React SPA
+Everything lives in one HTML file. React Router fakes navigation — updating the URL and swapping components without page reloads.
 
 Entry point: `main.jsx` → `App.jsx` → sets up routing and global state.
 
@@ -633,7 +608,7 @@ const ProtectedRoute = ({ children }) => {
   return isAuthenticated ? children : <Navigate to="/login" />
 }
 ```
-Not logged in + try to visit `/profile` → redirected to `/login` automatically.
+Visiting `/profile` while logged out redirects automatically to `/login`.
 
 ### Pages vs Components
 **Pages** — full screens, one per route:
@@ -650,50 +625,13 @@ StarRating, LoadingSkeleton, HeroFeature, Dropdown
 
 ---
 
-## Common Interview Questions — Ready Answers
+## Known Limitations
 
-**"Walk me through your architecture."**
-> "MERN stack — React SPA on the frontend talking to an Express REST API, MongoDB for persistence, JWT for auth. Two global React contexts manage auth state and movie interaction state across the app. Frontend deployed on Vercel, backend on Render."
-
-**"How does your recommendation engine work?"**
-> "I build a taste profile from the user's interactions — favorites weighted highest. That profile captures four dimensions: mood tags, directors, movements, and decades. I score 200 unseen canonical films against that profile. Movements get the highest weight because they're the most reliable taste signal in arthouse cinema. Top 30 matches get shuffled, 10 returned so results feel fresh."
-
-**"Why JWT over sessions?"**
-> "JWT is stateless — the server doesn't need to store or look up session data. The user's identity is encoded in the token itself. Scales horizontally without sticky sessions. 30-day expiry is baked into the token."
-
-**"Why MongoDB not SQL?"**
-> "Film metadata is irregular. Some films have one director, some have three. Some have festival wins, some don't. MongoDB's flexible documents handle this naturally without nullable columns or complex joins."
-
-**"How did you handle optimistic UI?"**
-> "MovieContext updates local state immediately before the API call resolves — so the heart icon toggles instantly. A useRef Set called pendingToggles blocks duplicate in-flight requests if the user double-clicks."
-
-**"What's the hardest bug you fixed?"**
-> "The infinite scroll loop. The hasMore flag was being set incorrectly — it needed to check both page < totalPages AND movies.length > 0 together. Checking only one condition caused the observer to keep firing even when there was nothing left to load."
-
-**"What is CORS and why did you need it?"**
-> "My frontend and backend run on different domains — Vercel and Render. Browsers block cross-origin requests by default for security. CORS lets the server explicitly say which origins are allowed. I used the cors() middleware in Express. Currently it's open to all origins — in production I'd restrict it to just my frontend domain."
-
-**"How does Google OAuth work in your app?"**
-> "User clicks Sign in with Google, Google gives an access token. My backend sends that token to Google's userinfo endpoint to verify it's real and get the user's name and email. Then I find or create that user in MongoDB and return my own JWT — same as email login from that point. Everything downstream uses my JWT, so there are no special cases for Google users."
-
-**"How are passwords stored?"**
-> "With bcrypt. Before saving a user, a pre-save hook automatically hashes the password with salt rounds of 10. The original password is never stored anywhere. On login, bcrypt hashes the attempt and compares it to the stored hash."
-
-**"What would you improve?"**
-> "A few things: auto-logout on JWT expiry (axios response interceptor for 401s), the discovery routes (moodScore, decadeScore) aren't wired to the frontend yet — that's a planned feature. The tagging algorithm is purely keyword-based so it misses thematic matches that use different words — a semantic model would improve it."
-
----
-
-## Things to Be Honest About in Interviews
-
-- AI (Antigravity) helped build this — but you directed the decisions
-- The auteur lists in scoring are hardcoded — a limitation
-- Discovery routes (exploreScore etc.) are built but not fully wired to frontend
+- The auteur lists used in scoring are hardcoded
+- Discovery routes (`exploreScore` etc.) are built but not fully wired to the frontend
 - No auto-logout on JWT expiry currently
-- Tagging is keyword-based — misses semantic matches
-- Tier counts (how many tier 1/2/3 films) would need a live DB query to give exact numbers
-
-Being honest about limitations shows maturity. Interviewers respect it.
+- Tagging is keyword-based and misses semantic matches that use different wording
+- Tier counts (how many tier 1/2/3 films exist) would need a live DB query for exact numbers
 
 ---
 
@@ -711,4 +649,4 @@ Being honest about limitations shows maturity. Interviewers respect it.
 
 ---
 
-*Last updated: June 2026*
+*Last updated: August 2026*

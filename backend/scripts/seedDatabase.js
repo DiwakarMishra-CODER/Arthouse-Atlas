@@ -5,6 +5,14 @@ import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import Movie from '../models/Movie.js';
 import { generateTags } from '../services/taggingService.js';
+import { calculateArthouseScore } from '../services/arthouseScoring.js';
+import {
+  calculateBaseCanonScore,
+  calculateCriticalConsensus,
+  calculateFormalInnovation,
+  calculateCulturalInfluence,
+  calculateDepthScore
+} from '../services/baseCanonScoring.js';
 
 dotenv.config();
 
@@ -38,9 +46,24 @@ const seedDatabase = async () => {
 
       console.log(`${movie.title}: [${derivedTags.join(', ')}]`);
 
+      const filmWithTags = { ...movie, derivedTags };
+
+      const criticalConsensus = calculateCriticalConsensus(filmWithTags);
+      const formalInnovation = calculateFormalInnovation(filmWithTags);
+      const culturalInfluence = calculateCulturalInfluence(filmWithTags);
+      const depthScore = calculateDepthScore(filmWithTags);
+      const scoredFilm = {
+        ...filmWithTags,
+        criticalConsensus,
+        formalInnovation,
+        culturalInfluence,
+        depthScore
+      };
+
       return {
-        ...movie,
-        derivedTags
+        ...scoredFilm,
+        arthouseScore: calculateArthouseScore(scoredFilm),
+        baseCanonScore: calculateBaseCanonScore(scoredFilm)
       };
     });
 

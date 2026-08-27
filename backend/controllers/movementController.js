@@ -1,4 +1,5 @@
 import Movement from '../models/Movement.js';
+import { getErrorResponse } from '../utils/errorResponse.js';
 
 // @desc    Get all cinematic movements
 // @route   GET /api/movements
@@ -11,7 +12,9 @@ export const getMovements = async (req, res) => {
       
     res.json(movements);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };
 
@@ -29,6 +32,8 @@ export const getMovementById = async (req, res) => {
 
     res.json(movement);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };

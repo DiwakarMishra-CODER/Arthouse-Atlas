@@ -64,10 +64,6 @@ const movieSchema = new mongoose.Schema({
     default: 1,
     index: true
   },
-  influenceScore: {
-    type: Number,
-    default: 0
-  },
   arthouseScore: {
     type: Number,
     default: 0,
@@ -92,9 +88,6 @@ const movieSchema = new mongoose.Schema({
     type: Date,
     default: null
   },
-  festivalWins: [{
-    type: String
-  }],
   movements: [{
     type: String
   }],

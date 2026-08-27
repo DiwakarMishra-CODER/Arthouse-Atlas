@@ -1,5 +1,6 @@
 import Director from '../models/Director.js';
 import Movie from '../models/Movie.js';
+import { getErrorResponse } from '../utils/errorResponse.js';
 
 // @desc    Get all directors
 // @route   GET /api/directors
@@ -53,9 +54,10 @@ export const getDirectors = async (req, res) => {
         });
     } catch (error) {
         console.error('Error fetching directors:', error);
-        res.status(500).json({
+        const { status, message } = getErrorResponse(error);
+        res.status(status).json({
             success: false,
-            message: 'Failed to fetch directors'
+            message
         });
     }
 };
@@ -92,9 +94,10 @@ export const getDirector = async (req, res) => {
         });
     } catch (error) {
         console.error('Error fetching director:', error);
-        res.status(500).json({
+        const { status, message } = getErrorResponse(error);
+        res.status(status).json({
             success: false,
-            message: 'Failed to fetch director'
+            message
         });
     }
 };

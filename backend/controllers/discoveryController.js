@@ -1,4 +1,5 @@
 import Movie from '../models/Movie.js';
+import { getErrorResponse } from '../utils/errorResponse.js';
 import {
   calculateExploreScore,
   calculateDecadeScore,
@@ -57,7 +58,9 @@ export const getExploreFilms = async (req, res) => {
       sortBy
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };
 
@@ -107,7 +110,9 @@ export const getDecadeFilms = async (req, res) => {
       total: films.length
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };
 
@@ -171,7 +176,9 @@ export const getMoodFilms = async (req, res) => {
       total: films.length
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };
 
@@ -229,7 +236,9 @@ export const getCombinedFilms = async (req, res) => {
       total: films.length
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };
 
@@ -253,7 +262,9 @@ export const getAvailableMoods = async (req, res) => {
     
     res.json(moods);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
   }
 };
 

@@ -7,6 +7,7 @@ import {
   googleLogin
 } from '../controllers/userController.js';
 import { protect } from '../middleware/authMiddleware.js';
+import { authLimiter } from '../middleware/rateLimiter.js';
 
 const router = express.Router();
 
@@ -15,6 +16,6 @@ router.post('/favorites/:movieId', protect, toggleFavorite);
 router.post('/watchlist/:movieId', protect, toggleWatchlist);
 router.post('/watched/:movieId', protect, toggleWatched);
 router.get('/recommendations', protect, getRecommendations);
-router.post('/google', googleLogin);
+router.post('/google', authLimiter, googleLogin);
 
 export default router;
