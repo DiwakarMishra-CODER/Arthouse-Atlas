@@ -34,7 +34,20 @@ Mainstream streaming platforms recommend what's popular, not what's meaningful. 
 
 ### Personalisation
 - **For You** — Weighted affinity recommendation engine. Builds a taste profile across 4 dimensions (mood tags, directors, cinematic movements, decade). Scores 200 canonical candidate films. Returns top 10 shuffled from top 30 — taste-matched but fresh every visit.
+- **Similar Films** — On every film's detail page, ranks the 100 closest films by shared director (×3), movement (×2), tags (×1.5), and genre (×1).
 - **Favorites / Watchlist / Watched** — Three interaction types weighted differently (3×, 1×, 1.5×) to train your recommendation profile.
+
+### 6 Independent Scoring Systems
+Every film and every discovery surface is backed by one of six purpose-built scoring algorithms — no black-box ML, fully explainable end to end:
+
+| Score | Answers |
+|---|---|
+| `arthouseScore` | Is this film actually arthouse? |
+| `baseCanonScore` | How canonical/historically important is it? |
+| `recommendationScore` | Does it match this user's taste? |
+| `similarityScore` | How similar is it to a given film? |
+| `exploreScore` | How should it rank on Explore today? |
+| `moodScore` / `decadeScore` | Does it fit the active mood/decade filter? |
 
 ### Watch Movie
 - Per-film streaming availability sourced live from TMDB API, filtered to India and US regions. Provider logos route to a search for the film on that platform.
@@ -42,6 +55,7 @@ Mainstream streaming platforms recommend what's popular, not what's meaningful. 
 ### Authentication
 - JWT-based email/password login (bcrypt password hashing, 30-day token expiry)
 - Google OAuth 2.0 one-click sign in
+- Rate limiting on auth routes and sanitised error responses (no internal error details leaked to clients)
 
 ---
 
@@ -86,6 +100,18 @@ baseCanonScoring   → baseCanonScore (critical consensus 35%, historical import
                      auteur status 20%, formal innovation 10%, cultural influence 10%)
 ```
 
+### Discovery Ranking (exploreScore)
+What surfaces on the Explore page changes day to day, not just by filter:
+
+```
+0.60 × baseCanonScore   — quality floor
+0.20 × RecencyBoost     — post-2015 films score higher
+0.10 × RarityBoost      — less-shown films surface more
+0.10 × RotationNoise    — small daily variation
+```
+
+Every film returned increments a `showCount`, so rarity tracking stays accurate over time — genuinely canonical films don't dominate every single visit.
+
 ### Optimistic UI
 `MovieContext` updates local state immediately on favorites/watchlist/watched toggles before the API call resolves — so interactions feel instant. A `useRef` Set (`pendingToggles`) prevents duplicate in-flight requests on double-click.
 
@@ -105,7 +131,8 @@ Arthouse-Atlas/
 │   ├── models/          # Mongoose schemas (Movie, User, Director, Movement, Studio)
 │   ├── routes/          # Express route definitions
 │   ├── services/        # Scoring algorithms (arthouse, canon, tagging, mood, discovery)
-│   ├── middleware/       # JWT auth guard
+│   ├── middleware/       # JWT auth guard, rate limiter
+│   ├── utils/           # Shared error response helpers
 │   ├── data/            # Static movement and seed data
 │   └── scripts/         # DB seeding and enrichment scripts
 └── frontend/
@@ -137,7 +164,7 @@ cd ../frontend && npm install
 
 **`backend/.env`**
 ```env
-PORT=5000
+PORT=5001
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 GOOGLE_CLIENT_ID=your_google_client_id
@@ -146,7 +173,7 @@ TMDB_API_KEY=your_tmdb_api_key
 
 **`frontend/.env.local`**
 ```env
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=http://localhost:5001/api
 VITE_GOOGLE_CLIENT_ID=your_google_client_id
 ```
 
@@ -164,6 +191,11 @@ cd frontend && npm run dev
 App runs at `http://localhost:5173`
 
 ---
+
+## Further Documentation
+
+- [`TECHNICAL_OVERVIEW.md`](./TECHNICAL_OVERVIEW.md) — full architecture, scoring systems, and engineering deep-dive
+- [`PROJECT_SUMMARY.md`](./PROJECT_SUMMARY.md) — condensed quick-reference version
 
 ## License
 
