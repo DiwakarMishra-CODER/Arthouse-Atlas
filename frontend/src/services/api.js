@@ -42,6 +42,13 @@ export const moviesAPI = {
   getGenres: () => api.get('/movies/genres/list')
 };
 
+// Movements API — movements are addressed by slug (e.g. 'czech_new_wave')
+export const movementsAPI = {
+  getAll: () => api.get('/movements'),
+  getStats: () => api.get('/movements/stats'),
+  getOne: (slugOrId) => api.get(`/movements/${slugOrId}`)
+};
+
 // User API
 export const userAPI = {
   toggleFavorite: (movieId) => api.post(`/users/favorites/${movieId}`),

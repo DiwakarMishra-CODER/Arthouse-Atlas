@@ -22,6 +22,8 @@ import Movement from '../models/Movement.js';
 import Director from '../models/Director.js';
 import { movementsData } from '../data/movementsData.js';
 import { movementsExpansion } from '../data/movementsExpansion.js';
+import { movementLineage } from '../data/movementLineage.js';
+import { movementHeroes } from '../data/movementHeroes.js';
 import { namesMatch, normalizeName } from '../services/nameUtils.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -39,6 +41,19 @@ const parseEra = (era = '') => {
   else if (toks[1]) end = toks[1].decade ? toks[1].year + 9 : toks[1].year;
   else end = toks[0]?.decade ? start + 9 : start;
   return [start, end];
+};
+
+// Regional lanes for the movements timeline
+const REGION = {
+  'German Expressionism': 'Western Europe', 'Italian Neorealism': 'Western Europe', 'French New Wave': 'Western Europe',
+  'Poetic Realism': 'Western Europe', 'British New Wave': 'Western Europe', 'New German Cinema': 'Western Europe', 'Dogme 95': 'Western Europe',
+  'Soviet Montage': 'Eastern Europe & USSR', 'Czech New Wave': 'Eastern Europe & USSR', 'Romanian New Wave': 'Eastern Europe & USSR',
+  'Japanese Golden Age': 'East Asia', 'Japanese New Wave': 'East Asia', 'New Taiwanese Cinema': 'East Asia',
+  'Hong Kong New Wave': 'East Asia', 'Korean New Wave': 'East Asia', 'Chinese Fifth & Sixth Generations': 'East Asia',
+  'Iranian New Wave': 'South & West Asia', 'Indian Parallel Cinema': 'South & West Asia',
+  'Hollywood Auteurs': 'Americas', 'New Hollywood': 'Americas', 'L.A. Rebellion': 'Americas', 'New Queer Cinema': 'Americas',
+  'Third Cinema / Latin American Political Cinema': 'Americas',
+  'Slow Cinema': 'Global', 'Documentary / Cinema Vérité': 'Global', 'Avant-garde / Experimental Cinema': 'Global'
 };
 
 // Movements where director × era tagging is wrong: modes of filmmaking that
@@ -91,11 +106,19 @@ const main = async () => {
       return { name, directorId: doc?._id || null };
     });
 
+    // Lineage: stated once as grewFrom in data/movementLineage.js; fed is the inverse
+    const grewFrom = movementLineage[m.title] || [];
+    const fed = Object.entries(movementLineage).filter(([, from]) => from.includes(m.title)).map(([t]) => t);
     const set = {
       title: m.title, era: m.era, vibe: m.vibe, philosophy: m.philosophy,
       visualSignatures: m.visualSignatures, keyDirectors, essentialFilms: essentials,
       description: m.description, tagline: m.tagline, tag: m.tag, icon: m.icon,
-      cardColor: m.cardColor, sortOrder: i
+      cardColor: m.cardColor, sortOrder: i,
+      startYear: start, endYear: /present/i.test(m.era) ? null : end,
+      region: REGION[m.title] || 'Global',
+      heroFilm: movementHeroes[m.title]?.film || null,
+      heroFocus: movementHeroes[m.title]?.focus || '50% 35%',
+      'editorial.grewFrom': grewFrom, 'editorial.fed': fed
     };
     if (!DRY_RUN) await Movement.updateOne({ title: m.title }, { $set: set, $setOnInsert: { colorCode: m.cardColor || '#d4af37' } }, { upsert: true });
     const total = [...tags.entries()].filter(([, s]) => s.has(m.title)).length;
@@ -121,7 +144,8 @@ const main = async () => {
   console.log(`${DRY_RUN ? '[DRY RUN] ' : ''}${all.length} movements · ${films.length} films\n`);
   console.log(summary.join('\n'));
   const tagged = [...tags.keys()].length;
-  console.log(`\nFilms with ≥1 movement: ${tagged}/${films.length} · films whose tags changed: ${changed}${DRY_RUN ? ' (nothing written)' : ''}`);
+  const edges = Object.values(movementLineage).reduce((a, b) => a + b.length, 0);
+  console.log(`\nFilms with ≥1 movement: ${tagged}/${films.length} · films whose tags changed: ${changed} · lineage edges: ${edges}${DRY_RUN ? ' (nothing written)' : ''}`);
   await mongoose.connection.close();
 };
 

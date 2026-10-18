@@ -1,315 +1,130 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../services/api';
-import { MdArrowOutward } from 'react-icons/md';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import PosterCard from '../components/PosterCard';
+import { motion } from 'framer-motion';
+import { movementsAPI } from '../services/api';
+import { useMotionPreference } from '../hooks/useMotionPreference';
+import MovementCard from '../components/movements/MovementCard';
+import FilmStripTimeline from '../components/movements/FilmStripTimeline';
+import { treatmentFor } from '../components/movements/treatments';
+
+/**
+ * Movements — every school in the atlas, in the order they began.
+ * One card anatomy, one grid, one reading direction; hover a card and it
+ * cuts through that movement's own films.
+ */
+
+const REGION_GROUP = {
+    'Western Europe': 'Europe',
+    'Eastern Europe & USSR': 'Europe',
+    'East Asia': 'Asia',
+    'South & West Asia': 'Asia',
+    'Americas': 'Americas',
+    'Global': 'Everywhere'
+};
+const FILTERS = ['All', 'Europe', 'Asia', 'Americas', 'Everywhere', 'Still happening'];
 
 const Movements = () => {
     const [movements, setMovements] = useState([]);
+    const [stats, setStats] = useState(null);
     const [loading, setLoading] = useState(true);
-    const containerRef = useRef(null);
-    const [activeSection, setActiveSection] = useState(0);
+    const [filter, setFilter] = useState('All');
+    const reducedMotion = useMotionPreference();
 
     useEffect(() => {
-        const fetchMovements = async () => {
-            try {
-                const response = await api.get('/movements');
-                setMovements(response.data);
-            } catch (error) {
-                console.error('Failed to fetch movements:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchMovements();
+        Promise.all([movementsAPI.getAll(), movementsAPI.getStats().catch(() => ({ data: null }))])
+            .then(([all, s]) => { setMovements(all.data); setStats(s.data); })
+            .catch((err) => console.error('Failed to fetch movements:', err))
+            .finally(() => setLoading(false));
     }, []);
 
-    // Handle scroll spy for active section
-    useEffect(() => {
-        const container = containerRef.current;
-        if (!container) return;
+    const matches = (m) => (filter === 'All' ? true
+        : filter === 'Still happening' ? !m.endYear
+            : REGION_GROUP[m.region] === filter);
 
-        const handleScroll = () => {
-            const index = Math.round(container.scrollTop / window.innerHeight);
-            setActiveSection(index);
-        };
-
-        container.addEventListener('scroll', handleScroll);
-        return () => container.removeEventListener('scroll', handleScroll);
-    }, [loading]);
+    const visible = useMemo(() => movements
+        .filter(matches)
+        .sort((a, b) => (a.startYear - b.startYear) || (b.filmCount - a.filmCount)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [movements, filter]);
 
     if (loading) {
         return (
             <div className="h-screen w-full bg-black flex items-center justify-center">
-                <div className="text-primary text-2xl font-serif animate-pulse">Loading Museum...</div>
+                <div className="text-primary text-xl font-serif animate-pulse motion-reduce:animate-none">Threading the projector...</div>
             </div>
         );
     }
 
+    const living = movements.filter((m) => !m.endYear).length;
+
     return (
-        <div className="relative h-screen overflow-hidden text-white selection:bg-primary selection:text-black">
+        <div className="min-h-screen bg-black text-white pt-28 pb-28 overflow-x-clip selection:bg-primary selection:text-black">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            {/* Fixed Sidebar Navigation (Desktop) */}
-            <nav className="fixed left-8 top-[55%] -translate-y-1/2 z-50 hidden lg:flex flex-col gap-3">
-                <div className="absolute left-[19px] top-0 bottom-0 w-px bg-white/20 -z-10"></div>
-                {movements.map((movement, index) => (
-                    <button
-                        key={movement._id}
-                        onClick={() => {
-                            containerRef.current.scrollTo({
-                                top: index * window.innerHeight,
-                                behavior: 'smooth'
-                            });
-                        }}
-                        className={`group flex items-center justify-center transition-all duration-300 relative ${activeSection === index ? 'scale-110' : 'hover:scale-105'
-                            }`}
-                        aria-label={`Go to ${movement.title}`}
-                    >
-                        <div className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 font-mono text-sm ${activeSection === index
-                            ? 'border-primary bg-primary/20 text-primary shadow-[0_0_20px_rgba(212,175,53,0.6)] font-bold'
-                            : 'border-white/30 bg-black/50 text-white/70 hover:border-primary hover:text-primary hover:bg-white/10'
-                            }`}>
-                            {index + 1}
+                {/* opening */}
+                <motion.header
+                    initial={reducedMotion ? false : { opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-14 md:mb-20"
+                >
+                    <div className="lg:col-span-7">
+                        <div className="text-primary text-xs tracking-[0.3em] uppercase mb-5">
+                            {movements.length} movements · 1920 to now
                         </div>
-                    </button>
-                ))}
-            </nav>
+                        <h1 className="font-serif font-bold leading-[0.95] text-6xl md:text-8xl">Movements</h1>
+                    </div>
+                    <p className="lg:col-span-5 text-gray-300 text-lg leading-relaxed font-light lg:pb-2">
+                        Cinema doesn't advance in a line. It breaks out — in a defeated country, a studio town, a
+                        generation that saw the same films at the same cinémathèque. Here are those outbreaks, in the
+                        order they began. {living} are still happening. Hover a card to see its films.
+                    </p>
+                </motion.header>
 
-            {/* Scroll Containner */}
-            <main
-                ref={containerRef}
-                className="h-screen w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth no-scrollbar"
-            >
-                {movements.map((movement, index) => (
-                    <section
-                        key={movement._id}
-                        className="h-screen w-full snap-start relative flex items-center justify-center overflow-hidden"
-                    >
-                        {/* Immersive Background */}
-                        <div className="absolute inset-0 z-0">
-                            <motion.div
-                                initial={{ scale: 1.1 }}
-                                whileInView={{ scale: 1.0 }}
-                                transition={{ duration: 10, ease: "linear" }}
-                                className="w-full h-full"
-                            >
-                                <img
-                                    src={movement.backdropUrl || 'https://via.placeholder.com/1920x1080'}
-                                    alt={movement.title}
-                                    className="w-full h-full object-cover filter brightness-[0.3] contrast-125 saturate-0"
-                                />
-                            </motion.div>
+                {/* the century as a film strip */}
+                <FilmStripTimeline movements={movements} isVisible={matches} accentFor={(m) => treatmentFor(m).accent} />
 
-                            {/* Gradient Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/40 to-black/90" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60" />
+                {/* filters */}
+                <nav className="flex flex-wrap gap-x-7 gap-y-1 mb-12 border-b border-white/10" aria-label="Filter movements">
+                    {FILTERS.map((f) => (
+                        <button
+                            key={f}
+                            onClick={() => setFilter(f)}
+                            aria-pressed={filter === f}
+                            className={`py-3 -mb-px border-b-2 text-sm transition-colors ${filter === f ? 'text-white border-primary' : 'text-gray-400 border-transparent hover:text-white'}`}
+                        >
+                            {f}
+                            {f !== 'All' && (
+                                <span className="ml-2 text-xs text-gray-500">
+                                    {f === 'Still happening' ? living : movements.filter((m) => REGION_GROUP[m.region] === f).length}
+                                </span>
+                            )}
+                        </button>
+                    ))}
+                </nav>
 
-                            {/* Color Accent Tint */}
-                            <div
-                                className="absolute inset-0 mix-blend-overlay opacity-30"
-                                style={{ backgroundColor: movement.colorCode }}
-                            />
-                        </div>
+                {/* the grid — chronological, left to right */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+                    {visible.map((m, i) => (
+                        <MovementCard key={m._id} movement={m} reducedMotion={reducedMotion} eager={i < 3} />
+                    ))}
+                </div>
 
-                        {/* Content Container - Grid Refactor */}
-                        <div className="relative z-10 h-full w-full pl-0 md:pl-24 pr-0 md:pr-8 lg:pl-32 pt-0 md:pt-24 text-white">
-
-                            {/* MOBILE VIEW (Readable Scrolling Layout) */}
-                            <div className="md:hidden min-h-screen w-full flex flex-col pt-28 pb-10 bg-black text-white">
-                                {/* Header (Restored Size) */}
-                                <div className="flex flex-col items-center text-center px-6 mb-6">
-                                    <div className="text-[#C5A059] text-xs tracking-[0.2em] uppercase mb-2">
-                                        {movement.era}
-                                    </div>
-                                    <h1 className="text-3xl font-serif font-bold leading-tight text-white mb-2">
-                                        {movement.title}
-                                    </h1>
-                                </div>
-
-                                {/* Info Block (Readable) */}
-                                <div className="px-4">
-                                    <div className="w-full bg-[#111] border-l-2 border-[#C5A059] p-4 my-4 rounded-r">
-                                        <p className="text-base italic text-gray-200">
-                                            "{movement.vibe}"
-                                        </p>
-                                    </div>
-                                    <p className="text-sm text-gray-400 leading-relaxed px-4 text-center line-clamp-4 mb-4">
-                                        {movement.philosophy}
-                                    </p>
-                                </div>
-
-                                {/* Tags (Readable Row) */}
-                                <div className="flex flex-wrap justify-center gap-2 px-6 mb-6">
-                                    {movement.visualSignatures.map((sig, i) => (
-                                        <span key={i} className="px-3 py-1 bg-white/5 rounded-full text-xs text-gray-300 border border-white/10">
-                                            {sig}
-                                        </span>
-                                    ))}
-                                </div>
-
-                                {/* Film Grid (Clean 3-Column) */}
-                                <div className="px-2 mt-4">
-                                    <div className="grid grid-cols-3 gap-2">
-                                        {movement.essentialFilms.map((film, idx) => {
-                                            const movieData = {
-                                                ...(film.movieId && typeof film.movieId === 'object' ? film.movieId : {}),
-                                                _id: film.movieId?._id || film.movieId || `missing-${idx}`,
-                                                title: film.title || film.movieId?.title,
-                                                year: film.year || film.movieId?.year,
-                                                posterUrl: film.posterUrl || film.movieId?.posterUrl,
-                                                directors: film.movieId?.directors || []
-                                            };
-
-                                            return (
-                                                <div key={idx} className="relative z-0 hover:z-50">
-                                                    {film.movieId ? (
-                                                        <PosterCard movie={movieData} />
-                                                    ) : (
-                                                        <div className="aspect-[2/3] bg-white/5 border border-white/10 rounded overflow-hidden flex flex-col items-center justify-center opacity-50">
-                                                            <span className="text-xl mb-1">🎞️</span>
-                                                            <span className="text-[10px] text-center px-1 text-white/50 line-clamp-2">{film.title}</span>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* DESKTOP VIEW */}
-                            <div className="container mx-auto h-full hidden md:grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-
-                                {/* Zone 1: Title & Vibe (Left Side - Cols 1-7) */}
-                                <div className="col-span-1 lg:col-span-7 flex flex-col justify-center h-full relative z-20">
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 30 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.8, delay: 0.2 }}
-                                    >
-                                        {/* Header Block */}
-                                        <div className="mb-8">
-                                            <div className="flex items-center gap-4 text-primary tracking-widest uppercase mb-4 text-sm font-medium">
-                                                <span>{movement.era}</span>
-                                                <span className="w-12 h-px bg-primary/50"></span>
-                                                <span>Movement No. {index + 1}</span>
-                                            </div>
-
-                                            {/* Title - strictly relative with break-words */}
-                                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-tight drop-shadow-lg mb-4 break-words max-w-4xl">
-                                                {movement.title}
-                                            </h1>
-
-                                        </div>
-
-                                        {/* Description Card - strictly relative flow */}
-                                        <div className="bg-black/80 backdrop-blur-xl border border-white/10 p-8 rounded-xl max-w-xl shadow-2xl relative z-30">
-                                            <p className="text-2xl font-serif italic text-white mb-6 leading-relaxed">
-                                                "{movement.vibe}"
-                                            </p>
-                                            <div className="h-px w-full bg-gradient-to-r from-white/20 to-transparent mb-6"></div>
-                                            <p className="text-gray-300 font-light leading-relaxed text-lg mb-6">
-                                                {movement.philosophy}
-                                            </p>
-
-                                            {/* Tags Row */}
-                                            <div className="flex flex-wrap gap-2">
-                                                {movement.visualSignatures.map((sig, i) => (
-                                                    <span
-                                                        key={i}
-                                                        className="px-3 py-1 border border-white/20 rounded-full text-xs uppercase tracking-wider text-gray-400"
-                                                    >
-                                                        {sig}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </motion.div>
-                                </div>
-
-                                {/* Zone 2: The Details (Right Side - Cols 8-12) */}
-                                <motion.div
-                                    initial={{ opacity: 0, x: 50 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.8, delay: 0.4 }}
-                                    className="col-span-1 lg:col-span-5 flex flex-col justify-center gap-12 border-l border-white/10 pl-12"
-                                >
-                                    {/* Key Directors */}
-                                    <div>
-                                        <h3 className="text-primary font-serif italic text-xl mb-4">
-                                            Key Figures
-                                        </h3>
-                                        <div className="flex flex-wrap gap-x-4 gap-y-2 text-lg">
-                                            {(movement.keyDirectors || []).map((director, idx) => (
-                                                <span key={idx} className="flex items-center">
-                                                    {director.directorId ? (
-                                                        <Link
-                                                            to={`/directors/${director.directorId}`}
-                                                            className="group flex items-center gap-1 text-accent-primary border-b border-accent-primary/30 hover:border-accent-primary hover:text-white transition-all duration-300 font-serif italic"
-                                                        >
-                                                            {director.name}
-                                                            <MdArrowOutward className="text-xs opacity-50 group-hover:opacity-100 transition-opacity" />
-                                                        </Link>
-                                                    ) : (
-                                                        <span className="text-accent-primary cursor-default font-serif italic hover:text-white transition-colors">
-                                                            {director.name}
-                                                        </span>
-                                                    )}
-
-                                                    {/* Separator Dot (if not last) */}
-                                                    {idx < movement.keyDirectors.length - 1 && (
-                                                        <span className="text-gray-700 mx-2 text-xs">•</span>
-                                                    )}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Essential Collection */}
-                                    <div>
-                                        <h3 className="text-primary font-serif italic text-xl mb-6">
-                                            Essential Collection
-                                        </h3>
-                                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                            {movement.essentialFilms.map((film, idx) => {
-                                                // Construct compatible movie object for PosterCard
-                                                const movieData = {
-                                                    // Prefer populated movie data if available
-                                                    ...(film.movieId && typeof film.movieId === 'object' ? film.movieId : {}),
-                                                    // Fallbacks/Overwrites from local movement data
-                                                    _id: film.movieId?._id || film.movieId || `missing-${idx}`, // Ensure ID for keys/links
-                                                    title: film.title || film.movieId?.title,
-                                                    year: film.year || film.movieId?.year,
-                                                    posterUrl: film.posterUrl || film.movieId?.posterUrl,
-                                                    // Ensure directors is an array if missing from populated data
-                                                    directors: film.movieId?.directors || []
-                                                };
-
-                                                return (
-                                                    <div key={idx} className="relative z-0 hover:z-50 transition-all duration-300">
-                                                        {film.movieId ? (
-                                                            <PosterCard movie={movieData} />
-                                                        ) : (
-                                                            /* Fallback for unlinked films - keep visual consistency but disabled */
-                                                            <div className="aspect-[2/3] bg-white/5 border border-white/10 rounded-lg overflow-hidden flex flex-col items-center justify-center opacity-50">
-                                                                <span className="text-3xl mb-2">🎞️</span>
-                                                                <span className="text-xs text-center px-2 text-white/50">{film.title}</span>
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                );
-                                            })}
-                                        </div>
-                                    </div>
-                                </motion.div>
-
-                            </div>
-                        </div>
-                    </section>
-                ))}
-            </main>
+                {/* closing */}
+                <div className="border-t border-white/10 pt-16 mt-24 max-w-3xl">
+                    <p className="font-serif text-2xl md:text-3xl text-gray-200 leading-snug">
+                        Schools are how we remember cinema. They are not how it was made.
+                    </p>
+                    {stats && (
+                        <p className="text-gray-400 mt-5 text-lg font-light">
+                            {stats.unassignedFilms} of the {stats.totalFilms} films in the atlas belong to none of these —{' '}
+                            <Link to="/explore" className="text-primary hover:text-white transition-colors border-b border-primary/40 hover:border-white">
+                                they are in Explore
+                            </Link>.
+                        </p>
+                    )}
+                </div>
+            </div>
         </div>
     );
 };

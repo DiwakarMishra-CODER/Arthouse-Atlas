@@ -73,6 +73,8 @@ const movementSchema = new mongoose.Schema({
     writtenAt: { type: Date, default: null },
     reviewedAt: { type: Date, default: null }
   },
+  heroFilm: { type: String },                        // catalogue title whose still stands for the movement
+  heroFocus: { type: String, default: '50% 35%' },   // CSS object-position for that still
   startYear: { type: Number },                       // parsed from era, for the timeline
   endYear: { type: Number },                         // null/current year for living movements
   region: { type: String }                           // for the timeline's regional lanes

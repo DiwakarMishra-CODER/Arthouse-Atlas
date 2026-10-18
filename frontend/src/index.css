@@ -8,10 +8,17 @@
   --color-muted: #9aa0a6;
   --color-accent-primary: #b58360;
   --color-accent-secondary: #7f9a94;
+  --color-primary: #c5a059;  /* the site's gold — used as text-primary / border-primary throughout */
   --color-card: rgba(255, 255, 255, 0.03);
 
   --font-family-serif: 'Playfair Display', Georgia, serif;
   --font-family-sans: Inter, system-ui, sans-serif;
+  /* Tailwind v4 utility names: font-serif / font-sans / font-cinzel */
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: Inter, system-ui, sans-serif;
+  --font-cinzel: 'Cinzel', Georgia, serif;
+  --font-oswald: 'Oswald', 'Arial Narrow', sans-serif;
+  --font-courier: 'Courier Prime', 'Courier New', monospace;
 
   --aspect-ratio-poster: 2 / 3;
 
