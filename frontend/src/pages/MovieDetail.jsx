@@ -1,159 +1,91 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { moviesAPI } from '../services/api';
+import { motion } from 'framer-motion';
+import { MdArrowBack, MdPlayArrow, MdCheck, MdBookmarkBorder, MdBookmark, MdFavoriteBorder, MdFavorite, MdArrowOutward } from 'react-icons/md';
+import { moviesAPI, movementsAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useMovie } from '../context/MovieContext';
-import TagChip from '../components/TagChip';
+import { useMotionPreference } from '../hooks/useMotionPreference';
 import LoadingSkeleton from '../components/LoadingSkeleton';
 import StarRating from '../components/StarRating';
 import PosterCard from '../components/PosterCard';
+import CanonPassport from '../components/film/CanonPassport';
+import useFilmLight from '../components/film/useFilmLight';
+import { treatmentFor, displayTitle, sized } from '../components/movements/treatments';
+
+/**
+ * A film, as a cinémathèque programme note.
+ *
+ * The page is lit by the film itself: its still, blurred, glows behind
+ * everything like light thrown off the screen, and the accent is read from
+ * the still's own colour, so no two films' pages are the same colour. Below
+ * the screen: the programme note, the technical sheet, the canon passport
+ * (every list that places the film, stamped), the movement it belongs to,
+ * a contact sheet of stills, and a double bill to follow it with.
+ */
+
+const YEAR_MIN = 1918;
+const YEAR_MAX = new Date().getFullYear() + 1;
+const pct = (y) => `${((y - YEAR_MIN) / (YEAR_MAX - YEAR_MIN)) * 100}%`;
+
+// dark ink on a pale accent, light ink on a deep one
+const inkOn = (hex) => {
+    const n = parseInt(hex.slice(1), 16);
+    const lum = (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255;
+    return lum > 0.6 ? '#0a0a0a' : '#ffffff';
+};
 
 const MovieDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { isAuthenticated, user, refreshUser } = useAuth();
-    const [movie, setMovie] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [actionLoading, setActionLoading] = useState(false);
+    const { isAuthenticated } = useAuth();
+    const reducedMotion = useMotionPreference();
+    // { id, data } — loading is simply "the loaded film isn't this one yet"
+    const [result, setResult] = useState({ id: null, data: null });
     const [providers, setProviders] = useState(null);
     const [similarMovies, setSimilarMovies] = useState([]);
+    const [movements, setMovements] = useState([]);
+    const { isFavorite, isInWatchlist, isWatched, toggleFavorite, toggleWatchlist, toggleWatched } = useMovie();
+    const loading = result.id !== id;
+    const movie = loading ? null : result.data;
+    const light = useFilmLight(movie?.backdropUrl || movie?.posterUrl);
 
     useEffect(() => {
-        // Guard clause: Don't run until the movie data is loaded
-        if (!movie?._id) return;
-
-        const fetchProviders = async () => {
-            try {
-                const response = await moviesAPI.getMovieProviders(movie._id);
-                const results = response.data;
-
-                const uniqueProviders = new Map();
-
-                if (results) {
-                    // Check only India and US
-                    const allowedCountries = ['IN', 'US'];
-
-                    allowedCountries.forEach(countryCode => {
-                        const countryData = results[countryCode];
-
-                        if (countryData) {
-                            // The categories we want to check
-                            const categories = ['flatrate', 'rent', 'buy', 'free'];
-
-                            categories.forEach(category => {
-                                if (countryData[category]) {
-                                    countryData[category].forEach(provider => {
-                                        // Deduplicate using provider_id
-                                        if (!uniqueProviders.has(provider.provider_id)) {
-                                            uniqueProviders.set(provider.provider_id, provider);
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    });
-                }
-
-                // Convert Map back to an array and update state
-                setProviders(Array.from(uniqueProviders.values()));
-            } catch (error) {
-                console.error("Failed to fetch providers:", error);
-                setProviders([]);
-            }
-        };
-
-        fetchProviders();
-    }, [movie]);
-
-    useEffect(() => {
-        fetchMovie();
-        fetchSimilarMovies();
+        let cancelled = false;
+        window.scrollTo(0, 0);
+        moviesAPI.getMovieById(id)
+            .then((res) => { if (!cancelled) setResult({ id, data: res.data }); })
+            .catch((error) => { console.error('Failed to fetch movie:', error); if (!cancelled) setResult({ id, data: null }); });
+        moviesAPI.getSimilarMovies(id)
+            .then((res) => setSimilarMovies(res.data))
+            .catch((error) => console.error('Failed to fetch similar movies:', error));
+        return () => { cancelled = true; };
     }, [id]);
 
-    const fetchSimilarMovies = async () => {
-        try {
-            const response = await moviesAPI.getSimilarMovies(id);
-            setSimilarMovies(response.data);
-        } catch (error) {
-            console.error('Failed to fetch similar movies:', error);
-        }
-    };
+    // the movements index, to tie the film to its movement page
+    useEffect(() => {
+        movementsAPI.getAll().then((res) => setMovements(res.data)).catch(() => setMovements([]));
+    }, []);
 
-    const fetchMovie = async () => {
-        try {
-            const response = await moviesAPI.getMovieById(id);
-            setMovie(response.data);
-        } catch (error) {
-            console.error('Failed to fetch movie:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    useEffect(() => {
+        if (!movie?._id) return;
+        moviesAPI.getMovieProviders(movie._id)
+            .then((response) => {
+                // India and US only; one entry per provider across stream / rent / buy / free
+                const unique = new Map();
+                ['IN', 'US'].forEach((cc) => {
+                    const country = response.data?.[cc];
+                    if (!country) return;
+                    ['flatrate', 'rent', 'buy', 'free'].forEach((cat) => {
+                        (country[cat] || []).forEach((p) => { if (!unique.has(p.provider_id)) unique.set(p.provider_id, p); });
+                    });
+                });
+                setProviders([...unique.values()]);
+            })
+            .catch((error) => { console.error('Failed to fetch providers:', error); setProviders([]); });
+    }, [movie]);
 
-    const { isFavorite, isInWatchlist, isWatched, toggleFavorite, toggleWatchlist, toggleWatched } = useMovie();
-
-    // Local loading state for button feedback
-    const handleFavorite = async () => {
-        if (!isAuthenticated) return;
-        setActionLoading(true);
-        try {
-            await toggleFavorite(id);
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setActionLoading(false);
-        }
-    };
-
-    const handleWatchlist = async () => {
-        if (!isAuthenticated) return;
-        setActionLoading(true);
-        try {
-            await toggleWatchlist(id);
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setActionLoading(false);
-        }
-    };
-
-    const handleWatched = async () => {
-        if (!isAuthenticated) return;
-        setActionLoading(true);
-        try {
-            await toggleWatched(id);
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setActionLoading(false);
-        }
-    };
-
-    const handleTrailer = () => {
-        if (movie.trailerUrl) {
-            window.open(movie.trailerUrl, '_blank');
-        } else {
-            window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(movie.title + ' trailer')}`, '_blank');
-        }
-    };
-
-    // Navigation handlers for deep linking
-    const handleTagClick = (tag) => {
-        navigate(`/explore?tags=${encodeURIComponent(tag)}`);
-    };
-
-    const handleGenreClick = (genre) => {
-        navigate(`/explore?genre=${encodeURIComponent(genre)}`);
-    };
-
-    if (loading) {
-        return (
-            <div className="min-h-screen pt-24">
-                <LoadingSkeleton />
-            </div>
-        );
-    }
-
+    if (loading) return <div className="min-h-screen pt-24"><LoadingSkeleton /></div>;
     if (!movie) {
         return (
             <div className="min-h-screen pt-24 flex items-center justify-center">
@@ -162,479 +94,292 @@ const MovieDetail = () => {
         );
     }
 
-    // Prepare background image (backdrop with fallback to blurred poster)
-    const backgroundImage = movie.backdropUrl || movie.posterUrl;
-    const useBlur = !movie.backdropUrl && movie.posterUrl;
+    const ed = movie.editorial || {};
+    const note = ed.synopsis || movie.synopsis;
+    const backdrop = movie.backdropUrl || movie.posterUrl;
+    const ties = (movie.movements || []).map((t) => movements.find((m) => m.title === t)).filter(Boolean);
+    // a contact sheet with no holes: six or three across three columns, four or two across two
+    const allStills = (movie.stills || []).filter((s) => s && s !== movie.backdropUrl);
+    const stills = allStills.slice(0, allStills.length >= 6 ? 6 : allStills.length >= 4 ? 4 : allStills.length);
+    const tags = [...(movie.genres || []).map((g) => ({ label: g, to: `/explore?genre=${encodeURIComponent(g)}` })),
+        ...(movie.derivedTags || []).map((t) => ({ label: t, to: `/explore?tags=${encodeURIComponent(t)}` }))];
 
-    // Credits sections (only show if data exists)
-    const creditsSections = [
-        { label: 'DIRECTOR', data: movie.directors },
-        { label: 'CINEMATOGRAPHY', data: movie.cinematographers },
-        { label: 'SCORE', data: movie.composers },
-        { label: 'STUDIO', data: movie.productionCompanies }
-    ].filter(section => section.data && section.data.length > 0);
+    const reveal = (delay = 0) => (reducedMotion ? {} : {
+        initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: '-80px' },
+        transition: { duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }
+    });
+    const kicker = (text) => <h2 className="font-mono text-[10px] tracking-[0.35em] uppercase text-gray-500 mb-6">{text}</h2>;
+
+    const handleTrailer = () => {
+        window.open(movie.trailerUrl || `https://www.youtube.com/results?search_query=${encodeURIComponent(`${movie.title} trailer`)}`, '_blank');
+    };
+    // signed out, the shelf buttons send you to sign in rather than doing nothing
+    const shelf = (fn) => (e) => {
+        e.preventDefault();
+        if (!isAuthenticated) return navigate('/login');
+        return fn(movie);
+    };
+    const shelfButtons = [
+        { on: isWatched(movie._id), label: 'Watched', Icon: MdCheck, OnIcon: MdCheck, act: toggleWatched },
+        { on: isInWatchlist(movie._id), label: 'Watchlist', Icon: MdBookmarkBorder, OnIcon: MdBookmark, act: toggleWatchlist },
+        { on: isFavorite(movie._id), label: 'Favourite', Icon: MdFavoriteBorder, OnIcon: MdFavorite, act: toggleFavorite }
+    ];
+
+    // the technical sheet, as a programme prints it
+    const people = (names, linkFirst) => names.map((n, i) => (
+        <span key={n}>
+            {i > 0 && ', '}
+            {linkFirst && i === 0 && movie.directorId ? <Link to={`/directors/${movie.directorId}`} className="hover:underline underline-offset-4" style={{ textDecorationColor: light }}>{n}</Link> : n}
+        </span>
+    ));
+    const fiche = [
+        ['Director', movie.directors?.length && people(movie.directors, true)],
+        ['Cinematography', movie.cinematographers?.length && people(movie.cinematographers)],
+        ['Music', movie.composers?.length && people(movie.composers)],
+        ['Production', movie.productionCompanies?.length && movie.productionCompanies.slice(0, 2).join(', ')],
+        ['Country', (movie.countries?.length ? movie.countries : [movie.country]).filter(Boolean).join(', ')],
+        ['Year', movie.year],
+        ['Running time', movie.runtime && `${movie.runtime} min`],
+        ['Original title', movie.originalTitle && movie.originalTitle !== movie.title && <i>{movie.originalTitle}</i>]
+    ].filter(([, v]) => v);
 
     return (
-        <>
-            {/* MOBILE VIEW (Stitch UI) */}
-            <div className="md:hidden min-h-screen bg-black text-white pt-20 pb-20 font-sans">
-                {/* Mobile Header (Backdrop) */}
-                <div className="relative w-full h-[35vh]">
-                    <img
-                        src={movie.backdropUrl || movie.posterUrl}
-                        alt={movie.title}
-                        className="w-full h-full object-cover brightness-50"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
-                    {/* Back Button Overlay */}
-                    <button 
-                        onClick={() => navigate(-1)} 
-                        className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center bg-black/50 rounded-full text-white z-20 backdrop-blur-sm border border-white/10"
-                        aria-label="Go back"
-                    >
-                        <span className="material-icons-round text-2xl">arrow_back</span>
-                    </button>
-                </div>
-
-                {/* Floating Poster */}
-                <div className="relative -mt-24 z-10 flex justify-center">
-                    <img
-                        src={movie.posterUrl}
-                        alt={movie.title}
-                        className="w-40 rounded-lg shadow-2xl border border-white/10"
-                    />
-                </div>
-
-                {/* Content Stack */}
-                <div className="flex flex-col items-center px-6 mt-6 gap-6">
-                    {/* Title */}
-                    <h1 className="text-3xl font-serif text-center text-[#C5A059] leading-tight">
-                        {movie.title}
-                    </h1>
-
-                    {/* Metadata */}
-                    <div className="flex items-center gap-2 text-gray-400 text-sm">
-                        <span>{movie.year}</span>
-                        {movie.runtime && <span>• {movie.runtime} min</span>}
-                        {movie.country && <span>• {movie.country}</span>}
-                    </div>
-
-                    {/* Action Buttons */}
-                    <div className="w-full max-w-sm space-y-4">
-                        {/* Watch Trailer */}
-                        <button
-                            onClick={handleTrailer}
-                            className="w-full bg-white text-black py-3 rounded-xl font-bold uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-gray-200 transition-colors"
-                        >
-                            <span className="material-icons-round">play_arrow</span>
-                            Watch Trailer
-                        </button>
-
-                        {/* Icon Row */}
-                        {isAuthenticated && (
-                            <div className="flex items-center justify-center gap-4">
-                                <button
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                        toggleWatchlist(movie);
-                                    }}
-                                    title={isInWatchlist(id) ? "Remove from Watchlist" : "Add to Watchlist"}
-                                    className={`w-12 h-12 rounded-xl border flex items-center justify-center transition-colors ${isInWatchlist(id) ? 'border-blue-500 text-blue-500 bg-blue-500/10' : 'border-white/20 text-white hover:bg-white/10'}`}
-                                >
-                                    <span className={`material-icons-round text-2xl ${isInWatchlist(id) ? 'material-icons' : ''}`}>{isInWatchlist(id) ? 'bookmark' : 'bookmark_border'}</span>
-                                </button>
-                                <button
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                        toggleWatched(movie);
-                                    }}
-                                    title={isWatched(id) ? "Mark as Unwatched" : "Mark as Watched"}
-                                    className={`w-12 h-12 rounded-xl border flex items-center justify-center transition-colors ${isWatched(id) ? 'border-green-500 text-green-500 bg-green-500/10' : 'border-white/20 text-white hover:bg-white/10'}`}
-                                >
-                                    <span className={`material-icons-round text-2xl ${isWatched(id) ? 'material-icons' : ''}`}>{isWatched(id) ? 'check_circle' : 'check_circle_outline'}</span>
-                                </button>
-                                <button
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                        toggleFavorite(movie);
-                                    }}
-                                    title={isFavorite(id) ? "Remove from Favorites" : "Add to Favorites"}
-                                    className={`w-12 h-12 rounded-xl border flex items-center justify-center transition-colors ${isFavorite(id) ? 'border-red-500 text-red-500 bg-red-500/10' : 'border-white/20 text-white hover:bg-white/10'}`}
-                                >
-                                    <span className={`material-icons-round text-2xl ${isFavorite(id) ? 'material-icons' : ''}`}>{isFavorite(id) ? 'favorite' : 'favorite_border'}</span>
-                                </button>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Star Rating */}
-                    <StarRating movie={movie} />
-
-                    {/* STREAMING AVAILABILITY */}
-                    {(providers === null || providers.length > 0) && (
-                        <div className="mt-8 border-t border-white/10 pt-6 w-full overflow-hidden">
-                            <div className="flex items-center justify-between mb-4 pr-4">
-                                <h3 className="text-sm text-gray-400 font-cinzel uppercase tracking-widest">
-                                    Watch Movie
-                                </h3>
-                            </div>
-
-                            {providers === null ? (
-                                <div className="animate-pulse h-8 w-32 bg-white/5 rounded"></div>
-                            ) : (
-                                <div className="flex overflow-x-auto gap-3 items-center pb-4 pr-4 custom-scrollbar">
-                                    {providers.map((provider) => (
-                                        <a
-                                            key={provider.provider_id}
-                                            href={`https://www.google.com/search?q=Watch+${encodeURIComponent(movie?.title || "movie")}+on+${encodeURIComponent(provider.provider_name)}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex-shrink-0 flex items-center gap-2 bg-white/5 pr-3 rounded-full border border-white/10 transition-colors hover:border-[#C5A059]/50 cursor-pointer"
-                                        >
-                                            <img
-                                                src={`https://image.tmdb.org/t/p/w45${provider.logo_path}`}
-                                                alt={provider.provider_name}
-                                                className="w-8 h-8 object-cover rounded-l-full"
-                                            />
-                                            <span className="text-xs font-mono text-gray-300 whitespace-nowrap">
-                                                {provider.provider_name}
-                                            </span>
-                                        </a>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    )}
-
-                </div>
-
-                {/* Mobile Tags Section (Genres & Moods) */}
-                <div className="flex flex-wrap justify-center gap-2 mt-6 px-4">
-                    {/* Genres (Gold Highlights) */}
-                    {movie.genres && movie.genres.map((genre, idx) => (
-                        <Link
-                            key={`genre-${idx}`}
-                            to={`/explore?genre=${encodeURIComponent(genre)}`}
-                            className="px-3 py-1 bg-[#C5A059]/10 border border-[#C5A059]/30 rounded-full text-[#C5A059] text-[10px] uppercase tracking-widest"
-                        >
-                            {genre}
-                        </Link>
-                    ))}
-
-                    {/* Moods/Styles (Subtle Tags) */}
-                    {movie.derivedTags && movie.derivedTags.map((tag, idx) => (
-                        <Link
-                            key={`mood-${idx}`}
-                            to={`/explore?mood=${encodeURIComponent(tag)}`}
-                            className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-gray-400 text-[10px] uppercase tracking-widest hover:border-[#C5A059] transition-colors"
-                        >
-                            {tag}
-                        </Link>
-                    ))}
-                </div>
-
-                {/* Synopsis */}
-                <p className="text-gray-300 text-center leading-relaxed text-sm line-clamp-4 active:line-clamp-none transition-all" onClick={(e) => e.target.classList.toggle('line-clamp-4')}>
-                    {movie.synopsis}
-                </p>
-
-                {/* Credits Grid */}
-                <div className="grid grid-cols-2 gap-4 w-full text-left mt-4 border-t border-white/10 pt-6 px-4">
-                    {creditsSections.map((section, idx) => (
-                        <div key={idx} className="mb-2">
-                            <div className="text-[#C5A059] text-xs uppercase mb-1">{section.label}</div>
-                            <div className="text-white text-sm line-clamp-1">
-                                {section.label === 'DIRECTOR' && movie.directorId ? (
-                                    <Link
-                                        to={`/directors/${movie.directorId}`}
-                                        className="text-[#C5A059] border-b border-[#C5A059]/30 hover:text-white hover:border-white transition-colors"
-                                    >
-                                        {section.data.join(', ')}
-                                    </Link>
-                                ) : (
-                                    section.data.join(', ')
-                                )}
-                            </div>
-                        </div>
-                    ))}
-                </div>
+        <div className="relative min-h-screen text-white overflow-x-clip selection:bg-primary selection:text-black">
+            {/* the screen's glow: the film's own still, thrown soft across the whole page */}
+            <div aria-hidden="true" className="fixed inset-0 z-0 pointer-events-none">
+                {backdrop && (
+                    <img src={sized(backdrop, 'w780')} alt="" className="absolute inset-0 w-full h-full object-cover scale-125 blur-[80px] saturate-[1.4] opacity-[0.28]" />
+                )}
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_50%_10%,rgba(5,5,5,0.2),rgba(5,5,5,0.75)_60%,#050505)]" />
             </div>
-            {/* DESKTOP VIEW */}
-            <div className="hidden md:block min-h-screen bg-[#121212] text-white">
-                {/* Navbar Spacer */}
-                <div className="h-16" />
 
-                {/* Desktop Back Button */}
-                <button
-                    onClick={() => navigate(-1)}
-                    className="absolute top-24 left-8 z-50 flex items-center justify-center w-12 h-12 bg-black/40 hover:bg-black/80 rounded-full text-white backdrop-blur-md transition-all border border-white/10 hover:border-white/30"
-                    aria-label="Go back"
-                >
-                    <span className="material-icons-round text-2xl">arrow_back</span>
-                </button>
-
-                {/* Cinematic Hero Section */}
-                <div className="relative w-full h-[65vh] overflow-hidden">
-                    {/* Background Image */}
-                    {backgroundImage && (
-                        <img
-                            src={backgroundImage}
-                            alt={movie.title}
-                            className={`w-full h-full object-cover object-top ${useBlur ? 'blur-xl scale-110' : ''}`}
+            <div className="relative">
+                {/* ===== THE SCREEN ===== */}
+                <section className="relative h-[88vh] min-h-[560px] overflow-hidden">
+                    {backdrop && (
+                        <motion.img
+                            src={sized(backdrop, 'original')}
+                            alt=""
+                            className="absolute inset-0 w-full h-full object-cover"
+                            style={{ objectPosition: '50% 30%' }}
+                            initial={reducedMotion ? false : { scale: 1.08, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ duration: 2.4, ease: [0.22, 1, 0.36, 1] }}
                         />
                     )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/55 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-[#050505]/20 to-transparent" />
 
-                    {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-transparent" />
-                </div>
+                    <button onClick={() => navigate(-1)} className="absolute top-24 left-4 md:left-10 z-20 flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-gray-300 hover:text-white transition-colors">
+                        <MdArrowBack /> Back
+                    </button>
 
-                {/* Content Overlap Section */}
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-32 relative z-20 pb-12">
-                    <div className="flex flex-col md:flex-row gap-8">
+                    <motion.div
+                        className="absolute inset-x-0 bottom-0 max-w-7xl mx-auto px-4 md:px-10 pb-12 md:pb-16"
+                        initial={reducedMotion ? false : { opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                        <div className="font-mono text-[11px] tracking-[0.3em] uppercase" style={{ color: light }}>
+                            {[(movie.directors || []).join(' & '), movie.year, movie.country, movie.runtime && `${movie.runtime} min`].filter(Boolean).join('  ·  ')}
+                        </div>
+                        <h1 className="mt-4 font-serif font-bold leading-[0.95] text-5xl sm:text-6xl md:text-7xl lg:text-[6.5rem] max-w-5xl [text-shadow:0_4px_40px_rgba(0,0,0,0.6)]">
+                            {movie.title}
+                        </h1>
+                        {movie.originalTitle && movie.originalTitle !== movie.title && (
+                            <div className="mt-3 font-serif italic text-xl md:text-2xl text-gray-300">{movie.originalTitle}</div>
+                        )}
+                        {ed.hook && (
+                            <p className="mt-6 max-w-2xl font-serif italic text-xl md:text-2xl leading-snug text-gray-100">{ed.hook}</p>
+                        )}
 
-                        {/* Floating Poster */}
-                        <div className="flex-shrink-0 mx-auto md:mx-0 w-full md:w-64 lg:w-72">
-                            <div className="w-40 md:w-full aspect-[2/3] mx-auto rounded-lg shadow-2xl overflow-hidden ring-1 ring-white/20">
-                                {movie.posterUrl ? (
+                        <div className="mt-9 flex flex-wrap items-center gap-3">
+                            <button
+                                onClick={handleTrailer}
+                                className="group flex items-center gap-2 pl-4 pr-6 py-3.5 text-xs font-semibold tracking-[0.25em] uppercase transition-[filter,box-shadow] hover:brightness-110"
+                                style={{ backgroundColor: light, color: inkOn(light), boxShadow: `0 10px 40px ${light}55` }}
+                            >
+                                <MdPlayArrow className="text-xl transition-transform group-hover:scale-125" /> Trailer
+                            </button>
+                            {shelfButtons.map(({ on, label, Icon, OnIcon, act }) => (
+                                <button
+                                    key={label}
+                                    onClick={shelf(act)}
+                                    aria-pressed={on}
+                                    title={isAuthenticated ? label : 'Sign in to keep track'}
+                                    className={`flex items-center gap-2 px-4 py-3.5 text-xs tracking-[0.2em] uppercase backdrop-blur-md ring-1 transition-colors ${on ? 'bg-white/10' : 'bg-black/30 ring-white/20 text-gray-200 hover:bg-white/10 hover:text-white'}`}
+                                    style={on ? { color: light, '--tw-ring-color': light } : undefined}
+                                >
+                                    {on ? <OnIcon className="text-lg" /> : <Icon className="text-lg" />} {label}
+                                </button>
+                            ))}
+                        </div>
+                    </motion.div>
+                </section>
+
+                <div className="max-w-7xl mx-auto px-4 md:px-10">
+                    {/* ===== THE PROGRAMME NOTE + TECHNICAL SHEET ===== */}
+                    <section className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-16 pt-16 md:pt-20">
+                        <motion.div {...reveal()} className="lg:col-span-7">
+                            {kicker('Programme note')}
+                            {note && (
+                                <p className="text-gray-200 text-lg md:text-xl leading-relaxed first-letter:float-left first-letter:font-serif first-letter:text-[4.6rem] first-letter:leading-[0.8] first-letter:mr-3 first-letter:mt-1.5 first-letter:text-[var(--light)]" style={{ '--light': light }}>
+                                    {note}
+                                </p>
+                            )}
+                            {ed.whyItMatters && (
+                                <blockquote className="mt-12 pl-6 border-l-2" style={{ borderColor: light }}>
+                                    <div className="font-mono text-[10px] tracking-[0.3em] uppercase mb-3" style={{ color: light }}>Why it matters</div>
+                                    <p className="font-serif text-2xl md:text-[1.7rem] leading-snug text-white">{ed.whyItMatters}</p>
+                                </blockquote>
+                            )}
+                            {tags.length > 0 && (
+                                <p className="mt-12 text-sm leading-loose text-gray-500">
+                                    {tags.map((t, i) => (
+                                        <span key={t.label}>
+                                            {i > 0 && <span className="mx-2.5 text-gray-700">/</span>}
+                                            <Link to={t.to} className="text-gray-400 hover:text-white transition-colors capitalize">{t.label}</Link>
+                                        </span>
+                                    ))}
+                                </p>
+                            )}
+                        </motion.div>
+
+                        <motion.aside {...reveal(0.12)} className="lg:col-span-5">
+                            <div className="flex gap-6 items-start">
+                                {movie.posterUrl && (
                                     <img
-                                        src={movie.posterUrl}
+                                        src={sized(movie.posterUrl, 'w342')}
                                         alt={`${movie.title} poster`}
-                                        className="w-full h-full object-cover"
+                                        className="w-32 md:w-40 shrink-0 ring-1 ring-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.6)] -rotate-2"
                                     />
-                                ) : (
-                                    <div className="w-full h-full bg-white/5 flex items-center justify-center">
-                                        <span className="text-muted">No Poster</span>
-                                    </div>
                                 )}
+                                <div className="pt-1">
+                                    <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 mb-2">Your rating</div>
+                                    <StarRating movie={movie} />
+                                </div>
                             </div>
 
-                            {/* Action Buttons */}
-                            {isAuthenticated && (
-                                <div className="mt-4 flex flex-col gap-3">
-                                    {/* PRIMARY ACTION: WATCH TRAILER */}
-                                    <button
-                                        onClick={handleTrailer}
-                                        className="w-full bg-white text-black font-bold font-cinzel py-4 mb-4 hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 tracking-widest rounded-xl"
-                                    >
-                                        <span className="material-icons-round">play_arrow</span>
-                                        WATCH TRAILER
-                                    </button>
-
-                                    {/* SECONDARY ACTIONS: MONOCHROME ICON ROW */}
-                                    <div className="flex items-center gap-4 w-full">
-
-                                        {/* 1. WATCHED (Checkmark Circle) */}
-                                        <button
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                e.stopPropagation();
-                                                toggleWatched(movie);
-                                            }}
-                                            disabled={actionLoading}
-                                            title={isWatched(id) ? "Mark as Unwatched" : "Mark as Watched"}
-                                            className={`flex-1 h-14 border rounded-xl transition-all duration-300 flex items-center justify-center group ${isWatched(id) ? 'border-green-500 text-green-500 bg-green-500/10' : 'border-white/20 text-white hover:border-green-500 hover:text-green-500 hover:bg-green-500/10'}`}
-                                        >
-                                            <span className={`material-icons-round text-2xl ${isWatched(id) ? 'material-icons' : ''}`}>
-                                                {isWatched(id) ? 'check_circle' : 'check_circle_outline'}
-                                            </span>
-                                        </button>
-
-                                        {/* 2. WATCHLIST (Bookmark) */}
-                                        <button
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                e.stopPropagation();
-                                                toggleWatchlist(movie);
-                                            }}
-                                            disabled={actionLoading}
-                                            title={isInWatchlist(id) ? "Remove from Watchlist" : "Add to Watchlist"}
-                                            className={`flex-1 h-14 border rounded-xl transition-all duration-300 flex items-center justify-center group ${isInWatchlist(id) ? 'border-blue-500 text-blue-500 bg-blue-500/10' : 'border-white/20 text-white hover:border-blue-500 hover:text-blue-500 hover:bg-blue-500/10'}`}
-                                        >
-                                            <span className={`material-icons-round text-2xl ${isInWatchlist(id) ? 'material-icons' : ''}`}>
-                                                {isInWatchlist(id) ? 'bookmark' : 'bookmark_border'}
-                                            </span>
-                                        </button>
-
-                                        {/* 3. FAVORITE (Heart) */}
-                                        <button
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                e.stopPropagation();
-                                                toggleFavorite(movie);
-                                            }}
-                                            disabled={actionLoading}
-                                            title={isFavorite(id) ? "Remove from Favorites" : "Add to Favorites"}
-                                            className={`flex-1 h-14 border rounded-xl transition-all duration-300 flex items-center justify-center group ${isFavorite(id) ? 'border-red-500 text-red-500 bg-red-500/10' : 'border-white/20 text-white hover:border-red-500 hover:text-red-500 hover:bg-red-500/10'}`}
-                                        >
-                                            <span className={`material-icons-round text-2xl ${isFavorite(id) ? 'material-icons' : ''}`}>
-                                                {isFavorite(id) ? 'favorite' : 'favorite_border'}
-                                            </span>
-                                        </button>
-
+                            <dl className="mt-10">
+                                {fiche.map(([label, value]) => (
+                                    <div key={label} className="flex items-baseline gap-3 py-2.5 text-[15px]">
+                                        <dt className="shrink-0 font-mono text-[10px] tracking-[0.25em] uppercase text-gray-500">{label}</dt>
+                                        <span aria-hidden="true" className="flex-1 border-b border-dotted border-white/15 translate-y-[-3px]" />
+                                        <dd className="text-right text-gray-200 font-serif">{value}</dd>
                                     </div>
-                                </div>
-                            )}
+                                ))}
+                            </dl>
 
-                            {/* Star Rating */}
-                            <StarRating movie={movie} />
-
-                            {/* STREAMING AVAILABILITY */}
                             {(providers === null || providers.length > 0) && (
-                                <div className="mt-8 border-t border-white/10 pt-6 w-full overflow-hidden">
-                                    <div className="flex items-center justify-between mb-4 pr-4">
-                                        <h3 className="text-sm text-gray-400 font-cinzel uppercase tracking-widest">
-                                            Watch Movie
-                                        </h3>
-                                    </div>
-
+                                <div className="mt-10">
+                                    <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 mb-4">Where to watch</div>
                                     {providers === null ? (
-                                        <div className="animate-pulse h-8 w-32 bg-white/5 rounded"></div>
+                                        <div className="animate-pulse h-9 w-40 bg-white/5" />
                                     ) : (
-                                        <div className="flex overflow-x-auto gap-3 items-center pb-4 pr-4 custom-scrollbar">
-                                            {providers.map((provider) => (
+                                        <div className="flex flex-wrap gap-2">
+                                            {providers.map((p) => (
                                                 <a
-                                                    key={provider.provider_id}
-                                                    href={`https://www.google.com/search?q=Watch+${encodeURIComponent(movie?.title || "movie")}+on+${encodeURIComponent(provider.provider_name)}`}
+                                                    key={p.provider_id}
+                                                    href={`https://www.google.com/search?q=Watch+${encodeURIComponent(movie.title)}+on+${encodeURIComponent(p.provider_name)}`}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="flex-shrink-0 flex items-center gap-2 bg-white/5 pr-3 rounded-full border border-white/10 transition-colors hover:border-[#C5A059]/50 cursor-pointer"
+                                                    className="flex items-center gap-2 pr-3 bg-white/[0.04] ring-1 ring-white/10 hover:ring-white/30 transition-colors"
                                                 >
-                                                    <img
-                                                        src={`https://image.tmdb.org/t/p/w45${provider.logo_path}`}
-                                                        alt={provider.provider_name}
-                                                        className="w-8 h-8 object-cover rounded-l-full"
-                                                    />
-                                                    <span className="text-xs font-mono text-gray-300 whitespace-nowrap">
-                                                        {provider.provider_name}
-                                                    </span>
+                                                    <img src={`https://image.tmdb.org/t/p/w45${p.logo_path}`} alt="" className="w-8 h-8 object-cover" />
+                                                    <span className="text-xs text-gray-300 whitespace-nowrap">{p.provider_name}</span>
                                                 </a>
                                             ))}
                                         </div>
                                     )}
                                 </div>
                             )}
+                        </motion.aside>
+                    </section>
+
+                    {/* ===== THE CANON PASSPORT ===== */}
+                    <section className="pt-24 md:pt-32">
+                        <div className="flex items-end justify-between gap-6 mb-8">
+                            <h2 className="font-serif text-4xl md:text-5xl">Where the canon places it</h2>
                         </div>
+                        <CanonPassport provenance={movie.provenance || []} score={movie.provenanceScore} accent={light} reducedMotion={reducedMotion} />
+                    </section>
 
-                        {/* Text Info */}
-                        <div className="flex-1 text-center md:text-left md:pt-8 lg:pt-12 space-y-8">
+                    {/* ===== ITS MOVEMENT ===== */}
+                    {ties.map((m) => {
+                        const t = treatmentFor(m);
+                        return (
+                            <motion.section key={m._id} {...reveal()} className="pt-24 md:pt-32">
+                                {kicker('Part of a movement')}
+                                <Link to={`/movements/${m.tag || m._id}`} className="group grid grid-cols-1 md:grid-cols-12 gap-0 ring-1 ring-white/[0.08] hover:ring-white/20 transition-colors overflow-hidden bg-[#0b0b0b]">
+                                    <div className="md:col-span-5 relative aspect-video md:aspect-auto md:min-h-[15rem] overflow-hidden">
+                                        {m.heroBackdrop && (
+                                            <img
+                                                src={sized(m.heroBackdrop, 'w780')}
+                                                alt=""
+                                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
+                                                style={{ objectPosition: m.heroFocus || '50% 35%', filter: t.screenFilter }}
+                                            />
+                                        )}
+                                    </div>
+                                    <div className="md:col-span-7 p-7 md:p-10 flex flex-col">
+                                        <div className="font-mono text-[10px] tracking-[0.3em] uppercase" style={{ color: t.accent }}>{m.era} · {m.region}</div>
+                                        <div className="mt-3 font-serif text-3xl md:text-4xl text-white">{displayTitle(m)}</div>
+                                        {(m.tagline || m.vibe) && <div className="mt-2 font-serif italic text-gray-400">{m.tagline || m.vibe}</div>}
 
-                            {/* Title & Meta */}
-                            <div>
-                                <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-                                    {movie.title}
-                                </h1>
+                                        {/* the movement on the century, with this film marked in it */}
+                                        <div className="relative mt-8 h-8" aria-hidden="true">
+                                            <span className="absolute inset-x-0 top-1/2 h-px bg-white/15" />
+                                            <span className="absolute top-1/2 -translate-y-1/2 h-[5px]" style={{ left: pct(m.startYear), right: `calc(100% - ${pct(m.endYear || YEAR_MAX)})`, backgroundColor: t.accent }} />
+                                            <span className="absolute top-0 bottom-0 w-[2px] bg-white" style={{ left: pct(movie.year) }} />
+                                            <span className="absolute -top-4 -translate-x-1/2 font-mono text-[10px] text-white" style={{ left: pct(movie.year) }}>{movie.year}</span>
+                                            <span className="absolute -bottom-3 left-0 font-mono text-[9px] text-gray-600">1920</span>
+                                            <span className="absolute -bottom-3 right-0 font-mono text-[9px] text-gray-600">now</span>
+                                        </div>
 
-                                {/* Meta Row */}
-                                <div className="flex items-center justify-center md:justify-start gap-3 text-gray-400 text-base">
-                                    <span>{movie.year}</span>
-                                    {movie.runtime && (
-                                        <>
-                                            <span>•</span>
-                                            <span>{movie.runtime} min</span>
-                                        </>
-                                    )}
-                                    {movie.country && (
-                                        <>
-                                            <span>•</span>
-                                            <span>{movie.country}</span>
-                                        </>
-                                    )}
-                                </div>
+                                        <div className="mt-auto pt-8 flex items-center justify-between text-[11px] tracking-[0.25em] uppercase text-gray-400">
+                                            <span>{m.filmCount} films on the reel</span>
+                                            <span className="flex items-center gap-1.5 text-gray-200 group-hover:text-white transition-colors">Open the movement <MdArrowOutward /></span>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </motion.section>
+                        );
+                    })}
+
+                    {/* ===== CONTACT SHEET ===== */}
+                    {stills.length >= 2 && (
+                        <section className="pt-24 md:pt-32">
+                            {kicker('Contact sheet')}
+                            <div className={`grid grid-cols-2 gap-2 p-2 bg-[#0d0d0d] ring-1 ring-white/[0.06] ${stills.length % 3 === 0 ? 'md:grid-cols-3' : ''}`}>
+                                {stills.map((s, i) => (
+                                    <motion.figure key={s} {...reveal(i * 0.06)} className="relative aspect-video overflow-hidden group">
+                                        <img src={sized(s, 'w780')} alt="" loading="lazy" className="w-full h-full object-cover grayscale-[0.4] group-hover:grayscale-0 transition-[filter,transform] duration-700 group-hover:scale-[1.03]" />
+                                        <figcaption className="absolute bottom-1.5 left-2 font-mono text-[9px] tracking-[0.2em] text-white/70">{String(i + 1).padStart(2, '0')}A</figcaption>
+                                    </motion.figure>
+                                ))}
                             </div>
+                        </section>
+                    )}
 
-                            {/* Synopsis */}
-                            <div>
-                                <h2 className="text-xs uppercase tracking-wider text-gray-500 mb-3">Synopsis</h2>
-                                <p className="font-serif text-base md:text-lg leading-relaxed text-gray-300">
-                                    {movie.synopsis}
-                                </p>
-                            </div>
-
-                            {/* Arthouse Credits Grid */}
-                            {creditsSections.length > 0 && (
-                                <div>
-                                    <h2 className="text-xs uppercase tracking-wider text-gray-500 mb-4">Credits</h2>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-                                        {creditsSections.map((section, idx) => (
-                                            <div key={idx}>
-                                                <div className="text-xs uppercase tracking-wider text-gray-500 mb-1">
-                                                    {section.label}
-                                                </div>
-                                                <div className="text-sm md:text-base text-white font-light">
-                                                    {section.label === 'DIRECTOR' && movie.directorId ? (
-                                                        <Link
-                                                            to={`/directors/${movie.directorId}`}
-                                                            className="text-accent-primary hover:text-white border-b border-accent-primary/30 hover:border-white transition-colors"
-                                                        >
-                                                            {section.data.join(', ')}
-                                                        </Link>
-                                                    ) : (
-                                                        section.data.join(', ')
-                                                    )}
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Cinematic Qualities */}
-                            {movie.derivedTags && movie.derivedTags.length > 0 && (
-                                <div>
-                                    <h2 className="text-xs uppercase tracking-wider text-gray-500 mb-3">
-                                        MOOD & STYLE
-                                    </h2>
-                                    <div className="flex flex-wrap justify-center md:justify-start gap-2">
-                                        {movie.derivedTags.map((tag, idx) => (
-                                            <TagChip key={idx} tag={tag} onClick={() => navigate(`/explore?mood=${encodeURIComponent(tag)}`)} />
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Genres */}
-                            {movie.genres && movie.genres.length > 0 && (
-                                <div>
-                                    <h2 className="text-xs uppercase tracking-wider text-gray-500 mb-3">Genres</h2>
-                                    <div className="flex flex-wrap justify-center md:justify-start gap-2">
-                                        {movie.genres.map((genre, idx) => (
-                                            <button
-                                                key={idx}
-                                                onClick={() => handleGenreClick(genre)}
-                                                className="px-3 py-1.5 bg-white/5 border border-white/10 text-gray-400 text-sm hover:bg-white/10 hover:text-white hover:border-white/20 transition-colors cursor-pointer"
-                                            >
-                                                {genre}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-
-                    {/* Similar Movies Section */}
+                    {/* ===== DOUBLE BILL ===== */}
                     {similarMovies.length > 0 && (
-                        <div className="mt-24 mb-12">
-                            <h2 className="font-serif text-3xl text-gray-100 mb-8 px-4 flex items-center gap-4">
-                                <span className="h-[1px] flex-1 bg-white/10"></span>
-                                Similar Films
-                                <span className="h-[1px] flex-1 bg-white/10"></span>
-                            </h2>
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 px-4">
-                                {similarMovies.map(movie => (
-                                    <div key={movie._id} className="relative hover:z-50">
-                                        <PosterCard movie={movie} />
+                        <section className="pt-24 md:pt-32 pb-28">
+                            <div className="flex items-end justify-between gap-6 mb-8">
+                                <h2 className="font-serif text-4xl md:text-5xl">Make it a double bill</h2>
+                                <span className="hidden md:block font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 pb-2">after {movie.title}</span>
+                            </div>
+                            <div className="grid grid-cols-3 md:grid-cols-6 gap-3 md:gap-4">
+                                {similarMovies.slice(0, 6).map((m) => (
+                                    <div key={m._id} className="relative z-0 hover:z-50">
+                                        <PosterCard movie={m} />
                                     </div>
                                 ))}
                             </div>
-                        </div>
+                        </section>
                     )}
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
