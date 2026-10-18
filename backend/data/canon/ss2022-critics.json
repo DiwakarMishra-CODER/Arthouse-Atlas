@@ -1,0 +1,3698 @@
+[
+ {
+  "source": "ss2022-critics",
+  "rank": 1,
+  "title": "Jeanne Dielman, 23 Quai du Commerce, 1080 Bruxelles",
+  "originalTitle": null,
+  "directors": [
+   "Chantal Akerman"
+  ],
+  "year": 1975,
+  "country": "Belgium, France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 2,
+  "title": "Vertigo",
+  "originalTitle": null,
+  "directors": [
+   "Alfred Hitchcock"
+  ],
+  "year": 1958,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 3,
+  "title": "Citizen Kane",
+  "originalTitle": null,
+  "directors": [
+   "Orson Welles"
+  ],
+  "year": 1941,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 4,
+  "title": "Tokyo Story",
+  "originalTitle": null,
+  "directors": [
+   "Yasujirō Ozu"
+  ],
+  "year": 1953,
+  "country": "Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 5,
+  "title": "In the Mood for Love",
+  "originalTitle": null,
+  "directors": [
+   "Wong Kar Wai"
+  ],
+  "year": 2000,
+  "country": "Hong Kong, France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 6,
+  "title": "2001: A Space Odyssey",
+  "originalTitle": null,
+  "directors": [
+   "Stanley Kubrick"
+  ],
+  "year": 1968,
+  "country": "USA, United Kingdom",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 7,
+  "title": "Beau travail",
+  "originalTitle": null,
+  "directors": [
+   "Claire Denis"
+  ],
+  "year": 1998,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 8,
+  "title": "Mulholland Dr.",
+  "originalTitle": null,
+  "directors": [
+   "David Lynch"
+  ],
+  "year": 2001,
+  "country": "France, USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 9,
+  "title": "Man with a Movie Camera",
+  "originalTitle": null,
+  "directors": [
+   "Dziga Vertov"
+  ],
+  "year": 1929,
+  "country": "Ukrainian SSR, USSR",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 10,
+  "title": "Singin' in the Rain",
+  "originalTitle": null,
+  "directors": [
+   "Gene Kelly, Stanley Donen"
+  ],
+  "year": 1951,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 11,
+  "title": "Sunrise A Song of Two Humans",
+  "originalTitle": null,
+  "directors": [
+   "F.W. Murnau"
+  ],
+  "year": 1927,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#11"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 12,
+  "title": "The Godfather",
+  "originalTitle": null,
+  "directors": [
+   "Francis Ford Coppola"
+  ],
+  "year": 1972,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#12"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 13,
+  "title": "La Règle du jeu",
+  "originalTitle": null,
+  "directors": [
+   "Jean Renoir"
+  ],
+  "year": 1939,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#13"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 14,
+  "title": "Cléo from 5 to 7",
+  "originalTitle": null,
+  "directors": [
+   "Agnès Varda"
+  ],
+  "year": 1962,
+  "country": "France, Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#14"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 15,
+  "title": "The Searchers",
+  "originalTitle": null,
+  "directors": [
+   "John Ford"
+  ],
+  "year": 1956,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#15"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 16,
+  "title": "Meshes of the Afternoon",
+  "originalTitle": null,
+  "directors": [
+   "Maya Deren, Alexander Hackenschmied"
+  ],
+  "year": 1943,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#16"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 17,
+  "title": "Close-up",
+  "originalTitle": null,
+  "directors": [
+   "Abbas Kiarostami"
+  ],
+  "year": 1989,
+  "country": "Iran",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#17"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 18,
+  "title": "Persona",
+  "originalTitle": null,
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1966,
+  "country": "Sweden",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#18"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 19,
+  "title": "Apocalypse Now",
+  "originalTitle": null,
+  "directors": [
+   "Francis Ford Coppola"
+  ],
+  "year": 1979,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#19"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 20,
+  "title": "Seven Samurai",
+  "originalTitle": null,
+  "directors": [
+   "Akira Kurosawa"
+  ],
+  "year": 1954,
+  "country": "Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#20"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 21,
+  "title": "Late Spring",
+  "originalTitle": null,
+  "directors": [
+   "Yasujirō Ozu"
+  ],
+  "year": 1949,
+  "country": "Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#21"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 21,
+  "title": "The Passion of Joan of Arc",
+  "originalTitle": null,
+  "directors": [
+   "Carl Th. Dreyer"
+  ],
+  "year": 1927,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#21"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 23,
+  "title": "Playtime",
+  "originalTitle": null,
+  "directors": [
+   "Jacques Tati"
+  ],
+  "year": 1967,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#23"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 24,
+  "title": "Do the Right Thing",
+  "originalTitle": null,
+  "directors": [
+   "Spike Lee"
+  ],
+  "year": 1989,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#24"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 25,
+  "title": "The Night of the Hunter",
+  "originalTitle": null,
+  "directors": [
+   "Charles Laughton"
+  ],
+  "year": 1955,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#25"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 25,
+  "title": "Au hasard Balthazar",
+  "originalTitle": null,
+  "directors": [
+   "Robert Bresson"
+  ],
+  "year": 1966,
+  "country": "France, Sweden",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#25"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 27,
+  "title": "Shoah",
+  "originalTitle": null,
+  "directors": [
+   "Claude Lanzmann"
+  ],
+  "year": 1985,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#27"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 28,
+  "title": "Daisies",
+  "originalTitle": null,
+  "directors": [
+   "Věra Chytilová"
+  ],
+  "year": 1966,
+  "country": "Czechoslovakia",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#28"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 29,
+  "title": "Taxi Driver",
+  "originalTitle": null,
+  "directors": [
+   "Martin Scorsese"
+  ],
+  "year": 1976,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#29"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 30,
+  "title": "Portrait of a Lady on Fire",
+  "originalTitle": null,
+  "directors": [
+   "Céline Sciamma"
+  ],
+  "year": 2019,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#30"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 31,
+  "title": "8½",
+  "originalTitle": null,
+  "directors": [
+   "Federico Fellini"
+  ],
+  "year": 1963,
+  "country": "Italy, France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#31"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 31,
+  "title": "Psycho",
+  "originalTitle": null,
+  "directors": [
+   "Alfred Hitchcock"
+  ],
+  "year": 1960,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#31"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 31,
+  "title": "Mirror",
+  "originalTitle": null,
+  "directors": [
+   "Andrei Tarkovsky"
+  ],
+  "year": 1975,
+  "country": "USSR, Russian SFSR",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#31"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 34,
+  "title": "L'Atalante",
+  "originalTitle": null,
+  "directors": [
+   "Jean Vigo"
+  ],
+  "year": 1934,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#34"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 35,
+  "title": "Pather Panchali",
+  "originalTitle": null,
+  "directors": [
+   "Satyajit Ray"
+  ],
+  "year": 1955,
+  "country": "India",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#35"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 36,
+  "title": "M",
+  "originalTitle": null,
+  "directors": [
+   "Fritz Lang"
+  ],
+  "year": 1931,
+  "country": "Germany",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#36"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 36,
+  "title": "City Lights",
+  "originalTitle": null,
+  "directors": [
+   "Charles Chaplin"
+  ],
+  "year": 1931,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#36"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 38,
+  "title": "Rear Window",
+  "originalTitle": null,
+  "directors": [
+   "Alfred Hitchcock"
+  ],
+  "year": 1954,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#38"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 38,
+  "title": "À bout de souffle",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1960,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#38"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 38,
+  "title": "Some Like It Hot",
+  "originalTitle": null,
+  "directors": [
+   "Billy Wilder"
+  ],
+  "year": 1959,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#38"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 41,
+  "title": "Rashomon",
+  "originalTitle": null,
+  "directors": [
+   "Akira Kurosawa"
+  ],
+  "year": 1950,
+  "country": "Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#41"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 41,
+  "title": "Bicycle Thieves",
+  "originalTitle": null,
+  "directors": [
+   "Vittorio De Sica"
+  ],
+  "year": 1948,
+  "country": "Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#41"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 43,
+  "title": "Stalker",
+  "originalTitle": null,
+  "directors": [
+   "Andrei Tarkovsky"
+  ],
+  "year": 1979,
+  "country": "USSR, Russian SFSR",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#43"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 43,
+  "title": "Killer of Sheep",
+  "originalTitle": null,
+  "directors": [
+   "Charles Burnett"
+  ],
+  "year": 1977,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#43"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 45,
+  "title": "Barry Lyndon",
+  "originalTitle": null,
+  "directors": [
+   "Stanley Kubrick"
+  ],
+  "year": 1975,
+  "country": "USA, United Kingdom",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#45"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 45,
+  "title": "North by Northwest",
+  "originalTitle": null,
+  "directors": [
+   "Alfred Hitchcock"
+  ],
+  "year": 1959,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#45"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 45,
+  "title": "The Battle of Algiers",
+  "originalTitle": null,
+  "directors": [
+   "Gillo Pontecorvo"
+  ],
+  "year": 1966,
+  "country": "Italy, Algeria",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#45"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 48,
+  "title": "Ordet",
+  "originalTitle": null,
+  "directors": [
+   "Carl Th. Dreyer"
+  ],
+  "year": 1955,
+  "country": "Denmark",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#48"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 48,
+  "title": "Wanda",
+  "originalTitle": null,
+  "directors": [
+   "Barbara Loden"
+  ],
+  "year": 1970,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#48"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 50,
+  "title": "The Piano",
+  "originalTitle": null,
+  "directors": [
+   "Jane Campion"
+  ],
+  "year": 1992,
+  "country": "Australia, France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#50"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 50,
+  "title": "The 400 Blows",
+  "originalTitle": null,
+  "directors": [
+   "François Truffaut"
+  ],
+  "year": 1959,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#50"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 52,
+  "title": "News from Home",
+  "originalTitle": null,
+  "directors": [
+   "Chantal Akerman"
+  ],
+  "year": 1976,
+  "country": "France, Belgium",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#52"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 52,
+  "title": "Fear Eats the Soul",
+  "originalTitle": null,
+  "directors": [
+   "Rainer Werner Fassbinder"
+  ],
+  "year": 1974,
+  "country": "Federal Republic of Germany",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#52"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 54,
+  "title": "The Apartment",
+  "originalTitle": null,
+  "directors": [
+   "Billy Wilder"
+  ],
+  "year": 1960,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#54"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 54,
+  "title": "Sherlock Jr.",
+  "originalTitle": null,
+  "directors": [
+   "Buster Keaton"
+  ],
+  "year": 1924,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#54"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 54,
+  "title": "Le Mépris",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1963,
+  "country": "France, Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#54"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 54,
+  "title": "Battleship Potemkin",
+  "originalTitle": null,
+  "directors": [
+   "Sergei M. Eisenstein"
+  ],
+  "year": 1925,
+  "country": "USSR",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#54"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 54,
+  "title": "Blade Runner",
+  "originalTitle": null,
+  "directors": [
+   "Ridley Scott"
+  ],
+  "year": 1982,
+  "country": "USA, Hong Kong",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#54"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 59,
+  "title": "Sans soleil",
+  "originalTitle": null,
+  "directors": [
+   "Chris Marker"
+  ],
+  "year": 1982,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#59"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 60,
+  "title": "Daughters of the Dust",
+  "originalTitle": null,
+  "directors": [
+   "Julie Dash"
+  ],
+  "year": 1991,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#60"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 60,
+  "title": "La dolce vita",
+  "originalTitle": null,
+  "directors": [
+   "Federico Fellini"
+  ],
+  "year": 1960,
+  "country": "Italy, France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#60"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 60,
+  "title": "Moonlight",
+  "originalTitle": null,
+  "directors": [
+   "Barry Jenkins"
+  ],
+  "year": 2016,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#60"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 63,
+  "title": "The Third Man",
+  "originalTitle": null,
+  "directors": [
+   "Carol Reed"
+  ],
+  "year": 1949,
+  "country": "United Kingdom",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#63"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 63,
+  "title": "GoodFellas",
+  "originalTitle": null,
+  "directors": [
+   "Martin Scorsese"
+  ],
+  "year": 1990,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#63"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 63,
+  "title": "Casablanca",
+  "originalTitle": null,
+  "directors": [
+   "Michael Curtiz"
+  ],
+  "year": 1942,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#63"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 66,
+  "title": "Touki Bouki",
+  "originalTitle": null,
+  "directors": [
+   "Djibril Diop Mambéty"
+  ],
+  "year": 1973,
+  "country": "Senegal",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#66"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 67,
+  "title": "The Red Shoes",
+  "originalTitle": null,
+  "directors": [
+   "Michael Powell, Emeric Pressburger"
+  ],
+  "year": 1948,
+  "country": "United Kingdom",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#67"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 67,
+  "title": "Metropolis",
+  "originalTitle": null,
+  "directors": [
+   "Fritz Lang"
+  ],
+  "year": 1927,
+  "country": "Germany",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#67"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 67,
+  "title": "Andrei Rublev",
+  "originalTitle": null,
+  "directors": [
+   "Andrei Tarkovsky"
+  ],
+  "year": 1966,
+  "country": "USSR, Russian SFSR",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#67"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 67,
+  "title": "La Jetée",
+  "originalTitle": null,
+  "directors": [
+   "Chris Marker"
+  ],
+  "year": 1962,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#67"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 67,
+  "title": "The Gleaners and I",
+  "originalTitle": null,
+  "directors": [
+   "Agnès Varda"
+  ],
+  "year": 2000,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#67"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 72,
+  "title": "L'avventura",
+  "originalTitle": null,
+  "directors": [
+   "Michelangelo Antonioni"
+  ],
+  "year": 1960,
+  "country": "Italy, France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#72"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 72,
+  "title": "Journey to Italy",
+  "originalTitle": null,
+  "directors": [
+   "Roberto Rossellini"
+  ],
+  "year": 1954,
+  "country": "Italy, France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#72"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 72,
+  "title": "My Neighbour Totoro",
+  "originalTitle": null,
+  "directors": [
+   "Hayao Miyazaki"
+  ],
+  "year": 1988,
+  "country": "Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#72"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 75,
+  "title": "Spirited Away",
+  "originalTitle": null,
+  "directors": [
+   "Hayao Miyazaki"
+  ],
+  "year": 2001,
+  "country": "Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#75"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 75,
+  "title": "Sansho the Bailiff",
+  "originalTitle": null,
+  "directors": [
+   "Kenji Mizoguchi"
+  ],
+  "year": 1954,
+  "country": "Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#75"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 75,
+  "title": "Imitation of Life",
+  "originalTitle": null,
+  "directors": [
+   "Douglas Sirk"
+  ],
+  "year": 1959,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#75"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 78,
+  "title": "Histoire(s) du Cinéma",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1988,
+  "country": "France, Switzerland",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#78"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 78,
+  "title": "A Matter of Life and Death",
+  "originalTitle": null,
+  "directors": [
+   "Michael Powell, Emeric Pressburger"
+  ],
+  "year": 1946,
+  "country": "United Kingdom",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#78"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 78,
+  "title": "Modern Times",
+  "originalTitle": null,
+  "directors": [
+   "Charles Chaplin"
+  ],
+  "year": 1936,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#78"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 78,
+  "title": "Sunset Blvd.",
+  "originalTitle": null,
+  "directors": [
+   "Billy Wilder"
+  ],
+  "year": 1950,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#78"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 78,
+  "title": "Céline and Julie Go Boating",
+  "originalTitle": null,
+  "directors": [
+   "Jacques Rivette"
+  ],
+  "year": 1974,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#78"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 78,
+  "title": "A Brighter Summer Day",
+  "originalTitle": null,
+  "directors": [
+   "Edward Yang"
+  ],
+  "year": 1991,
+  "country": "Taiwan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#78"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 78,
+  "title": "Sátántangó",
+  "originalTitle": null,
+  "directors": [
+   "Béla Tarr"
+  ],
+  "year": 1994,
+  "country": "Hungary, Germany, Switzerland",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#78"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 85,
+  "title": "Blue Velvet",
+  "originalTitle": null,
+  "directors": [
+   "David Lynch"
+  ],
+  "year": 1986,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#85"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 85,
+  "title": "The Spirit of the Beehive",
+  "originalTitle": null,
+  "directors": [
+   "Víctor Erice"
+  ],
+  "year": 1973,
+  "country": "Spain",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#85"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 85,
+  "title": "Pierrot le fou",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1965,
+  "country": "France, Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#85"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 88,
+  "title": "The Shining",
+  "originalTitle": null,
+  "directors": [
+   "Stanley Kubrick"
+  ],
+  "year": 1980,
+  "country": "USA, United Kingdom",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#88"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 88,
+  "title": "CHUNGKING EXPRESS",
+  "originalTitle": null,
+  "directors": [
+   "Wong Kar Wai"
+  ],
+  "year": 1994,
+  "country": "Hong Kong",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#88"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 90,
+  "title": "Parasite",
+  "originalTitle": null,
+  "directors": [
+   "Bong Joon-ho"
+  ],
+  "year": 2019,
+  "country": "Republic of Korea",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#90"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 90,
+  "title": "Yi Yi",
+  "originalTitle": null,
+  "directors": [
+   "Edward Yang"
+  ],
+  "year": 1999,
+  "country": "Taiwan, Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#90"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 90,
+  "title": "Ugetsu Monogatari",
+  "originalTitle": null,
+  "directors": [
+   "Kenji Mizoguchi"
+  ],
+  "year": 1953,
+  "country": "Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#90"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 90,
+  "title": "The Leopard",
+  "originalTitle": null,
+  "directors": [
+   "Luchino Visconti"
+  ],
+  "year": 1962,
+  "country": "Italy, France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#90"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 90,
+  "title": "Madame de...",
+  "originalTitle": null,
+  "directors": [
+   "Max Ophuls"
+  ],
+  "year": 1953,
+  "country": "France, Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#90"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 95,
+  "title": "Once upon a Time in the West",
+  "originalTitle": null,
+  "directors": [
+   "Sergio Leone"
+  ],
+  "year": 1968,
+  "country": "Italy, USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#95"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 95,
+  "title": "A Man Escaped",
+  "originalTitle": null,
+  "directors": [
+   "Robert Bresson"
+  ],
+  "year": 1956,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#95"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 95,
+  "title": "The General",
+  "originalTitle": null,
+  "directors": [
+   "Buster Keaton, Clyde Bruckman"
+  ],
+  "year": 1926,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#95"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 95,
+  "title": "Black Girl",
+  "originalTitle": null,
+  "directors": [
+   "Ousmane Sembène"
+  ],
+  "year": 1965,
+  "country": "Senegal, France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#95"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 95,
+  "title": "Tropical Malady",
+  "originalTitle": null,
+  "directors": [
+   "Apichatpong Weerasethakul"
+  ],
+  "year": 2004,
+  "country": "France, Thailand, Germany, Italy, Switzerland",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#95"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 95,
+  "title": "Get Out",
+  "originalTitle": null,
+  "directors": [
+   "Jordan Peele"
+  ],
+  "year": 2017,
+  "country": "USA, Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#95"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 101,
+  "title": "Vagabond",
+  "originalTitle": null,
+  "directors": [
+   "Agnès Varda"
+  ],
+  "year": 1985,
+  "country": "France, United Kingdom",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#101"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 101,
+  "title": "The House Is Black",
+  "originalTitle": null,
+  "directors": [
+   "Forough Farokhzad"
+  ],
+  "year": 1962,
+  "country": "Iran",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#101"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 101,
+  "title": "Rio Bravo",
+  "originalTitle": null,
+  "directors": [
+   "Howard Hawks"
+  ],
+  "year": 1958,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#101"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 104,
+  "title": "The Godfather Part II",
+  "originalTitle": null,
+  "directors": [
+   "Francis Ford Coppola"
+  ],
+  "year": 1974,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#104"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 104,
+  "title": "Jaws",
+  "originalTitle": null,
+  "directors": [
+   "Steven Spielberg"
+  ],
+  "year": 1975,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#104"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 104,
+  "title": "Come and See",
+  "originalTitle": null,
+  "directors": [
+   "Elem Klimov"
+  ],
+  "year": 1985,
+  "country": "USSR, Byelorussian SSR, Russian SFSR",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#104"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 104,
+  "title": "La Maman et la Putain",
+  "originalTitle": null,
+  "directors": [
+   "Jean Eustache"
+  ],
+  "year": 1973,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#104"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 108,
+  "title": "Bringing Up Baby",
+  "originalTitle": null,
+  "directors": [
+   "Howard Hawks"
+  ],
+  "year": 1938,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#108"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 108,
+  "title": "The Man Who Shot Liberty Valance",
+  "originalTitle": null,
+  "directors": [
+   "John Ford"
+  ],
+  "year": 1962,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#108"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 108,
+  "title": "Touch of Evil",
+  "originalTitle": null,
+  "directors": [
+   "Orson Welles"
+  ],
+  "year": 1958,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#108"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 108,
+  "title": "Wild Strawberries",
+  "originalTitle": null,
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1957,
+  "country": "Sweden",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#108"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 108,
+  "title": "The Wizard of Oz",
+  "originalTitle": null,
+  "directors": [
+   "Victor Fleming"
+  ],
+  "year": 1939,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#108"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 108,
+  "title": "Goodbye, Dragon Inn",
+  "originalTitle": null,
+  "directors": [
+   "Tsai Ming-liang"
+  ],
+  "year": 2003,
+  "country": "Taiwan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#108"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 114,
+  "title": "Don't Look Now",
+  "originalTitle": null,
+  "directors": [
+   "Nicolas Roeg"
+  ],
+  "year": 1973,
+  "country": "United Kingdom, Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#114"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 114,
+  "title": "Nashville",
+  "originalTitle": null,
+  "directors": [
+   "Robert Altman"
+  ],
+  "year": 1975,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#114"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 114,
+  "title": "A Woman under the Influence",
+  "originalTitle": null,
+  "directors": [
+   "John Cassavetes"
+  ],
+  "year": 1974,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#114"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 114,
+  "title": "To Be or Not to Be",
+  "originalTitle": null,
+  "directors": [
+   "Ernst Lubitsch"
+  ],
+  "year": 1942,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#114"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 118,
+  "title": "The Thing",
+  "originalTitle": null,
+  "directors": [
+   "John Carpenter"
+  ],
+  "year": 1982,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#118"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 118,
+  "title": "The Texas Chain Saw Massacre",
+  "originalTitle": null,
+  "directors": [
+   "Tobe Hooper"
+  ],
+  "year": 1974,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#118"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 118,
+  "title": "The Conformist",
+  "originalTitle": null,
+  "directors": [
+   "Bernardo Bertolucci"
+  ],
+  "year": 1970,
+  "country": "Italy, France, Federal Republic of Germany",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#118"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 118,
+  "title": "Aguirre, Wrath of God",
+  "originalTitle": null,
+  "directors": [
+   "Werner Herzog"
+  ],
+  "year": 1972,
+  "country": "Federal Republic of Germany",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#118"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 122,
+  "title": "Only Angels Have Wings",
+  "originalTitle": null,
+  "directors": [
+   "Howard Hawks"
+  ],
+  "year": 1939,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#122"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 122,
+  "title": "The Umbrellas of Cherbourg",
+  "originalTitle": null,
+  "directors": [
+   "Jacques Demy"
+  ],
+  "year": 1964,
+  "country": "France, Federal Republic of Germany",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#122"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 122,
+  "title": "Johnny Guitar",
+  "originalTitle": null,
+  "directors": [
+   "Nicholas Ray"
+  ],
+  "year": 1954,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#122"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 122,
+  "title": "The Colour of Pomegranates",
+  "originalTitle": null,
+  "directors": [
+   "Sergei Paradjanov"
+  ],
+  "year": 1968,
+  "country": "USSR, Armenian SSR",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#122"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 122,
+  "title": "The Matrix",
+  "originalTitle": null,
+  "directors": [
+   "The Wachowskis"
+  ],
+  "year": 1999,
+  "country": "USA, Australia",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#122"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 122,
+  "title": "There Will Be Blood",
+  "originalTitle": null,
+  "directors": [
+   "Paul Thomas Anderson"
+  ],
+  "year": 2007,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#122"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 128,
+  "title": "The Ascent",
+  "originalTitle": null,
+  "directors": [
+   "Larissa Shepitko"
+  ],
+  "year": 1976,
+  "country": "USSR, Russian SFSR",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#128"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 129,
+  "title": "Pulp Fiction",
+  "originalTitle": null,
+  "directors": [
+   "Quentin Tarantino"
+  ],
+  "year": 1994,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#129"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 129,
+  "title": "Raging Bull",
+  "originalTitle": null,
+  "directors": [
+   "Martin Scorsese"
+  ],
+  "year": 1980,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#129"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 129,
+  "title": "His Girl Friday",
+  "originalTitle": null,
+  "directors": [
+   "Howard Hawks"
+  ],
+  "year": 1939,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#129"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 129,
+  "title": "Fanny and Alexander",
+  "originalTitle": null,
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1982,
+  "country": "Sweden, France, Federal Republic of Germany",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#129"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 133,
+  "title": "It's a Wonderful Life",
+  "originalTitle": null,
+  "directors": [
+   "Frank Capra"
+  ],
+  "year": 1947,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#133"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 133,
+  "title": "Notorious",
+  "originalTitle": null,
+  "directors": [
+   "Alfred Hitchcock"
+  ],
+  "year": 1946,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#133"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 133,
+  "title": "Lawrence of Arabia",
+  "originalTitle": null,
+  "directors": [
+   "David Lean"
+  ],
+  "year": 1962,
+  "country": "United Kingdom",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#133"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 136,
+  "title": "Gertrud",
+  "originalTitle": null,
+  "directors": [
+   "Carl Th. Dreyer"
+  ],
+  "year": 1964,
+  "country": "Denmark",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#136"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 136,
+  "title": "All That Heaven Allows",
+  "originalTitle": null,
+  "directors": [
+   "Douglas Sirk"
+  ],
+  "year": 1955,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#136"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 136,
+  "title": "Partie de campagne",
+  "originalTitle": null,
+  "directors": [
+   "Jean Renoir"
+  ],
+  "year": 1936,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#136"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 136,
+  "title": "Pickpocket",
+  "originalTitle": null,
+  "directors": [
+   "Robert Bresson"
+  ],
+  "year": 1959,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#136"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 136,
+  "title": "The Seventh Seal",
+  "originalTitle": null,
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1957,
+  "country": "Sweden",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#136"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 136,
+  "title": "Trouble in Paradise",
+  "originalTitle": null,
+  "directors": [
+   "Ernst Lubitsch"
+  ],
+  "year": 1932,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#136"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 136,
+  "title": "Sambizanga",
+  "originalTitle": null,
+  "directors": [
+   "Sarah Maldoror"
+  ],
+  "year": 1972,
+  "country": "Angola, France, Congo",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#136"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 136,
+  "title": "The Wild Bunch",
+  "originalTitle": null,
+  "directors": [
+   "Sam Peckinpah"
+  ],
+  "year": 1969,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#136"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 136,
+  "title": "Les Enfants du paradis",
+  "originalTitle": null,
+  "directors": [
+   "Marcel Carné"
+  ],
+  "year": 1945,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#136"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 136,
+  "title": "La ciénaga",
+  "originalTitle": null,
+  "directors": [
+   "Lucrecia Martel"
+  ],
+  "year": 2001,
+  "country": "Argentina, USA, Japan, France, Switzerland, Spain, Brazil",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#136"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 146,
+  "title": "Chinatown",
+  "originalTitle": null,
+  "directors": [
+   "Roman Polanski"
+  ],
+  "year": 1974,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#146"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 146,
+  "title": "La Grande Illusion",
+  "originalTitle": null,
+  "directors": [
+   "Jean Renoir"
+  ],
+  "year": 1937,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#146"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 146,
+  "title": "India Song",
+  "originalTitle": null,
+  "directors": [
+   "Marguerite Duras"
+  ],
+  "year": 1975,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#146"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 146,
+  "title": "Alien",
+  "originalTitle": null,
+  "directors": [
+   "Ridley Scott"
+  ],
+  "year": 1979,
+  "country": "USA, United Kingdom",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#146"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 146,
+  "title": "Vampyr",
+  "originalTitle": null,
+  "directors": [
+   "Carl Th. Dreyer"
+  ],
+  "year": 1932,
+  "country": "Germany, France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#146"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 146,
+  "title": "The Watermelon Woman",
+  "originalTitle": null,
+  "directors": [
+   "Cheryl Dunye"
+  ],
+  "year": 1997,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#146"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 152,
+  "title": "Le Bonheur",
+  "originalTitle": null,
+  "directors": [
+   "Agnès Varda"
+  ],
+  "year": 1965,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#152"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 152,
+  "title": "Meghe Dhaka Tara",
+  "originalTitle": null,
+  "directors": [
+   "Ritwik Ghatak"
+  ],
+  "year": 1960,
+  "country": "India",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#152"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 152,
+  "title": "Days of Heaven",
+  "originalTitle": null,
+  "directors": [
+   "Terrence Malick"
+  ],
+  "year": 1978,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#152"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 152,
+  "title": "West Indies: The Fugitive Slaves of Liberty",
+  "originalTitle": null,
+  "directors": [
+   "Med Hondo"
+  ],
+  "year": 1979,
+  "country": "France, Mauritania",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#152"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 152,
+  "title": "Twin Peaks: The Return",
+  "originalTitle": null,
+  "directors": [
+   "David Lynch"
+  ],
+  "year": 2017,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#152"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 157,
+  "title": "Los olvidados",
+  "originalTitle": null,
+  "directors": [
+   "Luis Buñuel"
+  ],
+  "year": 1950,
+  "country": "Mexico",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#157"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 157,
+  "title": "Ikiru",
+  "originalTitle": null,
+  "directors": [
+   "Akira Kurosawa"
+  ],
+  "year": 1952,
+  "country": "Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#157"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 157,
+  "title": "Out of the Past",
+  "originalTitle": null,
+  "directors": [
+   "Jacques Tourneur"
+  ],
+  "year": 1947,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#157"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 157,
+  "title": "Vivre sa vie",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1962,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#157"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 157,
+  "title": "Amarcord",
+  "originalTitle": null,
+  "directors": [
+   "Federico Fellini"
+  ],
+  "year": 1972,
+  "country": "Italy, France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#157"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 157,
+  "title": "Once upon a Time in America",
+  "originalTitle": null,
+  "directors": [
+   "Sergio Leone"
+  ],
+  "year": 1983,
+  "country": "USA, Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#157"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 157,
+  "title": "The Gospel According to St. Matthew",
+  "originalTitle": null,
+  "directors": [
+   "Pier Paolo Pasolini"
+  ],
+  "year": 1964,
+  "country": "Italy, France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#157"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 157,
+  "title": "Where Is the Friend's House?",
+  "originalTitle": null,
+  "directors": [
+   "Abbas Kiarostami"
+  ],
+  "year": 1987,
+  "country": "Iran",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#157"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 157,
+  "title": "All about My Mother",
+  "originalTitle": null,
+  "directors": [
+   "Pedro Almodóvar"
+  ],
+  "year": 1999,
+  "country": "Spain, France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#157"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 157,
+  "title": "A City of Sadness",
+  "originalTitle": null,
+  "directors": [
+   "Hou Hsiao-Hsien"
+  ],
+  "year": 1989,
+  "country": "Taiwan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#157"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 157,
+  "title": "Orlando",
+  "originalTitle": null,
+  "directors": [
+   "Sally Potter"
+  ],
+  "year": 1992,
+  "country": "United Kingdom, Russian Federation, Italy, France, Netherlands",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#157"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 157,
+  "title": "West of the Tracks",
+  "originalTitle": null,
+  "directors": [
+   "Wang Bing"
+  ],
+  "year": 2002,
+  "country": "People's Republic of China",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#157"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 169,
+  "title": "The Magnificent Ambersons",
+  "originalTitle": null,
+  "directors": [
+   "Orson Welles"
+  ],
+  "year": 1942,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#169"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 169,
+  "title": "Hiroshima mon amour",
+  "originalTitle": null,
+  "directors": [
+   "Alain Resnais"
+  ],
+  "year": 1959,
+  "country": "France, Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#169"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 169,
+  "title": "Letter from an Unknown Woman",
+  "originalTitle": null,
+  "directors": [
+   "Max Ophuls"
+  ],
+  "year": 1948,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#169"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 169,
+  "title": "Charulata",
+  "originalTitle": null,
+  "directors": [
+   "Satyajit Ray"
+  ],
+  "year": 1964,
+  "country": "India",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#169"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 169,
+  "title": "The Good, the Bad and the Ugly",
+  "originalTitle": null,
+  "directors": [
+   "Sergio Leone"
+  ],
+  "year": 1966,
+  "country": "Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#169"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 169,
+  "title": "Red Desert",
+  "originalTitle": null,
+  "directors": [
+   "Michelangelo Antonioni"
+  ],
+  "year": 1964,
+  "country": "Italy, France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#169"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 169,
+  "title": "Black Narcissus",
+  "originalTitle": null,
+  "directors": [
+   "Michael Powell, Emeric Pressburger"
+  ],
+  "year": 1947,
+  "country": "United Kingdom",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#169"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 169,
+  "title": "Memories of Underdevelopment",
+  "originalTitle": null,
+  "directors": [
+   "Tomás Gutiérrez Alea"
+  ],
+  "year": 1968,
+  "country": "Cuba",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#169"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 169,
+  "title": "The Exterminating Angel",
+  "originalTitle": null,
+  "directors": [
+   "Luis Buñuel"
+  ],
+  "year": 1962,
+  "country": "Mexico",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#169"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 169,
+  "title": "Under the Skin",
+  "originalTitle": null,
+  "directors": [
+   "Jonathan Glazer"
+  ],
+  "year": 2013,
+  "country": "United Kingdom, USA, Switzerland",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#169"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 169,
+  "title": "Heat",
+  "originalTitle": null,
+  "directors": [
+   "Michael Mann"
+  ],
+  "year": 1995,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#169"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 169,
+  "title": "Symbiopsychotaxiplasm: Take One",
+  "originalTitle": null,
+  "directors": [
+   "William Greaves"
+  ],
+  "year": 1967,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#169"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 169,
+  "title": "Out 1",
+  "originalTitle": null,
+  "directors": [
+   "Jacques Rivette"
+  ],
+  "year": 1990,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#169"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 169,
+  "title": "Un chien andalou",
+  "originalTitle": null,
+  "directors": [
+   "Luis Buñuel"
+  ],
+  "year": 1928,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#169"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 169,
+  "title": "L'Argent",
+  "originalTitle": null,
+  "directors": [
+   "Robert Bresson"
+  ],
+  "year": 1983,
+  "country": "France, Switzerland",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#169"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 169,
+  "title": "Last Year at Marienbad",
+  "originalTitle": null,
+  "directors": [
+   "Alain Resnais"
+  ],
+  "year": 1961,
+  "country": "France, Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#169"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 185,
+  "title": "Paris, Texas",
+  "originalTitle": null,
+  "directors": [
+   "Wim Wenders"
+  ],
+  "year": 1984,
+  "country": "Federal Republic of Germany, France, United Kingdom",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#185"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 185,
+  "title": "Les Demoiselles de Rochefort",
+  "originalTitle": null,
+  "directors": [
+   "Jacques Demy"
+  ],
+  "year": 1967,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#185"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 185,
+  "title": "The Birds",
+  "originalTitle": null,
+  "directors": [
+   "Alfred Hitchcock"
+  ],
+  "year": 1963,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#185"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 185,
+  "title": "The River",
+  "originalTitle": null,
+  "directors": [
+   "Jean Renoir"
+  ],
+  "year": 1951,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#185"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 185,
+  "title": "An Autumn Afternoon",
+  "originalTitle": null,
+  "directors": [
+   "Yasujirō Ozu"
+  ],
+  "year": 1962,
+  "country": "Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#185"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 185,
+  "title": "Love Streams",
+  "originalTitle": null,
+  "directors": [
+   "John Cassavetes"
+  ],
+  "year": 1984,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#185"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 185,
+  "title": "Greed",
+  "originalTitle": null,
+  "directors": [
+   "Erich von Stroheim"
+  ],
+  "year": 1923,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#185"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 185,
+  "title": "Ran",
+  "originalTitle": null,
+  "directors": [
+   "Akira Kurosawa"
+  ],
+  "year": 1985,
+  "country": "France, Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#185"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 185,
+  "title": "Pyaasa",
+  "originalTitle": null,
+  "directors": [
+   "Guru Dutt"
+  ],
+  "year": 1957,
+  "country": "India",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#185"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 185,
+  "title": "Wings of Desire",
+  "originalTitle": null,
+  "directors": [
+   "Wim Wenders"
+  ],
+  "year": 1987,
+  "country": "Federal Republic of Germany, France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#185"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 185,
+  "title": "Magnolia",
+  "originalTitle": null,
+  "directors": [
+   "Paul Thomas Anderson"
+  ],
+  "year": 1999,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#185"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 196,
+  "title": "The Life and Death of Colonel Blimp",
+  "originalTitle": null,
+  "directors": [
+   "Michael Powell, Emeric Pressburger"
+  ],
+  "year": 1943,
+  "country": "United Kingdom",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#196"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 196,
+  "title": "Wavelength",
+  "originalTitle": null,
+  "directors": [
+   "Michael Snow"
+  ],
+  "year": 1967,
+  "country": "Canada",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#196"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 196,
+  "title": "I Know Where I’m Going!",
+  "originalTitle": null,
+  "directors": [
+   "Michael Powell, Emeric Pressburger"
+  ],
+  "year": 1945,
+  "country": "United Kingdom",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#196"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 196,
+  "title": "L' eclisse",
+  "originalTitle": null,
+  "directors": [
+   "Michelangelo Antonioni"
+  ],
+  "year": 1962,
+  "country": "Italy, France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#196"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 196,
+  "title": "Double Indemnity",
+  "originalTitle": null,
+  "directors": [
+   "Billy Wilder"
+  ],
+  "year": 1944,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#196"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 196,
+  "title": "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
+  "originalTitle": null,
+  "directors": [
+   "Stanley Kubrick"
+  ],
+  "year": 1963,
+  "country": "United Kingdom, USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#196"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 196,
+  "title": "One Way or Another",
+  "originalTitle": null,
+  "directors": [
+   "Sara Gómez"
+  ],
+  "year": 1977,
+  "country": "Cuba",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#196"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 196,
+  "title": "Nosferatu",
+  "originalTitle": null,
+  "directors": [
+   "F.W. Murnau"
+  ],
+  "year": 1922,
+  "country": "Germany",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#196"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 196,
+  "title": "Paisan",
+  "originalTitle": null,
+  "directors": [
+   "Roberto Rossellini"
+  ],
+  "year": 1946,
+  "country": "Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#196"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 196,
+  "title": "Zama",
+  "originalTitle": null,
+  "directors": [
+   "Lucrecia Martel"
+  ],
+  "year": 2017,
+  "country": "Argentina, Brazil, Spain, France, Mexico, Netherlands, Monaco, Portugal, USA, Lebanon, United Kingdom, Dominican Republic",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#196"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 196,
+  "title": "Mad Max: Fury Road",
+  "originalTitle": null,
+  "directors": [
+   "George Miller"
+  ],
+  "year": 2015,
+  "country": "USA, Australia",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#196"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 196,
+  "title": "The Tree of Life",
+  "originalTitle": null,
+  "directors": [
+   "Terrence Malick"
+  ],
+  "year": 2010,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#196"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 196,
+  "title": "Uncle Boonmee Who Can Recall His Past Lives",
+  "originalTitle": null,
+  "directors": [
+   "Apichatpong Weerasethakul"
+  ],
+  "year": 2010,
+  "country": "Thailand, United Kingdom, France, Germany, Spain, Netherlands",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#196"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 196,
+  "title": "The Headless Woman",
+  "originalTitle": null,
+  "directors": [
+   "Lucrecia Martel"
+  ],
+  "year": 2008,
+  "country": "Argentina, Spain, France, Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#196"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 196,
+  "title": "Paris Is Burning",
+  "originalTitle": null,
+  "directors": [
+   "Jennie Livingston"
+  ],
+  "year": 1990,
+  "country": "USA, United Kingdom",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#196"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 211,
+  "title": "By the Bluest of Seas",
+  "originalTitle": null,
+  "directors": [
+   "Boris Barnet"
+  ],
+  "year": 1935,
+  "country": "USSR, Russian SFSR, Azerbaijan SSR",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#211"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 211,
+  "title": "Duck Soup",
+  "originalTitle": null,
+  "directors": [
+   "Leo McCarey"
+  ],
+  "year": 1933,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#211"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 211,
+  "title": "All about Eve",
+  "originalTitle": null,
+  "directors": [
+   "Joseph L. Mankiewicz"
+  ],
+  "year": 1950,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#211"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 211,
+  "title": "Brief Encounter",
+  "originalTitle": null,
+  "directors": [
+   "David Lean"
+  ],
+  "year": 1945,
+  "country": "United Kingdom",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#211"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 211,
+  "title": "Suspiria",
+  "originalTitle": null,
+  "directors": [
+   "Dario Argento"
+  ],
+  "year": 1977,
+  "country": "Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#211"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 211,
+  "title": "In a Lonely Place",
+  "originalTitle": null,
+  "directors": [
+   "Nicholas Ray"
+  ],
+  "year": 1950,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#211"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 211,
+  "title": "The Deer Hunter",
+  "originalTitle": null,
+  "directors": [
+   "Michael Cimino"
+  ],
+  "year": 1978,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#211"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 211,
+  "title": "Army of Shadows",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Pierre Melville"
+  ],
+  "year": 1969,
+  "country": "France, Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#211"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 211,
+  "title": "Melancholia",
+  "originalTitle": null,
+  "directors": [
+   "Lars von Trier"
+  ],
+  "year": 2011,
+  "country": "Denmark, Sweden, France, Germany, Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#211"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 211,
+  "title": "Twenty Years Later",
+  "originalTitle": null,
+  "directors": [
+   "Eduardo Coutinho"
+  ],
+  "year": 1984,
+  "country": "Brazil",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#211"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 211,
+  "title": "Twin Peaks: Fire Walk with Me",
+  "originalTitle": null,
+  "directors": [
+   "David Lynch"
+  ],
+  "year": 1992,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#211"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 211,
+  "title": "Pink Flamingos",
+  "originalTitle": null,
+  "directors": [
+   "John Waters"
+  ],
+  "year": 1972,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#211"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 211,
+  "title": "Raiders of the Lost Ark",
+  "originalTitle": null,
+  "directors": [
+   "Steven Spielberg"
+  ],
+  "year": 1981,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#211"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 211,
+  "title": "Limite",
+  "originalTitle": null,
+  "directors": [
+   "Mário Peixoto"
+  ],
+  "year": 1931,
+  "country": "Brazil",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#211"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 225,
+  "title": "Harlan County, USA",
+  "originalTitle": null,
+  "directors": [
+   "Barbara Kopple"
+  ],
+  "year": 1976,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#225"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 225,
+  "title": "Cries and Whispers",
+  "originalTitle": null,
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1972,
+  "country": "Sweden",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#225"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 225,
+  "title": "Star Wars",
+  "originalTitle": null,
+  "directors": [
+   "George Lucas"
+  ],
+  "year": 1977,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#225"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 225,
+  "title": "Intolerance",
+  "originalTitle": null,
+  "directors": [
+   "D.W. Griffith"
+  ],
+  "year": 1916,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#225"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 225,
+  "title": "The Hour of the Furnaces",
+  "originalTitle": null,
+  "directors": [
+   "Fernando Solanas"
+  ],
+  "year": 1968,
+  "country": "Argentina",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#225"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 225,
+  "title": "Europa '51",
+  "originalTitle": null,
+  "directors": [
+   "Roberto Rossellini"
+  ],
+  "year": 1952,
+  "country": "Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#225"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 225,
+  "title": "Napoléon",
+  "originalTitle": null,
+  "directors": [
+   "Abel Gance"
+  ],
+  "year": 1927,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#225"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 225,
+  "title": "The Crowd",
+  "originalTitle": null,
+  "directors": [
+   "King Vidor"
+  ],
+  "year": 1928,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#225"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 225,
+  "title": "A Touch of Zen",
+  "originalTitle": null,
+  "directors": [
+   "King Hu"
+  ],
+  "year": 1969,
+  "country": "Taiwan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#225"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 225,
+  "title": "Je, tu, il, elle",
+  "originalTitle": null,
+  "directors": [
+   "Chantal Akerman"
+  ],
+  "year": 1974,
+  "country": "Belgium",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#225"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 225,
+  "title": "Petite maman",
+  "originalTitle": null,
+  "directors": [
+   "Céline Sciamma"
+  ],
+  "year": 2021,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#225"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 225,
+  "title": "As I Was Moving Ahead, Occasionally I Saw Brief Glimpses of Beauty",
+  "originalTitle": null,
+  "directors": [
+   "Jonas Mekas"
+  ],
+  "year": 2000,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#225"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 225,
+  "title": "Flowers of Shanghai",
+  "originalTitle": null,
+  "directors": [
+   "Hou Hsiao-Hsien"
+  ],
+  "year": 1998,
+  "country": "Taiwan, Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#225"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 225,
+  "title": "Happy Together",
+  "originalTitle": null,
+  "directors": [
+   "Wong Kar Wai"
+  ],
+  "year": 1997,
+  "country": "Hong Kong",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#225"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 225,
+  "title": "Crash",
+  "originalTitle": null,
+  "directors": [
+   "David Cronenberg"
+  ],
+  "year": 1996,
+  "country": "Canada",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#225"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 225,
+  "title": "Blue",
+  "originalTitle": null,
+  "directors": [
+   "Derek Jarman"
+  ],
+  "year": 1993,
+  "country": "United Kingdom, Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#225"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 225,
+  "title": "Grave of the Fireflies",
+  "originalTitle": null,
+  "directors": [
+   "Isao Takahata"
+  ],
+  "year": 1988,
+  "country": "Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#225"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 225,
+  "title": "The Green Ray",
+  "originalTitle": null,
+  "directors": [
+   "Eric Rohmer"
+  ],
+  "year": 1986,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#225"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "Born in Flames",
+  "originalTitle": null,
+  "directors": [
+   "Lizzie Borden"
+  ],
+  "year": 1983,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "Pandora's Box",
+  "originalTitle": null,
+  "directors": [
+   "G.W. Pabst"
+  ],
+  "year": 1928,
+  "country": "Germany",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "Sullivan's Travels",
+  "originalTitle": null,
+  "directors": [
+   "Preston Sturges"
+  ],
+  "year": 1941,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "Annie Hall",
+  "originalTitle": null,
+  "directors": [
+   "Woody Allen"
+  ],
+  "year": 1977,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "Earth",
+  "originalTitle": null,
+  "directors": [
+   "Alexander Dovzhenko"
+  ],
+  "year": 1930,
+  "country": "USSR, Ukrainian SSR",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "My Darling Clementine",
+  "originalTitle": null,
+  "directors": [
+   "John Ford"
+  ],
+  "year": 1946,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "Mouchette",
+  "originalTitle": null,
+  "directors": [
+   "Robert Bresson"
+  ],
+  "year": 1966,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "A Clockwork Orange",
+  "originalTitle": null,
+  "directors": [
+   "Stanley Kubrick"
+  ],
+  "year": 1971,
+  "country": "USA, United Kingdom",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "A Canterbury Tale",
+  "originalTitle": null,
+  "directors": [
+   "Michael Powell, Emeric Pressburger"
+  ],
+  "year": 1944,
+  "country": "United Kingdom",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "Videodrome",
+  "originalTitle": null,
+  "directors": [
+   "David Cronenberg"
+  ],
+  "year": 1983,
+  "country": "Canada",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "Possession",
+  "originalTitle": null,
+  "directors": [
+   "Andrzej Zulawski"
+  ],
+  "year": 1981,
+  "country": "France, Federal Republic of Germany",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "Soleil Ô",
+  "originalTitle": null,
+  "directors": [
+   "Med Hondo"
+  ],
+  "year": 1970,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "Distant Voices, Still Lives",
+  "originalTitle": null,
+  "directors": [
+   "Terence Davies"
+  ],
+  "year": 1988,
+  "country": "United Kingdom, Federal Republic of Germany",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "Nostalgia for the Light",
+  "originalTitle": null,
+  "directors": [
+   "Patricio Guzmán"
+  ],
+  "year": 2010,
+  "country": "France, Germany, Chile, Spain, USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "Syndromes and a Century",
+  "originalTitle": null,
+  "directors": [
+   "Apichatpong Weerasethakul"
+  ],
+  "year": 2006,
+  "country": "Thailand, France, Austria, Netherlands",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "The Intruder",
+  "originalTitle": null,
+  "directors": [
+   "Claire Denis"
+  ],
+  "year": 2004,
+  "country": "France, Republic of Korea",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "Morvern Callar",
+  "originalTitle": null,
+  "directors": [
+   "Lynne Ramsay"
+  ],
+  "year": 2001,
+  "country": "United Kingdom, Canada",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "In Vanda's Room",
+  "originalTitle": null,
+  "directors": [
+   "Pedro Costa"
+  ],
+  "year": 2000,
+  "country": "Portugal, Germany, Switzerland",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "Werckmeister Harmonies",
+  "originalTitle": null,
+  "directors": [
+   "Béla Tarr"
+  ],
+  "year": 2000,
+  "country": "Hungary, Germany, France, Switzerland, Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "Taste of Cherry",
+  "originalTitle": null,
+  "directors": [
+   "Abbas Kiarostami"
+  ],
+  "year": 1997,
+  "country": "Iran",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "The Quince Tree Sun",
+  "originalTitle": null,
+  "directors": [
+   "Víctor Erice"
+  ],
+  "year": 1992,
+  "country": "Spain",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ },
+ {
+  "source": "ss2022-critics",
+  "rank": 243,
+  "title": "The Last Laugh",
+  "originalTitle": null,
+  "directors": [
+   "F.W. Murnau"
+  ],
+  "year": 1924,
+  "country": "Germany",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#243"
+ }
+]

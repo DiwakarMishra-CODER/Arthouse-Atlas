@@ -1,0 +1,8232 @@
+[
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "The River",
+  "originalTitle": "Le Fleuve",
+  "directors": [
+   "Jean Renoir"
+  ],
+  "year": 1951,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1951",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Diary of a Country Priest",
+  "originalTitle": "Journal d'un curé de campagne",
+  "directors": [
+   "Robert Bresson"
+  ],
+  "year": 1951,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1951",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Miracle in Milan",
+  "originalTitle": "Miracolo a Milano",
+  "directors": [
+   "Vittorio de Sica"
+  ],
+  "year": 1951,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1951",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "The Forgotten Ones",
+  "originalTitle": "Los Olvidados",
+  "directors": [
+   "Luis Buñuel"
+  ],
+  "year": 1951,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1951",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "All About Eve",
+  "originalTitle": null,
+  "directors": [
+   "Joseph L. Mankiewicz"
+  ],
+  "year": 1951,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1951",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Miss Julie",
+  "originalTitle": "Fröken Julie",
+  "directors": [
+   "Alf Sjöberg"
+  ],
+  "year": 1951,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1951",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Story of a Love Affair",
+  "originalTitle": "Cronaca di un amore",
+  "directors": [
+   "Michelangelo Antonioni"
+  ],
+  "year": 1951,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1951",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Sunset Boulevard",
+  "originalTitle": null,
+  "directors": [
+   "Billy Wilder"
+  ],
+  "year": 1951,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1951",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Edward and Caroline",
+  "originalTitle": "Édouard et Caroline",
+  "directors": [
+   "Jacques Becker"
+  ],
+  "year": 1951,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1951",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "The Flowers of St. Francis",
+  "originalTitle": "Francesco, giullare di Dio",
+  "directors": [
+   "Roberto Rossellini"
+  ],
+  "year": 1951,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1951",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "This Strange Passion",
+  "originalTitle": "Él",
+  "directors": [
+   "Luis Buñuel"
+  ],
+  "year": 1954,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1954",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Honour Among Thieves",
+  "originalTitle": "Touchez pas au grisbi",
+  "directors": [
+   "Jacques Becker"
+  ],
+  "year": 1954,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1954",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Knave of Hearts",
+  "originalTitle": null,
+  "directors": [
+   "René Clément"
+  ],
+  "year": 1954,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1954",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "The Wild One",
+  "originalTitle": null,
+  "directors": [
+   "László Benedek"
+  ],
+  "year": 1954,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1954",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Gentlemen Prefer Blondes",
+  "originalTitle": null,
+  "directors": [
+   "Howard Hawks"
+  ],
+  "year": 1954,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1954",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "I Vitelloni",
+  "originalTitle": null,
+  "directors": [
+   "Federico Fellini"
+  ],
+  "year": 1954,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1954",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "It Should Happen to You",
+  "originalTitle": null,
+  "directors": [
+   "George Cukor"
+  ],
+  "year": 1954,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1954",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "The Blue Gardenia",
+  "originalTitle": null,
+  "directors": [
+   "Fritz Lang"
+  ],
+  "year": 1954,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1954",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Robinson Crusoe",
+  "originalTitle": "Aventuras de Robinson Crusoe",
+  "directors": [
+   "Luis Buñuel"
+  ],
+  "year": 1954,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1954",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Mother",
+  "originalTitle": "おかあさん",
+  "directors": [
+   "Mikio Naruse"
+  ],
+  "year": 1954,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1954",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Journey to Italy",
+  "originalTitle": "Viaggio in Italia",
+  "directors": [
+   "Roberto Rossellini"
+  ],
+  "year": 1955,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1955",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Ordet",
+  "originalTitle": null,
+  "directors": [
+   "Carl Theodor Dreyer"
+  ],
+  "year": 1955,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1955",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "The Big Knife",
+  "originalTitle": null,
+  "directors": [
+   "Robert Aldrich"
+  ],
+  "year": 1955,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1955",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Lola Montès",
+  "originalTitle": null,
+  "directors": [
+   "Max Ophüls"
+  ],
+  "year": 1955,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1955",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Rear Window",
+  "originalTitle": null,
+  "directors": [
+   "Alfred Hitchcock"
+  ],
+  "year": 1955,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1955",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Bad Liaisons",
+  "originalTitle": "Les mauvaises rencontres",
+  "directors": [
+   "Alexandre Astruc"
+  ],
+  "year": 1955,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1955",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "La Strada",
+  "originalTitle": null,
+  "directors": [
+   "Federico Fellini"
+  ],
+  "year": 1955,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1955",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "The Barefoot Contessa",
+  "originalTitle": null,
+  "directors": [
+   "Joseph L. Mankiewicz"
+  ],
+  "year": 1955,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1955",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Johnny Guitar",
+  "originalTitle": null,
+  "directors": [
+   "Nicholas Ray"
+  ],
+  "year": 1955,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1955",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Kiss Me Deadly",
+  "originalTitle": null,
+  "directors": [
+   "Robert Aldrich"
+  ],
+  "year": 1955,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1955",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "A Man Escaped",
+  "originalTitle": "Un condamné à mort s'est échappé ou Le vent souffle où il veut",
+  "directors": [
+   "Robert Bresson"
+  ],
+  "year": 1956,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1956",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Elena and Her Men",
+  "originalTitle": "Elena et les Hommes",
+  "directors": [
+   "Jean Renoir"
+  ],
+  "year": 1956,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1956",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Rebel Without a Cause",
+  "originalTitle": null,
+  "directors": [
+   "Nicholas Ray"
+  ],
+  "year": 1956,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1956",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Confidential Report",
+  "originalTitle": null,
+  "directors": [
+   "Orson Welles"
+  ],
+  "year": 1956,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1956",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Senso",
+  "originalTitle": null,
+  "directors": [
+   "Luchino Visconti"
+  ],
+  "year": 1956,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1956",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Smiles of a Summer Night",
+  "originalTitle": "Sommarnattens leende",
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1956,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1956",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "The Swindle",
+  "originalTitle": "Il bidone",
+  "directors": [
+   "Federico Fellini"
+  ],
+  "year": 1956,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1956",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "L'Amore",
+  "originalTitle": null,
+  "directors": [
+   "Roberto Rossellini"
+  ],
+  "year": 1956,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1956",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Picnic",
+  "originalTitle": null,
+  "directors": [
+   "Joshua Logan"
+  ],
+  "year": 1956,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1956",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Fear",
+  "originalTitle": "La Paura",
+  "directors": [
+   "Roberto Rossellini"
+  ],
+  "year": 1956,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1956",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "A King in New York",
+  "originalTitle": null,
+  "directors": [
+   "Charlie Chaplin"
+  ],
+  "year": 1957,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1957",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Will Success Spoil Rock Hunter?",
+  "originalTitle": null,
+  "directors": [
+   "Frank Tashlin"
+  ],
+  "year": 1957,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1957",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Nights of Cabiria",
+  "originalTitle": "Le notti di Cabiria",
+  "directors": [
+   "Federico Fellini"
+  ],
+  "year": 1957,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1957",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "The Wrong Man",
+  "originalTitle": null,
+  "directors": [
+   "Alfred Hitchcock"
+  ],
+  "year": 1957,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1957",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "The Criminal Life of Archibaldo de la Cruz",
+  "originalTitle": "Ensayo de un crimen",
+  "directors": [
+   "Luis Buñuel"
+  ],
+  "year": 1957,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1957",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Sawdust and Tinsel",
+  "originalTitle": "Gycklarnas afton",
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1957,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1957",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Bigger Than Life",
+  "originalTitle": null,
+  "directors": [
+   "Nicholas Ray"
+  ],
+  "year": 1957,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1957",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "The Girl Can't Help It",
+  "originalTitle": null,
+  "directors": [
+   "Frank Tashlin"
+  ],
+  "year": 1957,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1957",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Beyond a Reasonable Doubt",
+  "originalTitle": null,
+  "directors": [
+   "Fritz Lang"
+  ],
+  "year": 1957,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1957",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "12 Angry Men",
+  "originalTitle": null,
+  "directors": [
+   "Sidney Lumet"
+  ],
+  "year": 1957,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1957",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Touch of Evil",
+  "originalTitle": null,
+  "directors": [
+   "Orson Welles"
+  ],
+  "year": 1958,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1958",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "The Seventh Seal",
+  "originalTitle": "Det sjunde inseglet",
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1958,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1958",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "White Nights",
+  "originalTitle": "Le notti bianche",
+  "directors": [
+   "Luchino Visconti"
+  ],
+  "year": 1958,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1958",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Il Grido",
+  "originalTitle": null,
+  "directors": [
+   "Michelangelo Antonioni"
+  ],
+  "year": 1958,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1958",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Bonjour Tristesse",
+  "originalTitle": null,
+  "directors": [
+   "Otto Preminger"
+  ],
+  "year": 1958,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1958",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Dreams",
+  "originalTitle": "Kvinnodröm",
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1958,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1958",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "One Life",
+  "originalTitle": "Une vie",
+  "directors": [
+   "Alexandre Astruc"
+  ],
+  "year": 1958,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1958",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Mon Oncle",
+  "originalTitle": null,
+  "directors": [
+   "Jacques Tati"
+  ],
+  "year": 1958,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1958",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "The Quiet American",
+  "originalTitle": null,
+  "directors": [
+   "Joseph L. Mankiewicz"
+  ],
+  "year": 1958,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1958",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Summer Interlude",
+  "originalTitle": "Sommarlek",
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1958,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1958",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Ugetsu",
+  "originalTitle": "雨月物語",
+  "directors": [
+   "Kenji Mizoguchi"
+  ],
+  "year": 1959,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1959",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Hiroshima mon Amour",
+  "originalTitle": null,
+  "directors": [
+   "Alain Resnais"
+  ],
+  "year": 1959,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1959",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Ivan the Terrible (Part II)",
+  "originalTitle": "Иван Грозный",
+  "directors": [
+   "Sergei Eisenstein"
+  ],
+  "year": 1959,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1959",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Pickpocket",
+  "originalTitle": null,
+  "directors": [
+   "Robert Bresson"
+  ],
+  "year": 1959,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1959",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "The 400 Blows",
+  "originalTitle": "Les quatre cents coups",
+  "directors": [
+   "François Truffaut"
+  ],
+  "year": 1959,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1959",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Rio Bravo",
+  "originalTitle": null,
+  "directors": [
+   "Howard Hawks"
+  ],
+  "year": 1959,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1959",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Wild Strawberries",
+  "originalTitle": "Smultronstället",
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1959,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1959",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Vertigo",
+  "originalTitle": null,
+  "directors": [
+   "Alfred Hitchcock"
+  ],
+  "year": 1959,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1959",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Princess Yang Kwei Fei",
+  "originalTitle": "楊貴妃",
+  "directors": [
+   "Kenji Mizoguchi"
+  ],
+  "year": 1959,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1959",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "The Tiger of Eschnapur",
+  "originalTitle": "Der Tiger von Eschnapur",
+  "directors": [
+   "Fritz Lang"
+  ],
+  "year": 1959,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1959",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Sansho the Bailiff",
+  "originalTitle": "山椒大夫",
+  "directors": [
+   "Kenji Mizoguchi"
+  ],
+  "year": 1960,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1960",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "L'Avventura",
+  "originalTitle": null,
+  "directors": [
+   "Michelangelo Antonioni"
+  ],
+  "year": 1960,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1960",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Breathless",
+  "originalTitle": "À bout de souffle",
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1960,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1960",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Shoot the Piano Player",
+  "originalTitle": "Tirez sur le pianiste",
+  "directors": [
+   "François Truffaut"
+  ],
+  "year": 1960,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1960",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Poem of the Sea",
+  "originalTitle": "Поэма о море",
+  "directors": [
+   "Alexander Dovzhenko",
+   "Yuliya Solntseva"
+  ],
+  "year": 1960,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1960",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Les Bonnes Femmes",
+  "originalTitle": null,
+  "directors": [
+   "Claude Chabrol"
+  ],
+  "year": 1960,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1960",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Moonfleet",
+  "originalTitle": null,
+  "directors": [
+   "Fritz Lang"
+  ],
+  "year": 1960,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1960",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Psycho",
+  "originalTitle": null,
+  "directors": [
+   "Alfred Hitchcock"
+  ],
+  "year": 1960,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1960",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "The Hole",
+  "originalTitle": "Le Trou",
+  "directors": [
+   "Jacques Becker"
+  ],
+  "year": 1960,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1960",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Lola",
+  "originalTitle": null,
+  "directors": [
+   "Jacques Demy"
+  ],
+  "year": 1961,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1961",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "A Woman Is a Woman",
+  "originalTitle": "Une femme est une femme",
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1961,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1961",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Paris Belongs to Us",
+  "originalTitle": "Paris nous appartient",
+  "directors": [
+   "Jacques Rivette"
+  ],
+  "year": 1961,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1961",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Rocco and His Brothers",
+  "originalTitle": "Rocco e i suoi fratelli",
+  "directors": [
+   "Luchino Visconti"
+  ],
+  "year": 1961,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1961",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Shin Heike Monogatari",
+  "originalTitle": "新・平家物語",
+  "directors": [
+   "Kenji Mizoguchi"
+  ],
+  "year": 1961,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1961",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "The Horse That Cried",
+  "originalTitle": "Dorogoy tsenoy",
+  "directors": [
+   "Mark Donskoy"
+  ],
+  "year": 1961,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1961",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "La Notte",
+  "originalTitle": null,
+  "directors": [
+   "Michelangelo Antonioni"
+  ],
+  "year": 1961,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1961",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Last Year at Marienbad",
+  "originalTitle": "L'Année dernière à Marienbad",
+  "directors": [
+   "Alain Resnais"
+  ],
+  "year": 1961,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1961",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Elmer Gantry",
+  "originalTitle": null,
+  "directors": [
+   "Richard Brooks"
+  ],
+  "year": 1961,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1961",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Two Rode Together",
+  "originalTitle": null,
+  "directors": [
+   "John Ford"
+  ],
+  "year": 1961,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1961",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "My Life to Live",
+  "originalTitle": "Vivre sa vie",
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1962,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1962",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Jules and Jim",
+  "originalTitle": "Jules et Jim",
+  "directors": [
+   "François Truffaut"
+  ],
+  "year": 1962,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1962",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Hatari!",
+  "originalTitle": null,
+  "directors": [
+   "Howard Hawks"
+  ],
+  "year": 1962,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1962",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Viridiana",
+  "originalTitle": null,
+  "directors": [
+   "Luis Buñuel"
+  ],
+  "year": 1962,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1962",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "The Sign of Leo",
+  "originalTitle": "Le Signe du Lion",
+  "directors": [
+   "Éric Rohmer"
+  ],
+  "year": 1962,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1962",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Wild River",
+  "originalTitle": null,
+  "directors": [
+   "Elia Kazan"
+  ],
+  "year": 1962,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1962",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "The Trial",
+  "originalTitle": null,
+  "directors": [
+   "Orson Welles"
+  ],
+  "year": 1962,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1962",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Through a Glass Darkly",
+  "originalTitle": "Såsom i en spegel",
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1962,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1962",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "The Elusive Corporal",
+  "originalTitle": "Le Caporal épinglé",
+  "directors": [
+   "Jean Renoir"
+  ],
+  "year": 1962,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1962",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Vanina Vanini",
+  "originalTitle": null,
+  "directors": [
+   "Roberto Rossellini"
+  ],
+  "year": 1962,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1962",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Contempt",
+  "originalTitle": "Le Mépris",
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1963,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1963",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "The Birds",
+  "originalTitle": null,
+  "directors": [
+   "Alfred Hitchcock"
+  ],
+  "year": 1963,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1963",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "The Exterminating Angel",
+  "originalTitle": "El ángel exterminador",
+  "directors": [
+   "Luis Buñuel"
+  ],
+  "year": 1963,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1963",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Adieu Philippine",
+  "originalTitle": null,
+  "directors": [
+   "Jacques Rozier"
+  ],
+  "year": 1963,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1963",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "The Trial of Joan of Arc",
+  "originalTitle": "Procès de Jeanne d'Arc",
+  "directors": [
+   "Robert Bresson"
+  ],
+  "year": 1963,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1963",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Muriel",
+  "originalTitle": "Muriel ou le Temps d'un retour",
+  "directors": [
+   "Alain Resnais"
+  ],
+  "year": 1963,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1963",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "The Nutty Professor",
+  "originalTitle": null,
+  "directors": [
+   "Jerry Lewis"
+  ],
+  "year": 1963,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1963",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "The Carabineers",
+  "originalTitle": "Les Carabiniers",
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1963,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1963",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Salvatore Giuliano",
+  "originalTitle": null,
+  "directors": [
+   "Francesco Rosi"
+  ],
+  "year": 1963,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1963",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "8½",
+  "originalTitle": "Otto e mezzo",
+  "directors": [
+   "Federico Fellini"
+  ],
+  "year": 1963,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1963",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Band of Outsiders",
+  "originalTitle": "Bande à part",
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1964,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1964",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Gertrud",
+  "originalTitle": null,
+  "directors": [
+   "Carl Theodor Dreyer"
+  ],
+  "year": 1964,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1964",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Marnie",
+  "originalTitle": null,
+  "directors": [
+   "Alfred Hitchcock"
+  ],
+  "year": 1964,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1964",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "A Married Woman",
+  "originalTitle": "Une femme mariée",
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1964,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1964",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Man's Favorite Sport?",
+  "originalTitle": null,
+  "directors": [
+   "Howard Hawks"
+  ],
+  "year": 1964,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1964",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Red Desert",
+  "originalTitle": "Il deserto rosso",
+  "directors": [
+   "Michelangelo Antonioni"
+  ],
+  "year": 1964,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1964",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "America America",
+  "originalTitle": null,
+  "directors": [
+   "Elia Kazan"
+  ],
+  "year": 1964,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1964",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "The Silence",
+  "originalTitle": "Tystnaden",
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1964,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1964",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "All These Women",
+  "originalTitle": "För att inte tala om alla dessa kvinnor",
+  "directors": [],
+  "year": 1964,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1964",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "The Servant",
+  "originalTitle": null,
+  "directors": [
+   "Joseph Losey"
+  ],
+  "year": 1964,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1964",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Pierrot le Fou",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1965,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1965",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Sandra",
+  "originalTitle": null,
+  "directors": [
+   "Luchino Visconti"
+  ],
+  "year": 1965,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1965",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Winter Light",
+  "originalTitle": "Nattvardsgästerna",
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1965,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1965",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Six in Paris (\"Gare du Nord\" segment)",
+  "originalTitle": "Paris vu par...",
+  "directors": [
+   "Jean Rouch"
+  ],
+  "year": 1965,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1965",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Alphaville",
+  "originalTitle": "Alphaville: une étrange aventure de Lemmy Caution",
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1965,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1965",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Lilith",
+  "originalTitle": null,
+  "directors": [
+   "Robert Rossen"
+  ],
+  "year": 1965,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1965",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Shock Corridor",
+  "originalTitle": null,
+  "directors": [
+   "Sam Fuller"
+  ],
+  "year": 1965,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1965",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "The Family Jewels",
+  "originalTitle": null,
+  "directors": [
+   "Jerry Lewis"
+  ],
+  "year": 1965,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1965",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "The Gospel According to St. Matthew",
+  "originalTitle": "Il vangelo secondo Matteo",
+  "directors": [
+   "Pier Paolo Pasolini"
+  ],
+  "year": 1965,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1965",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Le Bonheur",
+  "originalTitle": null,
+  "directors": [
+   "Agnès Varda"
+  ],
+  "year": 1965,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1965",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Au hasard Balthazar",
+  "originalTitle": null,
+  "directors": [
+   "Robert Bresson"
+  ],
+  "year": 1966,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1966",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Walkover",
+  "originalTitle": "Walkower",
+  "directors": [
+   "Jerzy Skolimowski"
+  ],
+  "year": 1966,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1966",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Not Reconciled",
+  "originalTitle": "Nicht versöhnt",
+  "directors": [
+   "Jean-Marie Straub"
+  ],
+  "year": 1966,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1966",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Masculin Féminin",
+  "originalTitle": "Masculin féminin: 15 faits précis",
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1966,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1966",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "The Man Who Had His Hair Cut Short",
+  "originalTitle": "De man die zijn haar kort liet knippen",
+  "directors": [
+   "André Delvaux"
+  ],
+  "year": 1966,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1966",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "7 Women",
+  "originalTitle": null,
+  "directors": [
+   "John Ford"
+  ],
+  "year": 1966,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1966",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "The Taking of Power by Louis XIV",
+  "originalTitle": "La prise de pouvoir par Louis XIV",
+  "directors": [
+   "Roberto Rossellini"
+  ],
+  "year": 1966,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1966",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Torn Curtain",
+  "originalTitle": null,
+  "directors": [
+   "Alfred Hitchcock"
+  ],
+  "year": 1966,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1966",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Red Line 7000",
+  "originalTitle": null,
+  "directors": [
+   "Howard Hawks"
+  ],
+  "year": 1966,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1966",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Fists in the Pocket",
+  "originalTitle": "I pugni in tasca",
+  "directors": [
+   "Marco Bellocchio"
+  ],
+  "year": 1966,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1966",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Persona",
+  "originalTitle": null,
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1967,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1967",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Belle de Jour",
+  "originalTitle": null,
+  "directors": [
+   "Luis Buñuel"
+  ],
+  "year": 1967,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1967",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Weekend",
+  "originalTitle": "Week-end",
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1967,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1967",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Lion Hunting with Bow and Arrow",
+  "originalTitle": "La chasse au lion à l'arc",
+  "directors": [
+   "Jean Rouch"
+  ],
+  "year": 1967,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1967",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Playtime",
+  "originalTitle": null,
+  "directors": [
+   "Jacques Tati"
+  ],
+  "year": 1967,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1967",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "The Big Mouth",
+  "originalTitle": null,
+  "directors": [
+   "Jerry Lewis"
+  ],
+  "year": 1967,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1967",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Daisies",
+  "originalTitle": "Sedmikrásky",
+  "directors": [
+   "Vera Chytilova"
+  ],
+  "year": 1967,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1967",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Two or Three Things I Know About Her",
+  "originalTitle": "Deux ou trois choses que je sais d'elle",
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1967,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1967",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "La Chinoise",
+  "originalTitle": "La Chinoise, ou plutôt à la Chinoise: un film en train de se faire",
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1967,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1967",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "The Chronicle of Anna Magdalena Bach",
+  "originalTitle": "Chronik der Anna Magdalena Bach",
+  "directors": [
+   "Jean-Marie Straub",
+   "Danièle Huillet"
+  ],
+  "year": 1968,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1968",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Before the Revolution",
+  "originalTitle": "Prima della rivoluzione",
+  "directors": [
+   "Bernardo Bertolucci"
+  ],
+  "year": 1968,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1968",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "The Edge",
+  "originalTitle": null,
+  "directors": [
+   "Robert Kramer"
+  ],
+  "year": 1968,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1968",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Spirits of the Dead (\"Toby Dammit\" segment)",
+  "originalTitle": "Tre passi nel delirio",
+  "directors": [
+   "Federico Fellini"
+  ],
+  "year": 1968,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1968",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Don't Let It Kill You",
+  "originalTitle": "Il ne faut pas mourir pour ça",
+  "directors": [
+   "Jean Pierre Lefebvre"
+  ],
+  "year": 1968,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1968",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "The Times That Are",
+  "originalTitle": "Le règne du jour",
+  "directors": [
+   "Pierre Perrault"
+  ],
+  "year": 1968,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1968",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Barrier",
+  "originalTitle": "Bariera",
+  "directors": [
+   "Jerzy Skolimowski"
+  ],
+  "year": 1968,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1968",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Stolen Kisses",
+  "originalTitle": "Baisers volés",
+  "directors": [
+   "François Truffaut"
+  ],
+  "year": 1968,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1968",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Ride in the Whirlwind",
+  "originalTitle": null,
+  "directors": [
+   "Monte Hellman"
+  ],
+  "year": 1968,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1968",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "The Bride Wore Black",
+  "originalTitle": "La Mariée était en noir",
+  "directors": [
+   "François Truffaut"
+  ],
+  "year": 1968,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1968",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "The Aviator's Wife",
+  "originalTitle": "La Femme de l'aviateur",
+  "directors": [
+   "Éric Rohmer"
+  ],
+  "year": 1981,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1981",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Hotel America",
+  "originalTitle": "Hôtel des Amériques",
+  "directors": [
+   "André Téchiné"
+  ],
+  "year": 1981,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1981",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Germany, Pale Mother",
+  "originalTitle": "Deutschland bleiche Mutter",
+  "directors": [
+   "Helma Sanders-Brahms"
+  ],
+  "year": 1981,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1981",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Stalker",
+  "originalTitle": "Сталкер",
+  "directors": [
+   "Andrei Tarkovsky"
+  ],
+  "year": 1981,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1981",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Jalsaghar",
+  "originalTitle": "জলসাঘর",
+  "directors": [
+   "Satyajit Ray"
+  ],
+  "year": 1981,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1981",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Gloria",
+  "originalTitle": null,
+  "directors": [
+   "John Cassavetes"
+  ],
+  "year": 1981,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1981",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "A Room in Town",
+  "originalTitle": "Une chambre en ville",
+  "directors": [
+   "Jacques Demy"
+  ],
+  "year": 1982,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1982",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Moonlighting",
+  "originalTitle": null,
+  "directors": [
+   "Jerzy Skolimowski"
+  ],
+  "year": 1982,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1982",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "White Dog",
+  "originalTitle": null,
+  "directors": [
+   "Sam Fuller"
+  ],
+  "year": 1982,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1982",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "The Color of Pomegranates",
+  "originalTitle": "Նռան գույնը",
+  "directors": [
+   "Sergei Parajanov"
+  ],
+  "year": 1982,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1982",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Parsifal",
+  "originalTitle": null,
+  "directors": [
+   "Hans-Jürgen Syberberg"
+  ],
+  "year": 1982,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1982",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Three Crowns of the Sailor",
+  "originalTitle": "Les trois couronnes du matelot",
+  "directors": [
+   "Raúl Ruiz"
+  ],
+  "year": 1982,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1982",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Le Beau Mariage",
+  "originalTitle": null,
+  "directors": [
+   "Éric Rohmer"
+  ],
+  "year": 1982,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1982",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "À Nos Amours",
+  "originalTitle": null,
+  "directors": [
+   "Maurice Pialat"
+  ],
+  "year": 1983,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1983",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Merry Christmas, Mr. Lawrence",
+  "originalTitle": "戦場のメリークリスマス",
+  "directors": [
+   "Nagisa Oshima"
+  ],
+  "year": 1983,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1983",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "The King of Comedy",
+  "originalTitle": null,
+  "directors": [
+   "Martin Scorsese"
+  ],
+  "year": 1983,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1983",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "L'Enfant Secret",
+  "originalTitle": null,
+  "directors": [
+   "Philippe Garrel"
+  ],
+  "year": 1983,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1983",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Cracking Up",
+  "originalTitle": null,
+  "directors": [
+   "Jerry Lewis"
+  ],
+  "year": 1983,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1983",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Full Moon in Paris",
+  "originalTitle": "Les nuits de la pleine lune",
+  "directors": [
+   "Éric Rohmer"
+  ],
+  "year": 1984,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1984",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Class Relations",
+  "originalTitle": "Klassenverhältnisse",
+  "directors": [
+   "Jean-Marie Straub",
+   "Danièle Huillet"
+  ],
+  "year": 1984,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1984",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Biquefarre",
+  "originalTitle": null,
+  "directors": [
+   "Georges Rouquier"
+  ],
+  "year": 1984,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1984",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Rumble Fish",
+  "originalTitle": null,
+  "directors": [
+   "Francis Ford Coppola"
+  ],
+  "year": 1984,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1984",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "And the Ship Sails On",
+  "originalTitle": "E la nave va",
+  "directors": [
+   "Federico Fellini"
+  ],
+  "year": 1984,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1984",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Once Upon a Time in America",
+  "originalTitle": "C'era una volta in America",
+  "directors": [
+   "Sergio Leone"
+  ],
+  "year": 1984,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1984",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Hail Mary",
+  "originalTitle": "Je vous salue, Marie",
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1985,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1985",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Détective",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1985,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1985",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Year of the Dragon",
+  "originalTitle": null,
+  "directors": [
+   "Michael Cimino"
+  ],
+  "year": 1985,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1985",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "After the Rehearsal",
+  "originalTitle": "Efter repetitionen",
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1985,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1985",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Love Streams",
+  "originalTitle": null,
+  "directors": [
+   "John Cassavetes"
+  ],
+  "year": 1985,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1985",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "The Home and the World",
+  "originalTitle": "Ghare Baire",
+  "directors": [
+   "Satyajit Ray"
+  ],
+  "year": 1985,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1985",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Les Amants terribles",
+  "originalTitle": null,
+  "directors": [
+   "Danièle Dubroux"
+  ],
+  "year": 1985,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1985",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "The Children",
+  "originalTitle": "Les Enfants",
+  "directors": [
+   "Marguerite Duras"
+  ],
+  "year": 1985,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1985",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Ran",
+  "originalTitle": "乱",
+  "directors": [
+   "Akira Kurosawa"
+  ],
+  "year": 1985,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1985",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Favorites of the Moon",
+  "originalTitle": "Les Favoris de la lune",
+  "directors": [
+   "Otar Iosseliani"
+  ],
+  "year": 1985,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1985",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "The Green Ray",
+  "originalTitle": "Le Rayon vert",
+  "directors": [
+   "Éric Rohmer"
+  ],
+  "year": 1986,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1986",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "The Legend of Suram Fortress",
+  "originalTitle": "ამბავი სურამის ციხისა",
+  "directors": [
+   "Sergei Parajanov"
+  ],
+  "year": 1986,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1986",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Double Messieurs",
+  "originalTitle": null,
+  "directors": [
+   "Jean-François Stévenin"
+  ],
+  "year": 1986,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1986",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Mauvais Sang",
+  "originalTitle": null,
+  "directors": [
+   "Leos Carax"
+  ],
+  "year": 1986,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1986",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Thérèse",
+  "originalTitle": null,
+  "directors": [
+   "Alain Cavalier"
+  ],
+  "year": 1986,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1986",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Scene of the Crime",
+  "originalTitle": "Le Lieu du crime",
+  "directors": [
+   "André Téchiné"
+  ],
+  "year": 1986,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1986",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "After Hours",
+  "originalTitle": null,
+  "directors": [
+   "Martin Scorsese"
+  ],
+  "year": 1986,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1986",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Under the Sun of Satan",
+  "originalTitle": "Sous le soleil de Satan",
+  "directors": [
+   "Maurice Pialat"
+  ],
+  "year": 1987,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1987",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "The Death of Empedocles",
+  "originalTitle": "Der Tod des Empedokles",
+  "directors": [
+   "Jean-Marie Straub",
+   "Danièle Huillet"
+  ],
+  "year": 1987,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1987",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "The Last Emperor",
+  "originalTitle": "L'ultimo imperatore",
+  "directors": [
+   "Bernardo Bertolucci"
+  ],
+  "year": 1987,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1987",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Four Adventures of Reinette and Mirabelle",
+  "originalTitle": "Quatre aventures de Reinette et Mirabelle",
+  "directors": [
+   "Éric Rohmer"
+  ],
+  "year": 1987,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1987",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "The Mass Is Ended",
+  "originalTitle": "La messa è finita",
+  "directors": [
+   "Nanni Moretti"
+  ],
+  "year": 1987,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1987",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Blue Velvet",
+  "originalTitle": null,
+  "directors": [
+   "David Lynch"
+  ],
+  "year": 1987,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1987",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "A Short Film About Killing",
+  "originalTitle": "Krótki film o zabijaniu",
+  "directors": [
+   "Krzysztof Kieślowski"
+  ],
+  "year": 1988,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1988",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "The Unbearable Lightness of Being",
+  "originalTitle": null,
+  "directors": [
+   "Philip Kaufman"
+  ],
+  "year": 1988,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1988",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "The Dead",
+  "originalTitle": null,
+  "directors": [
+   "John Huston"
+  ],
+  "year": 1988,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1988",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Urgences",
+  "originalTitle": null,
+  "directors": [
+   "Raymond Depardon"
+  ],
+  "year": 1988,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1988",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Bird",
+  "originalTitle": null,
+  "directors": [
+   "Clint Eastwood"
+  ],
+  "year": 1988,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1988",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Landscape in the Mist",
+  "originalTitle": "Τοπίο στην ομίχλη",
+  "directors": [
+   "Theo Angelopoulos"
+  ],
+  "year": 1988,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1988",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Sound and Fury",
+  "originalTitle": "De bruit et de fureur",
+  "directors": [
+   "Jean-Claude Brisseau"
+  ],
+  "year": 1988,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1988",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "The Last Temptation of Christ",
+  "originalTitle": null,
+  "directors": [
+   "Martin Scorsese"
+  ],
+  "year": 1988,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1988",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Les Innocents",
+  "originalTitle": null,
+  "directors": [
+   "André Téchiné"
+  ],
+  "year": 1988,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1988",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Story of Women",
+  "originalTitle": "Une affaire de femmes",
+  "directors": [
+   "Claude Chabrol"
+  ],
+  "year": 1988,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1988",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Do the Right Thing",
+  "originalTitle": null,
+  "directors": [
+   "Spike Lee"
+  ],
+  "year": 1989,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1989",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Gang of Four",
+  "originalTitle": "La bande des quatre",
+  "directors": [
+   "Jacques Rivette"
+  ],
+  "year": 1989,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1989",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "The Cannibals",
+  "originalTitle": "Os Canibais",
+  "directors": [
+   "Manoel de Oliveira"
+  ],
+  "year": 1989,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1989",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Black Rain",
+  "originalTitle": "黒い雨",
+  "directors": [
+   "Shohei Imamura"
+  ],
+  "year": 1989,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1989",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "The Accidental Tourist",
+  "originalTitle": null,
+  "directors": [
+   "Lawrence Kasdan"
+  ],
+  "year": 1989,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1989",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Freeze Die Come to Life",
+  "originalTitle": "Замри, умри, воскресни!",
+  "directors": [
+   "Vitali Kanevsky"
+  ],
+  "year": 1990,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1990",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Goodfellas",
+  "originalTitle": null,
+  "directors": [
+   "Martin Scorsese"
+  ],
+  "year": 1990,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1990",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Alexandria Again and Forever",
+  "originalTitle": "إسكندريه كمان وكمان",
+  "directors": [
+   "Youssef Chahine"
+  ],
+  "year": 1990,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1990",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Crimes and Misdemeanors",
+  "originalTitle": null,
+  "directors": [
+   "Woody Allen"
+  ],
+  "year": 1990,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1990",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Van Gogh",
+  "originalTitle": null,
+  "directors": [
+   "Maurice Pialat"
+  ],
+  "year": 1991,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1991",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Miller's Crossing",
+  "originalTitle": null,
+  "directors": [
+   "Coen Brothers"
+  ],
+  "year": 1991,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1991",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "The Godfather Part III",
+  "originalTitle": null,
+  "directors": [
+   "Francis Ford Coppola"
+  ],
+  "year": 1991,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1991",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Close-Up",
+  "originalTitle": "کلوزآپ ، نمای نزدیک",
+  "directors": [
+   "Abbas Kiarostami"
+  ],
+  "year": 1991,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1991",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "I Don't Hear the Guitar Anymore",
+  "originalTitle": "J'entends plus la guitare",
+  "directors": [
+   "Philippe Garrel"
+  ],
+  "year": 1991,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1991",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Edward Scissorhands",
+  "originalTitle": null,
+  "directors": [
+   "Tim Burton"
+  ],
+  "year": 1991,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1991",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Rhapsody in August",
+  "originalTitle": "八月の狂詩曲",
+  "directors": [
+   "Akira Kurosawa"
+  ],
+  "year": 1991,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1991",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Les Amants du Pont-Neuf",
+  "originalTitle": null,
+  "directors": [
+   "Leos Carax"
+  ],
+  "year": 1991,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1991",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Paris Awakens",
+  "originalTitle": "Paris s'éveille",
+  "directors": [
+   "Olivier Assayas"
+  ],
+  "year": 1991,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1991",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Unforgiven",
+  "originalTitle": null,
+  "directors": [
+   "Clint Eastwood"
+  ],
+  "year": 1992,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1992",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Agantuk",
+  "originalTitle": null,
+  "directors": [
+   "Satyajit Ray"
+  ],
+  "year": 1992,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1992",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "And Life Goes On",
+  "originalTitle": "زندگی و دیگر هیچ",
+  "directors": [
+   "Abbas Kiarostami"
+  ],
+  "year": 1992,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1992",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Husbands and Wives",
+  "originalTitle": null,
+  "directors": [
+   "Woody Allen"
+  ],
+  "year": 1992,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1992",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Border Line",
+  "originalTitle": null,
+  "directors": [
+   "Danièle Dubroux"
+  ],
+  "year": 1992,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1992",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "La Chasse aux papillons",
+  "originalTitle": null,
+  "directors": [
+   "Otar Iosseliani"
+  ],
+  "year": 1992,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1992",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "A Brighter Summer Day",
+  "originalTitle": "牯嶺街少年殺人事件",
+  "directors": [
+   "Edward Yang"
+  ],
+  "year": 1992,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1992",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "A Perfect World",
+  "originalTitle": null,
+  "directors": [
+   "Clint Eastwood"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1993",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Abraham's Valley",
+  "originalTitle": "Vale Abraão",
+  "directors": [
+   "Manoel de Oliveira"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1993",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "The Tree, the Mayor and the Mediatheque",
+  "originalTitle": "L'Arbre, le maire et la médiathèque",
+  "directors": [
+   "Éric Rohmer"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1993",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Smoking/No Smoking",
+  "originalTitle": null,
+  "directors": [
+   "Alain Resnais"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1993",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "In the Land of the Deaf",
+  "originalTitle": "Le Pays Des Sourds",
+  "directors": [
+   "Nicolas Philibert"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1993",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Aranyer Din Ratri",
+  "originalTitle": "অরণ্যের দিনরাত্রি",
+  "directors": [
+   "Satyajit Ray"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1993",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Mad Dog and Glory",
+  "originalTitle": null,
+  "directors": [
+   "John McNaughton"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1993",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Innocent Blood",
+  "originalTitle": null,
+  "directors": [
+   "John Landis"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1993",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Bad Lieutenant",
+  "originalTitle": null,
+  "directors": [
+   "Abel Ferrara"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1993",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Hélas pour moi",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1993",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Caro diario",
+  "originalTitle": null,
+  "directors": [
+   "Nanni Moretti"
+  ],
+  "year": 1994,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1994",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "I Can't Sleep",
+  "originalTitle": "J'ai pas sommeil",
+  "directors": [
+   "Claire Denis"
+  ],
+  "year": 1994,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1994",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Carlito's Way",
+  "originalTitle": null,
+  "directors": [
+   "Brian De Palma"
+  ],
+  "year": 1994,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1994",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Wild Reeds",
+  "originalTitle": "Les Roseaux sauvages",
+  "directors": [
+   "André Téchiné"
+  ],
+  "year": 1994,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1994",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "The Nightmare Before Christmas",
+  "originalTitle": null,
+  "directors": [
+   "Henry Selick"
+  ],
+  "year": 1994,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1994",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Travolta and Me",
+  "originalTitle": null,
+  "directors": [
+   "Patricia Mazuy"
+  ],
+  "year": 1994,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1994",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Hell",
+  "originalTitle": "L'Enfer",
+  "directors": [
+   "Claude Chabrol"
+  ],
+  "year": 1994,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1994",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Joan the Maid",
+  "originalTitle": "Jeanne la pucelle",
+  "directors": [
+   "Jacques Rivette"
+  ],
+  "year": 1994,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1994",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "US Go Home",
+  "originalTitle": null,
+  "directors": [
+   "Claire Denis"
+  ],
+  "year": 1994,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1994",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Coming to Terms with the Dead",
+  "originalTitle": "Petits arrangements avec les morts",
+  "directors": [
+   "Pascale Ferran"
+  ],
+  "year": 1994,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1994",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "La Cérémonie",
+  "originalTitle": null,
+  "directors": [
+   "Claude Chabrol"
+  ],
+  "year": 1995,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1995",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Le Garçu",
+  "originalTitle": null,
+  "directors": [
+   "Maurice Pialat"
+  ],
+  "year": 1995,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1995",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Waati",
+  "originalTitle": null,
+  "directors": [
+   "Souleymane Cissé"
+  ],
+  "year": 1995,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1995",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "The Bridges of Madison County",
+  "originalTitle": null,
+  "directors": [
+   "Clint Eastwood"
+  ],
+  "year": 1995,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1995",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Oublie-moi",
+  "originalTitle": null,
+  "directors": [
+   "Noémie Lvovsky"
+  ],
+  "year": 1995,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1995",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "The Flower of My Secret",
+  "originalTitle": "La flor de mi secreto",
+  "directors": [
+   "Pedro Almodóvar"
+  ],
+  "year": 1995,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1995",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Sonatine",
+  "originalTitle": "ソナチネ",
+  "directors": [
+   "Takeshi Kitano"
+  ],
+  "year": 1995,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1995",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Ed Wood",
+  "originalTitle": null,
+  "directors": [
+   "Tim Burton"
+  ],
+  "year": 1995,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1995",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Through the Olive Trees",
+  "originalTitle": "زیر درختان زیتون",
+  "directors": [
+   "Abbas Kiarostami"
+  ],
+  "year": 1995,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1995",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "In the Mouth of Madness",
+  "originalTitle": null,
+  "directors": [
+   "John Carpenter"
+  ],
+  "year": 1995,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1995",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Crash",
+  "originalTitle": null,
+  "directors": [
+   "David Cronenberg"
+  ],
+  "year": 1996,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1996",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "For Ever Mozart",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1996,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1996",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Casino",
+  "originalTitle": null,
+  "directors": [
+   "Martin Scorsese"
+  ],
+  "year": 1996,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1996",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "My Sex Life... or How I Got into an Argument",
+  "originalTitle": "Comment je me suis disputé... (ma vie sexuelle)",
+  "directors": [
+   "Arnaud Desplechin"
+  ],
+  "year": 1996,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1996",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "God's Comedy",
+  "originalTitle": "A Comédia de Deus",
+  "directors": [
+   "João César Monteiro"
+  ],
+  "year": 1996,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1996",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Dead Man",
+  "originalTitle": null,
+  "directors": [
+   "Jim Jarmusch"
+  ],
+  "year": 1996,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1996",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Thieves",
+  "originalTitle": "Les Voleurs",
+  "directors": [
+   "André Téchiné"
+  ],
+  "year": 1996,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1996",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Mission: Impossible",
+  "originalTitle": null,
+  "directors": [
+   "Brian De Palma"
+  ],
+  "year": 1996,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1996",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Encore",
+  "originalTitle": null,
+  "directors": [
+   "Pascal Bonitzer"
+  ],
+  "year": 1996,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1996",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Don't Forget You're Going to Die",
+  "originalTitle": "N'oublie pas que tu vas mourir",
+  "directors": [
+   "Xavier Beauvois"
+  ],
+  "year": 1996,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1996",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Hana-bi",
+  "originalTitle": null,
+  "directors": [
+   "Takeshi Kitano"
+  ],
+  "year": 1997,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1997",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Goodbye South, Goodbye",
+  "originalTitle": "南國再見,南國",
+  "directors": [
+   "Hou Hsiao-hsien"
+  ],
+  "year": 1997,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1997",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Lost Highway",
+  "originalTitle": null,
+  "directors": [
+   "David Lynch"
+  ],
+  "year": 1997,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1997",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "The Eel",
+  "originalTitle": "うなぎ",
+  "directors": [
+   "Shohei Imamura"
+  ],
+  "year": 1997,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1997",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Same Old Song",
+  "originalTitle": "On connaît la chanson",
+  "directors": [
+   "Alain Resnais"
+  ],
+  "year": 1997,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1997",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Face/Off",
+  "originalTitle": null,
+  "directors": [
+   "John Woo"
+  ],
+  "year": 1997,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1997",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Flowers of Shanghai",
+  "originalTitle": "海上花",
+  "directors": [
+   "Hou Hsiao-hsien"
+  ],
+  "year": 1998,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1998",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Dr. Akagi",
+  "originalTitle": "カンゾー先生",
+  "directors": [
+   "Shohei Imamura"
+  ],
+  "year": 1998,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1998",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Autumn Tale",
+  "originalTitle": "Conte d'automne",
+  "directors": [
+   "Éric Rohmer"
+  ],
+  "year": 1998,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1998",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Anxiety",
+  "originalTitle": "Inquietude",
+  "directors": [
+   "Manoel de Oliveira"
+  ],
+  "year": 1998,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1998",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "L'Ennui",
+  "originalTitle": null,
+  "directors": [
+   "Cédric Kahn"
+  ],
+  "year": 1998,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1998",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Snake Eyes",
+  "originalTitle": null,
+  "directors": [
+   "Brian De Palma"
+  ],
+  "year": 1998,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1998",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Hinterland",
+  "originalTitle": "L'arrière-pays",
+  "directors": [
+   "Jacques Nolot"
+  ],
+  "year": 1998,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1998",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Eyes Wide Shut",
+  "originalTitle": null,
+  "directors": [
+   "Stanley Kubrick"
+  ],
+  "year": 1999,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1999",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "The Wind Will Carry Us",
+  "originalTitle": "باد ما را خواهد برد",
+  "directors": [
+   "Abbas Kiarostami"
+  ],
+  "year": 1999,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 1999",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Sicilia!",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Marie Straub",
+   "Danièle Huillet"
+  ],
+  "year": 1999,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 1999",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "eXistenZ",
+  "originalTitle": null,
+  "directors": [
+   "David Cronenberg"
+  ],
+  "year": 1999,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1999",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Night Wind",
+  "originalTitle": "Le vent de la nuit",
+  "directors": [
+   "Philippe Garrel"
+  ],
+  "year": 1999,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 1999",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "True Crime",
+  "originalTitle": null,
+  "directors": [
+   "Clint Eastwood"
+  ],
+  "year": 1999,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 1999",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "The Letter",
+  "originalTitle": "A Carta",
+  "directors": [
+   "Manoel de Oliveira"
+  ],
+  "year": 1999,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 1999",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "The Straight Story",
+  "originalTitle": null,
+  "directors": [
+   "David Lynch"
+  ],
+  "year": 1999,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1999",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Ghost Dog: The Way of the Samurai",
+  "originalTitle": null,
+  "directors": [
+   "Jim Jarmusch"
+  ],
+  "year": 1999,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 1999",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "As Bodas de Deus",
+  "originalTitle": null,
+  "directors": [
+   "João César Monteiro"
+  ],
+  "year": 1999,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 1999",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "The Bridges of Madison County",
+  "originalTitle": null,
+  "directors": [
+   "Clint Eastwood"
+  ],
+  "year": 1999,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 1999",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Close-Up",
+  "originalTitle": "کلوزآپ ، نمای نزدیک",
+  "directors": [
+   "Abbas Kiarostami"
+  ],
+  "year": 1999,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 1999",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Crash",
+  "originalTitle": null,
+  "directors": [
+   "David Cronenberg"
+  ],
+  "year": 1999,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 1999",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Esther Kahn",
+  "originalTitle": null,
+  "directors": [
+   "Arnaud Desplechin"
+  ],
+  "year": 2000,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2000",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "The Captive",
+  "originalTitle": "La Captive",
+  "directors": [
+   "Chantal Akerman"
+  ],
+  "year": 2000,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2000",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Man on the Moon",
+  "originalTitle": null,
+  "directors": [
+   "Miloš Forman"
+  ],
+  "year": 2000,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2000",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Mission to Mars",
+  "originalTitle": null,
+  "directors": [
+   "Brian De Palma"
+  ],
+  "year": 2000,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2000",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "In the Mood for Love",
+  "originalTitle": "花樣年華",
+  "directors": [
+   "Wong Kar-wai"
+  ],
+  "year": 2000,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2000",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "M/Other",
+  "originalTitle": null,
+  "directors": [
+   "Nobuhiro Suwa"
+  ],
+  "year": 2000,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2000",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "The Virgin Suicides",
+  "originalTitle": null,
+  "directors": [
+   "Sofia Coppola"
+  ],
+  "year": 2000,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2000",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Space Cowboys",
+  "originalTitle": null,
+  "directors": [
+   "Clint Eastwood"
+  ],
+  "year": 2000,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2000",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Workers for the Good Lord",
+  "originalTitle": "Les Savates du bon Dieu",
+  "directors": [
+   "Jean-Claude Brisseau"
+  ],
+  "year": 2000,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2000",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Mulholland Drive",
+  "originalTitle": null,
+  "directors": [
+   "David Lynch"
+  ],
+  "year": 2001,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2001",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "The Lady and the Duke",
+  "originalTitle": "L'Anglaise et le Duc",
+  "directors": [
+   "Éric Rohmer"
+  ],
+  "year": 2001,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2001",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Millennium Mambo",
+  "originalTitle": "千禧曼波",
+  "directors": [
+   "Hou Hsiao-hsien"
+  ],
+  "year": 2001,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2001",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Time and Tide",
+  "originalTitle": "順流逆流",
+  "directors": [
+   "Tsui Hark"
+  ],
+  "year": 2001,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2001",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "I'm Going Home",
+  "originalTitle": "Vou Para Casa",
+  "directors": [
+   "Manoel de Oliveira"
+  ],
+  "year": 2001,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2001",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Platform",
+  "originalTitle": "站台",
+  "directors": [
+   "Jia Zhangke"
+  ],
+  "year": 2001,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2001",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Sobibor, October 14, 1943, 4 p.m.",
+  "originalTitle": "Sobibor, 14 octobre 1943, 16 heures",
+  "directors": [
+   "Claude Lanzmann"
+  ],
+  "year": 2001,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2001",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "The Son's Room",
+  "originalTitle": "La stanza del figlio",
+  "directors": [
+   "Nanni Moretti"
+  ],
+  "year": 2001,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2001",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "'R Xmas",
+  "originalTitle": null,
+  "directors": [
+   "Abel Ferrara"
+  ],
+  "year": 2001,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2001",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Secret Things",
+  "originalTitle": "Choses secrètes",
+  "directors": [
+   "Jean-Claude Brisseau"
+  ],
+  "year": 2002,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2002",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Blissfully Yours",
+  "originalTitle": "สุดเสน่หา",
+  "directors": [
+   "Apichatpong Weerasethakul"
+  ],
+  "year": 2002,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2002",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "From the Other Side",
+  "originalTitle": "De l'autre côté",
+  "directors": [
+   "Chantal Akerman"
+  ],
+  "year": 2002,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2002",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "The Uncertainty Principle",
+  "originalTitle": "O Princípio da Incerteza",
+  "directors": [
+   "Manoel de Oliveira"
+  ],
+  "year": 2002,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2002",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "My Mother's Smile",
+  "originalTitle": "L'ora di religione (Il sorriso di mia madre)",
+  "directors": [
+   "Marco Bellocchio"
+  ],
+  "year": 2002,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2002",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Talk to Her",
+  "originalTitle": "Hable Con Ella",
+  "directors": [
+   "Pedro Almodóvar"
+  ],
+  "year": 2002,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2002",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Spider",
+  "originalTitle": null,
+  "directors": [
+   "David Cronenberg"
+  ],
+  "year": 2002,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2002",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "24 (season 1)",
+  "originalTitle": null,
+  "directors": [
+   "N",
+   "A"
+  ],
+  "year": 2002,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2002",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Tropical Malady",
+  "originalTitle": "สัตว์ประหลาด",
+  "directors": [
+   "Apichatpong Weerasethakul"
+  ],
+  "year": 2004,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2004",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "S-21: The Khmer Rouge Killing Machine",
+  "originalTitle": "S-21, la machine de mort Khmère rouge",
+  "directors": [
+   "Rithy Panh"
+  ],
+  "year": 2004,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2004",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Shara",
+  "originalTitle": "沙羅双樹",
+  "directors": [
+   "Naomi Kawase"
+  ],
+  "year": 2004,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2004",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "The Brown Bunny",
+  "originalTitle": null,
+  "directors": [
+   "Vincent Gallo"
+  ],
+  "year": 2004,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2004",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Café Lumière",
+  "originalTitle": "珈琲時光",
+  "directors": [
+   "Hou Hsiao-hsien"
+  ],
+  "year": 2004,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2004",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Last Days",
+  "originalTitle": null,
+  "directors": [
+   "Gus Van Sant"
+  ],
+  "year": 2005,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2005",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "A History of Violence",
+  "originalTitle": null,
+  "directors": [
+   "David Cronenberg"
+  ],
+  "year": 2005,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2005",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "1/3 of the Eyes",
+  "originalTitle": null,
+  "directors": [
+   "Olivier Zabat"
+  ],
+  "year": 2005,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2005",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Be with Me",
+  "originalTitle": null,
+  "directors": [
+   "Eric Khoo"
+  ],
+  "year": 2005,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2005",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Private Fears in Public Places",
+  "originalTitle": "Cœurs",
+  "directors": [
+   "Alain Resnais"
+  ],
+  "year": 2006,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2006",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "The Host",
+  "originalTitle": "괴물",
+  "directors": [
+   "Bong Joon-ho"
+  ],
+  "year": 2006,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2006",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Lady Chatterley",
+  "originalTitle": null,
+  "directors": [
+   "Pascale Ferran"
+  ],
+  "year": 2006,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2006",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "A Perfect Couple",
+  "originalTitle": "Un couple parfait",
+  "directors": [
+   "Nobuhiro Suwa"
+  ],
+  "year": 2006,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2006",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Capote",
+  "originalTitle": null,
+  "directors": [
+   "Bennett Miller"
+  ],
+  "year": 2006,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2006",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "The Departed",
+  "originalTitle": null,
+  "directors": [
+   "Martin Scorsese"
+  ],
+  "year": 2006,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2006",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Flags of Our Fathers",
+  "originalTitle": null,
+  "directors": [
+   "Clint Eastwood"
+  ],
+  "year": 2006,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2006",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Paranoid Park",
+  "originalTitle": null,
+  "directors": [
+   "Gus Van Sant"
+  ],
+  "year": 2007,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2007",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Death Proof",
+  "originalTitle": null,
+  "directors": [
+   "Quentin Tarantino"
+  ],
+  "year": 2007,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2007",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "La France",
+  "originalTitle": null,
+  "directors": [
+   "Serge Bozon"
+  ],
+  "year": 2007,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2007",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Before I Forget",
+  "originalTitle": "Avant que j'oublie",
+  "directors": [
+   "Jacques Nolot"
+  ],
+  "year": 2007,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2007",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "The Duchess of Langeais",
+  "originalTitle": "Ne touchez pas la hache",
+  "directors": [
+   "Jacques Rivette"
+  ],
+  "year": 2007,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2007",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Redacted",
+  "originalTitle": null,
+  "directors": [
+   "Brian De Palma"
+  ],
+  "year": 2008,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2008",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Colossal Youth",
+  "originalTitle": "Juventude em Marcha",
+  "directors": [
+   "Pedro Costa"
+  ],
+  "year": 2008,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2008",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Cloverfield",
+  "originalTitle": null,
+  "directors": [
+   "Matt Reeves"
+  ],
+  "year": 2008,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2008",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "No Country for Old Men",
+  "originalTitle": null,
+  "directors": [
+   "Coen Brothers"
+  ],
+  "year": 2008,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2008",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Two Lovers",
+  "originalTitle": null,
+  "directors": [
+   "James Gray"
+  ],
+  "year": 2008,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2008",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Waltz with Bashir",
+  "originalTitle": "ואלס עם באשיר",
+  "directors": [
+   "Ari Folman"
+  ],
+  "year": 2008,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2008",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Dernier maquis",
+  "originalTitle": null,
+  "directors": [
+   "Rabah Ameur-Zaïmeche"
+  ],
+  "year": 2008,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2008",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Hunger",
+  "originalTitle": null,
+  "directors": [
+   "Steve McQueen"
+  ],
+  "year": 2008,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2008",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "A Short Film About the Indio Nacional",
+  "originalTitle": null,
+  "directors": [
+   "Raya Martin"
+  ],
+  "year": 2008,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2008",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "On War",
+  "originalTitle": "De la guerre",
+  "directors": [
+   "Bertrand Bonello"
+  ],
+  "year": 2008,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2008",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Wild Grass",
+  "originalTitle": "Les Herbes folles",
+  "directors": [
+   "Alain Resnais"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2009",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Vincere",
+  "originalTitle": null,
+  "directors": [
+   "Marco Bellocchio"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2009",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Inglourious Basterds",
+  "originalTitle": null,
+  "directors": [
+   "Quentin Tarantino"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2009",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Gran Torino",
+  "originalTitle": null,
+  "directors": [
+   "Clint Eastwood"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2009",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Eccentricities of a Blonde-Haired Girl",
+  "originalTitle": "Singularidades de uma Rapariga Loura",
+  "directors": [
+   "Manoel de Oliveira"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2009",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Tetro",
+  "originalTitle": null,
+  "directors": [
+   "Francis Ford Coppola"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2009",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "The Hurt Locker",
+  "originalTitle": null,
+  "directors": [
+   "Kathryn Bigelow"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2009",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "King of Escape",
+  "originalTitle": "Le roi de l'évasion",
+  "directors": [
+   "Alain Guiraudie"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2009",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Tokyo Sonata",
+  "originalTitle": "トウキョウソナタ",
+  "directors": [
+   "Kiyoshi Kurosawa"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2009",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Hadewijch",
+  "originalTitle": null,
+  "directors": [
+   "Bruno Dumont"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2009",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Mulholland Drive",
+  "originalTitle": null,
+  "directors": [
+   "David Lynch"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2009",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Elephant",
+  "originalTitle": null,
+  "directors": [
+   "Gus Van Sant"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2009",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Tropical Malady",
+  "originalTitle": "สัตว์ประหลาด",
+  "directors": [
+   "Apichatpong Weerasethakul"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2009",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "The Host",
+  "originalTitle": "괴물",
+  "directors": [
+   "Bong Joon-ho"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2009",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "A History of Violence",
+  "originalTitle": null,
+  "directors": [
+   "David Cronenberg"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2009",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "The Secret of the Grain",
+  "originalTitle": "La graine et le mulet",
+  "directors": [
+   "Abdellatif Kechiche"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2009",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Tie Xi Qu: West of the Tracks",
+  "originalTitle": "铁西区",
+  "directors": [
+   "Wang Bing"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2009",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "War of the Worlds",
+  "originalTitle": null,
+  "directors": [
+   "Steven Spielberg"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2009",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "The New World",
+  "originalTitle": null,
+  "directors": [
+   "Terrence Malick"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2009",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Ten",
+  "originalTitle": "ده",
+  "directors": [
+   "Abbas Kiarostami"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2009",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Uncle Boonmee Who Can Recall His Past Lives",
+  "originalTitle": "ลุงบุญมีระลึกชาติ",
+  "directors": [
+   "Apichatpong Weerasethakul"
+  ],
+  "year": 2010,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2010",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Bad Lieutenant: Port of Call New Orleans",
+  "originalTitle": null,
+  "directors": [
+   "Werner Herzog"
+  ],
+  "year": 2010,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2010",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Film Socialisme",
+  "originalTitle": "Socialisme",
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 2010,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2010",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Toy Story 3",
+  "originalTitle": null,
+  "directors": [
+   "Lee Unkrich"
+  ],
+  "year": 2010,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2010",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Fantastic Mr. Fox",
+  "originalTitle": null,
+  "directors": [
+   "Wes Anderson"
+  ],
+  "year": 2010,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2010",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "A Serious Man",
+  "originalTitle": null,
+  "directors": [
+   "Coen Brothers"
+  ],
+  "year": 2010,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2010",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "To Die like a Man",
+  "originalTitle": "Morrer Como Um Homem",
+  "directors": [
+   "João Pedro Rodrigues"
+  ],
+  "year": 2010,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2010",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "The Social Network",
+  "originalTitle": null,
+  "directors": [
+   "David Fincher"
+  ],
+  "year": 2010,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2010",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Chouga",
+  "originalTitle": "Shuga",
+  "directors": [
+   "Darezhan Omirbaev"
+  ],
+  "year": 2010,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2010",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Mother",
+  "originalTitle": "마더",
+  "directors": [
+   "Bong Joon-ho"
+  ],
+  "year": 2010,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2010",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "We Have a Pope",
+  "originalTitle": "Habemus Papam",
+  "directors": [
+   "Nanni Moretti"
+  ],
+  "year": 2011,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2011",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "The Strange Case of Angelica",
+  "originalTitle": "O Estranho Caso de Angélica",
+  "directors": [
+   "Manoel de Oliveira"
+  ],
+  "year": 2011,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2011",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Essential Killing",
+  "originalTitle": null,
+  "directors": [
+   "Jerzy Skolimowski"
+  ],
+  "year": 2011,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2011",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "A Burning Hot Summer",
+  "originalTitle": "Un été brûlant",
+  "directors": [
+   "Philippe Garrel"
+  ],
+  "year": 2011,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2011",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "House of Tolerance",
+  "originalTitle": "L'Apollonide: Souvenirs de la maison close",
+  "directors": [
+   "Bertrand Bonello"
+  ],
+  "year": 2011,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2011",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Holy Motors",
+  "originalTitle": null,
+  "directors": [
+   "Leos Carax"
+  ],
+  "year": 2012,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2012",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Cosmopolis",
+  "originalTitle": null,
+  "directors": [
+   "David Cronenberg"
+  ],
+  "year": 2012,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2012",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Twixt",
+  "originalTitle": null,
+  "directors": [
+   "Francis Ford Coppola"
+  ],
+  "year": 2012,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2012",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "4:44 Last Day on Earth",
+  "originalTitle": null,
+  "directors": [
+   "Abel Ferrara"
+  ],
+  "year": 2012,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2012",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "In Another Country",
+  "originalTitle": "다른 나라에서",
+  "directors": [
+   "Hong Sang-soo"
+  ],
+  "year": 2012,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2012",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Take Shelter",
+  "originalTitle": null,
+  "directors": [
+   "Jeff Nichols"
+  ],
+  "year": 2012,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2012",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Go Go Tales",
+  "originalTitle": null,
+  "directors": [
+   "Abel Ferrara"
+  ],
+  "year": 2012,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2012",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Tabu",
+  "originalTitle": null,
+  "directors": [
+   "Miguel Gomes"
+  ],
+  "year": 2012,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2012",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Faust",
+  "originalTitle": "Фауст",
+  "directors": [
+   "Alexander Sokurov"
+  ],
+  "year": 2012,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2012",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Keep the Lights On",
+  "originalTitle": null,
+  "directors": [
+   "Ira Sachs"
+  ],
+  "year": 2012,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2012",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Stranger by the Lake",
+  "originalTitle": "L'Inconnu du lac",
+  "directors": [
+   "Alain Guiraudie"
+  ],
+  "year": 2013,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2013",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Spring Breakers",
+  "originalTitle": null,
+  "directors": [
+   "Harmony Korine"
+  ],
+  "year": 2013,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2013",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Blue Is the Warmest Colour",
+  "originalTitle": "La Vie d'Adèle – Chapitres 1 & 2",
+  "directors": [
+   "Abdellatif Kechiche"
+  ],
+  "year": 2013,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2013",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Gravity",
+  "originalTitle": null,
+  "directors": [
+   "Alfonso Cuarón"
+  ],
+  "year": 2013,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2013",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "A Touch of Sin",
+  "originalTitle": "天注定",
+  "directors": [
+   "Jia Zhangke"
+  ],
+  "year": 2013,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2013",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Lincoln",
+  "originalTitle": null,
+  "directors": [
+   "Steven Spielberg"
+  ],
+  "year": 2013,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2013",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Jealousy",
+  "originalTitle": "La Jalousie",
+  "directors": [
+   "Philippe Garrel"
+  ],
+  "year": 2013,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2013",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Nobody's Daughter Haewon",
+  "originalTitle": "누구의 딸도 아닌 해원",
+  "directors": [
+   "Hong Sang-soo"
+  ],
+  "year": 2013,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2013",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "You and the Night",
+  "originalTitle": "Les Rencontres d'après minuit",
+  "directors": [
+   "Yann Gonzalez"
+  ],
+  "year": 2013,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2013",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Age of Panic",
+  "originalTitle": "La Bataille de Solférino",
+  "directors": [
+   "Justine Triet"
+  ],
+  "year": 2013,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2013",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Li'l Quinquin",
+  "originalTitle": "P'tit Quinquin",
+  "directors": [
+   "Bruno Dumont"
+  ],
+  "year": 2014,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2014",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Goodbye to Language",
+  "originalTitle": "Adieu au Langage",
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 2014,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2014",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Under the Skin",
+  "originalTitle": null,
+  "directors": [
+   "Jonathan Glazer"
+  ],
+  "year": 2014,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2014",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Maps to the Stars",
+  "originalTitle": null,
+  "directors": [
+   "David Cronenberg"
+  ],
+  "year": 2014,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2014",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "The Wind Rises",
+  "originalTitle": "風立ちぬ",
+  "directors": [
+   "Hayao Miyazaki"
+  ],
+  "year": 2014,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2014",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Nymphomaniac",
+  "originalTitle": null,
+  "directors": [
+   "Lars von Trier"
+  ],
+  "year": 2014,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2014",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Mommy",
+  "originalTitle": null,
+  "directors": [
+   "Xavier Dolan"
+  ],
+  "year": 2014,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2014",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Love Is Strange",
+  "originalTitle": null,
+  "directors": [
+   "Ira Sachs"
+  ],
+  "year": 2014,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2014",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Paradise",
+  "originalTitle": "Le Paradis",
+  "directors": [
+   "Alain Cavalier"
+  ],
+  "year": 2014,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2014",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Our Sunhi",
+  "originalTitle": "우리 선희",
+  "directors": [
+   "Hong Sang-soo"
+  ],
+  "year": 2014,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2014",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Mia Madre",
+  "originalTitle": null,
+  "directors": [
+   "Nanni Moretti"
+  ],
+  "year": 2015,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2015",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Cemetery of Splendour",
+  "originalTitle": "รักที่ขอนแก่น",
+  "directors": [
+   "Apichatpong Weerasethakul"
+  ],
+  "year": 2015,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2015",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "In the Shadow of Women",
+  "originalTitle": "L'Ombre des femmes",
+  "directors": [
+   "Philippe Garrel"
+  ],
+  "year": 2015,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2015",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "The Smell of Us",
+  "originalTitle": null,
+  "directors": [
+   "Larry Clark"
+  ],
+  "year": 2015,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2015",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Mad Max: Fury Road",
+  "originalTitle": null,
+  "directors": [
+   "George Miller"
+  ],
+  "year": 2015,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2015",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Jauja",
+  "originalTitle": null,
+  "directors": [
+   "Lisandro Alonso"
+  ],
+  "year": 2015,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2015",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Inherent Vice",
+  "originalTitle": null,
+  "directors": [
+   "Paul Thomas Anderson"
+  ],
+  "year": 2015,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2015",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Arabian Nights",
+  "originalTitle": "As Mil e uma Noites",
+  "directors": [
+   "Miguel Gomes"
+  ],
+  "year": 2015,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2015",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "The Summer of Sangailė",
+  "originalTitle": "Sangailės vasara",
+  "directors": [
+   "Alantė Kavaitė"
+  ],
+  "year": 2015,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2015",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Journey to the Shore",
+  "originalTitle": "岸辺の旅",
+  "directors": [
+   "Kiyoshi Kurosawa"
+  ],
+  "year": 2015,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2015",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Toni Erdmann",
+  "originalTitle": null,
+  "directors": [
+   "Maren Ade"
+  ],
+  "year": 2016,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2016",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Elle",
+  "originalTitle": null,
+  "directors": [
+   "Paul Verhoeven"
+  ],
+  "year": 2016,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2016",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "The Neon Demon",
+  "originalTitle": null,
+  "directors": [
+   "Nicolas Winding Refn"
+  ],
+  "year": 2016,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2016",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Aquarius",
+  "originalTitle": null,
+  "directors": [
+   "Kleber Mendonça Filho"
+  ],
+  "year": 2016,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2016",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Slack Bay",
+  "originalTitle": "Ma Loute",
+  "directors": [
+   "Bruno Dumont"
+  ],
+  "year": 2016,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2016",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Julieta",
+  "originalTitle": null,
+  "directors": [
+   "Pedro Almodóvar"
+  ],
+  "year": 2016,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2016",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Staying Vertical",
+  "originalTitle": "Rester vertical",
+  "directors": [
+   "Alain Guiraudie"
+  ],
+  "year": 2016,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2016",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "La Loi de la jungle",
+  "originalTitle": null,
+  "directors": [
+   "Antonin Peretjatko"
+  ],
+  "year": 2016,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2016",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Carol",
+  "originalTitle": null,
+  "directors": [
+   "Todd Haynes"
+  ],
+  "year": 2016,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2016",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "The Woods Dreams Are Made of",
+  "originalTitle": "Le Bois Dont Les Rêves Sont Faits",
+  "directors": [
+   "Claire Simon"
+  ],
+  "year": 2016,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2016",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Twin Peaks: The Return",
+  "originalTitle": null,
+  "directors": [
+   "David Lynch"
+  ],
+  "year": 2017,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2017",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Jeannette: The Childhood of Joan of Arc",
+  "originalTitle": "Jeannette, l'enfance de Jeanne d'Arc",
+  "directors": [
+   "Bruno Dumont"
+  ],
+  "year": 2017,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2017",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Certain Women",
+  "originalTitle": null,
+  "directors": [
+   "Kelly Reichardt"
+  ],
+  "year": 2017,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2017",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Get Out",
+  "originalTitle": null,
+  "directors": [
+   "Jordan Peele"
+  ],
+  "year": 2017,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2017",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "The Day After",
+  "originalTitle": "그 후",
+  "directors": [
+   "Hong Sang-Soo"
+  ],
+  "year": 2017,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2017",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Lover for a Day",
+  "originalTitle": "L'Amant d'un jour",
+  "directors": [
+   "Philippe Garrel"
+  ],
+  "year": 2017,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2017",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Good Time",
+  "originalTitle": null,
+  "directors": [
+   "Ben",
+   "Josh Safdie"
+  ],
+  "year": 2017,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2017",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Split",
+  "originalTitle": null,
+  "directors": [
+   "M. Night Shyamalan"
+  ],
+  "year": 2017,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2017",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Jackie",
+  "originalTitle": null,
+  "directors": [
+   "Pablo Larraín"
+  ],
+  "year": 2017,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2017",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Billy Lynn's Long Halftime Walk",
+  "originalTitle": null,
+  "directors": [
+   "Ang Lee"
+  ],
+  "year": 2017,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2017",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "The Wild Boys",
+  "originalTitle": "les garçons sauvages",
+  "directors": [
+   "Bertrand Mandico"
+  ],
+  "year": 2018,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2018",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Coincoin and the Extra-Humans",
+  "originalTitle": "Coincoin et les z'inhumains",
+  "directors": [
+   "Bruno Dumont"
+  ],
+  "year": 2018,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2018",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Phantom Thread",
+  "originalTitle": null,
+  "directors": [
+   "Paul Thomas Anderson"
+  ],
+  "year": 2018,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2018",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Burning",
+  "originalTitle": "버닝",
+  "directors": [
+   "Lee Chang-dong"
+  ],
+  "year": 2018,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2018",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Paul Sanchez est revenu!",
+  "originalTitle": null,
+  "directors": [
+   "Patricia Mazuy"
+  ],
+  "year": 2018,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2018",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "The Post",
+  "originalTitle": null,
+  "directors": [
+   "Steven Spielberg"
+  ],
+  "year": 2018,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2018",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "On the Beach at Night Alone",
+  "originalTitle": "밤의 해변에서 혼자",
+  "directors": [
+   "Hong Sang-Soo"
+  ],
+  "year": 2018,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2018",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "The House That Jack Built",
+  "originalTitle": null,
+  "directors": [
+   "Lars von Trier"
+  ],
+  "year": 2018,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2018",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Leto",
+  "originalTitle": "Лето",
+  "directors": [
+   "Kirill Serebrennikov"
+  ],
+  "year": 2018,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2018",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Treasure Island",
+  "originalTitle": "L'île au trésor",
+  "directors": [
+   "Guillaume Brac"
+  ],
+  "year": 2018,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2018",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "The Image Book",
+  "originalTitle": "Le Livre d'image",
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2019",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Parasite",
+  "originalTitle": "기생충",
+  "directors": [
+   "Bong Joon-Ho"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2019",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Synonyms",
+  "originalTitle": "Synonymes",
+  "directors": [
+   "Nadav Lapid"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2019",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Bacurau",
+  "originalTitle": null,
+  "directors": [
+   "Kleber Mendonça Filho",
+   "Juliano Dornelles"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2019",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Joan of Arc",
+  "originalTitle": "Jeanne",
+  "directors": [
+   "Bruno Dumont"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2019",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Pain and Glory",
+  "originalTitle": "Dolor y gloria",
+  "directors": [
+   "Pedro Almodóvar"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2019",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Les Misérables",
+  "originalTitle": null,
+  "directors": [
+   "Ladj Ly"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2019",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "The Mule",
+  "originalTitle": null,
+  "directors": [
+   "Clint Eastwood"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2019",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Joker",
+  "originalTitle": null,
+  "directors": [
+   "Todd Phillips"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2019",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "The Irishman",
+  "originalTitle": null,
+  "directors": [
+   "Martin Scorsese"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2019",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Twin Peaks: The Return",
+  "originalTitle": null,
+  "directors": [
+   "David Lynch"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2019",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Holy Motors",
+  "originalTitle": null,
+  "directors": [
+   "Leos Carax"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2019",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Li'l Quinquin",
+  "originalTitle": "P'tit Quinquin",
+  "directors": [
+   "Bruno Dumont"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2019",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Uncle Boonmee Who Can Recall His Past Lives",
+  "originalTitle": "ลุงบุญมีระลึกชาติ",
+  "directors": [
+   "Apichatpong Weerasethakul"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2019",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "The Image Book",
+  "originalTitle": "Le Livre d'image",
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2019",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Toni Erdmann",
+  "originalTitle": null,
+  "directors": [
+   "Maren Ade"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2019",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Mia Madre",
+  "originalTitle": null,
+  "directors": [
+   "Nanni Moretti"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2019",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Melancholia",
+  "originalTitle": null,
+  "directors": [
+   "Lars von Trier"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2019",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Under the Skin",
+  "originalTitle": null,
+  "directors": [
+   "Jonathan Glazer"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2019",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "The Strange Case of Angelica",
+  "originalTitle": "O Estranho Caso de Angélica",
+  "directors": [
+   "Manoel de Oliveira"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2019",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "City Hall",
+  "originalTitle": null,
+  "directors": [
+   "Frederick Wiseman"
+  ],
+  "year": 2020,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2020",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "The Woman Who Ran",
+  "originalTitle": "도망친 여자",
+  "directors": [
+   "Hong Sang-soo"
+  ],
+  "year": 2020,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2020",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Uncut Gems",
+  "originalTitle": null,
+  "directors": [
+   "Benny Safdie",
+   "Joshua Safdie"
+  ],
+  "year": 2020,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2020",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Malmkrog",
+  "originalTitle": null,
+  "directors": [
+   "Cristi Puiu"
+  ],
+  "year": 2020,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2020",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Love Affair(s)",
+  "originalTitle": "Les Choses qu'on dit, les choses qu'on fait",
+  "directors": [
+   "Emmanuel Mouret"
+  ],
+  "year": 2020,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2020",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Hotel by the River",
+  "originalTitle": "강변 호텔",
+  "directors": [
+   "Hong Sang-soo"
+  ],
+  "year": 2020,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2020",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Dwelling in the Fuchun Mountains",
+  "originalTitle": "春江水暖",
+  "directors": [
+   "Gu Xiaogang"
+  ],
+  "year": 2020,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2020",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "The Salt of Tears",
+  "originalTitle": "Le Sel des larmes",
+  "directors": [
+   "Philippe Garrel"
+  ],
+  "year": 2020,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2020",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Enormous",
+  "originalTitle": null,
+  "directors": [
+   "Sophie Letourneur"
+  ],
+  "year": 2020,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2020",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "The August Virgin",
+  "originalTitle": "La virgen de agosto",
+  "directors": [
+   "Jonás Trueba"
+  ],
+  "year": 2020,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2020",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "First Cow",
+  "originalTitle": null,
+  "directors": [
+   "Kelly Reichardt"
+  ],
+  "year": 2021,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2021",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Annette",
+  "originalTitle": null,
+  "directors": [
+   "Leos Carax"
+  ],
+  "year": 2021,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2021",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Memoria",
+  "originalTitle": null,
+  "directors": [
+   "Apichatpong Weerasethakul"
+  ],
+  "year": 2021,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2021",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "Drive My Car",
+  "originalTitle": "ドライブ・マイ・カー",
+  "directors": [
+   "Ryusuke Hamaguchi"
+  ],
+  "year": 2021,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2021",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "France",
+  "originalTitle": null,
+  "directors": [
+   "Bruno Dumont"
+  ],
+  "year": 2021,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2021",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "The French Dispatch",
+  "originalTitle": null,
+  "directors": [
+   "Wes Anderson"
+  ],
+  "year": 2021,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2021",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "All Hands on Deck",
+  "originalTitle": "À L'abordage",
+  "directors": [
+   "Guillaume Brac"
+  ],
+  "year": 2021,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2021",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "The Girl and the Spider",
+  "originalTitle": "Das Mädchen und die Spinne",
+  "directors": [
+   "Ramon Zürcher",
+   "Silvan Zürcher"
+  ],
+  "year": 2021,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2021",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "The Card Counter",
+  "originalTitle": null,
+  "directors": [
+   "Paul Schrader"
+  ],
+  "year": 2021,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2021",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Benedetta",
+  "originalTitle": null,
+  "directors": [
+   "Paul Verhoeven"
+  ],
+  "year": 2021,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2021",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Pacifiction",
+  "originalTitle": "Pacifiction – Tourment sur les îles",
+  "directors": [
+   "Albert Serra"
+  ],
+  "year": 2022,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2022",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Licorice Pizza",
+  "originalTitle": null,
+  "directors": [
+   "Paul Thomas Anderson"
+  ],
+  "year": 2022,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2022",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Nope",
+  "originalTitle": null,
+  "directors": [
+   "Jordan Peele"
+  ],
+  "year": 2022,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2022",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "EO",
+  "originalTitle": "IO",
+  "directors": [
+   "Jerzy Skolimowski"
+  ],
+  "year": 2022,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2022",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Wheel of Fortune and Fantasy",
+  "originalTitle": "偶然と想像",
+  "directors": [
+   "Ryusuke Hamaguchi"
+  ],
+  "year": 2022,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2022",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Saturn Bowling",
+  "originalTitle": null,
+  "directors": [
+   "Patricia Mazuy"
+  ],
+  "year": 2022,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2022",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Apollo 10 1⁄2: A Space Age Childhood",
+  "originalTitle": null,
+  "directors": [
+   "Richard Linklater"
+  ],
+  "year": 2022,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2022",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Introduction",
+  "originalTitle": "인트로덕션",
+  "directors": [
+   "Hong Sang-soo"
+  ],
+  "year": 2022,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2022",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Nobody's Hero",
+  "originalTitle": "Viens je t'emmène",
+  "directors": [
+   "Alain Guiraudie"
+  ],
+  "year": 2022,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2022",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Who's Stopping Us",
+  "originalTitle": "Quién lo impide",
+  "directors": [
+   "Jonás Trueba"
+  ],
+  "year": 2022,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2022",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Trenque Lauquen",
+  "originalTitle": null,
+  "directors": [
+   "Laura Citarella"
+  ],
+  "year": 2023,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2023",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "Close Your Eyes",
+  "originalTitle": "Cerrar los ojos",
+  "directors": [
+   "Víctor Erice"
+  ],
+  "year": 2023,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2023",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Anatomy of a Fall",
+  "originalTitle": "Anatomie d'une chute",
+  "directors": [
+   "Justine Triet"
+  ],
+  "year": 2023,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2023",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "The Fabelmans",
+  "originalTitle": null,
+  "directors": [
+   "Steven Spielberg"
+  ],
+  "year": 2023,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2023",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "Fallen Leaves",
+  "originalTitle": "Kuolleet lehdet",
+  "directors": [
+   "Aki Kaurismäki"
+  ],
+  "year": 2023,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2023",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "Unrest",
+  "originalTitle": null,
+  "directors": [
+   "Cyril Schäublin"
+  ],
+  "year": 2023,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2023",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Do Not Expect Too Much from the End of the World",
+  "originalTitle": "Nu aștepta prea mult de la sfârșitul lumii",
+  "directors": [
+   "Radu Jude"
+  ],
+  "year": 2023,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2023",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "The Temple Woods Gang",
+  "originalTitle": "Le Gang des bois du temple",
+  "directors": [
+   "Rabah Ameur-Zaïmeche"
+  ],
+  "year": 2023,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2023",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Last Summer",
+  "originalTitle": "L'Été dernier",
+  "directors": [
+   "Catherine Breillat"
+  ],
+  "year": 2023,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2023",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "A Prince",
+  "originalTitle": "Un prince",
+  "directors": [
+   "Pierre Creton"
+  ],
+  "year": 2023,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2023",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Misericordia",
+  "originalTitle": "Miséricorde",
+  "directors": [
+   "Alain Guiraudie"
+  ],
+  "year": 2024,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2024",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "May December",
+  "originalTitle": null,
+  "directors": [
+   "Todd Haynes"
+  ],
+  "year": 2024,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2024",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "In Water",
+  "originalTitle": "물안에서",
+  "directors": [
+   "Hong Sang-soo"
+  ],
+  "year": 2024,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2024",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "The Zone of Interest",
+  "originalTitle": null,
+  "directors": [
+   "Jonathan Glazer"
+  ],
+  "year": 2024,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2024",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "All We Imagine as Light",
+  "originalTitle": "പ്രഭയായ് നിനച്ചതെല്ലം",
+  "directors": [
+   "Payal Kapadia"
+  ],
+  "year": 2024,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2024",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "The Delinquents",
+  "originalTitle": "Los delincuentes",
+  "directors": [
+   "Rodrigo Moreno"
+  ],
+  "year": 2024,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2024",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "Evil Does Not Exist",
+  "originalTitle": "悪は存在しない",
+  "directors": [
+   "Ryusuke Hamaguchi"
+  ],
+  "year": 2024,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2024",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "This Life of Mine",
+  "originalTitle": "Ma vie ma gueule",
+  "directors": [
+   "Sophie Fillières"
+  ],
+  "year": 2024,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2024",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Trap",
+  "originalTitle": null,
+  "directors": [
+   "M. Night Shyamalan"
+  ],
+  "year": 2024,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2024",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "The Other Way Around",
+  "originalTitle": "Volveréis",
+  "directors": [
+   "Jonás Trueba"
+  ],
+  "year": 2024,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2024",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 1,
+  "title": "Afternoons of Solitude",
+  "originalTitle": "Tardes de soledad",
+  "directors": [
+   "Albert Serra"
+  ],
+  "year": 2025,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 of 2025",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 2,
+  "title": "One Battle After Another",
+  "originalTitle": null,
+  "directors": [
+   "Paul Thomas Anderson"
+  ],
+  "year": 2025,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 of 2025",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 3,
+  "title": "Yes!",
+  "originalTitle": "כן!",
+  "directors": [
+   "Nadav Lapid"
+  ],
+  "year": 2025,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 of 2025",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 4,
+  "title": "The Secret Agent",
+  "originalTitle": "O Agente Secreto",
+  "directors": [
+   "Kleber Mendonça Filho"
+  ],
+  "year": 2025,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 of 2025",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 5,
+  "title": "I Only Rest in the Storm",
+  "originalTitle": "O Riso e a Faca",
+  "directors": [
+   "Pedro Pinho"
+  ],
+  "year": 2025,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 of 2025",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 6,
+  "title": "L'aventura",
+  "originalTitle": null,
+  "directors": [
+   "Sophie Letourneur"
+  ],
+  "year": 2025,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 of 2025",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 7,
+  "title": "7 Walks with Mark Brown",
+  "originalTitle": "7 promenades avec Mark Brown",
+  "directors": [
+   "Pierre Creton",
+   "Vincent Barré"
+  ],
+  "year": 2025,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 of 2025",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 8,
+  "title": "Nouvelle Vague",
+  "originalTitle": null,
+  "directors": [
+   "Richard Linklater"
+  ],
+  "year": 2025,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 of 2025",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 9,
+  "title": "Drifting Laurent",
+  "originalTitle": "Laurent dans le vent",
+  "directors": [
+   "Anton Balekdjian, Léo Couture",
+   "Mattéo Eustachon"
+  ],
+  "year": 2025,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 of 2025",
+  "yearTolerance": 2
+ },
+ {
+  "source": "cahiers-top10",
+  "rank": 10,
+  "title": "Miroirs No. 3",
+  "originalTitle": null,
+  "directors": [
+   "Christian Petzold"
+  ],
+  "year": 2025,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 of 2025",
+  "yearTolerance": 2
+ }
+]

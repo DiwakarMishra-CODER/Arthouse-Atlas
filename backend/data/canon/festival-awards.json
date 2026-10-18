@@ -1,0 +1,8891 @@
+[
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Legend of the Holy Drinker",
+  "originalTitle": null,
+  "directors": [
+   "Ermanno Olmi"
+  ],
+  "year": 1988,
+  "country": null,
+  "tmdbId": 54990,
+  "imdbId": "tt0095513",
+  "detail": "Golden Lion · Venice 1988",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Head-On",
+  "originalTitle": null,
+  "directors": [
+   "Fatih Akin"
+  ],
+  "year": 2004,
+  "country": null,
+  "tmdbId": 363,
+  "imdbId": "tt0347048",
+  "detail": "Golden Bear · Berlin 2004",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Son of Saul",
+  "originalTitle": null,
+  "directors": [
+   "László Nemes"
+  ],
+  "year": 2015,
+  "country": null,
+  "tmdbId": 336050,
+  "imdbId": "tt3808342",
+  "detail": "Grand Prix · Cannes 2015",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Son of Saul",
+  "originalTitle": null,
+  "directors": [
+   "László Nemes"
+  ],
+  "year": 2016,
+  "country": null,
+  "tmdbId": 336050,
+  "imdbId": "tt3808342",
+  "detail": "Grand Prix · Cannes 2016",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Once Upon a Time in Anatolia",
+  "originalTitle": null,
+  "directors": [
+   "Nuri Bilge Ceylan"
+  ],
+  "year": 2011,
+  "country": null,
+  "tmdbId": 74879,
+  "imdbId": "tt1827487",
+  "detail": "Grand Prix · Cannes 2011",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Green Magic",
+  "originalTitle": null,
+  "directors": [
+   "Gian Gaspare Napolitano"
+  ],
+  "year": 1953,
+  "country": null,
+  "tmdbId": 199476,
+  "imdbId": "tt0044867",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1953",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "A Streetcar Named Desire",
+  "originalTitle": null,
+  "directors": [
+   "Elia Kazan"
+  ],
+  "year": 1951,
+  "country": null,
+  "tmdbId": 702,
+  "imdbId": "tt0044081",
+  "detail": "Grand Jury Prize · Venice 1951",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Black Peter",
+  "originalTitle": null,
+  "directors": [
+   "Miloš Forman"
+  ],
+  "year": 1964,
+  "country": null,
+  "tmdbId": 46982,
+  "imdbId": "tt0056919",
+  "detail": "Golden Leopard · Locarno 1964",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Family Diary",
+  "originalTitle": null,
+  "directors": [
+   "Valerio Zurlini"
+  ],
+  "year": 1962,
+  "country": null,
+  "tmdbId": 80557,
+  "imdbId": "tt0056966",
+  "detail": "Golden Lion · Venice 1962",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The House of Smiles",
+  "originalTitle": null,
+  "directors": [
+   "Marco Ferreri"
+  ],
+  "year": 1991,
+  "country": null,
+  "tmdbId": 148757,
+  "imdbId": "tt0094841",
+  "detail": "Golden Bear · Berlin 1991",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Khomreh",
+  "originalTitle": null,
+  "directors": [
+   "Ebrahim Forouzesh"
+  ],
+  "year": 1994,
+  "country": null,
+  "tmdbId": 275096,
+  "imdbId": "tt0104606",
+  "detail": "Golden Leopard · Locarno 1994",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Shoplifters",
+  "originalTitle": null,
+  "directors": [
+   "Hirokazu Koreeda"
+  ],
+  "year": 2018,
+  "country": null,
+  "tmdbId": 505192,
+  "imdbId": "tt8075192",
+  "detail": "Palme d'Or · Cannes 2018",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Godless",
+  "originalTitle": null,
+  "directors": [
+   "Ralitza Petrova"
+  ],
+  "year": 2016,
+  "country": null,
+  "tmdbId": 408267,
+  "imdbId": "tt5451054",
+  "detail": "Golden Leopard · Locarno 2016",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "O Pagador de Promessas",
+  "originalTitle": null,
+  "directors": [
+   "Anselmo Duarte"
+  ],
+  "year": 1962,
+  "country": null,
+  "tmdbId": 59990,
+  "imdbId": "tt0056322",
+  "detail": "Palme d'Or · Cannes 1962",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Ivan's Childhood",
+  "originalTitle": null,
+  "directors": [
+   "Andrei Tarkovsky"
+  ],
+  "year": 1962,
+  "country": null,
+  "tmdbId": 31442,
+  "imdbId": "tt0056111",
+  "detail": "Golden Lion · Venice 1962",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Innocence Unprotected",
+  "originalTitle": null,
+  "directors": [
+   "Dušan Makavejev"
+  ],
+  "year": 1968,
+  "country": null,
+  "tmdbId": 62842,
+  "imdbId": "tt0063342",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1968",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Departure",
+  "originalTitle": null,
+  "directors": [
+   "Jerzy Skolimowski"
+  ],
+  "year": 1967,
+  "country": null,
+  "tmdbId": 137726,
+  "imdbId": "tt0061605",
+  "detail": "Golden Bear · Berlin 1967",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Antonio Gramsci: The Days of Prison",
+  "originalTitle": null,
+  "directors": [
+   "Lino Del Fra"
+  ],
+  "year": 1977,
+  "country": null,
+  "tmdbId": 246457,
+  "imdbId": "tt0075688",
+  "detail": "Golden Leopard · Locarno 1977",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "A Man and a Woman",
+  "originalTitle": null,
+  "directors": [
+   "Claude Lelouch"
+  ],
+  "year": 1966,
+  "country": null,
+  "tmdbId": 42726,
+  "imdbId": "tt0061138",
+  "detail": "Palme d'Or · Cannes 1966",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Pelle the Conqueror",
+  "originalTitle": null,
+  "directors": [
+   "Bille August"
+  ],
+  "year": 1988,
+  "country": null,
+  "tmdbId": 11174,
+  "imdbId": "tt0093713",
+  "detail": "Palme d'Or · Cannes 1988",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Dream of Light",
+  "originalTitle": null,
+  "directors": [
+   "Víctor Erice"
+  ],
+  "year": 1992,
+  "country": null,
+  "tmdbId": 94706,
+  "imdbId": "tt0105438",
+  "detail": "Jury Prize · Cannes 1992",
+  "awardQid": "Q164200",
+  "awardWeight": 0.5
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Evening Bell",
+  "originalTitle": null,
+  "directors": [
+   "Wu Ziniu"
+  ],
+  "year": 1989,
+  "country": null,
+  "tmdbId": 258477,
+  "imdbId": "tt0092192",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1989",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Vera Drake",
+  "originalTitle": null,
+  "directors": [
+   "Mike Leigh"
+  ],
+  "year": 2004,
+  "country": null,
+  "tmdbId": 11109,
+  "imdbId": "tt0383694",
+  "detail": "Golden Lion · Venice 2004",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Miracle of Marcelino",
+  "originalTitle": null,
+  "directors": [
+   "Ladislao Vajda"
+  ],
+  "year": 1955,
+  "country": null,
+  "tmdbId": 62395,
+  "imdbId": "tt0047216",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1955",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Hunted",
+  "originalTitle": null,
+  "directors": [
+   "Charles Crichton"
+  ],
+  "year": 1952,
+  "country": null,
+  "tmdbId": 131074,
+  "imdbId": "tt0045201",
+  "detail": "Golden Leopard · Locarno 1952",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Diary for My Children",
+  "originalTitle": null,
+  "directors": [
+   "Márta Mészáros"
+  ],
+  "year": 1984,
+  "country": null,
+  "tmdbId": 84946,
+  "imdbId": "tt0084388",
+  "detail": "Grand Prix · Cannes 1984",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "China is Near",
+  "originalTitle": null,
+  "directors": [
+   "Marco Bellocchio"
+  ],
+  "year": 1967,
+  "country": null,
+  "tmdbId": 49783,
+  "imdbId": "tt0061483",
+  "detail": "Grand Jury Prize · Venice 1967",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Leopard",
+  "originalTitle": null,
+  "directors": [
+   "Luchino Visconti"
+  ],
+  "year": 1963,
+  "country": null,
+  "tmdbId": 1040,
+  "imdbId": "tt0057091",
+  "detail": "Palme d'Or · Cannes 1963",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Novelist's Film",
+  "originalTitle": null,
+  "directors": [
+   "Hong Sang-soo"
+  ],
+  "year": 2022,
+  "country": null,
+  "tmdbId": 928713,
+  "imdbId": "tt17146978",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 2022",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Works and Days",
+  "originalTitle": null,
+  "directors": [
+   "Anders Edström",
+   "C.W. Winter"
+  ],
+  "year": 2022,
+  "country": null,
+  "tmdbId": 664591,
+  "imdbId": "tt6434210",
+  "detail": "Golden Bear · Berlin 2022",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "My Life to Live",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1962,
+  "country": null,
+  "tmdbId": 1626,
+  "imdbId": "tt0056663",
+  "detail": "Grand Jury Prize · Venice 1962",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Star Maker",
+  "originalTitle": null,
+  "directors": [
+   "Giuseppe Tornatore"
+  ],
+  "year": 1995,
+  "country": null,
+  "tmdbId": 37975,
+  "imdbId": "tt0114808",
+  "detail": "Grand Jury Prize · Venice 1995",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Rule 34",
+  "originalTitle": null,
+  "directors": [
+   "Júlia Murat"
+  ],
+  "year": 2022,
+  "country": null,
+  "tmdbId": 997265,
+  "imdbId": "tt15520368",
+  "detail": "Golden Leopard · Locarno 2022",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Chakra",
+  "originalTitle": null,
+  "directors": [
+   "Rabindra Dharmaraj"
+  ],
+  "year": 1981,
+  "country": null,
+  "tmdbId": 388687,
+  "imdbId": "tt0080514",
+  "detail": "Golden Leopard · Locarno 1981",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Birdy",
+  "originalTitle": null,
+  "directors": [
+   "Alan Parker"
+  ],
+  "year": 1985,
+  "country": null,
+  "tmdbId": 11296,
+  "imdbId": "tt0086969",
+  "detail": "Grand Prix · Cannes 1985",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Cría Cuervos",
+  "originalTitle": null,
+  "directors": [
+   "Carlos Saura"
+  ],
+  "year": 1976,
+  "country": null,
+  "tmdbId": 51857,
+  "imdbId": "tt0074360",
+  "detail": "Grand Prix · Cannes 1976",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "How to Have Sex",
+  "originalTitle": null,
+  "directors": [
+   "Molly Manning Walker"
+  ],
+  "year": 2023,
+  "country": null,
+  "tmdbId": 1075175,
+  "imdbId": "tt22890246",
+  "detail": "Un Certain Regard Award · Cannes 2023",
+  "awardQid": "Q17354954",
+  "awardWeight": 0.4
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Lilika",
+  "originalTitle": null,
+  "directors": [
+   "Branko Pleša"
+  ],
+  "year": 1970,
+  "country": null,
+  "tmdbId": 231754,
+  "imdbId": "tt0128308",
+  "detail": "Golden Leopard · Locarno 1970",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Reality",
+  "originalTitle": null,
+  "directors": [
+   "Matteo Garrone"
+  ],
+  "year": 2012,
+  "country": null,
+  "tmdbId": 103758,
+  "imdbId": "tt1846487",
+  "detail": "Grand Prix · Cannes 2012",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Black Coal, Thin Ice",
+  "originalTitle": null,
+  "directors": [
+   "Diao Yinan"
+  ],
+  "year": 2014,
+  "country": null,
+  "tmdbId": 255756,
+  "imdbId": "tt3469910",
+  "detail": "Golden Bear · Berlin 2014",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Flowers of Reverie",
+  "originalTitle": null,
+  "directors": [
+   "László Lugossy"
+  ],
+  "year": 1985,
+  "country": null,
+  "tmdbId": 263403,
+  "imdbId": "tt0088217",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1985",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Killer's Kiss",
+  "originalTitle": null,
+  "directors": [
+   "Stanley Kubrick"
+  ],
+  "year": 1959,
+  "country": null,
+  "tmdbId": 10056,
+  "imdbId": "tt0048254",
+  "detail": "Golden Leopard · Locarno 1959",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "MASH",
+  "originalTitle": null,
+  "directors": [
+   "Robert Altman"
+  ],
+  "year": 1970,
+  "country": null,
+  "tmdbId": 651,
+  "imdbId": "tt0066026",
+  "detail": "Palme d'Or · Cannes 1970",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Oldboy",
+  "originalTitle": null,
+  "directors": [
+   "Park Chan-wook"
+  ],
+  "year": 2004,
+  "country": null,
+  "tmdbId": 670,
+  "imdbId": "tt0364569",
+  "detail": "Grand Prix · Cannes 2004",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "A Prophet",
+  "originalTitle": null,
+  "directors": [
+   "Jacques Audiard"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": 21575,
+  "imdbId": "tt1235166",
+  "detail": "Grand Prix · Cannes 2009",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Stammheim",
+  "originalTitle": null,
+  "directors": [
+   "Reinhard Hauff"
+  ],
+  "year": 1986,
+  "country": null,
+  "tmdbId": 52327,
+  "imdbId": "tt0092004",
+  "detail": "Golden Bear · Berlin 1986",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Birds, the Bees and the Italians",
+  "originalTitle": null,
+  "directors": [
+   "Pietro Germi"
+  ],
+  "year": 1966,
+  "country": null,
+  "tmdbId": 17974,
+  "imdbId": "tt0062271",
+  "detail": "Palme d'Or · Cannes 1966",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Fire Within",
+  "originalTitle": null,
+  "directors": [
+   "Louis Malle"
+  ],
+  "year": 1963,
+  "country": null,
+  "tmdbId": 2593,
+  "imdbId": "tt0057058",
+  "detail": "Grand Jury Prize · Venice 1963",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "En Soap",
+  "originalTitle": null,
+  "directors": [
+   "Pernille Fischer Christensen"
+  ],
+  "year": 2006,
+  "country": null,
+  "tmdbId": 15845,
+  "imdbId": "tt0419146",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 2006",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "A Pigeon Sat on a Branch Reflecting on Existence",
+  "originalTitle": null,
+  "directors": [
+   "Roy Andersson"
+  ],
+  "year": 2014,
+  "country": null,
+  "tmdbId": 110390,
+  "imdbId": "tt1883180",
+  "detail": "Golden Lion · Venice 2014",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Wonders",
+  "originalTitle": null,
+  "directors": [
+   "Alice Rohrwacher"
+  ],
+  "year": 2014,
+  "country": null,
+  "tmdbId": 265226,
+  "imdbId": "tt3044244",
+  "detail": "Grand Prix · Cannes 2014",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Glass Wall",
+  "originalTitle": null,
+  "directors": [
+   "Maxwell Shane"
+  ],
+  "year": 1953,
+  "country": null,
+  "tmdbId": 34752,
+  "imdbId": "tt0045824",
+  "detail": "Golden Leopard · Locarno 1953",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Longing",
+  "originalTitle": null,
+  "directors": [
+   "Iain Dilthey"
+  ],
+  "year": 2002,
+  "country": null,
+  "tmdbId": 6179,
+  "imdbId": "tt0328727",
+  "detail": "Golden Leopard · Locarno 2002",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Autumn Moon",
+  "originalTitle": null,
+  "directors": [
+   "Clara Law"
+  ],
+  "year": 1992,
+  "country": null,
+  "tmdbId": 26855,
+  "imdbId": "tt0105198",
+  "detail": "Golden Leopard · Locarno 1992",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Artists Under the Big Top: Perplexed",
+  "originalTitle": null,
+  "directors": [
+   "Alexander Kluge"
+  ],
+  "year": 1968,
+  "country": null,
+  "tmdbId": 154582,
+  "imdbId": "tt0062679",
+  "detail": "Golden Lion · Venice 1968",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Sweet Hereafter",
+  "originalTitle": null,
+  "directors": [
+   "Atom Egoyan"
+  ],
+  "year": 1997,
+  "country": null,
+  "tmdbId": 10217,
+  "imdbId": "tt0120255",
+  "detail": "Grand Prix · Cannes 1997",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Deprisa, Deprisa",
+  "originalTitle": null,
+  "directors": [
+   "Carlos Saura"
+  ],
+  "year": 1981,
+  "country": null,
+  "tmdbId": 47211,
+  "imdbId": "tt0082259",
+  "detail": "Golden Bear · Berlin 1981",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Ulysses' Gaze",
+  "originalTitle": null,
+  "directors": [
+   "Thodoros Angelopoulos"
+  ],
+  "year": 1995,
+  "country": null,
+  "tmdbId": 22549,
+  "imdbId": "tt0114863",
+  "detail": "Grand Prix · Cannes 1995",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Story of Qiu Ju",
+  "originalTitle": null,
+  "directors": [
+   "Zhang Yimou"
+  ],
+  "year": 1992,
+  "country": null,
+  "tmdbId": 38143,
+  "imdbId": "tt0105197",
+  "detail": "Golden Lion · Venice 1992",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Story of Qiu Ju",
+  "originalTitle": null,
+  "directors": [
+   "Zhang Yimou"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": 38143,
+  "imdbId": "tt0105197",
+  "detail": "Golden Lion · Venice 1993",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Story of Qiu Ju",
+  "originalTitle": null,
+  "directors": [
+   "Zhang Yimou"
+  ],
+  "year": 1994,
+  "country": null,
+  "tmdbId": 38143,
+  "imdbId": "tt0105197",
+  "detail": "Golden Lion · Venice 1994",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Who Saw Him Die?",
+  "originalTitle": null,
+  "directors": [
+   "Jan Troell"
+  ],
+  "year": 1968,
+  "country": null,
+  "tmdbId": 122671,
+  "imdbId": "tt0063384",
+  "detail": "Golden Bear · Berlin 1968",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Ascendancy",
+  "originalTitle": null,
+  "directors": [
+   "Edward Bennett"
+  ],
+  "year": 1983,
+  "country": null,
+  "tmdbId": 163143,
+  "imdbId": "tt0083582",
+  "detail": "Golden Bear · Berlin 1983",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Minotaur",
+  "originalTitle": null,
+  "directors": [
+   "Andrey Zvyagintsev"
+  ],
+  "year": 2026,
+  "country": null,
+  "tmdbId": 848700,
+  "imdbId": "tt37118301",
+  "detail": "Grand Prix · Cannes 2026",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Arizona Dream",
+  "originalTitle": null,
+  "directors": [
+   "Emir Kusturica"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": 11044,
+  "imdbId": "tt0106307",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1993",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Giant",
+  "originalTitle": null,
+  "directors": [
+   "Adrián Biniez"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": 39488,
+  "imdbId": "tt1360866",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 2009",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "A Kind of Loving",
+  "originalTitle": null,
+  "directors": [
+   "John Schlesinger"
+  ],
+  "year": 1962,
+  "country": null,
+  "tmdbId": 33765,
+  "imdbId": "tt0056141",
+  "detail": "Golden Bear · Berlin 1962",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Terminus Paradis",
+  "originalTitle": null,
+  "directors": [
+   "Lucian Pintilie"
+  ],
+  "year": 1998,
+  "country": null,
+  "tmdbId": 123707,
+  "imdbId": "tt0151479",
+  "detail": "Grand Jury Prize · Venice 1998",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Elephant",
+  "originalTitle": null,
+  "directors": [
+   "Gus Van Sant"
+  ],
+  "year": 2003,
+  "country": null,
+  "tmdbId": 1807,
+  "imdbId": "tt0363589",
+  "detail": "Palme d'Or · Cannes 2003",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Funny Dirty Little War",
+  "originalTitle": null,
+  "directors": [
+   "Héctor Olivera"
+  ],
+  "year": 1984,
+  "country": null,
+  "tmdbId": 246896,
+  "imdbId": "tt0086017",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1984",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "All That Jazz",
+  "originalTitle": null,
+  "directors": [
+   "Bob Fosse"
+  ],
+  "year": 1980,
+  "country": null,
+  "tmdbId": 16858,
+  "imdbId": "tt0078754",
+  "detail": "Palme d'Or · Cannes 1980",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Triangle of Sadness",
+  "originalTitle": null,
+  "directors": [
+   "Ruben Östlund"
+  ],
+  "year": 2022,
+  "country": null,
+  "tmdbId": 497828,
+  "imdbId": "tt7322224",
+  "detail": "Palme d'Or · Cannes 2022",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Sea and Poison",
+  "originalTitle": null,
+  "directors": [
+   "Kei Kumai"
+  ],
+  "year": 1987,
+  "country": null,
+  "tmdbId": 103393,
+  "imdbId": "tt0092128",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1987",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Ascensor",
+  "originalTitle": null,
+  "directors": [
+   "Tomás Muñoz Torres"
+  ],
+  "year": 1978,
+  "country": null,
+  "tmdbId": 162443,
+  "imdbId": "tt0425756",
+  "detail": "Golden Bear · Berlin 1978",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Sea Inside",
+  "originalTitle": null,
+  "directors": [
+   "Alejandro Amenábar"
+  ],
+  "year": 2004,
+  "country": null,
+  "tmdbId": 1913,
+  "imdbId": "tt0369702",
+  "detail": "Grand Jury Prize · Venice 2004",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Sacro GRA",
+  "originalTitle": null,
+  "directors": [
+   "Gianfranco Rosi"
+  ],
+  "year": 2013,
+  "country": null,
+  "tmdbId": 216790,
+  "imdbId": "tt3172520",
+  "detail": "Golden Lion · Venice 2013",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Invitation to the Dance",
+  "originalTitle": null,
+  "directors": [
+   "Gene Kelly"
+  ],
+  "year": 1956,
+  "country": null,
+  "tmdbId": 47310,
+  "imdbId": "tt0049367",
+  "detail": "Golden Bear · Berlin 1956",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Kite",
+  "originalTitle": null,
+  "directors": [
+   "Randa Chahal Sabag"
+  ],
+  "year": 2003,
+  "country": null,
+  "tmdbId": 44086,
+  "imdbId": "tt0377610",
+  "detail": "Grand Jury Prize · Venice 2003",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Something Like Love",
+  "originalTitle": null,
+  "directors": [
+   "Enzo Muzii"
+  ],
+  "year": 1968,
+  "country": null,
+  "tmdbId": 268656,
+  "imdbId": "tt0166140",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1968",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Hamlet",
+  "originalTitle": null,
+  "directors": [
+   "Grigori Kozintsev"
+  ],
+  "year": 1964,
+  "country": null,
+  "tmdbId": 71317,
+  "imdbId": "tt0058126",
+  "detail": "Grand Jury Prize · Venice 1964",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Fire at Sea",
+  "originalTitle": null,
+  "directors": [
+   "Gianfranco Rosi"
+  ],
+  "year": 2016,
+  "country": null,
+  "tmdbId": 377151,
+  "imdbId": "tt3652526",
+  "detail": "Golden Bear · Berlin 2016",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Turin Horse",
+  "originalTitle": null,
+  "directors": [
+   "Béla Tarr",
+   "Ágnes Hranitzky"
+  ],
+  "year": 2011,
+  "country": null,
+  "tmdbId": 81401,
+  "imdbId": "tt1316540",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 2011",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Our Lady of the Turks",
+  "originalTitle": null,
+  "directors": [
+   "Carmelo Bene"
+  ],
+  "year": 1968,
+  "country": null,
+  "tmdbId": 59048,
+  "imdbId": "tt0063366",
+  "detail": "Grand Jury Prize · Venice 1968",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "All Things Fair",
+  "originalTitle": null,
+  "directors": [
+   "Bo Widerberg"
+  ],
+  "year": 1996,
+  "country": null,
+  "tmdbId": 27098,
+  "imdbId": "tt0113720",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1996",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Rosetta",
+  "originalTitle": null,
+  "directors": [
+   "Luc Dardenne",
+   "Jean-Pierre Dardenne"
+  ],
+  "year": 1999,
+  "country": null,
+  "tmdbId": 11489,
+  "imdbId": "tt0200071",
+  "detail": "Palme d'Or · Cannes 1999",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Son's Room",
+  "originalTitle": null,
+  "directors": [
+   "Nanni Moretti"
+  ],
+  "year": 2001,
+  "country": null,
+  "tmdbId": 11447,
+  "imdbId": "tt0208990",
+  "detail": "Palme d'Or · Cannes 2001",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Hands Over the City",
+  "originalTitle": null,
+  "directors": [
+   "Francesco Rosi"
+  ],
+  "year": 1963,
+  "country": null,
+  "tmdbId": 58383,
+  "imdbId": "tt0057286",
+  "detail": "Golden Lion · Venice 1963",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Vive L'Amour",
+  "originalTitle": null,
+  "directors": [
+   "Tsai Ming-liang"
+  ],
+  "year": 1994,
+  "country": null,
+  "tmdbId": 11985,
+  "imdbId": "tt0109066",
+  "detail": "Golden Lion · Venice 1994",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Hip Hip Hurrah!",
+  "originalTitle": null,
+  "directors": [
+   "Kjell Grede"
+  ],
+  "year": 1987,
+  "country": null,
+  "tmdbId": 128900,
+  "imdbId": "tt0093194",
+  "detail": "Grand Jury Prize · Venice 1987",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Off to the Revolution by a 2CV",
+  "originalTitle": null,
+  "directors": [
+   "Maurizio Sciarra"
+  ],
+  "year": 2001,
+  "country": null,
+  "tmdbId": 73929,
+  "imdbId": "tt0274323",
+  "detail": "Golden Leopard · Locarno 2001",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Wind Will Carry Us",
+  "originalTitle": null,
+  "directors": [
+   "Abbas Kiarostami"
+  ],
+  "year": 1999,
+  "country": null,
+  "tmdbId": 43423,
+  "imdbId": "tt0209463",
+  "detail": "Grand Jury Prize · Venice 1999",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Honey",
+  "originalTitle": null,
+  "directors": [
+   "Semih Kaplanoğlu"
+  ],
+  "year": 2010,
+  "country": null,
+  "tmdbId": 44160,
+  "imdbId": "tt1571724",
+  "detail": "Golden Bear · Berlin 2010",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Happiness",
+  "originalTitle": null,
+  "directors": [
+   "Agnès Varda"
+  ],
+  "year": 1965,
+  "country": null,
+  "tmdbId": 53023,
+  "imdbId": "tt0058985",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1965",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Satan",
+  "originalTitle": null,
+  "directors": [
+   "Viktor Aristov"
+  ],
+  "year": 1991,
+  "country": null,
+  "tmdbId": 104869,
+  "imdbId": "tt0102843",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1991",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Place on the Tricorne",
+  "originalTitle": null,
+  "directors": [
+   "Yermek Shinarbayev"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": 287173,
+  "imdbId": "tt0128063",
+  "detail": "Golden Leopard · Locarno 1993",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Bye Bye Monkey",
+  "originalTitle": null,
+  "directors": [
+   "Marco Ferreri"
+  ],
+  "year": 1978,
+  "country": null,
+  "tmdbId": 42200,
+  "imdbId": "tt0075848",
+  "detail": "Grand Prix · Cannes 1978",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "U-Carmen eKhayelitsha",
+  "originalTitle": null,
+  "directors": [
+   "Mark Dornford-May"
+  ],
+  "year": 2005,
+  "country": null,
+  "tmdbId": 79706,
+  "imdbId": "tt0445776",
+  "detail": "Golden Bear · Berlin 2005",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Tree of Life",
+  "originalTitle": null,
+  "directors": [
+   "Terrence Malick"
+  ],
+  "year": 2011,
+  "country": null,
+  "tmdbId": 8967,
+  "imdbId": "tt0478304",
+  "detail": "Palme d'Or · Cannes 2011",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Sting of Death",
+  "originalTitle": null,
+  "directors": [
+   "Kōhei Oguri"
+  ],
+  "year": 1990,
+  "country": null,
+  "tmdbId": 128775,
+  "imdbId": "tt0131012",
+  "detail": "Grand Prix · Cannes 1990",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Gomorrah",
+  "originalTitle": null,
+  "directors": [
+   "Matteo Garrone"
+  ],
+  "year": 2008,
+  "country": null,
+  "tmdbId": 8882,
+  "imdbId": "tt0929425",
+  "detail": "Grand Prix · Cannes 2008",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "A Good Day for a Swim",
+  "originalTitle": null,
+  "directors": [
+   "Bogdan Mustață"
+  ],
+  "year": 2008,
+  "country": null,
+  "tmdbId": 179599,
+  "imdbId": "tt1185664",
+  "detail": "Golden Bear · Berlin 2008",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "David",
+  "originalTitle": null,
+  "directors": [
+   "Peter Lilienthal"
+  ],
+  "year": 1979,
+  "country": null,
+  "tmdbId": 163133,
+  "imdbId": "tt0079028",
+  "detail": "Golden Bear · Berlin 1979",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Lust, Caution",
+  "originalTitle": null,
+  "directors": [
+   "Ang Lee"
+  ],
+  "year": 2007,
+  "country": null,
+  "tmdbId": 4588,
+  "imdbId": "tt0808357",
+  "detail": "Golden Lion · Venice 2007",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "La Notte",
+  "originalTitle": null,
+  "directors": [
+   "Michelangelo Antonioni"
+  ],
+  "year": 1961,
+  "country": null,
+  "tmdbId": 41050,
+  "imdbId": "tt0054130",
+  "detail": "Golden Bear · Berlin 1961",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Parque via",
+  "originalTitle": null,
+  "directors": [
+   "Enrique Rivero"
+  ],
+  "year": 2008,
+  "country": null,
+  "tmdbId": 12474,
+  "imdbId": "tt1183942",
+  "detail": "Golden Leopard · Locarno 2008",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Wild Pigeon",
+  "originalTitle": null,
+  "directors": [
+   "Sergei Solovyov"
+  ],
+  "year": 1986,
+  "country": null,
+  "tmdbId": 143119,
+  "imdbId": "tt0090845",
+  "detail": "Grand Jury Prize · Venice 1986",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Grand Budapest Hotel",
+  "originalTitle": null,
+  "directors": [
+   "Wes Anderson"
+  ],
+  "year": 2014,
+  "country": null,
+  "tmdbId": 120467,
+  "imdbId": "tt2278388",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 2014",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Peacock",
+  "originalTitle": null,
+  "directors": [
+   "Gu Changwei"
+  ],
+  "year": 2005,
+  "country": null,
+  "tmdbId": 11728,
+  "imdbId": "tt0445506",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 2005",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "No Path Through Fire",
+  "originalTitle": null,
+  "directors": [
+   "Gleb Panfilov"
+  ],
+  "year": 1969,
+  "country": null,
+  "tmdbId": 83444,
+  "imdbId": "tt0062428",
+  "detail": "Golden Leopard · Locarno 1969",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Mirror",
+  "originalTitle": null,
+  "directors": [
+   "Jafar Panahi"
+  ],
+  "year": 1997,
+  "country": null,
+  "tmdbId": 40882,
+  "imdbId": "tt0117056",
+  "detail": "Golden Leopard · Locarno 1997",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "My American Uncle",
+  "originalTitle": null,
+  "directors": [
+   "Alain Resnais"
+  ],
+  "year": 1980,
+  "country": null,
+  "tmdbId": 39543,
+  "imdbId": "tt0081176",
+  "detail": "Grand Prix · Cannes 1980",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Elite Squad",
+  "originalTitle": null,
+  "directors": [
+   "José Padilha"
+  ],
+  "year": 2008,
+  "country": null,
+  "tmdbId": 7347,
+  "imdbId": "tt0861739",
+  "detail": "Golden Bear · Berlin 2008",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Death of a Neapolitan Mathematician",
+  "originalTitle": null,
+  "directors": [
+   "Mario Martone"
+  ],
+  "year": 1992,
+  "country": null,
+  "tmdbId": 59577,
+  "imdbId": "tt0104918",
+  "detail": "Grand Jury Prize · Venice 1992",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Monsoon Wedding",
+  "originalTitle": null,
+  "directors": [
+   "Mira Nair"
+  ],
+  "year": 2001,
+  "country": null,
+  "tmdbId": 480,
+  "imdbId": "tt0265343",
+  "detail": "Golden Lion · Venice 2001",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Garden of the Finzi-Continis",
+  "originalTitle": null,
+  "directors": [
+   "Vittorio De Sica"
+  ],
+  "year": 1971,
+  "country": null,
+  "tmdbId": 4789,
+  "imdbId": "tt0065777",
+  "detail": "Golden Bear · Berlin 1971",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Conversation",
+  "originalTitle": null,
+  "directors": [
+   "Francis Ford Coppola"
+  ],
+  "year": 1974,
+  "country": null,
+  "tmdbId": 592,
+  "imdbId": "tt0071360",
+  "detail": "Palme d'Or · Cannes 1974",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Repentance",
+  "originalTitle": null,
+  "directors": [
+   "Tengiz Abuladze"
+  ],
+  "year": 1987,
+  "country": null,
+  "tmdbId": 96920,
+  "imdbId": "tt0093754",
+  "detail": "Grand Prix · Cannes 1987",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Underground",
+  "originalTitle": null,
+  "directors": [
+   "Emir Kusturica"
+  ],
+  "year": 1995,
+  "country": null,
+  "tmdbId": 11902,
+  "imdbId": "tt0114787",
+  "detail": "Palme d'Or · Cannes 1995",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Road Home",
+  "originalTitle": null,
+  "directors": [
+   "Zhang Yimou"
+  ],
+  "year": 2000,
+  "country": null,
+  "tmdbId": 12276,
+  "imdbId": "tt0235060",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 2000",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Milk of Sorrow",
+  "originalTitle": null,
+  "directors": [
+   "Claudia Llosa"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": 28644,
+  "imdbId": "tt1206488",
+  "detail": "Golden Bear · Berlin 2009",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Marty",
+  "originalTitle": null,
+  "directors": [
+   "Delbert Mann"
+  ],
+  "year": 1955,
+  "country": null,
+  "tmdbId": 15919,
+  "imdbId": "tt0048356",
+  "detail": "Palme d'Or · Cannes 1955",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Voice of Hind Rajab",
+  "originalTitle": null,
+  "directors": [
+   "Kaouther Ben Hania"
+  ],
+  "year": 2025,
+  "country": null,
+  "tmdbId": 1480382,
+  "imdbId": "tt36943034",
+  "detail": "Grand Jury Prize · Venice 2025",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Mourning Forest",
+  "originalTitle": null,
+  "directors": [
+   "Naomi Kawase"
+  ],
+  "year": 2007,
+  "country": null,
+  "tmdbId": 2010,
+  "imdbId": "tt1016205",
+  "detail": "Grand Prix · Cannes 2007",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "It's Only the End of the World",
+  "originalTitle": null,
+  "directors": [
+   "Xavier Dolan"
+  ],
+  "year": 2016,
+  "country": null,
+  "tmdbId": 338189,
+  "imdbId": "tt4645368",
+  "detail": "Grand Prix · Cannes 2016",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Sheep Has Five Legs",
+  "originalTitle": null,
+  "directors": [
+   "Henri Verneuil"
+  ],
+  "year": 1954,
+  "country": null,
+  "tmdbId": 74810,
+  "imdbId": "tt0047250",
+  "detail": "Golden Leopard · Locarno 1954",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Johnny Got His Gun",
+  "originalTitle": null,
+  "directors": [
+   "Dalton Trumbo"
+  ],
+  "year": 1971,
+  "country": null,
+  "tmdbId": 16328,
+  "imdbId": "tt0067277",
+  "detail": "Grand Prix · Cannes 1971",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Flanders",
+  "originalTitle": null,
+  "directors": [
+   "Bruno Dumont"
+  ],
+  "year": 2006,
+  "country": null,
+  "tmdbId": 36143,
+  "imdbId": "tt0450680",
+  "detail": "Grand Prix · Cannes 2006",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "An Episode in the Life of an Iron Picker",
+  "originalTitle": null,
+  "directors": [
+   "Danis Tanović"
+  ],
+  "year": 2013,
+  "country": null,
+  "tmdbId": 159942,
+  "imdbId": "tt2507592",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 2013",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Farewell My Concubine",
+  "originalTitle": null,
+  "directors": [
+   "Chen Kaige"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": 10997,
+  "imdbId": "tt0106332",
+  "detail": "Palme d'Or · Cannes 1993",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Paris, Texas",
+  "originalTitle": null,
+  "directors": [
+   "Wim Wenders"
+  ],
+  "year": 1984,
+  "country": null,
+  "tmdbId": 655,
+  "imdbId": "tt0087884",
+  "detail": "Palme d'Or · Cannes 1984",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Standard Operating Procedure",
+  "originalTitle": null,
+  "directors": [
+   "Errol Morris"
+  ],
+  "year": 2008,
+  "country": null,
+  "tmdbId": 8847,
+  "imdbId": "tt0896866",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 2008",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Dreamed Adventure",
+  "originalTitle": null,
+  "directors": [
+   "Valeska Grisebach"
+  ],
+  "year": 2026,
+  "country": null,
+  "tmdbId": 1013822,
+  "imdbId": "tt21188986",
+  "detail": "Jury Prize · Cannes 2026",
+  "awardQid": "Q164200",
+  "awardWeight": 0.5
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Shape of Water",
+  "originalTitle": null,
+  "directors": [
+   "Guillermo del Toro"
+  ],
+  "year": 2017,
+  "country": null,
+  "tmdbId": 399055,
+  "imdbId": "tt5580390",
+  "detail": "Golden Lion · Venice 2017",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Palermo or Wolfsburg",
+  "originalTitle": null,
+  "directors": [
+   "Werner Schroeter"
+  ],
+  "year": 1980,
+  "country": null,
+  "tmdbId": 130544,
+  "imdbId": "tt0081299",
+  "detail": "Golden Bear · Berlin 1980",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Chronicle of the Years of Fire",
+  "originalTitle": null,
+  "directors": [
+   "Mohammed Lakhdar-Hamina"
+  ],
+  "year": 1975,
+  "country": null,
+  "tmdbId": 52555,
+  "imdbId": "tt0072782",
+  "detail": "Palme d'Or · Cannes 1975",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Michael Collins",
+  "originalTitle": null,
+  "directors": [
+   "Neil Jordan"
+  ],
+  "year": 1996,
+  "country": null,
+  "tmdbId": 1770,
+  "imdbId": "tt0117039",
+  "detail": "Golden Lion · Venice 1996",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Border",
+  "originalTitle": null,
+  "directors": [
+   "Ali Abbasi"
+  ],
+  "year": 2018,
+  "country": null,
+  "tmdbId": 517839,
+  "imdbId": "tt5501104",
+  "detail": "Un Certain Regard Award · Cannes 2018",
+  "awardQid": "Q17354954",
+  "awardWeight": 0.4
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Tomorrow Is My Turn",
+  "originalTitle": null,
+  "directors": [
+   "André Cayatte"
+  ],
+  "year": 1960,
+  "country": null,
+  "tmdbId": 154578,
+  "imdbId": "tt0054161",
+  "detail": "Golden Lion · Venice 1960",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Parasite",
+  "originalTitle": null,
+  "directors": [
+   "Bong Joon-ho"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": 496243,
+  "imdbId": "tt6751668",
+  "detail": "Palme d'Or · Cannes 2019",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Child's Pose",
+  "originalTitle": null,
+  "directors": [
+   "Călin Peter Netzer"
+  ],
+  "year": 2013,
+  "country": null,
+  "tmdbId": 160118,
+  "imdbId": "tt2187115",
+  "detail": "Golden Bear · Berlin 2013",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Blue Is the Warmest Colour",
+  "originalTitle": null,
+  "directors": [
+   "Abdellatif Kechiche"
+  ],
+  "year": 2013,
+  "country": null,
+  "tmdbId": 152584,
+  "imdbId": "tt2278871",
+  "detail": "Palme d'Or · Cannes 2013",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Johnny Suede",
+  "originalTitle": null,
+  "directors": [
+   "Tom DiCillo"
+  ],
+  "year": 1991,
+  "country": null,
+  "tmdbId": 45145,
+  "imdbId": "tt0104567",
+  "detail": "Golden Leopard · Locarno 1991",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Woman and the Stranger",
+  "originalTitle": null,
+  "directors": [
+   "Rainer Simon"
+  ],
+  "year": 1985,
+  "country": null,
+  "tmdbId": 163149,
+  "imdbId": "tt0089169",
+  "detail": "Golden Bear · Berlin 1985",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Buffalo Bill and the Indians, or Sitting Bull's History Lesson",
+  "originalTitle": null,
+  "directors": [
+   "Robert Altman"
+  ],
+  "year": 1976,
+  "country": null,
+  "tmdbId": 42233,
+  "imdbId": "tt0074254",
+  "detail": "Golden Bear · Berlin 1976",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Distant Thunder",
+  "originalTitle": null,
+  "directors": [
+   "Satyajit Ray"
+  ],
+  "year": 1973,
+  "country": null,
+  "tmdbId": 113012,
+  "imdbId": "tt0069737",
+  "detail": "Golden Bear · Berlin 1973",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Without Leaving an Address",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Paul Le Chanois"
+  ],
+  "year": 1951,
+  "country": null,
+  "tmdbId": 162344,
+  "imdbId": "tt0042923",
+  "detail": "Golden Bear · Berlin 1951",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Essential Killing",
+  "originalTitle": null,
+  "directors": [
+   "Jerzy Skolimowski"
+  ],
+  "year": 2010,
+  "country": null,
+  "tmdbId": 48243,
+  "imdbId": "tt1561768",
+  "detail": "Grand Jury Prize · Venice 2010",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Adoption",
+  "originalTitle": null,
+  "directors": [
+   "Márta Mészáros"
+  ],
+  "year": 1975,
+  "country": null,
+  "tmdbId": 61703,
+  "imdbId": "tt0073948",
+  "detail": "Golden Bear · Berlin 1975",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Dog Days",
+  "originalTitle": null,
+  "directors": [
+   "Ulrich Seidl"
+  ],
+  "year": 2001,
+  "country": null,
+  "tmdbId": 9025,
+  "imdbId": "tt0290661",
+  "detail": "Grand Jury Prize · Venice 2001",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Fahrenheit 9/11",
+  "originalTitle": null,
+  "directors": [
+   "Michael Moore"
+  ],
+  "year": 2004,
+  "country": null,
+  "tmdbId": 1777,
+  "imdbId": "tt0361596",
+  "detail": "Palme d'Or · Cannes 2004",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Caesar Must Die",
+  "originalTitle": null,
+  "directors": [
+   "Paolo Taviani",
+   "Vittorio Taviani"
+  ],
+  "year": 2012,
+  "country": null,
+  "tmdbId": 96821,
+  "imdbId": "tt2177511",
+  "detail": "Golden Bear · Berlin 2012",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Veronika Voss",
+  "originalTitle": null,
+  "directors": [
+   "Rainer Werner Fassbinder"
+  ],
+  "year": 1982,
+  "country": null,
+  "tmdbId": 2262,
+  "imdbId": "tt0084654",
+  "detail": "Golden Bear · Berlin 1982",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Cul-de-sac",
+  "originalTitle": null,
+  "directors": [
+   "Roman Polanski"
+  ],
+  "year": 1966,
+  "country": null,
+  "tmdbId": 4772,
+  "imdbId": "tt0060268",
+  "detail": "Golden Bear · Berlin 1966",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Executive Suite",
+  "originalTitle": null,
+  "directors": [
+   "Robert Wise"
+  ],
+  "year": 1954,
+  "country": null,
+  "tmdbId": 43336,
+  "imdbId": "tt0046963",
+  "detail": "Grand Jury Prize · Venice 1954",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Still Life",
+  "originalTitle": null,
+  "directors": [
+   "Jia Zhangke"
+  ],
+  "year": 2006,
+  "country": null,
+  "tmdbId": 2346,
+  "imdbId": "tt0859765",
+  "detail": "Golden Lion · Venice 2006",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Strawberry and Chocolate",
+  "originalTitle": null,
+  "directors": [
+   "Tomás Gutiérrez Alea",
+   "Juan Carlos Tabío"
+  ],
+  "year": 1994,
+  "country": null,
+  "tmdbId": 12527,
+  "imdbId": "tt0106966",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1994",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Emperor's Nightingale",
+  "originalTitle": null,
+  "directors": [
+   "Jiří Trnka",
+   "Miloš Makovec"
+  ],
+  "year": 1955,
+  "country": null,
+  "tmdbId": 79596,
+  "imdbId": "tt0043410",
+  "detail": "Golden Leopard · Locarno 1955",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Lebanon",
+  "originalTitle": null,
+  "directors": [
+   "Samuel Maoz"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": 32084,
+  "imdbId": "tt1483831",
+  "detail": "Golden Lion · Venice 2009",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Light Years Away",
+  "originalTitle": null,
+  "directors": [
+   "Alain Tanner"
+  ],
+  "year": 1981,
+  "country": null,
+  "tmdbId": 101330,
+  "imdbId": "tt0080373",
+  "detail": "Grand Prix · Cannes 1981",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "I'm Not There",
+  "originalTitle": null,
+  "directors": [
+   "Todd Haynes"
+  ],
+  "year": 2007,
+  "country": null,
+  "tmdbId": 3902,
+  "imdbId": "tt0368794",
+  "detail": "Grand Jury Prize · Venice 2007",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The State of Things",
+  "originalTitle": null,
+  "directors": [
+   "Wim Wenders"
+  ],
+  "year": 1982,
+  "country": null,
+  "tmdbId": 30363,
+  "imdbId": "tt0084725",
+  "detail": "Golden Lion · Venice 1982",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Imperative",
+  "originalTitle": null,
+  "directors": [
+   "Krzysztof Zanussi"
+  ],
+  "year": 1982,
+  "country": null,
+  "tmdbId": 204164,
+  "imdbId": "tt0084123",
+  "detail": "Grand Jury Prize · Venice 1982",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Wild Fruit",
+  "originalTitle": null,
+  "directors": [
+   "Hervé Bromberger"
+  ],
+  "year": 1954,
+  "country": null,
+  "tmdbId": 368775,
+  "imdbId": "tt0157673",
+  "detail": "Golden Leopard · Locarno 1954",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The River",
+  "originalTitle": null,
+  "directors": [
+   "Tsai Ming-liang"
+  ],
+  "year": 1997,
+  "country": null,
+  "tmdbId": 54291,
+  "imdbId": "tt0119263",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1997",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "On Body and Soul",
+  "originalTitle": null,
+  "directors": [
+   "Ildikó Enyedi"
+  ],
+  "year": 2017,
+  "country": null,
+  "tmdbId": 436343,
+  "imdbId": "tt5607714",
+  "detail": "Golden Bear · Berlin 2017",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Uzak",
+  "originalTitle": null,
+  "directors": [
+   "Nuri Bilge Ceylan"
+  ],
+  "year": 2003,
+  "country": null,
+  "tmdbId": 31026,
+  "imdbId": "tt0346094",
+  "detail": "Grand Prix · Cannes 2003",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Room Next Door",
+  "originalTitle": null,
+  "directors": [
+   "Pedro Almodóvar"
+  ],
+  "year": 2024,
+  "country": null,
+  "tmdbId": 1088514,
+  "imdbId": "tt29439114",
+  "detail": "Golden Lion · Venice 2024",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Jezioro Bodenskie",
+  "originalTitle": null,
+  "directors": [
+   "Janusz Zaorski"
+  ],
+  "year": 1986,
+  "country": null,
+  "tmdbId": 158326,
+  "imdbId": "tt0091290",
+  "detail": "Golden Leopard · Locarno 1986",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Bad Luck Banging or Loony Porn",
+  "originalTitle": null,
+  "directors": [
+   "Radu Jude"
+  ],
+  "year": 2021,
+  "country": null,
+  "tmdbId": 790496,
+  "imdbId": "tt14033502",
+  "detail": "Golden Bear · Berlin 2021",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Four in a Jeep",
+  "originalTitle": null,
+  "directors": [
+   "Leopold Lindtberg"
+  ],
+  "year": 1951,
+  "country": null,
+  "tmdbId": 162339,
+  "imdbId": "tt0044192",
+  "detail": "Golden Bear · Berlin 1951",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Overlord",
+  "originalTitle": null,
+  "directors": [
+   "Stuart Cooper"
+  ],
+  "year": 1975,
+  "country": null,
+  "tmdbId": 55343,
+  "imdbId": "tt0073502",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1975",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Manon",
+  "originalTitle": null,
+  "directors": [
+   "Henri-Georges Clouzot"
+  ],
+  "year": 1949,
+  "country": null,
+  "tmdbId": 132332,
+  "imdbId": "tt0041634",
+  "detail": "Golden Lion · Venice 1949",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Blowup",
+  "originalTitle": null,
+  "directors": [
+   "Michelangelo Antonioni"
+  ],
+  "year": 1967,
+  "country": null,
+  "tmdbId": 1052,
+  "imdbId": "tt0060176",
+  "detail": "Palme d'Or · Cannes 1967",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Teza",
+  "originalTitle": null,
+  "directors": [
+   "Haile Gerima"
+  ],
+  "year": 2008,
+  "country": null,
+  "tmdbId": 12427,
+  "imdbId": "tt1284592",
+  "detail": "Grand Jury Prize · Venice 2008",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Hana-bi",
+  "originalTitle": null,
+  "directors": [
+   "Takeshi Kitano"
+  ],
+  "year": 1997,
+  "country": null,
+  "tmdbId": 5910,
+  "imdbId": "tt0119250",
+  "detail": "Golden Lion · Venice 1997",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Christmas, Again",
+  "originalTitle": null,
+  "directors": [
+   "Charles Poekel"
+  ],
+  "year": 2015,
+  "country": null,
+  "tmdbId": 285020,
+  "imdbId": "tt3894188",
+  "detail": "Grand Jury Prize · Venice 2015",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Atlantique",
+  "originalTitle": null,
+  "directors": [
+   "Mati Diop"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": 496967,
+  "imdbId": "tt10199586",
+  "detail": "Grand Prix · Cannes 2019",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "An Angel at My Table",
+  "originalTitle": null,
+  "directors": [
+   "Jane Campion"
+  ],
+  "year": 1990,
+  "country": null,
+  "tmdbId": 2891,
+  "imdbId": "tt0205612",
+  "detail": "Grand Jury Prize · Venice 1990",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Circle",
+  "originalTitle": null,
+  "directors": [
+   "Jafar Panahi"
+  ],
+  "year": 2000,
+  "country": null,
+  "tmdbId": 13898,
+  "imdbId": "tt0255094",
+  "detail": "Golden Lion · Venice 2000",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Alphaville",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1965,
+  "country": null,
+  "tmdbId": 8072,
+  "imdbId": "tt0058898",
+  "detail": "Golden Bear · Berlin 1965",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Ovosodo",
+  "originalTitle": null,
+  "directors": [
+   "Paolo Virzì"
+  ],
+  "year": 1997,
+  "country": null,
+  "tmdbId": 48254,
+  "imdbId": "tt0122648",
+  "detail": "Grand Jury Prize · Venice 1997",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Fires on the Plain",
+  "originalTitle": null,
+  "directors": [
+   "Kon Ichikawa"
+  ],
+  "year": 1961,
+  "country": null,
+  "tmdbId": 31427,
+  "imdbId": "tt0053121",
+  "detail": "Golden Leopard · Locarno 1961",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "A Land Imagined",
+  "originalTitle": null,
+  "directors": [
+   "Siew Hua Yeo"
+  ],
+  "year": 2018,
+  "country": null,
+  "tmdbId": 537526,
+  "imdbId": "tt8726116",
+  "detail": "Golden Leopard · Locarno 2018",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Charles, Dead or Alive",
+  "originalTitle": null,
+  "directors": [
+   "Alain Tanner"
+  ],
+  "year": 1969,
+  "country": null,
+  "tmdbId": 108543,
+  "imdbId": "tt0064153",
+  "detail": "Golden Leopard · Locarno 1969",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Titane",
+  "originalTitle": null,
+  "directors": [
+   "Julia Ducournau"
+  ],
+  "year": 2021,
+  "country": null,
+  "tmdbId": 630240,
+  "imdbId": "tt10944760",
+  "detail": "Palme d'Or · Cannes 2021",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Back to Stay",
+  "originalTitle": null,
+  "directors": [
+   "Milagros Mumenthaler"
+  ],
+  "year": 2011,
+  "country": null,
+  "tmdbId": 85544,
+  "imdbId": "tt2023367",
+  "detail": "Golden Leopard · Locarno 2011",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Winter Vacation",
+  "originalTitle": null,
+  "directors": [
+   "Hongqi Li"
+  ],
+  "year": 2010,
+  "country": null,
+  "tmdbId": 95361,
+  "imdbId": "tt1701993",
+  "detail": "Golden Leopard · Locarno 2010",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Canoa: A Shameful Memory",
+  "originalTitle": null,
+  "directors": [
+   "Felipe Cazals"
+  ],
+  "year": 1976,
+  "country": null,
+  "tmdbId": 116982,
+  "imdbId": "tt0131335",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1976",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Secrets & Lies",
+  "originalTitle": null,
+  "directors": [
+   "Mike Leigh"
+  ],
+  "year": 1996,
+  "country": null,
+  "tmdbId": 11159,
+  "imdbId": "tt0117589",
+  "detail": "Palme d'Or · Cannes 1996",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Mandy",
+  "originalTitle": null,
+  "directors": [
+   "Alexander Mackendrick",
+   "Fred F. Sears"
+  ],
+  "year": 1952,
+  "country": null,
+  "tmdbId": 47026,
+  "imdbId": "tt0045654",
+  "detail": "Grand Jury Prize · Venice 1952",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "La Chinoise",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1967,
+  "country": null,
+  "tmdbId": 1629,
+  "imdbId": "tt0061473",
+  "detail": "Grand Jury Prize · Venice 1967",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Schmetterlinge",
+  "originalTitle": null,
+  "directors": [
+   "Wolfgang Becker"
+  ],
+  "year": 1988,
+  "country": null,
+  "tmdbId": 354176,
+  "imdbId": "tt0096052",
+  "detail": "Golden Leopard · Locarno 1988",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Gloria",
+  "originalTitle": null,
+  "directors": [
+   "John Cassavetes"
+  ],
+  "year": 1980,
+  "country": null,
+  "tmdbId": 10889,
+  "imdbId": "tt0080798",
+  "detail": "Golden Lion · Venice 1980",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Marquise of O",
+  "originalTitle": null,
+  "directors": [
+   "Éric Rohmer"
+  ],
+  "year": 1976,
+  "country": null,
+  "tmdbId": 48205,
+  "imdbId": "tt0074870",
+  "detail": "Grand Prix · Cannes 1976",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Dheepan",
+  "originalTitle": null,
+  "directors": [
+   "Jacques Audiard"
+  ],
+  "year": 2015,
+  "country": null,
+  "tmdbId": 314402,
+  "imdbId": "tt4082068",
+  "detail": "Palme d'Or · Cannes 2015",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "4 Months, 3 Weeks and 2 Days",
+  "originalTitle": null,
+  "directors": [
+   "Cristian Mungiu"
+  ],
+  "year": 2007,
+  "country": null,
+  "tmdbId": 2009,
+  "imdbId": "tt1032846",
+  "detail": "Palme d'Or · Cannes 2007",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Miss Julie",
+  "originalTitle": null,
+  "directors": [
+   "Alf Sjöberg"
+  ],
+  "year": 1951,
+  "country": null,
+  "tmdbId": 18650,
+  "imdbId": "tt0043567",
+  "detail": "Palme d'Or · Cannes 1951",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "She, a Chinese",
+  "originalTitle": null,
+  "directors": [
+   "Xiaolu Guo"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": 73970,
+  "imdbId": "tt1389374",
+  "detail": "Golden Leopard · Locarno 2009",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Man About Town",
+  "originalTitle": null,
+  "directors": [
+   "René Clair"
+  ],
+  "year": 1947,
+  "country": null,
+  "tmdbId": 146828,
+  "imdbId": "tt0039823",
+  "detail": "Golden Leopard · Locarno 1947",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Brokeback Mountain",
+  "originalTitle": null,
+  "directors": [
+   "Ang Lee"
+  ],
+  "year": 2005,
+  "country": null,
+  "tmdbId": 142,
+  "imdbId": "tt0388795",
+  "detail": "Golden Lion · Venice 2005",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Magdalene Sisters",
+  "originalTitle": null,
+  "directors": [
+   "Peter Mullan"
+  ],
+  "year": 2002,
+  "country": null,
+  "tmdbId": 8094,
+  "imdbId": "tt0318411",
+  "detail": "Golden Lion · Venice 2002",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Lost Embrace",
+  "originalTitle": null,
+  "directors": [
+   "Daniel Burman"
+  ],
+  "year": 2004,
+  "country": null,
+  "tmdbId": 49681,
+  "imdbId": "tt0366137",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 2004",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Scarecrow",
+  "originalTitle": null,
+  "directors": [
+   "Jerry Schatzberg"
+  ],
+  "year": 1973,
+  "country": null,
+  "tmdbId": 31587,
+  "imdbId": "tt0070643",
+  "detail": "Palme d'Or · Cannes 1973",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Scarecrow",
+  "originalTitle": null,
+  "directors": [
+   "Jerry Schatzberg"
+  ],
+  "year": 1974,
+  "country": null,
+  "tmdbId": 31587,
+  "imdbId": "tt0070643",
+  "detail": "Palme d'Or · Cannes 1974",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Scarecrow",
+  "originalTitle": null,
+  "directors": [
+   "Jerry Schatzberg"
+  ],
+  "year": 1975,
+  "country": null,
+  "tmdbId": 31587,
+  "imdbId": "tt0070643",
+  "detail": "Palme d'Or · Cannes 1975",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Toxic",
+  "originalTitle": null,
+  "directors": [
+   "Saulė Bliuvaitė"
+  ],
+  "year": 2024,
+  "country": null,
+  "tmdbId": 1315091,
+  "imdbId": "tt30327762",
+  "detail": "Golden Leopard · Locarno 2024",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Stolen Children",
+  "originalTitle": null,
+  "directors": [
+   "Gianni Amelio"
+  ],
+  "year": 1992,
+  "country": null,
+  "tmdbId": 47714,
+  "imdbId": "tt0104663",
+  "detail": "Grand Prix · Cannes 1992",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Blue Trail",
+  "originalTitle": null,
+  "directors": [
+   "Gabriel Mascaro"
+  ],
+  "year": 2025,
+  "country": null,
+  "tmdbId": 1172265,
+  "imdbId": "tt35340614",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 2025",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Chappaqua",
+  "originalTitle": null,
+  "directors": [
+   "Conrad Rooks"
+  ],
+  "year": 1966,
+  "country": null,
+  "tmdbId": 33382,
+  "imdbId": "tt0059025",
+  "detail": "Grand Jury Prize · Venice 1966",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Taxi Driver",
+  "originalTitle": null,
+  "directors": [
+   "Martin Scorsese"
+  ],
+  "year": 1976,
+  "country": null,
+  "tmdbId": 103,
+  "imdbId": "tt0075314",
+  "detail": "Palme d'Or · Cannes 1976",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Big Night",
+  "originalTitle": null,
+  "directors": [
+   "Francis Reusser"
+  ],
+  "year": 1976,
+  "country": null,
+  "tmdbId": 549380,
+  "imdbId": "tt0074585",
+  "detail": "Golden Leopard · Locarno 1976",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Commissar",
+  "originalTitle": null,
+  "directors": [
+   "Aleksandr Askoldov"
+  ],
+  "year": 1988,
+  "country": null,
+  "tmdbId": 71336,
+  "imdbId": "tt0061876",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1988",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "I, Daniel Blake",
+  "originalTitle": null,
+  "directors": [
+   "Ken Loach"
+  ],
+  "year": 2016,
+  "country": null,
+  "tmdbId": 374473,
+  "imdbId": "tt5168192",
+  "detail": "Palme d'Or · Cannes 2016",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Class",
+  "originalTitle": null,
+  "directors": [
+   "Laurent Cantet"
+  ],
+  "year": 2008,
+  "country": null,
+  "tmdbId": 8841,
+  "imdbId": "tt1068646",
+  "detail": "Palme d'Or · Cannes 2008",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Just the Wind",
+  "originalTitle": null,
+  "directors": [
+   "Benedek Fliegauf"
+  ],
+  "year": 2012,
+  "country": null,
+  "tmdbId": 110383,
+  "imdbId": "tt2180335",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 2012",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Under the Sun of Satan",
+  "originalTitle": null,
+  "directors": [
+   "Maurice Pialat"
+  ],
+  "year": 1987,
+  "country": null,
+  "tmdbId": 31300,
+  "imdbId": "tt0094011",
+  "detail": "Palme d'Or · Cannes 1987",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Law",
+  "originalTitle": null,
+  "directors": [
+   "Idrissa Ouédraogo"
+  ],
+  "year": 1990,
+  "country": null,
+  "tmdbId": 65482,
+  "imdbId": "tt0100784",
+  "detail": "Grand Prix · Cannes 1990",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "A Separation",
+  "originalTitle": null,
+  "directors": [
+   "Asghar Farhadi"
+  ],
+  "year": 2011,
+  "country": null,
+  "tmdbId": 60243,
+  "imdbId": "tt1832382",
+  "detail": "Golden Bear · Berlin 2011",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Eternity and a Day",
+  "originalTitle": null,
+  "directors": [
+   "Thodoros Angelopoulos"
+  ],
+  "year": 1998,
+  "country": null,
+  "tmdbId": 24858,
+  "imdbId": "tt0156794",
+  "detail": "Palme d'Or · Cannes 1998",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Favorites of the Moon",
+  "originalTitle": null,
+  "directors": [
+   "Otar Iosseliani"
+  ],
+  "year": 1984,
+  "country": null,
+  "tmdbId": 47450,
+  "imdbId": "tt0087246",
+  "detail": "Grand Jury Prize · Venice 1984",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Life Is Beautiful",
+  "originalTitle": null,
+  "directors": [
+   "Roberto Benigni"
+  ],
+  "year": 1998,
+  "country": null,
+  "tmdbId": 637,
+  "imdbId": "tt0118799",
+  "detail": "Grand Prix · Cannes 1998",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Silent World",
+  "originalTitle": null,
+  "directors": [
+   "Louis Malle",
+   "Jacques Cousteau"
+  ],
+  "year": 1956,
+  "country": null,
+  "tmdbId": 60234,
+  "imdbId": "tt0049518",
+  "detail": "Palme d'Or · Cannes 1956",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Joyland",
+  "originalTitle": null,
+  "directors": [
+   "Saim Sadiq"
+  ],
+  "year": 2022,
+  "country": null,
+  "tmdbId": 962571,
+  "imdbId": "tt19719976",
+  "detail": "Jury Prize · Cannes 2022",
+  "awardQid": "Q164200",
+  "awardWeight": 0.5
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Hireling",
+  "originalTitle": null,
+  "directors": [
+   "Alan Bridges"
+  ],
+  "year": 1973,
+  "country": null,
+  "tmdbId": 80382,
+  "imdbId": "tt0070180",
+  "detail": "Palme d'Or · Cannes 1973",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Alpine Fire",
+  "originalTitle": null,
+  "directors": [
+   "Fredi M. Murer"
+  ],
+  "year": 1985,
+  "country": null,
+  "tmdbId": 67263,
+  "imdbId": "tt0093235",
+  "detail": "Golden Leopard · Locarno 1985",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "First Name: Carmen",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1983,
+  "country": null,
+  "tmdbId": 32689,
+  "imdbId": "tt0086153",
+  "detail": "Golden Lion · Venice 1983",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Sandra",
+  "originalTitle": null,
+  "directors": [
+   "Luchino Visconti"
+  ],
+  "year": 1965,
+  "country": null,
+  "tmdbId": 92432,
+  "imdbId": "tt0059856",
+  "detail": "Golden Lion · Venice 1965",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "If I Want to Whistle, I Whistle",
+  "originalTitle": null,
+  "directors": [
+   "Florin Șerban"
+  ],
+  "year": 2010,
+  "country": null,
+  "tmdbId": 39840,
+  "imdbId": "tt1590024",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 2010",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Bolero",
+  "originalTitle": null,
+  "directors": [
+   "Ivan Maximov"
+  ],
+  "year": 1992,
+  "country": null,
+  "tmdbId": 211453,
+  "imdbId": "tt0337889",
+  "detail": "Golden Bear · Berlin 1992",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Bloody Sunday",
+  "originalTitle": null,
+  "directors": [
+   "Paul Greengrass"
+  ],
+  "year": 2002,
+  "country": null,
+  "tmdbId": 4107,
+  "imdbId": "tt0280491",
+  "detail": "Golden Bear · Berlin 2002",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "It Was Just an Accident",
+  "originalTitle": null,
+  "directors": [
+   "Jafar Panahi"
+  ],
+  "year": 2025,
+  "country": null,
+  "tmdbId": 1456349,
+  "imdbId": "tt36491653",
+  "detail": "Palme d'Or · Cannes 2025",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Memoria",
+  "originalTitle": null,
+  "directors": [
+   "Apichatpong Weerasethakul"
+  ],
+  "year": 2021,
+  "country": null,
+  "tmdbId": 511819,
+  "imdbId": "tt8399288",
+  "detail": "Jury Prize · Cannes 2021",
+  "awardQid": "Q164200",
+  "awardWeight": 0.5
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Before Night Falls",
+  "originalTitle": null,
+  "directors": [
+   "Julian Schnabel"
+  ],
+  "year": 2000,
+  "country": null,
+  "tmdbId": 5001,
+  "imdbId": "tt0247196",
+  "detail": "Grand Jury Prize · Venice 2000",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Taking Off",
+  "originalTitle": null,
+  "directors": [
+   "Miloš Forman"
+  ],
+  "year": 1971,
+  "country": null,
+  "tmdbId": 59881,
+  "imdbId": "tt0067820",
+  "detail": "Grand Prix · Cannes 1971",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Peace to Him Who Enters",
+  "originalTitle": null,
+  "directors": [
+   "Aleksandr Alov",
+   "Vladimir Naumov"
+  ],
+  "year": 1961,
+  "country": null,
+  "tmdbId": 204194,
+  "imdbId": "tt0055181",
+  "detail": "Grand Jury Prize · Venice 1961",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Adaptation",
+  "originalTitle": null,
+  "directors": [
+   "Spike Jonze"
+  ],
+  "year": 2003,
+  "country": null,
+  "tmdbId": 2757,
+  "imdbId": "tt0268126",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 2003",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Nightsiren",
+  "originalTitle": null,
+  "directors": [
+   "Tereza Nvotová"
+  ],
+  "year": 2022,
+  "country": null,
+  "tmdbId": 997660,
+  "imdbId": "tt10334222",
+  "detail": "Golden Leopard · Locarno 2022",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Third Man",
+  "originalTitle": null,
+  "directors": [
+   "Carol Reed"
+  ],
+  "year": 1949,
+  "country": null,
+  "tmdbId": 1092,
+  "imdbId": "tt0041959",
+  "detail": "Grand Prix · Cannes 1949",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Storia d'amore",
+  "originalTitle": null,
+  "directors": [
+   "Francesco Maselli"
+  ],
+  "year": 1986,
+  "country": null,
+  "tmdbId": 204130,
+  "imdbId": "tt0092017",
+  "detail": "Grand Jury Prize · Venice 1986",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Nine Lives",
+  "originalTitle": null,
+  "directors": [
+   "Rodrigo García Márquez"
+  ],
+  "year": 2005,
+  "country": null,
+  "tmdbId": 16022,
+  "imdbId": "tt0420015",
+  "detail": "Golden Leopard · Locarno 2005",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Thin Red Line",
+  "originalTitle": null,
+  "directors": [
+   "Terrence Malick"
+  ],
+  "year": 1999,
+  "country": null,
+  "tmdbId": 8741,
+  "imdbId": "tt0120863",
+  "detail": "Golden Bear · Berlin 1999",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Gate of Hell",
+  "originalTitle": null,
+  "directors": [
+   "Teinosuke Kinugasa"
+  ],
+  "year": 1954,
+  "country": null,
+  "tmdbId": 43349,
+  "imdbId": "tt0045935",
+  "detail": "Golden Leopard · Locarno 1954",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Fallen Leaves",
+  "originalTitle": null,
+  "directors": [
+   "Aki Kaurismäki"
+  ],
+  "year": 2023,
+  "country": null,
+  "tmdbId": 986280,
+  "imdbId": "tt21027780",
+  "detail": "Jury Prize · Cannes 2023",
+  "awardQid": "Q164200",
+  "awardWeight": 0.5
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "They Have Changed Their Face",
+  "originalTitle": null,
+  "directors": [
+   "Corrado Farina"
+  ],
+  "year": 1971,
+  "country": null,
+  "tmdbId": 100468,
+  "imdbId": "tt0067178",
+  "detail": "Golden Leopard · Locarno 1971",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Last Year at Marienbad",
+  "originalTitle": null,
+  "directors": [
+   "Alain Resnais"
+  ],
+  "year": 1961,
+  "country": null,
+  "tmdbId": 4024,
+  "imdbId": "tt0054632",
+  "detail": "Golden Lion · Venice 1961",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Bleak Moments",
+  "originalTitle": null,
+  "directors": [
+   "Mike Leigh"
+  ],
+  "year": 1972,
+  "country": null,
+  "tmdbId": 122271,
+  "imdbId": "tt0066842",
+  "detail": "Golden Leopard · Locarno 1972",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Short Cuts",
+  "originalTitle": null,
+  "directors": [
+   "Robert Altman"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": 695,
+  "imdbId": "tt0108122",
+  "detail": "Golden Lion · Venice 1993",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Illumination",
+  "originalTitle": null,
+  "directors": [
+   "Krzysztof Zanussi"
+  ],
+  "year": 1973,
+  "country": null,
+  "tmdbId": 154575,
+  "imdbId": "tt0070217",
+  "detail": "Golden Leopard · Locarno 1973",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Umbrellas of Cherbourg",
+  "originalTitle": null,
+  "directors": [
+   "Jacques Demy"
+  ],
+  "year": 1964,
+  "country": null,
+  "tmdbId": 5967,
+  "imdbId": "tt0058450",
+  "detail": "Palme d'Or · Cannes 1964",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Mission",
+  "originalTitle": null,
+  "directors": [
+   "Roland Joffé"
+  ],
+  "year": 1986,
+  "country": null,
+  "tmdbId": 11416,
+  "imdbId": "tt0091530",
+  "detail": "Palme d'Or · Cannes 1986",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Viridiana",
+  "originalTitle": null,
+  "directors": [
+   "Luis Buñuel"
+  ],
+  "year": 1961,
+  "country": null,
+  "tmdbId": 4497,
+  "imdbId": "tt0055601",
+  "detail": "Palme d'Or · Cannes 1961",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Sirāt",
+  "originalTitle": null,
+  "directors": [
+   "Óliver Laxe"
+  ],
+  "year": 2025,
+  "country": null,
+  "tmdbId": 1151272,
+  "imdbId": "tt32298285",
+  "detail": "Jury Prize · Cannes 2025",
+  "awardQid": "Q164200",
+  "awardWeight": 0.5
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Grand Canyon",
+  "originalTitle": null,
+  "directors": [
+   "Lawrence Kasdan"
+  ],
+  "year": 1992,
+  "country": null,
+  "tmdbId": 13697,
+  "imdbId": "tt0101969",
+  "detail": "Golden Bear · Berlin 1992",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Faust (2011 film)",
+  "originalTitle": null,
+  "directors": [
+   "Alexander Sokurov"
+  ],
+  "year": 2011,
+  "country": null,
+  "tmdbId": 77560,
+  "imdbId": "tt1437357",
+  "detail": "Golden Lion · Venice 2011",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Au revoir les enfants",
+  "originalTitle": null,
+  "directors": [
+   "Louis Malle"
+  ],
+  "year": 1987,
+  "country": null,
+  "tmdbId": 1786,
+  "imdbId": "tt0092593",
+  "detail": "Golden Lion · Venice 1987",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Entranced Earth",
+  "originalTitle": null,
+  "directors": [
+   "Glauber Rocha"
+  ],
+  "year": 1967,
+  "country": null,
+  "tmdbId": 67062,
+  "imdbId": "tt0062352",
+  "detail": "Golden Leopard · Locarno 1967",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Accident",
+  "originalTitle": null,
+  "directors": [
+   "Joseph Losey"
+  ],
+  "year": 1967,
+  "country": null,
+  "tmdbId": 74544,
+  "imdbId": "tt0061328",
+  "detail": "Grand Prix · Cannes 1967",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Ascent",
+  "originalTitle": null,
+  "directors": [
+   "Larisa Shepitko"
+  ],
+  "year": 1977,
+  "country": null,
+  "tmdbId": 50183,
+  "imdbId": "tt0075404",
+  "detail": "Golden Bear · Berlin 1977",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Stranger Than Paradise",
+  "originalTitle": null,
+  "directors": [
+   "Jim Jarmusch"
+  ],
+  "year": 1984,
+  "country": null,
+  "tmdbId": 469,
+  "imdbId": "tt0088184",
+  "detail": "Golden Leopard · Locarno 1984",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Apprenticeship of Duddy Kravitz",
+  "originalTitle": null,
+  "directors": [
+   "Ted Kotcheff"
+  ],
+  "year": 1974,
+  "country": null,
+  "tmdbId": 42451,
+  "imdbId": "tt0071155",
+  "detail": "Golden Bear · Berlin 1974",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Shout",
+  "originalTitle": null,
+  "directors": [
+   "Jerzy Skolimowski"
+  ],
+  "year": 1978,
+  "country": null,
+  "tmdbId": 48131,
+  "imdbId": "tt0078259",
+  "detail": "Grand Prix · Cannes 1978",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Canterbury Tales",
+  "originalTitle": null,
+  "directors": [
+   "Pier Paolo Pasolini"
+  ],
+  "year": 1972,
+  "country": null,
+  "tmdbId": 5691,
+  "imdbId": "tt0067647",
+  "detail": "Golden Bear · Berlin 1972",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Tree of Wooden Clogs",
+  "originalTitle": null,
+  "directors": [
+   "Ermanno Olmi"
+  ],
+  "year": 1978,
+  "country": null,
+  "tmdbId": 31542,
+  "imdbId": "tt0077138",
+  "detail": "Palme d'Or · Cannes 1978",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Sweet Emma, Dear Böbe",
+  "originalTitle": null,
+  "directors": [
+   "István Szabó"
+  ],
+  "year": 1992,
+  "country": null,
+  "tmdbId": 41194,
+  "imdbId": "tt0105919",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1992",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Finding Forrester",
+  "originalTitle": null,
+  "directors": [
+   "Gus Van Sant"
+  ],
+  "year": 2001,
+  "country": null,
+  "tmdbId": 711,
+  "imdbId": "tt0181536",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 2001",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Anora",
+  "originalTitle": null,
+  "directors": [
+   "Sean Baker"
+  ],
+  "year": 2024,
+  "country": null,
+  "tmdbId": 1064213,
+  "imdbId": "tt28607951",
+  "detail": "Palme d'Or · Cannes 2024",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Taste of Cherry",
+  "originalTitle": null,
+  "directors": [
+   "Abbas Kiarostami"
+  ],
+  "year": 1997,
+  "country": null,
+  "tmdbId": 30020,
+  "imdbId": "tt0120265",
+  "detail": "Palme d'Or · Cannes 1997",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Yol",
+  "originalTitle": null,
+  "directors": [
+   "Yılmaz Güney",
+   "Şerif Gören"
+  ],
+  "year": 1982,
+  "country": null,
+  "tmdbId": 52556,
+  "imdbId": "tt0084934",
+  "detail": "Palme d'Or · Cannes 1982",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Rashomon",
+  "originalTitle": null,
+  "directors": [
+   "Akira Kurosawa"
+  ],
+  "year": 1951,
+  "country": null,
+  "tmdbId": 548,
+  "imdbId": "tt0042876",
+  "detail": "Golden Lion · Venice 1951",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "What Max Said",
+  "originalTitle": null,
+  "directors": [
+   "Emilio Martínez-Lázaro"
+  ],
+  "year": 1978,
+  "country": null,
+  "tmdbId": 162439,
+  "imdbId": "tt0076520",
+  "detail": "Golden Bear · Berlin 1978",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Seeking Asylum",
+  "originalTitle": null,
+  "directors": [
+   "Marco Ferreri"
+  ],
+  "year": 1980,
+  "country": null,
+  "tmdbId": 53648,
+  "imdbId": "tt0078963",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1980",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Wild at Heart",
+  "originalTitle": null,
+  "directors": [
+   "David Lynch"
+  ],
+  "year": 1990,
+  "country": null,
+  "tmdbId": 483,
+  "imdbId": "tt0100935",
+  "detail": "Palme d'Or · Cannes 1990",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Eel",
+  "originalTitle": null,
+  "directors": [
+   "Shohei Imamura"
+  ],
+  "year": 1997,
+  "country": null,
+  "tmdbId": 20506,
+  "imdbId": "tt0120408",
+  "detail": "Palme d'Or · Cannes 1997",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "A Season in Hakkari",
+  "originalTitle": null,
+  "directors": [
+   "Erden Kıral"
+  ],
+  "year": 1983,
+  "country": null,
+  "tmdbId": 263547,
+  "imdbId": "tt0084045",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1983",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Wrestler",
+  "originalTitle": null,
+  "directors": [
+   "Darren Aronofsky"
+  ],
+  "year": 2008,
+  "country": null,
+  "tmdbId": 12163,
+  "imdbId": "tt1125849",
+  "detail": "Golden Lion · Venice 2008",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Sense and Sensibility",
+  "originalTitle": null,
+  "directors": [
+   "Ang Lee"
+  ],
+  "year": 1996,
+  "country": null,
+  "tmdbId": 4584,
+  "imdbId": "tt0114388",
+  "detail": "Golden Bear · Berlin 1996",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Repulsion",
+  "originalTitle": null,
+  "directors": [
+   "Roman Polanski"
+  ],
+  "year": 1965,
+  "country": null,
+  "tmdbId": 11481,
+  "imdbId": "tt0059646",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1965",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "A Year of the Quiet Sun",
+  "originalTitle": null,
+  "directors": [
+   "Krzysztof Zanussi"
+  ],
+  "year": 1984,
+  "country": null,
+  "tmdbId": 42096,
+  "imdbId": "tt0088009",
+  "detail": "Golden Lion · Venice 1984",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Police Officer's Wife",
+  "originalTitle": null,
+  "directors": [
+   "Philip Gröning"
+  ],
+  "year": 2013,
+  "country": null,
+  "tmdbId": 210228,
+  "imdbId": "tt1734429",
+  "detail": "Grand Jury Prize · Venice 2013",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "La Belle Noiseuse",
+  "originalTitle": null,
+  "directors": [
+   "Jacques Rivette"
+  ],
+  "year": 1991,
+  "country": null,
+  "tmdbId": 12627,
+  "imdbId": "tt0101428",
+  "detail": "Grand Prix · Cannes 1991",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Piano Teacher",
+  "originalTitle": null,
+  "directors": [
+   "Michael Haneke"
+  ],
+  "year": 2001,
+  "country": null,
+  "tmdbId": 1791,
+  "imdbId": "tt0254686",
+  "detail": "Grand Prix · Cannes 2001",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Black Orpheus",
+  "originalTitle": null,
+  "directors": [
+   "Marcel Camus"
+  ],
+  "year": 1959,
+  "country": null,
+  "tmdbId": 40423,
+  "imdbId": "tt0053146",
+  "detail": "Palme d'Or · Cannes 1959",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "La sfida",
+  "originalTitle": null,
+  "directors": [
+   "Francesco Rosi"
+  ],
+  "year": 1958,
+  "country": null,
+  "tmdbId": 156135,
+  "imdbId": "tt0051530",
+  "detail": "Grand Jury Prize · Venice 1958",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Broken Flowers",
+  "originalTitle": null,
+  "directors": [
+   "Jim Jarmusch"
+  ],
+  "year": 2005,
+  "country": null,
+  "tmdbId": 308,
+  "imdbId": "tt0412019",
+  "detail": "Grand Prix · Cannes 2005",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Distant Voices, Still Lives",
+  "originalTitle": null,
+  "directors": [
+   "Terence Davies"
+  ],
+  "year": 1988,
+  "country": null,
+  "tmdbId": 41799,
+  "imdbId": "tt0095037",
+  "detail": "Golden Leopard · Locarno 1988",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Neecha Nagar",
+  "originalTitle": null,
+  "directors": [
+   "Chetan Anand"
+  ],
+  "year": 1946,
+  "country": null,
+  "tmdbId": 154879,
+  "imdbId": "tt0154942",
+  "detail": "Palme d'Or · Cannes 1946",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Belle de Jour",
+  "originalTitle": null,
+  "directors": [
+   "Luis Buñuel"
+  ],
+  "year": 1967,
+  "country": null,
+  "tmdbId": 649,
+  "imdbId": "tt0061395",
+  "detail": "Golden Lion · Venice 1967",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Anomalisa",
+  "originalTitle": null,
+  "directors": [
+   "Charlie Kaufman",
+   "Duke Johnson"
+  ],
+  "year": 2015,
+  "country": null,
+  "tmdbId": 291270,
+  "imdbId": "tt2401878",
+  "detail": "Grand Jury Prize · Venice 2015",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Rosencrantz & Guildenstern Are Dead",
+  "originalTitle": null,
+  "directors": [
+   "Tom Stoppard"
+  ],
+  "year": 1990,
+  "country": null,
+  "tmdbId": 18971,
+  "imdbId": "tt0100519",
+  "detail": "Golden Lion · Venice 1990",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "On the Adamant",
+  "originalTitle": null,
+  "directors": [
+   "Nicolas Philibert"
+  ],
+  "year": 2023,
+  "country": null,
+  "tmdbId": 1070449,
+  "imdbId": "tt26448811",
+  "detail": "Golden Bear · Berlin 2023",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Romeo and Juliet",
+  "originalTitle": null,
+  "directors": [
+   "Renato Castellani"
+  ],
+  "year": 1954,
+  "country": null,
+  "tmdbId": 92784,
+  "imdbId": "tt0047029",
+  "detail": "Golden Lion · Venice 1954",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Early Works",
+  "originalTitle": null,
+  "directors": [
+   "Želimir Žilnik"
+  ],
+  "year": 1969,
+  "country": null,
+  "tmdbId": 162421,
+  "imdbId": "tt0064874",
+  "detail": "Golden Bear · Berlin 1969",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Right Now, Wrong Then",
+  "originalTitle": null,
+  "directors": [
+   "Hong Sang-soo"
+  ],
+  "year": 2015,
+  "country": null,
+  "tmdbId": 354275,
+  "imdbId": "tt4768776",
+  "detail": "Golden Leopard · Locarno 2015",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Cyclo",
+  "originalTitle": null,
+  "directors": [
+   "Trần Anh Hùng"
+  ],
+  "year": 1995,
+  "country": null,
+  "tmdbId": 36266,
+  "imdbId": "tt0112767",
+  "detail": "Golden Lion · Venice 1995",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Conviction",
+  "originalTitle": null,
+  "directors": [
+   "Marco Bellocchio"
+  ],
+  "year": 1991,
+  "country": null,
+  "tmdbId": 175956,
+  "imdbId": "tt0099296",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1991",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Beijing Bicycle",
+  "originalTitle": null,
+  "directors": [
+   "Wang Xiaoshuai"
+  ],
+  "year": 2001,
+  "country": null,
+  "tmdbId": 12659,
+  "imdbId": "tt0276501",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 2001",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Alexandria... Why?",
+  "originalTitle": null,
+  "directors": [
+   "Youssef Chahine"
+  ],
+  "year": 1979,
+  "country": null,
+  "tmdbId": 40939,
+  "imdbId": "tt0077751",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1979",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Il Divo",
+  "originalTitle": null,
+  "directors": [
+   "Paolo Sorrentino"
+  ],
+  "year": 2008,
+  "country": null,
+  "tmdbId": 8832,
+  "imdbId": "tt1023490",
+  "detail": "Jury Prize · Cannes 2008",
+  "awardQid": "Q164200",
+  "awardWeight": 0.5
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Grill Point",
+  "originalTitle": null,
+  "directors": [
+   "Andreas Dresen"
+  ],
+  "year": 2002,
+  "country": null,
+  "tmdbId": 316,
+  "imdbId": "tt0304126",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 2002",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Devils on the Doorstep",
+  "originalTitle": null,
+  "directors": [
+   "Jiang Wen"
+  ],
+  "year": 2000,
+  "country": null,
+  "tmdbId": 25838,
+  "imdbId": "tt0245929",
+  "detail": "Grand Prix · Cannes 2000",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Happening",
+  "originalTitle": null,
+  "directors": [
+   "Audrey Diwan"
+  ],
+  "year": 2021,
+  "country": null,
+  "tmdbId": 793998,
+  "imdbId": "tt13880104",
+  "detail": "Golden Lion · Venice 2021",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Wetherby",
+  "originalTitle": null,
+  "directors": [
+   "David Hare"
+  ],
+  "year": 1985,
+  "country": null,
+  "tmdbId": 147747,
+  "imdbId": "tt0090310",
+  "detail": "Golden Bear · Berlin 1985",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Divine Comedy",
+  "originalTitle": null,
+  "directors": [
+   "Manoel de Oliveira"
+  ],
+  "year": 1991,
+  "country": null,
+  "tmdbId": 104482,
+  "imdbId": "tt0101739",
+  "detail": "Grand Jury Prize · Venice 1991",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Four in the Morning",
+  "originalTitle": null,
+  "directors": [
+   "Anthony Simmons"
+  ],
+  "year": 1965,
+  "country": null,
+  "tmdbId": 129134,
+  "imdbId": "tt0060426",
+  "detail": "Golden Leopard · Locarno 1965",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Cranes Are Flying",
+  "originalTitle": null,
+  "directors": [
+   "Mikhail Kalatozov"
+  ],
+  "year": 1958,
+  "country": null,
+  "tmdbId": 38360,
+  "imdbId": "tt0050634",
+  "detail": "Palme d'Or · Cannes 1958",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Prince Bayaya",
+  "originalTitle": null,
+  "directors": [
+   "Jiří Trnka"
+  ],
+  "year": 1954,
+  "country": null,
+  "tmdbId": 257095,
+  "imdbId": "tt0225145",
+  "detail": "Golden Leopard · Locarno 1954",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Q1198726",
+  "originalTitle": null,
+  "directors": [
+   "Richard Lester"
+  ],
+  "year": 1965,
+  "country": null,
+  "tmdbId": 42744,
+  "imdbId": "tt0059362",
+  "detail": "Palme d'Or · Cannes 1965",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "And Then There Was Light",
+  "originalTitle": null,
+  "directors": [
+   "Otar Iosseliani"
+  ],
+  "year": 1989,
+  "country": null,
+  "tmdbId": 203986,
+  "imdbId": "tt0097297",
+  "detail": "Grand Jury Prize · Venice 1989",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "A World Apart",
+  "originalTitle": null,
+  "directors": [
+   "Chris Menges"
+  ],
+  "year": 1988,
+  "country": null,
+  "tmdbId": 41949,
+  "imdbId": "tt0096464",
+  "detail": "Grand Prix · Cannes 1988",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Sex, Lies, and Videotape",
+  "originalTitle": null,
+  "directors": [
+   "Steven Soderbergh"
+  ],
+  "year": 1989,
+  "country": null,
+  "tmdbId": 1412,
+  "imdbId": "tt0098724",
+  "detail": "Palme d'Or · Cannes 1989",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Ådalen 31",
+  "originalTitle": null,
+  "directors": [
+   "Bo Widerberg"
+  ],
+  "year": 1969,
+  "country": null,
+  "tmdbId": 87208,
+  "imdbId": "tt0065261",
+  "detail": "Grand Prix · Cannes 1969",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Dahomey",
+  "originalTitle": null,
+  "directors": [
+   "Mati Diop"
+  ],
+  "year": 2024,
+  "country": null,
+  "tmdbId": 1101256,
+  "imdbId": "tt31015216",
+  "detail": "Golden Bear · Berlin 2024",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "They Don't Wear Black Tie",
+  "originalTitle": null,
+  "directors": [
+   "Leon Hirszman"
+  ],
+  "year": 1981,
+  "country": null,
+  "tmdbId": 203158,
+  "imdbId": "tt0082317",
+  "detail": "Grand Jury Prize · Venice 1981",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Working Class Goes to Heaven",
+  "originalTitle": null,
+  "directors": [
+   "Elio Petri"
+  ],
+  "year": 1972,
+  "country": null,
+  "tmdbId": 56231,
+  "imdbId": "tt0066919",
+  "detail": "Palme d'Or · Cannes 1972",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Wages of Fear",
+  "originalTitle": null,
+  "directors": [
+   "Henri-Georges Clouzot"
+  ],
+  "year": 1953,
+  "country": null,
+  "tmdbId": 204,
+  "imdbId": "tt0046268",
+  "detail": "Palme d'Or · Cannes 1953",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Uncle Boonmee Who Can Recall His Past Lives",
+  "originalTitle": null,
+  "directors": [
+   "Apichatpong Weerasethakul"
+  ],
+  "year": 2010,
+  "country": null,
+  "tmdbId": 38368,
+  "imdbId": "tt1588895",
+  "detail": "Palme d'Or · Cannes 2010",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Friendly Persuasion",
+  "originalTitle": null,
+  "directors": [
+   "William Wyler"
+  ],
+  "year": 1957,
+  "country": null,
+  "tmdbId": 43258,
+  "imdbId": "tt0049233",
+  "detail": "Palme d'Or · Cannes 1957",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Burnt by the Sun",
+  "originalTitle": null,
+  "directors": [
+   "Nikita Mikhalkov"
+  ],
+  "year": 1994,
+  "country": null,
+  "tmdbId": 50797,
+  "imdbId": "tt0111579",
+  "detail": "Grand Prix · Cannes 1994",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Favourite",
+  "originalTitle": null,
+  "directors": [
+   "Yorgos Lanthimos"
+  ],
+  "year": 2018,
+  "country": null,
+  "tmdbId": 375262,
+  "imdbId": "tt5083738",
+  "detail": "Grand Jury Prize · Venice 2018",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Offside",
+  "originalTitle": null,
+  "directors": [
+   "Jafar Panahi"
+  ],
+  "year": 2006,
+  "country": null,
+  "tmdbId": 13209,
+  "imdbId": "tt0499537",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 2006",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Of Gods and Men",
+  "originalTitle": null,
+  "directors": [
+   "Xavier Beauvois"
+  ],
+  "year": 2010,
+  "country": null,
+  "tmdbId": 46332,
+  "imdbId": "tt1588337",
+  "detail": "Grand Prix · Cannes 2010",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Padre Padrone",
+  "originalTitle": null,
+  "directors": [
+   "Paolo Taviani",
+   "Vittorio Taviani"
+  ],
+  "year": 1977,
+  "country": null,
+  "tmdbId": 42225,
+  "imdbId": "tt0076517",
+  "detail": "Palme d'Or · Cannes 1977",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Biquefarre",
+  "originalTitle": null,
+  "directors": [
+   "Georges Rouquier"
+  ],
+  "year": 1983,
+  "country": null,
+  "tmdbId": 146398,
+  "imdbId": "tt0086968",
+  "detail": "Grand Jury Prize · Venice 1983",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "House of Fools",
+  "originalTitle": null,
+  "directors": [
+   "Andrei Konchalovsky"
+  ],
+  "year": 2002,
+  "country": null,
+  "tmdbId": 72996,
+  "imdbId": "tt0332605",
+  "detail": "Grand Jury Prize · Venice 2002",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Pulp Fiction",
+  "originalTitle": null,
+  "directors": [
+   "Quentin Tarantino"
+  ],
+  "year": 1994,
+  "country": null,
+  "tmdbId": 680,
+  "imdbId": "tt0110912",
+  "detail": "Palme d'Or · Cannes 1994",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Faraway, So Close!",
+  "originalTitle": null,
+  "directors": [
+   "Wim Wenders"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": 10434,
+  "imdbId": "tt0107209",
+  "detail": "Grand Prix · Cannes 1993",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "I Even Met Happy Gypsies",
+  "originalTitle": null,
+  "directors": [
+   "Aleksandar Petrović"
+  ],
+  "year": 1967,
+  "country": null,
+  "tmdbId": 59088,
+  "imdbId": "tt0062277",
+  "detail": "Grand Prix · Cannes 1967",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Two Cents Worth of Hope",
+  "originalTitle": null,
+  "directors": [
+   "Renato Castellani"
+  ],
+  "year": 1952,
+  "country": null,
+  "tmdbId": 117478,
+  "imdbId": "tt0044572",
+  "detail": "Palme d'Or · Cannes 1952",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "In This World",
+  "originalTitle": null,
+  "directors": [
+   "Michael Winterbottom"
+  ],
+  "year": 2003,
+  "country": null,
+  "tmdbId": 36791,
+  "imdbId": "tt0310154",
+  "detail": "Golden Bear · Berlin 2003",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Inside Llewyn Davis",
+  "originalTitle": null,
+  "directors": [
+   "Ethan Coen",
+   "Joel Coen"
+  ],
+  "year": 2013,
+  "country": null,
+  "tmdbId": 86829,
+  "imdbId": "tt2042568",
+  "detail": "Grand Prix · Cannes 2013",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Story of My Death",
+  "originalTitle": null,
+  "directors": [
+   "Albert Serra"
+  ],
+  "year": 2013,
+  "country": null,
+  "tmdbId": 214251,
+  "imdbId": "tt3102458",
+  "detail": "Golden Leopard · Locarno 2013",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Man of Iron",
+  "originalTitle": null,
+  "directors": [
+   "Andrzej Wajda"
+  ],
+  "year": 1981,
+  "country": null,
+  "tmdbId": 225,
+  "imdbId": "tt0082222",
+  "detail": "Palme d'Or · Cannes 1981",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Soleil Ô",
+  "originalTitle": null,
+  "directors": [
+   "Med Hondo"
+  ],
+  "year": 1970,
+  "country": null,
+  "tmdbId": 195841,
+  "imdbId": "tt0062285",
+  "detail": "Golden Leopard · Locarno 1970",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Germany, Year Zero",
+  "originalTitle": null,
+  "directors": [
+   "Roberto Rossellini"
+  ],
+  "year": 1948,
+  "country": null,
+  "tmdbId": 8016,
+  "imdbId": "tt0039417",
+  "detail": "Golden Leopard · Locarno 1948",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "There Is No Evil",
+  "originalTitle": null,
+  "directors": [
+   "Mohammad Rasoulof"
+  ],
+  "year": 2020,
+  "country": null,
+  "tmdbId": 667935,
+  "imdbId": "tt11697844",
+  "detail": "Golden Bear · Berlin 2020",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Why Has Bodhi-Dharma Left for the East?",
+  "originalTitle": null,
+  "directors": [
+   "Bae Yong-kyun"
+  ],
+  "year": 1989,
+  "country": null,
+  "tmdbId": 62637,
+  "imdbId": "tt0097195",
+  "detail": "Golden Leopard · Locarno 1989",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Father",
+  "originalTitle": null,
+  "directors": [
+   "Wang Shuo"
+  ],
+  "year": 2000,
+  "country": null,
+  "tmdbId": 255526,
+  "imdbId": "tt0256630",
+  "detail": "Golden Leopard · Locarno 2000",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Way We Laughed",
+  "originalTitle": null,
+  "directors": [
+   "Gianni Amelio"
+  ],
+  "year": 1998,
+  "country": null,
+  "tmdbId": 58098,
+  "imdbId": "tt0139951",
+  "detail": "Golden Lion · Venice 1998",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Raining Stones",
+  "originalTitle": null,
+  "directors": [
+   "Ken Loach"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": 62463,
+  "imdbId": "tt0107920",
+  "detail": "Jury Prize · Cannes 1993",
+  "awardQid": "Q164200",
+  "awardWeight": 0.5
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Winter Sleep",
+  "originalTitle": null,
+  "directors": [
+   "Nuri Bilge Ceylan"
+  ],
+  "year": 2014,
+  "country": null,
+  "tmdbId": 265169,
+  "imdbId": "tt2758880",
+  "detail": "Palme d'Or · Cannes 2014",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Nomadland",
+  "originalTitle": null,
+  "directors": [
+   "Chloé Zhao"
+  ],
+  "year": 2020,
+  "country": null,
+  "tmdbId": 581734,
+  "imdbId": "tt9770150",
+  "detail": "Golden Lion · Venice 2020",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "When Willie Comes Marching Home",
+  "originalTitle": null,
+  "directors": [
+   "John Ford"
+  ],
+  "year": 1950,
+  "country": null,
+  "tmdbId": 54615,
+  "imdbId": "tt0043129",
+  "detail": "Golden Leopard · Locarno 1950",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Battle of Algiers",
+  "originalTitle": null,
+  "directors": [
+   "Gillo Pontecorvo"
+  ],
+  "year": 1965,
+  "country": null,
+  "tmdbId": 17295,
+  "imdbId": "tt0058946",
+  "detail": "Golden Lion · Venice 1965",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Brigands",
+  "originalTitle": null,
+  "directors": [
+   "Otar Iosseliani"
+  ],
+  "year": 1996,
+  "country": null,
+  "tmdbId": 48012,
+  "imdbId": "tt0115755",
+  "detail": "Grand Jury Prize · Venice 1996",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "El Lazarillo de Tormes",
+  "originalTitle": null,
+  "directors": [
+   "César Fernández-Ardavín"
+  ],
+  "year": 1959,
+  "country": null,
+  "tmdbId": 162368,
+  "imdbId": "tt0052995",
+  "detail": "Golden Bear · Berlin 1959",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "A Queda",
+  "originalTitle": null,
+  "directors": [
+   "Ruy Guerra",
+   "Nelson Xavier"
+  ],
+  "year": 1978,
+  "country": null,
+  "tmdbId": 195560,
+  "imdbId": "tt0075112",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1978",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Khamosh Pani",
+  "originalTitle": null,
+  "directors": [
+   "Sabiha Sumar"
+  ],
+  "year": 2003,
+  "country": null,
+  "tmdbId": 100086,
+  "imdbId": "tt0357283",
+  "detail": "Golden Leopard · Locarno 2003",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Princess",
+  "originalTitle": null,
+  "directors": [
+   "Pál Erdőss"
+  ],
+  "year": 1983,
+  "country": null,
+  "tmdbId": 273602,
+  "imdbId": "tt0083522",
+  "detail": "Golden Leopard · Locarno 1983",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "In Good Company",
+  "originalTitle": null,
+  "directors": [
+   "Paul Weitz",
+   "Lawrence Pressman"
+  ],
+  "year": 2005,
+  "country": null,
+  "tmdbId": 1901,
+  "imdbId": "tt0385267",
+  "detail": "Golden Bear · Berlin 2005",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "From Afar",
+  "originalTitle": null,
+  "directors": [
+   "Lorenzo Vigas"
+  ],
+  "year": 2015,
+  "country": null,
+  "tmdbId": 352162,
+  "imdbId": "tt4721400",
+  "detail": "Golden Lion · Venice 2015",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Chasers",
+  "originalTitle": null,
+  "directors": [
+   "Yngve Gamlin"
+  ],
+  "year": 1966,
+  "country": null,
+  "tmdbId": 268864,
+  "imdbId": "tt0059326",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1966",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Tangos, the Exile of Gardel",
+  "originalTitle": null,
+  "directors": [
+   "Fernando Solanas"
+  ],
+  "year": 1985,
+  "country": null,
+  "tmdbId": 182469,
+  "imdbId": "tt0090125",
+  "detail": "Grand Jury Prize · Venice 1985",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Sogni d'oro",
+  "originalTitle": null,
+  "directors": [
+   "Nanni Moretti"
+  ],
+  "year": 1981,
+  "country": null,
+  "tmdbId": 57967,
+  "imdbId": "tt0083102",
+  "detail": "Grand Jury Prize · Venice 1981",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "To Bed or Not to Bed",
+  "originalTitle": null,
+  "directors": [
+   "Gian Luigi Polidoro"
+  ],
+  "year": 1963,
+  "country": null,
+  "tmdbId": 162382,
+  "imdbId": "tt0056995",
+  "detail": "Golden Bear · Berlin 1963",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Humanité",
+  "originalTitle": null,
+  "directors": [
+   "Bruno Dumont"
+  ],
+  "year": 1999,
+  "country": null,
+  "tmdbId": 65296,
+  "imdbId": "tt0197569",
+  "detail": "Grand Prix · Cannes 1999",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Touch Me Not",
+  "originalTitle": null,
+  "directors": [
+   "Adina Pintilie"
+  ],
+  "year": 2018,
+  "country": null,
+  "tmdbId": 499155,
+  "imdbId": "tt4949112",
+  "detail": "Golden Bear · Berlin 2018",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Everyone Else",
+  "originalTitle": null,
+  "directors": [
+   "Maren Ade"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": 33809,
+  "imdbId": "tt1204773",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 2009",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Best Intentions",
+  "originalTitle": null,
+  "directors": [
+   "Bille August"
+  ],
+  "year": 1992,
+  "country": null,
+  "tmdbId": 41764,
+  "imdbId": "tt0104350",
+  "detail": "Palme d'Or · Cannes 1992",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Daratt",
+  "originalTitle": null,
+  "directors": [
+   "Mahamat Saleh Haroun"
+  ],
+  "year": 2006,
+  "country": null,
+  "tmdbId": 24171,
+  "imdbId": "tt0825241",
+  "detail": "Grand Jury Prize · Venice 2006",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Wind That Shakes the Barley",
+  "originalTitle": null,
+  "directors": [
+   "Ken Loach"
+  ],
+  "year": 2006,
+  "country": null,
+  "tmdbId": 1116,
+  "imdbId": "tt0460989",
+  "detail": "Palme d'Or · Cannes 2006",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "On the Point of Death",
+  "originalTitle": null,
+  "directors": [
+   "Mario Garriba"
+  ],
+  "year": 1971,
+  "country": null,
+  "tmdbId": 607189,
+  "imdbId": "tt0128269",
+  "detail": "Golden Leopard · Locarno 1971",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Dancer in the Dark",
+  "originalTitle": null,
+  "directors": [
+   "Lars von Trier"
+  ],
+  "year": 2000,
+  "country": null,
+  "tmdbId": 16,
+  "imdbId": "tt0168629",
+  "detail": "Palme d'Or · Cannes 2000",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Mr. Zhao",
+  "originalTitle": null,
+  "directors": [
+   "Lü Yue"
+  ],
+  "year": 1998,
+  "country": null,
+  "tmdbId": 287171,
+  "imdbId": "tt0166890",
+  "detail": "Golden Leopard · Locarno 1998",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Fanfan la Tulipe",
+  "originalTitle": null,
+  "directors": [
+   "Christian-Jaque"
+  ],
+  "year": 1952,
+  "country": null,
+  "tmdbId": 62547,
+  "imdbId": "tt0044602",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1952",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Smoke",
+  "originalTitle": null,
+  "directors": [
+   "Paul Auster",
+   "Wayne Wang"
+  ],
+  "year": 1995,
+  "country": null,
+  "tmdbId": 10149,
+  "imdbId": "tt0114478",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1995",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Long Absence",
+  "originalTitle": null,
+  "directors": [
+   "Henri Colpi"
+  ],
+  "year": 1961,
+  "country": null,
+  "tmdbId": 131836,
+  "imdbId": "tt0054426",
+  "detail": "Palme d'Or · Cannes 1961",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Rams",
+  "originalTitle": null,
+  "directors": [
+   "Grímur Hákonarson"
+  ],
+  "year": 2015,
+  "country": null,
+  "tmdbId": 336222,
+  "imdbId": "tt3296658",
+  "detail": "Un Certain Regard Award · Cannes 2015",
+  "awardQid": "Q17354954",
+  "awardWeight": 0.4
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Return",
+  "originalTitle": null,
+  "directors": [
+   "Andrey Zvyagintsev"
+  ],
+  "year": 2003,
+  "country": null,
+  "tmdbId": 11190,
+  "imdbId": "tt0376968",
+  "detail": "Golden Lion · Venice 2003",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Natural Born Killers",
+  "originalTitle": null,
+  "directors": [
+   "Oliver Stone"
+  ],
+  "year": 1994,
+  "country": null,
+  "tmdbId": 241,
+  "imdbId": "tt0110632",
+  "detail": "Grand Jury Prize · Venice 1994",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Theme",
+  "originalTitle": null,
+  "directors": [
+   "Gleb Panfilov"
+  ],
+  "year": 1987,
+  "country": null,
+  "tmdbId": 131349,
+  "imdbId": "tt0079999",
+  "detail": "Golden Bear · Berlin 1987",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Clockmaker",
+  "originalTitle": null,
+  "directors": [
+   "Bertrand Tavernier"
+  ],
+  "year": 1974,
+  "country": null,
+  "tmdbId": 8425,
+  "imdbId": "tt0071622",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1974",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Bushido, Samurai Saga",
+  "originalTitle": null,
+  "directors": [
+   "Tadashi Imai"
+  ],
+  "year": 1963,
+  "country": null,
+  "tmdbId": 90299,
+  "imdbId": "tt0055816",
+  "detail": "Golden Bear · Berlin 1963",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Die Ratten",
+  "originalTitle": null,
+  "directors": [
+   "Robert Siodmak"
+  ],
+  "year": 1955,
+  "country": null,
+  "tmdbId": 148836,
+  "imdbId": "tt0048542",
+  "detail": "Golden Bear · Berlin 1955",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Terraferma",
+  "originalTitle": null,
+  "directors": [
+   "Emanuele Crialese"
+  ],
+  "year": 2011,
+  "country": null,
+  "tmdbId": 73872,
+  "imdbId": "tt1641410",
+  "detail": "Grand Jury Prize · Venice 2011",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Secret of the Grain",
+  "originalTitle": null,
+  "directors": [
+   "Abdellatif Kechiche"
+  ],
+  "year": 2007,
+  "country": null,
+  "tmdbId": 8280,
+  "imdbId": "tt0487419",
+  "detail": "Grand Jury Prize · Venice 2007",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Kagemusha",
+  "originalTitle": null,
+  "directors": [
+   "Akira Kurosawa"
+  ],
+  "year": 1980,
+  "country": null,
+  "tmdbId": 11953,
+  "imdbId": "tt0080979",
+  "detail": "Palme d'Or · Cannes 1980",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Harmonium",
+  "originalTitle": null,
+  "directors": [
+   "Kōji Fukada"
+  ],
+  "year": 2016,
+  "country": null,
+  "tmdbId": 392795,
+  "imdbId": "tt5182856",
+  "detail": "Un Certain Regard Award · Cannes 2016",
+  "awardQid": "Q17354954",
+  "awardWeight": 0.4
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Rickshaw Man",
+  "originalTitle": null,
+  "directors": [
+   "Hiroshi Inagaki"
+  ],
+  "year": 1958,
+  "country": null,
+  "tmdbId": 43121,
+  "imdbId": "tt0051955",
+  "detail": "Golden Lion · Venice 1958",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Bread, Love and Dreams",
+  "originalTitle": null,
+  "directors": [
+   "Luigi Comencini"
+  ],
+  "year": 1954,
+  "country": null,
+  "tmdbId": 56402,
+  "imdbId": "tt0046159",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1954",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Square",
+  "originalTitle": null,
+  "directors": [
+   "Ruben Östlund"
+  ],
+  "year": 2017,
+  "country": null,
+  "tmdbId": 401246,
+  "imdbId": "tt4995790",
+  "detail": "Palme d'Or · Cannes 2017",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Fjord",
+  "originalTitle": null,
+  "directors": [
+   "Cristian Mungiu"
+  ],
+  "year": 2026,
+  "country": null,
+  "tmdbId": 1401459,
+  "imdbId": "tt35410859",
+  "detail": "Palme d'Or · Cannes 2026",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Common Man",
+  "originalTitle": null,
+  "directors": [
+   "Yves Boisset"
+  ],
+  "year": 1975,
+  "country": null,
+  "tmdbId": 5602,
+  "imdbId": "tt0071449",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1975",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Three Colours: Blue",
+  "originalTitle": null,
+  "directors": [
+   "Krzysztof Kieślowski"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": 108,
+  "imdbId": "tt0108394",
+  "detail": "Golden Lion · Venice 1993",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Sivas",
+  "originalTitle": null,
+  "directors": [
+   "Kaan Müjdeci"
+  ],
+  "year": 2014,
+  "country": null,
+  "tmdbId": 283706,
+  "imdbId": "tt3894344",
+  "detail": "Grand Jury Prize · Venice 2014",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Winner",
+  "originalTitle": null,
+  "directors": [
+   "François Reichenbach"
+  ],
+  "year": 1962,
+  "country": null,
+  "tmdbId": 275092,
+  "imdbId": "tt0056635",
+  "detail": "Golden Leopard · Locarno 1962",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Accidental Waltz",
+  "originalTitle": null,
+  "directors": [
+   "Svetlana Proskurina"
+  ],
+  "year": 1990,
+  "country": null,
+  "tmdbId": 389825,
+  "imdbId": "tt0128542",
+  "detail": "Golden Leopard · Locarno 1990",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Atlantic City",
+  "originalTitle": null,
+  "directors": [
+   "Louis Malle"
+  ],
+  "year": 1980,
+  "country": null,
+  "tmdbId": 23954,
+  "imdbId": "tt0080388",
+  "detail": "Golden Lion · Venice 1980",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Somewhere",
+  "originalTitle": null,
+  "directors": [
+   "Sofia Coppola"
+  ],
+  "year": 2010,
+  "country": null,
+  "tmdbId": 39210,
+  "imdbId": "tt1421051",
+  "detail": "Golden Lion · Venice 2010",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Red Sorghum",
+  "originalTitle": null,
+  "directors": [
+   "Zhang Yimou"
+  ],
+  "year": 1988,
+  "country": null,
+  "tmdbId": 42006,
+  "imdbId": "tt0093206",
+  "detail": "Golden Bear · Berlin 1988",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Girl from Nowhere",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Claude Brisseau"
+  ],
+  "year": 2012,
+  "country": null,
+  "tmdbId": 153820,
+  "imdbId": "tt2332514",
+  "detail": "Golden Leopard · Locarno 2012",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Alle Jahre wieder",
+  "originalTitle": null,
+  "directors": [
+   "Ulrich Schamoni"
+  ],
+  "year": 1967,
+  "country": null,
+  "tmdbId": 262617,
+  "imdbId": "tt0061346",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1967",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Music Box",
+  "originalTitle": null,
+  "directors": [
+   "Costa-Gavras"
+  ],
+  "year": 1990,
+  "country": null,
+  "tmdbId": 2263,
+  "imdbId": "tt0100211",
+  "detail": "Golden Bear · Berlin 1990",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The White Ribbon",
+  "originalTitle": null,
+  "directors": [
+   "Michael Haneke"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": 37903,
+  "imdbId": "tt1149362",
+  "detail": "Palme d'Or · Cannes 2009",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Rotation",
+  "originalTitle": null,
+  "directors": [
+   "Wolfgang Staudte"
+  ],
+  "year": 1954,
+  "country": null,
+  "tmdbId": 212434,
+  "imdbId": "tt0041826",
+  "detail": "Golden Leopard · Locarno 1954",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Central Station",
+  "originalTitle": null,
+  "directors": [
+   "Walter Salles"
+  ],
+  "year": 1998,
+  "country": null,
+  "tmdbId": 666,
+  "imdbId": "tt0140888",
+  "detail": "Golden Bear · Berlin 1998",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Intimacy",
+  "originalTitle": null,
+  "directors": [
+   "Patrice Chéreau"
+  ],
+  "year": 2001,
+  "country": null,
+  "tmdbId": 11845,
+  "imdbId": "tt0256103",
+  "detail": "Golden Bear · Berlin 2001",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Love Streams",
+  "originalTitle": null,
+  "directors": [
+   "John Cassavetes"
+  ],
+  "year": 1984,
+  "country": null,
+  "tmdbId": 52109,
+  "imdbId": "tt0087644",
+  "detail": "Golden Bear · Berlin 1984",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Man Without a Past",
+  "originalTitle": null,
+  "directors": [
+   "Aki Kaurismäki"
+  ],
+  "year": 2002,
+  "country": null,
+  "tmdbId": 7294,
+  "imdbId": "tt0311519",
+  "detail": "Grand Prix · Cannes 2002",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Amour",
+  "originalTitle": null,
+  "directors": [
+   "Michael Haneke"
+  ],
+  "year": 2012,
+  "country": null,
+  "tmdbId": 86837,
+  "imdbId": "tt1602620",
+  "detail": "Palme d'Or · Cannes 2012",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Le Fils d'Amr est mort",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Jacques Andrien"
+  ],
+  "year": 1975,
+  "country": null,
+  "tmdbId": 458983,
+  "imdbId": "tt0128212",
+  "detail": "Golden Leopard · Locarno 1975",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Taxi",
+  "originalTitle": null,
+  "directors": [
+   "Jafar Panahi"
+  ],
+  "year": 2015,
+  "country": null,
+  "tmdbId": 320006,
+  "imdbId": "tt4359416",
+  "detail": "Golden Bear · Berlin 2015",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Path of Hope",
+  "originalTitle": null,
+  "directors": [
+   "Pietro Germi"
+  ],
+  "year": 1951,
+  "country": null,
+  "tmdbId": 57628,
+  "imdbId": "tt0042301",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1951",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Those Who Wear Glasses",
+  "originalTitle": null,
+  "directors": [
+   "Sándor Simó"
+  ],
+  "year": 1969,
+  "country": null,
+  "tmdbId": 343466,
+  "imdbId": "tt0065058",
+  "detail": "Golden Leopard · Locarno 1969",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Siberiade",
+  "originalTitle": null,
+  "directors": [
+   "Andrei Konchalovsky"
+  ],
+  "year": 1979,
+  "country": null,
+  "tmdbId": 68553,
+  "imdbId": "tt0079907",
+  "detail": "Grand Prix · Cannes 1979",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Two Seasons, Two Strangers",
+  "originalTitle": null,
+  "directors": [
+   "Shō Miyake"
+  ],
+  "year": 2025,
+  "country": null,
+  "tmdbId": 1462735,
+  "imdbId": "tt37538491",
+  "detail": "Golden Leopard · Locarno 2025",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Synonyms",
+  "originalTitle": null,
+  "directors": [
+   "Nadav Lapid"
+  ],
+  "year": 2019,
+  "country": null,
+  "tmdbId": 501590,
+  "imdbId": "tt7016254",
+  "detail": "Golden Bear · Berlin 2019",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Red Desert",
+  "originalTitle": null,
+  "directors": [
+   "Michelangelo Antonioni"
+  ],
+  "year": 1964,
+  "country": null,
+  "tmdbId": 26638,
+  "imdbId": "tt0058003",
+  "detail": "Golden Lion · Venice 1964",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Hand of God",
+  "originalTitle": null,
+  "directors": [
+   "Paolo Sorrentino"
+  ],
+  "year": 2021,
+  "country": null,
+  "tmdbId": 722778,
+  "imdbId": "tt12680684",
+  "detail": "Grand Jury Prize · Venice 2021",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "No Shooting Time for Foxes",
+  "originalTitle": null,
+  "directors": [
+   "Peter Schamoni"
+  ],
+  "year": 1966,
+  "country": null,
+  "tmdbId": 267662,
+  "imdbId": "tt0060946",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1966",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Piano",
+  "originalTitle": null,
+  "directors": [
+   "Jane Campion"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": 713,
+  "imdbId": "tt0107822",
+  "detail": "Palme d'Or · Cannes 1993",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Fish Tank",
+  "originalTitle": null,
+  "directors": [
+   "Andrea Arnold"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": 24469,
+  "imdbId": "tt1232776",
+  "detail": "Jury Prize · Cannes 2009",
+  "awardQid": "Q164200",
+  "awardWeight": 0.5
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Anatomy of a Fall",
+  "originalTitle": null,
+  "directors": [
+   "Justine Triet"
+  ],
+  "year": 2023,
+  "country": null,
+  "tmdbId": 915935,
+  "imdbId": "tt17009710",
+  "detail": "Palme d'Or · Cannes 2023",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "One Summer of Happiness",
+  "originalTitle": null,
+  "directors": [
+   "Arne Mattsson"
+  ],
+  "year": 1952,
+  "country": null,
+  "tmdbId": 56719,
+  "imdbId": "tt0043652",
+  "detail": "Golden Bear · Berlin 1952",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Wedding Banquet",
+  "originalTitle": null,
+  "directors": [
+   "Ang Lee"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": 9261,
+  "imdbId": "tt0107156",
+  "detail": "Golden Bear · Berlin 1993",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Great War",
+  "originalTitle": null,
+  "directors": [
+   "Mario Monicelli"
+  ],
+  "year": 1959,
+  "country": null,
+  "tmdbId": 55823,
+  "imdbId": "tt0052861",
+  "detail": "Golden Lion · Venice 1959",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Poor Things",
+  "originalTitle": null,
+  "directors": [
+   "Yorgos Lanthimos"
+  ],
+  "year": 2023,
+  "country": null,
+  "tmdbId": 792307,
+  "imdbId": "tt14230458",
+  "detail": "Golden Lion · Venice 2023",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Justice Is Done",
+  "originalTitle": null,
+  "directors": [
+   "André Cayatte"
+  ],
+  "year": 1950,
+  "country": null,
+  "tmdbId": 67731,
+  "imdbId": "tt0042625",
+  "detail": "Golden Lion · Venice 1950",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Working Class Goes to Heaven",
+  "originalTitle": null,
+  "directors": [
+   "Elio Petri"
+  ],
+  "year": 1971,
+  "country": null,
+  "tmdbId": 56231,
+  "imdbId": "tt0066919",
+  "detail": "Grand Prix · Cannes 1971",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Odd Obsession",
+  "originalTitle": null,
+  "directors": [
+   "Kon Ichikawa"
+  ],
+  "year": 1960,
+  "country": null,
+  "tmdbId": 43095,
+  "imdbId": "tt0052957",
+  "detail": "Jury Prize · Cannes 1960",
+  "awardQid": "Q164200",
+  "awardWeight": 0.5
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Wag the Dog",
+  "originalTitle": null,
+  "directors": [
+   "Barry Levinson"
+  ],
+  "year": 1998,
+  "country": null,
+  "tmdbId": 586,
+  "imdbId": "tt0120885",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1998",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Nocturnal Animals",
+  "originalTitle": null,
+  "directors": [
+   "Tom Ford"
+  ],
+  "year": 2016,
+  "country": null,
+  "tmdbId": 340666,
+  "imdbId": "tt4550098",
+  "detail": "Grand Jury Prize · Venice 2016",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Solaris",
+  "originalTitle": null,
+  "directors": [
+   "Andrei Tarkovsky"
+  ],
+  "year": 1972,
+  "country": null,
+  "tmdbId": 593,
+  "imdbId": "tt0069293",
+  "detail": "Grand Prix · Cannes 1972",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Woman Sesame Oil Maker",
+  "originalTitle": null,
+  "directors": [
+   "Xie Fei"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": 162841,
+  "imdbId": "tt0108608",
+  "detail": "Golden Bear · Berlin 1993",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Mary",
+  "originalTitle": null,
+  "directors": [
+   "Abel Ferrara"
+  ],
+  "year": 2005,
+  "country": null,
+  "tmdbId": 64942,
+  "imdbId": "tt0425236",
+  "detail": "Grand Jury Prize · Venice 2005",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Yesterday Girl",
+  "originalTitle": null,
+  "directors": [
+   "Alexander Kluge"
+  ],
+  "year": 1966,
+  "country": null,
+  "tmdbId": 89785,
+  "imdbId": "tt0060063",
+  "detail": "Grand Jury Prize · Venice 1966",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Missing",
+  "originalTitle": null,
+  "directors": [
+   "Costa-Gavras"
+  ],
+  "year": 1982,
+  "country": null,
+  "tmdbId": 15600,
+  "imdbId": "tt0084335",
+  "detail": "Palme d'Or · Cannes 1982",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Cousins",
+  "originalTitle": null,
+  "directors": [
+   "Claude Chabrol"
+  ],
+  "year": 1959,
+  "country": null,
+  "tmdbId": 2363,
+  "imdbId": "tt0052708",
+  "detail": "Golden Bear · Berlin 1959",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Dreams",
+  "originalTitle": null,
+  "directors": [
+   "Dag Johan Haugerud"
+  ],
+  "year": 2025,
+  "country": null,
+  "tmdbId": 1228682,
+  "imdbId": "tt30810787",
+  "detail": "Golden Bear · Berlin 2025",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Green Ray",
+  "originalTitle": null,
+  "directors": [
+   "Éric Rohmer"
+  ],
+  "year": 1986,
+  "country": null,
+  "tmdbId": 54898,
+  "imdbId": "tt0091830",
+  "detail": "Golden Lion · Venice 1986",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Magnolia",
+  "originalTitle": null,
+  "directors": [
+   "Paul Thomas Anderson"
+  ],
+  "year": 2000,
+  "country": null,
+  "tmdbId": 334,
+  "imdbId": "tt0175880",
+  "detail": "Golden Bear · Berlin 2000",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "In the Name of the Father",
+  "originalTitle": null,
+  "directors": [
+   "Jim Sheridan"
+  ],
+  "year": 1994,
+  "country": null,
+  "tmdbId": 7984,
+  "imdbId": "tt0107207",
+  "detail": "Golden Bear · Berlin 1994",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Nenette and Boni",
+  "originalTitle": null,
+  "directors": [
+   "Claire Denis"
+  ],
+  "year": 1996,
+  "country": null,
+  "tmdbId": 99002,
+  "imdbId": "tt0117221",
+  "detail": "Golden Leopard · Locarno 1996",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Woman in the Dunes",
+  "originalTitle": null,
+  "directors": [
+   "Hiroshi Teshigahara"
+  ],
+  "year": 1964,
+  "country": null,
+  "tmdbId": 16672,
+  "imdbId": "tt0058625",
+  "detail": "Jury Prize · Cannes 1964",
+  "awardQid": "Q164200",
+  "awardWeight": 0.5
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Tuya's Marriage",
+  "originalTitle": null,
+  "directors": [
+   "Wang Quan'an"
+  ],
+  "year": 2007,
+  "country": null,
+  "tmdbId": 2694,
+  "imdbId": "tt0949564",
+  "detail": "Golden Bear · Berlin 2007",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Evil Does Not Exist",
+  "originalTitle": null,
+  "directors": [
+   "Ryusuke Hamaguchi"
+  ],
+  "year": 2023,
+  "country": null,
+  "tmdbId": 1156125,
+  "imdbId": "tt28490044",
+  "detail": "Grand Jury Prize · Venice 2023",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Arabian Nights",
+  "originalTitle": null,
+  "directors": [
+   "Pier Paolo Pasolini"
+  ],
+  "year": 1974,
+  "country": null,
+  "tmdbId": 47406,
+  "imdbId": "tt0071502",
+  "detail": "Grand Prix · Cannes 1974",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Roma",
+  "originalTitle": null,
+  "directors": [
+   "Alfonso Cuarón"
+  ],
+  "year": 2018,
+  "country": null,
+  "tmdbId": 426426,
+  "imdbId": "tt6155172",
+  "detail": "Golden Lion · Venice 2018",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Mass Is Ended",
+  "originalTitle": null,
+  "directors": [
+   "Nanni Moretti"
+  ],
+  "year": 1986,
+  "country": null,
+  "tmdbId": 60732,
+  "imdbId": "tt0089584",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1986",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Decameron",
+  "originalTitle": null,
+  "directors": [
+   "Pier Paolo Pasolini"
+  ],
+  "year": 1971,
+  "country": null,
+  "tmdbId": 33583,
+  "imdbId": "tt0065622",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1971",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Justice Is Done",
+  "originalTitle": null,
+  "directors": [
+   "André Cayatte"
+  ],
+  "year": 1951,
+  "country": null,
+  "tmdbId": 67731,
+  "imdbId": "tt0042625",
+  "detail": "Golden Bear · Berlin 1951",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Alcarràs",
+  "originalTitle": null,
+  "directors": [
+   "Carla Simón"
+  ],
+  "year": 2022,
+  "country": null,
+  "tmdbId": 804251,
+  "imdbId": "tt11930126",
+  "detail": "Golden Bear · Berlin 2022",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Gospel According to St. Matthew",
+  "originalTitle": null,
+  "directors": [
+   "Pier Paolo Pasolini"
+  ],
+  "year": 1964,
+  "country": null,
+  "tmdbId": 24192,
+  "imdbId": "tt0058715",
+  "detail": "Grand Jury Prize · Venice 1964",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Ten North Frederick",
+  "originalTitle": null,
+  "directors": [
+   "Philip Dunne"
+  ],
+  "year": 1958,
+  "country": null,
+  "tmdbId": 101288,
+  "imdbId": "tt0052283",
+  "detail": "Golden Leopard · Locarno 1958",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "EO",
+  "originalTitle": null,
+  "directors": [
+   "Jerzy Skolimowski"
+  ],
+  "year": 2022,
+  "country": null,
+  "tmdbId": 785398,
+  "imdbId": "tt19652910",
+  "detail": "Jury Prize · Cannes 2022",
+  "awardQid": "Q164200",
+  "awardWeight": 0.5
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "EO",
+  "originalTitle": null,
+  "directors": [
+   "Jerzy Skolimowski"
+  ],
+  "year": 2023,
+  "country": null,
+  "tmdbId": 785398,
+  "imdbId": "tt19652910",
+  "detail": "Jury Prize · Cannes 2023",
+  "awardQid": "Q164200",
+  "awardWeight": 0.5
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "An Angel at My Table",
+  "originalTitle": null,
+  "directors": [
+   "Jane Campion"
+  ],
+  "year": 1990,
+  "country": null,
+  "tmdbId": 2891,
+  "imdbId": "tt0099040",
+  "detail": "Grand Jury Prize · Venice 1990",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Bad Boy Bubby",
+  "originalTitle": null,
+  "directors": [
+   "Rolf de Heer"
+  ],
+  "year": 1993,
+  "country": null,
+  "tmdbId": 14135,
+  "imdbId": "tt0106341",
+  "detail": "Grand Jury Prize · Venice 1993",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Dry Summer",
+  "originalTitle": null,
+  "directors": [
+   "Metin Erksan"
+  ],
+  "year": 1964,
+  "country": null,
+  "tmdbId": 58897,
+  "imdbId": "tt0062322",
+  "detail": "Golden Bear · Berlin 1964",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Bait",
+  "originalTitle": null,
+  "directors": [
+   "Bertrand Tavernier"
+  ],
+  "year": 1995,
+  "country": null,
+  "tmdbId": 38414,
+  "imdbId": "tt0112387",
+  "detail": "Golden Bear · Berlin 1995",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Devil Probably",
+  "originalTitle": null,
+  "directors": [
+   "Robert Bresson"
+  ],
+  "year": 1977,
+  "country": null,
+  "tmdbId": 32097,
+  "imdbId": "tt0075938",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1977",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Mon Oncle",
+  "originalTitle": null,
+  "directors": [
+   "Jacques Tati"
+  ],
+  "year": 1958,
+  "country": null,
+  "tmdbId": 427,
+  "imdbId": "tt0050706",
+  "detail": "Jury Prize · Cannes 1958",
+  "awardQid": "Q164200",
+  "awardWeight": 0.5
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Paradise: Faith",
+  "originalTitle": null,
+  "directors": [
+   "Ulrich Seidl"
+  ],
+  "year": 2012,
+  "country": null,
+  "tmdbId": 129734,
+  "imdbId": "tt2371824",
+  "detail": "Grand Jury Prize · Venice 2012",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Magician",
+  "originalTitle": null,
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1959,
+  "country": null,
+  "tmdbId": 29453,
+  "imdbId": "tt0051365",
+  "detail": "Grand Jury Prize · Venice 1959",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Sacrifice",
+  "originalTitle": null,
+  "directors": [
+   "Andrei Tarkovsky"
+  ],
+  "year": 1986,
+  "country": null,
+  "tmdbId": 24657,
+  "imdbId": "tt0091670",
+  "detail": "Grand Prix · Cannes 1986",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Sentimental Value",
+  "originalTitle": null,
+  "directors": [
+   "Joachim Trier"
+  ],
+  "year": 2025,
+  "country": null,
+  "tmdbId": 1124566,
+  "imdbId": "tt27714581",
+  "detail": "Grand Prix · Cannes 2025",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Thirst",
+  "originalTitle": null,
+  "directors": [
+   "Park Chan-wook"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": 22536,
+  "imdbId": "tt0762073",
+  "detail": "Jury Prize · Cannes 2009",
+  "awardQid": "Q164200",
+  "awardWeight": 0.5
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Das Fräulein",
+  "originalTitle": null,
+  "directors": [
+   "Andrea Štaka"
+  ],
+  "year": 2006,
+  "country": null,
+  "tmdbId": 10420,
+  "imdbId": "tt0476999",
+  "detail": "Golden Leopard · Locarno 2006",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Ordet",
+  "originalTitle": null,
+  "directors": [
+   "Carl Theodor Dreyer"
+  ],
+  "year": 1955,
+  "country": null,
+  "tmdbId": 48035,
+  "imdbId": "tt0048452",
+  "detail": "Golden Lion · Venice 1955",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Asthenic Syndrome",
+  "originalTitle": null,
+  "directors": [
+   "Kira Muratova"
+  ],
+  "year": 1990,
+  "country": null,
+  "tmdbId": 97039,
+  "imdbId": "tt0096841",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1990",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "There's No Smoke Without Fire",
+  "originalTitle": null,
+  "directors": [
+   "André Cayatte"
+  ],
+  "year": 1973,
+  "country": null,
+  "tmdbId": 134177,
+  "imdbId": "tt0068730",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1973",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Spirited Away",
+  "originalTitle": null,
+  "directors": [
+   "Hayao Miyazaki"
+  ],
+  "year": 2002,
+  "country": null,
+  "tmdbId": 129,
+  "imdbId": "tt0245429",
+  "detail": "Golden Bear · Berlin 2002",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "If....",
+  "originalTitle": null,
+  "directors": [
+   "Lindsay Anderson"
+  ],
+  "year": 1969,
+  "country": null,
+  "tmdbId": 14794,
+  "imdbId": "tt0063850",
+  "detail": "Palme d'Or · Cannes 1969",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Herd",
+  "originalTitle": null,
+  "directors": [
+   "Yılmaz Güney",
+   "Zeki Ökten"
+  ],
+  "year": 1979,
+  "country": null,
+  "tmdbId": 84014,
+  "imdbId": "tt0078355",
+  "detail": "Golden Leopard · Locarno 1979",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Before the Rain",
+  "originalTitle": null,
+  "directors": [
+   "Milcho Manchevski"
+  ],
+  "year": 1994,
+  "country": null,
+  "tmdbId": 19155,
+  "imdbId": "tt0110882",
+  "detail": "Golden Lion · Venice 1994",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Father Mother Sister Brother",
+  "originalTitle": null,
+  "directors": [
+   "Jim Jarmusch"
+  ],
+  "year": 2025,
+  "country": null,
+  "tmdbId": 1159206,
+  "imdbId": "tt31189315",
+  "detail": "Golden Lion · Venice 2025",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Idlers of the Fertile Valley",
+  "originalTitle": null,
+  "directors": [
+   "Nikos Panayotopoulos"
+  ],
+  "year": 1978,
+  "country": null,
+  "tmdbId": 258026,
+  "imdbId": "tt0128725",
+  "detail": "Golden Leopard · Locarno 1978",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Farm of Seven Sins",
+  "originalTitle": null,
+  "directors": [
+   "Jean Devaivre"
+  ],
+  "year": 1949,
+  "country": null,
+  "tmdbId": 275090,
+  "imdbId": "tt0040348",
+  "detail": "Golden Leopard · Locarno 1949",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Apocalypse Now",
+  "originalTitle": null,
+  "directors": [
+   "Francis Ford Coppola"
+  ],
+  "year": 1979,
+  "country": null,
+  "tmdbId": 28,
+  "imdbId": "tt0078788",
+  "detail": "Palme d'Or · Cannes 1979",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "To Live",
+  "originalTitle": null,
+  "directors": [
+   "Zhang Yimou"
+  ],
+  "year": 1994,
+  "country": null,
+  "tmdbId": 31439,
+  "imdbId": "tt0110081",
+  "detail": "Grand Prix · Cannes 1994",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "And Then There Were None",
+  "originalTitle": null,
+  "directors": [
+   "René Clair"
+  ],
+  "year": 1946,
+  "country": null,
+  "tmdbId": 4886,
+  "imdbId": "tt0037515",
+  "detail": "Golden Leopard · Locarno 1946",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Introduction to Life",
+  "originalTitle": null,
+  "directors": [
+   "Igor Talankin"
+  ],
+  "year": 1963,
+  "country": null,
+  "tmdbId": 204188,
+  "imdbId": "tt0175312",
+  "detail": "Grand Jury Prize · Venice 1963",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Night of the Shooting Stars",
+  "originalTitle": null,
+  "directors": [
+   "Paolo Taviani",
+   "Vittorio Taviani"
+  ],
+  "year": 1982,
+  "country": null,
+  "tmdbId": 42130,
+  "imdbId": "tt0084422",
+  "detail": "Grand Prix · Cannes 1982",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Othello",
+  "originalTitle": null,
+  "directors": [
+   "Orson Welles"
+  ],
+  "year": 1952,
+  "country": null,
+  "tmdbId": 47697,
+  "imdbId": "tt0045251",
+  "detail": "Palme d'Or · Cannes 1952",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "A City of Sadness",
+  "originalTitle": null,
+  "directors": [
+   "Hou Hsiao-Hsien"
+  ],
+  "year": 1989,
+  "country": null,
+  "tmdbId": 49982,
+  "imdbId": "tt0096908",
+  "detail": "Golden Lion · Venice 1989",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Private Road",
+  "originalTitle": null,
+  "directors": [
+   "Barney Platts-Mills"
+  ],
+  "year": 1971,
+  "country": null,
+  "tmdbId": 77368,
+  "imdbId": "tt0067620",
+  "detail": "Golden Leopard · Locarno 1971",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "To Love the Damned",
+  "originalTitle": null,
+  "directors": [
+   "Marco Tullio Giordana"
+  ],
+  "year": 1980,
+  "country": null,
+  "tmdbId": 67068,
+  "imdbId": "tt0081106",
+  "detail": "Golden Leopard · Locarno 1980",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Composer Glinka",
+  "originalTitle": null,
+  "directors": [
+   "Grigori Aleksandrov"
+  ],
+  "year": 1953,
+  "country": null,
+  "tmdbId": 89903,
+  "imdbId": "tt0044804",
+  "detail": "Golden Leopard · Locarno 1953",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "12 Angry Men",
+  "originalTitle": null,
+  "directors": [
+   "Sidney Lumet"
+  ],
+  "year": 1957,
+  "country": null,
+  "tmdbId": 389,
+  "imdbId": "tt0050083",
+  "detail": "Golden Bear · Berlin 1957",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "La colmena",
+  "originalTitle": null,
+  "directors": [
+   "Mario Camus"
+  ],
+  "year": 1982,
+  "country": null,
+  "tmdbId": 104435,
+  "imdbId": "tt0083743",
+  "detail": "Golden Bear · Berlin 1982",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "La colmena",
+  "originalTitle": null,
+  "directors": [
+   "Mario Camus"
+  ],
+  "year": 1983,
+  "country": null,
+  "tmdbId": 104435,
+  "imdbId": "tt0083743",
+  "detail": "Golden Bear · Berlin 1983",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "La colmena",
+  "originalTitle": null,
+  "directors": [
+   "Mario Camus"
+  ],
+  "year": 1985,
+  "country": null,
+  "tmdbId": 104435,
+  "imdbId": "tt0083743",
+  "detail": "Golden Bear · Berlin 1985",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Kid with a Bike",
+  "originalTitle": null,
+  "directors": [
+   "Luc Dardenne",
+   "Jean-Pierre Dardenne"
+  ],
+  "year": 2011,
+  "country": null,
+  "tmdbId": 63831,
+  "imdbId": "tt1827512",
+  "detail": "Grand Prix · Cannes 2011",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Monty Python's The Meaning of Life",
+  "originalTitle": null,
+  "directors": [
+   "Terry Jones"
+  ],
+  "year": 1983,
+  "country": null,
+  "tmdbId": 4543,
+  "imdbId": "tt0085959",
+  "detail": "Grand Prix · Cannes 1983",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Soul Kitchen",
+  "originalTitle": null,
+  "directors": [
+   "Fatih Akin"
+  ],
+  "year": 2009,
+  "country": null,
+  "tmdbId": 31175,
+  "imdbId": "tt1244668",
+  "detail": "Grand Jury Prize · Venice 2009",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Vagabond",
+  "originalTitle": null,
+  "directors": [
+   "Agnès Varda"
+  ],
+  "year": 1985,
+  "country": null,
+  "tmdbId": 44018,
+  "imdbId": "tt0089960",
+  "detail": "Golden Lion · Venice 1985",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Pianist",
+  "originalTitle": null,
+  "directors": [
+   "Roman Polanski"
+  ],
+  "year": 2002,
+  "country": null,
+  "tmdbId": 423,
+  "imdbId": "tt0253474",
+  "detail": "Palme d'Or · Cannes 2002",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The People vs. Larry Flynt",
+  "originalTitle": null,
+  "directors": [
+   "Miloš Forman"
+  ],
+  "year": 1997,
+  "country": null,
+  "tmdbId": 1630,
+  "imdbId": "tt0117318",
+  "detail": "Golden Bear · Berlin 1997",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Sound of Falling",
+  "originalTitle": null,
+  "directors": [
+   "Mascha Schilinski"
+  ],
+  "year": 2025,
+  "country": null,
+  "tmdbId": 1221061,
+  "imdbId": "tt28690468",
+  "detail": "Jury Prize · Cannes 2025",
+  "awardQid": "Q164200",
+  "awardWeight": 0.5
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Friends",
+  "originalTitle": null,
+  "directors": [
+   "Shinji Sōmai",
+   "Gérard Blain"
+  ],
+  "year": 1971,
+  "country": null,
+  "tmdbId": 219823,
+  "imdbId": "tt0065393",
+  "detail": "Golden Leopard · Locarno 1971",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Aparajito",
+  "originalTitle": null,
+  "directors": [
+   "Satyajit Ray"
+  ],
+  "year": 1957,
+  "country": null,
+  "tmdbId": 897,
+  "imdbId": "tt0048956",
+  "detail": "Golden Lion · Venice 1957",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Simon of the Desert",
+  "originalTitle": null,
+  "directors": [
+   "Luis Buñuel"
+  ],
+  "year": 1965,
+  "country": null,
+  "tmdbId": 36265,
+  "imdbId": "tt0059719",
+  "detail": "Grand Jury Prize · Venice 1965",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Raï",
+  "originalTitle": null,
+  "directors": [
+   "Thomas Gilou"
+  ],
+  "year": 1995,
+  "country": null,
+  "tmdbId": 40910,
+  "imdbId": "tt0114227",
+  "detail": "Golden Leopard · Locarno 1995",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Breaking the Waves",
+  "originalTitle": null,
+  "directors": [
+   "Lars von Trier"
+  ],
+  "year": 1996,
+  "country": null,
+  "tmdbId": 145,
+  "imdbId": "tt0115751",
+  "detail": "Grand Prix · Cannes 1996",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Afire",
+  "originalTitle": null,
+  "directors": [
+   "Christian Petzold"
+  ],
+  "year": 2023,
+  "country": null,
+  "tmdbId": 900379,
+  "imdbId": "tt26440619",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 2023",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Hobson's Choice",
+  "originalTitle": null,
+  "directors": [
+   "David Lean"
+  ],
+  "year": 1954,
+  "country": null,
+  "tmdbId": 16410,
+  "imdbId": "tt0047094",
+  "detail": "Golden Bear · Berlin 1954",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Wild Strawberries",
+  "originalTitle": null,
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1958,
+  "country": null,
+  "tmdbId": 614,
+  "imdbId": "tt0050986",
+  "detail": "Golden Bear · Berlin 1958",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Ballad of Narayama",
+  "originalTitle": null,
+  "directors": [
+   "Shohei Imamura"
+  ],
+  "year": 1983,
+  "country": null,
+  "tmdbId": 42113,
+  "imdbId": "tt0084390",
+  "detail": "Palme d'Or · Cannes 1983",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "All the Beauty and the Bloodshed",
+  "originalTitle": null,
+  "directors": [
+   "Laura Poitras"
+  ],
+  "year": 2022,
+  "country": null,
+  "tmdbId": 1004663,
+  "imdbId": "tt21374850",
+  "detail": "Golden Lion · Venice 2022",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Tin Drum",
+  "originalTitle": null,
+  "directors": [
+   "Volker Schlöndorff"
+  ],
+  "year": 1979,
+  "country": null,
+  "tmdbId": 659,
+  "imdbId": "tt0078875",
+  "detail": "Palme d'Or · Cannes 1979",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Wages of Fear",
+  "originalTitle": null,
+  "directors": [
+   "Henri-Georges Clouzot"
+  ],
+  "year": 1953,
+  "country": null,
+  "tmdbId": 204,
+  "imdbId": "tt0046268",
+  "detail": "Golden Bear · Berlin 1953",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Investigation of a Citizen Above Suspicion",
+  "originalTitle": null,
+  "directors": [
+   "Elio Petri"
+  ],
+  "year": 1970,
+  "country": null,
+  "tmdbId": 26451,
+  "imdbId": "tt0065889",
+  "detail": "Grand Prix · Cannes 1970",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Modiga Mindre Män",
+  "originalTitle": null,
+  "directors": [
+   "Leif Krantz"
+  ],
+  "year": 1965,
+  "country": null,
+  "tmdbId": 204182,
+  "imdbId": "tt0063316",
+  "detail": "Grand Jury Prize · Venice 1965",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Grbavica",
+  "originalTitle": null,
+  "directors": [
+   "Jasmila Žbanić"
+  ],
+  "year": 2006,
+  "country": null,
+  "tmdbId": 317,
+  "imdbId": "tt0464029",
+  "detail": "Golden Bear · Berlin 2006",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "General Della Rovere",
+  "originalTitle": null,
+  "directors": [
+   "Roberto Rossellini"
+  ],
+  "year": 1959,
+  "country": null,
+  "tmdbId": 43100,
+  "imdbId": "tt0053856",
+  "detail": "Golden Lion · Venice 1959",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Transport z ráje",
+  "originalTitle": null,
+  "directors": [
+   "Zbyněk Brynych"
+  ],
+  "year": 1963,
+  "country": null,
+  "tmdbId": 57913,
+  "imdbId": "tt0056609",
+  "detail": "Golden Leopard · Locarno 1963",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Rain Man",
+  "originalTitle": null,
+  "directors": [
+   "Barry Levinson"
+  ],
+  "year": 1989,
+  "country": null,
+  "tmdbId": 380,
+  "imdbId": "tt0095953",
+  "detail": "Golden Bear · Berlin 1989",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Forbidden Games",
+  "originalTitle": null,
+  "directors": [
+   "René Clément"
+  ],
+  "year": 1952,
+  "country": null,
+  "tmdbId": 5000,
+  "imdbId": "tt0043686",
+  "detail": "Golden Lion · Venice 1952",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Barton Fink",
+  "originalTitle": null,
+  "directors": [
+   "Joel Coen",
+   "Ethan Coen"
+  ],
+  "year": 1991,
+  "country": null,
+  "tmdbId": 290,
+  "imdbId": "tt0101410",
+  "detail": "Palme d'Or · Cannes 1991",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Signs of Life",
+  "originalTitle": null,
+  "directors": [
+   "Werner Herzog"
+  ],
+  "year": 1968,
+  "country": null,
+  "tmdbId": 67217,
+  "imdbId": "tt0063218",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1968",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Hospital",
+  "originalTitle": null,
+  "directors": [
+   "Arthur Hiller"
+  ],
+  "year": 1972,
+  "country": null,
+  "tmdbId": 32082,
+  "imdbId": "tt0067217",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1972",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Enigma of Kaspar Hauser",
+  "originalTitle": null,
+  "directors": [
+   "Werner Herzog"
+  ],
+  "year": 1975,
+  "country": null,
+  "tmdbId": 11710,
+  "imdbId": "tt0071691",
+  "detail": "Grand Prix · Cannes 1975",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Not One Less",
+  "originalTitle": null,
+  "directors": [
+   "Zhang Yimou"
+  ],
+  "year": 1999,
+  "country": null,
+  "tmdbId": 36210,
+  "imdbId": "tt0209189",
+  "detail": "Golden Lion · Venice 1999",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Too Beautiful for You",
+  "originalTitle": null,
+  "directors": [
+   "Bertrand Blier"
+  ],
+  "year": 1989,
+  "country": null,
+  "tmdbId": 48524,
+  "imdbId": "tt0098520",
+  "detail": "Grand Prix · Cannes 1989",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Three Sad Tigers",
+  "originalTitle": null,
+  "directors": [
+   "Raúl Ruiz"
+  ],
+  "year": 1969,
+  "country": null,
+  "tmdbId": 122097,
+  "imdbId": "tt0063718",
+  "detail": "Golden Leopard · Locarno 1969",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Cinderella",
+  "originalTitle": null,
+  "directors": [
+   "Clyde Geronimi",
+   "Wilfred Jackson",
+   "Hamilton Luske"
+  ],
+  "year": 1951,
+  "country": null,
+  "tmdbId": 11224,
+  "imdbId": "tt0042332",
+  "detail": "Golden Bear · Berlin 1951",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Like Father, Like Son",
+  "originalTitle": null,
+  "directors": [
+   "Hirokazu Koreeda"
+  ],
+  "year": 2013,
+  "country": null,
+  "tmdbId": 177945,
+  "imdbId": "tt2331143",
+  "detail": "Jury Prize · Cannes 2013",
+  "awardQid": "Q164200",
+  "awardWeight": 0.5
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "All We Imagine as Light",
+  "originalTitle": null,
+  "directors": [
+   "Payal Kapadia"
+  ],
+  "year": 2024,
+  "country": null,
+  "tmdbId": 927547,
+  "imdbId": "tt32086077",
+  "detail": "Grand Prix · Cannes 2024",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Mommy",
+  "originalTitle": null,
+  "directors": [
+   "Xavier Dolan"
+  ],
+  "year": 2014,
+  "country": null,
+  "tmdbId": 265177,
+  "imdbId": "tt3612616",
+  "detail": "Jury Prize · Cannes 2014",
+  "awardQid": "Q164200",
+  "awardWeight": 0.5
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Skin of Man, Heart of Beast",
+  "originalTitle": null,
+  "directors": [
+   "Hélène Angel"
+  ],
+  "year": 1999,
+  "country": null,
+  "tmdbId": 104743,
+  "imdbId": "tt0208348",
+  "detail": "Golden Leopard · Locarno 1999",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Go-Between",
+  "originalTitle": null,
+  "directors": [
+   "Joseph Losey"
+  ],
+  "year": 1971,
+  "country": null,
+  "tmdbId": 36194,
+  "imdbId": "tt0067144",
+  "detail": "Palme d'Or · Cannes 1971",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "I Am Twenty",
+  "originalTitle": null,
+  "directors": [
+   "Marlen Khutsiev"
+  ],
+  "year": 1965,
+  "country": null,
+  "tmdbId": 148782,
+  "imdbId": "tt0058361",
+  "detail": "Grand Jury Prize · Venice 1965",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Tűzoltó utca 25.",
+  "originalTitle": null,
+  "directors": [
+   "István Szabó"
+  ],
+  "year": 1974,
+  "country": null,
+  "tmdbId": 42467,
+  "imdbId": "tt0070847",
+  "detail": "Golden Leopard · Locarno 1974",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "When Father Was Away on Business",
+  "originalTitle": null,
+  "directors": [
+   "Emir Kusturica"
+  ],
+  "year": 1985,
+  "country": null,
+  "tmdbId": 21042,
+  "imdbId": "tt0089748",
+  "detail": "Palme d'Or · Cannes 1985",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "La Dolce Vita",
+  "originalTitle": null,
+  "directors": [
+   "Federico Fellini"
+  ],
+  "year": 1960,
+  "country": null,
+  "tmdbId": 439,
+  "imdbId": "tt0053779",
+  "detail": "Palme d'Or · Cannes 1960",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Close to Eden",
+  "originalTitle": null,
+  "directors": [
+   "Nikita Mikhalkov"
+  ],
+  "year": 1991,
+  "country": null,
+  "tmdbId": 36346,
+  "imdbId": "tt0103176",
+  "detail": "Golden Lion · Venice 1991",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Mother and the Whore",
+  "originalTitle": null,
+  "directors": [
+   "Jean Eustache"
+  ],
+  "year": 1973,
+  "country": null,
+  "tmdbId": 48693,
+  "imdbId": "tt0070359",
+  "detail": "Grand Prix · Cannes 1973",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Courage for Every Day",
+  "originalTitle": null,
+  "directors": [
+   "Evald Schorm"
+  ],
+  "year": 1966,
+  "country": null,
+  "tmdbId": 173873,
+  "imdbId": "tt0058259",
+  "detail": "Golden Leopard · Locarno 1966",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Lovers",
+  "originalTitle": null,
+  "directors": [
+   "Louis Malle"
+  ],
+  "year": 1958,
+  "country": null,
+  "tmdbId": 2574,
+  "imdbId": "tt0052556",
+  "detail": "Grand Jury Prize · Venice 1958",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Julius Caesar",
+  "originalTitle": null,
+  "directors": [
+   "David Bradley"
+  ],
+  "year": 1953,
+  "country": null,
+  "tmdbId": 241483,
+  "imdbId": "tt0042622",
+  "detail": "Golden Leopard · Locarno 1953",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Il bell'Antonio",
+  "originalTitle": null,
+  "directors": [
+   "Mauro Bolognini"
+  ],
+  "year": 1960,
+  "country": null,
+  "tmdbId": 76157,
+  "imdbId": "tt0053643",
+  "detail": "Golden Leopard · Locarno 1960",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "El otro",
+  "originalTitle": null,
+  "directors": [
+   "Ariel Rotter"
+  ],
+  "year": 2007,
+  "country": null,
+  "tmdbId": 78115,
+  "imdbId": "tt0499540",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 2007",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Akaler Shandhaney",
+  "originalTitle": null,
+  "directors": [
+   "Mrinal Sen"
+  ],
+  "year": 1981,
+  "country": null,
+  "tmdbId": 214386,
+  "imdbId": "tt0080341",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1981",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "From What Is Before",
+  "originalTitle": null,
+  "directors": [
+   "Lav Diaz"
+  ],
+  "year": 2014,
+  "country": null,
+  "tmdbId": 280492,
+  "imdbId": "tt3303310",
+  "detail": "Golden Leopard · Locarno 2014",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Larks on a String",
+  "originalTitle": null,
+  "directors": [
+   "Jiří Menzel"
+  ],
+  "year": 1990,
+  "country": null,
+  "tmdbId": 12078,
+  "imdbId": "tt0064994",
+  "detail": "Golden Bear · Berlin 1990",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Private",
+  "originalTitle": null,
+  "directors": [
+   "Saverio Costanzo"
+  ],
+  "year": 2004,
+  "country": null,
+  "tmdbId": 44104,
+  "imdbId": "tt0420090",
+  "detail": "Golden Leopard · Locarno 2004",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "La Collectionneuse",
+  "originalTitle": null,
+  "directors": [
+   "Éric Rohmer"
+  ],
+  "year": 1967,
+  "country": null,
+  "tmdbId": 4837,
+  "imdbId": "tt0061495",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1967",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Child",
+  "originalTitle": null,
+  "directors": [
+   "Luc Dardenne",
+   "Jean-Pierre Dardenne"
+  ],
+  "year": 2005,
+  "country": null,
+  "tmdbId": 11490,
+  "imdbId": "tt0456396",
+  "detail": "Palme d'Or · Cannes 2005",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Marianne and Juliane",
+  "originalTitle": null,
+  "directors": [
+   "Margarethe von Trotta"
+  ],
+  "year": 1981,
+  "country": null,
+  "tmdbId": 42142,
+  "imdbId": "tt0082081",
+  "detail": "Golden Lion · Venice 1981",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Stray Dogs",
+  "originalTitle": null,
+  "directors": [
+   "Tsai Ming-liang"
+  ],
+  "year": 2013,
+  "country": null,
+  "tmdbId": 209840,
+  "imdbId": "tt3119416",
+  "detail": "Grand Jury Prize · Venice 2013",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Pietà",
+  "originalTitle": null,
+  "directors": [
+   "Kim Ki-duk"
+  ],
+  "year": 2012,
+  "country": null,
+  "tmdbId": 123377,
+  "imdbId": "tt2299842",
+  "detail": "Golden Lion · Venice 2012",
+  "awardQid": "Q209459",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Zone of Interest",
+  "originalTitle": null,
+  "directors": [
+   "Jonathan Glazer"
+  ],
+  "year": 2023,
+  "country": null,
+  "tmdbId": 467244,
+  "imdbId": "tt7160372",
+  "detail": "Grand Prix · Cannes 2023",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Zone of Interest",
+  "originalTitle": null,
+  "directors": [
+   "Jonathan Glazer"
+  ],
+  "year": 2024,
+  "country": null,
+  "tmdbId": 467244,
+  "imdbId": "tt7160372",
+  "detail": "Grand Prix · Cannes 2024",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Znaki na drodze",
+  "originalTitle": null,
+  "directors": [
+   "Andrzej Jerzy Piotrowski"
+  ],
+  "year": 1971,
+  "country": null,
+  "tmdbId": 577836,
+  "imdbId": "tt0068016",
+  "detail": "Golden Leopard · Locarno 1971",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Dreszcze",
+  "originalTitle": null,
+  "directors": [
+   "Wojciech Marczewski"
+  ],
+  "year": 1982,
+  "country": null,
+  "tmdbId": 135625,
+  "imdbId": "tt0082294",
+  "detail": "Silver Bear Grand Jury Prize · Berlin 1982",
+  "awardQid": "Q664212",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "God's Comedy",
+  "originalTitle": null,
+  "directors": [
+   "João César Monteiro"
+  ],
+  "year": 1995,
+  "country": null,
+  "tmdbId": 49974,
+  "imdbId": "tt0112710",
+  "detail": "Grand Jury Prize · Venice 1995",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Mattei Affair",
+  "originalTitle": null,
+  "directors": [
+   "Francesco Rosi"
+  ],
+  "year": 1972,
+  "country": null,
+  "tmdbId": 62382,
+  "imdbId": "tt0068346",
+  "detail": "Palme d'Or · Cannes 1972",
+  "awardQid": "Q179808",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Las truchas",
+  "originalTitle": null,
+  "directors": [
+   "José Luis García Sánchez"
+  ],
+  "year": 1978,
+  "country": null,
+  "tmdbId": 162438,
+  "imdbId": "tt0078421",
+  "detail": "Golden Bear · Berlin 1978",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Lobster",
+  "originalTitle": null,
+  "directors": [
+   "Yorgos Lanthimos"
+  ],
+  "year": 2015,
+  "country": null,
+  "tmdbId": 254320,
+  "imdbId": "tt3464902",
+  "detail": "Jury Prize · Cannes 2015",
+  "awardQid": "Q164200",
+  "awardWeight": 0.5
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Lobster",
+  "originalTitle": null,
+  "directors": [
+   "Yorgos Lanthimos"
+  ],
+  "year": 2016,
+  "country": null,
+  "tmdbId": 254320,
+  "imdbId": "tt3464902",
+  "detail": "Jury Prize · Cannes 2016",
+  "awardQid": "Q164200",
+  "awardWeight": 0.5
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Heartland",
+  "originalTitle": null,
+  "directors": [
+   "Richard Pearce"
+  ],
+  "year": 1980,
+  "country": null,
+  "tmdbId": 49427,
+  "imdbId": "tt0082508",
+  "detail": "Golden Bear · Berlin 1980",
+  "awardQid": "Q154590",
+  "awardWeight": 1
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Rocco and His Brothers",
+  "originalTitle": null,
+  "directors": [
+   "Luchino Visconti"
+  ],
+  "year": 1960,
+  "country": null,
+  "tmdbId": 8422,
+  "imdbId": "tt0054248",
+  "detail": "Grand Jury Prize · Venice 1960",
+  "awardQid": "Q944480",
+  "awardWeight": 0.6
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Cinema Paradiso",
+  "originalTitle": null,
+  "directors": [
+   "Giuseppe Tornatore"
+  ],
+  "year": 1989,
+  "country": null,
+  "tmdbId": 11216,
+  "imdbId": "tt0095765",
+  "detail": "Grand Prix · Cannes 1989",
+  "awardQid": "Q844804",
+  "awardWeight": 0.7
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "Mujo",
+  "originalTitle": null,
+  "directors": [
+   "Akio Jissōji"
+  ],
+  "year": 1970,
+  "country": null,
+  "tmdbId": 104452,
+  "imdbId": "tt0128364",
+  "detail": "Golden Leopard · Locarno 1970",
+  "awardQid": "Q1700510",
+  "awardWeight": 0.8
+ },
+ {
+  "source": "festival-awards",
+  "rank": null,
+  "title": "The Eight Mountains",
+  "originalTitle": null,
+  "directors": [
+   "Charlotte Vandermeersch",
+   "Felix van Groeningen"
+  ],
+  "year": 2022,
+  "country": null,
+  "tmdbId": 803700,
+  "imdbId": "tt14641542",
+  "detail": "Jury Prize · Cannes 2022",
+  "awardQid": "Q164200",
+  "awardWeight": 0.5
+ }
+]
