@@ -1,9 +1,11 @@
 /**
  * Base Canon Score Calculation Service
- * 
- * BaseCanonScore = 0.35*CriticalConsensus + 0.25*HistoricalImportance + 
+ *
+ * BaseCanonScore = 0.35*CriticalConsensus + 0.25*HistoricalImportance +
  *                  0.20*AuteurImportance + 0.10*FormalInnovation + 0.10*CulturalInfluence
  */
+
+import { namesMatch } from './nameUtils.js';
 
 // Top-tier auteur directors
 const MASTER_AUTEURS = [
@@ -41,7 +43,7 @@ export const calculateHistoricalImportance = (film) => {
   else score += 30;
   
   // Age bonus (older films often more historically significant)
-  const age = 2025 - film.year;
+  const age = new Date().getFullYear() - film.year;
   if (age > 70) score += 20;      // Pre-1955
   else if (age > 50) score += 15; // 1955-1975
   else if (age > 30) score += 10; // 1975-1995
@@ -52,16 +54,15 @@ export const calculateHistoricalImportance = (film) => {
 
 export const calculateAuteurImportance = (film) => {
   if (!film.directors || film.directors.length === 0) return 25;
-  
+
   const director = film.directors[0]; // Use primary director
-  
-  // Check if master auteur
-  if (MASTER_AUTEURS.some(master => director.includes(master))) {
+
+  // Spelling-insensitive: "Wong Kar-Wai" must still match 'Wong Kar-wai'
+  if (MASTER_AUTEURS.some(master => namesMatch(director, master))) {
     return 100;
   }
-  
-  // Check if established auteur
-  if (ESTABLISHED_AUTEURS.some(established => director.includes(established))) {
+
+  if (ESTABLISHED_AUTEURS.some(established => namesMatch(director, established))) {
     return 75;
   }
   

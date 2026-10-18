@@ -1,9 +1,11 @@
 /**
  * Arthouse Scoring Service (Time-Weighted Canon Score)
- * 
+ *
  * Distinguishes between "Commercial Hype" and "Cinematic Heritage"
  * Score range: 0-100 (higher = more arthouse/canonical)
  */
+
+import { anyNameMatches } from './nameUtils.js';
 
 // ============================================================================
 // AUTEUR DIRECTORS - Verified arthouse/auteur filmmakers
@@ -133,13 +135,9 @@ const ARTHOUSE_TAGS = {
  */
 const isAuteurDirector = (directors) => {
   if (!directors || !Array.isArray(directors)) return false;
-  
-  return directors.some(director => {
-    return AUTEUR_LIST.some(auteur => 
-      director.toLowerCase().includes(auteur.toLowerCase()) ||
-      auteur.toLowerCase().includes(director.toLowerCase())
-    );
-  });
+
+  // Spelling-insensitive: "Bong Joon Ho" must still match 'Bong Joon-ho'
+  return anyNameMatches(directors, AUTEUR_LIST);
 };
 
 /**

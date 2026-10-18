@@ -56,7 +56,26 @@ const movementSchema = new mongoose.Schema({
   sortOrder: {
     type: Number,
     default: 0
-  }
+  },
+  // Editorial — see data/editorial/STYLE.md. `description`/`vibe`/`philosophy`
+  // above are the short-form stubs; this is the page.
+  editorial: {
+    essay: { type: String, default: null },          // 300–450 words
+    before: { type: String, default: null },         // what cinema looked like just before
+    broke: { type: String, default: null },          // what it broke, concretely
+    startWith: [{                                    // three films, one line each on the order
+      title: String,
+      movieId: { type: mongoose.Schema.Types.ObjectId, ref: 'Movie' },
+      why: String
+    }],
+    grewFrom: [{ type: String }],                    // movement titles
+    fed: [{ type: String }],                         // movement titles
+    writtenAt: { type: Date, default: null },
+    reviewedAt: { type: Date, default: null }
+  },
+  startYear: { type: Number },                       // parsed from era, for the timeline
+  endYear: { type: Number },                         // null/current year for living movements
+  region: { type: String }                           // for the timeline's regional lanes
 }, {
   timestamps: true
 });
