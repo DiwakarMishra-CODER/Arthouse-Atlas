@@ -141,7 +141,8 @@ export const getMovementById = async (req, res) => {
     const portraits = dirIds.length
       ? Object.fromEntries((await Director.find({ _id: { $in: dirIds } }).select('profileUrl').lean()).map((d) => [d._id.toString(), d.profileUrl]))
       : {};
-    const keyDirectors = (movement.keyDirectors || []).map((d) => ({ ...d, profileUrl: d.directorId ? portraits[d.directorId.toString()] || null : null }));
+    // directors with no page of their own carry their portrait on the movement entry
+    const keyDirectors = (movement.keyDirectors || []).map((d) => ({ ...d, profileUrl: (d.directorId && portraits[d.directorId.toString()]) || d.profileUrl || null }));
 
     res.json({
       ...movement,

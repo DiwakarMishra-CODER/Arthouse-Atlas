@@ -23,7 +23,8 @@ const movementSchema = new mongoose.Schema({
   }],
   keyDirectors: [{
     name: { type: String, required: true },
-    directorId: { type: mongoose.Schema.Types.ObjectId, ref: 'Director', default: null }
+    directorId: { type: mongoose.Schema.Types.ObjectId, ref: 'Director', default: null },
+    profileUrl: { type: String, default: null } // portrait for a key director with no page of their own
   }],
   essentialFilms: [{
     title: { type: String, required: true },
