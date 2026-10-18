@@ -34,7 +34,7 @@ const ProtectedRoute = ({ children }) => {
 
 function AppRoutes() {
   return (
-    <div className="relative min-h-screen bg-[#050505] text-white selection:bg-accent-primary selection:text-black overflow-x-hidden film-grain">
+    <div className="relative min-h-screen bg-[#050505] text-white selection:bg-accent-primary selection:text-black overflow-x-clip film-grain">
       <Starfield />
       <Navbar />
       <div className="relative z-10">

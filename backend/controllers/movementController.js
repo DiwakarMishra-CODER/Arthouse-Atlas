@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import Movement from '../models/Movement.js';
 import Movie from '../models/Movie.js';
+import Director from '../models/Director.js';
 import { getErrorResponse } from '../utils/errorResponse.js';
 
 // Fields a film row/card needs
@@ -116,7 +117,9 @@ export const getMovementById = async (req, res) => {
 
     const idx = all.findIndex((m) => m.title === movement.title);
     const next = all[(idx + 1) % all.length];
-    const heroes = await resolveHeroes([movement, next]);
+    // lineage neighbours get their stills too, so the family tree can show faces
+    const kin = all.filter((m) => [...(movement.editorial?.grewFrom || []), ...(movement.editorial?.fed || [])].includes(m.title));
+    const heroes = await resolveHeroes([movement, next, ...kin]);
 
     // Where-to-start films resolved to catalogue records where possible
     const byTitle = new Map(films.map((f) => [f.title.toLowerCase(), f]));
@@ -126,13 +129,24 @@ export const getMovementById = async (req, res) => {
     }));
 
     // Lineage titles → slugs, so the page can link
-    const slugOf = Object.fromEntries(all.map((m) => [m.title, { title: m.title, tag: m.tag, era: m.era }]));
+    const slugOf = Object.fromEntries(all.map((m) => [m.title, {
+      title: m.title, tag: m.tag, era: m.era, startYear: m.startYear, endYear: m.endYear,
+      heroBackdrop: withHero(m, heroes, stats).heroBackdrop, heroFocus: m.heroFocus
+    }]));
     const grewFrom = (movement.editorial?.grewFrom || []).map((t) => slugOf[t] || { title: t, tag: null });
     const fed = (movement.editorial?.fed || []).map((t) => slugOf[t] || { title: t, tag: null });
+
+    // Portraits for the people, where the directors are in the atlas
+    const dirIds = (movement.keyDirectors || []).map((d) => d.directorId).filter(Boolean);
+    const portraits = dirIds.length
+      ? Object.fromEntries((await Director.find({ _id: { $in: dirIds } }).select('profileUrl').lean()).map((d) => [d._id.toString(), d.profileUrl]))
+      : {};
+    const keyDirectors = (movement.keyDirectors || []).map((d) => ({ ...d, profileUrl: d.directorId ? portraits[d.directorId.toString()] || null : null }));
 
     res.json({
       ...movement,
       ...withHero(movement, heroes, stats),
+      keyDirectors,
       filmCount: films.length,
       films,
       startWith,

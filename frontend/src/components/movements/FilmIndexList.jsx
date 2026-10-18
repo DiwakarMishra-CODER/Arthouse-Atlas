@@ -8,8 +8,9 @@ import { sized } from './treatments';
  * a programme or a retrospective catalogue lists them. Hovering a row floats
  * that film's still beside the cursor. A toggle keeps the poster grid.
  */
-const FilmIndexList = ({ films, treatment }) => {
-    const [view, setView] = useState('index');
+const FilmIndexList = ({ films, treatment, view: forced }) => {
+    const [own, setView] = useState('index');
+    const view = forced || own; // a parent can choose the view and hide the toggle
     const [preview, setPreview] = useState(null);
     const previewRef = useRef(null);
 
@@ -24,7 +25,7 @@ const FilmIndexList = ({ films, treatment }) => {
 
     return (
         <div>
-            <div className="flex items-center gap-5 text-xs tracking-[0.25em] uppercase mb-6">
+            <div className={`flex items-center gap-5 text-xs tracking-[0.25em] uppercase mb-6 ${forced ? 'hidden' : ''}`}>
                 {['index', 'posters'].map((v) => (
                     <button
                         key={v}

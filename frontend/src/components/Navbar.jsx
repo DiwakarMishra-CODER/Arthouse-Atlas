@@ -8,6 +8,7 @@ const Navbar = () => {
     const location = useLocation();
     const [showProfileMenu, setShowProfileMenu] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const profileMenuRef = useRef(null);
 
     const isActive = (path) => location.pathname === path;
@@ -25,6 +26,14 @@ const Navbar = () => {
         };
     }, []);
 
+    // over the top of a page the bar dissolves into it; once content passes beneath, it becomes dark glass
+    useEffect(() => {
+        const onScroll = () => setScrolled(window.scrollY > 24);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
+
     // Lock body scroll when mobile menu is open
     useEffect(() => {
         if (isMobileMenuOpen) {
@@ -37,7 +46,9 @@ const Navbar = () => {
     const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-white/5">
+        <nav className="fixed top-0 left-0 right-0 z-50">
+            <div aria-hidden="true" className={`absolute inset-x-0 top-0 h-[150%] -z-10 pointer-events-none bg-gradient-to-b from-[#050505]/85 via-[#050505]/40 to-transparent transition-opacity duration-500 ${scrolled ? 'opacity-0' : 'opacity-100'}`} />
+            <div aria-hidden="true" className={`absolute inset-0 -z-10 pointer-events-none bg-[#050505]/60 backdrop-blur-xl border-b border-white/[0.06] transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-0'}`} />
             <div className="max-w-[1800px] mx-auto px-8 py-6">
                 <div className="flex justify-between items-center">
                     {/* Wordmark Logo */}

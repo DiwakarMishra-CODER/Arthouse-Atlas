@@ -51,7 +51,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulance type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
     pointer-events: none;
     z-index: 9999;
     mix-blend-mode: overlay;
@@ -174,4 +174,57 @@
   background: rgba(197, 160, 89, 0.5);
   /* Gold */
   border-radius: 10px;
+}
+/* Movements — the projection room. --tint is registered so the room's light can fade between movements. */
+@property --tint {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #c5a059;
+}
+
+.projection-room {
+  transition: --tint 1400ms var(--motion-easing-contemplative);
+}
+
+@keyframes projector-flicker {
+  0%, 100% { opacity: 0.85; }
+  7% { opacity: 0.78; }
+  9% { opacity: 0.88; }
+  31% { opacity: 0.82; }
+  33% { opacity: 0.9; }
+  58% { opacity: 0.8; }
+  61% { opacity: 0.86; }
+  83% { opacity: 0.79; }
+}
+
+.projector-flicker {
+  animation: projector-flicker 4.2s steps(1, end) infinite;
+}
+
+/* the timeline's sprockets run while a movement is being shown */
+@keyframes reel-run {
+  to { background-position-x: -17px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reel-run {
+    animation: reel-run 0.32s linear infinite;
+  }
+}
+
+/* intertitle scratches drift and blink, the way damage moves on a running print */
+@keyframes intertitle-scratch {
+  0%, 100% { transform: translateX(0); opacity: 1; }
+  12% { transform: translateX(3px); opacity: 0.2; }
+  14% { transform: translateX(-2px); opacity: 1; }
+  48% { transform: translateX(6px); opacity: 0.6; }
+  50% { transform: translateX(0); opacity: 0; }
+  53% { opacity: 1; }
+  79% { transform: translateX(-4px); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .intertitle-scratch {
+    animation: intertitle-scratch 3.4s steps(1, end) infinite;
+  }
 }
