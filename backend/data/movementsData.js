@@ -24,7 +24,7 @@ export const movementsData = [
     vibe: "Revolution, collision, rhythmic shock.",
     philosophy: "Meaning created by editing: shot + shot = idea.",
     visualSignatures: ["rapid rhythmic cuts", "crowd tableaux", "intellectual montage"],
-    keyDirectors: ["Sergei Eisenstein", "Dziga Vertov"],
+    keyDirectors: ["Sergei Eisenstein", "Dziga Vertov", "Vsevolod Pudovkin", "Alexander Dovzhenko", "Lev Kuleshov"],
     essentialFilms: [
       { title: "Battleship Potemkin", year: 1925 },
       { title: "Man with a Movie Camera", year: 1929 },
@@ -115,7 +115,7 @@ export const movementsData = [
     vibe: "Meditative, durational, patient.",
     philosophy: "Time as material; viewer attention becomes the engine.",
     visualSignatures: ["very long takes", "static compositions", "minimal dialogue"],
-    keyDirectors: ["Andrei Tarkovsky", "Béla Tarr", "Tsai Ming-liang"],
+    keyDirectors: ["Andrei Tarkovsky", "Béla Tarr", "Tsai Ming-liang", "Lav Diaz", "Pedro Costa", "Apichatpong Weerasethakul", "Lisandro Alonso", "Carlos Reygadas", "Albert Serra", "Theo Angelopoulos", "Aleksandr Sokurov", "Nuri Bilge Ceylan"],
     essentialFilms: [
       { title: "Stalker", year: 1979 },
       { title: "Sátántangó", year: 1994 },
@@ -129,11 +129,11 @@ export const movementsData = [
   },
   {
     title: "Iranian New Wave",
-    era: "1980s–present",
+    era: "1969–present",
     vibe: "Quiet, ethical, poetic realism.",
     philosophy: "Moral/ethical dilemmas in sparse formal language; reality & fiction blur.",
     visualSignatures: ["restrained camera", "children/non-actors", "minimalist interiors", "long contemplative shots"],
-    keyDirectors: ["Abbas Kiarostami", "Mohsen Makhmalbaf", "Asghar Farhadi"],
+    keyDirectors: ["Abbas Kiarostami", "Mohsen Makhmalbaf", "Asghar Farhadi", "Jafar Panahi", "Dariush Mehrjui", "Amir Naderi", "Sohrab Shahid Saless", "Bahram Beyzai", "Majid Majidi", "Samira Makhmalbaf", "Mohammad Rasoulof", "Forugh Farrokhzad"],
     essentialFilms: [
       { title: "Close-Up", year: 1990 },
       { title: "Taste of Cherry", year: 1997 },
@@ -170,7 +170,7 @@ export const movementsData = [
     vibe: "Truth, witness, the camera as witness.",
     philosophy: "Film as testimony; reality recorded and interrogated.",
     visualSignatures: ["vérité handheld camera", "observational framings", "portrait interviews", "long observational sequences"],
-    keyDirectors: ["Dziga Vertov", "Chris Marker", "Frederick Wiseman", "Agnès Varda"],
+    keyDirectors: ["Dziga Vertov", "Chris Marker", "Frederick Wiseman", "Agnès Varda", "Jean Rouch", "Albert Maysles", "D. A. Pennebaker", "Errol Morris", "Claude Lanzmann", "Patricio Guzmán", "Joshua Oppenheimer"],
     essentialFilms: [
       { title: "Man with a Movie Camera", year: 1929 },
       { title: "Night and Fog", year: 1956 },
@@ -188,7 +188,7 @@ export const movementsData = [
     vibe: "Form first — cinema as experiment.",
     philosophy: "Cinema as material and structure — meaning made through form, not story.",
     visualSignatures: ["jump-cut montage", "non-narrative collage", "abstract photochemical or single-frame effects"],
-    keyDirectors: ["Maya Deren", "Luis Buñuel", "Kenneth Anger", "Stan Brakhage"],
+    keyDirectors: ["Maya Deren", "Luis Buñuel", "Kenneth Anger", "Stan Brakhage", "Michael Snow", "Jack Smith", "Andy Warhol", "Jonas Mekas", "Hollis Frampton", "Chantal Akerman"],
     essentialFilms: [
       { title: "Un Chien Andalou", year: 1929 },
       { title: "Meshes of the Afternoon", year: 1943 },
@@ -206,7 +206,7 @@ export const movementsData = [
     vibe: "Cinema of struggle, anti-imperial, political urgency.",
     philosophy: "Film as political praxis — anti-imperialist, mass-oriented, collective authorship.",
     visualSignatures: ["documentary-realist aesthetics", "montage of mass scenes", "didactic sequences", "street politics"],
-    keyDirectors: ["Glauber Rocha", "Fernando Solanas", "Pablo Larraín"],
+    keyDirectors: ["Glauber Rocha", "Fernando Solanas", "Nelson Pereira dos Santos", "Tomás Gutiérrez Alea", "Humberto Solás", "Jorge Sanjinés", "Miguel Littín", "Patricio Guzmán", "Ousmane Sembène", "Med Hondo", "Pablo Larraín"],
     essentialFilms: [
       { title: "The Hour of the Furnaces", year: 1968 },
       { title: "The Battle of Algiers", year: 1966 },
