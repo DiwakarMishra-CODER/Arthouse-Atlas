@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import HeroFeature from '../components/HeroFeature';
+import HomeHero from '../components/home/HomeHero';
 import PosterCard from '../components/PosterCard';
 import LoadingSkeleton from '../components/LoadingSkeleton';
 import { useAuth } from '../context/AuthContext';
@@ -24,11 +24,10 @@ const Home = () => {
     }, [isAuthenticated]);
 
     return (
-        <div className="min-h-screen pt-0 md:pt-24">
-            {/* Hero Section */}
-            <div className="relative w-full mb-12 md:mb-24 -mt-16 md:mt-0 pt-0 bg-black">
-                <HeroFeature />
-            </div>
+        <div className="min-h-screen">
+            {/* every film in the atlas, then tonight's */}
+            <HomeHero />
+            <div className="h-12 md:h-24" />
 
             {/* MANIFESTO SECTION - Replaces Recently Added */}
             <section className="relative py-10 md:py-32 px-4 md:px-0 border-y border-white/5">

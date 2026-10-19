@@ -31,6 +31,7 @@
     "seedrandom": "^3.0.5"
   },
   "devDependencies": {
-    "nodemon": "^3.0.2"
+    "nodemon": "^3.0.2",
+    "sharp": "^0.33.5"
   }
 }

@@ -74,7 +74,7 @@ const FAMILY = {
 const LAUREL_INK = '#d8b46a';
 const SHOWN = 5;
 
-const Letters = ({ text, reducedMotion, delay = 0, className }) => (
+export const Letters = ({ text, reducedMotion, delay = 0, className }) => (
     <span className={className} aria-label={text}>
         {[...text].map((ch, i) => (
             <motion.span

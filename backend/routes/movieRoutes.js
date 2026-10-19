@@ -7,7 +7,8 @@ import {
   getGenres,
   getAllTitles,
   getSimilarMovies,
-  getMovieProviders
+  getMovieProviders,
+  getTonight
 } from '../controllers/movieController.js';
 
 const router = express.Router();
@@ -15,6 +16,7 @@ const router = express.Router();
 
 router.get('/', getMovies);
 router.get('/titles', getAllTitles);
+router.get('/tonight', getTonight); // before /:id, or 'tonight' would be read as an id
 router.get('/directors/list', getDirectors);
 router.get('/tags/list', getTags);
 router.get('/genres/list', getGenres);

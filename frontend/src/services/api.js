@@ -35,6 +35,8 @@ export const moviesAPI = {
   getMovies: (params) => api.get('/movies', { params }),
   getTitles: () => api.get('/movies/titles'),
   getMovieById: (id) => api.get(`/movies/${id}`),
+  // today's film from the top of the canon; n = 1, 2 … for "another film" the same day
+  getTonight: (date, n = 0) => api.get('/movies/tonight', { params: { date, n } }),
   getSimilarMovies: (id) => api.get(`/movies/${id}/similar`),
   getMovieProviders: (id) => api.get(`/movies/${id}/providers`),
   getDirectors: () => api.get('/movies/directors/list'),
