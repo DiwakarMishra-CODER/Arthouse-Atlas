@@ -389,3 +389,14 @@
   .auditorium-mote { animation: auditorium-mote 16s linear infinite; }
   .auditorium-haze { animation: auditorium-haze 22s ease-in-out infinite alternate; }
 }
+
+/* Home box office — the neon sign stutters on, then holds */
+@keyframes neon-on {
+  0% { opacity: 0.08; }
+  8% { opacity: 1; }
+  11% { opacity: 0.15; }
+  19% { opacity: 1; }
+  23% { opacity: 0.3; }
+  30%, 100% { opacity: 1; }
+}
+.neon-on { animation: neon-on 1.6s steps(1, end) both; }
