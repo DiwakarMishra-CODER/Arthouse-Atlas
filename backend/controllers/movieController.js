@@ -213,9 +213,35 @@ export const getMovieById = async (req, res) => {
       }
     }
 
+    // Where the canon places it: its all-time standing and its standing among films of its decade.
+    // The page leads with whichever says more — all-time inside the top 100, otherwise its decade —
+    // and shows the films ranked either side of it there.
+    let canon = null;
+    let company = [];
+    if (movie.canonRank) {
+      const decade = Math.floor(movie.year / 10) * 10;
+      const inDecade = { year: { $gte: decade, $lt: decade + 10 }, canonDecadeRank: { $ne: null } };
+      const [of, decadeOf] = await Promise.all([
+        Movie.countDocuments({ canonRank: { $ne: null } }),
+        Movie.countDocuments(inDecade)
+      ]);
+      const lead = movie.canonRank <= 100 ? 'atlas' : 'decade';
+      canon = { rank: movie.canonRank, of, decadeRank: movie.canonDecadeRank, decadeOf, decade, lead };
+
+      const near = (r) => ({ $gte: Math.max(1, r - 2), $lte: r + 2 });
+      company = await Movie.find(lead === 'atlas'
+        ? { canonRank: near(movie.canonRank) }
+        : { ...inDecade, canonDecadeRank: near(movie.canonDecadeRank) })
+        .sort(lead === 'atlas' ? { canonRank: 1 } : { canonDecadeRank: 1 })
+        .select('title year posterUrl canonRank canonDecadeRank')
+        .lean();
+    }
+
     res.json({
         ...movie.toObject(),
-        directorId
+        directorId,
+        canon,
+        company
     });
   } catch (error) {
     console.error(error);

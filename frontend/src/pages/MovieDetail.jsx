@@ -9,7 +9,7 @@ import { useMotionPreference } from '../hooks/useMotionPreference';
 import LoadingSkeleton from '../components/LoadingSkeleton';
 import StarRating from '../components/StarRating';
 import PosterCard from '../components/PosterCard';
-import CanonPassport from '../components/film/CanonPassport';
+import CanonMarquee from '../components/film/CanonMarquee';
 import useFilmLight from '../components/film/useFilmLight';
 import { treatmentFor, displayTitle, sized } from '../components/movements/treatments';
 
@@ -19,8 +19,8 @@ import { treatmentFor, displayTitle, sized } from '../components/movements/treat
  * The page is lit by the film itself: its still, blurred, glows behind
  * everything like light thrown off the screen, and the accent is read from
  * the still's own colour, so no two films' pages are the same colour. Below
- * the screen: the programme note, the technical sheet, the canon passport
- * (every list that places the film, stamped), the movement it belongs to,
+ * the screen: the programme note, the technical sheet, where the canon places
+ * it (a marquee, a laurel per list, the films ranked either side), the movement it belongs to,
  * a contact sheet of stills, and a double bill to follow it with.
  */
 
@@ -296,12 +296,10 @@ const MovieDetail = () => {
                         </motion.aside>
                     </section>
 
-                    {/* ===== THE CANON PASSPORT ===== */}
+                    {/* ===== WHERE THE CANON PLACES IT ===== */}
                     <section className="pt-24 md:pt-32">
-                        <div className="flex items-end justify-between gap-6 mb-8">
-                            <h2 className="font-serif text-4xl md:text-5xl">Where the canon places it</h2>
-                        </div>
-                        <CanonPassport provenance={movie.provenance || []} score={movie.provenanceScore} accent={light} reducedMotion={reducedMotion} />
+                        <h2 className="font-serif text-4xl md:text-5xl text-center mb-10">Where the canon places it</h2>
+                        <CanonMarquee film={movie} accent={light} reducedMotion={reducedMotion} />
                     </section>
 
                     {/* ===== ITS MOVEMENT ===== */}
