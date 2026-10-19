@@ -1,231 +1,180 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { MdArrowBack } from 'react-icons/md';
 import api from '../services/api';
-import PosterCard from '../components/PosterCard';
+import { useMotionPreference } from '../hooks/useMotionPreference';
+import LoadingSkeleton from '../components/LoadingSkeleton';
+import LifeScreen from '../components/director/LifeScreen';
+import StillDrift from '../components/director/StillDrift';
+import ArchiveCard from '../components/director/ArchiveCard';
+import PosterWall from '../components/director/PosterWall';
+import Constellation from '../components/director/Constellation';
+import useFilmLight from '../components/film/useFilmLight';
+import { sized } from '../components/movements/treatments';
+
+/**
+ * A director, presented as a cinémathèque retrospective.
+ *
+ * Their own stills drift past behind the portrait and name, and the page is
+ * lit by their most canonical film. Then the life, run through a projector
+ * (a screen playing through the career, the strip of films, the life they came
+ * from); the poster wall, a dark papered wall with one wandering light; their
+ * card from the archive, typing out the biography; and the circle they ran
+ * with, drawn as a constellation.
+ */
+
+const yearOf = (d) => (d ? parseInt(String(d).slice(0, 4), 10) || null : null);
+const strongest = (f) => [...(f.provenance || [])].sort((a, b) => (b.weight || 0) - (a.weight || 0))[0];
 
 const DirectorDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [director, setDirector] = useState(null);
-    const [films, setFilms] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const reducedMotion = useMotionPreference();
+    // { id, data } — loading is simply "the loaded director isn't this one yet"
+    const [result, setResult] = useState({ id: null, data: null });
 
     useEffect(() => {
-        fetchDirector();
+        let cancelled = false;
+        window.scrollTo(0, 0);
+        api.get(`/directors/${id}`)
+            .then((res) => { if (!cancelled) setResult({ id, data: res.data.data }); })
+            .catch((error) => { console.error('Failed to fetch director:', error); if (!cancelled) setResult({ id, data: null }); });
+        return () => { cancelled = true; };
     }, [id]);
 
-    const fetchDirector = async () => {
-        try {
-            const response = await api.get(`/directors/${id}`);
-            setDirector(response.data.data);
-            setFilms(response.data.data.films || []);
-        } catch (error) {
-            console.error('Failed to fetch director:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    const loading = result.id !== id;
+    const director = loading ? null : result.data;
+    const films = director?.films || [];
+    // their most canonical film lights the page
+    const signature = [...films].sort((a, b) => (strongest(b)?.weight || 0) - (strongest(a)?.weight || 0))[0];
+    const glow = signature?.backdropUrl || director?.backdropUrl;
+    const light = useFilmLight(glow);
 
-    const getLifespan = () => {
-        if (!director) return '';
-        const birth = director.birthDate?.split('-')[0] || '?';
-        const death = director.deathDate?.split('-')[0] || 'Present';
-        return `${birth} – ${death}`;
-    };
-
-    if (loading) {
-        return (
-            <div className="min-h-screen pt-24 flex items-center justify-center bg-[#050505]">
-                <div className="text-xl text-gray-400">Loading...</div>
-            </div>
-        );
-    }
-
+    if (loading) return <div className="min-h-screen pt-24"><LoadingSkeleton /></div>;
     if (!director) {
         return (
-            <div className="min-h-screen pt-24 flex items-center justify-center bg-[#050505]">
-                <div className="text-xl text-gray-400">Director not found</div>
+            <div className="min-h-screen pt-24 flex items-center justify-center">
+                <p className="text-gray-400">Director not found</p>
             </div>
         );
     }
 
+    const born = yearOf(director.birthDate);
+    const died = yearOf(director.deathDate);
+    const span = films.length ? `${films[0].year}–${films[films.length - 1].year}` : null;
+    // stills for the drift behind the opening: every still and backdrop they have here
+    const drift = [...new Set(films.flatMap((f) => [...(f.stills || []), f.backdropUrl]).filter(Boolean))].slice(0, 24);
+    const reveal = (delay = 0) => (reducedMotion ? {} : {
+        initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: '-80px' },
+        transition: { duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }
+    });
+    const kicker = (text) => <h2 className="font-mono text-[10px] tracking-[0.35em] uppercase text-gray-500 mb-6">{text}</h2>;
+
     return (
-        <>
-            {/* MOBILE VIEW (Floating Portrait) */}
-            <div className="md:hidden min-h-screen bg-black text-white pb-12 font-sans">
-                {/* Header (Atmosphere) */}
-                <div className="relative w-full h-[30vh] overflow-hidden">
-                    {director.profileUrl ? (
-                        <img
-                            src={director.profileUrl}
-                            alt="Backdrop"
-                            className="w-full h-full object-cover blur-sm opacity-50"
-                        />
-                    ) : (
-                        <div className="w-full h-full bg-gradient-to-b from-[#1a1a1a] via-black to-black" />
-                    )}
-                    {/* Back Button */}
-                    <button onClick={() => navigate(-1)} className="absolute top-4 left-4 p-2 bg-black/50 rounded-full text-white z-20 backdrop-blur-sm">
-                        <span className="material-icons-round">arrow_back</span>
-                    </button>
-                </div>
+        <div className="relative min-h-screen text-white overflow-x-clip selection:bg-primary selection:text-black">
+            {/* lit by their most canonical film */}
+            <div aria-hidden="true" className="fixed inset-0 z-0 pointer-events-none">
+                {glow && <img src={sized(glow, 'w780')} alt="" className="absolute inset-0 w-full h-full object-cover scale-125 blur-[90px] saturate-[1.3] opacity-[0.2]" />}
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_70%_15%,rgba(5,5,5,0.25),rgba(5,5,5,0.8)_60%,#050505)]" />
+            </div>
 
-                {/* Floating Portrait */}
-                <div className="relative -mt-20 z-10 flex justify-center">
-                    <img
-                        src={director.profileUrl || 'https://via.placeholder.com/400x600?text=No+Image'}
-                        alt={director.name}
-                        className="w-40 h-40 rounded-full border-2 border-[#C5A059] shadow-2xl object-cover"
-                    />
-                </div>
+            <div className="relative max-w-7xl mx-auto px-4 md:px-10">
+                <button onClick={() => navigate(-1)} className="absolute top-24 left-4 md:left-10 z-20 flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-gray-400 hover:text-white transition-colors">
+                    <MdArrowBack /> Back
+                </button>
 
-                {/* Info Section */}
-                <div className="flex flex-col items-center px-6 mt-6 text-center">
-                    <h1 className="text-4xl font-serif text-white mb-2 leading-tight">{director.name}</h1>
-                    <div className="text-[#C5A059] text-sm tracking-widest uppercase mb-6 font-medium">
-                        {getLifespan()}
-                        {director.placeOfBirth && ` • ${director.placeOfBirth.split(',').pop().trim()}`}
-                    </div>
-                    <div className="text-gray-400 text-sm leading-relaxed line-clamp-6">
-                        {director.bio || 'No biography available.'}
-                    </div>
+                {/* ===== THE RETROSPECTIVE OPENS ===== */}
+                <div className="absolute inset-x-[-50vw] top-0 h-[100vh] -z-0">
+                    {!reducedMotion && <StillDrift images={drift} />}
                 </div>
+                <section className="relative grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-end min-h-[92vh] pt-36 md:pt-40 pb-16 md:pb-24">
+                    <motion.div
+                        className="md:col-span-4"
+                        initial={reducedMotion ? false : { opacity: 0, scale: 0.96 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                        <div className="relative aspect-[3/4] max-w-[22rem] overflow-hidden bg-[#0d0d0d] ring-1 ring-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.7)]">
+                            {director.profileUrl ? (
+                                <img src={sized(director.profileUrl, 'h632')} alt={director.name} className="w-full h-full object-cover grayscale contrast-[1.08]" />
+                            ) : (
+                                <div className="w-full h-full flex items-center justify-center font-serif text-7xl text-gray-600">
+                                    {director.name.split(' ').map((w) => w[0]).slice(0, 2).join('')}
+                                </div>
+                            )}
+                            <span className="absolute inset-x-0 bottom-0 h-1" style={{ backgroundColor: light }} />
+                        </div>
+                    </motion.div>
 
-                {/* Filmography Section */}
-                <div className="mt-8">
-                    <h3 className="text-xl font-serif text-white mb-4 px-6 border-l-2 border-[#C5A059] mx-6">Essential Films</h3>
-                    {films.length > 0 ? (
-                        <div className="grid grid-cols-3 gap-2 px-2">
-                            {films.map(film => (
-                                <div key={film._id} className="relative z-0 hover:z-50">
-                                    <PosterCard movie={film} />
+                    <motion.div
+                        className="md:col-span-8"
+                        initial={reducedMotion ? false : { opacity: 0, y: 24 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                        <div className="font-mono text-[11px] tracking-[0.35em] uppercase" style={{ color: light }}>A retrospective</div>
+                        <h1 className="mt-4 font-serif font-bold leading-[0.92] text-5xl sm:text-6xl md:text-7xl lg:text-[6.5rem]">{director.name}</h1>
+                        <div className="mt-5 font-mono text-xs tracking-[0.2em] uppercase text-gray-400">
+                            {[born && `${born}–${died || ''}`, director.placeOfBirth].filter(Boolean).join('  ·  ')}
+                        </div>
+                        <dl className="mt-10 grid grid-cols-3 max-w-xl border-y border-white/10">
+                            {[
+                                [films.length, films.length === 1 ? 'film in the atlas' : 'films in the atlas'],
+                                [span || '—', 'the years'],
+                                // a movement count of nought says nothing; how much of the work the canon holds says something
+                                director.movements?.length
+                                    ? [director.movements.length, director.movements.length === 1 ? 'movement' : 'movements']
+                                    : [films.filter((f) => f.provenanceCount > 0).length, 'on the canon lists']
+                            ].map(([n, label]) => (
+                                <div key={label} className="py-4 pr-3">
+                                    <dd className="font-serif text-3xl md:text-4xl leading-none text-white">{n}</dd>
+                                    <dt className="mt-2 text-[10px] tracking-[0.25em] uppercase text-gray-500">{label}</dt>
                                 </div>
                             ))}
+                        </dl>
+                    </motion.div>
+                </section>
+
+                {/* ===== THE LIFE, RUN THROUGH A PROJECTOR ===== */}
+                {films.length > 0 && (
+                    <motion.section {...reveal()} className="pt-10">
+                        {kicker('The life, in films')}
+                        <LifeScreen director={director} films={films} movements={director.movements || []} accent={light} reducedMotion={reducedMotion} />
+                    </motion.section>
+                )}
+
+                {/* ===== THE POSTER WALL ===== */}
+                {films.some((f) => f.posterUrl) && (
+                    <section className="pt-28 md:pt-36">
+                        <div className="flex items-end justify-between gap-6 mb-8">
+                            <h2 className="font-serif text-4xl md:text-5xl">Posters</h2>
+                            <span className="hidden sm:block font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 pb-2">hover a poster to turn its lamp up</span>
                         </div>
-                    ) : (
-                        <p className="text-gray-500 text-center text-sm py-8">No films available</p>
-                    )}
-                </div>
-            </div>
-
-            {/* DESKTOP VIEW */}
-            <div className="hidden md:block min-h-screen text-[#E5E5E5] font-sans">
-                {/* Hero Section */}
-                <header className="relative w-full h-[85vh] flex items-end justify-center pb-24 overflow-hidden">
-                    <img
-                        alt={`Cinematic backdrop for ${director.name}`}
-                        className="absolute inset-0 w-full h-full object-cover object-top opacity-60"
-                        style={{ filter: 'brightness(0.6) contrast(1.1)' }}
-                        src={director.backdropUrl || director.profileUrl || 'https://via.placeholder.com/1920x1080'}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/60 via-[#050505]/20 to-[#050505]"></div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/90 to-transparent h-2/3 bottom-0"></div>
-
-                    <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-                        <h1 className="font-['Playfair_Display'] text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-6 drop-shadow-2xl tracking-tighter">
-                            {director.name.split(' ')[0]}{' '}
-                            <span className="text-[#d4af37] italic font-serif">
-                                {director.name.split(' ').slice(1).join(' ')}
-                            </span>
-                        </h1>
-                        <div className="flex items-center justify-center space-x-4 text-[#d4af37]/80 text-sm md:text-base tracking-[0.2em] uppercase font-medium">
-                            <span>{getLifespan()}</span>
-                            <span className="w-1 h-1 bg-[#d4af37] rounded-full"></span>
-                            <span>{director.placeOfBirth?.split(',').pop()?.trim() || 'Unknown'}</span>
-                            <span className="w-1 h-1 bg-[#d4af37] rounded-full"></span>
-                            <span>Master Director</span>
-                        </div>
-                    </div>
-                </header>
-
-                {/* Main Content */}
-                <main className="flex-grow max-w-7xl mx-auto px-6 py-12 w-full grid grid-cols-1 lg:grid-cols-12 gap-16">
-                    {/* Left Column - Bio & Style */}
-                    <section className="lg:col-span-4 space-y-16 ">{/* Biography */}
-                        <div>
-                            <h3 className="text-3xl text-white mb-8 border-l-2 border-[#d4af37] pl-6 py-2 font-['Playfair_Display']">
-                                Biography
-                            </h3>
-                            <div className="space-y-6 text-gray-400 leading-relaxed font-light text-base">
-                                {director.bio ? (
-                                    director.bio.split('\n\n').slice(0, 3).map((paragraph, idx) => (
-                                        <p key={idx}>{paragraph}</p>
-                                    ))
-                                ) : (
-                                    <p>No biography available.</p>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Style & Influence */}
-                        {director.keyStyles && director.keyStyles.length > 0 && (
-                            <div>
-                                <h3 className="font-['Playfair_Display'] text-2xl text-white mb-8 border-l-2 border-[#d4af37] pl-6 py-2">
-                                    Style & Influence
-                                </h3>
-                                <ul className="space-y-8">
-                                    {director.keyStyles.map((style, idx) => (
-                                        <li key={idx} className="group">
-                                            <div className="flex items-baseline mb-2">
-                                                <span className="material-icons text-[#d4af37] mr-3 text-lg group-hover:text-white transition-colors">
-                                                    auto_awesome
-                                                </span>
-                                                <h4 className="font-bold text-white text-lg tracking-wide">
-                                                    {style}
-                                                </h4>
-                                            </div>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-
-                        {/* Awards */}
-                        {director.awards && director.awards.length > 0 && (
-                            <div className="pt-8 border-t border-white/10">
-                                <div className="flex flex-wrap gap-3">
-                                    {director.awards.map((award, idx) => (
-                                        <span
-                                            key={idx}
-                                            className="inline-block px-4 py-1.5 bg-[#121212] border border-white/10 text-xs font-medium uppercase tracking-widest text-[#A3A3A3] hover:border-[#d4af37]/50 hover:text-[#d4af37] transition-all cursor-default"
-                                        >
-                                            {award}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
+                        <PosterWall films={films} accent={light} reducedMotion={reducedMotion} />
                     </section>
+                )}
 
-                    {/* Right Column - Essential Films */}
-                    <section className="lg:col-span-8 pl-0 lg:pl-12 border-l-0 lg:border-l border-white/5">
-                        <div className="flex items-center justify-between mb-10">
-                            <h3 className="font-['Playfair_Display'] text-4xl text-white">
-                                Essential Films
-                            </h3>
-                        </div>
-
-
-                        {films.length > 0 ? (
-                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                                {films.map((film) => (
-                                    <div key={film._id} className="relative hover:z-50">
-                                        <PosterCard movie={film} />
-                                    </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="text-center py-20">
-                                <p className="text-xl text-gray-500 mb-4">No films in database yet</p>
-                                <p className="text-sm text-gray-600">
-                                    Films from this director will appear here once added to the collection.
-                                </p>
-                            </div>
-                        )}
+                {/* ===== THE ARCHIVE CARD ===== */}
+                {director.bio && (
+                    <section className="pt-28 md:pt-36">
+                        {kicker('From the archive')}
+                        <ArchiveCard director={director} filmsCount={films.length} movements={director.movements || []} index={parseInt(director._id.slice(-4), 16) % 10000} reducedMotion={reducedMotion} />
                     </section>
-                </main>
+                )}
+
+                {/* ===== THEIR CIRCLE ===== */}
+                {director.peers?.length > 0 ? (
+                    <section className="pt-28 md:pt-36 pb-28">
+                        <div className="flex items-end justify-between gap-6 mb-4">
+                            <h2 className="font-serif text-4xl md:text-5xl">Their circle</h2>
+                            <span className="hidden sm:block font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 pb-2">the directors they shared a movement with</span>
+                        </div>
+                        <Constellation director={director} movements={director.movements || []} peers={director.peers} reducedMotion={reducedMotion} />
+                    </section>
+                ) : <div className="pb-28" />}
             </div>
-        </>
+        </div>
     );
 };
 

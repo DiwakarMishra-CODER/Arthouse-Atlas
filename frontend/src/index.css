@@ -228,3 +228,74 @@
     animation: intertitle-scratch 3.4s steps(1, end) infinite;
   }
 }
+
+/* Director pages — their stills drift past behind the opening like reels */
+@keyframes still-drift {
+  to { transform: translateY(-50%); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .still-drift {
+    animation: still-drift 80s linear infinite;
+  }
+}
+
+/* Director pages — the poster wall: red art-deco paper, one light, shadows that swing with it */
+.poster-wall {
+  background-color: #2b100e;
+  background-image:
+    radial-gradient(circle at 50% 100%, transparent 15px, rgba(214, 170, 100, 0.16) 16px 17px, transparent 18px 23px, rgba(214, 170, 100, 0.12) 24px 25px, transparent 26px),
+    radial-gradient(circle at 50% 100%, transparent 15px, rgba(214, 170, 100, 0.16) 16px 17px, transparent 18px 23px, rgba(214, 170, 100, 0.12) 24px 25px, transparent 26px),
+    linear-gradient(to bottom, #3a1512, #1e0b0a);
+  background-size: 56px 28px, 56px 28px, 100% 100%;
+  background-position: 0 0, 28px 14px, 0 0;
+}
+
+.poster-wall-dark {
+  /* house lights low, not off: every poster stays readable; the spotlight adds warmth where it falls */
+  background: radial-gradient(circle 420px at var(--mx) var(--my), color-mix(in srgb, var(--spot) 14%, transparent) 0%, rgba(4, 3, 3, 0) 30%, rgba(4, 3, 3, 0.5) 85%);
+}
+
+/* the picture lamps come on one after another as the wall arrives, each with a flicker */
+@keyframes lamp-on {
+  0% { opacity: 0; }
+  30% { opacity: 0.6; }
+  38% { opacity: 0.1; }
+  55% { opacity: 0.5; }
+  100% { opacity: 0.55; }
+}
+
+.poster-wall.is-on .lamp-cone {
+  animation: lamp-on 0.9s steps(1, end) forwards;
+  animation-delay: calc(var(--i, 0) * 140ms);
+}
+
+.poster-wall.is-on .poster:hover .lamp-cone {
+  animation: none;
+  opacity: 1;
+}
+
+/* a poster under your cursor steps out of the dark, lit by its own lamp */
+.poster:hover { z-index: 30; }
+
+.poster-frame {
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  box-shadow: calc((var(--cx) - var(--mx)) * 0.06) calc((var(--cy) - var(--my)) * 0.06 + 16px) 28px rgba(0, 0, 0, 0.85);
+}
+
+.lamp-cone {
+  background: linear-gradient(to bottom, rgba(255, 214, 150, 0.4), transparent);
+  clip-path: polygon(32% 0, 68% 0, 100% 100%, 0 100%);
+  filter: blur(6px);
+}
+
+.poster-glare {
+  background: radial-gradient(circle at var(--gx, 50%) var(--gy, 30%), rgba(255, 255, 255, 0.32), transparent 45%);
+}
+
+/* touch screens and reduced motion get the whole wall lit */
+.poster-wall-lit .poster-wall-dark { display: none; }
+.poster-wall-lit .lamp-cone { opacity: 0.55; }
+@media (hover: none) {
+  .poster-wall-dark { display: none; }
+}

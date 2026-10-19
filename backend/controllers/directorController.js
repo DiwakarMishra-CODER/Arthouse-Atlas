@@ -1,5 +1,6 @@
 import Director from '../models/Director.js';
 import Movie from '../models/Movie.js';
+import Movement from '../models/Movement.js';
 import { getErrorResponse } from '../utils/errorResponse.js';
 
 // @desc    Get all directors
@@ -76,20 +77,31 @@ export const getDirector = async (req, res) => {
             });
         }
 
-        // Get director's top films from Movie collection
-        const films = await Movie.find({
-            directors: director.name
-        })
-            .sort({ arthouseScore: -1 })
-            .limit(6)
-            .select('title year genres posterUrl arthouseScore directors trailerUrl')
+        // The whole filmography in the atlas, in the order it was made
+        const films = await Movie.find({ directors: director.name })
+            .sort({ year: 1 })
+            .select('title year runtime country posterUrl backdropUrl stills genres trailerUrl movements editorial.hook provenance provenanceCount canonRank')
             .lean();
+
+        // The movements they're named as key to, and the others named alongside them there
+        const movements = await Movement.find({ 'keyDirectors.directorId': director._id })
+            .select('title tag era startYear endYear region keyDirectors')
+            .sort({ startYear: 1 })
+            .lean();
+        const peerIds = [...new Set(movements.flatMap((m) => m.keyDirectors
+            .filter((d) => d.directorId && !d.directorId.equals(director._id))
+            .map((d) => d.directorId.toString())))];
+        const peers = (await Director.find({ _id: { $in: peerIds } }).select('name profileUrl birthDate deathDate').lean())
+            // which of the director's movements each peer shares, for drawing the circle by movement
+            .map((p) => ({ ...p, movementIds: movements.filter((m) => m.keyDirectors.some((d) => d.directorId?.equals(p._id))).map((m) => m._id) }));
 
         res.json({
             success: true,
             data: {
                 ...director.toObject(),
-                films
+                films,
+                movements: movements.map(({ keyDirectors, ...m }) => m),
+                peers
             }
         });
     } catch (error) {
