@@ -1,0 +1,801 @@
+[
+ {
+  "source": "ss-docs",
+  "rank": 1,
+  "title": "Man with a Movie Camera",
+  "originalTitle": null,
+  "directors": [
+   "Dziga Vertov"
+  ],
+  "year": 1929,
+  "country": "USSR",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 2,
+  "title": "Shoah",
+  "originalTitle": null,
+  "directors": [
+   "Claude Lanzmann"
+  ],
+  "year": 1985,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 3,
+  "title": "Sans soleil",
+  "originalTitle": null,
+  "directors": [
+   "Chris Marker"
+  ],
+  "year": 1982,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 4,
+  "title": "Night and Fog",
+  "originalTitle": null,
+  "directors": [
+   "Alain Resnais"
+  ],
+  "year": 1955,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 5,
+  "title": "The Thin Blue Line",
+  "originalTitle": null,
+  "directors": [
+   "Errol Morris"
+  ],
+  "year": 1989,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 6,
+  "title": "Chronicle of a Summer",
+  "originalTitle": null,
+  "directors": [
+   "Jean Rouch",
+   "Edgar Morin"
+  ],
+  "year": 1961,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 7,
+  "title": "Nanook of the North",
+  "originalTitle": null,
+  "directors": [
+   "Robert Flaherty"
+  ],
+  "year": 1922,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 8,
+  "title": "The Gleaners and I",
+  "originalTitle": null,
+  "directors": [
+   "Agnès Varda"
+  ],
+  "year": 2000,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 9,
+  "title": "Dont Look Back",
+  "originalTitle": null,
+  "directors": [
+   "D.A. Pennebaker"
+  ],
+  "year": 1967,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 9,
+  "title": "Grey Gardens",
+  "originalTitle": null,
+  "directors": [
+   "Albert Maysles",
+   "David Maysles",
+   "Ellen Hovde",
+   "Muffie Meyer"
+  ],
+  "year": 1975,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 11,
+  "title": "The Sorrow and the Pity",
+  "originalTitle": null,
+  "directors": [
+   "Marcel Ophüls"
+  ],
+  "year": 1969,
+  "country": "Switzerland",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#11 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 12,
+  "title": "Grizzly Man",
+  "originalTitle": null,
+  "directors": [
+   "Werner Herzog"
+  ],
+  "year": 2005,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#12 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 12,
+  "title": "Land without Bread",
+  "originalTitle": null,
+  "directors": [
+   "Luis Buñuel"
+  ],
+  "year": 1933,
+  "country": "Spain",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#12 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 12,
+  "title": "Nostalgia for the Light",
+  "originalTitle": null,
+  "directors": [
+   "Patricio Guzmán"
+  ],
+  "year": 2010,
+  "country": "Chile/Spain/France/Germany/USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#12 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 15,
+  "title": "F for Fake",
+  "originalTitle": null,
+  "directors": [
+   "Orson Welles"
+  ],
+  "year": 1975,
+  "country": "France/Iran",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#15 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 15,
+  "title": "The Up Series",
+  "originalTitle": null,
+  "directors": [
+   "Paul Almond",
+   "Michael Apted"
+  ],
+  "year": 1964,
+  "country": "UK",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#15 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 17,
+  "title": "Hoop Dreams",
+  "originalTitle": null,
+  "directors": [
+   "Steve James"
+  ],
+  "year": 1994,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#17 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 17,
+  "title": "West of the Tracks",
+  "originalTitle": null,
+  "directors": [
+   "Wang Bing"
+  ],
+  "year": 2002,
+  "country": "China",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#17 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 19,
+  "title": "The Act of Killing",
+  "originalTitle": null,
+  "directors": [
+   "Joshua Oppenheimer",
+   "Christine Cynn"
+  ],
+  "year": 2012,
+  "country": "Denmark/Finland/UK/Germany/Netherlands/Norway/Poland/Sweden",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#19 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 19,
+  "title": "The Battle of Chile",
+  "originalTitle": null,
+  "directors": [
+   "Patricio Guzmán"
+  ],
+  "year": 1975,
+  "country": "Chile/Cuba",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#19 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 19,
+  "title": "The House is Black",
+  "originalTitle": "Khaneh siah ast",
+  "directors": [
+   "Forough Farrokhzad"
+  ],
+  "year": 1963,
+  "country": "Iran",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#19 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 19,
+  "title": "Listen to Britain",
+  "originalTitle": null,
+  "directors": [
+   "Humphrey Jennings",
+   "Stewart McAllister"
+  ],
+  "year": 1942,
+  "country": "UK",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#19 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 23,
+  "title": "The Emperor’s Naked Army Marches On",
+  "originalTitle": null,
+  "directors": [
+   "Hara Kazuo"
+  ],
+  "year": 1987,
+  "country": "Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#23 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 24,
+  "title": "Harlan County U.S.A.",
+  "originalTitle": null,
+  "directors": [
+   "Barbara Kopple"
+  ],
+  "year": 1976,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#24 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 24,
+  "title": "Histoire(s) du Cinèma",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1998,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#24 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 24,
+  "title": "Salesman",
+  "originalTitle": null,
+  "directors": [
+   "Albert Maysles",
+   "David Maysles",
+   "Charlotte Zwerin"
+  ],
+  "year": 1968,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#24 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 27,
+  "title": "Titicut Follies",
+  "originalTitle": null,
+  "directors": [
+   "Frederick Wiseman"
+  ],
+  "year": 1967,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#27 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 28,
+  "title": "Capturing the Friedmans",
+  "originalTitle": null,
+  "directors": [
+   "Andrew Jarecki"
+  ],
+  "year": 2003,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#28 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 28,
+  "title": "Gimme Shelter",
+  "originalTitle": null,
+  "directors": [
+   "Albert Maysles",
+   "David Maysles",
+   "Charlotte Zwerin"
+  ],
+  "year": 1970,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#28 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 30,
+  "title": "Leviathan",
+  "originalTitle": null,
+  "directors": [
+   "Lucien Castaing-Taylor",
+   "Véréna Paravel"
+  ],
+  "year": 2012,
+  "country": "France/UK/USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#30 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 31,
+  "title": "Lessons of Darkness",
+  "originalTitle": null,
+  "directors": [
+   "Werner Herzog"
+  ],
+  "year": 1992,
+  "country": "Germany",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#31 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 31,
+  "title": "The Quince Tree Sun",
+  "originalTitle": null,
+  "directors": [
+   "Victor Erice"
+  ],
+  "year": 1992,
+  "country": "Spain",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#31 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 33,
+  "title": "Night Mail",
+  "originalTitle": null,
+  "directors": [
+   "Harry Watt",
+   "Basil Wright"
+  ],
+  "year": 1936,
+  "country": "UK",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#33 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 33,
+  "title": "Primary",
+  "originalTitle": null,
+  "directors": [
+   "Robert Drew"
+  ],
+  "year": 1960,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#33 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 35,
+  "title": "Crumb",
+  "originalTitle": null,
+  "directors": [
+   "Terry Zwigoff"
+  ],
+  "year": 1994,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#35 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 35,
+  "title": "A Diary for Timothy",
+  "originalTitle": null,
+  "directors": [
+   "Humphrey Jennings"
+  ],
+  "year": 1946,
+  "country": "UK",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#35 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 37,
+  "title": "Close-up",
+  "originalTitle": null,
+  "directors": [
+   "Abbas Kiarostami"
+  ],
+  "year": 1989,
+  "country": "Iran",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#37 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 37,
+  "title": "The Fog of War",
+  "originalTitle": null,
+  "directors": [
+   "Errol Morris"
+  ],
+  "year": 2003,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#37 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 37,
+  "title": "Los Angeles Plays Itself",
+  "originalTitle": null,
+  "directors": [
+   "Thom Andersen"
+  ],
+  "year": 2003,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#37 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 37,
+  "title": "Man on Wire",
+  "originalTitle": null,
+  "directors": [
+   "James Marsh"
+  ],
+  "year": 2007,
+  "country": "UK",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#37 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 37,
+  "title": "Moi, un noir",
+  "originalTitle": null,
+  "directors": [
+   "Jean Rouch"
+  ],
+  "year": 1959,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#37 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 37,
+  "title": "Portrait of Jason",
+  "originalTitle": null,
+  "directors": [
+   "Shirley Clarke"
+  ],
+  "year": 1967,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#37 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 37,
+  "title": "À Propos de Nice",
+  "originalTitle": null,
+  "directors": [
+   "Jean Vigo"
+  ],
+  "year": 1930,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#37 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 37,
+  "title": "Roger & Me",
+  "originalTitle": null,
+  "directors": [
+   "Michael Moore"
+  ],
+  "year": 1989,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#37 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 37,
+  "title": "Le Sang des bêtes",
+  "originalTitle": null,
+  "directors": [
+   "Georges Franju"
+  ],
+  "year": 1948,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#37 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 37,
+  "title": "The War Game",
+  "originalTitle": null,
+  "directors": [
+   "Peter Watkins"
+  ],
+  "year": 1965,
+  "country": "UK",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#37 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 47,
+  "title": "Culloden",
+  "originalTitle": null,
+  "directors": [
+   "Peter Watkins"
+  ],
+  "year": 1964,
+  "country": "UK",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#47 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 47,
+  "title": "Diaries, Notes and Sketches: Walden",
+  "originalTitle": null,
+  "directors": [
+   "Jonas Mekas"
+  ],
+  "year": 1969,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#47 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 47,
+  "title": "D’Est",
+  "originalTitle": null,
+  "directors": [
+   "Chantal Akerman"
+  ],
+  "year": 1993,
+  "country": "Belgium/France/Portugal",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#47 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 47,
+  "title": "Handsworth Songs",
+  "originalTitle": null,
+  "directors": [
+   "John Akomfrah"
+  ],
+  "year": 1986,
+  "country": "UK",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#47 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 47,
+  "title": "The Hour of the Furnaces",
+  "originalTitle": null,
+  "directors": [
+   "Octavio Getino",
+   "Fernando Solanas"
+  ],
+  "year": 1968,
+  "country": "Argentina",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#47 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 47,
+  "title": "Seasons",
+  "originalTitle": null,
+  "directors": [
+   "Artavazd Pelechian"
+  ],
+  "year": 1975,
+  "country": "USSR/Armenia",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#47 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 47,
+  "title": "Triumph of the Will",
+  "originalTitle": null,
+  "directors": [
+   "Leni Riefenstahl"
+  ],
+  "year": 1935,
+  "country": "Germany",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#47 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 47,
+  "title": "Waltz with Bashir",
+  "originalTitle": null,
+  "directors": [
+   "Ari Folman"
+  ],
+  "year": 2008,
+  "country": "Israel/France/Germany/Japan/USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#47 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 47,
+  "title": "Welfare",
+  "originalTitle": null,
+  "directors": [
+   "Frederick Wiseman"
+  ],
+  "year": 1975,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#47 (2014 critics' documentary poll)"
+ },
+ {
+  "source": "ss-docs",
+  "rank": 47,
+  "title": "Workers Leaving the Lumière Factory",
+  "originalTitle": null,
+  "directors": [
+   "Louis Lumière",
+   "Auguste Lumière"
+  ],
+  "year": 1895,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#47 (2014 critics' documentary poll)"
+ }
+]

@@ -83,11 +83,14 @@ const movieSchema = new mongoose.Schema({
   // Built by scripts/canon/buildProvenance.js; every film should have ≥1 entry
   // or a curator's note explaining why it is in the catalogue.
   provenance: [{
-    source: String,   // key in scripts/canon/sources.js, e.g. 'ss2022-critics'
+    source: String,   // source id from scripts/canon/registry.js, e.g. 'ss2022-critics'
     label: String,    // human label, e.g. "Sight & Sound 2022 critics"
+    family: String,   // what kind of evidence: 'all-time-poll', 'year-end', 'prize' … (scripts/canon/scoring.js)
     detail: String,   // e.g. "#4", "Spine #217", "Palme d'Or · Cannes 1997"
     rank: Number,
-    weight: Number    // contribution to provenanceScore
+    weight: Number,   // strength of this citation; the film's list is stored strongest first
+    url: String,      // link to the citation itself, where there is one (an Ebert essay)
+    pollYear: Number  // when the poll was taken, for lists that ran more than once (Sight and Sound 1952–2002)
   }],
   provenanceScore: {
     type: Number,
@@ -97,6 +100,15 @@ const movieSchema = new mongoose.Schema({
   provenanceCount: {
     type: Number,     // distinct sources citing the film
     default: 0
+  },
+  canonRank: {
+    type: Number,     // the film's place in the atlas by canon standing (1 = strongest); null with no evidence
+    default: null,
+    index: true
+  },
+  canonDecadeRank: {
+    type: Number,     // the same, among the atlas's films of its decade — fairer to recent films
+    default: null
   },
   curatorNote: {
     type: String,     // why a film with no canon evidence is here, in the house voice

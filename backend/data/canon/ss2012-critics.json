@@ -1,0 +1,1420 @@
+[
+ {
+  "source": "ss2012-critics",
+  "rank": 1,
+  "title": "Vertigo",
+  "originalTitle": null,
+  "directors": [
+   "Alfred Hitchcock"
+  ],
+  "year": 1958,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#1 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 2,
+  "title": "Citizen Kane",
+  "originalTitle": null,
+  "directors": [
+   "Orson Welles"
+  ],
+  "year": 1941,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#2 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 3,
+  "title": "Tokyo Story",
+  "originalTitle": null,
+  "directors": [
+   "Ozu Yasujiro"
+  ],
+  "year": 1953,
+  "country": "Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#3 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 4,
+  "title": "La Règle du jeu",
+  "originalTitle": null,
+  "directors": [
+   "Jean Renoir"
+  ],
+  "year": 1939,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#4 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 5,
+  "title": "Sunrise: A Song of Two Humans",
+  "originalTitle": null,
+  "directors": [
+   "F.W. Murnau"
+  ],
+  "year": 1927,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#5 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 6,
+  "title": "2001: A Space Odyssey",
+  "originalTitle": null,
+  "directors": [
+   "Stanley Kubrick"
+  ],
+  "year": 1968,
+  "country": "UK/USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#6 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 7,
+  "title": "The Searchers",
+  "originalTitle": null,
+  "directors": [
+   "John Ford"
+  ],
+  "year": 1956,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#7 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 8,
+  "title": "Man with a Movie Camera",
+  "originalTitle": null,
+  "directors": [
+   "Dziga Vertov"
+  ],
+  "year": 1929,
+  "country": "Soviet Union",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#8 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 9,
+  "title": "The Passion of Joan of Arc",
+  "originalTitle": null,
+  "directors": [
+   "Carl Dreyer"
+  ],
+  "year": 1927,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#9 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 10,
+  "title": "8½",
+  "originalTitle": null,
+  "directors": [
+   "Federico Fellini"
+  ],
+  "year": 1963,
+  "country": "Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#10 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 11,
+  "title": "Battleship Potemkin",
+  "originalTitle": null,
+  "directors": [
+   "Sergei Eisenstein"
+  ],
+  "year": 1925,
+  "country": "Soviet Union",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#11 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 12,
+  "title": "L’Atalante",
+  "originalTitle": null,
+  "directors": [
+   "Jean Vigo"
+  ],
+  "year": 1934,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#12 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 13,
+  "title": "Breathless",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1960,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#13 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 14,
+  "title": "Apocalypse Now",
+  "originalTitle": null,
+  "directors": [
+   "Francis Ford Coppola"
+  ],
+  "year": 1979,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#14 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 15,
+  "title": "Late Spring",
+  "originalTitle": null,
+  "directors": [
+   "Ozu Yasujiro"
+  ],
+  "year": 1949,
+  "country": "Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#15 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 16,
+  "title": "Au hasard Balthazar",
+  "originalTitle": null,
+  "directors": [
+   "Robert Bresson"
+  ],
+  "year": 1966,
+  "country": "France/Sweden",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#16 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 17,
+  "title": "Seven Samurai",
+  "originalTitle": null,
+  "directors": [
+   "Kurosawa Akira"
+  ],
+  "year": 1954,
+  "country": "Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#17 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 17,
+  "title": "Persona",
+  "originalTitle": null,
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1966,
+  "country": "Sweden",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#17 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 19,
+  "title": "Mirror",
+  "originalTitle": null,
+  "directors": [
+   "Andrei Tarkovsky"
+  ],
+  "year": 1974,
+  "country": "Soviet Union",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#19 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 20,
+  "title": "Singin’ in the Rain",
+  "originalTitle": null,
+  "directors": [
+   "Stanley Donen",
+   "Gene Kelly"
+  ],
+  "year": 1951,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#20 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 21,
+  "title": "L’avventura",
+  "originalTitle": null,
+  "directors": [
+   "Michelangelo Antonioni"
+  ],
+  "year": 1960,
+  "country": "Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#21 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 21,
+  "title": "Le Mépris",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1963,
+  "country": "France/Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#21 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 21,
+  "title": "The Godfather",
+  "originalTitle": null,
+  "directors": [
+   "Francis Ford Coppola"
+  ],
+  "year": 1972,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#21 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 24,
+  "title": "Ordet",
+  "originalTitle": null,
+  "directors": [
+   "Carl Dreyer"
+  ],
+  "year": 1955,
+  "country": "Denmark",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#24 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 24,
+  "title": "In the Mood for Love",
+  "originalTitle": null,
+  "directors": [
+   "Wong Kar Wai"
+  ],
+  "year": 2000,
+  "country": "China",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#24 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 24,
+  "title": "Rashomon",
+  "originalTitle": null,
+  "directors": [
+   "Kurosawa Akira"
+  ],
+  "year": 1950,
+  "country": "Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#24 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 27,
+  "title": "Andrei Rublev",
+  "originalTitle": null,
+  "directors": [
+   "Andrei Tarkovsky"
+  ],
+  "year": 1966,
+  "country": null,
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#27 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 28,
+  "title": "Mulholland Dr.",
+  "originalTitle": null,
+  "directors": [
+   "David Lynch"
+  ],
+  "year": 2001,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#28 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 29,
+  "title": "Stalker",
+  "originalTitle": null,
+  "directors": [
+   "Andrei Tarkovsky"
+  ],
+  "year": 1979,
+  "country": "Soviet Union",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#29 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 29,
+  "title": "Shoah",
+  "originalTitle": null,
+  "directors": [
+   "Claude Lanzmann"
+  ],
+  "year": 1985,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#29 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 31,
+  "title": "The Godfather Part II",
+  "originalTitle": null,
+  "directors": [
+   "Francis Ford Coppola"
+  ],
+  "year": 1974,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#31 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 31,
+  "title": "Taxi Driver",
+  "originalTitle": null,
+  "directors": [
+   "Martin Scorsese"
+  ],
+  "year": 1976,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#31 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 33,
+  "title": "Bicycle Thieves",
+  "originalTitle": null,
+  "directors": [
+   "Vittoria De Sica"
+  ],
+  "year": 1948,
+  "country": "Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#33 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 34,
+  "title": "Psycho",
+  "originalTitle": null,
+  "directors": [
+   "Alfred Hitchcock"
+  ],
+  "year": 1960,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#34 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 34,
+  "title": "The General",
+  "originalTitle": null,
+  "directors": [
+   "Buster Keaton",
+   "Clyde Bruckman"
+  ],
+  "year": 1926,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#34 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 36,
+  "title": "Metropolis",
+  "originalTitle": null,
+  "directors": [
+   "Fritz Lang"
+  ],
+  "year": 1927,
+  "country": "Germany",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#36 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 36,
+  "title": "Jeanne Dielman, 23 quai du Commerce 1080 Bruxelles",
+  "originalTitle": null,
+  "directors": [
+   "Chantal Akerman"
+  ],
+  "year": 1975,
+  "country": "Belgium/France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#36 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 36,
+  "title": "Sátántangó",
+  "originalTitle": null,
+  "directors": [
+   "Béla Tarr"
+  ],
+  "year": 1994,
+  "country": "Switzerland/Germany/Hungary",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#36 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 39,
+  "title": "The 400 Blows",
+  "originalTitle": null,
+  "directors": [
+   "François Truffaut"
+  ],
+  "year": 1959,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#39 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 39,
+  "title": "La dolce vita",
+  "originalTitle": null,
+  "directors": [
+   "Federico Fellini"
+  ],
+  "year": 1960,
+  "country": "France/Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#39 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 41,
+  "title": "Journey to Italy",
+  "originalTitle": null,
+  "directors": [
+   "Roberto Rossellini"
+  ],
+  "year": 1954,
+  "country": "France/Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#41 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 41,
+  "title": "Pather Panchali",
+  "originalTitle": null,
+  "directors": [
+   "Satyajit Ray"
+  ],
+  "year": 1955,
+  "country": "India",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#41 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 43,
+  "title": "Some Like It Hot",
+  "originalTitle": null,
+  "directors": [
+   "Billy Wilder"
+  ],
+  "year": 1959,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#43 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 43,
+  "title": "Gertrud",
+  "originalTitle": null,
+  "directors": [
+   "Carl Dreyer"
+  ],
+  "year": 1964,
+  "country": "Denmark",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#43 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 43,
+  "title": "Pierrot le fou",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1965,
+  "country": "France/Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#43 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 43,
+  "title": "Play Time",
+  "originalTitle": null,
+  "directors": [
+   "Jacques Tati"
+  ],
+  "year": 1967,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#43 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 43,
+  "title": "Close-Up",
+  "originalTitle": null,
+  "directors": [
+   "Abbas Kiarostami"
+  ],
+  "year": 1990,
+  "country": "Iran",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#43 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 48,
+  "title": "The Battle of Algiers",
+  "originalTitle": null,
+  "directors": [
+   "Gillo Pontecorvo"
+  ],
+  "year": 1966,
+  "country": "Algeria/Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#48 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 48,
+  "title": "Histoire(s) du cinéma",
+  "originalTitle": null,
+  "directors": [
+   "Jean-Luc Godard"
+  ],
+  "year": 1998,
+  "country": "France/Switzerland",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#48 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 50,
+  "title": "City Lights",
+  "originalTitle": null,
+  "directors": [
+   "Charlie Chaplin"
+  ],
+  "year": 1931,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#50 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 50,
+  "title": "Ugetsu monogatari",
+  "originalTitle": null,
+  "directors": [
+   "Mizoguchi Kenji"
+  ],
+  "year": 1953,
+  "country": "Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#50 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 50,
+  "title": "La Jetée",
+  "originalTitle": null,
+  "directors": [
+   "Chris Marker"
+  ],
+  "year": 1962,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#50 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 53,
+  "title": "North by Northwest",
+  "originalTitle": null,
+  "directors": [
+   "Alfred Hitchcock"
+  ],
+  "year": 1959,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#53 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 53,
+  "title": "Rear Window",
+  "originalTitle": null,
+  "directors": [
+   "Alfred Hitchcock"
+  ],
+  "year": 1954,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#53 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 53,
+  "title": "Raging Bull",
+  "originalTitle": null,
+  "directors": [
+   "Martin Scorsese"
+  ],
+  "year": 1980,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#53 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 56,
+  "title": "M",
+  "originalTitle": null,
+  "directors": [
+   "Fritz Lang"
+  ],
+  "year": 1931,
+  "country": "Germany",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#56 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 57,
+  "title": "The Leopard",
+  "originalTitle": null,
+  "directors": [
+   "Luchino Visconti"
+  ],
+  "year": 1963,
+  "country": "France/Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#57 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 57,
+  "title": "Touch of Evil",
+  "originalTitle": null,
+  "directors": [
+   "Orson Welles"
+  ],
+  "year": 1958,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#57 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 59,
+  "title": "Sherlock Jr.",
+  "originalTitle": null,
+  "directors": [
+   "Buster Keaton"
+  ],
+  "year": 1924,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#59 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 59,
+  "title": "Barry Lyndon",
+  "originalTitle": null,
+  "directors": [
+   "Stanley Kubrick"
+  ],
+  "year": 1975,
+  "country": "UK/USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#59 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 59,
+  "title": "La Maman et la putain",
+  "originalTitle": null,
+  "directors": [
+   "Jean Eustache"
+  ],
+  "year": 1973,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#59 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 59,
+  "title": "Sansho Dayu",
+  "originalTitle": null,
+  "directors": [
+   "Mizoguchi Kenji"
+  ],
+  "year": 1954,
+  "country": "Japan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#59 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 63,
+  "title": "Wild Strawberries",
+  "originalTitle": null,
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1957,
+  "country": "Sweden",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#63 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 63,
+  "title": "Modern Times",
+  "originalTitle": null,
+  "directors": [
+   "Charles Chaplin"
+  ],
+  "year": 1936,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#63 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 63,
+  "title": "Sunset Blvd.",
+  "originalTitle": null,
+  "directors": [
+   "Billy Wilder"
+  ],
+  "year": 1950,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#63 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 63,
+  "title": "The Night of the Hunter",
+  "originalTitle": null,
+  "directors": [
+   "Charles Laughton"
+  ],
+  "year": 1955,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#63 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 63,
+  "title": "Pickpocket",
+  "originalTitle": null,
+  "directors": [
+   "Robert Bresson"
+  ],
+  "year": 1959,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#63 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 63,
+  "title": "Rio Bravo",
+  "originalTitle": null,
+  "directors": [
+   "Howard Hawks"
+  ],
+  "year": 1958,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#63 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 69,
+  "title": "Blade Runner",
+  "originalTitle": null,
+  "directors": [
+   "Ridley Scott"
+  ],
+  "year": 1982,
+  "country": "Hong Kong/USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#69 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 69,
+  "title": "Blue Velvet",
+  "originalTitle": null,
+  "directors": [
+   "David Lynch"
+  ],
+  "year": 1986,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#69 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 69,
+  "title": "Sans Soleil",
+  "originalTitle": null,
+  "directors": [
+   "Chris Marker"
+  ],
+  "year": 1982,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#69 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 69,
+  "title": "A Man Escaped",
+  "originalTitle": null,
+  "directors": [
+   "Robert Bresson"
+  ],
+  "year": 1956,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#69 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 73,
+  "title": "The Third Man",
+  "originalTitle": null,
+  "directors": [
+   "Carol Reed"
+  ],
+  "year": 1949,
+  "country": "UK/USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#73 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 73,
+  "title": "L’eclisse",
+  "originalTitle": null,
+  "directors": [
+   "Michelangelo Antonioni"
+  ],
+  "year": 1962,
+  "country": "France/Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#73 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 73,
+  "title": "Les enfants du paradis",
+  "originalTitle": null,
+  "directors": [
+   "Marcel Carné"
+  ],
+  "year": 1945,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#73 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 73,
+  "title": "La grande illusion",
+  "originalTitle": null,
+  "directors": [
+   "Jean Renoir"
+  ],
+  "year": 1937,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#73 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 73,
+  "title": "Nashville",
+  "originalTitle": null,
+  "directors": [
+   "Robert Altman"
+  ],
+  "year": 1975,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#73 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 78,
+  "title": "Chinatown",
+  "originalTitle": null,
+  "directors": [
+   "Roman Polanski"
+  ],
+  "year": 1974,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#78 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 78,
+  "title": "Beau Travail",
+  "originalTitle": null,
+  "directors": [
+   "Claire Denis"
+  ],
+  "year": 1998,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#78 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 78,
+  "title": "Once Upon a Time in the West",
+  "originalTitle": null,
+  "directors": [
+   "Sergio Leone"
+  ],
+  "year": 1968,
+  "country": "Italy/USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#78 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 81,
+  "title": "The Magnificent Ambersons",
+  "originalTitle": null,
+  "directors": [
+   "Orson Welles"
+  ],
+  "year": 1942,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#81 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 81,
+  "title": "Lawrence of Arabia",
+  "originalTitle": null,
+  "directors": [
+   "David Lean"
+  ],
+  "year": 1962,
+  "country": "UK",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#81 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 81,
+  "title": "The Spirit of the Beehive",
+  "originalTitle": null,
+  "directors": [
+   "Víctor Erice"
+  ],
+  "year": 1973,
+  "country": "Spain",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#81 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 84,
+  "title": "Fanny and Alexander",
+  "originalTitle": null,
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1984,
+  "country": "France/Sweden",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#84 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 84,
+  "title": "Casablanca",
+  "originalTitle": null,
+  "directors": [
+   "Michael Curtiz"
+  ],
+  "year": 1942,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#84 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 84,
+  "title": "The Colour of Pomegranates",
+  "originalTitle": null,
+  "directors": [
+   "Sergei Parajanov"
+  ],
+  "year": 1968,
+  "country": "USSR",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#84 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 84,
+  "title": "Greed",
+  "originalTitle": null,
+  "directors": [
+   "Erich von Stroheim"
+  ],
+  "year": 1925,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#84 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 84,
+  "title": "A Brighter Summer Day",
+  "originalTitle": null,
+  "directors": [
+   "Edward Yang"
+  ],
+  "year": 1991,
+  "country": "Taiwan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#84 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 84,
+  "title": "The Wild Bunch",
+  "originalTitle": null,
+  "directors": [
+   "Sam Peckinpah"
+  ],
+  "year": 1969,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#84 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 90,
+  "title": "Partie de campagne",
+  "originalTitle": null,
+  "directors": [
+   "Jean Renoir"
+  ],
+  "year": 1936,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#90 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 90,
+  "title": "Aguirre, Wrath of God",
+  "originalTitle": null,
+  "directors": [
+   "Werner Herzog"
+  ],
+  "year": 1972,
+  "country": "Federal Republic of Germany",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#90 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 90,
+  "title": "A Matter of Life and Death",
+  "originalTitle": null,
+  "directors": [
+   "Michael Powell",
+   "Emeric Pressburger"
+  ],
+  "year": 1946,
+  "country": "UK",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#90 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 93,
+  "title": "The Seventh Seal",
+  "originalTitle": null,
+  "directors": [
+   "Ingmar Bergman"
+  ],
+  "year": 1957,
+  "country": "Sweden",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#93 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 93,
+  "title": "Un chien andalou",
+  "originalTitle": null,
+  "directors": [
+   "Luis Buñuel"
+  ],
+  "year": 1928,
+  "country": "France",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#93 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 93,
+  "title": "Intolerance",
+  "originalTitle": null,
+  "directors": [
+   "D.W. Griffith"
+  ],
+  "year": 1916,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#93 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 93,
+  "title": "A One and a Two",
+  "originalTitle": null,
+  "directors": [
+   "Edward Yang"
+  ],
+  "year": 1999,
+  "country": "Japan/Taiwan",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#93 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 93,
+  "title": "The Life and Death of Colonel Blimp",
+  "originalTitle": null,
+  "directors": [
+   "Michael Powell",
+   "Emeric Pressburger"
+  ],
+  "year": 1943,
+  "country": "UK",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#93 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 93,
+  "title": "Touki Bouki",
+  "originalTitle": null,
+  "directors": [
+   "Djibril Diop Mambéty"
+  ],
+  "year": 1973,
+  "country": "Senegal",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#93 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 93,
+  "title": "Fear Eats the Soul",
+  "originalTitle": null,
+  "directors": [
+   "Rainer Werner Fassbinder"
+  ],
+  "year": 1974,
+  "country": "Federal Republic of Germany",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#93 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 93,
+  "title": "Imitation of Life",
+  "originalTitle": null,
+  "directors": [
+   "Douglas Sirk"
+  ],
+  "year": 1959,
+  "country": "USA",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#93 (2012 critics' poll)"
+ },
+ {
+  "source": "ss2012-critics",
+  "rank": 93,
+  "title": "Madame de…",
+  "originalTitle": null,
+  "directors": [
+   "Max Ophüls"
+  ],
+  "year": 1953,
+  "country": "France/Italy",
+  "tmdbId": null,
+  "imdbId": null,
+  "detail": "#93 (2012 critics' poll)"
+ }
+]

@@ -16,7 +16,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { tmdbGet, createLimiter, namesMatch, surnamesMatch, normalizeName } from '../lib/tmdbResolve.js';
-import { SOURCES } from './sources.js';
+import { loadSources } from './registry.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.join(__dirname, '..', '..', '.env') });
@@ -61,7 +61,13 @@ const resolve = async (entry, tolOverride) => {
     const yearOk = !entry.year || !y || Math.abs(y - entry.year) <= tol;
     // Title + year already constrain the search, so a surname match is enough
     // ("Charles"/"Charlie" Chaplin, "Ozu Yasujirō"/"Yasujirō Ozu")
-    const dirOk = !director || dirs.some((n) => namesMatch(n, director) || surnamesMatch(n, director));
+    // a director written only in a non-Latin script (Kinema Junpo's 小津安二郎) can't be compared
+    // to TMDB's romanised credits, so the original title has to match exactly instead
+    const scriptOnly = director && !/[a-z]/i.test(director);
+    const bare = (t = '') => t.replace(/[\s・·:：\-–—!！?？、。「」『』]/g, '');
+    const dirOk = !director
+      || (scriptOnly ? !!entry.originalTitle && bare(d.original_title) === bare(entry.originalTitle)
+        : dirs.some((n) => namesMatch(n, director) || surnamesMatch(n, director)));
     if (yearOk && dirOk) return { tmdbId: d.id, tmdbTitle: d.title, year: y, directors: dirs, confidence: director ? 'director' : 'year' };
   }
   return { tmdbId: null, confidence: 'unresolved' };
@@ -72,6 +78,7 @@ const main = async () => {
   if (RETRY_UNRESOLVED) {
     for (const k of Object.keys(cache)) if (!cache[k].tmdbId) delete cache[k];
   }
+  const SOURCES = await loadSources();
   const entries = [];
   for (const id of Object.keys(SOURCES)) {
     const p = path.join(IN_DIR, `${id}.json`);
