@@ -11,11 +11,18 @@
  *   - swells and colours the tiles under the pointer, like a lens; the tile
  *     under the pointer is named in a caption, and can be clicked
  *   - dives: given a progress 0 → 1, the camera pushes into one target tile
- *     until it fills the screen, the target sliding to the centre in a straight
- *     line while the zoom grows
+ *     until it covers the screen exactly, the target sliding to the centre in a
+ *     straight line while the zoom grows. At 1 it stops drawing: the page lays
+ *     an ordinary <img> over the exact rectangle the tile ended on
+ *     (getFinalRect), which the browser composites for free — a canvas redrawing
+ *     a full-screen still every frame is what made the arrival lag.
+ *
+ * Sharpness: the wall starts on a small sheet and takes a sharp one when it
+ * arrives (setSprite); and any tile the lens or the dive enlarges past the
+ * sheet's resolution is drawn from that film's own still, fetched on demand.
  *
  * Usage: const wall = createMosaicRenderer(canvas, { sprite, index, getDive, reducedMotion })
- *        wall.setPointer(x, y) / wall.setPointer(null) · wall.setTarget(filmId)
+ *        wall.setSprite(sharperImage) · wall.setPointer(x, y) / wall.setPointer(null) · wall.setTarget(filmId)
  *        wall.tileAtPointer() → tile · wall.resize() · wall.destroy()
  */
 
@@ -27,17 +34,26 @@ const LENS_R = 170;          // px reach of the lens
 const LENS_GROW = 1.25;      // how much the tile under the lens swells
 const FLICKERS = 7;          // tiles flickering into colour at once
 const REST_LIGHT = 0.42;     // how lit the grey wall is at rest
+const ARRIVED = 0.999;       // dive progress at which the page's image takes over
 
 const mod = (n, m) => ((n % m) + m) % m;
 const clamp01 = (x) => Math.max(0, Math.min(1, x));
 const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
 
-// a grey copy of the sprite, made once (canvas filters aren't everywhere yet)
+const STILL = 'https://image.tmdb.org/t/p/';
+
+// a grey copy of the sprite, made once: a canvas filter where the browser has one, pixels otherwise
 const greyOf = (img) => {
     const c = document.createElement('canvas');
     c.width = img.naturalWidth;
     c.height = img.naturalHeight;
     const ctx = c.getContext('2d', { willReadFrequently: true });
+    // ask the prototype, not the context: assigning an unknown property would seem to work
+    if ('filter' in CanvasRenderingContext2D.prototype) {
+        ctx.filter = 'grayscale(1)';
+        ctx.drawImage(img, 0, 0);
+        return c;
+    }
     ctx.drawImage(img, 0, 0);
     const data = ctx.getImageData(0, 0, c.width, c.height);
     const p = data.data;
@@ -49,12 +65,43 @@ const greyOf = (img) => {
     return c;
 };
 
-export const createMosaicRenderer = (canvas, { sprite, index, getDive = () => 0, reducedMotion = false }) => {
+// draw an image into a box the way object-fit: cover does — cropped, never stretched
+const drawCover = (ctx, img, x, y, w, h) => {
+    const ir = img.naturalWidth / img.naturalHeight;
+    const br = w / h;
+    let sw = img.naturalWidth, sh = img.naturalHeight, sx = 0, sy = 0;
+    if (ir > br) { sw = sh * br; sx = (img.naturalWidth - sw) / 2; } else { sh = sw / br; sy = (img.naturalHeight - sh) / 2; }
+    ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
+};
+
+export const createMosaicRenderer = (canvas, { sprite: firstSprite, index, getDive = () => 0, reducedMotion = false }) => {
     const ctx = canvas.getContext('2d');
-    const grey = greyOf(sprite);
-    const { cols, rows, tileW: SW, tileH: SH, tiles } = index;
+    const { cols, rows, tiles } = index;
+    let sprite = firstSprite;
+    let grey = greyOf(sprite);
+    let SW = sprite.naturalWidth / cols;   // a tile's size in whichever sheet is loaded
+    let SH = sprite.naturalHeight / rows;
+
+    // films' own stills, fetched when a tile is shown bigger than the sheet holds it
+    const stills = new Map(); // `${slot}@${size}` → Image (drawn once complete)
+    const stillFor = (slot, size) => {
+        const path = tiles[slot]?.s;
+        if (!path) return null;
+        const key = `${slot}@${size}`;
+        let img = stills.get(key);
+        if (!img) {
+            img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.src = `${STILL}${size}${path}`;
+            // decoded off the main thread before it's ever drawn: a big still decoded mid-dive stutters
+            img.decode().then(() => { img.ready = true; }).catch(() => {});
+            stills.set(key, img);
+        }
+        return img.ready ? img : null;
+    };
 
     let W = 0, H = 0, dpr = 1, tw = 80, th = 45;
+    let restingArrived = false;   // the arrival frame is drawn and the page's image has it
     let pointer = null;           // {x, y} in CSS px, or null
     let lastPointer = 0;          // when the pointer last moved, for the wandering lens on touch screens
     let hovered = null;           // { slot, sx, sy, s }
@@ -66,7 +113,28 @@ export const createMosaicRenderer = (canvas, { sprite, index, getDive = () => 0,
     let cam = { x: 0, y: 0 };     // world point at the centre of the screen
     let targetSlot = null;
     let dive = null;              // { to: target tile centre, s0: its screen position } captured when a dive begins
-    const flick = [];             // { slot, start, dur }
+    const flick = [];             // { c, r, start, dur } — cells on screen briefly in colour
+
+    // The resting wall, painted once into an off-screen canvas and laid down each frame as a
+    // repeating pattern: one fill instead of hundreds of tiles. Repainted on resize or a new sheet.
+    let wall = null;              // { pattern, key }
+    const wallKey = () => `${tw}|${dpr}|${sprite.naturalWidth}`;
+    const paintWall = () => {
+        const off = document.createElement('canvas');
+        off.width = Math.round(cols * tw * dpr);
+        off.height = Math.round(rows * th * dpr);
+        const o = off.getContext('2d');
+        o.scale(dpr, dpr);
+        o.fillStyle = '#050505';
+        o.fillRect(0, 0, cols * tw, rows * th);
+        o.globalAlpha = REST_LIGHT;
+        for (let slot = 0; slot < cols * rows; slot++) {
+            const c = slot % cols;
+            const r = Math.floor(slot / cols);
+            o.drawImage(grey, c * SW, r * SH, SW, SH, c * tw + GAP / 2, r * th + GAP / 2, tw - GAP, th - GAP);
+        }
+        wall = { pattern: ctx.createPattern(off, 'repeat'), key: wallKey() };
+    };
 
     const resize = () => {
         dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -76,10 +144,12 @@ export const createMosaicRenderer = (canvas, { sprite, index, getDive = () => 0,
         canvas.height = Math.round(H * dpr);
         tw = Math.max(56, Math.min(104, W / 17));
         th = (tw * 9) / 16;
+        restingArrived = false; // resizing clears the canvas: draw the arrival frame again
     };
     resize();
 
     const slotAt = (c, r) => mod(r, rows) * cols + mod(c, cols);
+    const zFinal = () => Math.max(W / (tw - GAP), H / (th - GAP));
     const drawTile = (src, slot, x, y, w, h, alpha) => {
         if (alpha <= 0.002) return;
         ctx.globalAlpha = alpha;
@@ -102,6 +172,10 @@ export const createMosaicRenderer = (canvas, { sprite, index, getDive = () => 0,
         lastT = now;
         const age = (now - born) / 1000;
         const d = reducedMotion ? 0 : clamp01(getDive());
+        // arrived: the page's image has taken over; once the final frame has been drawn from the
+        // film's own still (not the sheet's tile), rest
+        if (d >= ARRIVED && restingArrived) { lastT = now; return; }
+        if (d < ARRIVED) restingArrived = false;
 
         // drift, only while resting
         if (d === 0) {
@@ -119,8 +193,8 @@ export const createMosaicRenderer = (canvas, { sprite, index, getDive = () => 0,
                 dive = { to: t, s0: { x: (t.x - cam.x) + W / 2, y: (t.y - cam.y) + H / 2 } };
             }
             const e = easeInOut(d);
-            const Zmax = Math.max(W / tw, H / th) * 1.04;
-            Z = Math.exp(Math.log(Zmax) * e);
+            // just enough to cover the screen with the tile's picture
+            Z = Math.exp(Math.log(zFinal()) * e);
             const sx = dive.s0.x + (W / 2 - dive.s0.x) * e;
             const sy = dive.s0.y + (H / 2 - dive.s0.y) * e;
             cam = { x: dive.to.x - (sx - W / 2) / Z, y: dive.to.y - (sy - H / 2) / Z };
@@ -133,16 +207,6 @@ export const createMosaicRenderer = (canvas, { sprite, index, getDive = () => 0,
             lens = { x: W * (0.5 + 0.34 * Math.sin(age * 0.23)), y: H * (0.5 + 0.3 * Math.sin(age * 0.31 + 1.4)) };
         }
 
-        // keep a few tiles flickering into colour
-        if (!reducedMotion && d === 0) {
-            for (let i = flick.length - 1; i >= 0; i--) if (age - flick[i].start > flick[i].dur) flick.splice(i, 1);
-            while (flick.length < FLICKERS) flick.push({ slot: Math.floor(Math.random() * tiles.length), start: age + Math.random() * 1.5, dur: 1.4 + Math.random() * 1.6 });
-        }
-        const flickAlpha = new Map(flick.map((f) => {
-            const k = clamp01((age - f.start) / f.dur);
-            return [f.slot, Math.sin(k * Math.PI) * 0.85];
-        }));
-
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         ctx.globalAlpha = 1;
         ctx.fillStyle = '#050505';
@@ -154,44 +218,86 @@ export const createMosaicRenderer = (canvas, { sprite, index, getDive = () => 0,
         const c1 = Math.ceil((cam.x + halfW) / tw) + 1;
         const r0 = Math.floor((cam.y - halfH) / th) - 1;
         const r1 = Math.ceil((cam.y + halfH) / th) + 1;
-        const maxDist = Math.hypot(W / 2, H / 2);
+        const toScreen = (c, r) => ({ cx: (c * tw + tw / 2 - cam.x) * Z + W / 2, cy: (r * th + th / 2 - cam.y) * Z + H / 2 });
+        const w = (tw - GAP) * Z;
+        const h = (th - GAP) * Z;
+        const developing = !reducedMotion && age < RIPPLE + DEVELOP;
+        const wallLight = d > 0 ? 1 - 0.5 * clamp01(d * 1.5) : 1; // the wall falls away into the dark as the camera dives
+
+        if (developing) {
+            // the first moments: every tile on its own, coming up in a ripple from the centre
+            const maxDist = Math.hypot(W / 2, H / 2);
+            for (let r = r0; r <= r1; r++) {
+                for (let c = c0; c <= c1; c++) {
+                    const { cx, cy } = toScreen(c, r);
+                    const delay = (Math.hypot(cx - W / 2, cy - H / 2) / maxDist) * RIPPLE;
+                    drawTile(grey, slotAt(c, r), cx - w / 2, cy - h / 2, w, h, REST_LIGHT * clamp01((age - delay) / DEVELOP) * wallLight);
+                }
+            }
+        } else {
+            // afterwards: the whole wall in one fill
+            if (!wall || wall.key !== wallKey()) paintWall();
+            wall.pattern.setTransform(new DOMMatrix([Z / dpr, 0, 0, Z / dpr, W / 2 - cam.x * Z, H / 2 - cam.y * Z]));
+            ctx.globalAlpha = wallLight;
+            ctx.fillStyle = wall.pattern;
+            ctx.fillRect(0, 0, W, H);
+        }
+
+        // a few cells at a time flicker into colour
+        if (!reducedMotion && !developing && d === 0) {
+            for (let i = flick.length - 1; i >= 0; i--) if (age - flick[i].start > flick[i].dur) flick.splice(i, 1);
+            while (flick.length < FLICKERS) {
+                flick.push({ c: c0 + Math.floor(Math.random() * (c1 - c0)), r: r0 + Math.floor(Math.random() * (r1 - r0)), start: age + Math.random() * 1.5, dur: 1.4 + Math.random() * 1.6 });
+            }
+            for (const f of flick) {
+                const k = clamp01((age - f.start) / f.dur);
+                const { cx, cy } = toScreen(f.c, f.r);
+                drawTile(sprite, slotAt(f.c, f.r), cx - w / 2, cy - h / 2, w, h, Math.sin(k * Math.PI) * 0.85);
+            }
+        }
+
+        // the lens: only the cells within its reach are touched
         const lifted = [];
         hovered = null;
         let best = Infinity;
-
-        for (let r = r0; r <= r1; r++) {
-            for (let c = c0; c <= c1; c++) {
-                const slot = slotAt(c, r);
-                const cx = (c * tw + tw / 2 - cam.x) * Z + W / 2;
-                const cy = (r * th + th / 2 - cam.y) * Z + H / 2;
-                let w = (tw - GAP) * Z;
-                let h = (th - GAP) * Z;
-
-                // developing out of the dark, in a ripple from the centre
-                const delay = (Math.hypot(cx - W / 2, cy - H / 2) / maxDist) * RIPPLE;
-                const dev = reducedMotion ? 1 : clamp01((age - delay) / DEVELOP);
-                let light = REST_LIGHT * dev;
-                let colour = (flickAlpha.get(slot) || 0) * dev;
-
-                if (lens && d === 0) {
+        if (lens && d === 0 && !developing) {
+            const lx = cam.x + (lens.x - W / 2) / Z;
+            const ly = cam.y + (lens.y - H / 2) / Z;
+            const reachC = Math.ceil(LENS_R / (tw * Z)) + 1;
+            const reachR = Math.ceil(LENS_R / (th * Z)) + 1;
+            const lc = Math.floor(lx / tw);
+            const lr = Math.floor(ly / th);
+            for (let r = lr - reachR; r <= lr + reachR; r++) {
+                for (let c = lc - reachC; c <= lc + reachC; c++) {
+                    const { cx, cy } = toScreen(c, r);
                     const dist = Math.hypot(cx - lens.x, cy - lens.y);
                     const k = Math.max(0, 1 - dist / LENS_R) ** 2;
-                    if (k > 0) {
-                        const s = 1 + LENS_GROW * k;
-                        lifted.push({ slot, cx, cy, w: w * s, h: h * s, light: Math.min(1, REST_LIGHT + k), colour: Math.max(colour, k * 1.4) * dev, s });
-                        if (pointer && dist < best) { best = dist; hovered = { slot, cx, cy, w: w * s, h: h * s, s }; }
-                        continue;
-                    }
+                    if (k <= 0) continue;
+                    const s = 1 + LENS_GROW * k;
+                    const slot = slotAt(c, r);
+                    lifted.push({ slot, cx, cy, w: w * s, h: h * s, light: Math.min(1, REST_LIGHT + k), colour: Math.min(1, k * 1.4), s });
+                    if (pointer && dist < best) { best = dist; hovered = { slot, cx, cy, w: w * s, h: h * s, s }; }
                 }
-                if (target && c === target.c && r === target.r) {
-                    // tonight's film comes up in colour as the camera arrives
-                    light = REST_LIGHT + (1 - REST_LIGHT) * clamp01(d * 2.2);
-                    colour = clamp01((d - 0.15) * 2);
-                } else if (d > 0) {
-                    light *= 1 - 0.5 * clamp01(d * 1.5); // the rest of the wall falls away into the dark
-                }
-                if (cx + w / 2 < 0 || cx - w / 2 > W || cy + h / 2 < 0 || cy - h / 2 > H) continue;
-                drawTile(grey, slot, cx - w / 2, cy - h / 2, w, h, light);
+            }
+        }
+
+        // tonight's film, coming up in colour as the camera arrives — from its own still once bigger than the sheet
+        if (target) {
+            const { cx, cy } = toScreen(target.c, target.r);
+            const slot = slotAt(target.c, target.r);
+            const light = REST_LIGHT + (1 - REST_LIGHT) * clamp01(d * 2.2);
+            const colour = clamp01((d - 0.15) * 2);
+            drawTile(grey, slot, cx - w / 2, cy - h / 2, w, h, light);
+            // never the original here: a huge still redrawn every frame is the costliest thing a
+            // canvas can do; the page's image carries the full resolution once the camera arrives
+            const own = w * dpr > SW * 1.1
+                ? (w * dpr > 320 ? stillFor(slot, 'w1280') || stillFor(slot, 'w300') : stillFor(slot, 'w300'))
+                : null;
+            if (own) {
+                ctx.globalAlpha = Math.max(colour, light);
+                drawCover(ctx, own, cx - w / 2, cy - h / 2, w, h);
+                if (d >= ARRIVED && own.naturalWidth >= 1000) restingArrived = true;
+            } else {
                 drawTile(sprite, slot, cx - w / 2, cy - h / 2, w, h, colour);
             }
         }
@@ -202,7 +308,13 @@ export const createMosaicRenderer = (canvas, { sprite, index, getDive = () => 0,
             ctx.fillStyle = '#000';
             ctx.fillRect(t.cx - t.w / 2 + 4, t.cy - t.h / 2 + 8, t.w, t.h); // its shadow
             drawTile(grey, t.slot, t.cx - t.w / 2, t.cy - t.h / 2, t.w, t.h, t.light);
-            drawTile(sprite, t.slot, t.cx - t.w / 2, t.cy - t.h / 2, t.w, t.h, Math.min(1, t.colour));
+            const own = t.w * dpr > SW * 1.1 ? stillFor(t.slot, 'w300') : null;
+            if (own) {
+                ctx.globalAlpha = Math.min(1, t.colour);
+                drawCover(ctx, own, t.cx - t.w / 2, t.cy - t.h / 2, t.w, t.h);
+            } else {
+                drawTile(sprite, t.slot, t.cx - t.w / 2, t.cy - t.h / 2, t.w, t.h, Math.min(1, t.colour));
+            }
         });
 
         // the caption under the tile you're pointing at
@@ -234,12 +346,36 @@ export const createMosaicRenderer = (canvas, { sprite, index, getDive = () => 0,
     return {
         resize,
         setPointer: (x, y) => { pointer = x == null ? null : { x, y }; lastPointer = performance.now(); },
+        // the sharp sheet: decoded first, and its grey copy made when the browser is idle,
+        // so the swap never costs a frame
+        setSprite: (img) => {
+            const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 200));
+            img.decode().catch(() => {}).then(() => idle(() => {
+                const g = greyOf(img);
+                sprite = img;
+                grey = g;
+                SW = img.naturalWidth / cols;
+                SH = img.naturalHeight / rows;
+                paintWall(); // repaint the resting wall from the sharp sheet, still in the idle time
+            }));
+        },
         setTarget: (id) => {
             const slot = tiles.findIndex((t) => t.id === id);
             targetSlot = slot >= 0 ? slot : 0;
             dive = null; // the next dive aims afresh
+            // fetch tonight's still ahead of the dive, at the sizes the canvas draws it at
+            stillFor(targetSlot, 'w300');
+            stillFor(targetSlot, 'w1280');
+            restingArrived = false;
         },
         tileAtPointer: () => (hovered ? tiles[hovered.slot] : null),
+        // where tonight's tile sits on screen when the dive completes (centred, covering it), in CSS px
+        getFinalRect: () => {
+            const Zf = zFinal();
+            const w = (tw - GAP) * Zf;
+            const h = (th - GAP) * Zf;
+            return { left: (W - w) / 2, top: (H - h) / 2, width: w, height: h };
+        },
         destroy: () => { cancelAnimationFrame(raf); io.disconnect(); }
     };
 };

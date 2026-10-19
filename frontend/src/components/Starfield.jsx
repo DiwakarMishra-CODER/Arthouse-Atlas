@@ -108,6 +108,8 @@ const Starfield = () => {
 
         const animate = () => {
             animationFrameId = requestAnimationFrame(animate);
+            // nothing to draw while a page's own full-screen scene covers the sky (the home wall)
+            if (document.documentElement.dataset.cover) return;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             // Optionally fill background if transparency causes trailing (shouldn't if clearing)
             // ctx.fillStyle = '#050505';

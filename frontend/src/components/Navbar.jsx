@@ -28,7 +28,9 @@ const Navbar = () => {
 
     // over the top of a page the bar dissolves into it; once content passes beneath, it becomes dark glass
     useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 24);
+        // no frosted glass over a full-screen scene (the home wall): blurring a canvas that changes
+        // every frame is the most expensive thing a page can ask of the GPU, so keep the gradient
+        const onScroll = () => setScrolled(window.scrollY > 24 && !document.documentElement.dataset.cover);
         onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
         return () => window.removeEventListener('scroll', onScroll);

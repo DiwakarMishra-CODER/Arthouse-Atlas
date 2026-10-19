@@ -7,7 +7,8 @@
  * Alongside it, mosaic.json maps each tile back to its film and carries the
  * tile's dominant colour.
  *
- * Output: frontend/public/mosaic/mosaic.jpg and mosaic.json.
+ * Output (frontend/public/mosaic/): mosaic-1x.webp, a small sheet the wall shows at once;
+ * mosaic-2x.webp, the sharp sheet swapped in when it arrives; and mosaic.json.
  * Re-run whenever the catalogue changes:  node scripts/buildMosaic.js
  */
 import fs from 'fs';
@@ -23,8 +24,9 @@ import { createLimiter } from './lib/tmdbResolve.js';
 
 dotenv.config();
 
-const TILE_W = 96;
-const TILE_H = 54;
+// double the size the wall shows a tile at, so it's sharp on retina screens
+const TILE_W = 192;
+const TILE_H = 108;
 const COLS = 30;
 const CACHE = path.resolve('data/mosaic-cache');
 const OUT = path.resolve('../frontend/public/mosaic');
@@ -48,7 +50,8 @@ const tileFor = async (film) => {
     if (!res.ok) return null;
     fs.writeFileSync(file, Buffer.from(await res.arrayBuffer()));
   }
-  const img = sharp(file).resize(TILE_W, TILE_H, { fit: 'cover', position: 'attention' });
+  // centred, like every other place a still is cropped, so a tile and its full still always line up
+  const img = sharp(file).resize(TILE_W, TILE_H, { fit: 'cover', position: 'centre' }).sharpen({ sigma: 0.5 });
   const [buf, stats] = await Promise.all([img.clone().jpeg({ quality: 90 }).toBuffer(), img.clone().stats()]);
   const { r, g, b } = stats.dominant;
   return { buf, colour: `#${[r, g, b].map((v) => v.toString(16).padStart(2, '0')).join('')}` };
@@ -69,10 +72,13 @@ const main = async () => {
   const slots = Array.from({ length: rows * COLS }, (_, i) => made[i % made.length]);
   const composite = slots.map((x, i) => ({ input: x.tile.buf, left: (i % COLS) * TILE_W, top: Math.floor(i / COLS) * TILE_H }));
 
-  await sharp({ create: { width: COLS * TILE_W, height: rows * TILE_H, channels: 3, background: '#000' } })
+  const sheet = await sharp({ create: { width: COLS * TILE_W, height: rows * TILE_H, channels: 3, background: '#000' } })
     .composite(composite)
-    .jpeg({ quality: 74, progressive: true, mozjpeg: true })
-    .toFile(path.join(OUT, 'mosaic.jpg'));
+    .png()
+    .toBuffer();
+  // the sharp sheet, and a half-size one that arrives first
+  await sharp(sheet).webp({ quality: 60, effort: 6 }).toFile(path.join(OUT, 'mosaic-2x.webp'));
+  await sharp(sheet).resize(COLS * TILE_W / 2).webp({ quality: 62, effort: 6 }).toFile(path.join(OUT, 'mosaic-1x.webp'));
 
   // the hero's numbers, true as of this build
   const years = films.map((f) => f.year).filter(Boolean);
@@ -85,12 +91,13 @@ const main = async () => {
   };
   const index = {
     tileW: TILE_W, tileH: TILE_H, cols: COLS, rows, films: made.length, counts,
-    tiles: slots.map((x) => ({ id: x.f._id, t: x.f.title, y: x.f.year, c: x.tile.colour, r: x.f.canonRank ?? null }))
+    // s: the still itself, for drawing a tile sharp when the lens or the dive enlarges it
+    tiles: slots.map((x) => ({ id: x.f._id, t: x.f.title, y: x.f.year, c: x.tile.colour, r: x.f.canonRank ?? null, s: (x.f.stills?.[0] || x.f.backdropUrl || '').replace(/^https:\/\/image\.tmdb\.org\/t\/p\/[^/]+/, '') }))
   };
   fs.writeFileSync(path.join(OUT, 'mosaic.json'), JSON.stringify(index));
 
   const size = (p) => `${(fs.statSync(path.join(OUT, p)).size / 1024).toFixed(0)} KB`;
-  console.log(`${made.length} of ${films.length} films · ${COLS}×${rows} tiles · mosaic.jpg ${size('mosaic.jpg')} · mosaic.json ${size('mosaic.json')}`);
+  console.log(`${made.length} of ${films.length} films · ${COLS}×${rows} tiles · 1x ${size('mosaic-1x.webp')} · 2x ${size('mosaic-2x.webp')} · mosaic.json ${size('mosaic.json')}`);
   return mongoose.disconnect();
 };
 

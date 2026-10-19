@@ -1,5 +1,6 @@
 import Movie from '../models/Movie.js';
 import { getErrorResponse } from '../utils/errorResponse.js';
+import { pickTonight, MARATHON } from '../services/tonight.js';
 
 const shuffleArray = (array) => {
   const shuffled = [...array]; // Create a copy to avoid mutating original
@@ -210,28 +211,25 @@ const canonFor = async (movie, { withCompany = true } = {}) => {
   return { canon, company };
 };
 
-// @desc    Tonight's film: one film from the top of the canon, the same for everyone each day
+// @desc    Tonight's film: one film a day from the films worth an evening, with the reason it was chosen
 // @route   GET /api/movies/tonight?date=YYYY-MM-DD&n=0
 // @access  Public
 export const getTonight = async (req, res) => {
   try {
     const date = /^\d{4}-\d{2}-\d{2}$/.test(req.query.date || '') ? req.query.date : new Date().toISOString().slice(0, 10);
     const n = Math.max(0, parseInt(req.query.n, 10) || 0); // "another film" asks for the next pick of the same day
-    const pool = await Movie.find({
-      canonRank: { $ne: null, $lte: 300 },
-      'editorial.hook': { $nin: [null, ''] },
-      $or: [{ 'stills.0': { $exists: true } }, { backdropUrl: { $nin: [null, ''] } }]
-    }).sort({ canonRank: 1 }).select('_id').lean();
-    if (!pool.length) return res.status(404).json({ message: 'No film tonight' });
+    const pick = await pickTonight(date, n);
+    if (!pick) return res.status(404).json({ message: 'No film tonight' });
 
-    // a stable hash of the date (and the nth pick), so the choice is fixed for the day
-    const seed = [...`${date}#${n}`].reduce((h, ch) => (Math.imul(h ^ ch.charCodeAt(0), 2654435761) >>> 0), 2166136261);
-    const pick = pool[seed % pool.length];
-    const movie = await Movie.findById(pick._id)
+    const movie = await Movie.findById(pick.id)
       .select('title originalTitle year directors country runtime posterUrl backdropUrl stills trailerUrl editorial.hook canonRank canonDecadeRank provenance')
       .lean();
     const { canon } = await canonFor(movie, { withCompany: false });
-    res.json({ ...movie, provenance: (movie.provenance || []).slice(0, 1), canon, date, n });
+    // a film this long gets fair warning, whatever the reason it was chosen
+    const reason = movie.runtime > MARATHON
+      ? `${pick.reason ? `${pick.reason} ` : ''}Tonight's marathon: clear your evening, and the next.`
+      : pick.reason;
+    res.json({ ...movie, provenance: (movie.provenance || []).slice(0, 1), canon, reason, date, n });
   } catch (error) {
     console.error(error);
     const { status, message } = getErrorResponse(error);
