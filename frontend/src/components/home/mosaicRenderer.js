@@ -92,7 +92,7 @@ export const createMosaicRenderer = (canvas, { sprite: firstSprite, index, getDi
         if (!img) {
             img = new Image();
             img.crossOrigin = 'anonymous';
-            img.src = `${STILL}${size}${path}`;
+            img.src = path.startsWith('/stills/') ? path : `${STILL}${size}${path}`; // or one the atlas hosts itself
             // decoded off the main thread before it's ever drawn: a big still decoded mid-dive stutters
             img.decode().then(() => { img.ready = true; }).catch(() => {});
             stills.set(key, img);

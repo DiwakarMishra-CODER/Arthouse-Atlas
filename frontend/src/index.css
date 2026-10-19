@@ -321,3 +321,71 @@
 @media (prefers-reduced-motion: reduce) {
   .marquee-bulb { background: #fff1c9; box-shadow: 0 0 6px 2px rgba(255, 214, 140, 0.7); }
 }
+
+/* Home — the atlas's year slider: a thin gold rail and a glowing bead */
+.atlas-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 2px;
+  background: linear-gradient(to right, rgba(246, 212, 143, 0.6), rgba(255, 255, 255, 0.15));
+  outline: none;
+  cursor: pointer;
+}
+.atlas-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: #f6d48f;
+  box-shadow: 0 0 0 4px rgba(246, 212, 143, 0.18), 0 0 18px rgba(246, 212, 143, 0.7);
+}
+.atlas-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: 9999px;
+  background: #f6d48f;
+  box-shadow: 0 0 0 4px rgba(246, 212, 143, 0.18), 0 0 18px rgba(246, 212, 143, 0.7);
+}
+.atlas-slider:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.5); }
+
+/* Home auditorium — the velvet of its curtains */
+.auditorium-velvet {
+  background:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.35), transparent 18%, transparent 70%, rgba(0, 0, 0, 0.55)),
+    repeating-linear-gradient(90deg, #1e090a 0, #37100f 12px, #4f1a1b 21px, #37100f 30px, #1e090a 42px);
+}
+
+/* the stage lights sweep their arcs */
+@keyframes auditorium-spot {
+  from { rotate: var(--from); }
+  to { rotate: var(--to); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .auditorium-spot { animation: auditorium-spot 10s ease-in-out infinite alternate; }
+}
+
+/* the projector's beam flickers with its lamp; dust drifts through it; haze drifts across the stage */
+@keyframes projector-beam {
+  0%, 100% { opacity: 1; }
+  37% { opacity: 0.88; }
+  41% { opacity: 1; }
+  73% { opacity: 0.93; }
+}
+@keyframes auditorium-mote {
+  0% { transform: translate(0, 0); opacity: 0; }
+  20% { opacity: 0.9; }
+  80% { opacity: 0.6; }
+  100% { transform: translate(30px, -120px); opacity: 0; }
+}
+@keyframes auditorium-haze {
+  from { transform: translateX(-8%); }
+  to { transform: translateX(12%); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .projector-beam { animation: projector-beam 3.1s steps(1, end) infinite; }
+  .auditorium-mote { animation: auditorium-mote 16s linear infinite; }
+  .auditorium-haze { animation: auditorium-haze 22s ease-in-out infinite alternate; }
+}

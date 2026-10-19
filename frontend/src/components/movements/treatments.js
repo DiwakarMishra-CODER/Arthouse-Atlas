@@ -137,3 +137,5 @@ export const displayTitle = (m) => SHORT[m?.title] || m?.title || '';
 
 // TMDB serves sizes by path segment; cards don't need the original
 export const sized = (url, size = 'w1280') => (url ? url.replace(/\/t\/p\/(original|w\d+)\//, `/t/p/${size}/`) : url);
+// a still as the APIs send it in compact form — a TMDB path ('/abc.jpg'), or one the atlas hosts itself ('/stills/…')
+export const stillSrc = (path, size = 'w300') => (path?.startsWith('/stills/') ? path : `https://image.tmdb.org/t/p/${size}${path}`);

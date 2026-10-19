@@ -46,9 +46,14 @@ const tileFor = async (film) => {
   if (!src) return null;
   const file = path.join(CACHE, `${film._id}.jpg`);
   if (!fs.existsSync(file)) {
-    const res = await fetch(src.replace(/\/t\/p\/(original|w\d+)\//, '/t/p/w300/'));
-    if (!res.ok) return null;
-    fs.writeFileSync(file, Buffer.from(await res.arrayBuffer()));
+    if (src.startsWith('/stills/')) {
+      // a still the atlas hosts itself, in the frontend's public folder
+      fs.copyFileSync(path.resolve('../frontend/public', src.slice(1)), file);
+    } else {
+      const res = await fetch(src.replace(/\/t\/p\/(original|w\d+)\//, '/t/p/w300/'));
+      if (!res.ok) return null;
+      fs.writeFileSync(file, Buffer.from(await res.arrayBuffer()));
+    }
   }
   // centred, like every other place a still is cropped, so a tile and its full still always line up
   const img = sharp(file).resize(TILE_W, TILE_H, { fit: 'cover', position: 'centre' }).sharpen({ sigma: 0.5 });

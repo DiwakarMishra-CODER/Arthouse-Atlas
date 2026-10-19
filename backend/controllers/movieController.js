@@ -237,6 +237,62 @@ export const getTonight = async (req, res) => {
   }
 };
 
+// @desc    The top of the canon, one film per director, for the home page's countdown —
+//          plus the next ones down ("just missing out"), under the same rule
+// @route   GET /api/movies/canon?limit=10&next=10
+// @access  Public
+export const getCanonTop = async (req, res) => {
+  try {
+    const limit = Math.min(50, Math.max(1, parseInt(req.query.limit, 10) || 10));
+    const more = Math.min(50, Math.max(0, parseInt(req.query.next, 10) || 0));
+    // enough of the top to fill both rows even when some directors repeat
+    const pool = await Movie.find({ canonRank: { $ne: null, $lte: (limit + more) * 3 } })
+      .sort({ canonRank: 1 })
+      .select('title year directors country runtime posterUrl backdropUrl stills canonRank editorial.hook provenance')
+      .lean();
+    const seen = new Set();
+    const picked = [];
+    for (const f of pool) {
+      const who = (f.directors || [])[0] || f._id.toString();
+      if (seen.has(who)) continue; // one film per director: the countdown shouldn't be two Kurosawas
+      seen.add(who);
+      picked.push({ ...f, provenance: (f.provenance || []).slice(0, 1) });
+      if (picked.length >= limit + more) break;
+    }
+    const of = await Movie.countDocuments({ canonRank: { $ne: null } });
+    res.json({ of, films: picked.slice(0, limit), next: picked.slice(limit) });
+  } catch (error) {
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
+  }
+};
+
+// @desc    Every film, compactly, for the home page's world map
+// @route   GET /api/movies/atlas
+// @access  Public
+export const getAtlasFilms = async (req, res) => {
+  try {
+    const films = await Movie.find({ year: { $ne: null }, country: { $nin: [null, ''] } })
+      .select('title year country directors stills backdropUrl canonRank')
+      .lean();
+    res.set('Cache-Control', 'public, max-age=300'); // five minutes: short enough that a catalogue change shows up soon
+    res.json(films.map((f) => ({
+      id: f._id,
+      t: f.title,
+      y: f.year,
+      c: f.country,
+      d: f.directors?.[0] || null,
+      r: f.canonRank ?? null,
+      s: (f.stills?.[0] || f.backdropUrl || '').replace(/^https:\/\/image\.tmdb\.org\/t\/p\/[^/]+/, '')
+    })));
+  } catch (error) {
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
+  }
+};
+
 // @desc    Get single movie by ID
 // @route   GET /api/movies/:id
 // @access  Public

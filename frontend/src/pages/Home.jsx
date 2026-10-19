@@ -1,186 +1,129 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useNavigationType } from 'react-router-dom';
+import { moviesAPI } from '../services/api';
+import { useMotionPreference } from '../hooks/useMotionPreference';
 import HomeHero from '../components/home/HomeHero';
-import PosterCard from '../components/PosterCard';
-import LoadingSkeleton from '../components/LoadingSkeleton';
-import { useAuth } from '../context/AuthContext';
-import { userAPI } from '../services/api';
+import ArthouseBreath from '../components/home/ArthouseBreath';
+import CanonCountdown from '../components/home/CanonCountdown';
+import JustMissingOut from '../components/home/JustMissingOut';
+import AtlasMap from '../components/home/AtlasMap';
+import Auditorium from '../components/home/Auditorium';
+import NextFilm from '../components/home/NextFilm';
+
+/**
+ * The front door of the atlas.
+ *
+ * Every film in the atlas, then tonight's (the hero); what arthouse cinema is,
+ * answered by the films; the canon's top ten, counted down on a running reel;
+ * a century of cinema lighting up the world map; the three rooms
+ * of the atlas, played in an auditorium; and your next film, printed at the box office.
+ */
+const SCROLL_KEY = 'home:scroll';
+// the top ten, kept between visits, so coming back draws the whole page at once
+let topCache = null;
 
 const Home = () => {
-    const { isAuthenticated } = useAuth();
-    const [picks, setPicks] = useState([]);
-    const [picksLoading, setPicksLoading] = useState(true);
+    const reducedMotion = useMotionPreference();
+    const navigation = useNavigationType();
+    const [top, setTop] = useState(() => topCache || { films: [], next: [], of: 0 });
 
     useEffect(() => {
-        if (isAuthenticated) {
-            userAPI.getRecommendations()
-                .then(res => setPicks(res.data.recommendations?.slice(0, 6) || []))
-                .catch(() => setPicks([]))
-                .finally(() => setPicksLoading(false));
-        } else {
-            setPicksLoading(false);
-        }
-    }, [isAuthenticated]);
+        moviesAPI.getCanonTop(10, 10).then((r) => { topCache = r.data; setTop(r.data); }).catch(() => {});
+    }, []);
+
+    // Coming back (Back button) should land where you left, but the page rebuilds from scratch and the
+    // browser restores the old position on a page that's still short — the countdown, screens tall,
+    // only appears once its films load. So the page keeps its own note of where you are, and puts you
+    // back there itself once it has been rebuilt.
+    useEffect(() => {
+        const previous = window.history.scrollRestoration;
+        window.history.scrollRestoration = 'manual';
+        let t = 0;
+        let pending = false;
+        const save = () => { pending = false; sessionStorage.setItem(SCROLL_KEY, String(Math.round(window.scrollY))); };
+        const remember = () => {
+            pending = true;
+            clearTimeout(t);
+            t = setTimeout(save, 120);
+        };
+        window.addEventListener('scroll', remember, { passive: true });
+        return () => {
+            clearTimeout(t);
+            // leaving mid-scroll: the page hasn't scrolled away yet, so this is exactly where you were.
+            // (Only then — a remount that never scrolled must not overwrite the note with the top.)
+            if (pending) save();
+            window.removeEventListener('scroll', remember);
+            window.history.scrollRestoration = previous;
+        };
+    }, []);
+
+    // before the first paint: with the page already at full height, put you back where you were
+    // (once only — later updates of the top ten mustn't pull you back)
+    const restored = useRef(false);
+    useLayoutEffect(() => {
+        if (restored.current || navigation !== 'POP' || !top.films.length) return;
+        const y = Number(sessionStorage.getItem(SCROLL_KEY));
+        if (y) window.scrollTo(0, y);
+        restored.current = true;
+    }, [navigation, top.films.length]);
+
+    const heading = (kicker, title, line) => (
+        <div className="max-w-7xl mx-auto px-6 md:px-14 mb-10 md:mb-14">
+            <div className="font-mono text-[11px] tracking-[0.35em] uppercase text-[#c5a059]">{kicker}</div>
+            <h2 className="mt-3 font-serif text-4xl md:text-6xl text-white leading-tight">{title}</h2>
+            {line && <p className="mt-4 max-w-2xl text-lg text-gray-400 leading-relaxed">{line}</p>}
+        </div>
+    );
 
     return (
         <div className="min-h-screen">
             {/* every film in the atlas, then tonight's */}
             <HomeHero />
-            <div className="h-12 md:h-24" />
 
-            {/* MANIFESTO SECTION - Replaces Recently Added */}
-            <section className="relative py-10 md:py-32 px-4 md:px-0 border-y border-white/5">
-                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            {/* what arthouse cinema is: films whose makers didn't take the note */}
+            <ArthouseBreath films={[...top.films, ...(top.next || [])]} reducedMotion={reducedMotion} />
 
-                    {/* LEFT: The Question */}
-                    <div className="relative">
-                        {/* Decorative background element */}
-                        <span className="absolute -top-20 -left-10 text-[12rem] font-serif text-white/5 select-none pointer-events-none leading-none">?</span>
+            {/* the canon's top ten, counted down */}
+            {top.films.length > 0 && <CanonCountdown films={top.films} of={top.of} reducedMotion={reducedMotion} />}
+            {top.next?.length > 0 && <JustMissingOut films={top.next} from={top.films.length + 1} reducedMotion={reducedMotion} />}
 
-                        <h2 className="relative z-10 text-4xl md:text-7xl font-cinzel text-primary tracking-tighter mb-6 leading-tight">
-                            What is an <br />
-                            <span className="text-accent-primary">Arthouse Movie?</span>
-                        </h2>
-                        <p className="font-mono text-primary/60 text-sm tracking-[0.2em] uppercase pl-2 border-l border-primary/30">
-                            /ärt-hous/ • noun
-                        </p>
-                    </div>
-
-                    {/* RIGHT: The Answer */}
-                    <div className="relative">
-                        <div className="absolute -inset-4 bg-primary/5 rounded-lg blur-xl -z-10"></div>
-                        <div className="border-l-0 md:border-l-2 border-primary pl-0 md:pl-12 py-4">
-                            <p className="text-xl md:text-2xl text-gray-300 leading-relaxed font-serif">
-                                <span className="text-accent-primary font-bold italic">Cinema as high art.</span> A rejection of the formulaic in favor of the visionary.
-                            </p>
-                            <p className="mt-6 text-lg text-gray-400 leading-relaxed font-light">
-                                It is a medium where the director is the sole author, using film not just to tell a story, but to provoke, challenge, and explore the human condition. From the surrealism of the avant-garde to the quietude of slow cinema.
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-
-            {/* THE THREE PILLARS NAVIGATION */}
-            <section className="relative py-20 px-6">
-                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 h-[80vh] min-h-[500px] max-h-[700px]">
-
-                    {/* PILLAR 1: DIRECTORS */}
-                    <Link to="/directors" className="group relative w-full h-full overflow-hidden rounded-3xl border border-white/10 hover:border-primary/50 transition-colors duration-500">
-                        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=2059&auto=format&fit=crop')] bg-cover bg-center transition-all duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"></div>
-                        <div className="absolute inset-0 bg-black/60 group-hover:bg-black/30 transition-colors duration-700"></div>
-
-                        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
-                            <h3 className="text-3xl md:text-4xl font-cinzel mb-2 tracking-wider">
-                                <span className="text-white">The</span> <span className="text-[#C5A059] group-hover:text-white transition-colors duration-500">Auteurs</span>
-                            </h3>
-                            <p className="text-gray-400 font-serif italic opacity-80 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-                                Visionaries who define the medium.
-                            </p>
-                        </div>
-                    </Link>
-
-                    {/* PILLAR 2: MOVEMENTS */}
-                    <Link to="/movements" className="group relative w-full h-full overflow-hidden rounded-3xl border border-white/10 hover:border-primary/50 transition-colors duration-500">
-                        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2525&auto=format&fit=crop')] bg-cover bg-center transition-all duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"></div>
-                        <div className="absolute inset-0 bg-black/60 group-hover:bg-black/30 transition-colors duration-700"></div>
-
-                        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
-                            <h3 className="text-3xl md:text-4xl font-cinzel mb-2 tracking-wider">
-                                <span className="text-white">The</span> <span className="text-[#C5A059] group-hover:text-white transition-colors duration-500">Movements</span>
-                            </h3>
-                            <p className="text-gray-400 font-serif italic opacity-80 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-                                Waves that rippled through history.
-                            </p>
-                        </div>
-                    </Link>
-
-                    {/* PILLAR 3: LABELS */}
-                    <Link to="/studios" className="group relative w-full h-full overflow-hidden rounded-3xl border border-white/10 hover:border-primary/50 transition-colors duration-500">
-                        {/* TODO: To use your own custom collage of studio logos for this card:
-                            1. Place your image file in frontend/public/images/
-                            2. Change the URL below to: bg-[url('/images/your-collage-name.jpg')]
-                        */}
-                        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center transition-all duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"></div>
-                        <div className="absolute inset-0 bg-black/60 group-hover:bg-black/30 transition-colors duration-700"></div>
-
-                        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
-                            <h3 className="text-3xl md:text-4xl font-cinzel mb-2 tracking-wider">
-                                <span className="text-white">The</span> <span className="text-[#C5A059] group-hover:text-white transition-colors duration-500">Studios</span>
-                            </h3>
-                            <p className="text-gray-400 font-serif italic opacity-80 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-                                Institutions preserving the craft.
-                            </p>
-                        </div>
-                    </Link>
-
-                </div>
-            </section>
-
-            {/* FOR YOU SECTION */}
-            <section className="relative py-16 px-6 border-t border-white/5">
-                <div className="max-w-7xl mx-auto">
-                    <div className="flex items-end justify-between mb-8">
-                        <div>
-                            <h2 className="text-3xl md:text-4xl font-cinzel text-[#C5A059] tracking-tight">Curated for you</h2>
-                        </div>
-                        {isAuthenticated && picks.length > 0 && (
-                            <Link
-                                to="/recommendations"
-                                className="text-sm font-mono text-gray-400 hover:text-[#C5A059] transition-colors tracking-widest uppercase flex items-center gap-2"
-                            >
-                                See All <span className="text-lg">›</span>
-                            </Link>
-                        )}
-                    </div>
-
-                    {!isAuthenticated ? (
-                        <div className="flex flex-col items-start gap-6 p-8 border border-white/10 rounded-2xl bg-white/[0.02]">
-                            <div>
-                                <p className="text-base text-gray-300 font-serif mb-1">Sign in to unlock recommendations</p>
-                                <p className="text-sm text-gray-500">We'll learn your taste and curate a personal film library.</p>
-                            </div>
-                            <Link
-                                to="/login"
-                                className="flex-shrink-0 px-6 py-3 border border-[#C5A059]/40 text-[#C5A059] text-sm font-mono tracking-widest uppercase hover:bg-[#C5A059]/10 transition-colors rounded-lg"
-                            >
-                                Sign In
-                            </Link>
-                        </div>
-                    ) : picksLoading ? (
-                        <div className="flex gap-4 overflow-hidden">
-                            {[...Array(6)].map((_, i) => (
-                                <div key={i} className="flex-shrink-0 w-40 md:w-48 aspect-[2/3] rounded-xl bg-white/5 animate-pulse" />
-                            ))}
-                        </div>
-                    ) : picks.length > 0 ? (
-                        <div className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar">
-                            {picks.map(movie => (
-                                <div key={movie._id} className="flex-shrink-0 w-40 md:w-48 hover:z-50 relative">
-                                    <PosterCard movie={movie} />
+            {/* a century of cinema, around the world */}
+            <section className="pt-28 md:pt-16">
+                <div className="max-w-7xl mx-auto px-6 md:px-14">
+                    <AtlasMap
+                        heading={(
+                            // compact, so the heading, the earth and the years all fit one screen
+                            <div className="shrink-0 mb-8 md:mb-3 xl:flex xl:items-end xl:justify-between xl:gap-10">
+                                <div>
+                                    <div className="font-mono text-[11px] tracking-[0.35em] uppercase text-[#c5a059]">The atlas</div>
+                                    <h2 className="mt-3 font-serif text-4xl text-white leading-tight">A century of cinema, around the world</h2>
                                 </div>
-                            ))}
-                        </div>
-                    ) : (
-                        <div className="p-8 border border-white/10 rounded-2xl bg-white/[0.02] text-center">
-                            <p className="text-gray-400 font-serif italic mb-4">Like, watch, or save some films to get personalised picks.</p>
-                            <Link to="/explore" className="text-sm text-[#C5A059] font-mono uppercase tracking-widest hover:underline">Start Exploring →</Link>
-                        </div>
-                    )}
+                                <p className="mt-2 xl:mt-0 max-w-2xl xl:max-w-[26rem] text-base text-gray-400 leading-relaxed">The earth at night: each country glows while its cinema is happening. Run the years, or click a country to fly in.</p>
+                            </div>
+                        )}
+                    />
                 </div>
             </section>
 
-            <style jsx>{`
-                .hide-scrollbar::-webkit-scrollbar {
-                    display: none;
-                }
-                .hide-scrollbar {
-                    -ms-overflow-style: none;
-                    scrollbar-width: none;
-                }
-            `}</style>
+            {/* the rest of the atlas, played in an auditorium */}
+            <section className="pt-28 md:pt-40">
+                {/* a short heading, so it and the whole auditorium fit one screen */}
+                <div className="max-w-7xl mx-auto px-6 md:px-14 mb-6">
+                    <div className="font-mono text-[11px] tracking-[0.35em] uppercase text-[#c5a059]">Keep exploring</div>
+                    <h2 className="mt-3 font-serif text-4xl text-white leading-tight">Three rooms of the atlas</h2>
+                </div>
+                <div className="max-w-7xl mx-auto px-6 md:px-14">
+                    <Auditorium reducedMotion={reducedMotion} />
+                </div>
+            </section>
+
+            {/* your next film, printed at the box office */}
+            <section className="pt-28 md:pt-40 pb-32">
+                {heading('Your next film', 'Picked for you, from the atlas')}
+                <div className="max-w-7xl mx-auto px-6 md:px-14">
+                    <NextFilm reducedMotion={reducedMotion} />
+                </div>
+            </section>
         </div>
     );
 };
