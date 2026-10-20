@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import compression from 'compression';
 import dotenv from 'dotenv';
 import connectDB from './config/database.js';
 import authRoutes from './routes/authRoutes.js';
@@ -25,6 +26,8 @@ connectDB();
 
 // Middleware
 app.use(cors());
+// JSON shrinks four- or five-fold on the way out (Explore's counts are the biggest replies)
+app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

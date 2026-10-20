@@ -364,7 +364,9 @@ const MovieDetail = () => {
                         <section className="pt-24 md:pt-32 pb-28">
                             <div className="flex items-end justify-between gap-6 mb-8">
                                 <h2 className="font-serif text-4xl md:text-5xl">Make it a double bill</h2>
-                                <span className="hidden md:block font-label text-[12px] tracking-[0.14em] uppercase text-gray-500 pb-2">after {movie.title}</span>
+                                <Link to={`/explore?like=${movie._id}`} className="font-label text-[12px] tracking-[0.14em] uppercase text-gray-300 hover:text-white pb-2 whitespace-nowrap">
+                                    All the films like it →
+                                </Link>
                             </div>
                             <div className="grid grid-cols-3 md:grid-cols-6 gap-3 md:gap-4">
                                 {similarMovies.slice(0, 6).map((m) => (

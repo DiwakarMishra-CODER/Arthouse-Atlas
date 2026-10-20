@@ -1,38 +1,50 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { Navigate, useNavigationType, useSearchParams } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate, useNavigationType, useSearchParams } from 'react-router-dom';
+import { MdArrowBack, MdMovieFilter } from 'react-icons/md';
 import { moviesAPI } from '../services/api';
 import { useMotionPreference } from '../hooks/useMotionPreference';
 import Letterboard from '../components/explore/Letterboard';
-import LobbyCard from '../components/explore/LobbyCard';
-import ArtistCredits from '../components/explore/ArtistCredits';
+import FoyerWall from '../components/explore/FoyerWall';
+import Banner from '../components/explore/Banner';
+import Intertitle from '../components/explore/Intertitle';
 import SearchBox from '../components/explore/SearchBox';
-import {
-    PickerPanel, CountryPicker, DecadePicker, DirectorPicker, MovementPicker, MoodPicker, GenrePicker, LengthPicker, SortPicker,
-} from '../components/explore/Pickers';
+import ProjectorPick from '../components/explore/ProjectorPick';
+import { PickerPanel } from '../components/explore/pickers/parts';
+import PlacePicker from '../components/explore/pickers/PlacePicker';
+import TimePicker from '../components/explore/pickers/TimePicker';
+import MakerPicker from '../components/explore/pickers/MakerPicker';
+import MovementPicker from '../components/explore/pickers/MovementPicker';
+import MoodPicker from '../components/explore/pickers/MoodPicker';
+import GenrePicker from '../components/explore/pickers/GenrePicker';
+import LengthPicker from '../components/explore/pickers/LengthPicker';
+import OrderPicker from '../components/explore/pickers/OrderPicker';
 import { LENGTH_WORDS } from '../components/explore/words';
 
 /**
  * Explore: the cinema foyer.
  *
- * A letterboard says, in plain words, what's showing ("NOW SHOWING · 23 FILMS FROM
- * JAPAN, MADE IN THE 1950s · MOST ACCLAIMED FIRST"); its gold words are the
- * filters, and the plain buttons under it add more. Below, the films hang as lobby
- * cards, each crediting who made it. The canon's order is the default.
+ * The letterboard says, in plain words, what's showing, and it is the only control: every
+ * word you can change sits in a gold slot, dashed while it's a blank ("FROM [ANYWHERE]"),
+ * lit once chosen; tap one to open its picker. Every choice is
+ * made with pictures: the night earth for places, a strip of film for decades, a contact
+ * sheet for directors, title cards for movements, a mood board, tickets, reels. Below, the
+ * films hang in the foyer's display cases, lit as you reach them, their stills running when
+ * you look closer. Someone who knows no names can start from a film everyone has seen (any
+ * film opens a wall of the films like it), or let the projector pick one.
  *
- * The URL is the selection, so a wall can be shared and Back steps through your
- * choices. Coming back from a film lands on the same wall at the same place: the
- * page notes how many cards were loaded and where you were, per selection.
+ * The URL is the selection, so a wall can be shared and Back steps through your choices.
+ * Coming back from a film lands on the same wall at the same place: the page notes how many
+ * cards were loaded and where you were, per selection.
  */
 
 const PAGE = 24;
-const FILTERS = ['q', 'country', 'decade', 'director', 'movement', 'mood', 'genre', 'length'];
+const FILTERS = ['q', 'country', 'decade', 'director', 'movement', 'mood', 'genre', 'length', 'like', 'from'];
 const MOODS = ['contemplative', 'melancholic', 'dreamlike', 'surreal', 'intimate', 'existential', 'psychological', 'minimalist', 'slow', 'austere', 'poetic', 'lyrical', 'enigmatic', 'fragmented', 'bleak'];
-const ADDABLE = [['country', 'Country'], ['decade', 'Decade'], ['director', 'Director'], ['movement', 'Movement'], ['mood', 'Mood'], ['genre', 'Genre'], ['length', 'Length']];
 const PICKER_TITLES = {
     country: 'From where', decade: 'When it was made', director: 'Who made it', movement: 'Which movement',
     mood: 'How it feels', genre: 'What kind of film', length: 'How long', sort: 'In what order',
 };
-const ORDER_WORDS = { acclaimed: 'most acclaimed first', oldest: 'oldest first', newest: 'newest first', surprise: 'in a surprise order' };
+const ORDER_WORDS = { acclaimed: 'most acclaimed first', oldest: 'oldest first', newest: 'newest first', surprise: 'in a surprise order', closest: 'closest first' };
 
 // links from before the foyer: ?search= became q, ?tags= becomes a mood when it is one
 const fromOldLink = (params) => {
@@ -61,24 +73,56 @@ const readNote = (key) => {
     try { return JSON.parse(sessionStorage.getItem(`explore:${key}`) || 'null'); } catch { return null; }
 };
 
+// the address keeps only what differs from the default order (closest when the wall starts from a film)
+const tidyOrder = (next) => {
+    const started = next.has('like') || next.has('from');
+    const sort = next.get('sort');
+    if ((sort === 'closest' && started) || (sort === 'acclaimed' && !started) || (sort === 'closest' && !started)) next.delete('sort');
+    if (sort !== 'surprise' && next.get('sort') !== 'surprise') next.delete('seed');
+    return next;
+};
+
 const Explore = () => {
     const [params, setParams] = useSearchParams();
     const navigation = useNavigationType();
+    const location = useLocation();
+    const navigate = useNavigate();
+    // back to wherever you came from (or home, when Explore is where you arrived)
+    const goBack = () => (location.key !== 'default' ? navigate(-1) : navigate('/'));
     const reducedMotion = useMotionPreference();
     const oldLink = fromOldLink(params);
 
     const sel = useMemo(() => Object.fromEntries([...FILTERS, 'sort', 'seed'].map((k) => [k, params.get(k) || ''])), [params]);
-    const sort = sel.sort || 'acclaimed';
+    const started = Boolean(sel.like || sel.from);
+    const sort = sel.sort || (started ? 'closest' : 'acclaimed');
     const query = useMemo(() => Object.fromEntries(Object.entries(sel).filter(([, v]) => v)), [sel]);
     const key = useMemo(() => new URLSearchParams(query).toString(), [query]);
+    // what the projector picks from: what's showing, in any order
+    const pickQuery = useMemo(() => {
+        const { sort: _sort, seed: _seed, ...rest } = query;
+        return rest;
+    }, [query]);
 
     const [wall, setWall] = useState({ key: null, films: [], total: 0, facets: null, selected: {}, notes: null });
     const [picker, setPicker] = useState(null);
     const [loadingMore, setLoadingMore] = useState(false);
     const [attempt, setAttempt] = useState(0);
+    const [start, setStart] = useState(null);
+    const [projector, setProjector] = useState(false);
+    // the line for newcomers shows until you've chosen something once (remembered on this device)
+    const [knowsTheWay, setKnowsTheWay] = useState(() => {
+        try { return localStorage.getItem('explore:knows-the-way') === '1'; } catch { return false; }
+    });
     const restoreY = useRef(null);
     const sentinel = useRef(null);
     const restoring = navigation === 'POP';
+
+    // places to start, for the search and the line under it
+    useEffect(() => {
+        let gone = false;
+        moviesAPI.exploreSuggest('').then((r) => { if (!gone) setStart(r.data.start || null); }).catch(() => {});
+        return () => { gone = true; };
+    }, []);
 
     // a new selection: its first cards (as many as you'd loaded, when coming back), and its counts
     useEffect(() => {
@@ -95,6 +139,15 @@ const Explore = () => {
             .catch(() => { if (!gone) setWall((w) => ({ ...w, key, films: [], total: 0, facets: w.facets, failed: true })); });
         return () => { gone = true; };
     }, [key, query, restoring, oldLink, attempt]);
+
+    // a film to start from that can't be found (an old link, a film since removed): take it off the board
+    useEffect(() => {
+        if (wall.key !== key || !wall.notes?.startMissing) return;
+        const next = new URLSearchParams(params);
+        next.delete('like');
+        next.delete('from');
+        setParams(tidyOrder(next), { replace: true });
+    }, [wall, key, params, setParams]);
 
     // back at the place you left it
     useLayoutEffect(() => {
@@ -142,7 +195,7 @@ const Explore = () => {
     }, [loadingMore, wall.films.length, query, key]);
     useEffect(() => {
         if (!hasMore || !sentinel.current) return undefined;
-        const io = new IntersectionObserver((entries) => { if (entries[0].isIntersecting) loadMore(); }, { rootMargin: '900px 0px' });
+        const io = new IntersectionObserver((entries) => { if (entries[0].isIntersecting) loadMore(); }, { rootMargin: '1200px 0px' });
         io.observe(sentinel.current);
         return () => io.disconnect();
     }, [hasMore, loadMore]);
@@ -156,143 +209,206 @@ const Explore = () => {
     }, [picker]);
 
     // change one word on the board (from a card, also go back up to the board to see it change)
-    const choose = (k, v, { up = false } = {}) => {
+    const choose = useCallback((k, v, { up = false } = {}) => {
         const next = new URLSearchParams(params);
         if (v === '' || v === null || v === undefined) next.delete(k);
         else next.set(k, String(v));
-        if (k === 'sort') {
-            if (v === 'surprise') next.set('seed', newSeed());
-            else next.delete('seed');
-            if (v === 'acclaimed') next.delete('sort');
+        if (k === 'sort' && v === 'surprise') next.set('seed', newSeed());
+        // a film to start from replaces the search, the other film, and the order
+        if ((k === 'like' || k === 'from') && v) {
+            next.delete(k === 'like' ? 'from' : 'like');
+            ['q', 'sort', 'seed'].forEach((p) => next.delete(p));
         }
+        // choosing "most acclaimed" on a wall that starts from a film has to say so (its default is closest)
+        if (k === 'sort' && v === 'acclaimed' && (next.has('like') || next.has('from'))) { next.set('sort', 'acclaimed'); next.delete('seed'); }
+        else tidyOrder(next);
         setParams(next);
         setPicker(null);
+        if (!knowsTheWay) {
+            setKnowsTheWay(true);
+            try { localStorage.setItem('explore:knows-the-way', '1'); } catch { /* storage blocked: it just shows again next time */ }
+        }
         if (up) window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
-    };
+    }, [params, setParams, reducedMotion, knowsTheWay]);
     const reset = () => { setParams(new URLSearchParams()); setPicker(null); };
+    const focusSearch = () => document.getElementById('explore-search')?.focus();
 
-    // ---- the board's words ----
+    const facets = wall.facets || {};
+    const onDirector = useCallback((d) => choose('director', d, { up: true }), [choose]);
+    const onMovement = useCallback((m) => choose('movement', facets.movement?.find((x) => x.value === m)?.tag || m, { up: true }), [choose, facets.movement]);
+    const searchOn = useMemo(() => ({
+        like: (id) => choose('like', id, { up: true }),
+        from: (id) => choose('from', id, { up: true }),
+        director: (name) => choose('director', name),
+        country: (c) => choose('country', c),
+        mood: (m) => choose('mood', m),
+        genre: (g) => choose('genre', g),
+        movement: (tag) => choose('movement', tag),
+    }), [choose]);
+    const closeProjector = useCallback(() => setProjector(false), []);
+    const decadeCounts = useMemo(() => new Map((facets.decade || []).map((d) => [d.value, d.n])), [facets.decade]);
+
+    // ---- the board's words: plain words in white, and what you can change in gold slots ----
+    // (dashed while a blank to fill, lit once chosen)
     const ready = wall.key === key;
     const changing = wall.key !== null && !ready;
-    const facets = wall.facets || {};
-    const movementTitle = wall.selected.movement?.title || facets.movement?.find((m) => m.tag === sel.movement)?.title || facets.movement?.find((m) => m.tag === sel.movement)?.value || sel.movement;
+    const movementTitle = wall.selected.movement?.title || facets.movement?.find((m) => m.tag === sel.movement)?.value || sel.movement;
+    const startTitle = wall.selected.start?.title;
+    const directorName = wall.selected.director?.name || sel.director;
     const any = FILTERS.some((k) => sel[k]);
     const total = wall.total;
+    const word = (id, text) => ({ id, text });
     const control = (id, text, label, extra = {}) => ({ id, text, control: true, label, onClick: () => setPicker(id), onRemove: () => choose(id, ''), ...extra });
-    const sentence = [{ id: 'count', text: wall.key === null || wall.failed ? '· · ·' : !any ? `all ${total} films` : `${total} ${total === 1 ? 'film' : 'films'}` }];
-    if (sel.country) sentence.push(control('country', `from ${countryWords(sel.country)}`, `Country: ${sel.country}`));
-    if (sel.decade) sentence.push(control('decade', `made in the ${sel.decade}s`, `Decade: the ${sel.decade}s`));
-    if (sel.director) sentence.push(control('director', `by ${wall.selected.director?.name || sel.director}`, `Director: ${sel.director}`));
-    if (sel.q) sentence.push(control('q', `matching “${sel.q}”`, `Search: ${sel.q}`, { onClick: () => document.getElementById('explore-search')?.focus() }));
-    const listed = [
-        sel.movement && control('movement', movementTitle, `Movement: ${movementTitle}`),
-        sel.mood && control('mood', sel.mood, `Mood: ${sel.mood}`),
-        sel.genre && control('genre', sel.genre, `Genre: ${sel.genre}`),
-        sel.length && control('length', LENGTH_WORDS[sel.length] || sel.length, `Length: ${LENGTH_WORDS[sel.length]}`),
-    ].filter(Boolean).flatMap((p, i) => (i ? [{ id: `dot${i}`, text: '·' }, p] : [p]));
+    const blank = (id, text, label) => ({ id, text, control: true, blank: true, label, onClick: () => setPicker(id) });
+
+    const countText = wall.key === null || wall.failed ? '· · ·' : !any ? `all ${total} films` : `${total} ${total === 1 ? 'film' : 'films'}`;
+    const big = [word('count', countText)];
+    if (sel.q) big.push(word('q-w', 'matching'), control('q', `“${sel.q}”`, `Search: ${sel.q}`, { onClick: focusSearch }));
+    if (started) big.push(word('like-w', 'like'), control(sel.like ? 'like' : 'from', startTitle || '…', `Starting from ${startTitle || 'a film'}`, { onClick: focusSearch }));
+    const medium = [
+        word('country-w', 'from'),
+        sel.country ? control('country', countryWords(sel.country), `Country: ${sel.country}`) : blank('country', 'anywhere', 'Country: anywhere'),
+        ...(sel.decade
+            ? [word('decade-w', 'made in the'), control('decade', `${sel.decade}s`, `Decade: the ${sel.decade}s`)]
+            : [word('decade-w', 'made'), blank('decade', 'any time', 'Decade: any time')]),
+        word('director-w', 'by'),
+        sel.director ? control('director', directorName, `Director: ${directorName}`) : blank('director', 'anyone', 'Director: anyone'),
+    ];
+    const list = [
+        sel.movement ? control('movement', movementTitle, `Movement: ${movementTitle}`) : blank('movement', 'movement', 'Movement: any'),
+        sel.mood ? control('mood', sel.mood, `Mood: ${sel.mood}`) : blank('mood', 'mood', 'Mood: any'),
+        sel.genre ? control('genre', sel.genre, `Genre: ${sel.genre}`) : blank('genre', 'genre', 'Genre: any'),
+        sel.length ? control('length', LENGTH_WORDS[sel.length] || sel.length, `Length: ${LENGTH_WORDS[sel.length]}`) : blank('length', 'length', 'Length: any'),
+    ];
     const lines = [
         { size: 'small', phrases: [{ id: 'now', text: ready && !wall.failed && total === 0 ? 'Nothing showing' : 'Now showing' }] },
-        { size: 'big', phrases: sentence },
-        ...(listed.length ? [{ size: 'medium', phrases: listed }] : []),
+        { size: 'big', phrases: big },
+        { size: 'medium', phrases: medium },
+        { size: 'list', phrases: list },
         { size: 'sort', phrases: [control('sort', ORDER_WORDS[sort], `Order: ${ORDER_WORDS[sort]}`, { onRemove: null })] },
     ];
-    const boardLabel = `Now showing: ${[sentence, listed].flat().map((p) => p.text).filter((t) => t !== '·').join(', ')}, ${ORDER_WORDS[sort]}.`;
+    // what's chosen, in words: the board's label for screen readers, and the empty wall's ways out
+    const chosen = [
+        sel.q && { id: 'q', text: `matching “${sel.q}”` },
+        started && { id: sel.like ? 'like' : 'from', text: `like ${startTitle || 'that film'}` },
+        sel.country && { id: 'country', text: `from ${countryWords(sel.country)}` },
+        sel.decade && { id: 'decade', text: `made in the ${sel.decade}s` },
+        sel.director && { id: 'director', text: `by ${directorName}` },
+        sel.movement && { id: 'movement', text: movementTitle },
+        sel.mood && { id: 'mood', text: sel.mood },
+        sel.genre && { id: 'genre', text: sel.genre },
+        sel.length && { id: 'length', text: LENGTH_WORDS[sel.length] },
+    ].filter(Boolean);
+    const boardLabel = `Now showing: ${[countText, ...chosen.map((c) => c.text)].join(', ')}, ${ORDER_WORDS[sort]}.`;
 
     // the nearest decade that has films, for the end of a wall
     const nextDecade = sel.decade && facets.decade?.filter((d) => d.n > 0 && String(d.value) !== sel.decade)
         .sort((a, b) => Math.abs(a.value - sel.decade) - Math.abs(b.value - sel.decade) || b.value - a.value)[0];
+    const known = start?.known?.slice(0, 3) || [];
 
     if (oldLink) return <Navigate to={`/explore?${oldLink.toString()}`} replace />;
 
     return (
-        <div className="min-h-screen pt-28 md:pt-32 pb-32">
+        <div className="relative min-h-screen pt-36 md:pt-32 pb-32">
             <h1 className="sr-only">Explore the atlas</h1>
+            <button type="button" onClick={goBack} className="font-label absolute top-24 left-4 md:left-10 z-20 flex items-center gap-2 text-xs tracking-[0.14em] uppercase text-gray-300 hover:text-white transition-colors">
+                <MdArrowBack aria-hidden="true" /> Back
+            </button>
             <div className="max-w-7xl mx-auto px-4 md:px-14">
-                <Letterboard lines={lines} label={boardLabel} version={`${key}|${total}`} reducedMotion={reducedMotion} />
+                <Letterboard lines={lines} label={boardLabel} version={`${key}|${total}`} reducedMotion={reducedMotion} chosen={any} onReset={reset} />
 
-                {/* more to put on the board, and the search */}
-                <div className="mt-6 md:mt-8 flex flex-col-reverse md:flex-row md:items-center gap-4 md:gap-6">
-                    <div className="flex flex-wrap items-center gap-2">
-                        {ADDABLE.filter(([k]) => !sel[k]).map(([k, label]) => (
-                            <button key={k} type="button" onClick={() => setPicker(picker === k ? null : k)} aria-expanded={picker === k} className={`px-3 py-2 font-label text-[12px] tracking-[0.14em] uppercase ring-1 transition-colors ${picker === k ? 'ring-gold text-gold-light' : 'ring-white/15 text-gray-300 hover:ring-white/40 hover:text-white'}`}>
-                                + {label}
-                            </button>
-                        ))}
-                        {any && (
-                            <button type="button" onClick={reset} className="px-2 py-2 font-label text-[12px] tracking-[0.14em] uppercase text-gray-500 hover:text-white">Show everything</button>
-                        )}
+                {/* ask for anything, or let the projector choose; and, until you've chosen something
+                    once, a line for someone who knows no names yet */}
+                <div className="mt-8 md:mt-10 max-w-3xl mx-auto">
+                    <div className="flex items-end gap-3 md:gap-5">
+                        <div className="flex-1 min-w-0">
+                            <SearchBox value={sel.q} start={start} onSearch={(q) => choose('q', q)} on={searchOn} />
+                        </div>
+                        <button type="button" onClick={() => setProjector(true)} className="flex-shrink-0 mb-1 inline-flex items-center gap-2 px-3 md:px-4 py-2.5 ring-1 ring-gold/50 text-gold font-label text-[12px] tracking-[0.14em] uppercase hover:bg-gold hover:text-black transition-colors">
+                            <MdMovieFilter aria-hidden="true" className="text-base" /> <span className="hidden sm:inline">Pick one for me</span><span className="sm:hidden">Pick one</span>
+                        </button>
                     </div>
-                    <div className="md:ml-auto">
-                        <SearchBox value={sel.q} onSearch={(q) => choose('q', q)} onDirector={(d) => choose('director', d)} />
-                    </div>
+                    {!any && !knowsTheWay && known.length > 0 && (
+                        <p className="mt-4 text-[16px] leading-relaxed text-gray-400">
+                            New here? Start from a film you know:{' '}
+                            {known.map((f, i) => (
+                                <span key={f._id}>
+                                    {i > 0 && ' · '}
+                                    <button type="button" onClick={() => choose('like', f._id, { up: true })} className="italic text-gray-100 underline decoration-white/25 underline-offset-4 hover:text-white hover:decoration-white transition-colors">{f.title}</button>
+                                </span>
+                            ))}
+                        </p>
+                    )}
                 </div>
 
                 {picker && wall.facets && (
                     <PickerPanel title={PICKER_TITLES[picker] || ''} onClose={() => setPicker(null)}>
-                        {picker === 'country' && <CountryPicker options={facets.country} value={sel.country} onPick={(v) => choose('country', v)} />}
-                        {picker === 'decade' && <DecadePicker options={facets.decade} value={sel.decade} onPick={(v) => choose('decade', v)} />}
-                        {picker === 'director' && <DirectorPicker options={facets.director} value={sel.director} onPick={(v) => choose('director', v)} />}
+                        {picker === 'country' && <PlacePicker options={facets.country} value={sel.country} onPick={(v) => choose('country', v)} />}
+                        {picker === 'decade' && <TimePicker options={facets.decade} value={sel.decade} onPick={(v) => choose('decade', v)} />}
+                        {picker === 'director' && <MakerPicker options={facets.director} value={sel.director} onPick={(v) => choose('director', v)} />}
                         {picker === 'movement' && <MovementPicker options={facets.movement} value={sel.movement} onPick={(v) => choose('movement', v)} />}
                         {picker === 'mood' && <MoodPicker options={facets.mood} value={sel.mood} onPick={(v) => choose('mood', v)} notes={wall.notes?.moodFilms} />}
                         {picker === 'genre' && <GenrePicker options={facets.genre} value={sel.genre} onPick={(v) => choose('genre', v)} />}
                         {picker === 'length' && <LengthPicker options={facets.length} value={sel.length} onPick={(v) => choose('length', v)} />}
-                        {picker === 'sort' && <SortPicker value={sort} onPick={(v) => choose('sort', v)} />}
+                        {picker === 'sort' && <OrderPicker value={sort} started={started} onPick={(v) => choose('sort', v)} />}
                     </PickerPanel>
                 )}
 
-                {ready && <ArtistCredits director={wall.selected.director} movement={wall.selected.movement} />}
+                {ready && <Banner selected={wall.selected} />}
 
-                {/* the lobby wall */}
+                {/* the foyer wall */}
                 {wall.key === null ? (
-                    <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12" aria-hidden="true">
-                        {Array.from({ length: 6 }, (_, i) => <div key={i} className="aspect-video bg-white/[0.03] ring-1 ring-white/5" />)}
+                    <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16" aria-hidden="true">
+                        <div className="md:col-span-2 lg:row-span-2 aspect-video lobby-frame opacity-60" />
+                        {Array.from({ length: 5 }, (_, i) => <div key={i} className="aspect-[16/10] lobby-frame opacity-60" />)}
                     </div>
                 ) : ready && wall.failed ? (
-                    <div className="mt-14 text-center">
-                        <p className="font-serif text-2xl md:text-3xl text-gray-200">The films couldn’t be reached just now.</p>
-                        <button type="button" onClick={() => setAttempt((a) => a + 1)} className="mt-5 px-4 py-2.5 font-label text-[12px] tracking-[0.14em] uppercase ring-1 ring-gold/60 text-gold-light hover:bg-gold hover:text-black transition-colors">
-                            Try again
-                        </button>
+                    <div className="mt-16">
+                        <Intertitle still kicker="The projector stopped" title="The films couldn’t be reached">
+                            <button type="button" onClick={() => setAttempt((a) => a + 1)} className="mt-6 px-5 py-2.5 font-label text-[13px] tracking-[0.14em] uppercase ring-1 ring-gold/60 text-gold-light hover:bg-gold hover:text-black transition-colors">
+                                Try again
+                            </button>
+                        </Intertitle>
                     </div>
                 ) : ready && total === 0 ? (
-                    <div className="mt-14 text-center">
-                        <p className="font-serif text-2xl md:text-3xl text-gray-200">Nothing fits all of that.</p>
-                        <p className="mt-2 text-gray-400">Take something down:</p>
-                        <div className="mt-5 flex flex-wrap justify-center gap-2">
-                            {[...sentence, ...listed].filter((p) => p.control).map((p) => (
-                                <button key={p.id} type="button" onClick={() => choose(p.id, '')} className="px-3 py-2 font-label text-[12px] tracking-[0.14em] uppercase ring-1 ring-white/15 text-gray-300 hover:ring-white/40 hover:text-white">
-                                    − {p.text}
-                                </button>
-                            ))}
-                        </div>
+                    <div className="mt-16">
+                        <Intertitle still kicker="Nothing showing" title="Nothing fits all of that">
+                            <p className="mt-4 text-gray-300">Take something down:</p>
+                            <div className="mt-4 flex flex-wrap justify-center gap-2">
+                                {chosen.map((c) => (
+                                    <button key={c.id} type="button" onClick={() => choose(c.id, '')} className="px-3 py-2 font-label text-[12px] tracking-[0.14em] uppercase ring-1 ring-white/20 text-gray-200 hover:ring-white/50 hover:text-white">
+                                        − {c.text}
+                                    </button>
+                                ))}
+                            </div>
+                        </Intertitle>
                     </div>
                 ) : (
-                    <>
-                        <div key={wall.key} className={`mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12 transition-opacity duration-200 ${changing ? 'opacity-25' : ''}`}>
-                            {wall.films.map((film, i) => (
-                                <LobbyCard
-                                    key={film._id}
-                                    film={film}
-                                    index={reducedMotion ? 0 : i % PAGE}
-                                    onDirector={(d) => choose('director', d, { up: true })}
-                                    onMovement={(m) => choose('movement', facets.movement?.find((x) => x.value === m)?.tag || m, { up: true })}
-                                />
-                            ))}
-                        </div>
+                    <div className={`mt-16 md:mt-20 transition-opacity duration-200 ${changing ? 'opacity-25' : ''}`}>
+                        <FoyerWall
+                            key={wall.key}
+                            films={wall.films}
+                            sort={sort}
+                            plainCanon={sort === 'acclaimed' && !any}
+                            decadeCounts={decadeCounts}
+                            onDirector={onDirector}
+                            onMovement={onMovement}
+                            reducedMotion={reducedMotion}
+                            end={ready && !hasMore ? (
+                                <Intertitle kicker={total === 1 ? 'That’s the one.' : `That’s all ${total}.`} title="The End">
+                                    {nextDecade && (
+                                        <button type="button" onClick={() => choose('decade', nextDecade.value, { up: true })} className="mt-5 font-label text-[13px] tracking-[0.14em] uppercase text-gray-200 hover:text-white">
+                                            The {nextDecade.value}s{sel.country ? ` in ${countryWords(sel.country)}` : ''}: {nextDecade.n} {nextDecade.n === 1 ? 'film' : 'films'} →
+                                        </button>
+                                    )}
+                                </Intertitle>
+                            ) : null}
+                        />
                         {hasMore && <div ref={sentinel} className="h-px" aria-hidden="true" />}
-                        {ready && !hasMore && (
-                            <div className="mt-16 text-center font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">
-                                {total === 1 ? 'That’s the one.' : `That’s all ${total}.`}
-                                {nextDecade && (
-                                    <button type="button" onClick={() => choose('decade', nextDecade.value, { up: true })} className="block mx-auto mt-3 text-gray-300 hover:text-white">
-                                        The {nextDecade.value}s{sel.country ? ` in ${countryWords(sel.country)}` : ''}: {nextDecade.n} {nextDecade.n === 1 ? 'film' : 'films'} →
-                                    </button>
-                                )}
-                            </div>
-                        )}
-                    </>
+                    </div>
                 )}
             </div>
+            {projector && <ProjectorPick query={pickQuery} onClose={closeProjector} />}
         </div>
     );
 };

@@ -462,7 +462,9 @@
 /* ---- The room: projected black (ProjectedBlack.jsx) ---- */
 /* the projector's light falls faintly on the middle of the screen and dies at the edges */
 .projected-black {
-  background: radial-gradient(ellipse 80% 70% at 50% 40%, #100f0d 0%, #0a0908 42%, #050505 75%, #020202 100%);
+  background:
+    radial-gradient(ellipse 60% 45% at 50% 30%, rgba(255, 214, 160, 0.055), transparent 70%),
+    radial-gradient(ellipse 90% 80% at 50% 40%, #1a1714 0%, #110f0d 40%, #0a0908 70%, #040404 100%);
 }
 /* the grain jumps to a new place every other frame of film: eight places, 12 a second */
 .projected-grain {
@@ -521,4 +523,211 @@ html[data-cover] .projected-black { visibility: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .house-sign.is-lit, .menu-sign { animation: none; }
   .leader-wipe { animation: none; opacity: 0; }
+}
+
+/* ---- Explore, part two: the foyer wall, its lights, and the pickers ---- */
+/* grain on a printed still (a fixed texture: the projected black does the moving) */
+.still-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+/* a lobby card's frame: black lacquer catching the foyer light, a gilt fillet round the picture */
+.lobby-frame {
+  padding: 7px;
+  background: linear-gradient(150deg, #1d1a17 0%, #0c0b0a 38%, #15130f 70%, #0a0908 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 240, 210, 0.08), inset 0 -1px 0 rgba(0, 0, 0, 0.7), 0 26px 44px -20px rgba(0, 0, 0, 0.95), 0 3px 8px rgba(0, 0, 0, 0.55);
+}
+.lobby-mat {
+  box-shadow: 0 0 0 1px rgba(217, 173, 98, 0.5), 0 0 0 3px #0b0a09, 0 0 0 4px rgba(217, 173, 98, 0.16);
+}
+/* a foyer display case: the picture is lit from behind, through the glass. Until its tubes
+   strike on (fluorescent: a stutter, then steady) the picture waits in the dark */
+.case-light, .case-glow { opacity: 0; }
+.case-shade { opacity: 1; }
+[data-lit] .case-light, [data-lit] .case-glow {
+  animation: case-strike 820ms steps(1, end) both;
+  animation-delay: calc(var(--i, 0) * 85ms);
+}
+[data-lit] .case-shade {
+  animation: case-unshade 820ms steps(1, end) both;
+  animation-delay: calc(var(--i, 0) * 85ms);
+}
+@keyframes case-strike {
+  0% { opacity: 0; }
+  10% { opacity: 0.7; }
+  14% { opacity: 0; }
+  24% { opacity: 0.9; }
+  30% { opacity: 0.15; }
+  44%, 100% { opacity: 1; }
+}
+@keyframes case-unshade {
+  0% { opacity: 1; }
+  10% { opacity: 0.35; }
+  14% { opacity: 1; }
+  24% { opacity: 0.2; }
+  30% { opacity: 0.85; }
+  44%, 100% { opacity: 0; }
+}
+/* the projector's shutter between two frames of a running still: one frame of black */
+.shutter { animation: shutter 110ms steps(1, end) both; }
+@keyframes shutter { 0% { opacity: 1; } 100% { opacity: 0; } }
+/* a still with only one frame breathes instead: a slow push-in, the picture weaving in the gate */
+.breath-push { animation: breath-push 8s cubic-bezier(0.2, 0.6, 0.2, 1) both; }
+.breath-weave { animation: gate-weave 0.42s steps(1, end) infinite; }
+@keyframes breath-push { from { transform: scale(1.001); } to { transform: scale(1.075); } }
+/* the projector picked this one */
+.lobby-picked .lobby-frame { box-shadow: 0 0 0 1px rgba(240, 207, 142, 0.9), 0 0 60px rgba(240, 207, 142, 0.35), 0 26px 44px -20px rgba(0, 0, 0, 0.95); }
+
+/* a silent film's title card, between the reels of the wall */
+.intertitle-card {
+  background: radial-gradient(ellipse at 50% 45%, #15130f 0%, #070606 75%);
+  box-shadow: inset 0 0 0 1px rgba(241, 236, 226, 0.22), inset 0 0 0 7px #070606, inset 0 0 0 8px rgba(241, 236, 226, 0.12);
+}
+[data-lit].intertitle-card .intertitle-text { animation: case-strike 820ms steps(1, end) both; }
+.intertitle-text { opacity: 0; }
+[data-lit].intertitle-card .intertitle-text, .intertitle-static .intertitle-text { opacity: 1; }
+
+/* a director chosen on the contact sheet: a red grease-pencil loop */
+.grease-loop path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: grease-draw 620ms cubic-bezier(0.3, 0.7, 0.2, 1) forwards;
+}
+@keyframes grease-draw { to { stroke-dashoffset: 0; } }
+/* a 35 mm strip's sprocket holes */
+.film-sprockets {
+  background-image: repeating-linear-gradient(90deg, transparent 0 7px, rgba(241, 236, 226, 0.13) 7px 17px, transparent 17px 24px);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0 28%, #000 28% 72%, transparent 72%);
+  mask-image: linear-gradient(180deg, transparent 0 28%, #000 28% 72%, transparent 72%);
+}
+/* a chosen reel spins once */
+.reel-spin { animation: reel-spin 1.3s cubic-bezier(0.2, 0.7, 0.2, 1); }
+@keyframes reel-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+/* the usher tears the chosen ticket at its stub */
+.ticket-stub { transition: transform 420ms cubic-bezier(0.3, 1.4, 0.4, 1); }
+.ticket-torn .ticket-stub { transform: translate(6px, 7px) rotate(5deg); }
+.ticket-torn .ticket-body { transform: translate(-1px, -2px) rotate(-1deg); }
+.ticket-body { transition: transform 420ms cubic-bezier(0.3, 1.4, 0.4, 1); }
+
+/* let the projector pick: the house lights go down, a beam falls from the booth onto a screen */
+.pick-dim { animation: house-down 420ms ease-out both; }
+@keyframes house-down { from { opacity: 0; } to { opacity: 1; } }
+.pick-beam {
+  clip-path: polygon(46.5% 0, 53.5% 0, 100% 100%, 0 100%);
+  background: linear-gradient(180deg, rgba(255, 240, 210, 0.24), rgba(255, 240, 210, 0.05));
+  animation: case-strike 900ms steps(1, end) 180ms both;
+}
+.pick-screen { animation: case-strike 820ms steps(1, end) 380ms both; }
+@media (prefers-reduced-motion: reduce) {
+  .case-light, .case-glow { opacity: 1; }
+  .case-shade { opacity: 0; }
+  [data-lit] .case-light, [data-lit] .case-glow, [data-lit] .case-shade, .shutter, .breath-push, .breath-weave, .grease-loop path, .reel-spin, [data-lit].intertitle-card .intertitle-text { animation: none; }
+  .grease-loop path { stroke-dashoffset: 0; }
+  .intertitle-text { opacity: 1; }
+  .pick-dim, .pick-beam, .pick-screen { animation: none; }
+}
+
+/* ---- the letterboard's slots: every word you can change, cut into the felt like a menu ---- */
+.board-slot {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.34em;
+  margin: 0.06em 0;
+  padding: 0.12em 0.32em 0.06em 0.46em;
+  border-radius: 0.14em;
+  color: #e7bf72;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.3));
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.85), inset 0 0 0 1px rgba(217, 173, 98, 0.6);
+  transition: color 200ms, box-shadow 200ms, background 200ms;
+}
+/* a blank still to fill: a dashed edge */
+.board-slot.is-blank {
+  color: rgba(231, 191, 114, 0.9);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.85);
+  outline: 1px dashed rgba(217, 173, 98, 0.7);
+  outline-offset: -1px;
+}
+/* chosen: a solid lit edge */
+.board-slot.is-set {
+  color: #f6d897;
+  background: linear-gradient(180deg, rgba(217, 173, 98, 0.2), rgba(217, 173, 98, 0.07));
+  box-shadow: inset 0 0 0 1px rgba(240, 207, 142, 0.85), 0 0 20px rgba(217, 173, 98, 0.2);
+}
+.board-slot:hover {
+  color: #fbe6b4;
+  background: linear-gradient(180deg, rgba(217, 173, 98, 0.26), rgba(217, 173, 98, 0.1));
+  box-shadow: inset 0 0 0 1px rgba(251, 230, 180, 0.95), 0 0 26px rgba(217, 173, 98, 0.32);
+}
+.board-slot-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.8em;
+  height: 0.8em;
+  min-width: 15px;
+  min-height: 15px;
+  border-radius: 999px;
+  background: currentColor;
+  flex-shrink: 0;
+}
+.board-slot-chevron svg { width: 58%; height: auto; color: #100e0b; margin-top: 0.05em; }
+/* a chosen slot's ×: the same gold badge, its own (comfortably big) target */
+.slot-off { display: inline-flex; align-items: center; justify-content: center; min-width: 24px; min-height: 24px; margin: -0.2em -0.12em -0.2em 0; border-radius: 999px; }
+.slot-off .board-slot-chevron { transition: background 200ms, transform 200ms; }
+.slot-off:hover .board-slot-chevron { background: #fbe6b4; transform: scale(1.08); }
+.slot-off .board-slot-chevron svg { width: 52%; margin-top: 0; }
+/* once the letters are up, a light runs along the slots: these are the words you can change */
+.board-slot::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 0.2em;
+  box-shadow: 0 0 0 1px rgba(255, 238, 200, 0.95), 0 0 26px rgba(240, 207, 142, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  animation: slot-call 1000ms ease-out both;
+  animation-delay: calc(1000ms + var(--n, 0) * 150ms);
+}
+@keyframes slot-call {
+  0% { opacity: 0; }
+  30% { opacity: 1; }
+  100% { opacity: 0; }
+}
+/* the brass plate under the board: a flat sign, engraved letters, dark on bright polished brass */
+.board-plate {
+  margin-top: -1px;
+  color: #1a1206;
+  background: linear-gradient(180deg, #fbe7b4 0%, #ecc57c 40%, #cf9f55 100%);
+  box-shadow: 0 10px 22px -8px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 250, 230, 0.9), inset 0 -1px 0 rgba(110, 76, 28, 0.45);
+  border-radius: 0 0 4px 4px;
+  text-shadow: 0 1px 0 rgba(255, 244, 214, 0.55);
+}
+/* the slot's × shown on the plate, so you know which mark it means */
+.plate-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.15em;
+  height: 1.15em;
+  border-radius: 999px;
+  background: #1a1206;
+  color: #fbe7b4;
+}
+.plate-badge svg { width: 55%; height: auto; }
+/* "Clear all": the plate's own right end, past an engraved seam, in deeper antique brass and
+   raised a little, so it reads as part of the plate and as something to press */
+.board-plate.has-button { border-radius: 0 0 0 4px; }
+.board-plate-button {
+  margin-top: -1px;
+  color: #1a1206;
+  background: linear-gradient(180deg, #f1cf88 0%, #d4a456 45%, #a77a36 100%);
+  border-radius: 0 0 4px 0;
+  box-shadow: inset 1px 0 0 rgba(70, 46, 14, 0.7), inset 2px 0 0 rgba(255, 244, 214, 0.45), inset 0 1px 0 rgba(255, 250, 230, 0.85), inset 0 -2px 0 rgba(90, 60, 20, 0.55), 0 10px 22px -8px rgba(0, 0, 0, 0.95);
+  text-shadow: 0 1px 0 rgba(255, 244, 214, 0.5);
+  transition: filter 160ms, transform 120ms;
+}
+.board-plate-button:hover { filter: brightness(1.1) saturate(1.05); }
+.board-plate-button:active { transform: translateY(1px); filter: brightness(0.96); }
+@media (prefers-reduced-motion: reduce) {
+  .board-slot::after { animation: none; }
 }

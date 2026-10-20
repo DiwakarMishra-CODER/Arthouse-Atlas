@@ -35,7 +35,7 @@ const ProjectedBlack = () => {
                 px[i] = 241;
                 px[i + 1] = 236;
                 px[i + 2] = 226;
-                px[i + 3] = r * r * r * 15; // mostly nothing; now and then a faint fleck of light
+                px[i + 3] = r * r * r * 22; // mostly nothing; now and then a faint fleck of light
             }
             ctx.putImageData(img, 0, 0);
         };

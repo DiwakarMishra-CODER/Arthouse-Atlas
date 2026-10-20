@@ -76,6 +76,15 @@ export const rankCandidates = (index, { seeds = [], exclude = new Set(), gamma =
   return ranked.sort(compareRanked).slice(0, limit);
 };
 
+// The films one film leads to: its neighbours, strongest first, as Double Bill and Explore's
+// "like" walls both show them. `reasons` keeps only links of those kinds (e.g. drop the weak
+// "same country" and "same decade" links a film without viewers falls back on).
+export const similarTo = (index, tmdbId, { limit = 12, reasons = null } = {}) => {
+  if (!index?.films.has(tmdbId)) return [];
+  return rankCandidates(index, { seeds: [{ tmdbId, weight: 1 }], exclude: new Set([tmdbId]), gamma: index.params?.gamma ?? 0, limit })
+    .filter((r) => r.because && (!reasons || reasons.includes(r.because.reason)));
+};
+
 // What every film card on the site reads: PosterCard and its hover panel, and
 // the box office ticket (still, hook, country, first laurel)
 export const CARD_FIELDS = {

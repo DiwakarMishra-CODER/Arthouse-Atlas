@@ -1,9 +1,10 @@
 import Movie from '../models/Movie.js';
 import { getErrorResponse } from '../utils/errorResponse.js';
-import { getIndex, rankCandidates, inRankedOrder, CARD_FIELDS, REASONS } from '../services/recommender.js';
+import { getIndex, similarTo, inRankedOrder, CARD_FIELDS, REASONS } from '../services/recommender.js';
 import { pickTonight, MARATHON } from '../services/tonight.js';
-import { loadCatalogue, applyFilters, sortCards, facetCounts, publicCard, searchScore, nameMatches, MOODS, LENGTHS, SORTS } from '../services/catalogue.js';
+import { loadCatalogue, applyFilters, sortCards, facetCounts, publicCard, searchScore, nameMatches, withinStart, tally, MOODS, LENGTHS, SORTS } from '../services/catalogue.js';
 import { normalizeName } from '../services/nameUtils.js';
+import { getBridge, outsideCard } from '../services/bridge.js';
 
 const shuffleArray = (array) => {
   const shuffled = [...array]; // Create a copy to avoid mutating original
@@ -354,12 +355,7 @@ export const getSimilarMovies = async (req, res) => {
     // For You uses, with this film as the only seed
     const index = getIndex();
     if (index?.films.has(movie.tmdbId)) {
-      const ranked = rankCandidates(index, {
-        seeds: [{ tmdbId: movie.tmdbId, weight: 1 }],
-        exclude: new Set([movie.tmdbId]),
-        gamma: index.params.gamma,
-        limit: 12
-      });
+      const ranked = similarTo(index, movie.tmdbId, { limit: 12 });
       const docs = await Movie.find({ tmdbId: { $in: ranked.map((r) => r.tmdbId) } }).select(CARD_FIELDS).lean();
       const similar = inRankedOrder(docs, ranked).slice(0, 10).map(({ film, score, because }) => ({
         ...film,
@@ -535,12 +531,77 @@ export const getMovieProviders = async (req, res) => {
   }
 };
 
+// why a film is on a wall that starts from another film (the model's reason for the link)
+const WHY = { v: 'Loved by its fans', d: 'Same director', m: 'Same movement', c: 'Same country', y: 'Same decade' };
+
+// A wall can start from a film. One in the atlas (like=<id>): the films the MovieLens model
+// links to it, as Double Bill does (without the weak "same country" and "same decade" links).
+// One that isn't (from=<tmdbId>): the films its fans loved, through the bridge.
+// Returns { near: Map tmdbId -> { score, reason }, start } or null.
+const startOf = (q, { byId, byTmdb }) => {
+  const bridge = getBridge();
+  const fromId = /^\d+$/.test(q.from || '') ? Number(q.from) : null;
+  // a "from" film the atlas has after all is simply "like" it
+  const inside = (typeof q.like === 'string' && byId.get(q.like)) || (fromId && byTmdb.get(fromId)) || null;
+  if (inside) {
+    const ranked = similarTo(getIndex(), inside._tmdb, { limit: 60, reasons: ['v', 'd', 'm'] });
+    if (!ranked.length) return null;
+    return {
+      near: new Map(ranked.map((r) => [r.tmdbId, { score: r.score, reason: r.because.reason }])),
+      start: {
+        kind: 'like', id: inside._id, title: inside.title, year: inside.year, image: inside.still || inside.posterUrl, directors: inside.directors,
+        // whether MovieLens viewers stand behind the links, or only shared directors and movements
+        viewers: ranked.some((r) => r.because.reason === 'v'),
+      },
+    };
+  }
+  const outside = fromId && bridge?.get(fromId);
+  if (!outside) return null;
+  return { near: bridge.nearOf(outside.tmdbId), start: { kind: 'from', ...outsideCard(outside), viewers: true } };
+};
+
+// With nothing typed yet, places to start: films most people know (they lead into the bridge),
+// the most acclaimed directors here with a face to show, and the biggest moods and places
+const startingPoints = (cards, directors, bridge) => {
+  // films most people know: from outside the atlas when the bridge is built; always the most
+  // widely seen films here (by TMDB votes), each a door to the films like it
+  const outside = bridge ? bridge.popular({ since: 2000, limit: 6 }).map(outsideCard) : [];
+  const known = [...cards].sort((a, b) => b._votes - a._votes).slice(0, 6)
+    .map((c) => ({ _id: c._id, title: c.title, year: c.year, still: c.still, posterUrl: c.posterUrl }));
+  const weight = (rank) => (rank == null ? 0.1 : rank <= 50 ? 1 : rank <= 250 ? 0.5 : 0.2);
+  const people = new Map();
+  for (const c of sortCards(cards)) {
+    c.directors.forEach((name, i) => {
+      const key = c._directors[i];
+      if (!key) return;
+      const p = people.get(key) || { name, films: 0, score: 0, best: c.title };
+      p.films++;
+      p.score += weight(c.canonRank);
+      people.set(key, p);
+    });
+  }
+  const famous = [...people.entries()]
+    .map(([key, p]) => ({ ...p, person: directors.get(key) }))
+    .filter((p) => p.person?.profileUrl)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 6)
+    .map((p) => ({ name: p.person.name, portrait: p.person.profileUrl, best: p.best, films: p.films }));
+  return {
+    known,
+    outside,
+    directors: famous,
+    moods: tally(cards.flatMap((c) => c.moods)).slice(0, 4),
+    places: tally(cards.flatMap((c) => c.countries)).slice(0, 6),
+  };
+};
+
 // @desc    Explore: the catalogue filtered, sorted and counted (the logic is in services/catalogue.js)
 // @route   GET /api/movies/explore?q=&country=&decade=&director=&movement=&mood=&genre=&length=&sort=&seed=&page=&limit=&facets=
 // @access  Public
 export const exploreMovies = async (req, res) => {
   try {
-    const { cards, directors, movementsByTag, movementsByTitle } = await loadCatalogue();
+    const catalogue = await loadCatalogue();
+    const { cards, directors, movementsByTag, movementsByTitle } = catalogue;
     const q = req.query;
     // a movement arrives by its page's slug (or, from old links, by name)
     const movement = q.movement ? movementsByTag.get(q.movement) || movementsByTitle.get(q.movement) || null : null;
@@ -554,31 +615,43 @@ export const exploreMovies = async (req, res) => {
       genre: typeof q.genre === 'string' ? q.genre : '',
       length: LENGTHS.includes(q.length) ? q.length : '',
     };
-    const sort = SORTS.includes(q.sort) ? q.sort : 'acclaimed';
+    // a wall that starts from a film holds only the films it leads to, closest first
+    const started = startOf(q, catalogue);
+    const pool = withinStart(cards, started?.near);
+    const sort = SORTS.includes(q.sort) && (q.sort !== 'closest' || started) ? q.sort : started ? 'closest' : 'acclaimed';
     const limit = Math.min(96, Math.max(1, parseInt(q.limit, 10) || 24));
     const page = Math.max(1, parseInt(q.page, 10) || 1);
 
-    const matched = sortCards(applyFilters(cards, filters), sort, { seed: q.seed, q: filters.q });
-    const films = matched.slice((page - 1) * limit, page * limit).map(publicCard);
+    const matched = sortCards(applyFilters(pool, filters), sort, { seed: q.seed, q: filters.q, near: started?.near });
+    const films = matched.slice((page - 1) * limit, page * limit).map((c) => {
+      const card = publicCard(c);
+      if (started) card.why = WHY[started.near.get(c._tmdb)?.reason] || null;
+      return card;
+    });
 
-    // what each filter's options would give, with the others applied (asked for with each new selection)
+    // what each filter's options would give, with the others applied (asked for with each new
+    // selection), each pictured by its most acclaimed film
     let facets;
     if (q.facets !== '0') {
-      facets = facetCounts(cards, filters);
-      facets.director = facets.director.map((d) => {
+      facets = facetCounts(pool, filters);
+      facets.director = facets.director.map((d, i) => {
         const person = directors.get(normalizeName(d.value));
-        return { value: person?.name || d.value, n: d.n, id: person?._id || null, portrait: person?.profileUrl || null };
+        const portrait = person?.profileUrl || null;
+        // a face when there is one; otherwise their best film's still stands in (pictures for the
+        // first 60 the contact sheet shows; the rest, behind "show all", carry their best film's title)
+        return { value: person?.name || d.value, n: d.n, id: person?._id || null, portrait, top: portrait || i >= 60 ? { title: d.top.title } : d.top };
       });
       facets.movement = facets.movement.map((m) => {
         const mv = movementsByTitle.get(m.value);
-        return { ...m, tag: mv?.tag || null, era: mv?.era || null };
+        return { ...m, tag: mv?.tag || null, era: mv?.era || null, hero: mv?.heroStill || m.top?.still || null, focus: mv?.heroFocus || null };
       });
     }
 
-    // the artist the wall is about, credited
+    // the artist (or the film) the wall is about, for its banner
     const selected = {};
     if (filters.director) {
       const person = directors.get(normalizeName(filters.director));
+      const theirs = sortCards(applyFilters(cards, { director: filters.director }));
       selected.director = {
         name: person?.name || filters.director,
         id: person?._id || null,
@@ -586,7 +659,8 @@ export const exploreMovies = async (req, res) => {
         born: person?.birthDate?.slice(0, 4) || null,
         died: person?.deathDate?.slice(0, 4) || null,
         place: person?.placeOfBirth || null,
-        films: applyFilters(cards, { director: filters.director }).length
+        films: theirs.length,
+        still: theirs[0]?.still || null,
       };
     }
     if (movement) {
@@ -595,9 +669,12 @@ export const exploreMovies = async (req, res) => {
         tag: movement.tag || null,
         era: movement.era || null,
         tagline: movement.tagline || null,
-        films: applyFilters(cards, { movement: movement.title }).length
+        films: applyFilters(cards, { movement: movement.title }).length,
+        still: movement.heroStill || null,
+        focus: movement.heroFocus || null,
       };
     }
+    if (started) selected.start = started.start;
 
     res.setHeader('Cache-Control', 'public, max-age=60');
     res.json({
@@ -607,10 +684,14 @@ export const exploreMovies = async (req, res) => {
       pages: Math.ceil(matched.length / limit),
       facets,
       selected,
-      filters: { ...filters, movement: movement?.tag || '' },
+      filters: { ...filters, movement: movement?.tag || '', like: started?.start.kind === 'like' ? started.start.id : '', from: started?.start.kind === 'from' ? String(started.start.tmdbId) : '' },
       sort,
-      // how many films have moods (they come from our own notes, so not every film has them yet)
-      notes: { moodFilms: cards.filter((c) => c.moods.length).length }
+      notes: {
+        // how many films have moods (they come from our own notes, so not every film has them yet)
+        moodFilms: cards.filter((c) => c.moods.length).length,
+        // a film to start from that couldn't be found (an old link, a film since removed): the wall is everything
+        startMissing: !started && Boolean(q.like || q.from),
+      }
     });
   } catch (error) {
     console.error(error);
@@ -619,16 +700,19 @@ export const exploreMovies = async (req, res) => {
   }
 };
 
-// @desc    Explore's search suggestions: films by title, and directors by name
+// @desc    Explore's search: films here, directors, places, movements, moods and genres, and
+//          films that aren't here (start from them). With nothing typed: places to start.
 // @route   GET /api/movies/explore/suggest?q=
 // @access  Public
 export const exploreSuggest = async (req, res) => {
   try {
-    const { cards, directors } = await loadCatalogue();
+    const { cards, directors, movementsByTitle } = await loadCatalogue();
+    const bridge = getBridge();
     const q = typeof req.query.q === 'string' ? req.query.q.trim().slice(0, 80) : '';
-    if (!q) return res.json({ films: [], directors: [] });
+    res.setHeader('Cache-Control', 'public, max-age=60');
+    if (!q) return res.json({ start: startingPoints(cards, directors, bridge) });
 
-    // films whose title (or original or other title) matches, best match first, then the canon
+    // films here whose title (or original or other title) matches, best match first, then the canon
     const films = cards
       .map((c) => [c, searchScore(c, q)])
       .filter(([, s]) => s >= 1.5)
@@ -636,14 +720,14 @@ export const exploreSuggest = async (req, res) => {
       .slice(0, 6)
       .map(([c]) => ({ _id: c._id, title: c.title, year: c.year, directors: c.directors, still: c.still, posterUrl: c.posterUrl }));
 
-    // directors whose name matches (a typo allowed), most films first
+    // directors whose name matches (a typo allowed), most films first, with their best film here
     const people = new Map();
     if (normalizeName(q)) {
-      for (const c of cards) {
+      for (const c of sortCards(cards)) {
         c.directors.forEach((name, i) => {
           const key = c._directors[i];
           if (!key || !nameMatches(name, q)) return;
-          const p = people.get(key) || { name, films: 0 };
+          const p = people.get(key) || { name, films: 0, best: c.title };
           p.films++;
           people.set(key, p);
         });
@@ -654,11 +738,22 @@ export const exploreSuggest = async (req, res) => {
       .slice(0, 4)
       .map(([key, p]) => {
         const person = directors.get(key);
-        return { name: person?.name || p.name, films: p.films, portrait: person?.profileUrl || null };
+        return { name: person?.name || p.name, films: p.films, portrait: person?.profileUrl || null, best: p.best };
       });
 
-    res.setHeader('Cache-Control', 'public, max-age=60');
-    res.json({ films, directors: found });
+    // the places, movements, moods and genres a search names
+    const named = (list, limit = 3) => list.filter((o) => nameMatches(String(o.value), q)).slice(0, limit);
+    const places = named(tally(cards.flatMap((c) => c.countries)));
+    const moods = named(tally(cards.flatMap((c) => c.moods)));
+    const genres = named(tally(cards.flatMap((c) => c.genres)));
+    const movements = named(tally(cards.flatMap((c) => c.movements)))
+      .map((m) => ({ ...m, tag: movementsByTitle.get(m.value)?.tag || null }))
+      .filter((m) => m.tag);
+
+    // films that aren't here: start from them
+    const outside = bridge ? bridge.search(q, 4).map(outsideCard) : [];
+
+    res.json({ films, directors: found, places, movements, moods, genres, outside });
   } catch (error) {
     console.error(error);
     const { status, message } = getErrorResponse(error);

@@ -6,6 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import { moviesAPI, userAPI } from '../../services/api';
 import { citationLine } from '../film/canonWords';
 import { sized } from '../movements/treatments';
+import { notched } from '../ticket';
 
 /**
  * Your next film, at the box office of an old picture house, at night.
@@ -35,15 +36,14 @@ const serialFor = (id) => String(hash(id) % 1000000).padStart(6, '0');
 const tonight = new Date().toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' }).toUpperCase();
 
 // the punched notches either side of the stub's perforation
-const NOTCHES = 'radial-gradient(circle 9px at calc(100% - 74px) 0, transparent 98%, #000 100%), radial-gradient(circle 9px at calc(100% - 74px) 100%, transparent 98%, #000 100%)';
-const notched = { WebkitMaskImage: NOTCHES, WebkitMaskComposite: 'source-in', maskImage: NOTCHES, maskComposite: 'intersect' };
+const STUB_NOTCHES = notched('calc(100% - 74px)');
 
 const Ticket = ({ film, n, small = false, part }) => {
     const still = film.stills?.[0] || film.backdropUrl;
     const line = film.editorial?.hook || citationLine(film.provenance?.[0]);
     return (
         // `part` cuts it along the perforation, for tearing: the ticket, or the stub
-        <div className={`relative flex bg-[#efe5cf] text-[#1c1812] ${small ? 'w-[14.5rem] h-[6.75rem]' : 'w-[min(36rem,92vw)] h-[12.5rem] md:h-[13.5rem]'}`} style={{ ...notched, clipPath: part === 'ticket' ? 'inset(0 74px 0 0)' : part === 'stub' ? 'inset(0 0 0 calc(100% - 74px))' : undefined }}>
+        <div className={`relative flex bg-[#efe5cf] text-[#1c1812] ${small ? 'w-[14.5rem] h-[6.75rem]' : 'w-[min(36rem,92vw)] h-[12.5rem] md:h-[13.5rem]'}`} style={{ ...STUB_NOTCHES, clipPath: part === 'ticket' ? 'inset(0 74px 0 0)' : part === 'stub' ? 'inset(0 0 0 calc(100% - 74px))' : undefined }}>
             {/* the film's poster, printed on the ticket in a paper margin (its still when there's no poster) */}
             <div className={`relative h-full aspect-[2/3] shrink-0 ${small ? 'p-1.5' : 'p-2.5'}`}>
                 {(film.posterUrl || still)
