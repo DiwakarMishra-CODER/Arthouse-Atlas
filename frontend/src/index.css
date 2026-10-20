@@ -3,22 +3,41 @@
 @import "./styles/motionAnimations.css";
 
 @theme {
-  --color-background: #0f0f10;
-  --color-surface: #111217;
-  --color-muted: #9aa0a6;
-  --color-accent-primary: #b58360;
-  --color-accent-secondary: #7f9a94;
-  --color-primary: #c5a059;  /* the site's gold — used as text-primary / border-primary throughout */
-  --color-card: rgba(255, 255, 255, 0.03);
+  /* The room: projected black (see ProjectedBlack.jsx). */
+  --color-background: #050505;
+  --color-surface: #12110f;
+  --color-card: rgba(241, 236, 226, 0.03);
 
-  --font-family-serif: 'Playfair Display', Georgia, serif;
-  --font-family-sans: Inter, system-ui, sans-serif;
-  /* Tailwind v4 utility names: font-serif / font-sans / font-cinzel */
-  --font-serif: 'Playfair Display', Georgia, serif;
-  --font-sans: Inter, system-ui, sans-serif;
-  --font-cinzel: 'Cinzel', Georgia, serif;
+  /* Light. "White" is the projector's light: warm, never blue. */
+  --color-white: #f1ece2;
+  /* The greys are the silver of black-and-white film: warm, and readable. Every step from
+     600 up is at least 4.5:1 on the black; 700 and below are for lines, never for words. */
+  --color-gray-50: #f7f4ef;
+  --color-gray-100: #eee9e1;
+  --color-gray-200: #e0dad0;
+  --color-gray-300: #cbc5ba;
+  --color-gray-400: #b1aa9e;
+  --color-gray-500: #9c958a;
+  --color-gray-600: #7f796f;
+  --color-gray-700: #5b564f;
+  --color-gray-800: #3b3833;
+  --color-gray-900: #22201d;
+  --color-gray-950: #131210;
+  --color-muted: #9c958a;
+
+  /* The one gold: acclaim, and what you can press. Every other colour comes from the films. */
+  --color-gold: #d9ad62;
+  --color-gold-light: #f0cf8e;
+
+  /* Type, the way a cinema sets words. Projected: the serif, for titles and for reading.
+     Printed: the ticket gothic, for every label, number and button. Typed: Courier, only
+     where something is typed. Cinzel and the sans only dress the movements' own titles. */
+  --font-serif: 'Newsreader', Georgia, serif;
+  --font-label: 'Oswald', 'Arial Narrow', sans-serif;
   --font-oswald: 'Oswald', 'Arial Narrow', sans-serif;
   --font-courier: 'Courier Prime', 'Courier New', monospace;
+  --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-cinzel: 'Cinzel', Georgia, serif;
 
   --aspect-ratio-poster: 2 / 3;
 
@@ -37,25 +56,12 @@
 
   body {
     background-color: var(--color-background);
-    color: rgb(229 231 235);
-    font-family: var(--font-family-sans);
+    color: var(--color-gray-200);
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     position: relative;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 9999;
-    mix-blend-mode: overlay;
-    opacity: 0.4;
   }
 
   h1,
@@ -64,23 +70,11 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-family-serif);
+    font-family: var(--font-serif);
   }
 }
 
 @layer utilities {
-  .film-grain {
-    position: relative;
-  }
-
-  .film-grain::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none;
-    mix-blend-mode: overlay;
-  }
 
   .scroll-snap-x {
     scroll-snap-type: x mandatory;
@@ -171,7 +165,7 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(197, 160, 89, 0.5);
+  background: rgba(217, 173, 98, 0.5);
   /* Gold */
   border-radius: 10px;
 }
@@ -179,7 +173,7 @@
 @property --tint {
   syntax: '<color>';
   inherits: true;
-  initial-value: #c5a059;
+  initial-value: #d9ad62;
 }
 
 .projection-room {
@@ -307,7 +301,7 @@
 }
 
 @keyframes bulb-chase {
-  0%, 66% { background: #fff1c9; box-shadow: 0 0 6px 2px rgba(255, 214, 140, 0.85), 0 0 14px 4px color-mix(in srgb, var(--glow, #c5a059) 45%, transparent); }
+  0%, 66% { background: #fff1c9; box-shadow: 0 0 6px 2px rgba(255, 214, 140, 0.85), 0 0 14px 4px color-mix(in srgb, var(--glow, #d9ad62) 45%, transparent); }
   67%, 100% { background: #6b5638; box-shadow: inset 0 -1px 1px rgba(0, 0, 0, 0.5); }
 }
 
@@ -463,4 +457,68 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .board-letter.is-slotting, .lobby-lamp, .board-glint { animation: none; }
+}
+
+/* ---- The room: projected black (ProjectedBlack.jsx) ---- */
+/* the projector's light falls faintly on the middle of the screen and dies at the edges */
+.projected-black {
+  background: radial-gradient(ellipse 80% 70% at 50% 40%, #100f0d 0%, #0a0908 42%, #050505 75%, #020202 100%);
+}
+/* the grain jumps to a new place every other frame of film: eight places, 12 a second */
+.projected-grain {
+  will-change: transform;
+  animation: projected-grain 667ms steps(1, end) infinite;
+}
+@keyframes projected-grain {
+  0% { transform: translate(0, 0); }
+  12.5% { transform: translate(-40px, 22px); }
+  25% { transform: translate(34px, -46px); }
+  37.5% { transform: translate(-58px, -14px); }
+  50% { transform: translate(50px, 38px); }
+  62.5% { transform: translate(-18px, 56px); }
+  75% { transform: translate(60px, -8px); }
+  87.5% { transform: translate(-30px, -54px); }
+}
+/* a page's own full-screen scene covers the sky: put the room away */
+html[data-cover] .projected-black { visibility: hidden; }
+@media (prefers-reduced-motion: reduce) {
+  .projected-grain { animation: none; }
+}
+
+/* ---- The navbar: the house's signs (Navbar.jsx) ---- */
+/* the room you're in: its sign lit and glowing; it strikes on like a lamp when you arrive */
+.house-sign.is-lit {
+  color: #ecc678;
+  text-shadow: 0 0 10px rgba(227, 184, 103, 0.55), 0 0 2px rgba(227, 184, 103, 0.4);
+  animation: sign-strike 560ms steps(1, end) both;
+}
+/* on a phone, the signs strike on one after another */
+.menu-sign {
+  animation: sign-strike 560ms steps(1, end) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+@keyframes sign-strike {
+  0% { opacity: 0.25; }
+  20% { opacity: 1; }
+  34% { opacity: 0.4; }
+  52%, 100% { opacity: 1; }
+}
+/* the mark: a leader's sweep wipes round once, counting in the next reel */
+@property --sweep {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+.leader-wipe {
+  background: conic-gradient(rgba(217, 173, 98, 0.55) var(--sweep), transparent 0);
+  animation: leader-wipe 950ms cubic-bezier(0.45, 0, 0.25, 1) forwards;
+}
+@keyframes leader-wipe {
+  0% { --sweep: 0deg; opacity: 1; }
+  78% { --sweep: 360deg; opacity: 1; }
+  100% { --sweep: 360deg; opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .house-sign.is-lit, .menu-sign { animation: none; }
+  .leader-wipe { animation: none; opacity: 0; }
 }

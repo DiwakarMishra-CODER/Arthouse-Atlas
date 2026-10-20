@@ -132,7 +132,7 @@ const PosterWall = ({ films, accent, reducedMotion = false }) => {
                             {/* the plaque */}
                             <span className="mt-5 block mx-auto max-w-[95%] px-3 py-2 text-center bg-gradient-to-b from-[#3a3125] to-[#241e16] ring-1 ring-[#5b4b33]/60 shadow-[0_6px_14px_rgba(0,0,0,0.6)]">
                                 <span className="block font-serif text-[13px] leading-tight text-[#e8d9b5] line-clamp-2">{f.title}</span>
-                                <span className="block mt-0.5 font-mono text-[9px] tracking-[0.25em] text-[#b39d73]">{f.year}</span>
+                                <span className="block mt-0.5 font-label text-[12px] tracking-[0.14em] text-[#b39d73]">{f.year}</span>
                             </span>
                         </Link>
                     </motion.li>

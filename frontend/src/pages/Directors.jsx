@@ -49,9 +49,9 @@ const Directors = () => {
             {/* Header */}
             <header className="w-full px-6 md:px-16 pt-24 pb-8 md:pb-16 flex flex-col md:flex-row justify-between items-end gap-6 md:gap-10">
                 <div className="relative w-full md:w-auto">
-                    <div className="absolute -left-10 top-0 w-1 h-full bg-[#d4af37]/20 hidden md:block"></div>
+                    <div className="absolute -left-10 top-0 w-1 h-full bg-gold/20 hidden md:block"></div>
                     <h1 className="text-4xl md:text-8xl font-['Playfair_Display'] font-medium mb-4 md:mb-6 leading-none text-[#fffff0]">
-                        The <span className="text-[#d4af37] italic">Auteurs</span>
+                        The <span className="text-gold italic">Auteurs</span>
                     </h1>
                     <p className="text-sm md:text-xl text-[#888888] max-w-2xl font-light font-['Playfair_Display'] italic tracking-wide">
                         Visionaries who sculpted light and shadow into meaning. Explore the minds that defined the grammar of cinema.
@@ -67,7 +67,7 @@ const Directors = () => {
                             placeholder="Search directors..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full md:w-64 px-5 py-3 bg-transparent border border-white/20 text-white placeholder-[#888888] focus:border-[#d4af37] focus:outline-none transition-colors text-sm tracking-wide"
+                            className="w-full md:w-64 px-5 py-3 bg-transparent border border-white/20 text-white placeholder-[#888888] focus:border-gold focus:outline-none transition-colors text-sm tracking-wide"
                         />
                         <MdSearch className="absolute right-4 top-1/2 -translate-y-1/2 text-[#888888] text-xl pointer-events-none" />
                     </div>
@@ -103,7 +103,7 @@ const Directors = () => {
                                 to={`/directors/${director._id}`}
                                 className="group relative cursor-pointer md:block flex flex-col items-center"
                             >
-                                <div className="w-20 h-20 rounded-full md:w-full md:h-auto md:aspect-[3/4] md:rounded-none overflow-hidden bg-[#0f0f0f] md:mb-6 relative border border-white/5 group-hover:border-[#d4af37]/30 transition-colors duration-500 mx-auto">
+                                <div className="w-20 h-20 rounded-full md:w-full md:h-auto md:aspect-[3/4] md:rounded-none overflow-hidden bg-[#0f0f0f] md:mb-6 relative border border-white/5 group-hover:border-gold/30 transition-colors duration-500 mx-auto">
                                     <img
                                         alt={`Portrait of ${director.name}`}
                                         className="w-full h-full object-cover md:object-top grayscale contrast-125 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] scale-100 group-hover:scale-110 group-hover:contrast-110 group-hover:brightness-100"
@@ -113,18 +113,18 @@ const Directors = () => {
 
                                     {/* View Filmography Button (Desktop Only) */}
                                     <div className="absolute bottom-8 left-0 right-0 hidden md:flex justify-center opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out">
-                                        <button className="bg-[#d4af37] text-black px-8 py-3 text-[10px] font-bold tracking-[0.25em] uppercase hover:bg-white transition-colors duration-300">
+                                        <button className="font-label bg-gold text-black px-8 py-3 text-[12px] font-medium tracking-[0.14em] uppercase hover:bg-white transition-colors duration-300">
                                             View Filmography
                                         </button>
                                     </div>
                                 </div>
 
                                 <div className="space-y-1 md:space-y-3 px-0 md:px-2 w-full">
-                                    <div className="flex flex-col md:flex-row justify-center md:justify-between items-center md:items-baseline border-b-0 md:border-b border-white/10 md:pb-2 group-hover:border-[#d4af37]/50 transition-colors duration-500">
-                                        <h3 className="text-xs md:text-3xl text-center md:text-left font-['Playfair_Display'] text-[#fffff0] font-normal group-hover:text-[#d4af37] transition-colors duration-300 line-clamp-2 md:line-clamp-none">
+                                    <div className="flex flex-col md:flex-row justify-center md:justify-between items-center md:items-baseline border-b-0 md:border-b border-white/10 md:pb-2 group-hover:border-gold/50 transition-colors duration-500">
+                                        <h3 className="text-xs md:text-3xl text-center md:text-left font-['Playfair_Display'] text-[#fffff0] font-normal group-hover:text-gold transition-colors duration-300 line-clamp-2 md:line-clamp-none">
                                             {director.name}
                                         </h3>
-                                        <span className="hidden md:inline text-[10px] font-mono text-[#d4af37]/70 tracking-wider">
+                                        <span className="hidden md:inline text-[12px] font-label text-gold/70 tracking-[0.14em]">
                                             {getLifespan(director)}
                                         </span>
                                     </div>

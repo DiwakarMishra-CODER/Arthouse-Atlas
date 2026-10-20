@@ -58,7 +58,7 @@ const Phrase = ({ phrase, animate }) => {
                 type="button"
                 onClick={phrase.onClick}
                 aria-label={`${phrase.label}. Change`}
-                className="uppercase text-[#e2b866] hover:text-[#f6d796] transition-colors focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-[#e2b866]"
+                className="uppercase text-gold hover:text-gold-light transition-colors focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-gold"
             >
                 {letters}
                 <svg aria-hidden="true" viewBox="0 0 10 6" className="ml-[0.3em] inline-block w-[max(0.34em,9px)] h-auto align-middle -translate-y-[0.06em] opacity-90"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.6" /></svg>
@@ -68,7 +68,7 @@ const Phrase = ({ phrase, animate }) => {
                     type="button"
                     onClick={phrase.onRemove}
                     aria-label={`Remove ${phrase.label}`}
-                    className="ml-[0.25em] inline-flex items-center justify-center w-[1.15em] h-[1.15em] min-w-[22px] min-h-[22px] rounded-full ring-1 ring-[#e2b866]/50 text-[#e2b866] text-[0.42em] leading-none hover:bg-[#e2b866] hover:text-black transition-colors"
+                    className="ml-[0.25em] inline-flex items-center justify-center w-[1.15em] h-[1.15em] min-w-[22px] min-h-[22px] rounded-full ring-1 ring-gold/50 text-gold text-[0.42em] leading-none hover:bg-gold hover:text-black transition-colors"
                 >
                     ✕
                 </button>

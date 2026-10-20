@@ -52,16 +52,16 @@ const Ticket = ({ film, n, small = false, part }) => {
             </div>
             {!small && (
                 <div className="flex-1 min-w-0 px-5 py-4 flex flex-col">
-                    <div className="flex items-center justify-between gap-3 whitespace-nowrap font-mono text-[9px] tracking-[0.25em] uppercase text-[#1c1812]/60">
+                    <div className="flex items-center justify-between gap-3 whitespace-nowrap font-label text-[12px] tracking-[0.14em] uppercase text-[#1c1812]/60">
                         <span className="hidden sm:inline">Arthouse Atlas</span>
                         <span>Screen {(n % 3) + 1}</span>
                     </div>
                     <div className="mt-2 font-serif text-[1.6rem] md:text-[1.85rem] leading-[1.02] line-clamp-2">{film.title}</div>
-                    <div className="mt-1.5 font-mono text-[10px] tracking-[0.15em] uppercase text-[#1c1812]/70 truncate">
+                    <div className="mt-1.5 font-label text-[12px] tracking-[0.14em] uppercase text-[#1c1812]/70 truncate">
                         {[(film.directors || [])[0], film.year, film.country].filter(Boolean).join(' · ')}
                     </div>
                     {line && <div className="hidden sm:block mt-2 font-serif italic text-[13px] leading-snug text-[#1c1812]/80 line-clamp-2">{line}</div>}
-                    <div className="mt-auto flex items-end justify-end sm:justify-between font-mono text-[10px] tracking-[0.18em] uppercase">
+                    <div className="mt-auto flex items-end justify-end sm:justify-between font-label text-[12px] tracking-[0.14em] uppercase">
                         <span className="hidden sm:inline">{tonight} · 20:00</span>
                         <span>Row {seatFor(film._id)[0]} · Seat {seatFor(film._id).slice(1)}</span>
                     </div>
@@ -71,7 +71,7 @@ const Ticket = ({ film, n, small = false, part }) => {
             {/* the stub */}
             <div className={`relative shrink-0 flex flex-col items-center justify-between border-l-2 border-dashed border-[#1c1812]/30 ${small ? 'w-[40px] py-2' : 'w-[74px] py-4'}`}>
                 <span className={`font-oswald font-bold tracking-[0.25em] [writing-mode:vertical-rl] rotate-180 ${small ? 'text-[8px]' : 'text-[11px]'}`}>ADMIT ONE</span>
-                {!small && <span className="font-mono text-[9px] tracking-[0.1em] text-[#1c1812]/60 [writing-mode:vertical-rl] rotate-180">№ {serialFor(film._id)}</span>}
+                {!small && <span className="font-label text-[12px] tracking-[0.14em] text-[#1c1812]/60 [writing-mode:vertical-rl] rotate-180">№ {serialFor(film._id)}</span>}
             </div>
         </div>
     );
@@ -103,7 +103,7 @@ const PosterCase = ({ label, film, onClick, to, dim = false }) => {
             <div className="mt-2 text-center font-oswald font-bold text-[11px] tracking-[0.35em] uppercase text-[#f4dcae]">{label}</div>
         </>
     );
-    const box = 'group relative block p-3 pb-2 bg-[#1b1410] ring-1 ring-[#c5a059]/40 shadow-[0_0_40px_rgba(255,200,130,0.12),inset_0_0_20px_rgba(0,0,0,0.6)]';
+    const box = 'group relative block p-3 pb-2 bg-[#1b1410] ring-1 ring-gold/40 shadow-[0_0_40px_rgba(255,200,130,0.12),inset_0_0_20px_rgba(0,0,0,0.6)]';
     return (
         <div className="relative">
             {/* the bulbs, round the frame */}
@@ -211,13 +211,13 @@ const NextFilm = ({ reducedMotion = false }) => {
                             <span className="absolute left-1/2 top-[30%] -translate-x-1/2 w-40 h-40 rounded-full bg-[radial-gradient(circle,rgba(255,210,140,0.45),transparent_65%)]" />
                             <div className="absolute left-1/2 bottom-[16%] -translate-x-1/2 rotate-[-3deg] px-4 py-2 bg-[#efe5cf] text-[#1c1812] shadow-[0_6px_14px_rgba(0,0,0,0.5)] text-center">
                                 <div className="font-oswald font-bold text-sm tracking-[0.3em] uppercase">Tonight</div>
-                                <div className="font-mono text-[10px] tracking-[0.2em] whitespace-nowrap">20:00 · {current ? `Screen ${(current.n % 3) + 1}` : 'All screens'}</div>
+                                <div className="font-label text-[12px] tracking-[0.14em] whitespace-nowrap">20:00 · {current ? `Screen ${(current.n % 3) + 1}` : 'All screens'}</div>
                             </div>
                             {/* the grille at the speaking hole */}
                             <span className="absolute left-1/2 top-[14%] -translate-x-1/2 w-14 h-14 rounded-full bg-[repeating-radial-gradient(circle,transparent_0_3px,rgba(226,194,127,0.5)_3px_4px)] opacity-70" />
                             {/* the glass */}
                             <span className="absolute inset-0 bg-[linear-gradient(115deg,rgba(255,255,255,0.14),transparent_30%,transparent_62%,rgba(255,255,255,0.07)_70%,transparent_80%)]" />
-                            <span className="absolute right-4 bottom-3 flex items-center gap-1.5 font-mono text-[9px] tracking-[0.25em] uppercase text-white/60">
+                            <span className="absolute right-4 bottom-3 flex items-center gap-1.5 font-label text-[12px] tracking-[0.14em] uppercase text-white/60">
                                 <span className={`w-1.5 h-1.5 rounded-full ${busy ? 'bg-[#ff7a4d] shadow-[0_0_8px_#ff7a4d] animate-pulse' : 'bg-[#7bd88f] shadow-[0_0_6px_#7bd88f]'}`} />
                                 {busy ? 'Printing' : 'Open'}
                             </span>
@@ -276,7 +276,7 @@ const NextFilm = ({ reducedMotion = false }) => {
                             type="button"
                             onClick={take}
                             disabled={!current || tearing}
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-[#f4ecd8] text-[#141110] text-xs font-semibold tracking-[0.25em] uppercase hover:bg-white disabled:opacity-60 transition-colors"
+                            className="font-label inline-flex items-center gap-2 px-6 py-3 bg-[#f4ecd8] text-[#141110] text-xs font-medium tracking-[0.14em] uppercase hover:bg-white disabled:opacity-60 transition-colors"
                         >
                             Take this ticket <MdArrowOutward />
                         </button>
@@ -284,7 +284,7 @@ const NextFilm = ({ reducedMotion = false }) => {
                             type="button"
                             onClick={() => print(printed.length)}
                             disabled={busy || !ready || tearing}
-                            className="px-6 py-3 text-xs tracking-[0.25em] uppercase text-gray-100 ring-1 ring-white/30 hover:ring-white/60 disabled:opacity-60 transition-colors"
+                            className="font-label px-6 py-3 text-xs tracking-[0.14em] uppercase text-gray-100 ring-1 ring-white/30 hover:ring-white/60 disabled:opacity-60 transition-colors"
                         >
                             {printed.length ? 'Another, please' : 'A ticket, please'}
                         </button>
@@ -303,7 +303,7 @@ const NextFilm = ({ reducedMotion = false }) => {
                     <PosterCase label="Next up" film={upcoming?.film} onClick={() => !busy && print(printed.length)} dim />
                     {stubs.length > 0 && (
                         <div className="mt-8">
-                            <div className="font-mono text-[9px] tracking-[0.3em] uppercase text-gray-500">Your stubs</div>
+                            <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">Your stubs</div>
                             <div className="mt-2 flex flex-wrap gap-1.5">
                                 {stubs.map((t) => (
                                     <Link key={t.n} to={`/movie/${t.film._id}`} title={t.film.title} className="block w-9 h-14 overflow-hidden ring-1 ring-[#efe5cf]/30 hover:ring-[#efe5cf] rotate-[-4deg] odd:rotate-[3deg] transition-[box-shadow]">

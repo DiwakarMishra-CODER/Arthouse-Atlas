@@ -69,7 +69,7 @@ const Home = () => {
 
     const heading = (kicker, title, line) => (
         <div className="max-w-7xl mx-auto px-6 md:px-14 mb-10 md:mb-14">
-            <div className="font-mono text-[11px] tracking-[0.35em] uppercase text-[#c5a059]">{kicker}</div>
+            <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">{kicker}</div>
             <h2 className="mt-3 font-serif text-4xl md:text-6xl text-white leading-tight">{title}</h2>
             {line && <p className="mt-4 max-w-2xl text-lg text-gray-400 leading-relaxed">{line}</p>}
         </div>
@@ -95,7 +95,7 @@ const Home = () => {
                             // compact, so the heading, the earth and the years all fit one screen
                             <div className="shrink-0 mb-8 md:mb-3 xl:flex xl:items-end xl:justify-between xl:gap-10">
                                 <div>
-                                    <div className="font-mono text-[11px] tracking-[0.35em] uppercase text-[#c5a059]">The atlas</div>
+                                    <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">The atlas</div>
                                     <h2 className="mt-3 font-serif text-4xl text-white leading-tight">A century of cinema, around the world</h2>
                                 </div>
                                 <p className="mt-2 xl:mt-0 max-w-2xl xl:max-w-[26rem] text-base text-gray-400 leading-relaxed">The earth at night: each country glows while its cinema is happening. Run the years, or click a country to fly in.</p>
@@ -109,7 +109,7 @@ const Home = () => {
             <section className="pt-28 md:pt-40">
                 {/* a short heading, so it and the whole auditorium fit one screen */}
                 <div className="max-w-7xl mx-auto px-6 md:px-14 mb-6">
-                    <div className="font-mono text-[11px] tracking-[0.35em] uppercase text-[#c5a059]">Keep exploring</div>
+                    <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">Keep exploring</div>
                     <h2 className="mt-3 font-serif text-4xl text-white leading-tight">Three rooms of the atlas</h2>
                 </div>
                 <div className="max-w-7xl mx-auto px-6 md:px-14">

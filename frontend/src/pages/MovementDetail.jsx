@@ -49,10 +49,10 @@ const TitleCardBackdrop = ({ t }) => {
         case 'classical':
             return (
                 <>
-                    <div className="absolute top-[18%] inset-x-[12%] h-px bg-[#c5a059]/30" />
-                    <div className="absolute top-[18%] mt-1.5 inset-x-[12%] h-px bg-[#c5a059]/15" />
-                    <div className="absolute bottom-[18%] inset-x-[12%] h-px bg-[#c5a059]/30" />
-                    <div className="absolute bottom-[18%] mb-1.5 inset-x-[12%] h-px bg-[#c5a059]/15" />
+                    <div className="absolute top-[18%] inset-x-[12%] h-px bg-gold/30" />
+                    <div className="absolute top-[18%] mt-1.5 inset-x-[12%] h-px bg-gold/15" />
+                    <div className="absolute bottom-[18%] inset-x-[12%] h-px bg-gold/30" />
+                    <div className="absolute bottom-[18%] mb-1.5 inset-x-[12%] h-px bg-gold/15" />
                 </>
             );
         case 'nouvelle':
@@ -71,7 +71,7 @@ const TitleCardBackdrop = ({ t }) => {
                     {['top-0 left-0 border-t border-l', 'top-0 right-0 border-t border-r', 'bottom-0 left-0 border-b border-l', 'bottom-0 right-0 border-b border-r'].map((c) => (
                         <span key={c} className={`absolute w-8 h-8 md:w-12 md:h-12 border-white/40 ${c}`} />
                     ))}
-                    <div className="absolute top-3 right-4 flex items-center gap-2 font-mono text-xs text-white/60 tracking-widest">
+                    <div className="absolute top-3 right-4 flex items-center gap-2 font-label text-xs text-white/60 tracking-[0.14em]">
                         <span className="w-2 h-2 rounded-full bg-[#ff3b30] animate-pulse motion-reduce:animate-none" /> REC
                     </div>
                 </div>
@@ -129,14 +129,14 @@ const MovementDetail = () => {
         transition: { duration: 0.9, delay, ease: [0.25, 0.1, 0.25, 1] }
     });
     const span = movement.endYear ? `${movement.endYear - movement.startYear}` : `${new Date().getFullYear() - movement.startYear}+`;
-    const kicker = (h) => <h2 className="text-[11px] tracking-[0.35em] uppercase text-gray-500 mb-8">{h}</h2>;
+    const kicker = (h) => <h2 className="font-label text-[12px] tracking-[0.14em] uppercase text-gray-500 mb-8">{h}</h2>;
 
     return (
-        <div className="relative min-h-screen text-white overflow-x-clip selection:bg-primary selection:text-black">
+        <div className="relative min-h-screen text-white overflow-x-clip selection:bg-gold selection:text-black">
             {/* the same projection room as the index, lit for this movement alone */}
             <ProjectionRoom tint={t.accent} reducedMotion={reducedMotion} />
 
-            <Link to="/movements" className="absolute top-24 left-4 md:left-10 z-30 flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-gray-500 hover:text-white transition-colors">
+            <Link to="/movements" className="font-label absolute top-24 left-4 md:left-10 z-30 flex items-center gap-2 text-xs tracking-[0.14em] uppercase text-gray-500 hover:text-white transition-colors">
                 <MdArrowBack /> Movements
             </Link>
 
@@ -149,7 +149,7 @@ const MovementDetail = () => {
                     backdrop={movement.heroBackdrop}
                     gesture={<TitleCardBackdrop t={t} />}
                     kicker={
-                        <div className="text-[11px] tracking-[0.4em] uppercase mb-10 md:mb-12" style={{ color: t.accent }}>
+                        <div className="font-label text-[12px] tracking-[0.14em] uppercase mb-10 md:mb-12" style={{ color: t.accent }}>
                             {movement.era} <span className="text-gray-400 mx-3">/</span> {movement.region}
                         </div>
                     }
@@ -226,7 +226,7 @@ const MovementDetail = () => {
                                         ))}
 
                                         <div className={`relative ${reducedMotion ? '' : 'projector-flicker'}`}>
-                                            <div className="flex items-center justify-center gap-3 font-mono text-[10px] tracking-[0.45em] uppercase" style={{ color: t.accent }}>
+                                            <div className="flex items-center justify-center gap-3 font-label text-[12px] tracking-[0.14em] uppercase" style={{ color: t.accent }}>
                                                 <span className="h-px w-8 bg-current opacity-60" />
                                                 Rule {ROMAN[i]}
                                                 <span className="h-px w-8 bg-current opacity-60" />
@@ -253,7 +253,7 @@ const MovementDetail = () => {
                                                 <img src={s.film.backdropUrl} alt="" className="w-full h-full object-cover" style={{ filter: t.screenFilter }} loading="lazy" />
                                             </Link>
                                         )}
-                                        <div className="font-mono text-xs mb-2" style={{ color: t.accent }}>{String(i + 1).padStart(2, '0')}</div>
+                                        <div className="font-label text-xs mb-2" style={{ color: t.accent }}>{String(i + 1).padStart(2, '0')}</div>
                                         <h3 className="font-serif text-2xl mb-2">{s.title}</h3>
                                         <p className="text-gray-400 leading-relaxed">{s.why}</p>
                                     </motion.li>
@@ -276,7 +276,7 @@ const MovementDetail = () => {
                                             role="tab"
                                             aria-selected={on}
                                             onClick={() => setFilmView(v)}
-                                            className={`group relative flex items-center gap-2 px-4 md:px-5 py-2.5 text-[11px] tracking-[0.22em] uppercase transition-colors duration-300 focus:outline-none focus-visible:ring-1 focus-visible:ring-white/50 ${on ? '' : 'text-gray-400 hover:text-white hover:bg-white/[0.04]'}`}
+                                            className={`font-label group relative flex items-center gap-2 px-4 md:px-5 py-2.5 text-[12px] tracking-[0.14em] uppercase transition-colors duration-300 focus:outline-none focus-visible:ring-1 focus-visible:ring-white/50 ${on ? '' : 'text-gray-400 hover:text-white hover:bg-white/[0.04]'}`}
                                             style={on ? { color: inkOn(t.accent) } : undefined}
                                         >
                                             {on && (
@@ -323,7 +323,7 @@ const MovementDetail = () => {
                                                         {d.name.split(' ').map((w) => w[0]).slice(0, 2).join('')}
                                                     </div>
                                                 )}
-                                                <span className="absolute top-2 left-2 font-mono text-[10px] text-white/80 bg-black/60 px-1.5 py-0.5">{String(i + 1).padStart(2, '0')}</span>
+                                                <span className="absolute top-2 left-2 font-label text-[12px] text-white/80 bg-black/60 px-1.5 py-0.5">{String(i + 1).padStart(2, '0')}</span>
                                             </div>
                                             <div className="mt-3 font-courier text-[15px] leading-tight text-gray-200 group-hover:text-white transition-colors">{d.name}</div>
                                         </>
@@ -351,7 +351,7 @@ const MovementDetail = () => {
                     {/* ===== 8 · NEXT REEL — with the changeover cue in the corner ===== */}
                     {movement.next && (
                         <section className="pt-32 md:pt-44 pb-28">
-                            <div className="flex items-center gap-4 mb-8 text-[11px] tracking-[0.35em] uppercase text-gray-500">
+                            <div className="font-label flex items-center gap-4 mb-8 text-[12px] tracking-[0.14em] uppercase text-gray-500">
                                 Next reel <MdArrowOutward />
                                 <span className="flex-1 h-px bg-white/[0.08]" />
                             </div>

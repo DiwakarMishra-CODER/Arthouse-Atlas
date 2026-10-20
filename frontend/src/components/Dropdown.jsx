@@ -42,7 +42,7 @@ const Dropdown = ({
                 <button
                     type="button"
                     onClick={() => setIsOpen(!isOpen)}
-                    className={`w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-left flex justify-between items-center gap-2 transition-all duration-300 hover:bg-white/10 focus:outline-none focus:border-accent-primary/50 text-sm tracking-wide ${triggerClassName} ${isOpen ? 'border-accent-primary/50 bg-white/10' : ''
+                    className={`w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-left flex justify-between items-center gap-2 transition-all duration-300 hover:bg-white/10 focus:outline-none focus:border-gold/50 text-sm tracking-wide ${triggerClassName} ${isOpen ? 'border-gold/50 bg-white/10' : ''
                         }`}
                 >
                     <span className={`truncate ${selectedOption ? 'text-gray-200' : 'text-muted'}`}>
@@ -80,7 +80,7 @@ const Dropdown = ({
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 onClick={(e) => e.stopPropagation()}
-                                className="w-full px-3 py-2 bg-[#0a0a0a] border border-white/10 rounded text-sm text-white placeholder-muted focus:border-accent-primary/50 focus:outline-none"
+                                className="w-full px-3 py-2 bg-[#0a0a0a] border border-white/10 rounded text-sm text-white placeholder-muted focus:border-gold/50 focus:outline-none"
                                 autoFocus
                             />
                         </div>
@@ -100,7 +100,7 @@ const Dropdown = ({
                                         setSearchQuery('');
                                     }}
                                     className={`w-full px-4 py-2.5 text-left text-sm transition-colors hover:bg-white/10 flex items-center justify-between ${value === option.value
-                                        ? 'bg-accent-primary/10 text-accent-primary'
+                                        ? 'bg-gold/10 text-gold'
                                         : 'text-gray-300'
                                         }`}
                                 >

@@ -126,12 +126,12 @@ const FilmStripTimeline = ({ movements, isVisible = () => true, accentFor, onHov
                         {decades.map((d) => (
                             <div key={d} className="absolute top-0 bottom-0" style={{ left: x(d) }}>
                                 <span className="absolute top-0 bottom-0 w-px bg-white/[0.07]" />
-                                <span className={`absolute top-1/2 -translate-y-1/2 left-1.5 font-mono text-[11px] tracking-wider transition-opacity duration-300 text-[#c5a059]/80 ${track ? 'opacity-0' : 'opacity-100'}`}>
+                                <span className={`absolute top-1/2 -translate-y-1/2 left-1.5 font-label text-[12px] tracking-[0.14em] transition-opacity duration-300 text-gold/80 ${track ? 'opacity-0' : 'opacity-100'}`}>
                                     {d}
                                 </span>
                             </div>
                         ))}
-                        <span className={`absolute top-1/2 -translate-y-1/2 pl-2 font-mono text-[11px] tracking-wider text-gray-500 transition-opacity duration-300 ${track ? 'opacity-0' : 'opacity-100'}`} style={{ left: x(yearMax) }}>
+                        <span className={`absolute top-1/2 -translate-y-1/2 pl-2 font-label text-[12px] tracking-[0.14em] text-gray-500 transition-opacity duration-300 ${track ? 'opacity-0' : 'opacity-100'}`} style={{ left: x(yearMax) }}>
                             now
                         </span>
 
@@ -180,10 +180,10 @@ const FilmStripTimeline = ({ movements, isVisible = () => true, accentFor, onHov
                         <AnimatePresence>
                             {track && (
                                 <motion.div key={track.m._id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25, delay: 0.1 }}>
-                                    <span className="absolute top-1/2 -translate-y-1/2 px-1.5 font-mono text-[11px] tracking-wider text-white" style={{ right: w - track.start + 3 }}>
+                                    <span className="absolute top-1/2 -translate-y-1/2 px-1.5 font-label text-[12px] tracking-[0.14em] text-white" style={{ right: w - track.start + 3 }}>
                                         {track.m.startYear}
                                     </span>
-                                    <span className="absolute top-1/2 -translate-y-1/2 px-1.5 font-mono text-[11px] tracking-wider text-white" style={{ left: track.end + 3 }}>
+                                    <span className="absolute top-1/2 -translate-y-1/2 px-1.5 font-label text-[12px] tracking-[0.14em] text-white" style={{ left: track.end + 3 }}>
                                         {track.m.endYear || 'now'}
                                     </span>
                                 </motion.div>
@@ -299,12 +299,12 @@ const FilmStripTimeline = ({ movements, isVisible = () => true, accentFor, onHov
                                         variants={{ shown: { transition: { staggerChildren: 0.05, delayChildren: 0.2 } } }}
                                     >
                                         {[
-                                            <div key="k" className="font-mono text-[10px] tracking-[0.2em] uppercase" style={{ color: track.accent }}>
+                                            <div key="k" className="font-label text-[12px] tracking-[0.14em] uppercase" style={{ color: track.accent }}>
                                                 {track.m.region || 'Cinema'}
                                             </div>,
                                             <div key="t" className="font-serif text-[19px] leading-tight text-white mt-1 line-clamp-2">{track.m.title}</div>,
                                             <div key="g" className={`font-serif italic text-[13px] leading-snug text-gray-400 mt-1 ${track.m.title.length > 26 ? 'line-clamp-1' : 'line-clamp-2'}`}>{track.m.tagline || track.m.vibe}</div>,
-                                            <div key="f" className="mt-auto flex items-center justify-between text-[10px] tracking-[0.18em] uppercase text-gray-500">
+                                            <div key="f" className="font-label mt-auto flex items-center justify-between text-[12px] tracking-[0.14em] uppercase text-gray-500">
                                                 <span>{track.m.filmCount} films</span>
                                                 <span className="text-gray-300">Open →</span>
                                             </div>

@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
  * a range that reads as an accent on near-black — never muddy, never neon.
  */
 
-const FALLBACK = '#c5a059'; // the site's gold, for black-and-white films and failed loads
+const FALLBACK = '#d9ad62'; // the site's gold, for black-and-white films and failed loads
 
 const toHex = (r, g, b) => `#${[r, g, b].map((v) => Math.round(v).toString(16).padStart(2, '0')).join('')}`;
 

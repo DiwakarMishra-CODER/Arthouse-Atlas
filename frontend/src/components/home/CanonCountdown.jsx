@@ -127,7 +127,7 @@ const CanonCountdown = ({ films, of, reducedMotion = false }) => {
                         <Link to={`/movie/${f._id}`} className="flex items-baseline gap-6 py-4 hover:bg-white/[0.03]">
                             <span className="font-oswald text-3xl text-[#f6d48f] w-12 text-right">{f.place}</span>
                             <span className="font-serif text-2xl text-white">{f.title}</span>
-                            <span className="ml-auto font-mono text-[11px] tracking-[0.2em] text-gray-500">{f.year}</span>
+                            <span className="ml-auto font-label text-[12px] tracking-[0.14em] text-gray-500">{f.year}</span>
                         </Link>
                     </li>
                 ))}
@@ -169,7 +169,7 @@ const CanonCountdown = ({ films, of, reducedMotion = false }) => {
 
                 {/* the heading, on the opening frame */}
                 <motion.div style={{ opacity: heading }} className="absolute inset-x-0 top-[13vh] text-center px-4 pointer-events-none">
-                    <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-white/70">The canon, counted down · one film per director</div>
+                    <div className="font-label text-[12px] tracking-[0.14em] uppercase text-white/70">The canon, counted down · one film per director</div>
                     <h2 className="mt-3 font-serif text-4xl md:text-6xl text-white [text-shadow:0_2px_24px_rgba(0,0,0,0.6)]">The ten films the critics agree on most</h2>
                 </motion.div>
 
@@ -189,7 +189,7 @@ const CanonCountdown = ({ films, of, reducedMotion = false }) => {
                                     <h3 className="font-serif text-4xl md:text-7xl leading-[1.05] text-white group-hover:opacity-80 transition-opacity">{film.title}</h3>
                                     <MdArrowOutward className="text-2xl text-white/60 group-hover:text-white transition-colors" />
                                 </Link>
-                                <div className="mt-3 text-[11px] md:text-xs tracking-[0.2em] uppercase text-gray-300">
+                                <div className="font-label mt-3 text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gray-300">
                                     {[(film.directors || []).join(' & '), film.year, film.country].filter(Boolean).join('  ·  ')}
                                 </div>
                                 {line && <p className="mt-3 max-w-2xl font-serif text-lg md:text-xl text-gray-200 leading-snug">{line}</p>}
@@ -207,7 +207,7 @@ const CanonCountdown = ({ films, of, reducedMotion = false }) => {
                             <span className="font-serif text-[15px] truncate">{f.title}</span>
                         </button>
                     ))}
-                    <Link to="/explore" className="mt-4 inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] uppercase text-white/60 hover:text-white transition-colors">
+                    <Link to="/explore" className="mt-4 inline-flex items-center gap-2 font-label text-[12px] tracking-[0.14em] uppercase text-white/60 hover:text-white transition-colors">
                         See all {of}, ranked <MdArrowOutward />
                     </Link>
                 </nav>

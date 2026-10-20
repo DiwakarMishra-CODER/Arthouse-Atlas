@@ -67,7 +67,7 @@ const SearchBox = ({ value, onSearch, onDirector }) => {
 
     return (
         <div ref={box} className="relative w-full md:w-80">
-            <label className="flex items-center gap-2 border-b border-white/25 focus-within:border-[#e2b866] transition-colors">
+            <label className="flex items-center gap-2 border-b border-white/25 focus-within:border-gold transition-colors">
                 <MdSearch className="text-gray-400 flex-shrink-0" aria-hidden="true" />
                 <input
                     id="explore-search"
@@ -100,7 +100,7 @@ const SearchBox = ({ value, onSearch, onDirector }) => {
                                         </span>
                                         <span className="min-w-0">
                                             <span className="block font-serif text-gray-100 truncate">{item.f.title}</span>
-                                            <span className="block font-mono text-[10px] tracking-[0.15em] uppercase text-gray-500 truncate">{[item.f.year, item.f.directors?.[0]].filter(Boolean).join(' · ')}</span>
+                                            <span className="block font-label text-[12px] tracking-[0.14em] uppercase text-gray-500 truncate">{[item.f.year, item.f.directors?.[0]].filter(Boolean).join(' · ')}</span>
                                         </span>
                                     </>
                                 ) : (
@@ -110,7 +110,7 @@ const SearchBox = ({ value, onSearch, onDirector }) => {
                                         </span>
                                         <span className="min-w-0">
                                             <span className="block text-gray-100 truncate">{item.d.name}</span>
-                                            <span className="block font-mono text-[10px] tracking-[0.15em] uppercase text-gray-500">Director · {item.d.films} {item.d.films === 1 ? 'film' : 'films'}</span>
+                                            <span className="block font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">Director · {item.d.films} {item.d.films === 1 ? 'film' : 'films'}</span>
                                         </span>
                                     </>
                                 )}

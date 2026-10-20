@@ -187,25 +187,25 @@ const HomeHero = () => {
 
     const restBlock = (
         <div className="max-w-4xl mx-auto px-6 text-center">
-            <h1 className="font-serif font-bold text-[3.4rem] sm:text-7xl md:text-8xl lg:text-[8.5rem] leading-[0.9] tracking-tight text-white [text-shadow:0_6px_60px_rgba(0,0,0,0.9)]">
-                Arthouse Atlas
+            <h1 className="font-serif font-light text-[3.4rem] sm:text-7xl md:text-8xl lg:text-[8.5rem] leading-[0.9] tracking-tight text-white [text-shadow:0_6px_60px_rgba(0,0,0,0.9)]">
+                Arthouse{' '}<br /><span className="italic">Atlas</span>
             </h1>
             <p className="mt-6 font-serif italic text-2xl md:text-3xl text-gray-100 [text-shadow:0_2px_24px_rgba(0,0,0,0.9)]">A century of cinema that matters.</p>
             <p className="mt-4 max-w-xl mx-auto text-base md:text-lg text-gray-300 leading-relaxed [text-shadow:0_2px_18px_rgba(0,0,0,0.95)]">
                 {counts ? `${counts.films} films` : 'Every film here'}, each placed here by critics' polls, year-end lists and festival juries — not by an algorithm.
             </p>
             {counts && (
-                <div className="mt-6 font-mono text-[11px] md:text-xs tracking-[0.3em] uppercase text-[#c5a059]">
+                <div className="mt-6 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gold">
                     {counts.films} films · {counts.directors} directors · {counts.movements} movements · {counts.from}–{counts.to}
                 </div>
             )}
             <div className="mt-9 flex flex-wrap justify-center gap-3 pointer-events-auto">
                 {!reducedMotion && (
-                    <button onClick={toTonight} className="group flex items-center gap-2 px-6 py-3.5 bg-[#f4ecd8] text-[#141110] text-xs font-semibold tracking-[0.25em] uppercase shadow-[0_0_40px_rgba(255,214,150,0.35)] hover:shadow-[0_0_60px_rgba(255,214,150,0.6)] transition-shadow">
+                    <button onClick={toTonight} className="font-label group flex items-center gap-2 px-6 py-3.5 bg-[#f4ecd8] text-[#141110] text-xs font-medium tracking-[0.14em] uppercase shadow-[0_0_40px_rgba(255,214,150,0.35)] hover:shadow-[0_0_60px_rgba(255,214,150,0.6)] transition-shadow">
                         Tonight's film <MdArrowDownward className="text-base group-hover:translate-y-0.5 transition-transform" />
                     </button>
                 )}
-                <Link to="/explore" className="flex items-center gap-2 px-6 py-3.5 text-xs tracking-[0.25em] uppercase text-gray-100 ring-1 ring-white/30 bg-black/60 hover:ring-white/60 transition-colors">
+                <Link to="/explore" className="font-label flex items-center gap-2 px-6 py-3.5 text-xs tracking-[0.14em] uppercase text-gray-100 ring-1 ring-white/30 bg-black/60 hover:ring-white/60 transition-colors">
                     Explore the atlas <MdArrowOutward />
                 </Link>
             </div>
@@ -218,26 +218,26 @@ const HomeHero = () => {
                 <Letters key={`${film._id}-${arrived}`} text={pick === 0 ? 'TONIGHT' : 'ALSO TONIGHT'} reducedMotion={reducedMotion || !arrived} className="block font-oswald font-bold text-2xl md:text-3xl leading-none tracking-[0.12em] text-[#141110]" />
             </div>
             {film.reason && <p className="mt-3 font-serif italic text-base md:text-lg text-[#f4ecd8]/90 [text-shadow:0_2px_16px_rgba(0,0,0,0.9)]">{film.reason}</p>}
-            <h2 className="mt-4 font-serif font-bold text-5xl md:text-7xl leading-[0.95] text-white [text-shadow:0_4px_40px_rgba(0,0,0,0.8)]">{film.title}</h2>
-            <div className="mt-4 font-mono text-[11px] md:text-xs tracking-[0.25em] uppercase text-gray-200">{meta}</div>
+            <h2 className="mt-4 font-serif font-normal text-5xl md:text-7xl leading-[0.95] text-white [text-shadow:0_4px_40px_rgba(0,0,0,0.8)]">{film.title}</h2>
+            <div className="mt-4 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gray-200">{meta}</div>
             {standingOf(film.canon) && (
-                <div className="mt-2 font-mono text-[11px] md:text-xs tracking-[0.25em] uppercase" style={{ color: light }}>{standingOf(film.canon)}</div>
+                <div className="mt-2 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase" style={{ color: light }}>{standingOf(film.canon)}</div>
             )}
             {/* its hook, or, for a film without one, what the canon says of it */}
             {film.editorial?.hook
                 ? <p className="mt-5 max-w-2xl font-serif italic text-xl md:text-2xl leading-snug text-gray-100">{film.editorial.hook}</p>
                 : citationLine(film.provenance?.[0]) && <p className="mt-5 max-w-2xl font-serif text-xl md:text-2xl leading-snug text-gray-100">{citationLine(film.provenance[0])}</p>}
             <div className="mt-8 flex flex-wrap gap-3">
-                <Link to={`/movie/${film._id}`} className="flex items-center gap-2 px-6 py-3.5 text-xs font-semibold tracking-[0.25em] uppercase" style={{ backgroundColor: light, color: '#0a0a0a', boxShadow: `0 10px 40px ${light}55` }}>
+                <Link to={`/movie/${film._id}`} className="font-label flex items-center gap-2 px-6 py-3.5 text-xs font-medium tracking-[0.14em] uppercase" style={{ backgroundColor: light, color: '#0a0a0a', boxShadow: `0 10px 40px ${light}55` }}>
                     Open the film <MdArrowOutward />
                 </Link>
                 {film.trailerUrl && (
-                    <a href={film.trailerUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-3.5 text-xs tracking-[0.2em] uppercase text-gray-100 ring-1 ring-white/30 bg-black/60 hover:ring-white/60 transition-colors">
+                    <a href={film.trailerUrl} target="_blank" rel="noopener noreferrer" className="font-label flex items-center gap-2 px-5 py-3.5 text-xs tracking-[0.14em] uppercase text-gray-100 ring-1 ring-white/30 bg-black/60 hover:ring-white/60 transition-colors">
                         <MdPlayArrow className="text-lg" /> Trailer
                     </a>
                 )}
                 {!reducedMotion && (
-                    <button onClick={another} disabled={swapping} className="flex items-center gap-2 px-5 py-3.5 text-xs tracking-[0.2em] uppercase text-gray-100 ring-1 ring-white/30 bg-black/60 hover:ring-white/60 transition-colors disabled:opacity-50">
+                    <button onClick={another} disabled={swapping} className="font-label flex items-center gap-2 px-5 py-3.5 text-xs tracking-[0.14em] uppercase text-gray-100 ring-1 ring-white/30 bg-black/60 hover:ring-white/60 transition-colors disabled:opacity-50">
                         <MdRefresh className={`text-lg ${swapping ? 'animate-spin' : ''}`} /> Another film
                     </button>
                 )}
@@ -305,7 +305,7 @@ const HomeHero = () => {
                     )}
                 </motion.div>
 
-                <motion.div style={{ opacity: hintOpacity }} className="absolute bottom-6 left-1/2 -translate-x-1/2 font-mono text-[10px] tracking-[0.35em] uppercase text-gray-400 pointer-events-none">
+                <motion.div style={{ opacity: hintOpacity }} className="absolute bottom-6 left-1/2 -translate-x-1/2 font-label text-[12px] tracking-[0.14em] uppercase text-gray-400 pointer-events-none">
                     Scroll · into tonight's film
                 </motion.div>
             </div>

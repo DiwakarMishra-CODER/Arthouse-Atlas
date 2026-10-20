@@ -15,7 +15,7 @@ import Movements from './pages/Movements';
 import MovementDetail from './pages/MovementDetail';
 import Studios from './pages/Studios';
 import Recommendations from './pages/Recommendations';
-import Starfield from './components/Starfield';
+import ProjectedBlack from './components/ProjectedBlack';
 
 
 const ProtectedRoute = ({ children }) => {
@@ -24,7 +24,7 @@ const ProtectedRoute = ({ children }) => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-12 h-12 border-2 border-accent-primary/30 border-t-accent-primary rounded-full animate-spin"></div>
+        <div className="w-12 h-12 border-2 border-gold/30 border-t-gold rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -34,8 +34,8 @@ const ProtectedRoute = ({ children }) => {
 
 function AppRoutes() {
   return (
-    <div className="relative min-h-screen bg-[#050505] text-white selection:bg-accent-primary selection:text-black overflow-x-clip film-grain">
-      <Starfield />
+    <div className="relative min-h-screen bg-[#050505] text-white selection:bg-gold selection:text-black overflow-x-clip">
+      <ProjectedBlack />
       <Navbar />
       <div className="relative z-10">
         <Routes>

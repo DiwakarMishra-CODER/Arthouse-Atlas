@@ -69,10 +69,10 @@ const DirectorDetail = () => {
         initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: '-80px' },
         transition: { duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }
     });
-    const kicker = (text) => <h2 className="font-mono text-[10px] tracking-[0.35em] uppercase text-gray-500 mb-6">{text}</h2>;
+    const kicker = (text) => <h2 className="font-label text-[12px] tracking-[0.14em] uppercase text-gray-500 mb-6">{text}</h2>;
 
     return (
-        <div className="relative min-h-screen text-white overflow-x-clip selection:bg-primary selection:text-black">
+        <div className="relative min-h-screen text-white overflow-x-clip selection:bg-gold selection:text-black">
             {/* lit by their most canonical film */}
             <div aria-hidden="true" className="fixed inset-0 z-0 pointer-events-none">
                 {glow && <img src={sized(glow, 'w780')} alt="" className="absolute inset-0 w-full h-full object-cover scale-125 blur-[90px] saturate-[1.3] opacity-[0.2]" />}
@@ -80,7 +80,7 @@ const DirectorDetail = () => {
             </div>
 
             <div className="relative max-w-7xl mx-auto px-4 md:px-10">
-                <button onClick={() => navigate(-1)} className="absolute top-24 left-4 md:left-10 z-20 flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-gray-400 hover:text-white transition-colors">
+                <button onClick={() => navigate(-1)} className="font-label absolute top-24 left-4 md:left-10 z-20 flex items-center gap-2 text-xs tracking-[0.14em] uppercase text-gray-400 hover:text-white transition-colors">
                     <MdArrowBack /> Back
                 </button>
 
@@ -113,12 +113,12 @@ const DirectorDetail = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        <div className="font-mono text-[11px] tracking-[0.35em] uppercase" style={{ color: light }}>A retrospective</div>
-                        <h1 className="mt-4 font-serif font-bold leading-[0.92] text-5xl sm:text-6xl md:text-7xl lg:text-[6.5rem]">{director.name}</h1>
-                        <div className="mt-5 font-mono text-xs tracking-[0.2em] uppercase text-gray-400">
+                        <div className="font-label text-[12px] tracking-[0.14em] uppercase" style={{ color: light }}>A retrospective</div>
+                        <h1 className="mt-4 font-serif font-normal leading-[0.92] text-5xl sm:text-6xl md:text-7xl lg:text-[6.5rem]">{director.name}</h1>
+                        <div className="mt-5 font-label text-xs tracking-[0.14em] uppercase text-gray-400">
                             {[born && `${born}–${died || ''}`, director.placeOfBirth].filter(Boolean).join('  ·  ')}
                         </div>
-                        <dl className="mt-10 grid grid-cols-3 max-w-xl border-y border-white/10">
+                        <dl className="mt-10 grid grid-cols-[1fr_1.5fr_1fr] max-w-2xl border-y border-white/10">
                             {[
                                 [films.length, films.length === 1 ? 'film in the atlas' : 'films in the atlas'],
                                 [span || '—', 'the years'],
@@ -128,8 +128,8 @@ const DirectorDetail = () => {
                                     : [films.filter((f) => f.provenanceCount > 0).length, 'on the canon lists']
                             ].map(([n, label]) => (
                                 <div key={label} className="py-4 pr-3">
-                                    <dd className="font-serif text-3xl md:text-4xl leading-none text-white">{n}</dd>
-                                    <dt className="mt-2 text-[10px] tracking-[0.25em] uppercase text-gray-500">{label}</dt>
+                                    <dd className="font-serif text-3xl md:text-4xl leading-none text-white whitespace-nowrap">{n}</dd>
+                                    <dt className="font-label mt-2 text-[12px] tracking-[0.14em] uppercase text-gray-500">{label}</dt>
                                 </div>
                             ))}
                         </dl>
@@ -149,7 +149,7 @@ const DirectorDetail = () => {
                     <section className="pt-28 md:pt-36">
                         <div className="flex items-end justify-between gap-6 mb-8">
                             <h2 className="font-serif text-4xl md:text-5xl">Posters</h2>
-                            <span className="hidden sm:block font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 pb-2">hover a poster to turn its lamp up</span>
+                            <span className="hidden sm:block font-label text-[12px] tracking-[0.14em] uppercase text-gray-500 pb-2">hover a poster to turn its lamp up</span>
                         </div>
                         <PosterWall films={films} accent={light} reducedMotion={reducedMotion} />
                     </section>
@@ -168,7 +168,7 @@ const DirectorDetail = () => {
                     <section className="pt-28 md:pt-36 pb-28">
                         <div className="flex items-end justify-between gap-6 mb-4">
                             <h2 className="font-serif text-4xl md:text-5xl">Their circle</h2>
-                            <span className="hidden sm:block font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 pb-2">the directors they shared a movement with</span>
+                            <span className="hidden sm:block font-label text-[12px] tracking-[0.14em] uppercase text-gray-500 pb-2">the directors they shared a movement with</span>
                         </div>
                         <Constellation director={director} movements={director.movements || []} peers={director.peers} reducedMotion={reducedMotion} />
                     </section>

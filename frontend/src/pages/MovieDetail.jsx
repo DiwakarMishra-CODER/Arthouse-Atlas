@@ -108,7 +108,7 @@ const MovieDetail = () => {
         initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: '-80px' },
         transition: { duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }
     });
-    const kicker = (text) => <h2 className="font-mono text-[10px] tracking-[0.35em] uppercase text-gray-500 mb-6">{text}</h2>;
+    const kicker = (text) => <h2 className="font-label text-[12px] tracking-[0.14em] uppercase text-gray-500 mb-6">{text}</h2>;
 
     const handleTrailer = () => {
         window.open(movie.trailerUrl || `https://www.youtube.com/results?search_query=${encodeURIComponent(`${movie.title} trailer`)}`, '_blank');
@@ -144,7 +144,7 @@ const MovieDetail = () => {
     ].filter(([, v]) => v);
 
     return (
-        <div className="relative min-h-screen text-white overflow-x-clip selection:bg-primary selection:text-black">
+        <div className="relative min-h-screen text-white overflow-x-clip selection:bg-gold selection:text-black">
             {/* the screen's glow: the film's own still, thrown soft across the whole page */}
             <div aria-hidden="true" className="fixed inset-0 z-0 pointer-events-none">
                 {backdrop && (
@@ -170,7 +170,7 @@ const MovieDetail = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/55 to-transparent" />
                     <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-[#050505]/20 to-transparent" />
 
-                    <button onClick={() => navigate(-1)} className="absolute top-24 left-4 md:left-10 z-20 flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-gray-300 hover:text-white transition-colors">
+                    <button onClick={() => navigate(-1)} className="font-label absolute top-24 left-4 md:left-10 z-20 flex items-center gap-2 text-xs tracking-[0.14em] uppercase text-gray-300 hover:text-white transition-colors">
                         <MdArrowBack /> Back
                     </button>
 
@@ -180,10 +180,10 @@ const MovieDetail = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        <div className="font-mono text-[11px] tracking-[0.3em] uppercase" style={{ color: light }}>
+                        <div className="font-label text-[12px] tracking-[0.14em] uppercase" style={{ color: light }}>
                             {[(movie.directors || []).join(' & '), movie.year, movie.country, movie.runtime && `${movie.runtime} min`].filter(Boolean).join('  ·  ')}
                         </div>
-                        <h1 className="mt-4 font-serif font-bold leading-[0.95] text-5xl sm:text-6xl md:text-7xl lg:text-[6.5rem] max-w-5xl [text-shadow:0_4px_40px_rgba(0,0,0,0.6)]">
+                        <h1 className="mt-4 font-serif font-normal leading-[0.95] text-5xl sm:text-6xl md:text-7xl lg:text-[6.5rem] max-w-5xl [text-shadow:0_4px_40px_rgba(0,0,0,0.6)]">
                             {movie.title}
                         </h1>
                         {movie.originalTitle && movie.originalTitle !== movie.title && (
@@ -196,7 +196,7 @@ const MovieDetail = () => {
                         <div className="mt-9 flex flex-wrap items-center gap-3">
                             <button
                                 onClick={handleTrailer}
-                                className="group flex items-center gap-2 pl-4 pr-6 py-3.5 text-xs font-semibold tracking-[0.25em] uppercase transition-[filter,box-shadow] hover:brightness-110"
+                                className="font-label group flex items-center gap-2 pl-4 pr-6 py-3.5 text-xs font-medium tracking-[0.14em] uppercase transition-[filter,box-shadow] hover:brightness-110"
                                 style={{ backgroundColor: light, color: inkOn(light), boxShadow: `0 10px 40px ${light}55` }}
                             >
                                 <MdPlayArrow className="text-xl transition-transform group-hover:scale-125" /> Trailer
@@ -207,7 +207,7 @@ const MovieDetail = () => {
                                     onClick={shelf(act)}
                                     aria-pressed={on}
                                     title={isAuthenticated ? label : 'Sign in to keep track'}
-                                    className={`flex items-center gap-2 px-4 py-3.5 text-xs tracking-[0.2em] uppercase backdrop-blur-md ring-1 transition-colors ${on ? 'bg-white/10' : 'bg-black/30 ring-white/20 text-gray-200 hover:bg-white/10 hover:text-white'}`}
+                                    className={`font-label flex items-center gap-2 px-4 py-3.5 text-xs tracking-[0.14em] uppercase backdrop-blur-md ring-1 transition-colors ${on ? 'bg-white/10' : 'bg-black/30 ring-white/20 text-gray-200 hover:bg-white/10 hover:text-white'}`}
                                     style={on ? { color: light, '--tw-ring-color': light } : undefined}
                                 >
                                     {on ? <OnIcon className="text-lg" /> : <Icon className="text-lg" />} {label}
@@ -229,7 +229,7 @@ const MovieDetail = () => {
                             )}
                             {ed.whyItMatters && (
                                 <blockquote className="mt-12 pl-6 border-l-2" style={{ borderColor: light }}>
-                                    <div className="font-mono text-[10px] tracking-[0.3em] uppercase mb-3" style={{ color: light }}>Why it matters</div>
+                                    <div className="font-label text-[12px] tracking-[0.14em] uppercase mb-3" style={{ color: light }}>Why it matters</div>
                                     <p className="font-serif text-2xl md:text-[1.7rem] leading-snug text-white">{ed.whyItMatters}</p>
                                 </blockquote>
                             )}
@@ -255,7 +255,7 @@ const MovieDetail = () => {
                                     />
                                 )}
                                 <div className="pt-1">
-                                    <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 mb-2">Your rating</div>
+                                    <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gray-500 mb-2">Your rating</div>
                                     <StarRating movie={movie} />
                                 </div>
                             </div>
@@ -263,7 +263,7 @@ const MovieDetail = () => {
                             <dl className="mt-10">
                                 {fiche.map(([label, value]) => (
                                     <div key={label} className="flex items-baseline gap-3 py-2.5 text-[15px]">
-                                        <dt className="shrink-0 font-mono text-[10px] tracking-[0.25em] uppercase text-gray-500">{label}</dt>
+                                        <dt className="shrink-0 font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">{label}</dt>
                                         <span aria-hidden="true" className="flex-1 border-b border-dotted border-white/15 translate-y-[-3px]" />
                                         <dd className="text-right text-gray-200 font-serif">{value}</dd>
                                     </div>
@@ -272,7 +272,7 @@ const MovieDetail = () => {
 
                             {(providers === null || providers.length > 0) && (
                                 <div className="mt-10">
-                                    <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 mb-4">Where to watch</div>
+                                    <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gray-500 mb-4">Where to watch</div>
                                     {providers === null ? (
                                         <div className="animate-pulse h-9 w-40 bg-white/5" />
                                     ) : (
@@ -320,7 +320,7 @@ const MovieDetail = () => {
                                         )}
                                     </div>
                                     <div className="md:col-span-7 p-7 md:p-10 flex flex-col">
-                                        <div className="font-mono text-[10px] tracking-[0.3em] uppercase" style={{ color: t.accent }}>{m.era} · {m.region}</div>
+                                        <div className="font-label text-[12px] tracking-[0.14em] uppercase" style={{ color: t.accent }}>{m.era} · {m.region}</div>
                                         <div className="mt-3 font-serif text-3xl md:text-4xl text-white">{displayTitle(m)}</div>
                                         {(m.tagline || m.vibe) && <div className="mt-2 font-serif italic text-gray-400">{m.tagline || m.vibe}</div>}
 
@@ -329,12 +329,12 @@ const MovieDetail = () => {
                                             <span className="absolute inset-x-0 top-1/2 h-px bg-white/15" />
                                             <span className="absolute top-1/2 -translate-y-1/2 h-[5px]" style={{ left: pct(m.startYear), right: `calc(100% - ${pct(m.endYear || YEAR_MAX)})`, backgroundColor: t.accent }} />
                                             <span className="absolute top-0 bottom-0 w-[2px] bg-white" style={{ left: pct(movie.year) }} />
-                                            <span className="absolute -top-4 -translate-x-1/2 font-mono text-[10px] text-white" style={{ left: pct(movie.year) }}>{movie.year}</span>
-                                            <span className="absolute -bottom-3 left-0 font-mono text-[9px] text-gray-600">1920</span>
-                                            <span className="absolute -bottom-3 right-0 font-mono text-[9px] text-gray-600">now</span>
+                                            <span className="absolute -top-4 -translate-x-1/2 font-label text-[12px] text-white" style={{ left: pct(movie.year) }}>{movie.year}</span>
+                                            <span className="absolute -bottom-3 left-0 font-label text-[12px] text-gray-600">1920</span>
+                                            <span className="absolute -bottom-3 right-0 font-label text-[12px] text-gray-600">now</span>
                                         </div>
 
-                                        <div className="mt-auto pt-8 flex items-center justify-between text-[11px] tracking-[0.25em] uppercase text-gray-400">
+                                        <div className="font-label mt-auto pt-8 flex items-center justify-between text-[12px] tracking-[0.14em] uppercase text-gray-400">
                                             <span>{m.filmCount} films on the reel</span>
                                             <span className="flex items-center gap-1.5 text-gray-200 group-hover:text-white transition-colors">Open the movement <MdArrowOutward /></span>
                                         </div>
@@ -352,7 +352,7 @@ const MovieDetail = () => {
                                 {stills.map((s, i) => (
                                     <motion.figure key={s} {...reveal(i * 0.06)} className="relative aspect-video overflow-hidden group">
                                         <img src={sized(s, 'w780')} alt="" loading="lazy" className="w-full h-full object-cover grayscale-[0.4] group-hover:grayscale-0 transition-[filter,transform] duration-700 group-hover:scale-[1.03]" />
-                                        <figcaption className="absolute bottom-1.5 left-2 font-mono text-[9px] tracking-[0.2em] text-white/70">{String(i + 1).padStart(2, '0')}A</figcaption>
+                                        <figcaption className="absolute bottom-1.5 left-2 font-label text-[12px] tracking-[0.14em] text-white/70">{String(i + 1).padStart(2, '0')}A</figcaption>
                                     </motion.figure>
                                 ))}
                             </div>
@@ -364,7 +364,7 @@ const MovieDetail = () => {
                         <section className="pt-24 md:pt-32 pb-28">
                             <div className="flex items-end justify-between gap-6 mb-8">
                                 <h2 className="font-serif text-4xl md:text-5xl">Make it a double bill</h2>
-                                <span className="hidden md:block font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 pb-2">after {movie.title}</span>
+                                <span className="hidden md:block font-label text-[12px] tracking-[0.14em] uppercase text-gray-500 pb-2">after {movie.title}</span>
                             </div>
                             <div className="grid grid-cols-3 md:grid-cols-6 gap-3 md:gap-4">
                                 {similarMovies.slice(0, 6).map((m) => (

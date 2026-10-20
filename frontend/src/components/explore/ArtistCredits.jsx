@@ -22,13 +22,13 @@ const ArtistCredits = ({ director, movement }) => {
                             : <span className="w-full h-full flex items-center justify-center font-serif text-3xl text-gray-500">{director.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('')}</span>}
                     </div>
                     <div className="min-w-0">
-                        <div className="font-mono text-[10px] md:text-[11px] tracking-[0.3em] uppercase text-[#c5a059]">Directed by</div>
+                        <div className="font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gold">Directed by</div>
                         <h2 className="mt-1 font-serif text-3xl md:text-5xl text-white leading-tight">{director.name}</h2>
-                        <div className="mt-2 font-mono text-[10px] md:text-[11px] tracking-[0.15em] uppercase text-gray-400">
+                        <div className="mt-2 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gray-400">
                             {[director.born && `${director.born}–${director.died || ''}`, director.place?.split(',')[0], `${director.films} ${director.films === 1 ? 'film' : 'films'} in the atlas`].filter(Boolean).join(' · ')}
                         </div>
                         {director.id && (
-                            <Link to={`/directors/${director.id}`} className="mt-3 inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[0.2em] uppercase text-gray-200 hover:text-white">
+                            <Link to={`/directors/${director.id}`} className="mt-3 inline-flex items-center gap-1.5 font-label text-[12px] tracking-[0.14em] uppercase text-gray-200 hover:text-white">
                                 Their retrospective <MdArrowOutward />
                             </Link>
                         )}
@@ -37,14 +37,14 @@ const ArtistCredits = ({ director, movement }) => {
             )}
             {movement && (
                 <div>
-                    <div className="font-mono text-[10px] md:text-[11px] tracking-[0.3em] uppercase text-[#c5a059] mb-4">The movement</div>
+                    <div className="font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gold mb-4">The movement</div>
                     <TreatmentTitle movement={{ title: movement.title, tag: movement.tag }} size="teaser" as="h2" />
-                    <div className="mt-4 font-mono text-[10px] md:text-[11px] tracking-[0.15em] uppercase text-gray-400">
+                    <div className="mt-4 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gray-400">
                         {[movement.era, `${movement.films} ${movement.films === 1 ? 'film' : 'films'} in the atlas`].filter(Boolean).join(' · ')}
                     </div>
                     {movement.tagline && <p className="mt-2 max-w-2xl text-gray-300">{movement.tagline}</p>}
                     {movement.tag && (
-                        <Link to={`/movements/${movement.tag}`} className="mt-3 inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[0.2em] uppercase text-gray-200 hover:text-white">
+                        <Link to={`/movements/${movement.tag}`} className="mt-3 inline-flex items-center gap-1.5 font-label text-[12px] tracking-[0.14em] uppercase text-gray-200 hover:text-white">
                             The full story <MdArrowOutward />
                         </Link>
                     )}

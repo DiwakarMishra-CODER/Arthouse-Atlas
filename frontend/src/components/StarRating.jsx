@@ -29,7 +29,7 @@ export default function StarRating({ movie }) {
                             aria-label={`Rate ${star} out of 5`}
                         >
                             <FaStar
-                                className={`text-2xl md:text-3xl transition-colors duration-200 ${isFilled ? 'text-[#C5A059]' : 'text-white/40'
+                                className={`text-2xl md:text-3xl transition-colors duration-200 ${isFilled ? 'text-gold' : 'text-white/40'
                                     }`}
                             />
                         </button>
@@ -39,7 +39,7 @@ export default function StarRating({ movie }) {
 
             {/* Rating label */}
             {currentRating > 0 && (
-                <p className="text-center md:text-left mt-2 text-[10px] font-mono text-[#C5A059] uppercase tracking-widest">
+                <p className="text-center md:text-left mt-2 text-[12px] font-label text-gold uppercase tracking-[0.14em]">
                     Rated {currentRating} / 5
                 </p>
             )}

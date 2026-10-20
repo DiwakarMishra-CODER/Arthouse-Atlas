@@ -120,7 +120,7 @@ const CanonMarquee = ({ film, accent, reducedMotion = false }) => {
                         })}
                     </ul>
                     {breadth.length > 0 && (
-                        <p className="mt-6 text-center font-mono text-[11px] tracking-[0.2em] uppercase text-gray-400">
+                        <p className="mt-6 text-center font-label text-[12px] tracking-[0.14em] uppercase text-gray-400">
                             Placed by {breadth.join('  ·  ')}
                         </p>
                     )}
@@ -129,7 +129,7 @@ const CanonMarquee = ({ film, accent, reducedMotion = false }) => {
                             <button
                                 onClick={() => setOpen((o) => !o)}
                                 aria-expanded={open}
-                                className="mx-auto flex items-center gap-2 px-5 py-2.5 text-xs tracking-[0.2em] uppercase text-gray-200 ring-1 ring-white/15 hover:ring-white/40 hover:text-white transition-colors"
+                                className="font-label mx-auto flex items-center gap-2 px-5 py-2.5 text-xs tracking-[0.14em] uppercase text-gray-200 ring-1 ring-white/15 hover:ring-white/40 hover:text-white transition-colors"
                             >
                                 {open ? 'Show fewer' : `And ${rest.length} more ${rest.length === 1 ? 'list' : 'lists'}`}
                                 <MdExpandMore className={`text-lg transition-transform ${open ? 'rotate-180' : ''}`} />
@@ -170,7 +170,7 @@ const CanonMarquee = ({ film, accent, reducedMotion = false }) => {
             {/* in its company */}
             {company.length > 1 && (
                 <div className="mt-16">
-                    <div className="text-center font-mono text-[10px] tracking-[0.35em] uppercase text-gray-500">
+                    <div className="text-center font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">
                         {canon.lead === 'atlas' ? 'In its company · the atlas' : `In its company · the ${canon.decade}s`}
                     </div>
                     <ol className="mt-6 flex justify-center items-end gap-3 md:gap-5">

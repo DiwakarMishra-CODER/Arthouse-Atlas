@@ -83,12 +83,12 @@ const Movements = () => {
     const goTo = (id) => document.querySelector(`[data-id="${id}"]`)?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' });
 
     const lit = movements.find((m) => m._id === (hovered || inView));
-    const tint = lit ? treatmentFor(lit).accent : '#c5a059';
+    const tint = lit ? treatmentFor(lit).accent : '#d9ad62';
 
     if (loading) {
         return (
             <div className="h-screen w-full flex items-center justify-center">
-                <div className="text-primary text-xl font-serif animate-pulse motion-reduce:animate-none">Threading the projector...</div>
+                <div className="text-gold text-xl font-serif animate-pulse motion-reduce:animate-none">Threading the projector...</div>
             </div>
         );
     }
@@ -96,7 +96,7 @@ const Movements = () => {
     const living = movements.filter((m) => !m.endYear).length;
 
     return (
-        <div className="min-h-screen text-white pt-28 pb-28 overflow-x-clip selection:bg-primary selection:text-black">
+        <div className="min-h-screen text-white pt-28 pb-28 overflow-x-clip selection:bg-gold selection:text-black">
             <ProjectionRoom tint={tint} reducedMotion={reducedMotion} />
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -108,10 +108,10 @@ const Movements = () => {
                     className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-14 md:mb-20"
                 >
                     <div className="lg:col-span-7">
-                        <div className="text-primary text-xs tracking-[0.3em] uppercase mb-5">
+                        <div className="font-label text-gold text-xs tracking-[0.14em] uppercase mb-5">
                             {movements.length} movements · 1920 to now
                         </div>
-                        <h1 className="font-serif font-bold leading-[0.95] text-6xl md:text-8xl">Movements</h1>
+                        <h1 className="font-serif font-normal leading-[0.95] text-6xl md:text-8xl">Movements</h1>
                     </div>
                     <p className="lg:col-span-5 text-gray-300 text-lg leading-relaxed font-light lg:pb-2">
                         Cinema doesn't advance in a line. It breaks out — in a defeated country, a studio town, a
@@ -130,7 +130,7 @@ const Movements = () => {
                             key={f}
                             onClick={() => setFilter(f)}
                             aria-pressed={filter === f}
-                            className={`py-3 -mb-px border-b-2 text-sm transition-colors ${filter === f ? 'text-white border-primary' : 'text-gray-400 border-transparent hover:text-white'}`}
+                            className={`py-3 -mb-px border-b-2 text-sm transition-colors ${filter === f ? 'text-white border-gold' : 'text-gray-400 border-transparent hover:text-white'}`}
                         >
                             {f}
                             {f !== 'All' && (
@@ -161,10 +161,10 @@ const Movements = () => {
                                     <h2 className="mt-5 font-serif text-6xl md:text-7xl text-white leading-none tracking-tight">
                                         {decade}<span className="italic transition-colors duration-[1400ms]" style={{ color: tint }}>s</span>
                                     </h2>
-                                    <p className="mt-4 text-[11px] tracking-[0.2em] uppercase text-gray-400">
+                                    <p className="font-label mt-4 text-[12px] tracking-[0.14em] uppercase text-gray-400">
                                         {items.length} {items.length === 1 ? 'movement' : 'movements'} · {films} films
                                     </p>
-                                    <p className="mt-1 text-[11px] tracking-[0.2em] uppercase text-gray-500">{places.join(' · ')}</p>
+                                    <p className="font-label mt-1 text-[12px] tracking-[0.14em] uppercase text-gray-500">{places.join(' · ')}</p>
 
                                     {items.length > 1 && (
                                         <ol className="hidden lg:block mt-8 space-y-1 border-l border-white/[0.08]">
@@ -179,7 +179,7 @@ const Movements = () => {
                                                             className={`relative -ml-px flex w-full items-baseline gap-3 py-1 pl-4 text-left border-l-2 transition-colors duration-300 ${on ? 'text-white' : 'border-transparent text-gray-500 hover:text-gray-200'}`}
                                                             style={on ? { borderColor: treatmentFor(m).accent } : undefined}
                                                         >
-                                                            <span className="font-mono text-[11px] tabular-nums" style={on ? { color: treatmentFor(m).accent } : undefined}>{m.startYear}</span>
+                                                            <span className="font-label text-[12px] tabular-nums" style={on ? { color: treatmentFor(m).accent } : undefined}>{m.startYear}</span>
                                                             <span className="font-serif text-[15px] leading-snug">{m.title}</span>
                                                         </button>
                                                     </li>
@@ -216,7 +216,7 @@ const Movements = () => {
                     {stats && (
                         <p className="text-gray-400 mt-5 text-lg font-light">
                             {stats.unassignedFilms} of the {stats.totalFilms} films in the atlas belong to none of these —{' '}
-                            <Link to="/explore" className="text-primary hover:text-white transition-colors border-b border-primary/40 hover:border-white">
+                            <Link to="/explore" className="text-gold hover:text-white transition-colors border-b border-gold/40 hover:border-white">
                                 they are in Explore
                             </Link>.
                         </p>

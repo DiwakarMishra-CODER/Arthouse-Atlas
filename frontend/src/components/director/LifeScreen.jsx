@@ -123,7 +123,7 @@ const LifeScreen = ({ director, films, movements, accent, reducedMotion = false 
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.6, ease: EASE }}
                         >
-                            <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-white/60">Age when made</div>
+                            <div className="font-label text-[12px] tracking-[0.14em] uppercase text-white/60">Age when made</div>
                             <div className="font-serif font-bold leading-none text-[4.5rem] md:text-[8rem] text-transparent [-webkit-text-stroke:1.5px_rgba(255,255,255,0.75)]">{age}</div>
                         </motion.div>
                     </AnimatePresence>
@@ -139,14 +139,14 @@ const LifeScreen = ({ director, films, movements, accent, reducedMotion = false 
                         variants={{ shown: { transition: { staggerChildren: 0.08, delayChildren: 0.25 } } }}
                     >
                         {[
-                            <div key="k" className="font-mono text-[10px] md:text-[11px] tracking-[0.3em] uppercase" style={{ color: accent }}>
+                            <div key="k" className="font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase" style={{ color: accent }}>
                                 {film.year}  ·  film {active + 1} of {dated.length}
                             </div>,
                             <Link key="t" to={`/movie/${film._id}`} className="group mt-2 inline-flex items-baseline gap-3 font-serif text-3xl md:text-6xl leading-[1.02] text-white">
                                 {film.title}
                                 <MdArrowOutward className="text-xl md:text-3xl opacity-50 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
                             </Link>,
-                            line.text ? <p key="l" className={`mt-3 max-w-2xl text-base md:text-lg text-gray-200 ${line.italic ? 'font-serif italic' : 'font-mono text-xs md:text-sm tracking-[0.15em] uppercase text-gray-300'}`}>{line.text}</p> : null
+                            line.text ? <p key="l" className={`mt-3 max-w-2xl text-base md:text-lg text-gray-200 ${line.italic ? 'font-serif italic' : 'font-label text-xs md:text-sm tracking-[0.14em] uppercase text-gray-300'}`}>{line.text}</p> : null
                         ].filter(Boolean).map((el) => (
                             <motion.div key={el.key} variants={{ hidden: { opacity: 0, y: 14 }, shown: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } } }}>
                                 {el}
@@ -233,17 +233,17 @@ const LifeScreen = ({ director, films, movements, accent, reducedMotion = false 
                     {decades.map((d) => (
                         <div key={d} className="absolute" style={{ left: x(d), top: lineY - 3 }}>
                             <span className="absolute w-px h-1.5 bg-white/30" />
-                            <span className="absolute top-3 -translate-x-1/2 font-mono text-[10px] text-gray-500">{d}</span>
+                            <span className="absolute top-3 -translate-x-1/2 font-label text-[12px] text-gray-500">{d}</span>
                         </div>
                     ))}
                     <span className="absolute w-2.5 h-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white" style={{ left: x(y0), top: lineY }} />
-                    <span className="absolute font-mono text-[10px] tracking-[0.2em] uppercase text-gray-400" style={{ left: x(y0), top: lineY + 30 }}>{born ? `Born ${born}` : ''}</span>
+                    <span className="absolute font-label text-[12px] tracking-[0.14em] uppercase text-gray-400" style={{ left: x(y0), top: lineY + 30 }}>{born ? `Born ${born}` : ''}</span>
                     {died ? (
                         <span className="absolute w-2.5 h-2.5 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-white" style={{ left: x(y1), top: lineY }} />
                     ) : (
                         <span className="absolute w-2.5 h-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full motion-safe:animate-pulse" style={{ left: x(y1), top: lineY, backgroundColor: accent, boxShadow: `0 0 12px ${accent}` }} />
                     )}
-                    <span className="absolute -translate-x-full font-mono text-[10px] tracking-[0.2em] uppercase text-gray-400 whitespace-nowrap" style={{ left: x(y1), top: lineY + 30 }}>{died ? `Died ${died}` : 'Still working'}</span>
+                    <span className="absolute -translate-x-full font-label text-[12px] tracking-[0.14em] uppercase text-gray-400 whitespace-nowrap" style={{ left: x(y1), top: lineY + 30 }}>{died ? `Died ${died}` : 'Still working'}</span>
 
                     {/* their movements, beneath the life */}
                     {movements.map((m, i) => {

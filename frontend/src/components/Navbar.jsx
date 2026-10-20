@@ -1,7 +1,39 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { MdAccountCircle, MdPerson, MdLogout, MdClose } from 'react-icons/md';
+import { MdPerson, MdLogout } from 'react-icons/md';
 import { useAuth } from '../context/AuthContext';
+
+/**
+ * The house's signs. The navbar is the row of signs over the doors of a picture house:
+ * every room of the atlas is a door, lettered in serif capitals the way theatres lettered
+ * theirs, and the room you're in has its sign lit (gold leaf, glowing), the way a screen's
+ * sign lights while its film is running. Change rooms and the new sign strikes on like a
+ * lamp, and a leader's sweep wipes round the house's crest once, counting in the next reel.
+ */
+
+const ROOMS = [
+    { to: '/explore', label: 'Explore' },
+    { to: '/directors', label: 'Directors' },
+    { to: '/movements', label: 'Movements' },
+    { to: '/studios', label: 'Studios' },
+    { to: '/recommendations', label: 'For You' },
+];
+const inRoom = (path, to) => (to === '/' ? path === '/' : path === to || path.startsWith(`${to}/`));
+
+// the mark: the house's crest, a roundel with the atlas's A. Behind the letter a leader's
+// sweep wipes round once for every page you open (keyed to the page), counting in the next reel.
+const HouseMark = ({ reel }) => (
+    <span aria-hidden="true" className="relative inline-block w-[30px] h-[30px] flex-shrink-0">
+        <span key={reel} className="leader-wipe absolute inset-[4px] rounded-full" />
+        <svg viewBox="0 0 30 30" className="absolute inset-0 w-full h-full text-gold" fill="none" stroke="currentColor">
+            <circle cx="15" cy="15" r="14" strokeWidth="1.1" />
+            <circle cx="15" cy="15" r="11.5" strokeWidth="0.6" opacity="0.6" />
+            <text x="15" y="20.5" textAnchor="middle" fontFamily="Newsreader, Georgia, serif" fontStyle="italic" fontSize="15" fill="currentColor" stroke="none">A</text>
+        </svg>
+    </span>
+);
+
+const SIGN = 'house-sign font-serif font-medium uppercase tracking-[0.16em]';
 
 const Navbar = () => {
     const { isAuthenticated, user, logout } = useAuth();
@@ -10,8 +42,6 @@ const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const profileMenuRef = useRef(null);
-
-    const isActive = (path) => location.pathname === path;
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -47,210 +77,145 @@ const Navbar = () => {
     }, [isMobileMenuOpen]);
 
     const closeMobileMenu = () => setIsMobileMenuOpen(false);
+    const initial = (user?.username || '?').trim().charAt(0).toUpperCase();
 
     return (
         <nav className="fixed top-0 left-0 right-0 z-50">
             <div aria-hidden="true" className={`absolute inset-x-0 top-0 h-[150%] -z-10 pointer-events-none bg-gradient-to-b from-[#050505]/85 via-[#050505]/40 to-transparent transition-opacity duration-500 ${scrolled ? 'opacity-0' : 'opacity-100'}`} />
-            <div aria-hidden="true" className={`absolute inset-0 -z-10 pointer-events-none bg-[#050505]/60 backdrop-blur-xl border-b border-white/[0.06] transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-0'}`} />
-            <div className="max-w-[1800px] mx-auto px-8 py-6">
+            <div aria-hidden="true" className={`absolute inset-0 -z-10 pointer-events-none bg-[#050505]/60 backdrop-blur-xl transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-0'}`}>
+                {/* the glass's lower edge catches the light */}
+                <span className="absolute inset-x-0 bottom-0 h-px bg-[linear-gradient(90deg,transparent,rgba(217,173,98,0.35)_50%,transparent)]" />
+            </div>
+
+            {/* on a phone, the rooms: their signs strike on one after another */}
+            {isMobileMenuOpen && (
+                <div className="fixed inset-0 md:hidden bg-[#050505] flex flex-col justify-center px-8">
+                    <div aria-hidden="true" className="projected-black absolute inset-0" />
+                    <ul className="relative space-y-4">
+                        {[{ to: '/', label: 'Home' }, ...ROOMS].map(({ to, label }, i) => {
+                            const here = inRoom(location.pathname, to);
+                            return (
+                                <li key={to}>
+                                    <Link
+                                        to={to}
+                                        onClick={closeMobileMenu}
+                                        aria-current={here ? 'page' : undefined}
+                                        className={`${SIGN} menu-sign inline-block text-[2rem] leading-tight tracking-[0.08em] ${here ? 'is-lit' : 'text-gray-100'}`}
+                                        style={{ '--i': i }}
+                                    >
+                                        {label}
+                                    </Link>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                    <div className="relative mt-12 flex items-center gap-6">
+                        {isAuthenticated ? (
+                            <>
+                                <Link to="/profile" onClick={closeMobileMenu} className={`${SIGN} text-sm text-gray-200`}>Profile</Link>
+                                <button type="button" onClick={() => { logout(); closeMobileMenu(); }} className={`${SIGN} text-sm text-gray-400`}>Sign out</button>
+                            </>
+                        ) : (
+                            <>
+                                <Link to="/login" onClick={closeMobileMenu} className={`${SIGN} text-sm text-gray-200`}>Sign in</Link>
+                                <Link to="/register" onClick={closeMobileMenu} className={`${SIGN} text-sm px-5 py-2.5 ring-1 ring-gold/60 text-gold`}>Join</Link>
+                            </>
+                        )}
+                    </div>
+                </div>
+            )}
+
+            <div className="relative max-w-[1800px] mx-auto px-5 md:px-8 py-5 md:py-6">
                 <div className="flex justify-between items-center">
-                    {/* Wordmark Logo */}
-                    <Link to="/" className="group z-50 relative" onClick={closeMobileMenu}>
-                        <h1 className="font-serif text-2xl tracking-tight text-gray-100 group-hover:text-accent-primary transition-colors">
-                            Arthouse <span className="text-accent-primary">Atlas</span>
-                        </h1>
+                    {/* the name over the door */}
+                    <Link to="/" className="group z-50 relative flex items-center gap-3" onClick={closeMobileMenu} aria-label="Arthouse Atlas, home">
+                        <HouseMark reel={location.pathname} />
+                        <span className="font-serif text-[1.4rem] md:text-[1.55rem] leading-none tracking-[-0.01em] text-white">
+                            Arthouse <span className="italic text-gold transition-colors group-hover:text-gold-light">Atlas</span>
+                        </span>
                     </Link>
 
-                    {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center gap-12 flex-shrink-0">
-                        <Link
-                            to="/explore"
-                            className={`text-sm tracking-wide uppercase ${isActive('/explore')
-                                ? 'text-accent-primary'
-                                : 'text-muted hover:text-gray-100'
-                                }`}
-                        >
-                            Explore
-                        </Link>
+                    {/* the rooms */}
+                    <div className="hidden md:flex items-center gap-8 lg:gap-11 flex-shrink-0">
+                        <ul className="flex items-center gap-8 lg:gap-11">
+                            {ROOMS.map(({ to, label }) => {
+                                const here = inRoom(location.pathname, to);
+                                return (
+                                    <li key={to}>
+                                        <Link to={to} aria-current={here ? 'page' : undefined} className={`${SIGN} text-[13px] ${here ? 'is-lit' : 'text-gray-300 hover:text-white'}`}>
+                                            {label}
+                                        </Link>
+                                    </li>
+                                );
+                            })}
+                        </ul>
 
-                        <Link
-                            to="/directors"
-                            className={`text-sm tracking-wide uppercase ${isActive('/directors') || location.pathname.startsWith('/directors/')
-                                ? 'text-accent-primary'
-                                : 'text-muted hover:text-gray-100'
-                                }`}
-                        >
-                            Directors
-                        </Link>
-
-                        <Link
-                            to="/movements"
-                            className={`text-sm tracking-wide uppercase ${isActive('/movements')
-                                ? 'text-accent-primary'
-                                : 'text-muted hover:text-gray-100'
-                                }`}
-                        >
-                            Movements
-                        </Link>
-
-                        <Link
-                            to="/studios"
-                            className={`text-sm tracking-wide uppercase ${isActive('/studios')
-                                ? 'text-accent-primary'
-                                : 'text-muted hover:text-gray-100'
-                                }`}
-                        >
-                            Studios
-                        </Link>
-
-                        <Link
-                            to="/recommendations"
-                            className={`text-sm tracking-wide uppercase ${isActive('/recommendations')
-                                ? 'text-accent-primary'
-                                : 'text-muted hover:text-gray-100'
-                                }`}
-                        >
-                            For You
-                        </Link>
+                        <span aria-hidden="true" className="w-px h-4 bg-white/15" />
 
                         {isAuthenticated ? (
                             <div className="relative" ref={profileMenuRef}>
                                 <button
+                                    type="button"
                                     onClick={() => setShowProfileMenu(!showProfileMenu)}
-                                    className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-white/10 transition-colors focus:outline-none"
+                                    aria-label="Your account"
+                                    aria-expanded={showProfileMenu}
+                                    className="flex items-center justify-center w-9 h-9 rounded-full ring-1 ring-gold/50 text-gold font-serif text-base hover:bg-gold hover:text-black transition-colors"
                                 >
-                                    <MdAccountCircle className="text-gray-300 text-3xl" />
+                                    {initial}
                                 </button>
 
                                 {showProfileMenu && (
-                                    <div className="absolute right-0 mt-3 w-56 py-2 bg-[#1a1a1a] border border-white/10 rounded-md shadow-2xl backdrop-blur-md z-50">
+                                    <div className="absolute right-0 mt-3 w-56 py-2 bg-[#12110f] ring-1 ring-white/10 shadow-2xl z-50">
                                         <div className="px-5 py-3 border-b border-white/10 mb-2">
-                                            <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">Signed in as</p>
-                                            <p className="text-sm text-white font-medium truncate font-serif">{user?.username}</p>
+                                            <p className="font-label text-[12px] text-gray-400 uppercase tracking-[0.14em] mb-1">Signed in as</p>
+                                            <p className="text-base text-white truncate font-serif">{user?.username}</p>
                                         </div>
-
                                         <Link
                                             to="/profile"
-                                            className="block px-5 py-3 text-sm text-gray-300 hover:bg-white/5 hover:text-[#d4af37] transition-colors flex items-center"
+                                            className="flex items-center px-5 py-3 text-sm text-gray-200 hover:bg-white/5 hover:text-gold transition-colors"
                                             onClick={() => setShowProfileMenu(false)}
                                         >
                                             <MdPerson className="text-lg mr-3" />
-                                            My Profile
+                                            My profile
                                         </Link>
-
                                         <button
+                                            type="button"
                                             onClick={() => {
                                                 logout();
                                                 setShowProfileMenu(false);
                                             }}
-                                            className="block w-full text-left px-5 py-3 text-sm text-gray-300 hover:bg-white/5 hover:text-red-400 transition-colors flex items-center"
+                                            className="flex w-full items-center text-left px-5 py-3 text-sm text-gray-200 hover:bg-white/5 hover:text-red-300 transition-colors"
                                         >
                                             <MdLogout className="text-lg mr-3" />
-                                            Sign Out
+                                            Sign out
                                         </button>
                                     </div>
                                 )}
                             </div>
                         ) : (
-                            <div className="flex items-center gap-6">
-                                <Link
-                                    to="/login"
-                                    className="text-sm tracking-wide uppercase text-muted hover:text-gray-100"
-                                >
-                                    Sign In
+                            <div className="flex items-center gap-7">
+                                <Link to="/login" className={`${SIGN} text-[13px] ${inRoom(location.pathname, '/login') ? 'is-lit' : 'text-gray-300 hover:text-white'}`}>
+                                    Sign in
                                 </Link>
-                                <Link
-                                    to="/register"
-                                    className="px-6 py-2 bg-accent-primary/10 border border-accent-primary/30 text-accent-primary text-sm tracking-wide uppercase hover:bg-accent-primary/20 transition-colors"
-                                >
+                                <Link to="/register" className={`${SIGN} text-[13px] px-5 py-2 ring-1 ring-gold/50 text-gold hover:bg-gold hover:text-black transition-colors`}>
                                     Join
                                 </Link>
                             </div>
                         )}
                     </div>
 
-                    {/* Mobile Menu Button */}
+                    {/* on a phone, one plain word opens the rooms */}
                     <button
-                        className="md:hidden z-[1000] relative w-10 h-10 flex flex-col justify-center items-center gap-1.5 focus:outline-none"
+                        type="button"
+                        className={`${SIGN} md:hidden relative z-50 text-[13px] text-gray-100 py-2`}
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        aria-label="Toggle menu"
+                        aria-expanded={isMobileMenuOpen}
                     >
-                        <span className={`w-8 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-                        <span className={`w-8 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
-                        <span className={`w-8 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+                        {isMobileMenuOpen ? 'Close' : 'Menu'}
                     </button>
                 </div>
             </div>
-
-            {/* Mobile Menu Overlay */}
-            {isMobileMenuOpen && (
-                <div
-                    style={{
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100vh',
-                        backgroundColor: '#000000', /* PURE HEX BLACK */
-                        zIndex: 9999,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '2rem'
-                    }}
-                >
-                    {/* Close Button */}
-                    <button
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="absolute top-6 right-6 text-white hover:text-accent-primary transition-colors"
-                        aria-label="Close menu"
-                    >
-                        <MdClose size={32} />
-                    </button>
-
-                    {/* Explicit Links */}
-                    <Link to="/" onClick={closeMobileMenu} className="text-2xl text-white font-serif hover:text-accent-primary transition-colors">Home</Link>
-                    <Link to="/explore" onClick={closeMobileMenu} className="text-2xl text-white font-serif hover:text-accent-primary transition-colors">Explore</Link>
-                    <Link to="/directors" onClick={closeMobileMenu} className="text-2xl text-white font-serif hover:text-accent-primary transition-colors">Directors</Link>
-                    <Link to="/movements" onClick={closeMobileMenu} className="text-2xl text-white font-serif hover:text-accent-primary transition-colors">Movements</Link>
-                    <Link to="/studios" onClick={closeMobileMenu} className="text-2xl text-white font-serif hover:text-accent-primary transition-colors">Studios</Link>
-                    <Link to="/recommendations" onClick={closeMobileMenu} className="text-2xl text-white font-serif hover:text-accent-primary transition-colors">For You</Link>
-
-                    {isAuthenticated ? (
-                        <>
-                            <Link to="/profile" onClick={closeMobileMenu} className="text-2xl text-white font-serif hover:text-accent-primary transition-colors">Profile</Link>
-                            <button
-                                onClick={() => {
-                                    logout();
-                                    closeMobileMenu();
-                                }}
-                                className="text-xl text-red-500 mt-4 font-serif hover:text-red-400 transition-colors border border-red-500 px-6 py-2 rounded"
-                            >
-                                Sign Out
-                            </button>
-                        </>
-                    ) : (
-                        <div className="flex flex-col gap-6 mt-4 items-center">
-                            <Link
-                                to="/login"
-                                onClick={closeMobileMenu}
-                                className="text-xl text-white hover:text-accent-primary transition-colors font-serif"
-                            >
-                                Sign In
-                            </Link>
-                            <Link
-                                to="/register"
-                                onClick={closeMobileMenu}
-                                className="px-8 py-3 bg-accent-primary text-black font-medium tracking-wide uppercase hover:bg-white transition-colors"
-                            >
-                                Join Atlas
-                            </Link>
-                        </div>
-                    )}
-                </div>
-            )}
-        </nav >
+        </nav>
     );
 };
 

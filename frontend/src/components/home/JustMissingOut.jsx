@@ -51,7 +51,7 @@ const Trim = ({ film, place, i, swing, reducedMotion }) => {
                 <div className="relative mx-auto -mt-2 w-[94%] bg-[#f4ecd8] px-2 pt-1.5 pb-2 text-[#141110] shadow-[0_3px_10px_rgba(0,0,0,0.5)]" style={{ rotate: `${((i * 37) % 5) - 2}deg` }}>
                     <div className="flex items-baseline justify-between gap-1">
                         <span className="font-oswald font-bold text-lg leading-none">{place}</span>
-                        <span className="font-mono text-[9px] tracking-[0.1em] text-[#5a5046]">{film.year}</span>
+                        <span className="font-label text-[12px] tracking-[0.14em] text-[#5a5046]">{film.year}</span>
                     </div>
                     <div className="mt-1 font-oswald uppercase text-[11px] leading-tight tracking-[0.06em] line-clamp-2">{film.title}</div>
                 </div>
@@ -68,7 +68,7 @@ const JustMissingOut = ({ films, from = 11, reducedMotion = false }) => {
         <section className="max-w-7xl mx-auto px-6 md:px-14 pt-14 md:pt-20">
             <div className="flex items-baseline gap-4">
                 <h3 className="font-serif text-2xl md:text-3xl text-white">Just missing out</h3>
-                <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500">{from} to {from + films.length - 1}</span>
+                <span className="font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">{from} to {from + films.length - 1}</span>
             </div>
 
             <div className="mt-8 -mx-6 px-6 md:mx-0 md:px-0 overflow-x-auto md:overflow-visible pt-3 pb-10">

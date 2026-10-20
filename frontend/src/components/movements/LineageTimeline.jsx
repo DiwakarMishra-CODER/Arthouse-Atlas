@@ -106,7 +106,7 @@ const LineageTimeline = ({ movement, grewFrom, fed, accent }) => {
                     <span className={`block font-serif leading-tight transition-colors ${self ? 'text-2xl md:text-[1.7rem] text-white' : `text-[15px] md:text-base ${lit ? 'text-white' : 'text-gray-300'}`}`}>
                         {n.title}
                     </span>
-                    <span className="block mt-1 font-mono text-[10px] tracking-[0.18em] transition-colors" style={{ color: lit ? accent : 'rgb(107 114 128)' }}>
+                    <span className="block mt-1 font-label text-[12px] tracking-[0.14em] transition-colors" style={{ color: lit ? accent : 'rgb(107 114 128)' }}>
                         {n.era || `${n.startYear}–${n.endYear || 'now'}`}
                     </span>
                 </span>
@@ -145,7 +145,7 @@ const LineageTimeline = ({ movement, grewFrom, fed, accent }) => {
     };
 
     const heading = (text, count, top) => (
-        <div className="absolute left-0 flex items-center gap-2 font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500" style={{ top: top - 22 }}>
+        <div className="absolute left-0 flex items-center gap-2 font-label text-[12px] tracking-[0.14em] uppercase text-gray-500" style={{ top: top - 22 }}>
             {text} <span style={{ color: accent }}>{count}</span>
         </div>
     );
@@ -170,7 +170,7 @@ const LineageTimeline = ({ movement, grewFrom, fed, accent }) => {
                 {/* the decades */}
                 {decades.map((d) => (
                     <div key={d} className="absolute w-px bg-white/[0.05]" style={{ left: x(d), top: 0, height: height + 6 }}>
-                        <span className="absolute -bottom-5 -translate-x-1/2 font-mono text-[10px] text-gray-500">{d}</span>
+                        <span className="absolute -bottom-5 -translate-x-1/2 font-label text-[12px] text-gray-500">{d}</span>
                     </div>
                 ))}
 

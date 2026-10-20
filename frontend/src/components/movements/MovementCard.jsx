@@ -58,7 +58,7 @@ const MovementCard = ({ movement: m, size = 'card', className = '', reducedMotio
                 onMouseLeave={leave}
                 onFocus={enter}
                 onBlur={leave}
-                className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-black"
+                className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-4 focus-visible:ring-offset-black"
                 aria-label={`${m.title}, ${m.era}, ${m.filmCount} films`}
             >
                 {/* still */}
@@ -75,13 +75,13 @@ const MovementCard = ({ movement: m, size = 'card', className = '', reducedMotio
                     )) : <div className="absolute inset-0" style={{ backgroundColor: m.cardColor || '#151515' }} />}
 
                     {/* start year — keeps the wall legible as a timeline */}
-                    <span className="absolute top-3 left-3 font-mono text-xs tracking-wider text-white bg-black/65 backdrop-blur-sm px-2 py-1">
+                    <span className="absolute top-3 left-3 font-label text-xs tracking-[0.14em] text-white bg-black/65 backdrop-blur-sm px-2 py-1">
                         {m.startYear}
                     </span>
 
                     {/* which film is showing, while the reel runs */}
                     {hover && cycles && (m.topFilms || []).length > 0 && (
-                        <span className="absolute bottom-3 right-3 font-mono text-[11px] text-white/90 bg-black/65 backdrop-blur-sm px-2 py-1 max-w-[70%] truncate">
+                        <span className="absolute bottom-3 right-3 font-label text-[12px] text-white/90 bg-black/65 backdrop-blur-sm px-2 py-1 max-w-[70%] truncate">
                             {(frame === 0 ? m.heroCredit?.title : m.topFilms.filter((f) => sized(f.still) !== hero)[frame - 1]?.title) || ''}
                         </span>
                     )}
@@ -114,7 +114,7 @@ const MovementCard = ({ movement: m, size = 'card', className = '', reducedMotio
                         {m.tagline || m.vibe}
                     </p>
                 )}
-                <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] tracking-[0.18em] uppercase text-gray-400">
+                <div className="font-label mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] tracking-[0.14em] uppercase text-gray-400">
                     <span>{m.era}</span>
                     <span aria-hidden="true">·</span>
                     <span>{m.region}</span>

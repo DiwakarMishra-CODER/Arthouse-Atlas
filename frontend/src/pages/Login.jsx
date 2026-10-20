@@ -66,7 +66,7 @@ const Login = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="email" className="block text-sm uppercase tracking-wider text-muted mb-3">
+                        <label htmlFor="email" className="font-label block text-sm uppercase tracking-[0.14em] text-muted mb-3">
                             Email
                         </label>
                         <input
@@ -76,13 +76,13 @@ const Login = () => {
                             required
                             value={formData.email}
                             onChange={handleChange}
-                            className="w-full px-4 py-4 bg-surface border border-white/10 text-gray-200 placeholder-muted focus:outline-none focus:border-accent-primary/50 rounded-xl"
+                            className="w-full px-4 py-4 bg-surface border border-white/10 text-gray-200 placeholder-muted focus:outline-none focus:border-gold/50 rounded-xl"
                             placeholder="your@email.com"
                         />
                     </div>
 
                     <div>
-                        <label htmlFor="password" className="block text-sm uppercase tracking-wider text-muted mb-3">
+                        <label htmlFor="password" className="font-label block text-sm uppercase tracking-[0.14em] text-muted mb-3">
                             Password
                         </label>
                         <div className="relative">
@@ -93,7 +93,7 @@ const Login = () => {
                                 required
                                 value={formData.password}
                                 onChange={handleChange}
-                                className="w-full px-4 py-4 bg-surface border border-white/10 text-gray-200 placeholder-muted focus:outline-none focus:border-accent-primary/50 rounded-xl pr-10"
+                                className="w-full px-4 py-4 bg-surface border border-white/10 text-gray-200 placeholder-muted focus:outline-none focus:border-gold/50 rounded-xl pr-10"
                                 placeholder="••••••••"
                             />
                             <button
@@ -111,14 +111,14 @@ const Login = () => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full py-4 bg-accent-primary/10 border border-accent-primary/30 text-accent-primary tracking-wide uppercase text-sm hover:bg-accent-primary/20 transition-colors disabled:opacity-50 rounded-xl"
+                        className="font-label w-full py-4 bg-gold/10 border border-gold/30 text-gold tracking-[0.14em] uppercase text-sm hover:bg-gold/20 transition-colors disabled:opacity-50 rounded-xl"
                     >
                         {loading ? 'Signing in...' : 'Sign In'}
                     </button>
 
                     <p className="text-center text-muted">
                         Don't have an account?{' '}
-                        <Link to="/register" className="text-accent-primary hover:underline">
+                        <Link to="/register" className="text-gold hover:underline">
                             Join now
                         </Link>
                     </p>

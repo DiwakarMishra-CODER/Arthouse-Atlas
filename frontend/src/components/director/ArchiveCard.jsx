@@ -22,7 +22,7 @@ const excerpt = (bio = '') => {
 
 const Field = ({ label, children }) => (
     <div className="flex items-baseline gap-3 border-b border-[#2a2620]/25 py-1.5">
-        <span className="shrink-0 w-24 font-mono text-[10px] tracking-[0.2em] uppercase text-[#7a6f5c]">{label}</span>
+        <span className="shrink-0 w-24 font-label text-[12px] tracking-[0.14em] uppercase text-[#7a6f5c]">{label}</span>
         <span className="font-courier text-[15px] text-[#1d1a15]">{children}</span>
     </div>
 );
@@ -81,8 +81,8 @@ const ArchiveCard = ({ director, filmsCount, movements, index, reducedMotion = f
                 </div>
 
                 <div className="flex items-start justify-between gap-6">
-                    <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-[#7a6f5c]">Atlas archive · card {String(index).padStart(4, '0')}</div>
-                    <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-[#7a6f5c] hidden sm:block">Filed under: Directors</div>
+                    <div className="font-label text-[12px] tracking-[0.14em] uppercase text-[#7a6f5c]">Atlas archive · card {String(index).padStart(4, '0')}</div>
+                    <div className="font-label text-[12px] tracking-[0.14em] uppercase text-[#7a6f5c] hidden sm:block">Filed under: Directors</div>
                 </div>
                 <div className="mt-5 font-courier text-3xl md:text-4xl font-bold tracking-tight uppercase">{director.name}</div>
 
@@ -100,11 +100,11 @@ const ArchiveCard = ({ director, filmsCount, movements, index, reducedMotion = f
                         <span className="sr-only">{text}</span>
                     </div>
                 )}
-                <div className="mt-6 font-mono text-[9px] tracking-[0.3em] uppercase text-[#7a6f5c]">Biography: TMDB</div>
+                <div className="mt-6 font-label text-[12px] tracking-[0.14em] uppercase text-[#7a6f5c]">Biography: TMDB</div>
 
                 {/* the archive's stamp */}
                 <motion.div
-                    className="absolute right-6 md:right-10 bottom-6 md:bottom-8 px-4 py-2 border-[3px] border-[#b0302a] text-[#b0302a] font-mono text-xs tracking-[0.3em] uppercase rotate-[-8deg] opacity-80 [filter:url(#archive-ink)]"
+                    className="absolute right-6 md:right-10 bottom-6 md:bottom-8 px-4 py-2 border-[3px] border-[#b0302a] text-[#b0302a] font-label text-xs tracking-[0.14em] uppercase rotate-[-8deg] opacity-80 [filter:url(#archive-ink)]"
                     initial={reducedMotion ? false : { opacity: 0, scale: 1.8 }}
                     animate={inView ? { opacity: 0.8, scale: 1 } : undefined}
                     transition={{ type: 'spring', stiffness: 500, damping: 22, delay: reducedMotion ? 0 : 3.2 }}

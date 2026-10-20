@@ -31,8 +31,8 @@ const Profile = () => {
             <div className="md:hidden min-h-screen bg-black pt-28 pb-10 px-4 text-white">
                 {/* Header */}
                 <div className="flex items-end gap-2 mb-8 border-b border-white/10 pb-4">
-                    <h1 className="text-3xl font-cinzel text-white">Favorites</h1>
-                    <span className="text-[#C5A059] text-xs font-mono mb-1">
+                    <h1 className="text-3xl font-serif text-white">Favorites</h1>
+                    <span className="text-gold text-xs font-label mb-1">
                         ({user.favorites?.length || 0})
                     </span>
                 </div>
@@ -49,7 +49,7 @@ const Profile = () => {
                                 <img
                                     src={movie.posterUrl}
                                     alt={movie.title}
-                                    className="w-full aspect-[2/3] object-cover rounded shadow-lg border border-[#C5A059]/20"
+                                    className="w-full aspect-[2/3] object-cover rounded shadow-lg border border-gold/20"
                                 />
                                 {/* Mobile Title Hidden as per requirements */}
                                 <div className="hidden md:block absolute bottom-0 left-0 right-0 bg-black/60 p-2 text-xs truncate">
@@ -60,10 +60,10 @@ const Profile = () => {
                     </div>
                 ) : (
                     <div className="text-center mt-20">
-                        <p className="text-gray-500 font-cinzel italic text-sm mb-6">No favorites yet.</p>
+                        <p className="text-gray-500 font-serif italic text-sm mb-6">No favorites yet.</p>
                         <Link
                             to="/explore"
-                            className="inline-block px-6 py-2 border border-[#C5A059] text-[#C5A059] text-xs uppercase tracking-widest hover:bg-[#C5A059] hover:text-black transition-colors"
+                            className="font-label inline-block px-6 py-2 border border-gold text-gold text-xs uppercase tracking-[0.14em] hover:bg-gold hover:text-black transition-colors"
                         >
                             Explore Films
                         </Link>
@@ -72,8 +72,8 @@ const Profile = () => {
 
                 {/* Watched History Section */}
                 <div className="flex items-end gap-2 mb-8 border-b border-white/10 pb-4 mt-12">
-                    <h1 className="text-3xl font-cinzel text-white">Watched</h1>
-                    <span className="text-[#C5A059] text-xs font-mono mb-1">
+                    <h1 className="text-3xl font-serif text-white">Watched</h1>
+                    <span className="text-gold text-xs font-label mb-1">
                         ({user.watched?.length || 0})
                     </span>
                 </div>
@@ -89,7 +89,7 @@ const Profile = () => {
                                 <img
                                     src={movie.posterUrl}
                                     alt={movie.title}
-                                    className="w-full aspect-[2/3] object-cover rounded shadow-lg border border-[#C5A059]/20"
+                                    className="w-full aspect-[2/3] object-cover rounded shadow-lg border border-gold/20"
                                 />
                                 <div className="hidden md:block absolute bottom-0 left-0 right-0 bg-black/60 p-2 text-xs truncate">
                                     {movie.title}
@@ -99,14 +99,14 @@ const Profile = () => {
                     </div>
                 ) : (
                     <div className="text-center mt-10">
-                        <p className="text-gray-500 font-cinzel italic text-sm">No films watched yet.</p>
+                        <p className="text-gray-500 font-serif italic text-sm">No films watched yet.</p>
                     </div>
                 )}
 
                 {/* Watchlist Section */}
                 <div className="flex items-end gap-2 mb-8 border-b border-white/10 pb-4 mt-12">
-                    <h1 className="text-3xl font-cinzel text-white">Watchlist</h1>
-                    <span className="text-[#C5A059] text-xs font-mono mb-1">
+                    <h1 className="text-3xl font-serif text-white">Watchlist</h1>
+                    <span className="text-gold text-xs font-label mb-1">
                         ({user.watchlist?.length || 0})
                     </span>
                 </div>
@@ -122,7 +122,7 @@ const Profile = () => {
                                 <img
                                     src={movie.posterUrl}
                                     alt={movie.title}
-                                    className="w-full aspect-[2/3] object-cover rounded shadow-lg border border-[#C5A059]/20"
+                                    className="w-full aspect-[2/3] object-cover rounded shadow-lg border border-gold/20"
                                 />
                                 <div className="hidden md:block absolute bottom-0 left-0 right-0 bg-black/60 p-2 text-xs truncate">
                                     {movie.title}
@@ -132,14 +132,14 @@ const Profile = () => {
                     </div>
                 ) : (
                     <div className="text-center mt-10">
-                        <p className="text-gray-500 font-cinzel italic text-sm">Your watchlist is empty.</p>
+                        <p className="text-gray-500 font-serif italic text-sm">Your watchlist is empty.</p>
                     </div>
                 )}
 
                 {/* Ratings Section — Mobile */}
                 <div className="flex items-end gap-2 mb-6 border-b border-white/10 pb-4 mt-12">
-                    <h1 className="text-3xl font-cinzel text-white">Your Ratings</h1>
-                    <span className="text-[#C5A059] text-xs font-mono mb-1">
+                    <h1 className="text-3xl font-serif text-white">Your Ratings</h1>
+                    <span className="text-gold text-xs font-label mb-1">
                         ({sortedRatings.length})
                     </span>
                 </div>
@@ -152,14 +152,14 @@ const Profile = () => {
                                     <img
                                         src={item.movie?.posterUrl}
                                         alt={item.movie?.title}
-                                        className="w-full aspect-[2/3] object-cover rounded shadow-lg border border-white/5 group-hover:border-[#C5A059]/50 transition-colors"
+                                        className="w-full aspect-[2/3] object-cover rounded shadow-lg border border-white/5 group-hover:border-gold/50 transition-colors"
                                     />
                                 </Link>
                                 <div className="flex justify-center gap-1 mt-1.5">
                                     {[1, 2, 3, 4, 5].map((star) => (
                                         <span
                                             key={star}
-                                            className={`text-base ${item.rating >= star ? 'text-[#C5A059]' : 'text-white/30'}`}
+                                            className={`text-base ${item.rating >= star ? 'text-gold' : 'text-white/30'}`}
                                         >
                                             ★
                                         </span>
@@ -170,7 +170,7 @@ const Profile = () => {
                     </div>
                 ) : (
                     <div className="text-center mt-10">
-                        <p className="text-gray-500 font-cinzel italic text-sm">No films rated yet.</p>
+                        <p className="text-gray-500 font-serif italic text-sm">No films rated yet.</p>
                     </div>
                 )}
             </div>
@@ -208,7 +208,7 @@ const Profile = () => {
                                 <p className="text-muted text-lg mb-6">No favorites yet</p>
                                 <a
                                     href="/explore"
-                                    className="inline-block px-8 py-4 bg-accent-primary/10 border border-accent-primary/30 text-accent-primary tracking-wide uppercase text-sm hover:bg-accent-primary/20 transition-colors"
+                                    className="font-label inline-block px-8 py-4 bg-gold/10 border border-gold/30 text-gold tracking-[0.14em] uppercase text-sm hover:bg-gold/20 transition-colors"
                                 >
                                     Explore Films
                                 </a>
@@ -281,14 +281,14 @@ const Profile = () => {
                                             <img
                                                 src={item.movie?.posterUrl}
                                                 alt={item.movie?.title}
-                                                className="w-full aspect-[2/3] object-cover rounded-lg shadow-xl border border-white/5 group-hover:border-[#C5A059]/50 transition-colors duration-300"
+                                                className="w-full aspect-[2/3] object-cover rounded-lg shadow-xl border border-white/5 group-hover:border-gold/50 transition-colors duration-300"
                                             />
                                         </Link>
                                         <div className="flex justify-center gap-1.5 mt-2">
                                             {[1, 2, 3, 4, 5].map((star) => (
                                                 <span
                                                     key={star}
-                                                    className={`text-xl ${item.rating >= star ? 'text-[#C5A059]' : 'text-white/30'}`}
+                                                    className={`text-xl ${item.rating >= star ? 'text-gold' : 'text-white/30'}`}
                                                 >
                                                     ★
                                                 </span>

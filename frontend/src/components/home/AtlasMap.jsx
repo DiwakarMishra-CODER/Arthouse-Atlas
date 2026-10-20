@@ -201,7 +201,7 @@ const AtlasMap = ({ heading = null }) => {
                             {filmCard.film.s && <img src={stillSrc(filmCard.film.s)} alt="" className="w-full aspect-video object-cover" />}
                             <div className="px-3 py-2.5">
                                 <div className="font-serif text-white leading-tight">{filmCard.film.t}</div>
-                                <div className="mt-1 font-mono text-[10px] tracking-[0.18em] uppercase text-gray-400">{[filmCard.film.d, filmCard.film.y].filter(Boolean).join(' · ')}</div>
+                                <div className="mt-1 font-label text-[12px] tracking-[0.14em] uppercase text-gray-400">{[filmCard.film.d, filmCard.film.y].filter(Boolean).join(' · ')}</div>
                             </div>
                         </div>
                     )}
@@ -217,11 +217,11 @@ const AtlasMap = ({ heading = null }) => {
                                 exit={{ opacity: 0, x: 40, transition: { duration: 0.25 } }}
                                 transition={{ duration: 0.6, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
                             >
-                                <button onClick={() => setSelected(null)} className="self-start flex items-center gap-2 font-mono text-[11px] tracking-[0.2em] uppercase text-gray-400 hover:text-white transition-colors">
+                                <button onClick={() => setSelected(null)} className="self-start flex items-center gap-2 font-label text-[12px] tracking-[0.14em] uppercase text-gray-400 hover:text-white transition-colors">
                                     <MdArrowBack /> The whole world
                                 </button>
                                 <h3 className="mt-4 font-serif text-3xl md:text-4xl text-white leading-tight">{label(selected)}</h3>
-                                <div className="mt-1 font-mono text-[11px] tracking-[0.2em] uppercase text-gray-500">
+                                <div className="mt-1 font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">
                                     {countryFilms.length} {countryFilms.length === 1 ? 'film' : 'films'}{countryFilms.length ? ` · ${countryFilms[0].y}–${countryFilms[countryFilms.length - 1].y}` : ''}
                                 </div>
                                 <ol className="mt-5 flex-1 min-h-0 max-h-80 md:max-h-none overflow-y-auto pr-2 [scrollbar-width:thin]" onMouseLeave={() => map.current?.setFilmHighlight(null)}>
@@ -235,7 +235,7 @@ const AtlasMap = ({ heading = null }) => {
                                                     onFocus={() => map.current?.setFilmHighlight(f.id)}
                                                     className="group w-full flex items-baseline gap-4 py-2 text-left border-b border-white/[0.06]"
                                                 >
-                                                    <span className={`font-mono text-[11px] tabular-nums w-10 shrink-0 ${now ? 'text-[#f6d48f]' : 'text-gray-600'}`}>{f.y}</span>
+                                                    <span className={`font-label text-[12px] tabular-nums w-10 shrink-0 ${now ? 'text-[#f6d48f]' : 'text-gray-600'}`}>{f.y}</span>
                                                     <span className={`font-serif leading-snug transition-colors ${now ? 'text-white' : 'text-gray-400'} group-hover:text-[#f6d48f]`}>{f.t}</span>
                                                 </button>
                                             </li>
@@ -247,7 +247,7 @@ const AtlasMap = ({ heading = null }) => {
                     </AnimatePresence>
 
                     {/* the country under the pointer, named in the map's empty corner (under it on a phone) */}
-                    <div className="mt-1 md:mt-0 md:absolute md:left-0 md:top-0 md:pointer-events-none min-h-[1.25rem] font-mono text-[11px] tracking-[0.2em] uppercase text-gray-300">
+                    <div className="mt-1 md:mt-0 md:absolute md:left-0 md:top-0 md:pointer-events-none min-h-[1.25rem] font-label text-[12px] tracking-[0.14em] uppercase text-gray-300">
                         {hovered && !selected
                             ? <>{label(hovered)} <span className="text-gray-500">· {hoverCount.length} {hoverCount.length === 1 ? 'film' : 'films'}{hoverNow ? ` · ${hoverNow} around ${y}` : ''} · click to fly in</span></>
                             : <span className="text-gray-500">{selected ? 'Hover a light to see the film · click the sea to fly back out' : 'Click a country to fly into it and see its films'}</span>}
@@ -278,7 +278,7 @@ const AtlasMap = ({ heading = null }) => {
                         </div>
                         <div ref={slider} className="mt-4 md:pointer-events-auto">
                             <input type="range" min={FROM} max={TO} step="1" value={y} onChange={onSlide} aria-label="Year" className="atlas-slider w-full" />
-                            <div className="mt-2 flex justify-between font-mono text-[10px] tracking-[0.2em] text-gray-500">
+                            <div className="mt-2 flex justify-between font-label text-[12px] tracking-[0.14em] text-gray-500">
                                 <span>{FROM}</span><span>1950</span><span>1980</span><span>2000</span><span>{TO}</span>
                             </div>
                         </div>
@@ -290,11 +290,11 @@ const AtlasMap = ({ heading = null }) => {
             {!selected && (
                 <div className="mt-10">
                     <div className="flex items-center justify-between gap-4 mb-4">
-                        <div className="font-mono text-[11px] tracking-[0.3em] uppercase text-gray-400">
+                        <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gray-400">
                             Now showing <span className="text-gray-500">· {Math.ceil(y - WINDOW)}–{Math.floor(y + WINDOW)} · {strip.length} {strip.length === 1 ? 'film' : 'films'}</span>
                             {held && playing && <span className="ml-3 text-[#f6d48f]">· the years wait while you choose</span>}
                         </div>
-                        <Link to="/explore" className="font-mono text-[11px] tracking-[0.2em] uppercase text-gray-400 hover:text-white">All {films?.length || ''} films →</Link>
+                        <Link to="/explore" className="font-label text-[12px] tracking-[0.14em] uppercase text-gray-400 hover:text-white">All {films?.length || ''} films →</Link>
                     </div>
                     <ol
                         className="flex gap-3 overflow-x-auto pb-3 snap-x [scrollbar-width:thin]"
@@ -318,7 +318,7 @@ const AtlasMap = ({ heading = null }) => {
                                         {f.s && <img src={stillSrc(f.s)} alt="" loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />}
                                     </span>
                                     <span className="block mt-2 font-serif text-[15px] leading-tight text-gray-100 line-clamp-2 group-hover:text-white">{f.t}</span>
-                                    <span className="block mt-0.5 font-mono text-[10px] tracking-[0.15em] uppercase text-gray-500">{f.y} · {f.c}</span>
+                                    <span className="block mt-0.5 font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">{f.y} · {f.c}</span>
                                 </button>
                             </li>
                         ))}

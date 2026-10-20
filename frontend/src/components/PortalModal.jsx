@@ -215,7 +215,7 @@ const PortalModal = ({ movie, coords, onClose, onMouseEnter, onMouseLeave }) => 
 
                         {/* Row 2: Metadata */}
                         <div className="mb-2">
-                            <h3 className="font-serif text-lg font-bold text-white leading-tight mb-1 line-clamp-1">
+                            <h3 className="font-serif text-lg font-medium text-white leading-tight mb-1 line-clamp-1">
                                 {movie.title}
                             </h3>
                             <div className="flex items-center gap-2 text-xs text-gray-300">

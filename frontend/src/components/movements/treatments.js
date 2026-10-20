@@ -35,7 +35,7 @@ export const TREATMENTS = {
         screenFilter: 'sepia(0.12) saturate(1.15)',
         hover: 'pushin',
         title: 'below',
-        accent: '#c5a059'
+        accent: '#d9ad62'
     },
     nouvelle: {
         filter: 'saturate(1.15) contrast(1.05)',

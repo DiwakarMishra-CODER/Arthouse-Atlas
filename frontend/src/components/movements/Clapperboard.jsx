@@ -9,7 +9,7 @@ const STICKS = 'bg-[repeating-linear-gradient(-56deg,#f2f0ea_0_26px,#0b0b0b_26px
 
 const Field = ({ label, children, className = '' }) => (
     <div className={`px-4 py-3 border-white/25 ${className}`}>
-        <div className="font-mono text-[9px] tracking-[0.3em] uppercase text-white/45">{label}</div>
+        <div className="font-label text-[12px] tracking-[0.14em] uppercase text-white/45">{label}</div>
         <div className="mt-1 font-courier text-[#f2f0ea] leading-tight">{children}</div>
     </div>
 );

@@ -38,7 +38,7 @@ const SPOTS = [
     { color: '#3fd0ff', left: '64%', from: -8, to: 16, secs: 10 }
 ];
 // the back wall's colour for the rooms without one of their own
-const WALL = { movements: '#c5a059', directors: '#d08a3a', studios: '#6b4bd6' };
+const WALL = { movements: '#d9ad62', directors: '#d08a3a', studios: '#6b4bd6' };
 // a trailer is quick: the room's name for a beat, then three shots from inside it, then the stage turns
 const EXAMPLES = 3;
 const SHOT_MS = [1300, 1300, 1300, 1300]; // the name card, then each example
@@ -145,7 +145,7 @@ const Card = ({ small, big, back, children }) => (
     <div className="absolute inset-0 bg-[#080706] flex flex-col items-center justify-center text-center px-6 overflow-hidden">
         {back}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(8,7,6,0.85)_25%,rgba(8,7,6,0.35)_80%)]" />
-        {small && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }} className="relative font-mono text-[10px] md:text-xs tracking-[0.4em] uppercase text-[#c5a059]">{small}</motion.div>}
+        {small && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }} className="relative font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gold">{small}</motion.div>}
         <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, ease: EASE }} className="relative mt-2 md:mt-3 font-serif text-3xl md:text-6xl text-white">
             {big}
         </motion.div>
@@ -157,7 +157,7 @@ const Card = ({ small, big, back, children }) => (
 const Label = ({ title, sub, color = '#f4dcae' }) => (
     <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.1, ease: EASE }} className="absolute left-[4%] bottom-[8%] max-w-[34%] md:max-w-[36%]">
         <div className="font-serif text-xl md:text-4xl leading-tight text-white [text-shadow:0_2px_20px_rgba(0,0,0,0.9)]">{title}</div>
-        {sub && <div className="mt-1 md:mt-2 font-mono text-[9px] md:text-[11px] tracking-[0.25em] uppercase [text-shadow:0_1px_8px_#000]" style={{ color }}>{sub}</div>}
+        {sub && <div className="mt-1 md:mt-2 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase [text-shadow:0_1px_8px_#000]" style={{ color }}>{sub}</div>}
     </motion.div>
 );
 
@@ -243,7 +243,7 @@ const Drape = ({ side, className }) => {
             <path d={edge} fill={`url(#${id}-shade)`} />
             {/* the tie-back */}
             <path d="M0,60 C14,58 30,60 40,62" stroke="#d9b877" strokeWidth="2.2" fill="none" vectorEffect="non-scaling-stroke" />
-            <ellipse cx="40" cy="63" rx="3" ry="2.2" fill="#c5a059" />
+            <ellipse cx="40" cy="63" rx="3" ry="2.2" fill="#d9ad62" />
         </svg>
     );
 };
@@ -257,7 +257,7 @@ const Valance = ({ className, swags = 9 }) => {
             <Velvet id="valance" />
             <path d={`M0,0 H100 V62 H100 M0,62 ${scallops} V0 H0 Z`} fill="url(#valance-folds)" />
             <path d={`M0,62 ${scallops}`} stroke="#d9b877" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" />
-            <path d="M0,10 H100" stroke="#c5a059" strokeOpacity="0.6" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+            <path d="M0,10 H100" stroke="#d9ad62" strokeOpacity="0.6" strokeWidth="1" vectorEffect="non-scaling-stroke" />
         </svg>
     );
 };
@@ -398,7 +398,7 @@ const Auditorium = ({ reducedMotion = false }) => {
                                 {/* projected light: the lamp's faint flicker, brighter at the centre */}
                                 <div className="projector-flicker absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,rgba(255,248,230,0.10),transparent_65%)]" />
                                 <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_60px_rgba(0,0,0,0.55)]" />
-                                <span className="absolute right-[2.5%] bottom-[6%] inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-[#f4ecd8] font-mono text-[10px] tracking-[0.22em] uppercase text-[#141110] shadow-[0_6px_20px_rgba(0,0,0,0.5)] group-hover:bg-white transition-colors">
+                                <span className="absolute right-[2.5%] bottom-[6%] inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-[#f4ecd8] font-label text-[12px] tracking-[0.14em] uppercase text-[#141110] shadow-[0_6px_20px_rgba(0,0,0,0.5)] group-hover:bg-white transition-colors">
                                     Enter {r.name} <MdArrowOutward />
                                 </span>
                             </Link>
@@ -418,12 +418,12 @@ const Auditorium = ({ reducedMotion = false }) => {
             {!reducedMotion && <motion.div key={`flash-${at.room}-${at.round}`} className="absolute inset-0 z-[6] bg-[#fff6e4] pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: [0, 0.1, 0, 0.04, 0] }} transition={{ duration: 0.55 }} />}
 
             {/* the marquee, flown in over the stage: all three rooms billed, the one playing lit */}
-            <div className="absolute z-[6] left-1/2 -translate-x-1/2 w-[86%] md:w-auto bg-[#0f0d0b] ring-1 ring-[#c5a059]/50 shadow-[0_10px_30px_rgba(0,0,0,0.8)] px-3 md:px-6 pt-2 pb-2.5" style={{ top: `${L.valance + 2}%` }}>
+            <div className="absolute z-[6] left-1/2 -translate-x-1/2 w-[86%] md:w-auto bg-[#0f0d0b] ring-1 ring-gold/50 shadow-[0_10px_30px_rgba(0,0,0,0.8)] px-3 md:px-6 pt-2 pb-2.5" style={{ top: `${L.valance + 2}%` }}>
                 <div className="absolute inset-x-2 top-1 flex justify-between" aria-hidden="true">
                     {Array.from({ length: 18 }, (_, k) => <span key={k} className="marquee-bulb w-1.5 h-1.5 rounded-full" style={{ '--b': k % 3 }} />)}
                 </div>
                 <div className="mt-2 flex items-baseline justify-center gap-3 md:gap-6">
-                    <span className="hidden md:inline font-mono text-[9px] tracking-[0.35em] uppercase text-gray-500">Now showing</span>
+                    <span className="hidden md:inline font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">Now showing</span>
                     {ROOMS.map((r, k) => {
                         const on = k === at.room;
                         return (

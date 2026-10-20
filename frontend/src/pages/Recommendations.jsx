@@ -57,7 +57,7 @@ const Recommendations = () => {
                     </p>
                     <a
                         href="/login"
-                        className="inline-block px-8 py-4 bg-accent-primary/10 border border-accent-primary/30 text-accent-primary tracking-wide uppercase text-sm hover:bg-accent-primary/20 transition-colors"
+                        className="font-label inline-block px-8 py-4 bg-gold/10 border border-gold/30 text-gold tracking-[0.14em] uppercase text-sm hover:bg-gold/20 transition-colors"
                     >
                         Sign In
                     </a>
@@ -92,11 +92,11 @@ const Recommendations = () => {
                             Your Taste Profile
                         </h2>
                         <p className="text-muted mb-6">
-                            Analyzing <span className="text-accent-primary font-medium">{basedOn.favoredMoviesCount}</span> films from your taste profile
+                            Analyzing <span className="text-gold font-medium">{basedOn.favoredMoviesCount}</span> films from your taste profile
                         </p>
                         {basedOn.tags && basedOn.tags.length > 0 && (
                             <div>
-                                <h3 className="text-xs uppercase tracking-wider text-muted mb-4">
+                                <h3 className="font-label text-xs uppercase tracking-[0.14em] text-muted mb-4">
                                     Dominant Themes
                                 </h3>
                                 <div className="flex flex-wrap gap-3">
@@ -115,7 +115,7 @@ const Recommendations = () => {
                         <p className="text-muted text-lg mb-6">{error}</p>
                         <a
                             href="/explore"
-                            className="inline-block px-8 py-4 bg-accent-primary/10 border border-accent-primary/30 text-accent-primary tracking-wide uppercase text-sm hover:bg-accent-primary/20 transition-colors"
+                            className="font-label inline-block px-8 py-4 bg-gold/10 border border-gold/30 text-gold tracking-[0.14em] uppercase text-sm hover:bg-gold/20 transition-colors"
                         >
                             Explore Films
                         </a>

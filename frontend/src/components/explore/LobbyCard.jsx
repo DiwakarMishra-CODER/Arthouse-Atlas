@@ -36,13 +36,13 @@ const LobbyCard = ({ film, index = 0, onDirector, onMovement }) => {
                 )}
                 <span aria-hidden="true" className="absolute inset-0 bg-grain opacity-60" />
                 {film.canonRank && (
-                    <span className="absolute left-2.5 top-2.5 px-2 py-1 bg-black/70 backdrop-blur-[2px] font-mono text-[10px] tracking-[0.15em] text-[#e2b866]" title={`Number ${film.canonRank} in the atlas's canon`}>
+                    <span className="absolute left-2.5 top-2.5 px-2 py-1 bg-black/70 backdrop-blur-[2px] font-label text-[12px] tracking-[0.14em] text-gold" title={`Number ${film.canonRank} in the atlas's canon`}>
                         № {film.canonRank}
                     </span>
                 )}
             </Link>
             <div className="mt-3">
-                <Link to={to} className="font-serif text-[1.3rem] leading-tight text-white hover:text-[#f6d796] transition-colors">{film.title}</Link>
+                <Link to={to} className="font-serif text-[1.3rem] leading-tight text-white hover:text-gold-light transition-colors">{film.title}</Link>
                 {film.originalTitle && <div className="mt-0.5 text-sm italic text-gray-500 truncate">{film.originalTitle}</div>}
                 {film.directors?.length > 0 && (
                     <div className="mt-1 text-sm text-gray-400">
@@ -55,9 +55,9 @@ const LobbyCard = ({ film, index = 0, onDirector, onMovement }) => {
                         ))}
                     </div>
                 )}
-                <div className="mt-1.5 font-mono text-[10px] md:text-[11px] tracking-[0.18em] uppercase text-gray-500">{facts.join(' · ')}</div>
+                <div className="mt-1.5 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gray-500">{facts.join(' · ')}</div>
                 {film.movements?.[0] && (
-                    <button type="button" onClick={() => onMovement(film.movements[0])} className="mt-1 block font-mono text-[10px] md:text-[11px] tracking-[0.18em] uppercase text-left text-[#c5a059] hover:text-[#f6d796] transition-colors">{film.movements[0]}</button>
+                    <button type="button" onClick={() => onMovement(film.movements[0])} className="mt-1 block font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-left text-gold hover:text-gold-light transition-colors">{film.movements[0]}</button>
                 )}
                 <p className="mt-2 text-sm leading-relaxed text-gray-400 line-clamp-2">{line}</p>
             </div>

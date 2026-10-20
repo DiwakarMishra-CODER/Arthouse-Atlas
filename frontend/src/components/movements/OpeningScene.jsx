@@ -58,7 +58,7 @@ const OpeningScene = ({ movement, treatment: t, backdrop, gesture, title, kicker
                 {backdrop && (
                     <figure className="max-w-6xl mx-auto px-4 md:px-8">
                         <div className="aspect-video overflow-hidden ring-1 ring-white/[0.06]" style={{ filter: t.screenFilter }}>{still}</div>
-                        <figcaption className="mt-4 font-mono text-[11px] tracking-[0.25em] uppercase text-gray-400">{creditLine}</figcaption>
+                        <figcaption className="mt-4 font-label text-[12px] tracking-[0.14em] uppercase text-gray-400">{creditLine}</figcaption>
                     </figure>
                 )}
             </>
@@ -98,11 +98,11 @@ const OpeningScene = ({ movement, treatment: t, backdrop, gesture, title, kicker
                     <div className="relative z-10 w-full max-w-5xl">{kicker}{title}{tagline}</div>
                 </motion.div>
 
-                <motion.div style={{ opacity: creditOp }} className="absolute bottom-8 inset-x-0 px-4 md:px-10 flex justify-between font-mono text-[11px] tracking-[0.25em] uppercase text-gray-300">
+                <motion.div style={{ opacity: creditOp }} className="absolute bottom-8 inset-x-0 px-4 md:px-10 flex justify-between font-label text-[12px] tracking-[0.14em] uppercase text-gray-300">
                     {creditLine}
                     <span className="hidden md:inline">{movement.era}</span>
                 </motion.div>
-                <motion.div style={{ opacity: hintOp }} className="absolute bottom-6 left-1/2 -translate-x-1/2 font-mono text-[11px] tracking-[0.3em] text-gray-400 uppercase">
+                <motion.div style={{ opacity: hintOp }} className="absolute bottom-6 left-1/2 -translate-x-1/2 font-label text-[12px] tracking-[0.14em] text-gray-400 uppercase">
                     {movement.filmCount} films <span className="mx-2">·</span> scroll
                 </motion.div>
             </div>

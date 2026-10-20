@@ -61,7 +61,7 @@ const Laurel = ({ name, place, color = '#d4b26a', href, delay = 0, reducedMotion
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: delay + 0.45 }}
             >
-                <span className="font-mono text-[9.5px] leading-[1.35] tracking-[0.14em] uppercase" style={{ color }}>{name}</span>
+                <span className="font-label text-[9.5px] leading-[1.35] tracking-[0.14em] uppercase" style={{ color }}>{name}</span>
                 <span className="mt-1.5 font-serif text-[15px] leading-tight text-white">{place}</span>
             </motion.div>
         </div>

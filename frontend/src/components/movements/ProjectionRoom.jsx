@@ -6,7 +6,7 @@
  * one hovered, or the one scrolled into the middle — so reading down the
  * century slowly re-lights the page.
  */
-const ProjectionRoom = ({ tint = '#c5a059', reducedMotion = false }) => (
+const ProjectionRoom = ({ tint = '#d9ad62', reducedMotion = false }) => (
     <div aria-hidden="true" className="projection-room pointer-events-none fixed inset-0 z-0" style={{ '--tint': tint }}>
         {/* the room takes the movement's light */}
         <div className="absolute inset-0 [background:radial-gradient(ellipse_75%_60%_at_50%_-8%,color-mix(in_srgb,var(--tint)_28%,transparent),transparent_72%)]" />

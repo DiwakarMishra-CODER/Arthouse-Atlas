@@ -214,12 +214,12 @@ const Explore = () => {
                 <div className="mt-6 md:mt-8 flex flex-col-reverse md:flex-row md:items-center gap-4 md:gap-6">
                     <div className="flex flex-wrap items-center gap-2">
                         {ADDABLE.filter(([k]) => !sel[k]).map(([k, label]) => (
-                            <button key={k} type="button" onClick={() => setPicker(picker === k ? null : k)} aria-expanded={picker === k} className={`px-3 py-2 font-mono text-[11px] tracking-[0.18em] uppercase ring-1 transition-colors ${picker === k ? 'ring-[#e2b866] text-[#f6d796]' : 'ring-white/15 text-gray-300 hover:ring-white/40 hover:text-white'}`}>
+                            <button key={k} type="button" onClick={() => setPicker(picker === k ? null : k)} aria-expanded={picker === k} className={`px-3 py-2 font-label text-[12px] tracking-[0.14em] uppercase ring-1 transition-colors ${picker === k ? 'ring-gold text-gold-light' : 'ring-white/15 text-gray-300 hover:ring-white/40 hover:text-white'}`}>
                                 + {label}
                             </button>
                         ))}
                         {any && (
-                            <button type="button" onClick={reset} className="px-2 py-2 font-mono text-[11px] tracking-[0.18em] uppercase text-gray-500 hover:text-white">Show everything</button>
+                            <button type="button" onClick={reset} className="px-2 py-2 font-label text-[12px] tracking-[0.14em] uppercase text-gray-500 hover:text-white">Show everything</button>
                         )}
                     </div>
                     <div className="md:ml-auto">
@@ -250,7 +250,7 @@ const Explore = () => {
                 ) : ready && wall.failed ? (
                     <div className="mt-14 text-center">
                         <p className="font-serif text-2xl md:text-3xl text-gray-200">The films couldn’t be reached just now.</p>
-                        <button type="button" onClick={() => setAttempt((a) => a + 1)} className="mt-5 px-4 py-2.5 font-mono text-[11px] tracking-[0.2em] uppercase ring-1 ring-[#e2b866]/60 text-[#f6d796] hover:bg-[#e2b866] hover:text-black transition-colors">
+                        <button type="button" onClick={() => setAttempt((a) => a + 1)} className="mt-5 px-4 py-2.5 font-label text-[12px] tracking-[0.14em] uppercase ring-1 ring-gold/60 text-gold-light hover:bg-gold hover:text-black transition-colors">
                             Try again
                         </button>
                     </div>
@@ -260,7 +260,7 @@ const Explore = () => {
                         <p className="mt-2 text-gray-400">Take something down:</p>
                         <div className="mt-5 flex flex-wrap justify-center gap-2">
                             {[...sentence, ...listed].filter((p) => p.control).map((p) => (
-                                <button key={p.id} type="button" onClick={() => choose(p.id, '')} className="px-3 py-2 font-mono text-[11px] tracking-[0.18em] uppercase ring-1 ring-white/15 text-gray-300 hover:ring-white/40 hover:text-white">
+                                <button key={p.id} type="button" onClick={() => choose(p.id, '')} className="px-3 py-2 font-label text-[12px] tracking-[0.14em] uppercase ring-1 ring-white/15 text-gray-300 hover:ring-white/40 hover:text-white">
                                     − {p.text}
                                 </button>
                             ))}
@@ -281,7 +281,7 @@ const Explore = () => {
                         </div>
                         {hasMore && <div ref={sentinel} className="h-px" aria-hidden="true" />}
                         {ready && !hasMore && (
-                            <div className="mt-16 text-center font-mono text-[11px] tracking-[0.25em] uppercase text-gray-500">
+                            <div className="mt-16 text-center font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">
                                 {total === 1 ? 'That’s the one.' : `That’s all ${total}.`}
                                 {nextDecade && (
                                     <button type="button" onClick={() => choose('decade', nextDecade.value, { up: true })} className="block mx-auto mt-3 text-gray-300 hover:text-white">

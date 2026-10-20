@@ -204,13 +204,13 @@ const Beat = ({ p, i, n, beat, film }) => {
             <div className="absolute inset-0 flex items-end">
                 <div className="w-full max-w-7xl mx-auto px-6 md:px-14 pb-[11vh] md:pb-[13vh]">
                     <motion.div style={{ opacity: answerOp, y: answerY }}>
-                        <div className="font-mono text-[11px] md:text-xs tracking-[0.3em] uppercase text-[#ff8a80]">{director ? `${director}'s answer` : "The director's answer"}</div>
+                        <div className="font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-[#ff8a80]">{director ? `${director}'s answer` : "The director's answer"}</div>
                         <p className="mt-3 max-w-4xl font-serif text-[2.6rem] md:text-7xl leading-[1.02] text-white [text-shadow:0_2px_40px_rgba(0,0,0,0.6)]">{beat.answer}</p>
                     </motion.div>
                     <motion.div style={{ opacity: feelOp }} className="mt-5 md:mt-6 flex flex-col md:flex-row md:items-end gap-4 md:gap-10">
                         <p className="max-w-xl text-base md:text-xl leading-relaxed text-gray-100">{beat.feel}</p>
                         {film && (
-                            <Link to={`/movie/${film._id}`} className="group shrink-0 inline-flex items-center gap-2 self-start md:self-auto px-4 py-2.5 bg-white/10 ring-1 ring-white/25 hover:bg-white hover:text-[#141110] font-mono text-[11px] tracking-[0.2em] uppercase text-white transition-colors">
+                            <Link to={`/movie/${film._id}`} className="group shrink-0 inline-flex items-center gap-2 self-start md:self-auto px-4 py-2.5 bg-white/10 ring-1 ring-white/25 hover:bg-white hover:text-[#141110] font-label text-[12px] tracking-[0.14em] uppercase text-white transition-colors">
                                 Watch {film.title} <MdArrowOutward />
                             </Link>
                         )}
@@ -292,7 +292,7 @@ const MaskedScreen = ({ p, opener }) => {
     return (
         <div className="absolute inset-0 flex flex-col pointer-events-none" aria-hidden="true">
             <motion.div className="relative flex-1 bg-black" style={{ y: topY }}>
-                <motion.div className="absolute inset-x-0 bottom-0 max-w-7xl mx-auto px-6 md:px-14 pb-4 md:pb-5 font-mono text-[11px] tracking-[0.35em] uppercase text-[#c5a059]" style={{ opacity: kickerOp }}>What is arthouse cinema?</motion.div>
+                <motion.div className="absolute inset-x-0 bottom-0 max-w-7xl mx-auto px-6 md:px-14 pb-4 md:pb-5 font-label text-[12px] tracking-[0.14em] uppercase text-gold" style={{ opacity: kickerOp }}>What is arthouse cinema?</motion.div>
             </motion.div>
             <motion.div className="relative w-full max-h-[80vh] aspect-[1.85/1] md:aspect-[2.39/1] bg-black overflow-hidden" style={{ opacity: screenOp }}>
                 {still && (
@@ -315,7 +315,7 @@ const MaskedScreen = ({ p, opener }) => {
                 </div>
             </motion.div>
             <motion.div className="relative flex-1 bg-black" style={{ y: bottomY }}>
-                <div className="relative pt-4 md:pt-5 px-6 text-center font-mono uppercase">
+                <div className="relative pt-4 md:pt-5 px-6 text-center font-label uppercase">
                     <div className="relative h-4 text-[10px] md:text-[11px] tracking-[0.3em]">
                         <motion.span className="absolute inset-x-0 text-gray-300" style={{ opacity: madeOp }}>{surname ? `As ${surname} framed it` : 'As its director framed it'}</motion.span>
                         <motion.span className="absolute inset-x-0 text-[#e0a64a]" style={{ opacity: studioOp }}>If a studio had its way</motion.span>
@@ -363,7 +363,7 @@ const ArthouseBreath = ({ films = [], reducedMotion = false }) => {
 
     const definition = (
         <>
-            <div className="font-mono text-[11px] tracking-[0.35em] uppercase text-[#c5a059]">That's arthouse cinema</div>
+            <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">That's arthouse cinema</div>
             <p className="mt-4 font-serif text-4xl md:text-7xl leading-[1.02] text-white">Films whose makers<br className="hidden md:block" /> didn't take the note.</p>
         </>
     );
@@ -371,15 +371,15 @@ const ArthouseBreath = ({ films = [], reducedMotion = false }) => {
     if (reducedMotion) {
         return (
             <section className="max-w-7xl mx-auto px-6 md:px-14 py-24">
-                <div className="font-mono text-[11px] tracking-[0.35em] uppercase text-[#c5a059]">What is arthouse cinema?</div>
+                <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">What is arthouse cinema?</div>
                 <p className="mt-4 font-serif text-3xl md:text-5xl text-white">Every film gets notes from the people paying for it.</p>
                 <div className="mt-12 grid md:grid-cols-2 gap-10">
                     {BEATS.map((beat, i) => (
                         <div key={beat.title}>
-                            <div className="font-mono text-sm text-gray-400 line-through decoration-[#c62828] decoration-2">Studio note: {beat.note}</div>
+                            <div className="font-courier text-sm text-gray-400 line-through decoration-[#c62828] decoration-2">Studio note: {beat.note}</div>
                             <p className="mt-3 font-serif text-3xl text-white">{beat.answer}</p>
                             <p className="mt-2 text-gray-300">{beat.feel}</p>
-                            {found[i] && <Link to={`/movie/${found[i]._id}`} className="mt-2 inline-block font-mono text-[11px] tracking-[0.2em] uppercase text-gray-300 hover:text-white">Watch {found[i].title} →</Link>}
+                            {found[i] && <Link to={`/movie/${found[i]._id}`} className="mt-2 inline-block font-label text-[12px] tracking-[0.14em] uppercase text-gray-300 hover:text-white">Watch {found[i].title} →</Link>}
                         </div>
                     ))}
                 </div>
@@ -423,7 +423,7 @@ const ArthouseBreath = ({ films = [], reducedMotion = false }) => {
                                 );
                             })}
                         </div>
-                        <Link to="/explore" className="mt-8 inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.25em] uppercase text-gray-300 hover:text-white transition-colors">
+                        <Link to="/explore" className="mt-8 inline-flex items-center gap-2 font-label text-[12px] tracking-[0.14em] uppercase text-gray-300 hover:text-white transition-colors">
                             Find more like these <MdArrowOutward />
                         </Link>
                     </div>

@@ -36,8 +36,8 @@ export const PickerPanel = ({ title, onClose, children }) => {
                 className="fixed inset-x-0 bottom-0 z-50 max-h-[78vh] overflow-y-auto overscroll-contain rounded-t-2xl bg-[#0b0b0b] ring-1 ring-white/10 px-5 pt-5 pb-8 outline-none md:static md:z-auto md:mt-6 md:max-h-[62vh] md:rounded-none md:px-8 md:pt-6"
             >
                 <div className="flex items-center justify-between gap-4 mb-5">
-                    <h2 className="font-mono text-[11px] tracking-[0.3em] uppercase text-[#c5a059]">{title}</h2>
-                    <button type="button" onClick={onClose} className="font-mono text-[11px] tracking-[0.25em] uppercase text-gray-300 hover:text-white px-2 py-1">Done</button>
+                    <h2 className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">{title}</h2>
+                    <button type="button" onClick={onClose} className="font-label text-[12px] tracking-[0.14em] uppercase text-gray-300 hover:text-white px-2 py-1">Done</button>
                 </div>
                 {children}
             </section>
@@ -45,7 +45,7 @@ export const PickerPanel = ({ title, onClose, children }) => {
     );
 };
 
-const Count = ({ n }) => <span className="ml-2 font-mono text-[11px] text-gray-500 tabular-nums">{n}</span>;
+const Count = ({ n }) => <span className="ml-2 font-label text-[12px] text-gray-500 tabular-nums">{n}</span>;
 
 // a plain choice: a word and how many films it would give
 const Choice = ({ label, n, active, onClick, className = '' }) => (
@@ -54,14 +54,14 @@ const Choice = ({ label, n, active, onClick, className = '' }) => (
         onClick={onClick}
         disabled={!n && !active}
         aria-pressed={active}
-        className={`text-left px-3 py-2.5 ring-1 transition-colors ${active ? 'ring-[#e2b866] text-[#f6d796] bg-[#e2b866]/10' : 'ring-white/10 text-gray-200 hover:ring-white/40 hover:text-white'} disabled:opacity-30 disabled:hover:ring-white/10 ${className}`}
+        className={`text-left px-3 py-2.5 ring-1 transition-colors ${active ? 'ring-gold text-gold-light bg-gold/10' : 'ring-white/10 text-gray-200 hover:ring-white/40 hover:text-white'} disabled:opacity-30 disabled:hover:ring-white/10 ${className}`}
     >
         {label}<Count n={n} />
     </button>
 );
 
 const Clear = ({ label, onClick, active }) => (
-    <button type="button" onClick={onClick} className={`mb-4 font-mono text-[11px] tracking-[0.2em] uppercase ${active ? 'text-[#e2b866]' : 'text-gray-400 hover:text-white'}`}>
+    <button type="button" onClick={onClick} className={`mb-4 font-label text-[12px] tracking-[0.14em] uppercase ${active ? 'text-gold' : 'text-gray-400 hover:text-white'}`}>
         {active ? `● ${label}` : label}
     </button>
 );
@@ -72,7 +72,7 @@ const Filter = ({ value, onChange, placeholder }) => (
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full md:w-80 mb-4 bg-transparent border-b border-white/20 focus:border-[#e2b866] outline-none py-2 text-gray-100 placeholder:text-gray-500 [&::-webkit-search-cancel-button]:appearance-none"
+        className="w-full md:w-80 mb-4 bg-transparent border-b border-white/20 focus:border-gold outline-none py-2 text-gray-100 placeholder:text-gray-500 [&::-webkit-search-cancel-button]:appearance-none"
     />
 );
 
@@ -105,14 +105,14 @@ export const DecadePicker = ({ options = [], value, onPick }) => {
                     const active = String(d) === String(value);
                     return (
                         <button key={d} type="button" disabled={!n && !active} onClick={() => onPick(d)} aria-pressed={active} aria-label={`The ${d}s: ${n} films`} className="group h-full flex flex-col justify-end items-center gap-2 disabled:opacity-30">
-                            <span className={`font-mono text-[10px] tabular-nums ${active ? 'text-[#f6d796]' : 'text-gray-400'}`}>{n || ''}</span>
-                            <span className={`w-full transition-colors ${active ? 'bg-[#e2b866]' : 'bg-[#c5a059]/35 group-hover:bg-[#c5a059]/70'}`} style={{ height: `${Math.max(2, (n / max) * 100)}%` }} />
-                            <span className={`font-mono text-[10px] md:text-[11px] tracking-[0.1em] ${active ? 'text-[#e2b866]' : 'text-gray-300'}`}>{`${String(d).slice(2)}s`}</span>
+                            <span className={`font-label text-[12px] tabular-nums ${active ? 'text-gold-light' : 'text-gray-400'}`}>{n || ''}</span>
+                            <span className={`w-full transition-colors ${active ? 'bg-gold' : 'bg-gold/35 group-hover:bg-gold/70'}`} style={{ height: `${Math.max(2, (n / max) * 100)}%` }} />
+                            <span className={`font-label text-[12px] md:text-[13px] tracking-[0.14em] ${active ? 'text-gold' : 'text-gray-300'}`}>{`${String(d).slice(2)}s`}</span>
                         </button>
                     );
                 })}
             </div>
-            <div aria-hidden="true" className="mt-2 grid grid-cols-11 gap-1.5 md:gap-3 font-mono text-[10px] tracking-[0.2em] text-gray-500">
+            <div aria-hidden="true" className="mt-2 grid grid-cols-11 gap-1.5 md:gap-3 font-label text-[12px] tracking-[0.14em] text-gray-500">
                 <span className="col-span-8 border-t border-white/15 pt-1.5 text-center">1900s</span>
                 <span className="col-span-3 border-t border-white/15 pt-1.5 text-center">2000s</span>
             </div>
@@ -137,19 +137,19 @@ export const DirectorPicker = ({ options = [], value, onPick }) => {
                     const active = norm(o.value) === norm(value);
                     return (
                         <button key={o.value} type="button" onClick={() => onPick(o.value)} aria-pressed={active} className="group text-left">
-                            <span className={`block aspect-square overflow-hidden ring-1 ${active ? 'ring-[#e2b866]' : 'ring-white/10 group-hover:ring-white/40'} bg-[#141414]`}>
+                            <span className={`block aspect-square overflow-hidden ring-1 ${active ? 'ring-gold' : 'ring-white/10 group-hover:ring-white/40'} bg-[#141414]`}>
                                 {o.portrait
                                     ? <img src={sized(o.portrait, 'w185')} alt="" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-[filter] duration-500" />
                                     : <span className="w-full h-full flex items-center justify-center font-serif text-2xl text-gray-500">{initials(o.value)}</span>}
                             </span>
-                            <span className={`mt-1.5 block text-[12px] leading-tight ${active ? 'text-[#f6d796]' : 'text-gray-200'}`}>{o.value}</span>
-                            <span className="font-mono text-[10px] text-gray-500">{o.n} {o.n === 1 ? 'film' : 'films'}</span>
+                            <span className={`mt-1.5 block text-[12px] leading-tight ${active ? 'text-gold-light' : 'text-gray-200'}`}>{o.value}</span>
+                            <span className="font-label text-[12px] text-gray-500">{o.n} {o.n === 1 ? 'film' : 'films'}</span>
                         </button>
                     );
                 })}
             </div>
             {!typed && !all && matching.length > shown.length && (
-                <button type="button" onClick={() => setAll(true)} className="mt-5 font-mono text-[11px] tracking-[0.2em] uppercase text-gray-300 hover:text-white">
+                <button type="button" onClick={() => setAll(true)} className="mt-5 font-label text-[12px] tracking-[0.14em] uppercase text-gray-300 hover:text-white">
                     Show all {matching.length} directors
                 </button>
             )}
@@ -165,9 +165,9 @@ export const MovementPicker = ({ options = [], value, onPick }) => (
             {options.map((o) => {
                 const active = o.tag === value;
                 return (
-                    <button key={o.value} type="button" disabled={!o.tag} onClick={() => onPick(o.tag)} aria-pressed={active} className={`group text-left px-4 py-4 ring-1 ${active ? 'ring-[#e2b866] bg-[#e2b866]/5' : 'ring-white/10 hover:ring-white/40'} overflow-hidden`}>
+                    <button key={o.value} type="button" disabled={!o.tag} onClick={() => onPick(o.tag)} aria-pressed={active} className={`group text-left px-4 py-4 ring-1 ${active ? 'ring-gold bg-gold/5' : 'ring-white/10 hover:ring-white/40'} overflow-hidden`}>
                         <span className="block min-h-[3.2rem] pointer-events-none"><TreatmentTitle movement={{ title: o.value, tag: o.tag }} size="card" as="span" /></span>
-                        <span className="mt-3 block font-mono text-[10px] tracking-[0.15em] uppercase text-gray-400">{o.era ? `${o.era} · ` : ''}{o.n} {o.n === 1 ? 'film' : 'films'}</span>
+                        <span className="mt-3 block font-label text-[12px] tracking-[0.14em] uppercase text-gray-400">{o.era ? `${o.era} · ` : ''}{o.n} {o.n === 1 ? 'film' : 'films'}</span>
                     </button>
                 );
             })}
@@ -209,7 +209,7 @@ export const LengthPicker = ({ options = [], value, onPick }) => {
 export const SortPicker = ({ value, onPick }) => (
     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
         {Object.entries(SORT_WORDS).map(([k, label]) => (
-            <button key={k} type="button" onClick={() => onPick(k)} aria-pressed={k === value} className={`text-left px-3 py-2.5 ring-1 transition-colors ${k === value ? 'ring-[#e2b866] text-[#f6d796] bg-[#e2b866]/10' : 'ring-white/10 text-gray-200 hover:ring-white/40 hover:text-white'}`}>
+            <button key={k} type="button" onClick={() => onPick(k)} aria-pressed={k === value} className={`text-left px-3 py-2.5 ring-1 transition-colors ${k === value ? 'ring-gold text-gold-light bg-gold/10' : 'ring-white/10 text-gray-200 hover:ring-white/40 hover:text-white'}`}>
                 {k === 'surprise' && value === 'surprise' ? 'Shuffle again' : label}
             </button>
         ))}

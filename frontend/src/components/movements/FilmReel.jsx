@@ -85,7 +85,7 @@ const FilmReel = ({ films, treatment: t }) => {
                                 return (
                                     <li key={f._id} data-frame className="relative shrink-0 w-[min(560px,78vw)]">
                                         {/* edge print */}
-                                        <div className="absolute -top-[22px] left-1 right-1 flex justify-between font-mono text-[9px] tracking-[0.2em] text-[#c5a059]/60">
+                                        <div className="absolute -top-[22px] left-1 right-1 flex justify-between font-label text-[12px] tracking-[0.14em] text-gold/60">
                                             <span>{String(i + 1).padStart(2, '0')}A</span>
                                             <span>{f.year}</span>
                                         </div>
@@ -120,7 +120,7 @@ const FilmReel = ({ films, treatment: t }) => {
 
                 {/* the film in the gate */}
                 <div className="relative mx-auto mt-10 w-[min(560px,78vw)] min-h-[9.5rem]">
-                    <div className="flex items-center justify-between font-mono text-[11px] tracking-[0.25em] text-gray-500 mb-4">
+                    <div className="flex items-center justify-between font-label text-[12px] tracking-[0.14em] text-gray-500 mb-4">
                         <span style={{ color: t.accent }}>{String(active + 1).padStart(2, '0')} / {String(films.length).padStart(2, '0')}</span>
                         <span className="h-px flex-1 mx-4 bg-white/10 relative overflow-hidden">
                             <motion.span className="absolute inset-y-0 left-0 right-0 origin-left" style={{ scaleX: scrollYProgress, backgroundColor: t.accent }} />
@@ -141,7 +141,7 @@ const FilmReel = ({ films, treatment: t }) => {
                                         {film.title}
                                     </h3>
                                 </Link>
-                                <div className="mt-2 text-[11px] tracking-[0.2em] uppercase text-gray-400">
+                                <div className="font-label mt-2 text-[12px] tracking-[0.14em] uppercase text-gray-400">
                                     {[film.year, (film.directors || []).join(', '), film.country, film.runtime && `${film.runtime} min`].filter(Boolean).join('  ·  ')}
                                 </div>
                                 {film.editorial?.hook && (

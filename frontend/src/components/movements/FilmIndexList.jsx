@@ -25,7 +25,7 @@ const FilmIndexList = ({ films, treatment, view: forced }) => {
 
     return (
         <div>
-            <div className={`flex items-center gap-5 text-xs tracking-[0.25em] uppercase mb-6 ${forced ? 'hidden' : ''}`}>
+            <div className={`font-label flex items-center gap-5 text-xs tracking-[0.14em] uppercase mb-6 ${forced ? 'hidden' : ''}`}>
                 {['index', 'posters'].map((v) => (
                     <button
                         key={v}
@@ -58,7 +58,7 @@ const FilmIndexList = ({ films, treatment, view: forced }) => {
                                     onMouseLeave={() => setPreview(null)}
                                     className="group grid grid-cols-[3.25rem_1fr] md:grid-cols-[4.5rem_1fr_13rem] items-baseline gap-x-4 py-4 md:py-5 border-b border-white/[0.08] transition-colors hover:bg-white/[0.025]"
                                 >
-                                    <span className="font-mono text-sm text-gray-400 transition-colors group-hover:text-[var(--accent)]" style={{ '--accent': treatment.accent }}>
+                                    <span className="font-label text-sm text-gray-400 transition-colors group-hover:text-[var(--accent)]" style={{ '--accent': treatment.accent }}>
                                         {film.year}
                                     </span>
                                     <span className="min-w-0">
@@ -69,7 +69,7 @@ const FilmIndexList = ({ films, treatment, view: forced }) => {
                                             {(film.directors || []).join(', ')}
                                         </span>
                                     </span>
-                                    <span className="hidden md:block text-right text-[11px] uppercase tracking-[0.25em] text-gray-400">
+                                    <span className="font-label hidden md:block text-right text-[12px] uppercase tracking-[0.14em] text-gray-400">
                                         {film.country}
                                     </span>
                                 </Link>
