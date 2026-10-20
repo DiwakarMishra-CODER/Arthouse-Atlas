@@ -104,8 +104,9 @@ const HomeHero = () => {
     useMotionValueEvent(replay, 'change', checkHanded);
     const imgScale = useTransform(push, [0, 1], [1, 1.06]); // the slow push-in, on the compositor
 
-    // while the wall covers the screen, tell the rest of the page (the starfield pauses, the navbar
-    // skips its glass blur) — until the stage starts shrinking away at the end
+    // while the wall covers the screen, tell the rest of the page (the starfield pauses) — until the
+    // stage starts shrinking away at the end. (data-scene on the section keeps the navbar's gradient,
+    // never the glass, on this page.)
     useMotionValueEvent(raw, 'change', (v) => {
         const cover = v < 0.92 ? 'home' : '';
         if ((document.documentElement.dataset.cover || '') !== cover) {
@@ -248,7 +249,7 @@ const HomeHero = () => {
     if (reducedMotion) {
         return (
             <>
-                <section className="relative h-screen min-h-[560px] overflow-hidden">
+                <section data-scene className="relative h-screen min-h-[560px] overflow-hidden">
                     <canvas ref={canvas} className="absolute inset-0 w-full h-full" />
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_55%_at_50%_50%,rgba(5,5,5,0.78),rgba(5,5,5,0.35)_75%)]" />
                     <div className="relative h-full flex items-center justify-center">{restBlock}</div>
@@ -264,7 +265,7 @@ const HomeHero = () => {
     }
 
     return (
-        <section ref={section} className="relative h-[330vh]">
+        <section ref={section} data-scene className="relative h-[330vh]">
             <div className="sticky top-0 h-screen overflow-hidden">
                 <motion.div className="absolute inset-0 overflow-hidden" style={{ scale: stageScale, borderRadius: stageRadius }}>
                     <canvas

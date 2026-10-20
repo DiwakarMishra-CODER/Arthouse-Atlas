@@ -28,13 +28,14 @@ const Navbar = () => {
 
     // over the top of a page the bar dissolves into it; once content passes beneath, it becomes dark glass
     useEffect(() => {
-        // no frosted glass over a full-screen scene (the home wall): blurring a canvas that changes
-        // every frame is the most expensive thing a page can ask of the GPU, so keep the gradient
-        const onScroll = () => setScrolled(window.scrollY > 24 && !document.documentElement.dataset.cover);
+        // a page made of full-screen scenes (the home page, marked data-scene) keeps the gradient all
+        // the way down: blurring scenes that change every frame is the most expensive thing a page can
+        // ask of the GPU, and switching the glass on as one passes reads as a flicker
+        const onScroll = () => setScrolled(window.scrollY > 24 && !document.querySelector('[data-scene]'));
         onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
         return () => window.removeEventListener('scroll', onScroll);
-    }, []);
+    }, [location.pathname]);
 
     // Lock body scroll when mobile menu is open
     useEffect(() => {
