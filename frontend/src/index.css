@@ -409,3 +409,58 @@
   60% { transform: translate(0.6px, 0.3px); }
   80% { transform: translate(-0.3px, -0.5px); }
 }
+
+/* ---- Explore: the foyer's letterboard and the lobby wall ---- */
+/* black felt with grooves, lit from above, sunk into its brass frame */
+.board-felt {
+  background-color: #0e0d0c;
+  background-image:
+    repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 0 1px, rgba(0, 0, 0, 0.4) 1px 2px, transparent 2px 15px),
+    radial-gradient(ellipse at 50% 0%, rgba(255, 214, 150, 0.09), transparent 62%);
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.85), inset 0 2px 6px rgba(0, 0, 0, 0.9);
+}
+/* a plastic letter pushed into the felt, a hair off true */
+.board-letter {
+  display: inline-block;
+  transform: translateY(var(--dy, 0)) rotate(var(--tilt, 0deg));
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.7), 0 3px 5px rgba(0, 0, 0, 0.55);
+}
+.board-letter.is-slotting {
+  animation: letter-slot 360ms cubic-bezier(0.2, 0.9, 0.3, 1.25) both;
+  animation-delay: calc(var(--i, 0) * 18ms);
+}
+@keyframes letter-slot {
+  from { opacity: 0; transform: translateY(-80%) rotate(var(--tilt, 0deg)); }
+  to { opacity: 1; transform: translateY(var(--dy, 0)) rotate(var(--tilt, 0deg)); }
+}
+/* light crossing the glass after the letters are changed */
+.board-glint {
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: 0;
+  width: 28%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.09), transparent);
+  transform: translateX(-140%) skewX(-18deg);
+  animation: board-glint 1100ms ease-out 250ms forwards;
+  pointer-events: none;
+}
+@keyframes board-glint {
+  to { transform: translateX(520%) skewX(-18deg); }
+}
+/* a lobby card's still strikes on like a projector lamp */
+.lobby-lamp {
+  animation: lobby-lamp 640ms steps(1, end) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+@keyframes lobby-lamp {
+  0% { opacity: 0; }
+  25% { opacity: 0.85; }
+  35% { opacity: 0.2; }
+  50% { opacity: 1; }
+  62% { opacity: 0.6; }
+  75%, 100% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .board-letter.is-slotting, .lobby-lamp, .board-glint { animation: none; }
+}

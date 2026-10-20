@@ -40,6 +40,8 @@ export const moviesAPI = {
   getCanonTop: (limit = 10, next = 0) => api.get('/movies/canon', { params: { limit, next } }),
   getAtlasFilms: () => api.get('/movies/atlas'),
   getSimilarMovies: (id) => api.get(`/movies/${id}/similar`),
+  explore: (params) => api.get('/movies/explore', { params }),
+  exploreSuggest: (q) => api.get('/movies/explore/suggest', { params: { q } }),
   getMovieProviders: (id) => api.get(`/movies/${id}/providers`),
   getDirectors: () => api.get('/movies/directors/list'),
   getTags: () => api.get('/movies/tags/list'),

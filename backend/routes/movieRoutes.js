@@ -10,7 +10,9 @@ import {
   getMovieProviders,
   getTonight,
   getCanonTop,
-  getAtlasFilms
+  getAtlasFilms,
+  exploreMovies,
+  exploreSuggest
 } from '../controllers/movieController.js';
 
 const router = express.Router();
@@ -18,6 +20,8 @@ const router = express.Router();
 
 router.get('/', getMovies);
 router.get('/titles', getAllTitles);
+router.get('/explore', exploreMovies);
+router.get('/explore/suggest', exploreSuggest);
 router.get('/tonight', getTonight); // these named routes come before /:id, or their names would be read as ids
 router.get('/canon', getCanonTop);
 router.get('/atlas', getAtlasFilms);

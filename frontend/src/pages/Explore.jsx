@@ -1,679 +1,299 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { createPortal } from 'react-dom';
-import { MdTune, MdShuffle, MdClose, MdSearch, MdArrowBack } from 'react-icons/md';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { Navigate, useNavigationType, useSearchParams } from 'react-router-dom';
 import { moviesAPI } from '../services/api';
-import { useAuth } from '../context/AuthContext';
-import toast, { Toaster } from 'react-hot-toast';
-import FilterPanel from '../components/FilterPanel';
-import Dropdown from '../components/Dropdown';
-import PosterCard from '../components/PosterCard';
-import LoadingSkeleton from '../components/LoadingSkeleton';
+import { useMotionPreference } from '../hooks/useMotionPreference';
+import Letterboard from '../components/explore/Letterboard';
+import LobbyCard from '../components/explore/LobbyCard';
+import ArtistCredits from '../components/explore/ArtistCredits';
+import SearchBox from '../components/explore/SearchBox';
+import {
+    PickerPanel, CountryPicker, DecadePicker, DirectorPicker, MovementPicker, MoodPicker, GenrePicker, LengthPicker, SortPicker,
+} from '../components/explore/Pickers';
+import { LENGTH_WORDS } from '../components/explore/words';
+
+/**
+ * Explore: the cinema foyer.
+ *
+ * A letterboard says, in plain words, what's showing ("NOW SHOWING · 23 FILMS FROM
+ * JAPAN, MADE IN THE 1950s · MOST ACCLAIMED FIRST"); its gold words are the
+ * filters, and the plain buttons under it add more. Below, the films hang as lobby
+ * cards, each crediting who made it. The canon's order is the default.
+ *
+ * The URL is the selection, so a wall can be shared and Back steps through your
+ * choices. Coming back from a film lands on the same wall at the same place: the
+ * page notes how many cards were loaded and where you were, per selection.
+ */
+
+const PAGE = 24;
+const FILTERS = ['q', 'country', 'decade', 'director', 'movement', 'mood', 'genre', 'length'];
+const MOODS = ['contemplative', 'melancholic', 'dreamlike', 'surreal', 'intimate', 'existential', 'psychological', 'minimalist', 'slow', 'austere', 'poetic', 'lyrical', 'enigmatic', 'fragmented', 'bleak'];
+const ADDABLE = [['country', 'Country'], ['decade', 'Decade'], ['director', 'Director'], ['movement', 'Movement'], ['mood', 'Mood'], ['genre', 'Genre'], ['length', 'Length']];
+const PICKER_TITLES = {
+    country: 'From where', decade: 'When it was made', director: 'Who made it', movement: 'Which movement',
+    mood: 'How it feels', genre: 'What kind of film', length: 'How long', sort: 'In what order',
+};
+const ORDER_WORDS = { acclaimed: 'most acclaimed first', oldest: 'oldest first', newest: 'newest first', surprise: 'in a surprise order' };
+
+// links from before the foyer: ?search= became q, ?tags= becomes a mood when it is one
+const fromOldLink = (params) => {
+    if (!params.has('search') && !params.has('tags')) return null;
+    const next = new URLSearchParams(params);
+    if (params.has('search')) { if (params.get('search')) next.set('q', params.get('search')); next.delete('search'); }
+    if (params.has('tags')) {
+        const mood = params.get('tags').split(',').map((t) => t.trim().toLowerCase()).find((t) => MOODS.includes(t));
+        next.delete('tags');
+        if (mood) next.set('mood', mood);
+    }
+    return next;
+};
+
+// "from Japan", "from the Soviet Union", "from the United States"
+const THE = /^(United |Soviet Union|Netherlands|Philippines|Czech Republic|Dominican Republic|Democratic Republic)/;
+const countryWords = (c) => {
+    const name = c === 'United States of America' ? 'United States' : c;
+    return THE.test(name) ? `the ${name}` : name;
+};
+
+// a new shuffle (kept in the URL, so the same shuffle comes back with Back)
+const newSeed = () => String(Math.floor(Math.random() * 1e9));
+
+const readNote = (key) => {
+    try { return JSON.parse(sessionStorage.getItem(`explore:${key}`) || 'null'); } catch { return null; }
+};
 
 const Explore = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
-    const location = useLocation();
-    const { user, setUser } = useAuth();
-    const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+    const [params, setParams] = useSearchParams();
+    const navigation = useNavigationType();
+    const reducedMotion = useMotionPreference();
+    const oldLink = fromOldLink(params);
 
-    const [page, setPage] = useState(() => {
-        const saved = sessionStorage.getItem('explore_page_v4');
-        return saved ? parseInt(saved, 10) : 1;
-    });
+    const sel = useMemo(() => Object.fromEntries([...FILTERS, 'sort', 'seed'].map((k) => [k, params.get(k) || ''])), [params]);
+    const sort = sel.sort || 'acclaimed';
+    const query = useMemo(() => Object.fromEntries(Object.entries(sel).filter(([, v]) => v)), [sel]);
+    const key = useMemo(() => new URLSearchParams(query).toString(), [query]);
 
-    const [hasMore, setHasMore] = useState(() => {
-        const saved = sessionStorage.getItem('explore_hasMore_v4');
-        return saved ? saved === 'true' : true;
-    });
+    const [wall, setWall] = useState({ key: null, films: [], total: 0, facets: null, selected: {}, notes: null });
+    const [picker, setPicker] = useState(null);
+    const [loadingMore, setLoadingMore] = useState(false);
+    const [attempt, setAttempt] = useState(0);
+    const restoreY = useRef(null);
+    const sentinel = useRef(null);
+    const restoring = navigation === 'POP';
 
-    const [movies, setMovies] = useState(() => {
-        const saved = sessionStorage.getItem('explore_movies_v4');
-        return saved ? JSON.parse(saved) : [];
-    });
-
-    const [loading, setLoading] = useState(() => {
-        const savedMovies = sessionStorage.getItem('explore_movies_v4');
-        if (!savedMovies) return true;
-        try {
-            return JSON.parse(savedMovies).length === 0;
-        } catch (e) {
-            return true;
-        }
-    });
-
-    const [isFetchingNextPage, setIsFetchingNextPage] = useState(false);
-
-    const [filters, setFilters] = useState(() => {
-        const saved = sessionStorage.getItem('explore_filters_v4');
-        return saved ? JSON.parse(saved) : {
-            search: searchParams.get('search') || '',
-            director: searchParams.get('director') || '',
-            genre: searchParams.get('genre') || '',
-            decade: searchParams.get('decade') || '',
-        };
-    });
-
-    const [allTags, setAllTags] = useState([]);
-    const [allGenres, setAllGenres] = useState([]);
-    const [allDirectors, setAllDirectors] = useState([]);
-    const [allTitles, setAllTitles] = useState([]);
-
-    const [selectedTags, setSelectedTags] = useState(() => {
-        const saved = sessionStorage.getItem('explore_tags_v4');
-        if (saved) return JSON.parse(saved);
-        const tagsParam = searchParams.get('tags');
-        const moodParam = searchParams.get('mood');
-        if (moodParam) return [moodParam];
-        return tagsParam ? tagsParam.split(',') : [];
-    });
-
-    // Sync State with URL Params (Back/Forward navigation support)
+    // a new selection: its first cards (as many as you'd loaded, when coming back), and its counts
     useEffect(() => {
-        const moodParam = searchParams.get('mood');
-        const genreParam = searchParams.get('genre');
-        // We can also check tags if we want to support both
-        const tagsParam = searchParams.get('tags');
+        if (oldLink) return undefined;
+        let gone = false;
+        const note = restoring ? readNote(key) : null;
+        const limit = Math.min(96, Math.max(PAGE, note?.count || PAGE));
+        moviesAPI.explore({ ...query, page: 1, limit })
+            .then((r) => {
+                if (gone) return;
+                restoreY.current = note ? note.y : null;
+                setWall({ key, films: r.data.films, total: r.data.total, facets: r.data.facets, selected: r.data.selected || {}, notes: r.data.notes });
+            })
+            .catch(() => { if (!gone) setWall((w) => ({ ...w, key, films: [], total: 0, facets: w.facets, failed: true })); });
+        return () => { gone = true; };
+    }, [key, query, restoring, oldLink, attempt]);
 
-        if (moodParam) {
-            setSelectedTags([moodParam]);
-        } else if (tagsParam) {
-            setSelectedTags(tagsParam.split(','));
-        }
+    // back at the place you left it
+    useLayoutEffect(() => {
+        if (wall.key !== key || restoreY.current == null) return;
+        window.scrollTo(0, restoreY.current);
+        restoreY.current = null;
+    }, [wall, key]);
 
-        if (genreParam) {
-            setFilters(prev => ({ ...prev, genre: genreParam }));
-        }
-    }, [searchParams]);
-
-    // Track if initial mount has completed to avoid double fetching
-    const hasInitialized = useRef(false);
-
-    // Track shuffle mode and seed
-    const [isShuffled, setIsShuffled] = useState(() => {
-        const saved = sessionStorage.getItem('explore_is_shuffled_v4');
-        return saved === 'true'; // Default false (Curated) unless saved as true
-    });
-
-    const [shuffleSeed, setShuffleSeed] = useState(() => {
-        const saved = sessionStorage.getItem('explore_seed_v4');
-        return saved ? parseInt(saved, 10) : Date.now();
-    });
-
-    // Save state to sessionStorage whenever it changes
+    // the page puts you back itself (the browser would try while the wall is still empty)
     useEffect(() => {
-        sessionStorage.setItem('explore_movies_v4', JSON.stringify(movies));
-        sessionStorage.setItem('explore_filters_v4', JSON.stringify(filters));
-        sessionStorage.setItem('explore_tags_v4', JSON.stringify(selectedTags));
-        sessionStorage.setItem('explore_is_shuffled_v4', isShuffled.toString());
-        sessionStorage.setItem('explore_seed_v4', shuffleSeed.toString());
-        sessionStorage.setItem('explore_page_v4', page.toString());
-        sessionStorage.setItem('explore_hasMore_v4', hasMore.toString());
-    }, [movies, filters, selectedTags, isShuffled, shuffleSeed, page, hasMore]);
-
-    const observer = useRef();
-
-    const loadMoreMovies = useCallback(async () => {
-        if (loading || isFetchingNextPage || !hasMore) return;
-
-        setIsFetchingNextPage(true);
-        const nextPage = page + 1;
-
-        try {
-            const params = { ...filters, limit: 20, page: nextPage };
-            const effectiveShuffle = isShuffled;
-
-            if (effectiveShuffle) {
-                params.random = 'true';
-                params._t = Date.now();
-            } else {
-                params.curated = 'true';
-            }
-
-            const hasFilters = filters.search || filters.director || filters.genre || filters.decade || selectedTags.length > 0;
-            if (hasFilters) {
-                delete params.curated;
-                delete params.random;
-            }
-
-            if (selectedTags.length > 0) {
-                params.tags = selectedTags.join(',');
-            }
-
-            const response = await moviesAPI.getMovies(params);
-
-            setMovies(prev => {
-                const existingIds = new Set(prev.map(m => m._id));
-                const newMovies = response.data.movies.filter(m => !existingIds.has(m._id));
-                return [...prev, ...newMovies];
-            });
-
-            setPage(nextPage);
-            setHasMore(nextPage < response.data.pages && response.data.movies.length > 0);
-
-        } catch (error) {
-            console.error('Failed to load more movies:', error);
-        } finally {
-            setIsFetchingNextPage(false);
-        }
-    }, [page, loading, isFetchingNextPage, hasMore, filters, selectedTags, isShuffled]);
-
-    const lastMovieElementRef = useCallback(node => {
-        if (loading || isFetchingNextPage) return;
-        if (observer.current) observer.current.disconnect();
-
-        observer.current = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting && hasMore) {
-                loadMoreMovies();
-            }
-        });
-
-        if (node) observer.current.observe(node);
-    }, [loading, isFetchingNextPage, hasMore, loadMoreMovies]);
-
-    // Scroll Restoration
-    useEffect(() => {
-        const savedScroll = sessionStorage.getItem('explore_scroll');
-        if (savedScroll && movies.length > 0) {
-            window.scrollTo(0, parseFloat(savedScroll));
-        }
-
-        const handleScroll = () => {
-            sessionStorage.setItem('explore_scroll', window.scrollY.toString());
-        };
-
-        // Throttle scroll save
-        let timeoutId;
-        const throttledScroll = () => {
-            if (!timeoutId) {
-                timeoutId = setTimeout(() => {
-                    handleScroll();
-                    timeoutId = null;
-                }, 100);
-            }
-        };
-
-        window.addEventListener('scroll', throttledScroll);
-        return () => {
-            window.removeEventListener('scroll', throttledScroll);
-            if (timeoutId) clearTimeout(timeoutId);
-        };
-    }, [movies.length]); // Only re-run if movies length changes (loaded)
-
-    // Initial Data Fetch (Tags, Genres, Directors)
-    useEffect(() => {
-        fetchTags();
-        fetchGenres();
-        fetchDirectors();
-        fetchTitles();
-
-        // Only fetch movies if we don't have them
-        if (movies.length === 0) {
-            fetchMovies();
-        }
-        hasInitialized.current = true;
+        const previous = window.history.scrollRestoration;
+        window.history.scrollRestoration = 'manual';
+        return () => { window.history.scrollRestoration = previous; };
     }, []);
 
-    // Re-fetch when filters/tags change (but NOT on initial mount if we have data)
-    // Refactoring useEffects
-
-    // Re-fetch when tags/filters (except search) change
-    // Re-fetch when tags/filters (except search) change
-    const prevFiltersRef = useRef(filters);
-    const prevTagsRef = useRef(selectedTags);
-    const prevShuffleRef = useRef(isShuffled);
-
+    // note how far you'd got, for coming back: as you scroll, and the moment you click away.
+    // (Not as the page goes: by then the film's page has taken its place and the scroll is gone.)
     useEffect(() => {
-        if (!hasInitialized.current) return;
-
-        const filtersChanged =
-            filters.genre !== prevFiltersRef.current.genre ||
-            filters.decade !== prevFiltersRef.current.decade ||
-            filters.director !== prevFiltersRef.current.director;
-
-        const tagsChanged = JSON.stringify(selectedTags) !== JSON.stringify(prevTagsRef.current);
-        const shuffleChanged = isShuffled !== prevShuffleRef.current;
-
-        if (filtersChanged || tagsChanged || shuffleChanged) {
-            setPage(1);
-            fetchMovies({ page: 1, resetData: true });
-        }
-
-        // Update refs
-        prevFiltersRef.current = filters;
-        prevTagsRef.current = selectedTags;
-        prevShuffleRef.current = isShuffled;
-    }, [filters.genre, filters.decade, filters.director, selectedTags, isShuffled]);
-
-    // Debounce search
-    useEffect(() => {
-        if (!hasInitialized.current) return;
-        // Logic fix: Verify change against Ref, but ALSO update Ref after!
-        if (filters.search === prevFiltersRef.current.search) return;
-
-        const timer = setTimeout(() => {
-            setPage(1);
-            fetchMovies({ page: 1, resetData: true });
-            prevFiltersRef.current = { ...prevFiltersRef.current, search: filters.search };
-        }, 500);
-
-        return () => clearTimeout(timer);
-    }, [filters.search]);
-
-
-    const fetchTags = async () => {
-        try {
-            const response = await moviesAPI.getTags();
-            setAllTags(response.data.filter(Boolean));
-        } catch (error) {
-            console.error('Failed to fetch tags:', error);
-        }
-    };
-
-    const fetchGenres = async () => {
-        try {
-            const response = await moviesAPI.getGenres();
-            setAllGenres(response.data.filter(Boolean));
-        } catch (error) {
-            console.error('Failed to fetch genres:', error);
-        }
-    };
-
-    const fetchDirectors = async () => {
-        try {
-            const response = await moviesAPI.getDirectors();
-            setAllDirectors(response.data.filter(Boolean));
-        } catch (error) {
-            console.error('Failed to fetch directors:', error);
-        }
-    };
-
-    const fetchTitles = async () => {
-        try {
-            const response = await moviesAPI.getTitles();
-            setAllTitles(response.data.filter(Boolean));
-        } catch (error) {
-            console.error('Failed to fetch titles:', error);
-        }
-    };
-
-
-    const fetchMovies = async (options = {}) => {
-        // Handle both old signature (boolean) and new options object
-        const forceShuffle = typeof options === 'boolean' ? options : options?.forceShuffle || false;
-        const overrideFilters = options?.filters || null;
-        const overrideTags = options?.tags || null;
-        const targetPage = options?.page || page;
-        const resetData = options?.resetData !== undefined ? options.resetData : false;
-
-        if (resetData || targetPage === 1) {
-            setLoading(true);
-        } else {
-            setIsFetchingNextPage(true);
-        }
-        
-        try {
-            // Use overrides if provided, otherwise use current state
-            const activeFilters = overrideFilters || filters;
-            const activeTags = overrideTags || selectedTags;
-
-            const params = { ...activeFilters, limit: 20, page: targetPage };
-
-            const effectiveShuffle = forceShuffle || isShuffled;
-
-            if (effectiveShuffle) {
-                params.random = 'true';
-                params._t = Date.now();
-            } else {
-                params.curated = 'true';
-            }
-
-            // If user has filtered (search/tags/etc), disable curated/random default behavior
-            const hasFilters = activeFilters.search || activeFilters.director || activeFilters.genre || activeFilters.decade || activeTags.length > 0;
-            if (hasFilters) {
-                delete params.curated;
-                delete params.random;
-            }
-
-            if (activeTags.length > 0) {
-                params.tags = activeTags.join(',');
-            }
-            const response = await moviesAPI.getMovies(params);
-            
-            if (resetData || targetPage === 1) {
-                setMovies(response.data.movies);
-            } else {
-                setMovies(prev => {
-                    const existingIds = new Set(prev.map(m => m._id));
-                    const newMovies = response.data.movies.filter(m => !existingIds.has(m._id));
-                    return [...prev, ...newMovies];
-                });
-            }
-            
-            // Critical fix for infinite loops: only true if there are actually more pages AND we got movies back
-            setHasMore(targetPage < response.data.pages && response.data.movies.length > 0);
-
-        } catch (error) {
-            console.error('Failed to fetch movies:', error);
-        } finally {
-            if (resetData || targetPage === 1) {
-                setLoading(false);
-            } else {
-                setIsFetchingNextPage(false);
-            }
-        }
-    };
-
-    const handleShuffle = () => {
-        const newSeed = Date.now();
-        setShuffleSeed(newSeed);
-        setIsShuffled(true);
-        setPage(1);
-        fetchMovies({ forceShuffle: true, page: 1, resetData: true });
-    };
-
-    const handleClearFilters = () => {
-        // 1. Reset all local state
-        const emptyFilters = { search: '', director: '', genre: '', decade: '' };
-        setFilters(emptyFilters);
-        setSelectedTags([]);
-
-        // 2. Clear URL params
-        setSearchParams({});
-
-        // 3. Clear Cache
-        sessionStorage.removeItem('arthouse_explore_state');
-
-        // 4. Force immediate re-fetch with empty values (bypassing state update lag)
-        setPage(1);
-        fetchMovies({
-            filters: emptyFilters,
-            tags: [],
-            page: 1,
-            resetData: true,
-            forceShuffle: false 
-        });
-    };
-
-    const handleFilterChange = (e) => {
-        // ... existing logic ...
-        // (No changes needed here, but need to keep it)
-        sessionStorage.removeItem('arthouse_explore_state');
-
-        const newFilters = {
-            ...filters,
-            [e.target.name]: e.target.value,
+        if (wall.key !== key) return undefined;
+        let t = 0;
+        const save = () => {
+            clearTimeout(t);
+            try { sessionStorage.setItem(`explore:${key}`, JSON.stringify({ count: wall.films.length, y: Math.round(window.scrollY) })); } catch { /* storage full or blocked */ }
         };
+        const onScroll = () => { clearTimeout(t); t = setTimeout(save, 150); };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('click', save, true);
+        return () => { clearTimeout(t); window.removeEventListener('scroll', onScroll); window.removeEventListener('click', save, true); };
+    }, [key, wall.key, wall.films.length]);
 
-        setFilters(newFilters);
+    // more cards as you near the end of the wall
+    const hasMore = wall.key === key && wall.films.length < wall.total;
+    const loadMore = useCallback(() => {
+        if (loadingMore) return;
+        setLoadingMore(true);
+        const page = Math.floor(wall.films.length / PAGE) + 1;
+        moviesAPI.explore({ ...query, page, limit: PAGE, facets: '0' })
+            .then((r) => setWall((w) => {
+                if (w.key !== key) return w;
+                const have = new Set(w.films.map((f) => f._id));
+                return { ...w, films: [...w.films, ...r.data.films.filter((f) => !have.has(f._id))] };
+            }))
+            .catch(() => {})
+            .finally(() => setLoadingMore(false));
+    }, [loadingMore, wall.films.length, query, key]);
+    useEffect(() => {
+        if (!hasMore || !sentinel.current) return undefined;
+        const io = new IntersectionObserver((entries) => { if (entries[0].isIntersecting) loadMore(); }, { rootMargin: '900px 0px' });
+        io.observe(sentinel.current);
+        return () => io.disconnect();
+    }, [hasMore, loadMore]);
 
-        const newParams = {};
-        if (newFilters.search) newParams.search = newFilters.search;
-        if (newFilters.director) newParams.director = newFilters.director;
-        if (newFilters.genre) newParams.genre = newFilters.genre;
-        if (newFilters.decade) newParams.decade = newFilters.decade;
-        if (selectedTags.length > 0) newParams.tags = selectedTags.join(',');
+    // Esc closes a picker
+    useEffect(() => {
+        if (!picker) return undefined;
+        const onKey = (e) => { if (e.key === 'Escape') setPicker(null); };
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, [picker]);
 
-        setSearchParams(newParams);
+    // change one word on the board (from a card, also go back up to the board to see it change)
+    const choose = (k, v, { up = false } = {}) => {
+        const next = new URLSearchParams(params);
+        if (v === '' || v === null || v === undefined) next.delete(k);
+        else next.set(k, String(v));
+        if (k === 'sort') {
+            if (v === 'surprise') next.set('seed', newSeed());
+            else next.delete('seed');
+            if (v === 'acclaimed') next.delete('sort');
+        }
+        setParams(next);
+        setPicker(null);
+        if (up) window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
     };
+    const reset = () => { setParams(new URLSearchParams()); setPicker(null); };
 
-    const handleSearch = (e) => {
-        e.preventDefault();
-        sessionStorage.removeItem('arthouse_explore_state');
-        setPage(1);
-        fetchMovies({ page: 1, resetData: true });
-    };
+    // ---- the board's words ----
+    const ready = wall.key === key;
+    const changing = wall.key !== null && !ready;
+    const facets = wall.facets || {};
+    const movementTitle = wall.selected.movement?.title || facets.movement?.find((m) => m.tag === sel.movement)?.title || facets.movement?.find((m) => m.tag === sel.movement)?.value || sel.movement;
+    const any = FILTERS.some((k) => sel[k]);
+    const total = wall.total;
+    const control = (id, text, label, extra = {}) => ({ id, text, control: true, label, onClick: () => setPicker(id), onRemove: () => choose(id, ''), ...extra });
+    const sentence = [{ id: 'count', text: wall.key === null || wall.failed ? '· · ·' : !any ? `all ${total} films` : `${total} ${total === 1 ? 'film' : 'films'}` }];
+    if (sel.country) sentence.push(control('country', `from ${countryWords(sel.country)}`, `Country: ${sel.country}`));
+    if (sel.decade) sentence.push(control('decade', `made in the ${sel.decade}s`, `Decade: the ${sel.decade}s`));
+    if (sel.director) sentence.push(control('director', `by ${wall.selected.director?.name || sel.director}`, `Director: ${sel.director}`));
+    if (sel.q) sentence.push(control('q', `matching “${sel.q}”`, `Search: ${sel.q}`, { onClick: () => document.getElementById('explore-search')?.focus() }));
+    const listed = [
+        sel.movement && control('movement', movementTitle, `Movement: ${movementTitle}`),
+        sel.mood && control('mood', sel.mood, `Mood: ${sel.mood}`),
+        sel.genre && control('genre', sel.genre, `Genre: ${sel.genre}`),
+        sel.length && control('length', LENGTH_WORDS[sel.length] || sel.length, `Length: ${LENGTH_WORDS[sel.length]}`),
+    ].filter(Boolean).flatMap((p, i) => (i ? [{ id: `dot${i}`, text: '·' }, p] : [p]));
+    const lines = [
+        { size: 'small', phrases: [{ id: 'now', text: ready && !wall.failed && total === 0 ? 'Nothing showing' : 'Now showing' }] },
+        { size: 'big', phrases: sentence },
+        ...(listed.length ? [{ size: 'medium', phrases: listed }] : []),
+        { size: 'sort', phrases: [control('sort', ORDER_WORDS[sort], `Order: ${ORDER_WORDS[sort]}`, { onRemove: null })] },
+    ];
+    const boardLabel = `Now showing: ${[sentence, listed].flat().map((p) => p.text).filter((t) => t !== '·').join(', ')}, ${ORDER_WORDS[sort]}.`;
 
-    const handleTagToggle = (tag) => {
-        sessionStorage.removeItem('arthouse_explore_state');
-        const newTags = selectedTags.includes(tag)
-            ? selectedTags.filter((t) => t !== tag)
-            : [...selectedTags, tag];
-        setSelectedTags(newTags);
+    // the nearest decade that has films, for the end of a wall
+    const nextDecade = sel.decade && facets.decade?.filter((d) => d.n > 0 && String(d.value) !== sel.decade)
+        .sort((a, b) => Math.abs(a.value - sel.decade) - Math.abs(b.value - sel.decade) || b.value - a.value)[0];
 
-        const newParams = {};
-        if (filters.search) newParams.search = filters.search;
-        if (filters.director) newParams.director = filters.director;
-        if (filters.genre) newParams.genre = filters.genre;
-        if (filters.decade) newParams.decade = filters.decade;
-        if (newTags.length > 0) newParams.tags = newTags.join(',');
-        setSearchParams(newParams);
-    };
+    if (oldLink) return <Navigate to={`/explore?${oldLink.toString()}`} replace />;
 
     return (
-        <div className="min-h-screen pt-24">
-            <Toaster position="bottom-right" />
+        <div className="min-h-screen pt-28 md:pt-32 pb-32">
+            <h1 className="sr-only">Explore the atlas</h1>
+            <div className="max-w-7xl mx-auto px-4 md:px-14">
+                <Letterboard lines={lines} label={boardLabel} version={`${key}|${total}`} reducedMotion={reducedMotion} />
 
-            <div className="max-w-[1800px] mx-auto px-8">
-                {/* Page Header */}
-                {/* Page Header (Desktop Only) */}
-                <div className="hidden md:flex mb-12 items-center justify-between">
-                    <div>
-                        <h1 className="font-serif text-6xl text-gray-100 mb-4">Explore</h1>
+                {/* more to put on the board, and the search */}
+                <div className="mt-6 md:mt-8 flex flex-col-reverse md:flex-row md:items-center gap-4 md:gap-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                        {ADDABLE.filter(([k]) => !sel[k]).map(([k, label]) => (
+                            <button key={k} type="button" onClick={() => setPicker(picker === k ? null : k)} aria-expanded={picker === k} className={`px-3 py-2 font-mono text-[11px] tracking-[0.18em] uppercase ring-1 transition-colors ${picker === k ? 'ring-[#e2b866] text-[#f6d796]' : 'ring-white/15 text-gray-300 hover:ring-white/40 hover:text-white'}`}>
+                                + {label}
+                            </button>
+                        ))}
+                        {any && (
+                            <button type="button" onClick={reset} className="px-2 py-2 font-mono text-[11px] tracking-[0.18em] uppercase text-gray-500 hover:text-white">Show everything</button>
+                        )}
                     </div>
-
-                    {/* Shuffle Button */}
-                    <button
-                        onClick={handleShuffle}
-                        disabled={loading}
-                        className="px-6 py-3 bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors flex items-center gap-2 disabled:opacity-50"
-                        title="Shuffle results"
-                    >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                        </svg>
-                        Shuffle
-                    </button>
+                    <div className="md:ml-auto">
+                        <SearchBox value={sel.q} onSearch={(q) => choose('q', q)} onDirector={(d) => choose('director', d)} />
+                    </div>
                 </div>
 
-                {/* Mobile Action Bar (Visible only on mobile) */}
-                <div className="md:hidden flex items-center gap-2 mb-6 sticky top-20 z-30 bg-[#050505]/95 backdrop-blur-sm py-2">
-                    <div className="relative flex-1">
-                        <MdSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 z-10" />
-                        <Dropdown
-                            options={allTitles.map((t) => ({ value: t.title, label: t.title }))}
-                            value={filters.search}
-                            onChange={(val) => {
-                                handleFilterChange({ target: { name: 'search', value: val } });
-                            }}
-                            placeholder="Search..."
-                            searchable={true}
-                            className="w-full"
-                            triggerClassName="pl-12"
-                        />
-                    </div>
-                    <button
-                        onClick={() => setIsMobileFilterOpen(true)}
-                        className="p-2.5 bg-white/10 rounded-lg text-white hover:bg-white/20 transition-colors"
-                        aria-label="Open filters"
-                    >
-                        <MdTune size={24} />
-                    </button>
-                    <button
-                        onClick={handleShuffle}
-                        className="p-2.5 bg-white/10 rounded-lg text-[#C5A059] hover:bg-white/20 transition-colors"
-                        aria-label="Shuffle"
-                    >
-                        <MdShuffle size={24} />
-                    </button>
-                </div>
-
-                {/* Mobile Filter Drawer Overlay */}
-                {isMobileFilterOpen && createPortal(
-                    <div className="fixed inset-0 z-[99999] bg-black flex flex-col pt-12 pb-20 px-6 overflow-y-auto animate-in slide-in-from-bottom duration-300">
-                        <div className="flex items-center gap-4 mb-8 bg-black">
-                            <button
-                                onClick={() => {
-                                    setIsMobileFilterOpen(false);
-                                    window.scrollTo(0, 0); // Reset scroll on close
-                                }}
-                                className="p-2 -ml-2 text-white hover:text-accent-primary transition-colors active:scale-95"
-                                aria-label="Go back"
-                            >
-                                <MdArrowBack size={32} />
-                            </button>
-                            <h2 className="text-2xl font-serif text-white">Filters</h2>
-                        </div>
-
-                        <div className="space-y-8 flex-1">
-                            {/* Reusing Filter Logic (Duplicated for Mobile Drawer) */}
-                            {/* Genre */}
-                            <div>
-                                <h3 className="text-lg text-gray-300 mb-2 font-serif">Genre</h3>
-                                <Dropdown
-                                    options={allGenres.map((g) => ({ value: g, label: g }))}
-                                    value={filters.genre}
-                                    onChange={(val) => handleFilterChange({ target: { name: 'genre', value: val } })}
-                                    placeholder="All Genres"
-                                    className="w-full"
-                                />
-                            </div>
-
-                            {/* Decade */}
-                            <div>
-                                <h3 className="text-lg text-gray-300 mb-2 font-serif">Decade</h3>
-                                <Dropdown
-                                    options={[1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020].map((d) => ({ value: d, label: `${d}s` }))}
-                                    value={filters.decade}
-                                    onChange={(val) => handleFilterChange({ target: { name: 'decade', value: val } })}
-                                    placeholder="All Decades"
-                                    className="w-full"
-                                />
-                            </div>
-
-                            {/* Director */}
-                            <div>
-                                <h3 className="text-lg text-gray-300 mb-2 font-serif">Director</h3>
-                                <Dropdown
-                                    options={allDirectors.sort().map((d) => ({ value: d, label: d }))}
-                                    value={filters.director}
-                                    onChange={(val) => handleFilterChange({ target: { name: 'director', value: val } })}
-                                    placeholder="Search Directors..."
-                                    searchable={true}
-                                    className="w-full"
-                                />
-                            </div>
-
-                            {/* Tags */}
-                            <div>
-                                <h3 className="text-lg text-gray-300 mb-2 font-serif">Mood & Style</h3>
-                                <div className="flex flex-wrap gap-2">
-                                    {selectedTags.length > 0 ? (
-                                        selectedTags.map(tag => (
-                                            <span key={tag} onClick={() => handleTagToggle(tag)} className="bg-accent-primary/20 text-accent-primary px-3 py-1 rounded-full text-sm border border-accent-primary/30 cursor-pointer flex items-center gap-1">
-                                                {tag} <MdClose size={14} />
-                                            </span>
-                                        ))
-                                    ) : (
-                                        <span className="text-gray-500 italic text-sm">No moods selected</span>
-                                    )}
-                                    <button
-                                        onClick={() => {
-                                            // Open full mood selector? Or just show a few common ones?
-                                            // For now, let's list all tags in a scrolling area or just rely on the existing dropdown logic if we can port it.
-                                            // Simplified for drawer: List all avail tags in a scrolling box
-                                        }}
-                                        className="hidden" // Placeholder
-                                    >Add</button>
-                                </div>
-                                <div className="mt-4 max-h-40 overflow-y-auto border border-white/10 rounded-lg p-2">
-                                    {allTags.sort().map(tag => (
-                                        <div key={tag} onClick={() => handleTagToggle(tag)} className={`px-2 py-1.5 cursor-pointer text-sm ${selectedTags.includes(tag) ? 'text-accent-primary font-medium' : 'text-gray-400'}`}>
-                                            {tag} {selectedTags.includes(tag) && '✓'}
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="mt-8 space-y-3">
-                            <button
-                                onClick={() => {
-                                    handleSearch({ preventDefault: () => { } });
-                                    setIsMobileFilterOpen(false);
-                                }}
-                                className="w-full py-4 bg-accent-primary/10 border border-accent-primary/30 text-accent-primary tracking-wide uppercase font-bold hover:bg-accent-primary/20 transition-colors rounded-xl"
-                            >
-                                Apply Filters
-                            </button>
-                            <button
-                                onClick={handleClearFilters}
-                                className="w-full py-4 border border-white/10 text-gray-400 tracking-wide uppercase hover:bg-white/5 hover:text-white transition-colors rounded-xl"
-                            >
-                                Clear All
-                            </button>
-                        </div>
-                    </div>,
-                    document.body
+                {picker && wall.facets && (
+                    <PickerPanel title={PICKER_TITLES[picker] || ''} onClose={() => setPicker(null)}>
+                        {picker === 'country' && <CountryPicker options={facets.country} value={sel.country} onPick={(v) => choose('country', v)} />}
+                        {picker === 'decade' && <DecadePicker options={facets.decade} value={sel.decade} onPick={(v) => choose('decade', v)} />}
+                        {picker === 'director' && <DirectorPicker options={facets.director} value={sel.director} onPick={(v) => choose('director', v)} />}
+                        {picker === 'movement' && <MovementPicker options={facets.movement} value={sel.movement} onPick={(v) => choose('movement', v)} />}
+                        {picker === 'mood' && <MoodPicker options={facets.mood} value={sel.mood} onPick={(v) => choose('mood', v)} notes={wall.notes?.moodFilms} />}
+                        {picker === 'genre' && <GenrePicker options={facets.genre} value={sel.genre} onPick={(v) => choose('genre', v)} />}
+                        {picker === 'length' && <LengthPicker options={facets.length} value={sel.length} onPick={(v) => choose('length', v)} />}
+                        {picker === 'sort' && <SortPicker value={sort} onPick={(v) => choose('sort', v)} />}
+                    </PickerPanel>
                 )}
 
+                {ready && <ArtistCredits director={wall.selected.director} movement={wall.selected.movement} />}
 
-                <div className="flex gap-12">
-                    {/* Filter Sidebar - HIDDEN ON MOBILE */}
-                    <div className="hidden md:block">
-                        <FilterPanel
-                            allTags={allTags}
-                            allGenres={allGenres}
-                            allDirectors={allDirectors}
-                            allTitles={allTitles}
-                            selectedTags={selectedTags}
-                            onTagToggle={handleTagToggle}
-                            filters={filters}
-                            onFilterChange={handleFilterChange}
-                            onSearch={handleSearch}
-                            onClear={handleClearFilters}
-                        />
+                {/* the lobby wall */}
+                {wall.key === null ? (
+                    <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12" aria-hidden="true">
+                        {Array.from({ length: 6 }, (_, i) => <div key={i} className="aspect-video bg-white/[0.03] ring-1 ring-white/5" />)}
                     </div>
-
-                    {/* Results Grid - 2 cols mobile, 3/4/5 desktop */}
-                    <div className="flex-1">
-                        {
-                            loading ? (
-                                <LoadingSkeleton />
-                            ) : movies.length > 0 ? (
-                                <>
-                                    <div className="grid grid-cols-3 gap-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 md:gap-6">
-                                        {movies.map((movie, index) => {
-                                            if (movies.length === index + 1) {
-                                                return (
-                                                    <div ref={lastMovieElementRef} key={movie._id} className="relative hover:z-50">
-                                                        <PosterCard movie={movie} />
-                                                    </div>
-                                                );
-                                            } else {
-                                                return (
-                                                    <div key={movie._id} className="relative hover:z-50">
-                                                        <PosterCard movie={movie} />
-                                                    </div>
-                                                );
-                                            }
-                                        })}
-                                    </div>
-                                    {hasMore && movies.length > 0 && !loading && (
-                                        <div className="py-12 flex justify-center">
-                                            <div className="w-8 h-8 border-2 border-[#C5A059] border-t-transparent rounded-full animate-spin"></div>
-                                        </div>
-                                    )}
-                                </>
-                            ) : (
-                                <div className="text-center py-20">
-                                    <p className="text-muted text-lg mb-4">No films match your criteria</p>
-                                    <button
-                                        onClick={() => {
-                                            setFilters({ search: '', director: '', genre: '', decade: '' });
-                                            setSelectedTags([]);
-                                            setPage(1);
-                                            fetchMovies({ page: 1, resetData: true });
-                                        }}
-                                        className="px-6 py-3 border border-accent-primary/30 text-accent-primary text-sm tracking-wide uppercase hover:bg-accent-primary/10 transition-colors"
-                                    >
-                                        Clear Filters
+                ) : ready && wall.failed ? (
+                    <div className="mt-14 text-center">
+                        <p className="font-serif text-2xl md:text-3xl text-gray-200">The films couldn’t be reached just now.</p>
+                        <button type="button" onClick={() => setAttempt((a) => a + 1)} className="mt-5 px-4 py-2.5 font-mono text-[11px] tracking-[0.2em] uppercase ring-1 ring-[#e2b866]/60 text-[#f6d796] hover:bg-[#e2b866] hover:text-black transition-colors">
+                            Try again
+                        </button>
+                    </div>
+                ) : ready && total === 0 ? (
+                    <div className="mt-14 text-center">
+                        <p className="font-serif text-2xl md:text-3xl text-gray-200">Nothing fits all of that.</p>
+                        <p className="mt-2 text-gray-400">Take something down:</p>
+                        <div className="mt-5 flex flex-wrap justify-center gap-2">
+                            {[...sentence, ...listed].filter((p) => p.control).map((p) => (
+                                <button key={p.id} type="button" onClick={() => choose(p.id, '')} className="px-3 py-2 font-mono text-[11px] tracking-[0.18em] uppercase ring-1 ring-white/15 text-gray-300 hover:ring-white/40 hover:text-white">
+                                    − {p.text}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                ) : (
+                    <>
+                        <div key={wall.key} className={`mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12 transition-opacity duration-200 ${changing ? 'opacity-25' : ''}`}>
+                            {wall.films.map((film, i) => (
+                                <LobbyCard
+                                    key={film._id}
+                                    film={film}
+                                    index={reducedMotion ? 0 : i % PAGE}
+                                    onDirector={(d) => choose('director', d, { up: true })}
+                                    onMovement={(m) => choose('movement', facets.movement?.find((x) => x.value === m)?.tag || m, { up: true })}
+                                />
+                            ))}
+                        </div>
+                        {hasMore && <div ref={sentinel} className="h-px" aria-hidden="true" />}
+                        {ready && !hasMore && (
+                            <div className="mt-16 text-center font-mono text-[11px] tracking-[0.25em] uppercase text-gray-500">
+                                {total === 1 ? 'That’s the one.' : `That’s all ${total}.`}
+                                {nextDecade && (
+                                    <button type="button" onClick={() => choose('decade', nextDecade.value, { up: true })} className="block mx-auto mt-3 text-gray-300 hover:text-white">
+                                        The {nextDecade.value}s{sel.country ? ` in ${countryWords(sel.country)}` : ''}: {nextDecade.n} {nextDecade.n === 1 ? 'film' : 'films'} →
                                     </button>
-                                </div>
-                            )}
-                    </div>
-                </div>
-            </div >
-        </div >
+                                )}
+                            </div>
+                        )}
+                    </>
+                )}
+            </div>
+        </div>
     );
 };
 

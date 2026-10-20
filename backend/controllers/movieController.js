@@ -2,6 +2,8 @@ import Movie from '../models/Movie.js';
 import { getErrorResponse } from '../utils/errorResponse.js';
 import { getIndex, rankCandidates, inRankedOrder, CARD_FIELDS, REASONS } from '../services/recommender.js';
 import { pickTonight, MARATHON } from '../services/tonight.js';
+import { loadCatalogue, applyFilters, sortCards, facetCounts, publicCard, searchScore, nameMatches, MOODS, LENGTHS, SORTS } from '../services/catalogue.js';
+import { normalizeName } from '../services/nameUtils.js';
 
 const shuffleArray = (array) => {
   const shuffled = [...array]; // Create a copy to avoid mutating original
@@ -528,6 +530,137 @@ export const getMovieProviders = async (req, res) => {
     res.json(data.results || {});
   } catch (error) {
     console.error('Failed to fetch movie providers from TMDB:', error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
+  }
+};
+
+// @desc    Explore: the catalogue filtered, sorted and counted (the logic is in services/catalogue.js)
+// @route   GET /api/movies/explore?q=&country=&decade=&director=&movement=&mood=&genre=&length=&sort=&seed=&page=&limit=&facets=
+// @access  Public
+export const exploreMovies = async (req, res) => {
+  try {
+    const { cards, directors, movementsByTag, movementsByTitle } = await loadCatalogue();
+    const q = req.query;
+    // a movement arrives by its page's slug (or, from old links, by name)
+    const movement = q.movement ? movementsByTag.get(q.movement) || movementsByTitle.get(q.movement) || null : null;
+    const filters = {
+      q: typeof q.q === 'string' ? q.q.trim().slice(0, 80) : '',
+      country: typeof q.country === 'string' ? q.country : '',
+      decade: /^\d{4}$/.test(q.decade || '') ? Number(q.decade) : '',
+      director: typeof q.director === 'string' ? q.director : '',
+      movement: movement?.title || '',
+      mood: MOODS.includes(q.mood) ? q.mood : '',
+      genre: typeof q.genre === 'string' ? q.genre : '',
+      length: LENGTHS.includes(q.length) ? q.length : '',
+    };
+    const sort = SORTS.includes(q.sort) ? q.sort : 'acclaimed';
+    const limit = Math.min(96, Math.max(1, parseInt(q.limit, 10) || 24));
+    const page = Math.max(1, parseInt(q.page, 10) || 1);
+
+    const matched = sortCards(applyFilters(cards, filters), sort, { seed: q.seed, q: filters.q });
+    const films = matched.slice((page - 1) * limit, page * limit).map(publicCard);
+
+    // what each filter's options would give, with the others applied (asked for with each new selection)
+    let facets;
+    if (q.facets !== '0') {
+      facets = facetCounts(cards, filters);
+      facets.director = facets.director.map((d) => {
+        const person = directors.get(normalizeName(d.value));
+        return { value: person?.name || d.value, n: d.n, id: person?._id || null, portrait: person?.profileUrl || null };
+      });
+      facets.movement = facets.movement.map((m) => {
+        const mv = movementsByTitle.get(m.value);
+        return { ...m, tag: mv?.tag || null, era: mv?.era || null };
+      });
+    }
+
+    // the artist the wall is about, credited
+    const selected = {};
+    if (filters.director) {
+      const person = directors.get(normalizeName(filters.director));
+      selected.director = {
+        name: person?.name || filters.director,
+        id: person?._id || null,
+        portrait: person?.profileUrl || null,
+        born: person?.birthDate?.slice(0, 4) || null,
+        died: person?.deathDate?.slice(0, 4) || null,
+        place: person?.placeOfBirth || null,
+        films: applyFilters(cards, { director: filters.director }).length
+      };
+    }
+    if (movement) {
+      selected.movement = {
+        title: movement.title,
+        tag: movement.tag || null,
+        era: movement.era || null,
+        tagline: movement.tagline || null,
+        films: applyFilters(cards, { movement: movement.title }).length
+      };
+    }
+
+    res.setHeader('Cache-Control', 'public, max-age=60');
+    res.json({
+      films,
+      total: matched.length,
+      page,
+      pages: Math.ceil(matched.length / limit),
+      facets,
+      selected,
+      filters: { ...filters, movement: movement?.tag || '' },
+      sort,
+      // how many films have moods (they come from our own notes, so not every film has them yet)
+      notes: { moodFilms: cards.filter((c) => c.moods.length).length }
+    });
+  } catch (error) {
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
+  }
+};
+
+// @desc    Explore's search suggestions: films by title, and directors by name
+// @route   GET /api/movies/explore/suggest?q=
+// @access  Public
+export const exploreSuggest = async (req, res) => {
+  try {
+    const { cards, directors } = await loadCatalogue();
+    const q = typeof req.query.q === 'string' ? req.query.q.trim().slice(0, 80) : '';
+    if (!q) return res.json({ films: [], directors: [] });
+
+    // films whose title (or original or other title) matches, best match first, then the canon
+    const films = cards
+      .map((c) => [c, searchScore(c, q)])
+      .filter(([, s]) => s >= 1.5)
+      .sort((a, b) => (b[1] - a[1]) || ((a[0].canonRank ?? Infinity) - (b[0].canonRank ?? Infinity)))
+      .slice(0, 6)
+      .map(([c]) => ({ _id: c._id, title: c.title, year: c.year, directors: c.directors, still: c.still, posterUrl: c.posterUrl }));
+
+    // directors whose name matches (a typo allowed), most films first
+    const people = new Map();
+    if (normalizeName(q)) {
+      for (const c of cards) {
+        c.directors.forEach((name, i) => {
+          const key = c._directors[i];
+          if (!key || !nameMatches(name, q)) return;
+          const p = people.get(key) || { name, films: 0 };
+          p.films++;
+          people.set(key, p);
+        });
+      }
+    }
+    const found = [...people.entries()]
+      .sort((a, b) => (b[1].films - a[1].films) || a[1].name.localeCompare(b[1].name))
+      .slice(0, 4)
+      .map(([key, p]) => {
+        const person = directors.get(key);
+        return { name: person?.name || p.name, films: p.films, portrait: person?.profileUrl || null };
+      });
+
+    res.setHeader('Cache-Control', 'public, max-age=60');
+    res.json({ films, directors: found });
+  } catch (error) {
+    console.error(error);
     const { status, message } = getErrorResponse(error);
     res.status(status).json({ message });
   }
