@@ -69,7 +69,7 @@ const Seats = ({ className, seat = 64, light = 0.1 }) => (
 const picturesOf = (room, data) => {
     if (room.key === 'movements') return data.movements.map((m) => m.heroBackdrop);
     if (room.key === 'directors') return data.directors.map((d) => d.profileUrl);
-    return data.studios.flatMap((s) => (s.featuredFilms || []).map((f) => f.movieId?.posterUrl)).filter(Boolean);
+    return data.studios.flatMap((s) => s.posters || []);
 };
 
 // the example a shot shows — a different set each time round
@@ -280,7 +280,7 @@ const Auditorium = ({ reducedMotion = false }) => {
             const all = r.data.data || [];
             setData((d) => ({ ...d, directors: all.filter((x) => x.backdropUrl && x.profileUrl), directorCount: all.length }));
         }).catch(() => {});
-        api.get('/studios').then((r) => setData((d) => ({ ...d, studios: (Array.isArray(r.data) ? r.data : []).filter((s) => (s.featuredFilms || []).some((f) => f.movieId?.posterUrl)) }))).catch(() => {});
+        api.get('/studios/index').then((r) => setData((d) => ({ ...d, studios: (Array.isArray(r.data) ? r.data : []).filter((s) => s.posters?.length) }))).catch(() => {});
     }, []);
 
     // the reel: runs whenever the auditorium is on screen, trailer after trailer (a resting pointer doesn't stop it)

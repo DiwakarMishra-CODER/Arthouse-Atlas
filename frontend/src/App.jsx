@@ -14,6 +14,7 @@ import DirectorDetail from './pages/DirectorDetail';
 import Movements from './pages/Movements';
 import MovementDetail from './pages/MovementDetail';
 import Studios from './pages/Studios';
+import StudioDetail from './pages/StudioDetail';
 import Recommendations from './pages/Recommendations';
 import ProjectedBlack from './components/ProjectedBlack';
 
@@ -49,6 +50,7 @@ function AppRoutes() {
           <Route path="/movements" element={<Movements />} />
           <Route path="/movements/:slug" element={<MovementDetail />} />
           <Route path="/studios" element={<Studios />} />
+          <Route path="/studios/:slug" element={<StudioDetail />} />
           <Route path="/recommendations" element={<Recommendations />} />
 
           <Route

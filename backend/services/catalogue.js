@@ -99,6 +99,8 @@ export const toCard = (m) => {
     _directors: (m.directors || []).map(normalizeName),
     _titleWords: [...new Set([m.title, ...others].flatMap(words))],
     _directorWords: [...new Set((m.directors || []).flatMap(words))],
+    _companies: m.productionCompanies || [], // who made it, for the Studios room
+    _criterion: (m.provenance || []).find((p) => p.source === 'criterion')?.detail || null, // its place in the Criterion Collection
   };
 };
 
@@ -270,7 +272,7 @@ export const facetCounts = (cards, filters) => {
 // ---------------------------------------------------------------------------
 // the catalogue, loaded and kept for ten minutes
 // ---------------------------------------------------------------------------
-const FIELDS = 'tmdbId vote_count title originalTitle altTitles year decade directors country countries runtime genres movements canonRank provenanceScore provenanceCount stills backdropUrl posterUrl editorial.hook editorial.tags';
+const FIELDS = 'tmdbId vote_count title originalTitle altTitles year decade directors country countries runtime genres movements canonRank provenanceScore provenanceCount stills backdropUrl posterUrl editorial.hook editorial.tags productionCompanies provenance.source provenance.detail';
 
 let cache = { at: 0, value: null };
 export const loadCatalogue = async () => {

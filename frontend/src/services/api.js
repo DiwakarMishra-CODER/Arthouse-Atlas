@@ -53,6 +53,12 @@ export const directorsAPI = {
   getIndex: () => api.get('/directors/index')
 };
 
+// Studios API: the houses (by slug) and their films
+export const studiosAPI = {
+  getIndex: () => api.get('/studios/index'),
+  getOne: (slug) => api.get(`/studios/${slug}`)
+};
+
 // Movements API — movements are addressed by slug (e.g. 'czech_new_wave')
 export const movementsAPI = {
   getAll: () => api.get('/movements'),
