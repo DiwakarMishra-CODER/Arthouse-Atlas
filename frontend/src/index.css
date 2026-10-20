@@ -400,3 +400,12 @@
   30%, 100% { opacity: 1; }
 }
 .neon-on { animation: neon-on 1.6s steps(1, end) both; }
+
+/* film in a projector's gate never sits quite still (the studio's note, before it's cut) */
+@keyframes gate-weave {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(0.5px, -0.6px); }
+  40% { transform: translate(-0.4px, 0.4px); }
+  60% { transform: translate(0.6px, 0.3px); }
+  80% { transform: translate(-0.3px, -0.5px); }
+}
