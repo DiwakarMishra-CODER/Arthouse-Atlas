@@ -2,6 +2,7 @@ import Director from '../models/Director.js';
 import Movie from '../models/Movie.js';
 import Movement from '../models/Movement.js';
 import { getErrorResponse } from '../utils/errorResponse.js';
+import { directorIndex, namesOf } from '../services/directorIndex.js';
 
 // @desc    Get all directors
 // @route   GET /api/directors
@@ -78,7 +79,7 @@ export const getDirector = async (req, res) => {
         }
 
         // The whole filmography in the atlas, in the order it was made
-        const films = await Movie.find({ directors: director.name })
+        const films = await Movie.find({ directors: { $in: namesOf(director.name) } })
             .sort({ year: 1 })
             .select('title year runtime country posterUrl backdropUrl stills genres trailerUrl movements editorial.hook provenance provenanceCount canonRank')
             .lean();
@@ -111,5 +112,19 @@ export const getDirector = async (req, res) => {
             success: false,
             message
         });
+    }
+};
+
+// @desc    Every director with their films in the atlas, best first, for the Directors index
+// @route   GET /api/directors/index
+// @access  Public
+export const getDirectorIndex = async (req, res) => {
+    try {
+        res.set('Cache-Control', 'public, max-age=300');
+        res.json(await directorIndex());
+    } catch (error) {
+        console.error('Error building the director index:', error);
+        const { status, message } = getErrorResponse(error);
+        res.status(status).json({ success: false, message });
     }
 };

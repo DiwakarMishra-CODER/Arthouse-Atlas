@@ -48,6 +48,11 @@ export const moviesAPI = {
   getGenres: () => api.get('/movies/genres/list')
 };
 
+// Directors API: the index (every director with their films here, best first)
+export const directorsAPI = {
+  getIndex: () => api.get('/directors/index')
+};
+
 // Movements API — movements are addressed by slug (e.g. 'czech_new_wave')
 export const movementsAPI = {
   getAll: () => api.get('/movements'),

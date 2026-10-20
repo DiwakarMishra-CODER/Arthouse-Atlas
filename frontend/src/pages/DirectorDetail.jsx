@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { MdArrowBack } from 'react-icons/md';
 import api from '../services/api';
@@ -22,6 +22,10 @@ import { sized } from '../components/movements/treatments';
  * from); the poster wall, a dark papered wall with one wandering light; their
  * card from the archive, typing out the biography; and the circle they ran
  * with, drawn as a constellation.
+ *
+ * Arriving from the Directors index, it opens at once on what the index already knows (the name,
+ * the face, and the film the tile turned to, as the room's light), so the tile's film can grow
+ * into it (a view transition named `director-shot`); the rest follows when the director loads.
  */
 
 const yearOf = (d) => (d ? parseInt(String(d).slice(0, 4), 10) || null : null);
@@ -30,6 +34,8 @@ const strongest = (f) => [...(f.provenance || [])].sort((a, b) => (b.weight || 0
 const DirectorDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
+    const arrival = location.state?.from === 'index' ? location.state : null;
     const reducedMotion = useMotionPreference();
     // { id, data } — loading is simply "the loaded director isn't this one yet"
     const [result, setResult] = useState({ id: null, data: null });
@@ -44,14 +50,16 @@ const DirectorDetail = () => {
     }, [id]);
 
     const loading = result.id !== id;
-    const director = loading ? null : result.data;
+    const director = loading ? (arrival && { name: arrival.name, profileUrl: arrival.portrait }) : result.data;
     const films = director?.films || [];
     // their most canonical film lights the page
     const signature = [...films].sort((a, b) => (strongest(b)?.weight || 0) - (strongest(a)?.weight || 0))[0];
-    const glow = signature?.backdropUrl || director?.backdropUrl;
+    const glow = loading ? arrival?.still : signature?.backdropUrl || director?.backdropUrl;
+    // no portrait: their most canonical film's frame stands in, in grey like a portrait
+    const stand = signature?.stills?.[0] || signature?.backdropUrl;
     const light = useFilmLight(glow);
 
-    if (loading) return <div className="min-h-screen pt-24"><LoadingSkeleton /></div>;
+    if (loading && !arrival) return <div className="min-h-screen pt-24"><LoadingSkeleton /></div>;
     if (!director) {
         return (
             <div className="min-h-screen pt-24 flex items-center justify-center">
@@ -75,7 +83,7 @@ const DirectorDetail = () => {
         <div className="relative min-h-screen text-white overflow-x-clip selection:bg-gold selection:text-black">
             {/* lit by their most canonical film */}
             <div aria-hidden="true" className="fixed inset-0 z-0 pointer-events-none">
-                {glow && <img src={sized(glow, 'w780')} alt="" className="absolute inset-0 w-full h-full object-cover scale-125 blur-[90px] saturate-[1.3] opacity-[0.2]" />}
+                {glow && <img src={loading ? glow : sized(glow, 'w780')} alt="" className="absolute inset-0 w-full h-full object-cover scale-125 blur-[90px] saturate-[1.3] opacity-[0.2]" data-room-light style={{ viewTransitionName: 'director-shot' }} />}
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_70%_15%,rgba(5,5,5,0.25),rgba(5,5,5,0.8)_60%,#050505)]" />
             </div>
 
@@ -98,6 +106,8 @@ const DirectorDetail = () => {
                         <div className="relative aspect-[3/4] max-w-[22rem] overflow-hidden bg-[#0d0d0d] ring-1 ring-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.7)]">
                             {director.profileUrl ? (
                                 <img src={sized(director.profileUrl, 'h632')} alt={director.name} className="w-full h-full object-cover grayscale contrast-[1.08]" />
+                            ) : stand ? (
+                                <img src={sized(stand, 'w780')} alt="" className="w-full h-full object-cover grayscale contrast-[1.08]" />
                             ) : (
                                 <div className="w-full h-full flex items-center justify-center font-serif text-7xl text-gray-600">
                                     {director.name.split(' ').map((w) => w[0]).slice(0, 2).join('')}
@@ -118,7 +128,7 @@ const DirectorDetail = () => {
                         <div className="mt-5 font-label text-xs tracking-[0.14em] uppercase text-gray-400">
                             {[born && `${born}–${died || ''}`, director.placeOfBirth].filter(Boolean).join('  ·  ')}
                         </div>
-                        <dl className="mt-10 grid grid-cols-[1fr_1.5fr_1fr] max-w-2xl border-y border-white/10">
+                        {!loading && <dl className="mt-10 grid grid-cols-[1fr_1.5fr_1fr] max-w-2xl border-y border-white/10">
                             {[
                                 [films.length, films.length === 1 ? 'film in the atlas' : 'films in the atlas'],
                                 [span || '—', 'the years'],
@@ -132,12 +142,12 @@ const DirectorDetail = () => {
                                     <dt className="font-label mt-2 text-[12px] tracking-[0.14em] uppercase text-gray-500">{label}</dt>
                                 </div>
                             ))}
-                        </dl>
+                        </dl>}
                     </motion.div>
                 </section>
 
                 {/* ===== THE LIFE, RUN THROUGH A PROJECTOR ===== */}
-                {films.length > 0 && (
+                {!loading && films.length > 0 && (
                     <motion.section {...reveal()} className="pt-10">
                         {kicker('The life, in films')}
                         <LifeScreen director={director} films={films} movements={director.movements || []} accent={light} reducedMotion={reducedMotion} />
@@ -156,7 +166,7 @@ const DirectorDetail = () => {
                 )}
 
                 {/* ===== THE ARCHIVE CARD ===== */}
-                {director.bio && (
+                {!loading && director.bio && (
                     <section className="pt-28 md:pt-36">
                         {kicker('From the archive')}
                         <ArchiveCard director={director} filmsCount={films.length} movements={director.movements || []} index={parseInt(director._id.slice(-4), 16) % 10000} reducedMotion={reducedMotion} />
@@ -164,7 +174,7 @@ const DirectorDetail = () => {
                 )}
 
                 {/* ===== THEIR CIRCLE ===== */}
-                {director.peers?.length > 0 ? (
+                {!loading && director.peers?.length > 0 ? (
                     <section className="pt-28 md:pt-36 pb-28">
                         <div className="flex items-end justify-between gap-6 mb-4">
                             <h2 className="font-serif text-4xl md:text-5xl">Their circle</h2>

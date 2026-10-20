@@ -816,3 +816,37 @@ html[data-cover] .projected-black { visibility: hidden; }
   .reel-card .reel-sharp { opacity: 1; }
   .reel-card.is-live .reel-push { transform: none; }
 }
+
+/* ---- Directors: "Directed by" ---- */
+/* the end credits: dot leaders between the film and the director, drawn, not typed */
+.credit-leader {
+  align-self: center;
+  height: 2px;
+  margin-top: 0.35em;
+  background-image: radial-gradient(circle, rgba(241, 236, 226, 0.28) 1px, transparent 1.4px);
+  background-size: 7px 2px;
+  background-repeat: repeat-x;
+}
+.credit-line .credit-name, .credit-line .credit-film { transition: color 220ms; }
+.credit-line:hover .credit-name { color: var(--color-gold-light); }
+/* the line passing the gate, lit as it plays on the screen */
+.credit-line[data-at] .credit-name { color: var(--color-gold); }
+.credit-line[data-at] .credit-film { color: #f1ece2; }
+.credit-line[data-at] .credit-leader { background-image: radial-gradient(circle, rgba(217, 173, 98, 0.75) 1px, transparent 1.4px); }
+.credit-iris:not([data-on="1"]) { opacity: 0; }
+/* a title card landing: up and in, a beat after the frame settles */
+.title-rise { animation: title-rise 520ms cubic-bezier(0.2, 0.7, 0.2, 1) 200ms both; }
+@keyframes title-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .title-rise { animation: none; }
+}
+/* into the retrospective: the film on the screen grows to fill the room and goes soft into its light */
+::view-transition-group(director-shot) { animation-duration: 680ms; animation-timing-function: cubic-bezier(0.5, 0, 0.2, 1); }
+::view-transition-old(director-shot) { animation: shot-out 680ms linear both; }
+::view-transition-new(director-shot) { animation: shot-in 680ms linear both; }
+@keyframes shot-out { 0%, 55% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes shot-in { 0%, 45% { opacity: 0; } 100% { opacity: 1; } }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 380ms; }
