@@ -101,7 +101,7 @@ const main = async () => {
   // the split travels with the files, so evaluate.js can refuse files made under a different split
   const groups = { testGroup: TEST_GROUP, validationGroup: VALIDATION_GROUP };
   writeJson(path.join(WORK_DIR, 'counts-train.json'), { ...countsToJson(train, films), matched: matchedIds, ...groups });
-  writeJson(path.join(WORK_DIR, 'counts-all.json'), { ...countsToJson(all, films), matched: matchedIds, ...groups });
+  writeJson(path.join(WORK_DIR, 'counts-all.json'), { ...countsToJson(all, films), matched: matchedIds, ...groups, people: stats.users });
   writeJson(path.join(WORK_DIR, 'eval-users.json'), { minLikes: MIN_EVAL_LIKES, ...groups, users: evalUsers });
 
   const likesPerFilm = films.map((f, i) => ({ f, i, n: all.n[i] })).filter((x) => matched.has(x.i));

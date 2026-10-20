@@ -16,6 +16,10 @@ These are learned weights, not similarities: they can be negative, and they aren
 
 `EVALUATION.md` and `evaluation.json` record how it was chosen and tested; `EVALUATION-v1.md` and `evaluation-v1.json` keep the first engine's report (item-to-item cosine, tested on a different group).
 
+## Counts for the reasons: `together.json`
+
+For You says why a film was picked in numbers where it can ("more than one in three of the 54,746 people who loved The Godfather loved this too"). `together.json` holds those counts: for each film, how many MovieLens people loved it (4 stars or more), and, for each of its links in `neighbours.json`, how many loved both. A link is kept only when 30 or more people loved both, so no number rests on a handful of people. `services/forYou.js` reads it. Rebuild with `npm run recs:together` after `recs:build`.
+
 ## Rebuilding
 
 Rebuild after adding films or re-running the canon (the model is keyed by TMDB id and carries each film's canon rank):
@@ -37,7 +41,7 @@ npm test
 
 ## Data and licence
 
-Built from MovieLens ml-32m (32,000,204 ratings by 200,948 people, January 1995 – October 2023) by GroupLens Research, University of Minnesota. The dataset may be used for research and non-commercial purposes; derived data may be redistributed under the same conditions; no endorsement by the University of Minnesota or GroupLens is implied. If this site ever earns revenue, this file must be rebuilt without MovieLens or permission sought from GroupLens.
+`neighbours.json` and `together.json` are built from MovieLens ml-32m (32,000,204 ratings by 200,948 people, January 1995 – October 2023) by GroupLens Research, University of Minnesota. The dataset may be used for research and non-commercial purposes; derived data may be redistributed under the same conditions; no endorsement by the University of Minnesota or GroupLens is implied. If this site ever earns revenue, these files must be rebuilt without MovieLens or permission sought from GroupLens.
 
 F. Maxwell Harper and Joseph A. Konstan. 2015. The MovieLens Datasets: History and Context. ACM Transactions on Interactive Intelligent Systems (TiiS) 5, 4: 19:1–19:19. https://doi.org/10.1145/2827872
 

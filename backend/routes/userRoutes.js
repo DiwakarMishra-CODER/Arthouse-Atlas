@@ -6,6 +6,7 @@ import {
   rateMovie,
   clearRating,
   getRecommendations,
+  toggleNotFor,
   googleLogin
 } from '../controllers/userController.js';
 import { protect } from '../middleware/authMiddleware.js';
@@ -20,6 +21,7 @@ router.post('/watched/:movieId', protect, toggleWatched);
 router.put('/ratings/:movieId', protect, rateMovie);
 router.delete('/ratings/:movieId', protect, clearRating);
 router.get('/recommendations', protect, getRecommendations);
+router.post('/not-for-me/:movieId', protect, toggleNotFor);
 router.post('/google', authLimiter, googleLogin);
 
 export default router;

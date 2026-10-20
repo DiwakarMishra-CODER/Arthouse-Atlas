@@ -62,7 +62,14 @@ export const userAPI = {
   toggleWatched: (movieId) => api.post(`/users/watched/${movieId}`),
   rateMovie: (movieId, value) => api.put(`/users/ratings/${movieId}`, { value }),
   clearRating: (movieId) => api.delete(`/users/ratings/${movieId}`),
-  getRecommendations: () => api.get('/users/recommendations', { params: { _t: Date.now() } })
+  getRecommendations: () => api.get('/users/recommendations', { params: { _t: Date.now() } }),
+  toggleNotFor: (movieId) => api.post(`/users/not-for-me/${movieId}`)
 };
 
 export default api;
+
+// For You without an account (ratings travel with the request), and the deck newcomers rate
+export const recsAPI = {
+  preview: (body) => api.post('/recs/preview', body),
+  starters: () => api.get('/recs/starters'),
+};

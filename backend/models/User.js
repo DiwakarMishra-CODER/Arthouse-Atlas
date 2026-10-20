@@ -33,6 +33,11 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Movie'
   }],
+  // films they've said aren't for them: For You never picks these
+  notFor: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Movie'
+  }],
   ratings: [{
     _id: false,
     movie: { type: mongoose.Schema.Types.ObjectId, ref: 'Movie', required: true },

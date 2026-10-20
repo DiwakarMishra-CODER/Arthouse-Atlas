@@ -5,7 +5,8 @@ import { OAuth2Client } from 'google-auth-library';
 import jwt from 'jsonwebtoken';
 import axios from 'axios';
 import { getErrorResponse } from '../utils/errorResponse.js';
-import { getIndex, rankCandidates, inRankedOrder, CARD_FIELDS, REASONS } from '../services/recommender.js';
+import { loadCatalogue } from '../services/catalogue.js';
+import { buildForYou } from './recsController.js';
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -147,92 +148,70 @@ export const clearRating = async (req, res) => {
   }
 };
 
-// How much each film the user has touched says about their taste. A favourite
-// or 4–5 stars counts fully; a watched or watchlisted film counts half; a
-// rating of 1–3 outranks a watched mark and counts for nothing.
-const tasteWeight = ({ favorite, rating, listed }) => {
-  if (favorite) return 1;
-  if (rating) return rating >= 4 ? 1 : 0;
-  return listed ? 0.5 : 0;
-};
-
-const SEED_FIELDS = 'tmdbId title derivedTags directors movements decade';
-
-export const getRecommendations = async (req, res) => {
+// @desc    Say a film isn't for you (or take it back): For You never picks it
+// @route   POST /api/users/not-for-me/:movieId
+// @access  Private
+export const toggleNotFor = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id)
-      .populate('favorites', SEED_FIELDS)
-      .populate('watched', SEED_FIELDS)
-      .populate('watchlist', SEED_FIELDS)
-      .populate('ratings.movie', SEED_FIELDS);
-    const rated = (user.ratings || []).filter((r) => r.movie);
-
-    if (user.favorites.length === 0 && user.watched.length === 0 && user.watchlist.length === 0 && rated.length === 0) {
-      return res.json({
-        message: 'Interact with some movies first to get recommendations',
-        recommendations: []
-      });
-    }
-
-    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-    res.setHeader('Pragma', 'no-cache');
-    res.setHeader('Expires', '0');
-
-    const index = getIndex();
-    if (!index) return res.json(await legacyRecommendations(user));
-
-    // Every film they've touched, once, with what they did to it
-    const touched = new Map();
-    const touch = (movie, mark) => {
-      if (!movie?.tmdbId) return;
-      const t = touched.get(movie.tmdbId) || { movie };
-      touched.set(movie.tmdbId, { ...t, ...mark });
-    };
-    user.favorites.forEach((m) => touch(m, { favorite: true }));
-    user.watched.forEach((m) => touch(m, { listed: true }));
-    user.watchlist.forEach((m) => touch(m, { listed: true }));
-    rated.forEach((r) => touch(r.movie, { rating: r.value }));
-
-    const seeds = [...touched].map(([tmdbId, t]) => ({ tmdbId, weight: tasteWeight(t), movie: t.movie }))
-      .filter((s) => s.weight > 0)
-      .sort((a, b) => b.weight - a.weight);
-    const ranked = rankCandidates(index, {
-      seeds,
-      exclude: new Set(touched.keys()),
-      gamma: index.params.gamma,
-      limit: 30
-    });
-
-    const docs = await Movie.find({ tmdbId: { $in: ranked.map((r) => r.tmdbId) } }).select(CARD_FIELDS).lean();
-    const seedOf = new Map(seeds.map((s) => [s.tmdbId, s.movie]));
-    const recommendations = inRankedOrder(docs, ranked).slice(0, 20).map(({ film, score, because }) => ({
-      ...film,
-      recommendationScore: Math.round(score * 1e4) / 1e4,
-      because: because && {
-        film: { _id: seedOf.get(because.seed)._id, title: seedOf.get(because.seed).title },
-        reason: REASONS[because.reason]
-      }
-    }));
-
-    const tagWeights = new Map();
-    seeds.forEach((s) => (s.movie.derivedTags || []).forEach((tag) => tagWeights.set(tag, (tagWeights.get(tag) || 0) + s.weight)));
-    const usable = seeds.filter((s) => index.films.has(s.tmdbId));
-
-    res.json({
-      recommendations,
-      basedOn: {
-        tags: [...tagWeights].sort((a, b) => b[1] - a[1]).slice(0, 5).map((e) => e[0]),
-        favoredMoviesCount: touched.size,
-        films: usable.slice(0, 5).map((s) => ({ _id: s.movie._id, title: s.movie.title })),
-        ...(usable.length ? {} : { fallback: 'canon' })
-      }
-    });
+    const user = await User.findById(req.user._id);
+    const movieId = req.params.movieId;
+    const movie = await Movie.findById(movieId).select('_id');
+    if (!movie) return res.status(404).json({ message: 'Movie not found' });
+    const at = (user.notFor || []).findIndex((id) => String(id) === String(movieId));
+    if (at === -1) user.notFor.push(movieId);
+    else user.notFor.splice(at, 1);
+    await user.save();
+    res.json({ notFor: user.notFor });
   } catch (error) {
     console.error(error);
     const { status, message } = getErrorResponse(error);
     res.status(status).json({ message });
   }
 };
+
+// @desc    For You: the films picked for this person, with why each was picked
+// @route   GET /api/users/recommendations
+// @access  Private
+export const getRecommendations = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).lean();
+    const { byId } = await loadCatalogue();
+
+    // every film they've touched, once, with what they did to it
+    const touched = new Map();
+    const touch = (id, mark) => {
+      const card = byId.get(String(id));
+      if (!card?._tmdb) return;
+      touched.set(card._tmdb, { ...(touched.get(card._tmdb) || {}), ...mark });
+    };
+    (user.favorites || []).forEach((id) => touch(id, { favorite: true }));
+    (user.watched || []).forEach((id) => touch(id, { watched: true }));
+    (user.watchlist || []).forEach((id) => touch(id, { listed: true }));
+    (user.ratings || []).forEach((r) => r.movie && touch(r.movie, { rating: r.value }));
+    const notFor = (user.notFor || []).map((id) => byId.get(String(id))?._tmdb).filter(Boolean);
+
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+
+    if (!touched.size) {
+      return res.json({ message: 'Interact with some movies first to get recommendations', recommendations: [], basedOn: { films: [] }, notFor: [] });
+    }
+    const out = await buildForYou({ touched, notFor });
+    if (out) return res.json(out);
+
+    // no model file: the old overlap scoring
+    const populated = await User.findById(req.user._id)
+      .populate('favorites', SEED_FIELDS).populate('watched', SEED_FIELDS).populate('watchlist', SEED_FIELDS);
+    res.json(await legacyRecommendations(populated));
+  } catch (error) {
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
+  }
+};
+
+const SEED_FIELDS = 'tmdbId title derivedTags directors movements decade';
 
 // The scoring used before the MovieLens model, kept for when the model file is
 // missing: tag, director, movement and decade overlap over the 200 films with

@@ -20,6 +20,8 @@ export const MovieProvider = ({ children }) => {
     const [watchlist, setWatchlist] = useState([]);
     const [watched, setWatched] = useState([]);
     const [ratings, setRatings] = useState([]);
+    // films you've said aren't for you (For You never picks them); kept like ratings
+    const [notFor, setNotFor] = useState([]);
 
     // Guard against rapid double-clicks causing duplicate API calls
     const pendingToggles = useRef(new Set());
@@ -29,9 +31,11 @@ export const MovieProvider = ({ children }) => {
         const storedFavs = JSON.parse(localStorage.getItem("favorites")) || [];
         const storedWatch = JSON.parse(localStorage.getItem("watchlist")) || [];
         const storedRatings = JSON.parse(localStorage.getItem("ratings")) || [];
+        const storedNotFor = JSON.parse(localStorage.getItem("notFor")) || [];
         setFavorites(storedFavs);
         setWatchlist(storedWatch);
         setRatings(storedRatings);
+        setNotFor(storedNotFor);
     }, []);
 
     // 2. Sync with User from DB (Run when user changes)
@@ -40,7 +44,16 @@ export const MovieProvider = ({ children }) => {
             if (user.favorites) setFavorites(user.favorites);
             if (user.watchlist) setWatchlist(user.watchlist);
             if (user.watched) setWatched(user.watched);
-            if (user.ratings) setRatings(user.ratings.filter((r) => r.movie).map((r) => ({ id: r.movie._id, rating: r.value, movie: r.movie })));
+            if (user.ratings) {
+                const saved = user.ratings.filter((r) => r.movie).map((r) => ({ id: r.movie._id, rating: r.value, movie: r.movie }));
+                // films rated in this browser while signed out come along into the account (only
+                // those: on a shared computer, someone else's account ratings never move)
+                let here = [];
+                try { here = (JSON.parse(localStorage.getItem('ratings')) || []).filter((r) => r?.local && r.id && !saved.some((s) => s.id === r.id)); } catch { here = []; }
+                here.forEach((r) => userAPI.rateMovie(r.id, r.rating).catch(() => {}));
+                setRatings([...saved, ...here.map(({ id, rating, movie }) => ({ id, rating, movie }))]);
+            }
+            if (user.notFor) setNotFor(user.notFor.map((m) => String(m._id || m)));
         } else {
             // Optional: Clear on logout, or keep local? 
             // Better to keep local for now or clear if strict security needed.
@@ -65,6 +78,10 @@ export const MovieProvider = ({ children }) => {
     useEffect(() => {
         localStorage.setItem("ratings", JSON.stringify(ratings));
     }, [ratings]);
+
+    useEffect(() => {
+        localStorage.setItem("notFor", JSON.stringify(notFor));
+    }, [notFor]);
 
     // Helper: Check if movie is in favorites
     const isFavorite = (movieId) => {
@@ -168,10 +185,12 @@ export const MovieProvider = ({ children }) => {
             if (existing && existing.rating === score) {
                 return prev.filter((r) => r.id !== movieId);
             }
+            // signed out, a rating is marked as made here, so it can move into an account at sign-in
+            const here = isAuthenticated ? {} : { local: true };
             if (existing) {
-                return prev.map((r) => r.id === movieId ? { ...r, rating: score } : r);
+                return prev.map((r) => r.id === movieId ? { ...r, rating: score, ...here } : r);
             }
-            return [...prev, { id: movieId, rating: score, movie }];
+            return [...prev, { id: movieId, rating: score, movie, ...here }];
         });
 
         if (!isAuthenticated) return;
@@ -188,6 +207,23 @@ export const MovieProvider = ({ children }) => {
 
     const getMovieRating = (id) => ratings.find((r) => r.id === id)?.rating || 0;
 
+    // "Not for me": signed in, saved to the account; signed out, kept in this browser
+    const isNotFor = (id) => notFor.includes(String(id));
+    const toggleNotFor = async (movie) => {
+        const movieId = String(movie._id || movie.id || movie);
+        if (pendingToggles.current.has(`nf-${movieId}`)) return;
+        setNotFor((prev) => (prev.includes(movieId) ? prev.filter((id) => id !== movieId) : [...prev, movieId]));
+        if (!isAuthenticated) return;
+        pendingToggles.current.add(`nf-${movieId}`);
+        try {
+            await userAPI.toggleNotFor(movieId);
+        } catch (error) {
+            console.error('Failed to save "not for me":', error);
+        } finally {
+            pendingToggles.current.delete(`nf-${movieId}`);
+        }
+    };
+
     const value = {
         isFavorite,
         isInWatchlist,
@@ -201,6 +237,9 @@ export const MovieProvider = ({ children }) => {
         ratings,
         setMovieRating,
         getMovieRating,
+        notFor,
+        isNotFor,
+        toggleNotFor,
     };
 
     return <MovieContext.Provider value={value}>{children}</MovieContext.Provider>;
