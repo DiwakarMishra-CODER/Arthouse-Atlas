@@ -185,7 +185,7 @@ const CanonCountdown = ({ films, of, reducedMotion = false }) => {
                                 ) : (
                                     <div className="mb-2 font-oswald text-lg tracking-[0.2em] text-[#f6d48f]">No. {film.place}</div>
                                 )}
-                                <Link to={`/movie/${film._id}`} className="group inline-flex items-baseline gap-3">
+                                <Link to={`/movie/${film._id}`} className="group inline-flex items-baseline gap-3 py-[3px] -my-[3px]">
                                     <h3 className="font-serif text-4xl md:text-7xl leading-[1.05] text-white group-hover:opacity-80 transition-opacity">{film.title}</h3>
                                     <MdArrowOutward className="text-2xl text-white/60 group-hover:text-white transition-colors" />
                                 </Link>

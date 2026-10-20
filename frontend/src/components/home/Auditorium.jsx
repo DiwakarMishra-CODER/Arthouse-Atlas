@@ -290,7 +290,9 @@ const Auditorium = ({ reducedMotion = false }) => {
         let last = performance.now();
         const tick = (now) => {
             raf = requestAnimationFrame(tick);
-            const dt = now - last;
+            // a frame's timestamp can come from just before the effect ran: never run the reel backwards,
+            // or the first frame lands on room -1
+            const dt = Math.max(0, now - last);
             last = now;
             elapsed.current += dt;
             const total = elapsed.current;
@@ -427,7 +429,7 @@ const Auditorium = ({ reducedMotion = false }) => {
                     {ROOMS.map((r, k) => {
                         const on = k === at.room;
                         return (
-                            <button key={r.key} type="button" onClick={() => play(k)} aria-pressed={on} className="relative pb-1.5 font-oswald font-bold uppercase tracking-[0.12em] text-base md:text-2xl leading-none transition-colors">
+                            <button key={r.key} type="button" onClick={() => play(k)} aria-pressed={on} className="relative pb-1.5 font-oswald font-bold uppercase tracking-[0.12em] text-base md:text-2xl leading-none transition-colors after:absolute after:-inset-x-1.5 after:-inset-y-3">
                                 <span className={on ? 'text-[#fff1c9] [text-shadow:0_0_12px_rgba(255,214,140,0.85),0_0_2px_#fff]' : 'text-white/45 hover:text-white/80'}>{r.name}</span>
                                 {on && !reducedMotion && <motion.span className="absolute left-0 right-0 bottom-0 h-[2px] bg-[#f4dcae] origin-left" style={{ scaleX: fill }} />}
                             </button>

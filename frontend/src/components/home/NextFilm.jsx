@@ -43,27 +43,27 @@ const Ticket = ({ film, n, small = false, part }) => {
     const line = film.editorial?.hook || citationLine(film.provenance?.[0]);
     return (
         // `part` cuts it along the perforation, for tearing: the ticket, or the stub
-        <div className={`relative flex bg-[#efe5cf] text-[#1c1812] ${small ? 'w-[14.5rem] h-[6.75rem]' : 'w-[min(36rem,92vw)] h-[12.5rem] md:h-[13.5rem]'}`} style={{ ...STUB_NOTCHES, clipPath: part === 'ticket' ? 'inset(0 74px 0 0)' : part === 'stub' ? 'inset(0 0 0 calc(100% - 74px))' : undefined }}>
+        <div className={`relative flex bg-[#efe5cf] text-[#1c1812] ${small ? 'w-[14.5rem] h-[6.75rem]' : 'w-[min(36rem,92vw)] h-[11.5rem] sm:h-[12.5rem] md:h-[13.5rem]'}`} style={{ ...STUB_NOTCHES, clipPath: part === 'ticket' ? 'inset(0 74px 0 0)' : part === 'stub' ? 'inset(0 0 0 calc(100% - 74px))' : undefined }}>
             {/* the film's poster, printed on the ticket in a paper margin (its still when there's no poster) */}
-            <div className={`relative h-full aspect-[2/3] shrink-0 ${small ? 'p-1.5' : 'p-2.5'}`}>
+            <div className={`relative h-full aspect-[2/3] shrink-0 ${small ? 'p-1.5' : 'p-2 sm:p-2.5'}`}>
                 {(film.posterUrl || still)
                     ? <img src={sized(film.posterUrl || still, 'w342')} alt="" className="w-full h-full object-cover max-w-none shadow-[0_1px_3px_rgba(28,24,18,0.35)]" />
                     : <div className="w-full h-full bg-[#1c1812]/10" />}
             </div>
             {!small && (
-                <div className="flex-1 min-w-0 px-5 py-4 flex flex-col">
+                <div className="flex-1 min-w-0 px-3 sm:px-5 py-3 sm:py-4 flex flex-col">
                     <div className="flex items-center justify-between gap-3 whitespace-nowrap font-label text-[12px] tracking-[0.14em] uppercase text-[#1c1812]/60">
                         <span className="hidden sm:inline">Arthouse Atlas</span>
                         <span>Screen {(n % 3) + 1}</span>
                     </div>
-                    <div className="mt-2 font-serif text-[1.6rem] md:text-[1.85rem] leading-[1.02] line-clamp-2">{film.title}</div>
-                    <div className="mt-1.5 font-label text-[12px] tracking-[0.14em] uppercase text-[#1c1812]/70 truncate">
+                    <div className="mt-2 font-serif text-[1.3rem] sm:text-[1.6rem] md:text-[1.85rem] leading-[1.02] line-clamp-3 sm:line-clamp-2">{film.title}</div>
+                    <div className="mt-1.5 font-label text-[12px] tracking-[0.14em] uppercase text-[#1c1812]/70 truncate max-sm:whitespace-normal max-sm:line-clamp-2">
                         {[(film.directors || [])[0], film.year, film.country].filter(Boolean).join(' · ')}
                     </div>
                     {line && <div className="hidden sm:block mt-2 font-serif italic text-[13px] leading-snug text-[#1c1812]/80 line-clamp-2">{line}</div>}
-                    <div className="mt-auto flex items-end justify-end sm:justify-between font-label text-[12px] tracking-[0.14em] uppercase">
+                    <div className="mt-auto flex items-end justify-end sm:justify-between text-right font-label text-[12px] tracking-[0.14em] uppercase">
                         <span className="hidden sm:inline">{tonight} · 20:00</span>
-                        <span>Row {seatFor(film._id)[0]} · Seat {seatFor(film._id).slice(1)}</span>
+                        <span><span className="whitespace-nowrap">Row {seatFor(film._id)[0]} ·</span> <span className="whitespace-nowrap">Seat {seatFor(film._id).slice(1)}</span></span>
                     </div>
                 </div>
             )}
@@ -229,7 +229,7 @@ const NextFilm = ({ reducedMotion = false }) => {
                     </div>
 
                     {/* the ticket, sliding out onto the counter */}
-                    <div className="relative w-[min(36rem,92vw)] h-[13.5rem] md:h-[14.5rem] overflow-hidden">
+                    <div className="relative w-[min(36rem,92vw)] h-[12.5rem] sm:h-[13.5rem] md:h-[14.5rem] overflow-hidden">
                         <AnimatePresence initial={false}>
                             {current && (
                                 <motion.div
@@ -276,7 +276,7 @@ const NextFilm = ({ reducedMotion = false }) => {
                             type="button"
                             onClick={take}
                             disabled={!current || tearing}
-                            className="font-label inline-flex items-center gap-2 px-6 py-3 bg-[#f4ecd8] text-[#141110] text-xs font-medium tracking-[0.14em] uppercase hover:bg-white disabled:opacity-60 transition-colors"
+                            className="font-label inline-flex items-center min-h-11 gap-2 px-6 py-3 bg-[#f4ecd8] text-[#141110] text-xs font-medium tracking-[0.14em] uppercase hover:bg-white disabled:opacity-60 transition-colors"
                         >
                             Take this ticket <MdArrowOutward />
                         </button>
@@ -284,7 +284,7 @@ const NextFilm = ({ reducedMotion = false }) => {
                             type="button"
                             onClick={() => print(printed.length)}
                             disabled={busy || !ready || tearing}
-                            className="font-label px-6 py-3 text-xs tracking-[0.14em] uppercase text-gray-100 ring-1 ring-white/30 hover:ring-white/60 disabled:opacity-60 transition-colors"
+                            className="font-label min-h-11 px-6 py-3 text-xs tracking-[0.14em] uppercase text-gray-100 ring-1 ring-white/30 hover:ring-white/60 disabled:opacity-60 transition-colors"
                         >
                             {printed.length ? 'Another, please' : 'A ticket, please'}
                         </button>
@@ -293,8 +293,8 @@ const NextFilm = ({ reducedMotion = false }) => {
                         {mine
                             ? <Link to="/recommendations" className="hover:text-white transition-colors">All your picks, with why each was chosen →</Link>
                             : isAuthenticated
-                            ? <>Rate a few films and the tickets become <Link to="/explore" className="text-gray-200 underline underline-offset-4 hover:text-white">yours</Link>.</>
-                            : <><Link to="/login" className="text-gray-200 underline underline-offset-4 hover:text-white">Sign in</Link> and the box office picks films for you.</>}
+                            ? <>Rate a few films and the tickets become <Link to="/explore" className="py-3 text-gray-200 underline underline-offset-4 hover:text-white">yours</Link>.</>
+                            : <><Link to="/login" className="py-3 text-gray-200 underline underline-offset-4 hover:text-white">Sign in</Link> and the box office picks films for you.</>}
                     </p>
                 </div>
 

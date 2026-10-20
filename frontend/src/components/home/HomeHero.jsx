@@ -195,17 +195,20 @@ const HomeHero = () => {
                 {counts ? `${counts.films} films` : 'Every film here'}, each placed here by critics' polls, year-end lists and festival juries — not by an algorithm.
             </p>
             {counts && (
-                <div className="mt-6 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gold">
-                    {counts.films} films · {counts.directors} directors · {counts.movements} movements · {counts.from}–{counts.to}
+                // on a phone it takes two lines: broken between the counts, never inside one
+                <div className="mt-6 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gold text-balance">
+                    {[`${counts.films} films`, `${counts.directors} directors`, `${counts.movements} movements`, `${counts.from}–${counts.to}`].map((part, k) => (
+                        <span key={part}>{k > 0 && ' · '}<span className="whitespace-nowrap">{part}</span></span>
+                    ))}
                 </div>
             )}
             <div className="mt-9 flex flex-wrap justify-center gap-3 pointer-events-auto">
                 {!reducedMotion && (
-                    <button onClick={toTonight} className="font-label group flex items-center gap-2 px-6 py-3.5 bg-[#f4ecd8] text-[#141110] text-xs font-medium tracking-[0.14em] uppercase shadow-[0_0_40px_rgba(255,214,150,0.35)] hover:shadow-[0_0_60px_rgba(255,214,150,0.6)] transition-shadow">
+                    <button onClick={toTonight} className="font-label group flex items-center min-h-11 gap-2 px-6 py-3.5 bg-[#f4ecd8] text-[#141110] text-xs font-medium tracking-[0.14em] uppercase shadow-[0_0_40px_rgba(255,214,150,0.35)] hover:shadow-[0_0_60px_rgba(255,214,150,0.6)] transition-shadow">
                         Tonight's film <MdArrowDownward className="text-base group-hover:translate-y-0.5 transition-transform" />
                     </button>
                 )}
-                <Link to="/explore" className="font-label flex items-center gap-2 px-6 py-3.5 text-xs tracking-[0.14em] uppercase text-gray-100 ring-1 ring-white/30 bg-black/60 hover:ring-white/60 transition-colors">
+                <Link to="/explore" className="font-label flex items-center min-h-11 gap-2 px-6 py-3.5 text-xs tracking-[0.14em] uppercase text-gray-100 ring-1 ring-white/30 bg-black/60 hover:ring-white/60 transition-colors">
                     Explore the atlas <MdArrowOutward />
                 </Link>
             </div>
@@ -228,16 +231,16 @@ const HomeHero = () => {
                 ? <p className="mt-5 max-w-2xl font-serif italic text-xl md:text-2xl leading-snug text-gray-100">{film.editorial.hook}</p>
                 : citationLine(film.provenance?.[0]) && <p className="mt-5 max-w-2xl font-serif text-xl md:text-2xl leading-snug text-gray-100">{citationLine(film.provenance[0])}</p>}
             <div className="mt-8 flex flex-wrap gap-3">
-                <Link to={`/movie/${film._id}`} className="font-label flex items-center gap-2 px-6 py-3.5 text-xs font-medium tracking-[0.14em] uppercase" style={{ backgroundColor: light, color: '#0a0a0a', boxShadow: `0 10px 40px ${light}55` }}>
+                <Link to={`/movie/${film._id}`} className="font-label flex items-center min-h-11 gap-2 px-6 py-3.5 text-xs font-medium tracking-[0.14em] uppercase" style={{ backgroundColor: light, color: '#0a0a0a', boxShadow: `0 10px 40px ${light}55` }}>
                     Open the film <MdArrowOutward />
                 </Link>
                 {film.trailerUrl && (
-                    <a href={film.trailerUrl} target="_blank" rel="noopener noreferrer" className="font-label flex items-center gap-2 px-5 py-3.5 text-xs tracking-[0.14em] uppercase text-gray-100 ring-1 ring-white/30 bg-black/60 hover:ring-white/60 transition-colors">
+                    <a href={film.trailerUrl} target="_blank" rel="noopener noreferrer" className="font-label flex items-center min-h-11 gap-2 px-5 py-3.5 text-xs tracking-[0.14em] uppercase text-gray-100 ring-1 ring-white/30 bg-black/60 hover:ring-white/60 transition-colors">
                         <MdPlayArrow className="text-lg" /> Trailer
                     </a>
                 )}
                 {!reducedMotion && (
-                    <button onClick={another} disabled={swapping} className="font-label flex items-center gap-2 px-5 py-3.5 text-xs tracking-[0.14em] uppercase text-gray-100 ring-1 ring-white/30 bg-black/60 hover:ring-white/60 transition-colors disabled:opacity-50">
+                    <button onClick={another} disabled={swapping} className="font-label flex items-center min-h-11 gap-2 px-5 py-3.5 text-xs tracking-[0.14em] uppercase text-gray-100 ring-1 ring-white/30 bg-black/60 hover:ring-white/60 transition-colors disabled:opacity-50">
                         <MdRefresh className={`text-lg ${swapping ? 'animate-spin' : ''}`} /> Another film
                     </button>
                 )}
@@ -291,7 +294,8 @@ const HomeHero = () => {
 
                     {/* the title, over a pool of dark so it reads on the wall */}
                     <motion.div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{ opacity: restOpacity, y: restY }}>
-                        <div className="absolute inset-0 bg-[radial-gradient(ellipse_48%_46%_at_50%_50%,rgba(5,5,5,0.86),rgba(5,5,5,0.55)_55%,transparent_80%)]" />
+                        {/* on a phone the words run nearly edge to edge, so the pool reaches further across */}
+                        <div className="absolute inset-0 bg-[radial-gradient(ellipse_86%_44%_at_50%_50%,rgba(5,5,5,0.86),rgba(5,5,5,0.55)_55%,transparent_80%)] md:bg-[radial-gradient(ellipse_48%_46%_at_50%_50%,rgba(5,5,5,0.86),rgba(5,5,5,0.55)_55%,transparent_80%)]" />
                         <div className="relative">{restBlock}</div>
                     </motion.div>
 
@@ -305,7 +309,7 @@ const HomeHero = () => {
                     )}
                 </motion.div>
 
-                <motion.div style={{ opacity: hintOpacity }} className="absolute bottom-6 left-1/2 -translate-x-1/2 font-label text-[12px] tracking-[0.14em] uppercase text-gray-400 pointer-events-none">
+                <motion.div style={{ opacity: hintOpacity }} className="absolute bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap font-label text-[12px] tracking-[0.14em] uppercase text-gray-400 pointer-events-none">
                     Scroll · into tonight's film
                 </motion.div>
             </div>

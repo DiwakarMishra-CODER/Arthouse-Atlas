@@ -213,7 +213,7 @@ const Beat = ({ p, i, n, beat, film }) => {
                     <motion.div style={{ opacity: feelOp }} className="mt-5 md:mt-6 flex flex-col md:flex-row md:items-end gap-4 md:gap-10">
                         <p className="max-w-xl text-base md:text-xl leading-relaxed text-gray-100">{beat.feel}</p>
                         {film && (
-                            <Link to={`/movie/${film._id}`} className="group shrink-0 inline-flex items-center gap-2 self-start md:self-auto px-4 py-2.5 bg-white/10 ring-1 ring-white/25 hover:bg-white hover:text-[#141110] font-label text-[12px] tracking-[0.14em] uppercase text-white transition-colors">
+                            <Link to={`/movie/${film._id}`} className="group shrink-0 inline-flex items-center min-h-11 gap-2 self-start md:self-auto px-4 py-2.5 bg-white/10 ring-1 ring-white/25 hover:bg-white hover:text-[#141110] font-label text-[12px] tracking-[0.14em] uppercase text-white transition-colors">
                                 Watch {film.title} <MdArrowOutward />
                             </Link>
                         )}
@@ -425,7 +425,7 @@ const ArthouseBreath = ({ films = [], reducedMotion = false }) => {
                                 );
                             })}
                         </div>
-                        <Link to="/explore" className="mt-8 inline-flex items-center gap-2 font-label text-[12px] tracking-[0.14em] uppercase text-gray-300 hover:text-white transition-colors">
+                        <Link to="/explore" className="mt-[18px] -mb-3.5 py-3.5 inline-flex items-center gap-2 font-label text-[12px] tracking-[0.14em] uppercase text-gray-300 hover:text-white transition-colors">
                             Find more like these <MdArrowOutward />
                         </Link>
                     </div>

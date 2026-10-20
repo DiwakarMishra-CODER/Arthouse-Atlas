@@ -53,6 +53,8 @@ const AtlasMap = ({ heading = null }) => {
     const [playing, setPlaying] = useState(back ? back.playing : !reducedMotion);
     const [status, setStatus] = useState({ year: back?.year ?? 1948 });
     const [hovered, setHovered] = useState(null);
+    const hoverKey = useRef(null);    // the same, as the map last drew it, for a tap to read at once
+    const touching = useRef(false);   // the last press on the map was a finger (or pen), not a mouse
     const [selected, setSelected] = useState(back?.selected ?? null);
     const [filmCard, setFilmCard] = useState(null);   // the film light under the pointer, and where
     // the years hold still while you're choosing from "Now showing", so a film can't change under your hand
@@ -88,7 +90,7 @@ const AtlasMap = ({ heading = null }) => {
                 ? { world: (slider.current?.offsetHeight || 0) + 10, country: (controls.current?.offsetHeight || 0) + 16 }
                 : { world: 0, country: 0 }),
             onStatus: setStatus,
-            onHover: setHovered,
+            onHover: (k) => { hoverKey.current = k; setHovered(k); },
             // the canvas's width travels with the card, for keeping it on screen
             onFilmHover: (hit) => setFilmCard(hit ? { ...hit, cw: canvas.current?.clientWidth || 0 } : null)
         });
@@ -149,12 +151,25 @@ const AtlasMap = ({ heading = null }) => {
         const r = canvas.current.getBoundingClientRect();
         map.current?.setPointer(e.clientX - r.left, e.clientY - r.top);
     };
+    const letGo = () => { map.current?.setPointer(null); setFilmCard(null); };
+    // a finger has no hover: it marks its point as it presses, and keeps it (lifting a finger leaves the
+    // map at once) until the tap has been read
+    const onPointerDown = (e) => {
+        touching.current = e.pointerType !== 'mouse';
+        if (touching.current) onPointer(e);
+    };
     // a film opens; a country flies in; the sea, from inside a country, flies back out
     const onClick = () => {
-        const film = map.current?.filmAtPointer();
-        if (film) return navigate(`/movie/${film.id}`);
-        if (hovered) return setSelected(hovered);
-        if (selected) return setSelected(null);
+        const act = () => {
+            const film = map.current?.filmAtPointer();
+            if (film) return navigate(`/movie/${film.id}`);
+            if (hoverKey.current) return setSelected(hoverKey.current);
+            if (selected) return setSelected(null);
+            return null;
+        };
+        if (!touching.current) return act();
+        // the map finds what's under the finger as it draws: read it a frame or two on
+        requestAnimationFrame(() => requestAnimationFrame(() => { act(); letGo(); }));
         return null;
     };
 
@@ -185,7 +200,9 @@ const AtlasMap = ({ heading = null }) => {
                             ref={canvas}
                             className="absolute inset-0 w-full h-full"
                             onPointerMove={onPointer}
-                            onPointerLeave={() => { map.current?.setPointer(null); setFilmCard(null); }}
+                            onPointerDown={onPointerDown}
+                            onPointerLeave={(e) => { if (e.pointerType === 'mouse') letGo(); }}
+                            onPointerCancel={letGo}
                             onClick={onClick}
                             role="img"
                             aria-label="A world map at night, each country's lights coming up while its cinema happens"
@@ -294,7 +311,7 @@ const AtlasMap = ({ heading = null }) => {
                             Now showing <span className="text-gray-500">· {Math.ceil(y - WINDOW)}–{Math.floor(y + WINDOW)} · {strip.length} {strip.length === 1 ? 'film' : 'films'}</span>
                             {held && playing && <span className="ml-3 text-[#f6d48f]">· the years wait while you choose</span>}
                         </div>
-                        <Link to="/explore" className="font-label text-[12px] tracking-[0.14em] uppercase text-gray-400 hover:text-white">All {films?.length || ''} films →</Link>
+                        <Link to="/explore" className="shrink-0 whitespace-nowrap py-3.5 -my-3.5 font-label text-[12px] tracking-[0.14em] uppercase text-gray-400 hover:text-white">All {films?.length || ''} films →</Link>
                     </div>
                     <ol
                         className="flex gap-3 overflow-x-auto pb-3 snap-x [scrollbar-width:thin]"
