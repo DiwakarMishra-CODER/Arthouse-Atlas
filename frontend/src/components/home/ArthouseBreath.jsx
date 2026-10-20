@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { easeInOut, motion, useMotionTemplate, useScroll, useSpring, useTransform } from 'framer-motion';
 import { MdArrowOutward } from 'react-icons/md';
-import { sized } from '../movements/treatments';
+import { sized, stillSrc } from '../movements/treatments';
 import { createNoteBurn } from './noteBurn';
 
 /**
@@ -60,16 +60,19 @@ const OUTRO = 0.16;
 const SCROLL_VH = 478;
 // the set-up: the film as its director framed it, then three notes the frame acts out, then the
 // whole frame again. Moments are shares of the set-up's stretch of scroll.
-// L'Avventura's split frame: statues in a dark room on the left, a woman alone on a terrace, and the
-// empty land behind her, on the right. `focus` is where she stands, as a share of the frame's width.
-const OPENER = { title: "L'Avventura", still: 'xrlfjMkyvsRQsnPcCAou9l9AO53', focus: 0.7 };
+// L'Avventura's island: Claudia alone on the bare rock, the sea behind her, one far-off figure in white.
+// The sharpest frame TMDB has (a 1920 scan, grain and all), at full size, since the camera pushes in.
+// `focus` is where she stands, as a share of the frame's width; `head` is where the push-ins grow from,
+// as a share of the screen's height (just above her face, so a close-up keeps it); `position` keeps her
+// head in the wide screen.
+const OPENER = { title: "L'Avventura", still: '/h8VGSAhOVA8BBYeK8EQM10QD1O8.jpg', focus: 0.67, head: 0.065, position: '50% 10%' };
 const NOTES = [
     { text: 'Too wide.', from: 0.1, to: 0.35 },
     { text: 'Too empty.', from: 0.36, to: 0.49 },
     { text: 'Too slow.', from: 0.5, to: 0.67 }
 ];
 const BOXED = [0.13, 0.19]; // the masks close in to 4:3…
-const PAN = [0.19, 0.33]; // …and the camera pans from the statues across to her
+const PAN = [0.19, 0.33]; // …and the camera pans from the bare rocks across to her
 const PUNCH = [0.39, 0.45]; // "too empty": in on her, until the land is gone
 const JUMP = [0.53, 0.66]; // "too slow": cut, cut, cut
 const RESTORE = 0.68; // and it stops: the whole frame, still
@@ -266,7 +269,7 @@ const MaskedScreen = ({ p, opener }) => {
             const c = cuts[Math.min(cuts.length - 1, Math.floor(share(JUMP[0], JUMP[1]) * cuts.length))];
             return { x: onHer(c.s) + c.d, s: c.s };
         }
-        // as the box closes, to the statues; then across the room to her; then in, until the land is gone
+        // as the box closes, to the bare rocks; then across the island to her; then in, until the land is gone
         const pan = 12 * easeInOut(share(BOXED[0], BOXED[1])) + (onHer(1) - 12) * easeInOut(share(...PAN));
         const s = 1 + 0.65 * easeInOut(share(...PUNCH)) + 0.02 * share(0, BOXED[0]);
         return { x: pan + (onHer(s) - onHer(1)) * easeInOut(share(...PUNCH)), s };
@@ -285,7 +288,7 @@ const MaskedScreen = ({ p, opener }) => {
     const subOp = useOpacity(p, [inIntro(0.76), inIntro(0.79), inIntro(0.86), inIntro(0.89)], [0, 1, 1, 0]);
 
     const film = opener?.film;
-    const still = opener && sized(opener.still, 'w1280');
+    const still = opener?.still;
     const surname = film?.directors?.[0]?.split(' ').at(-1);
     const credit = film && [film.title, film.year].filter(Boolean).join('  ·  ');
 
@@ -296,8 +299,8 @@ const MaskedScreen = ({ p, opener }) => {
             </motion.div>
             <motion.div className="relative w-full max-h-[80vh] aspect-[1.85/1] md:aspect-[2.39/1] bg-black overflow-hidden" style={{ opacity: screenOp }}>
                 {still && (
-                    <motion.div className="absolute inset-0 will-change-transform" style={{ x: shotX, scale: shotScale }}>
-                        <img src={still} alt="" className="absolute inset-0 w-full h-full object-cover max-w-none" />
+                    <motion.div className="absolute inset-0 will-change-transform" style={{ x: shotX, scale: shotScale, originY: opener.head ?? 0.5 }}>
+                        <img src={still} alt="" className="absolute inset-0 w-full h-full object-cover max-w-none" style={{ objectPosition: opener.position }} />
                     </motion.div>
                 )}
                 <div className="absolute inset-0 bg-grain" />
@@ -344,13 +347,12 @@ const ArthouseBreath = ({ films = [], reducedMotion = false }) => {
     const p = useSpring(scrollYProgress, { stiffness: 260, damping: 40, mass: 0.5, restDelta: 0.0001 });
     const n = BEATS.length;
     const found = BEATS.map((beat) => find(films, beat.title));
-    // the set-up's film: L'Avventura's split frame, or, if the atlas lacks it, the first film with a still
+    // the set-up's film: L'Avventura on its island, or, if the atlas lacks it, the first film with a still
     const opener = (() => {
         const film = find(films, OPENER.title);
-        const still = film?.stills?.find((s) => s.includes(OPENER.still)) || stillOf(film);
-        if (film && still) return { film, still, focus: OPENER.focus };
+        if (film) return { ...OPENER, film, still: stillSrc(OPENER.still, 'original') };
         const other = films.find((f) => !BEATS.some((b) => b.title.toLowerCase() === f.title?.toLowerCase()) && stillOf(f));
-        return other ? { film: other, still: stillOf(other) } : null;
+        return other ? { film: other, still: sized(stillOf(other), 'w1280') } : null;
     })();
 
     // black under the first film until it's fully up, so the stars don't show through it as it fades in
