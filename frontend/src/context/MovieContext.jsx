@@ -40,6 +40,7 @@ export const MovieProvider = ({ children }) => {
             if (user.favorites) setFavorites(user.favorites);
             if (user.watchlist) setWatchlist(user.watchlist);
             if (user.watched) setWatched(user.watched);
+            if (user.ratings) setRatings(user.ratings.filter((r) => r.movie).map((r) => ({ id: r.movie._id, rating: r.value, movie: r.movie })));
         } else {
             // Optional: Clear on logout, or keep local? 
             // Better to keep local for now or clear if strict security needed.
@@ -155,9 +156,12 @@ export const MovieProvider = ({ children }) => {
         }
     };
 
-    // Rating helpers
-    const setMovieRating = (movie, score) => {
+    // Rating helpers. Signed in, ratings are saved to the account (they shape
+    // For You); signed out, they stay in this browser.
+    const setMovieRating = async (movie, score) => {
         const movieId = movie._id || movie.id;
+        if (pendingToggles.current.has(`rt-${movieId}`)) return;
+        const clearing = ratings.find((r) => r.id === movieId)?.rating === score;
         setRatings((prev) => {
             const existing = prev.find((r) => r.id === movieId);
             // Clicking same score toggles it off
@@ -169,6 +173,17 @@ export const MovieProvider = ({ children }) => {
             }
             return [...prev, { id: movieId, rating: score, movie }];
         });
+
+        if (!isAuthenticated) return;
+        pendingToggles.current.add(`rt-${movieId}`);
+        try {
+            if (clearing) await userAPI.clearRating(movieId);
+            else await userAPI.rateMovie(movieId, score);
+        } catch (error) {
+            console.error('Failed to save rating:', error);
+        } finally {
+            pendingToggles.current.delete(`rt-${movieId}`);
+        }
     };
 
     const getMovieRating = (id) => ratings.find((r) => r.id === id)?.rating || 0;

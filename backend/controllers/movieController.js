@@ -1,5 +1,6 @@
 import Movie from '../models/Movie.js';
 import { getErrorResponse } from '../utils/errorResponse.js';
+import { getIndex, rankCandidates, inRankedOrder, CARD_FIELDS, REASONS } from '../services/recommender.js';
 import { pickTonight, MARATHON } from '../services/tonight.js';
 
 const shuffleArray = (array) => {
@@ -347,6 +348,28 @@ export const getSimilarMovies = async (req, res) => {
       return res.status(404).json({ message: 'Movie not found' });
     }
 
+    // The film's nearest neighbours from the MovieLens model: the same ranking
+    // For You uses, with this film as the only seed
+    const index = getIndex();
+    if (index?.films.has(movie.tmdbId)) {
+      const ranked = rankCandidates(index, {
+        seeds: [{ tmdbId: movie.tmdbId, weight: 1 }],
+        exclude: new Set([movie.tmdbId]),
+        gamma: index.params.gamma,
+        limit: 12
+      });
+      const docs = await Movie.find({ tmdbId: { $in: ranked.map((r) => r.tmdbId) } }).select(CARD_FIELDS).lean();
+      const similar = inRankedOrder(docs, ranked).slice(0, 10).map(({ film, score, because }) => ({
+        ...film,
+        similarityScore: Math.round(score * 1e4) / 1e4,
+        because: because && { reason: REASONS[because.reason] }
+      }));
+      res.setHeader('Cache-Control', 'public, max-age=3600');
+      return res.json(similar);
+    }
+
+    // Films added since the model was last built: shared tags, genres,
+    // directors and movements, as before
     // Build lists of attributes for comparison
     const targetTags = movie.derivedTags || [];
     const targetGenres = movie.genres || [];

@@ -3,6 +3,8 @@ import {
   toggleFavorite,
   toggleWatchlist,
   toggleWatched,
+  rateMovie,
+  clearRating,
   getRecommendations,
   googleLogin
 } from '../controllers/userController.js';
@@ -15,6 +17,8 @@ const router = express.Router();
 router.post('/favorites/:movieId', protect, toggleFavorite);
 router.post('/watchlist/:movieId', protect, toggleWatchlist);
 router.post('/watched/:movieId', protect, toggleWatched);
+router.put('/ratings/:movieId', protect, rateMovie);
+router.delete('/ratings/:movieId', protect, clearRating);
 router.get('/recommendations', protect, getRecommendations);
 router.post('/google', authLimiter, googleLogin);
 

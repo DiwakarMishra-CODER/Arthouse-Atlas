@@ -33,6 +33,12 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Movie'
   }],
+  ratings: [{
+    _id: false,
+    movie: { type: mongoose.Schema.Types.ObjectId, ref: 'Movie', required: true },
+    value: { type: Number, required: true, min: 1, max: 5 },
+    ratedAt: { type: Date, default: Date.now }
+  }],
   createdAt: {
     type: Date,
     default: Date.now

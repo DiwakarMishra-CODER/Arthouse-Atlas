@@ -47,6 +47,7 @@ export const registerUser = async (req, res) => {
         favorites: user.favorites,
         watchlist: user.watchlist,
         watched: user.watched,
+        ratings: user.ratings,
         token: generateToken(user._id)
       });
     } else {
@@ -72,7 +73,7 @@ export const loginUser = async (req, res) => {
     }
 
     // Check for user
-    const user = await User.findOne({ email }).populate('favorites watchlist watched');
+    const user = await User.findOne({ email }).populate('favorites watchlist watched').populate('ratings.movie', 'title posterUrl year');
 
     if (user && (await user.comparePassword(password))) {
       res.json({
@@ -82,6 +83,7 @@ export const loginUser = async (req, res) => {
         favorites: user.favorites,
         watchlist: user.watchlist,
         watched: user.watched,
+        ratings: user.ratings,
         token: generateToken(user._id)
       });
     } else {
@@ -99,7 +101,7 @@ export const loginUser = async (req, res) => {
 // @access  Private
 export const getMe = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).populate('favorites watchlist watched');
+    const user = await User.findById(req.user._id).populate('favorites watchlist watched').populate('ratings.movie', 'title posterUrl year');
     res.json({
       _id: user._id,
       username: user.username,
@@ -108,6 +110,7 @@ export const getMe = async (req, res) => {
       favorites: user.favorites,
       watchlist: user.watchlist,
       watched: user.watched,
+      ratings: user.ratings,
       isAdmin: user.isAdmin
     });
   } catch (error) {
