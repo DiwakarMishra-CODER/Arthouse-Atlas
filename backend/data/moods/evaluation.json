@@ -1,0 +1,1172 @@
+{
+ "builtAt": "2026-10-20T12:19:58.123Z",
+ "method": "pooled logistic regression over (film, mood) pairs on evidence from hand-tagged films; see scripts/moods/lib/model.js",
+ "settings": {
+  "graphAlpha": 0.8,
+  "knn": 15,
+  "lambda": 1,
+  "draws": 2,
+  "smoothing": {
+   "viewers": 3,
+   "diffusion": 1,
+   "director": 2,
+   "movement": 4,
+   "keywords": 2,
+   "synopsis": 2,
+   "genre": 10
+  }
+ },
+ "sources": [
+  "viewers",
+  "diffusion",
+  "director",
+  "movement",
+  "keywords",
+  "synopsis",
+  "genre"
+ ],
+ "keepRates": {
+  "viewers": 0.3493476316907025,
+  "diffusion": 0.6574023135245457,
+  "director": 0.27479761604707553,
+  "movement": 0.3201714689409392
+ },
+ "repeats": 5,
+ "aim": {
+  "precision": 0.8,
+  "margin": 0.02,
+  "minPredictionsPerRepeat": 20
+ },
+ "threshold": 0.775,
+ "thresholdChoiceCrossValidated": {
+  "thresholds": [
+   0.775,
+   0.725,
+   0.75,
+   0.775,
+   0.8
+  ],
+  "matched": {
+   "precision": 0.8303448275862069,
+   "recall": 0.15144654088050313
+  },
+  "rich": {
+   "precision": 0.8090999010880316,
+   "recall": 0.20578616352201257
+  }
+ },
+ "atThreshold": {
+  "matched": {
+   "t": 0.775,
+   "predictions": 134.2,
+   "precision": 0.8584202682563339,
+   "recall": 0.1449056603773585,
+   "filmsWithAMood": 86
+  },
+  "rich": {
+   "t": 0.775,
+   "predictions": 191.2,
+   "precision": 0.8368200836820083,
+   "recall": 0.20125786163522014,
+   "filmsWithAMood": 105
+  },
+  "plain": {
+   "t": 0.775,
+   "predictions": 174,
+   "precision": 0.8390804597701149,
+   "recall": 0.18364779874213835,
+   "filmsWithAMood": 100
+  }
+ },
+ "perMood": {
+  "matched": [
+   {
+    "mood": "contemplative",
+    "predictions": 6,
+    "precision": 0.867,
+    "recall": 0.08
+   },
+   {
+    "mood": "melancholic",
+    "predictions": 17.4,
+    "precision": 0.816,
+    "recall": 0.187
+   },
+   {
+    "mood": "dreamlike",
+    "predictions": 4.2,
+    "precision": 0.619,
+    "recall": 0.059
+   },
+   {
+    "mood": "surreal",
+    "predictions": 11.2,
+    "precision": 0.875,
+    "recall": 0.233
+   },
+   {
+    "mood": "intimate",
+    "predictions": 30.4,
+    "precision": 0.882,
+    "recall": 0.291
+   },
+   {
+    "mood": "existential",
+    "predictions": 8.6,
+    "precision": 0.814,
+    "recall": 0.1
+   },
+   {
+    "mood": "psychological",
+    "predictions": 20.2,
+    "precision": 0.871,
+    "recall": 0.271
+   },
+   {
+    "mood": "minimalist",
+    "predictions": 1.2,
+    "precision": 1,
+    "recall": 0.055
+   },
+   {
+    "mood": "slow",
+    "predictions": 1.8,
+    "precision": 0.889,
+    "recall": 0.062
+   },
+   {
+    "mood": "austere",
+    "predictions": 1.8,
+    "precision": 0.556,
+    "recall": 0.019
+   },
+   {
+    "mood": "poetic",
+    "predictions": 2.2,
+    "precision": 0.727,
+    "recall": 0.033
+   },
+   {
+    "mood": "lyrical",
+    "predictions": 13.8,
+    "precision": 0.957,
+    "recall": 0.178
+   },
+   {
+    "mood": "enigmatic",
+    "predictions": 12.2,
+    "precision": 0.918,
+    "recall": 0.28
+   },
+   {
+    "mood": "fragmented",
+    "predictions": 0.4,
+    "precision": 0,
+    "recall": 0
+   },
+   {
+    "mood": "bleak",
+    "predictions": 2.8,
+    "precision": 0.786,
+    "recall": 0.05
+   }
+  ],
+  "rich": [
+   {
+    "mood": "contemplative",
+    "predictions": 12.4,
+    "precision": 0.855,
+    "recall": 0.163
+   },
+   {
+    "mood": "melancholic",
+    "predictions": 26.8,
+    "precision": 0.761,
+    "recall": 0.268
+   },
+   {
+    "mood": "dreamlike",
+    "predictions": 5,
+    "precision": 0.6,
+    "recall": 0.068
+   },
+   {
+    "mood": "surreal",
+    "predictions": 14,
+    "precision": 0.843,
+    "recall": 0.281
+   },
+   {
+    "mood": "intimate",
+    "predictions": 36.4,
+    "precision": 0.868,
+    "recall": 0.343
+   },
+   {
+    "mood": "existential",
+    "predictions": 16.2,
+    "precision": 0.741,
+    "recall": 0.171
+   },
+   {
+    "mood": "psychological",
+    "predictions": 27.2,
+    "precision": 0.912,
+    "recall": 0.382
+   },
+   {
+    "mood": "minimalist",
+    "predictions": 2.4,
+    "precision": 1,
+    "recall": 0.109
+   },
+   {
+    "mood": "slow",
+    "predictions": 4,
+    "precision": 0.75,
+    "recall": 0.115
+   },
+   {
+    "mood": "austere",
+    "predictions": 2.6,
+    "precision": 0.615,
+    "recall": 0.03
+   },
+   {
+    "mood": "poetic",
+    "predictions": 3.8,
+    "precision": 0.632,
+    "recall": 0.05
+   },
+   {
+    "mood": "lyrical",
+    "predictions": 22.4,
+    "precision": 0.911,
+    "recall": 0.276
+   },
+   {
+    "mood": "enigmatic",
+    "predictions": 12,
+    "precision": 0.917,
+    "recall": 0.275
+   },
+   {
+    "mood": "fragmented",
+    "predictions": 0,
+    "precision": null,
+    "recall": 0
+   },
+   {
+    "mood": "bleak",
+    "predictions": 6,
+    "precision": 0.833,
+    "recall": 0.114
+   }
+  ],
+  "plain": [
+   {
+    "mood": "contemplative",
+    "predictions": 10,
+    "precision": 0.8,
+    "recall": 0.123
+   },
+   {
+    "mood": "melancholic",
+    "predictions": 24,
+    "precision": 0.75,
+    "recall": 0.237
+   },
+   {
+    "mood": "dreamlike",
+    "predictions": 4,
+    "precision": 0.5,
+    "recall": 0.045
+   },
+   {
+    "mood": "surreal",
+    "predictions": 13,
+    "precision": 0.846,
+    "recall": 0.262
+   },
+   {
+    "mood": "intimate",
+    "predictions": 37,
+    "precision": 0.865,
+    "recall": 0.348
+   },
+   {
+    "mood": "existential",
+    "predictions": 14,
+    "precision": 0.786,
+    "recall": 0.157
+   },
+   {
+    "mood": "psychological",
+    "predictions": 27,
+    "precision": 0.926,
+    "recall": 0.385
+   },
+   {
+    "mood": "minimalist",
+    "predictions": 1,
+    "precision": 1,
+    "recall": 0.045
+   },
+   {
+    "mood": "slow",
+    "predictions": 3,
+    "precision": 1,
+    "recall": 0.115
+   },
+   {
+    "mood": "austere",
+    "predictions": 1,
+    "precision": 0,
+    "recall": 0
+   },
+   {
+    "mood": "poetic",
+    "predictions": 2,
+    "precision": 0.5,
+    "recall": 0.021
+   },
+   {
+    "mood": "lyrical",
+    "predictions": 21,
+    "precision": 0.905,
+    "recall": 0.257
+   },
+   {
+    "mood": "enigmatic",
+    "predictions": 12,
+    "precision": 0.917,
+    "recall": 0.275
+   },
+   {
+    "mood": "fragmented",
+    "predictions": 0,
+    "precision": null,
+    "recall": 0
+   },
+   {
+    "mood": "bleak",
+    "predictions": 5,
+    "precision": 0.8,
+    "recall": 0.091
+   }
+  ]
+ },
+ "logLoss": {
+  "matched": 0.5081746469247637,
+  "rich": 0.49337611247766544,
+  "plain": 0.4938552276082388,
+  "baseRatesOnly": 0.6025996394495327
+ },
+ "oldKeywordTagger": {
+  "precision": 0.5880281690140845,
+  "recall": 0.21006289308176102,
+  "perFilm": 1.7861635220125787
+ },
+ "slopes": {
+  "viewers": 0.366,
+  "diffusion": 4.172,
+  "director": 0.266,
+  "movement": 0.356,
+  "keywords": 0.666,
+  "synopsis": 0.43,
+  "genre": 1.394,
+  "lexicon": 1.25
+ },
+ "lexicon": [
+  {
+   "mood": "contemplative",
+   "taggedFilmsWithHit": 6,
+   "agree": 3,
+   "untaggedFilmsWithHit": 35
+  },
+  {
+   "mood": "melancholic",
+   "taggedFilmsWithHit": 16,
+   "agree": 10,
+   "untaggedFilmsWithHit": 44
+  },
+  {
+   "mood": "dreamlike",
+   "taggedFilmsWithHit": 8,
+   "agree": 6,
+   "untaggedFilmsWithHit": 14
+  },
+  {
+   "mood": "surreal",
+   "taggedFilmsWithHit": 16,
+   "agree": 12,
+   "untaggedFilmsWithHit": 31
+  },
+  {
+   "mood": "existential",
+   "taggedFilmsWithHit": 5,
+   "agree": 4,
+   "untaggedFilmsWithHit": 18
+  },
+  {
+   "mood": "psychological",
+   "taggedFilmsWithHit": 13,
+   "agree": 10,
+   "untaggedFilmsWithHit": 41
+  },
+  {
+   "mood": "minimalist",
+   "taggedFilmsWithHit": 1,
+   "agree": 1,
+   "untaggedFilmsWithHit": 0
+  },
+  {
+   "mood": "slow",
+   "taggedFilmsWithHit": 4,
+   "agree": 3,
+   "untaggedFilmsWithHit": 14
+  },
+  {
+   "mood": "poetic",
+   "taggedFilmsWithHit": 1,
+   "agree": 1,
+   "untaggedFilmsWithHit": 8
+  },
+  {
+   "mood": "enigmatic",
+   "taggedFilmsWithHit": 8,
+   "agree": 5,
+   "untaggedFilmsWithHit": 11
+  },
+  {
+   "mood": "fragmented",
+   "taggedFilmsWithHit": 6,
+   "agree": 3,
+   "untaggedFilmsWithHit": 21
+  },
+  {
+   "mood": "bleak",
+   "taggedFilmsWithHit": 2,
+   "agree": 1,
+   "untaggedFilmsWithHit": 18
+  }
+ ],
+ "curve": [
+  {
+   "t": 0.5,
+   "matched": {
+    "t": 0.5,
+    "predictions": 589.4,
+    "precision": 0.6769596199524941,
+    "recall": 0.5018867924528302,
+    "filmsWithAMood": 158.8
+   },
+   "rich": {
+    "t": 0.5,
+    "predictions": 629.2,
+    "precision": 0.6891290527654164,
+    "recall": 0.5454088050314465,
+    "filmsWithAMood": 159
+   },
+   "plain": {
+    "t": 0.5,
+    "predictions": 608,
+    "precision": 0.6891447368421053,
+    "recall": 0.5270440251572327,
+    "filmsWithAMood": 158
+   }
+  },
+  {
+   "t": 0.525,
+   "matched": {
+    "t": 0.525,
+    "predictions": 534.8,
+    "precision": 0.6948391922213911,
+    "recall": 0.4674213836477987,
+    "filmsWithAMood": 157.8
+   },
+   "rich": {
+    "t": 0.525,
+    "predictions": 582.8,
+    "precision": 0.7086479066575154,
+    "recall": 0.519496855345912,
+    "filmsWithAMood": 158.8
+   },
+   "plain": {
+    "t": 0.525,
+    "predictions": 563,
+    "precision": 0.7158081705150977,
+    "recall": 0.5069182389937107,
+    "filmsWithAMood": 158
+   }
+  },
+  {
+   "t": 0.55,
+   "matched": {
+    "t": 0.55,
+    "predictions": 486.4,
+    "precision": 0.7076480263157895,
+    "recall": 0.4329559748427673,
+    "filmsWithAMood": 155.2
+   },
+   "rich": {
+    "t": 0.55,
+    "predictions": 538,
+    "precision": 0.7275092936802974,
+    "recall": 0.49232704402515726,
+    "filmsWithAMood": 157
+   },
+   "plain": {
+    "t": 0.55,
+    "predictions": 516,
+    "precision": 0.7344961240310077,
+    "recall": 0.4767295597484277,
+    "filmsWithAMood": 156
+   }
+  },
+  {
+   "t": 0.575,
+   "matched": {
+    "t": 0.575,
+    "predictions": 439.8,
+    "precision": 0.7276034561164165,
+    "recall": 0.4025157232704403,
+    "filmsWithAMood": 154.2
+   },
+   "rich": {
+    "t": 0.575,
+    "predictions": 497.8,
+    "precision": 0.739252711932503,
+    "recall": 0.4628930817610063,
+    "filmsWithAMood": 155
+   },
+   "plain": {
+    "t": 0.575,
+    "predictions": 474,
+    "precision": 0.740506329113924,
+    "recall": 0.44150943396226416,
+    "filmsWithAMood": 155
+   }
+  },
+  {
+   "t": 0.6,
+   "matched": {
+    "t": 0.6,
+    "predictions": 394.6,
+    "precision": 0.7546882919412062,
+    "recall": 0.3745911949685535,
+    "filmsWithAMood": 151.6
+   },
+   "rich": {
+    "t": 0.6,
+    "predictions": 457.6,
+    "precision": 0.7561188811188811,
+    "recall": 0.43522012578616354,
+    "filmsWithAMood": 152.8
+   },
+   "plain": {
+    "t": 0.6,
+    "predictions": 433,
+    "precision": 0.7598152424942263,
+    "recall": 0.4138364779874214,
+    "filmsWithAMood": 152
+   }
+  },
+  {
+   "t": 0.625,
+   "matched": {
+    "t": 0.625,
+    "predictions": 353.6,
+    "precision": 0.7669683257918553,
+    "recall": 0.3411320754716981,
+    "filmsWithAMood": 148.2
+   },
+   "rich": {
+    "t": 0.625,
+    "predictions": 422.2,
+    "precision": 0.7683562292752251,
+    "recall": 0.4080503144654088,
+    "filmsWithAMood": 148.2
+   },
+   "plain": {
+    "t": 0.625,
+    "predictions": 396,
+    "precision": 0.7702020202020202,
+    "recall": 0.3836477987421384,
+    "filmsWithAMood": 147
+   }
+  },
+  {
+   "t": 0.65,
+   "matched": {
+    "t": 0.65,
+    "predictions": 315.2,
+    "precision": 0.7791878172588832,
+    "recall": 0.3089308176100629,
+    "filmsWithAMood": 141.6
+   },
+   "rich": {
+    "t": 0.65,
+    "predictions": 383.6,
+    "precision": 0.7758081334723671,
+    "recall": 0.37433962264150944,
+    "filmsWithAMood": 145.4
+   },
+   "plain": {
+    "t": 0.65,
+    "predictions": 351,
+    "precision": 0.792022792022792,
+    "recall": 0.34968553459119495,
+    "filmsWithAMood": 140
+   }
+  },
+  {
+   "t": 0.675,
+   "matched": {
+    "t": 0.675,
+    "predictions": 276.4,
+    "precision": 0.7937771345875543,
+    "recall": 0.2759748427672956,
+    "filmsWithAMood": 134.2
+   },
+   "rich": {
+    "t": 0.675,
+    "predictions": 341.2,
+    "precision": 0.7919109026963658,
+    "recall": 0.339874213836478,
+    "filmsWithAMood": 141.4
+   },
+   "plain": {
+    "t": 0.675,
+    "predictions": 309,
+    "precision": 0.7928802588996764,
+    "recall": 0.3081761006289308,
+    "filmsWithAMood": 135
+   }
+  },
+  {
+   "t": 0.7,
+   "matched": {
+    "t": 0.7,
+    "predictions": 231.4,
+    "precision": 0.8020743301642178,
+    "recall": 0.23345911949685536,
+    "filmsWithAMood": 125
+   },
+   "rich": {
+    "t": 0.7,
+    "predictions": 294.8,
+    "precision": 0.8059701492537313,
+    "recall": 0.2988679245283019,
+    "filmsWithAMood": 132.8
+   },
+   "plain": {
+    "t": 0.7,
+    "predictions": 265,
+    "precision": 0.8037735849056604,
+    "recall": 0.2679245283018868,
+    "filmsWithAMood": 126
+   }
+  },
+  {
+   "t": 0.725,
+   "matched": {
+    "t": 0.725,
+    "predictions": 196.2,
+    "precision": 0.8226299694189603,
+    "recall": 0.2030188679245283,
+    "filmsWithAMood": 113.4
+   },
+   "rich": {
+    "t": 0.725,
+    "predictions": 254.6,
+    "precision": 0.8146111547525531,
+    "recall": 0.2608805031446541,
+    "filmsWithAMood": 122.2
+   },
+   "plain": {
+    "t": 0.725,
+    "predictions": 238,
+    "precision": 0.8067226890756303,
+    "recall": 0.24150943396226415,
+    "filmsWithAMood": 121
+   }
+  },
+  {
+   "t": 0.75,
+   "matched": {
+    "t": 0.75,
+    "predictions": 162.2,
+    "precision": 0.8397040690505548,
+    "recall": 0.17132075471698113,
+    "filmsWithAMood": 100
+   },
+   "rich": {
+    "t": 0.75,
+    "predictions": 222,
+    "precision": 0.8198198198198198,
+    "recall": 0.2289308176100629,
+    "filmsWithAMood": 114.6
+   },
+   "plain": {
+    "t": 0.75,
+    "predictions": 203,
+    "precision": 0.8275862068965517,
+    "recall": 0.21132075471698114,
+    "filmsWithAMood": 112
+   }
+  },
+  {
+   "t": 0.775,
+   "matched": {
+    "t": 0.775,
+    "predictions": 134.2,
+    "precision": 0.8584202682563339,
+    "recall": 0.1449056603773585,
+    "filmsWithAMood": 86
+   },
+   "rich": {
+    "t": 0.775,
+    "predictions": 191.2,
+    "precision": 0.8368200836820083,
+    "recall": 0.20125786163522014,
+    "filmsWithAMood": 105
+   },
+   "plain": {
+    "t": 0.775,
+    "predictions": 174,
+    "precision": 0.8390804597701149,
+    "recall": 0.18364779874213835,
+    "filmsWithAMood": 100
+   }
+  },
+  {
+   "t": 0.8,
+   "matched": {
+    "t": 0.8,
+    "predictions": 107.6,
+    "precision": 0.8643122676579925,
+    "recall": 0.1169811320754717,
+    "filmsWithAMood": 72.8
+   },
+   "rich": {
+    "t": 0.8,
+    "predictions": 162,
+    "precision": 0.8481481481481481,
+    "recall": 0.1728301886792453,
+    "filmsWithAMood": 94.8
+   },
+   "plain": {
+    "t": 0.8,
+    "predictions": 144,
+    "precision": 0.8680555555555556,
+    "recall": 0.15723270440251572,
+    "filmsWithAMood": 87
+   }
+  },
+  {
+   "t": 0.825,
+   "matched": {
+    "t": 0.825,
+    "predictions": 86.2,
+    "precision": 0.8747099767981439,
+    "recall": 0.09484276729559749,
+    "filmsWithAMood": 59.6
+   },
+   "rich": {
+    "t": 0.825,
+    "predictions": 125.8,
+    "precision": 0.8696343402225755,
+    "recall": 0.13761006289308175,
+    "filmsWithAMood": 78.6
+   },
+   "plain": {
+    "t": 0.825,
+    "predictions": 112,
+    "precision": 0.9017857142857143,
+    "recall": 0.1270440251572327,
+    "filmsWithAMood": 71
+   }
+  },
+  {
+   "t": 0.85,
+   "matched": {
+    "t": 0.85,
+    "predictions": 65.8,
+    "precision": 0.8814589665653495,
+    "recall": 0.0729559748427673,
+    "filmsWithAMood": 45.8
+   },
+   "rich": {
+    "t": 0.85,
+    "predictions": 106,
+    "precision": 0.8943396226415095,
+    "recall": 0.11924528301886793,
+    "filmsWithAMood": 68.2
+   },
+   "plain": {
+    "t": 0.85,
+    "predictions": 90,
+    "precision": 0.9111111111111111,
+    "recall": 0.10314465408805032,
+    "filmsWithAMood": 61
+   }
+  },
+  {
+   "t": 0.875,
+   "matched": {
+    "t": 0.875,
+    "predictions": 45.8,
+    "precision": 0.8733624454148472,
+    "recall": 0.050314465408805034,
+    "filmsWithAMood": 31.6
+   },
+   "rich": {
+    "t": 0.875,
+    "predictions": 78.4,
+    "precision": 0.8979591836734694,
+    "recall": 0.08855345911949686,
+    "filmsWithAMood": 51.6
+   },
+   "plain": {
+    "t": 0.875,
+    "predictions": 64,
+    "precision": 0.90625,
+    "recall": 0.0729559748427673,
+    "filmsWithAMood": 43
+   }
+  },
+  {
+   "t": 0.9,
+   "matched": {
+    "t": 0.9,
+    "predictions": 33.2,
+    "precision": 0.8614457831325302,
+    "recall": 0.035974842767295595,
+    "filmsWithAMood": 23.4
+   },
+   "rich": {
+    "t": 0.9,
+    "predictions": 55.6,
+    "precision": 0.8812949640287769,
+    "recall": 0.061635220125786164,
+    "filmsWithAMood": 37
+   },
+   "plain": {
+    "t": 0.9,
+    "predictions": 41,
+    "precision": 0.8780487804878049,
+    "recall": 0.045283018867924525,
+    "filmsWithAMood": 30
+   }
+  },
+  {
+   "t": 0.925,
+   "matched": {
+    "t": 0.925,
+    "predictions": 23.2,
+    "precision": 0.8362068965517241,
+    "recall": 0.02440251572327044,
+    "filmsWithAMood": 18.8
+   },
+   "rich": {
+    "t": 0.925,
+    "predictions": 33.2,
+    "precision": 0.8554216867469879,
+    "recall": 0.03572327044025157,
+    "filmsWithAMood": 23
+   },
+   "plain": {
+    "t": 0.925,
+    "predictions": 29,
+    "precision": 0.8620689655172413,
+    "recall": 0.031446540880503145,
+    "filmsWithAMood": 21
+   }
+  },
+  {
+   "t": 0.95,
+   "matched": {
+    "t": 0.95,
+    "predictions": 11.6,
+    "precision": 0.8448275862068966,
+    "recall": 0.012327044025157233,
+    "filmsWithAMood": 9.2
+   },
+   "rich": {
+    "t": 0.95,
+    "predictions": 19.8,
+    "precision": 0.8787878787878788,
+    "recall": 0.02188679245283019,
+    "filmsWithAMood": 14.6
+   },
+   "plain": {
+    "t": 0.95,
+    "predictions": 14,
+    "precision": 0.8571428571428571,
+    "recall": 0.01509433962264151,
+    "filmsWithAMood": 11
+   }
+  }
+ ],
+ "spotChecks": [
+  {
+   "title": "Tokyo Story",
+   "hand": [
+    "contemplative",
+    "melancholic",
+    "intimate",
+    "minimalist",
+    "slow"
+   ],
+   "matched": [
+    "contemplative 0.84"
+   ],
+   "rich": [
+    "contemplative 0.90",
+    "intimate 0.81",
+    "melancholic 0.81"
+   ],
+   "top3matched": [
+    "contemplative 0.84",
+    "intimate 0.76",
+    "melancholic 0.70"
+   ]
+  },
+  {
+   "title": "Mulholland Drive",
+   "hand": [
+    "dreamlike",
+    "surreal",
+    "enigmatic",
+    "psychological",
+    "fragmented"
+   ],
+   "matched": [
+    "surreal 0.81"
+   ],
+   "rich": [
+    "surreal 0.92"
+   ],
+   "top3matched": [
+    "surreal 0.81",
+    "psychological 0.64",
+    "enigmatic 0.60"
+   ]
+  },
+  {
+   "title": "Stalker",
+   "hand": [
+    "slow",
+    "contemplative",
+    "existential",
+    "enigmatic",
+    "austere"
+   ],
+   "matched": [
+    "existential 0.81"
+   ],
+   "rich": [
+    "existential 0.80",
+    "contemplative 0.78"
+   ],
+   "top3matched": [
+    "existential 0.81",
+    "contemplative 0.65",
+    "austere 0.64"
+   ]
+  },
+  {
+   "title": "Persona",
+   "hand": [
+    "psychological",
+    "enigmatic",
+    "austere",
+    "fragmented",
+    "intimate"
+   ],
+   "matched": [
+    "dreamlike 0.83"
+   ],
+   "rich": [
+    "dreamlike 0.84"
+   ],
+   "top3matched": [
+    "dreamlike 0.83",
+    "intimate 0.61",
+    "melancholic 0.60"
+   ]
+  },
+  {
+   "title": "In the Mood for Love",
+   "hand": [
+    "melancholic",
+    "lyrical",
+    "intimate",
+    "poetic",
+    "dreamlike"
+   ],
+   "matched": [
+    "intimate 0.81"
+   ],
+   "rich": [
+    "intimate 0.86",
+    "melancholic 0.81"
+   ],
+   "top3matched": [
+    "intimate 0.81",
+    "melancholic 0.73",
+    "lyrical 0.68"
+   ]
+  },
+  {
+   "title": "Eraserhead",
+   "hand": [
+    "surreal",
+    "bleak",
+    "dreamlike",
+    "psychological",
+    "austere"
+   ],
+   "matched": [
+    "enigmatic 0.97",
+    "surreal 0.84"
+   ],
+   "rich": [
+    "enigmatic 0.99",
+    "surreal 0.91",
+    "psychological 0.83"
+   ],
+   "top3matched": [
+    "enigmatic 0.97",
+    "surreal 0.84",
+    "psychological 0.70"
+   ]
+  },
+  {
+   "title": "Jeanne Dielman, 23, quai du Commerce, 1080 Bruxelles",
+   "hand": [
+    "slow",
+    "minimalist",
+    "austere",
+    "psychological",
+    "contemplative"
+   ],
+   "matched": [],
+   "rich": [],
+   "top3matched": [
+    "intimate 0.70",
+    "melancholic 0.62",
+    "contemplative 0.49"
+   ]
+  },
+  {
+   "title": "8½",
+   "hand": [
+    "dreamlike",
+    "surreal",
+    "fragmented",
+    "psychological",
+    "lyrical"
+   ],
+   "matched": [],
+   "rich": [
+    "lyrical 0.83",
+    "melancholic 0.81"
+   ],
+   "top3matched": [
+    "lyrical 0.76",
+    "melancholic 0.71",
+    "intimate 0.62"
+   ]
+  },
+  {
+   "title": "Bicycle Thieves",
+   "hand": [
+    "intimate",
+    "melancholic",
+    "austere",
+    "minimalist",
+    "existential"
+   ],
+   "matched": [
+    "intimate 0.85"
+   ],
+   "rich": [
+    "intimate 0.89"
+   ],
+   "top3matched": [
+    "intimate 0.85",
+    "melancholic 0.66",
+    "existential 0.62"
+   ]
+  },
+  {
+   "title": "Taste of Cherry",
+   "hand": [
+    "contemplative",
+    "existential",
+    "minimalist",
+    "slow",
+    "austere"
+   ],
+   "matched": [
+    "intimate 0.78"
+   ],
+   "rich": [
+    "intimate 0.81",
+    "contemplative 0.79",
+    "minimalist 0.78"
+   ],
+   "top3matched": [
+    "intimate 0.78",
+    "contemplative 0.58",
+    "existential 0.54"
+   ]
+  },
+  {
+   "title": "Bringing Up Baby",
+   "hand": [
+    "lyrical",
+    "surreal",
+    "intimate",
+    "dreamlike",
+    "psychological"
+   ],
+   "matched": [
+    "lyrical 0.95",
+    "intimate 0.89",
+    "surreal 0.81"
+   ],
+   "rich": [
+    "lyrical 0.98",
+    "intimate 0.93",
+    "surreal 0.93",
+    "psychological 0.89"
+   ],
+   "top3matched": [
+    "lyrical 0.95",
+    "intimate 0.89",
+    "surreal 0.81"
+   ]
+  },
+  {
+   "title": "Come and See",
+   "hand": [
+    "bleak",
+    "psychological",
+    "existential",
+    "austere",
+    "fragmented"
+   ],
+   "matched": [],
+   "rich": [],
+   "top3matched": [
+    "austere 0.67",
+    "existential 0.65",
+    "contemplative 0.48"
+   ]
+  }
+ ],
+ "handTagged": 159
+}
