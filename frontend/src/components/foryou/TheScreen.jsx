@@ -22,12 +22,18 @@ import { becauseWords, evidenceWords, alsoWords, factWords } from './whyWords';
  * go settles on the nearest), swipe the picture, or step with the buttons or arrow keys. A hand
  * on it rests the turning for a few seconds; so do reading the words, focus inside, being off
  * screen or in a hidden tab, and Pause.
+ *
+ * Scrolling past it turns it too: the monitor holds on screen for a stretch of the page, and the
+ * page's own scroll is the focus wheel, a few picks' worth (scrolling back turns it back). When
+ * the scroll stops, it settles on the nearest pick.
  */
 
 const COUNTRY = { 'United States of America': 'United States' };
 const STEP = 2; // seconds from one landed pick to the next
 const HOLD = 2.6; // seconds a landed pick stays before the ring turns on
 const REST = 5; // seconds the ring waits after a hand has been on it
+const PIN = 3; // picks the page's scroll turns the ring through while the monitor holds on screen
+const PIN_STEP = 0.4; // of the screen's height, scrolled for each of them
 const KNOWS_THE_RING = 'foryou:turned';
 const LAST_SEEN = 'foryou:shot';
 
@@ -66,6 +72,7 @@ const TheScreen = ({ picks, start = 0, act, reducedMotion, iris = true }) => {
         try { return localStorage.getItem(KNOWS_THE_RING) === '1'; } catch { return false; }
     });
     const root = useRef(null);
+    const rail = useRef(null); // the stretch of page the monitor holds on screen for
     const shotRef = useRef(first);
     const turning = useRef(null); // the playhead's animation, so a hand can stop it
     const grip = useRef(null);
@@ -132,12 +139,50 @@ const TheScreen = ({ picks, start = 0, act, reducedMotion, iris = true }) => {
     }, [started, reducedMotion, paused, landedAt, n, hold, step]);
 
     // a hand on it rests the turning for a few seconds
-    const touched = () => {
+    const touched = useCallback(() => {
         setResting(true);
         clearTimeout(restTimer.current);
         restTimer.current = setTimeout(() => setResting(false), REST * 1000);
-    };
+    }, []);
     useEffect(() => () => clearTimeout(restTimer.current), []);
+
+    // while the monitor holds on screen, the page's scroll turns the ring (a pick for every
+    // PIN_STEP of the screen); when the scroll stops, it settles on the nearest pick
+    const pinned = !reducedMotion && n > 1;
+    useEffect(() => {
+        if (!pinned) return undefined;
+        let last = null;
+        let frame = 0;
+        let settle = 0;
+        const read = () => {
+            frame = 0;
+            const box = rail.current;
+            const screen = root.current;
+            if (!box || !screen) return;
+            const top = parseFloat(getComputedStyle(screen).top) || 0;
+            const span = box.offsetHeight - screen.offsetHeight;
+            const p = span > 0 ? clamp((top - box.getBoundingClientRect().top) / span, 0, 1) : 0;
+            if (last !== null && p !== last && grip.current === null) {
+                turning.current?.stop();
+                hold.set(0);
+                at.set(at.get() + (p - last) * PIN);
+                touched();
+                clearTimeout(settle);
+                settle = setTimeout(() => run(Math.round(at.get()), { duration: 0.45, ease: [0.2, 0.7, 0.3, 1] }), 160);
+            }
+            last = p;
+        };
+        const onScroll = () => { if (!frame) frame = requestAnimationFrame(read); };
+        read();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        return () => {
+            cancelAnimationFrame(frame);
+            clearTimeout(settle);
+            window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('resize', onScroll);
+        };
+    }, [pinned, at, hold, run, touched]);
 
     // every pick's soft pictures are drawn while nothing else is happening, so a turn of the ring
     // finds them ready; the sharp pictures of the shots either side are fetched ahead
@@ -265,11 +310,11 @@ const TheScreen = ({ picks, start = 0, act, reducedMotion, iris = true }) => {
     const control = 'font-label text-[13px] tracking-[0.14em] uppercase text-gray-200 hover:text-white transition-colors';
     const holdStill = { onPointerEnter: (e) => e.pointerType === 'mouse' && setReading(true), onPointerLeave: () => setReading(false) };
 
-    return (
+    const screen = (
         <section
             ref={root}
             aria-label="Picked for you"
-            className="relative"
+            className={pinned ? 'sticky top-[76px] md:top-[84px]' : 'relative'}
             onFocus={(e) => { if (e.target.getAttribute('role') !== 'slider') setReading(true); }}
             onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setReading(false); }}
         >
@@ -335,6 +380,14 @@ const TheScreen = ({ picks, start = 0, act, reducedMotion, iris = true }) => {
                 </div>
             </div>
         </section>
+    );
+    if (!pinned) return screen;
+    return (
+        <div ref={rail} className="relative">
+            {screen}
+            {/* the stretch of page it holds on screen for, while the scroll turns its ring */}
+            <div aria-hidden="true" style={{ height: `${PIN * PIN_STEP * 100}vh` }} />
+        </div>
     );
 };
 
