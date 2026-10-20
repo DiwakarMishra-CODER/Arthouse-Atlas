@@ -25,7 +25,7 @@ import { becauseWords, evidenceWords, alsoWords, factWords } from './whyWords';
  *
  * Scrolling past it turns it too: the monitor holds on screen for a stretch of the page, and the
  * page's own scroll is the focus wheel, a few picks' worth (scrolling back turns it back). When
- * the scroll stops, it settles on the nearest pick.
+ * the scroll stops, it coasts on to the next pick the way it was going.
  */
 
 const COUNTRY = { 'United States of America': 'United States' };
@@ -34,6 +34,8 @@ const HOLD = 2.6; // seconds a landed pick stays before the ring turns on
 const REST = 5; // seconds the ring waits after a hand has been on it
 const PIN = 3; // picks the page's scroll turns the ring through while the monitor holds on screen
 const PIN_STEP = 0.4; // of the screen's height, scrolled for each of them
+const QUIET = 320; // ms without a scroll before it settles (longer while momentum trickles in)
+const LANDED = 0.04; // this close to a pick, it has landed
 const KNOWS_THE_RING = 'foryou:turned';
 const LAST_SEEN = 'foryou:shot';
 
@@ -95,7 +97,7 @@ const TheScreen = ({ picks, start = 0, act, reducedMotion, iris = true }) => {
             setShot(k);
         }
         const near = Math.round(v);
-        setLandedAt(Math.abs(v - near) < 0.04 ? near : null);
+        setLandedAt(Math.abs(v - near) < LANDED ? near : null);
     });
 
     // each visit starts one pick on from where the last one left off
@@ -147,13 +149,28 @@ const TheScreen = ({ picks, start = 0, act, reducedMotion, iris = true }) => {
     useEffect(() => () => clearTimeout(restTimer.current), []);
 
     // while the monitor holds on screen, the page's scroll turns the ring (a pick for every
-    // PIN_STEP of the screen); when the scroll stops, it settles on the nearest pick
+    // PIN_STEP of the screen). When the scroll stops, the ring coasts on to the next pick the way
+    // it was going, never back: a trackpad's momentum trickles in with growing gaps, and a settle
+    // that pulled back between them would see-saw across a cut. A scroll arriving while it coasts
+    // adds to the coast, and only takes the ring over once it gets ahead of it.
     const pinned = !reducedMotion && n > 1;
     useEffect(() => {
         if (!pinned) return undefined;
-        let last = null;
+        let last = null; // the pin's progress at the last read
+        let tall = 0; // and the monitor's height
         let frame = 0;
         let settle = 0;
+        let then = 0; // when the scroll last turned it
+        let gap = 0; // and the time before that
+        let way = 0; // which way
+        let coast = null; // the settle under way, and where the scroll alone would have the playhead
+        const rest = () => {
+            const now = at.get();
+            const to = way > 0 ? Math.ceil(now - LANDED) : Math.floor(now + LANDED);
+            if ((to - now) * way <= 0) return; // landed already
+            const anim = run(to, { duration: clamp(0.3 + 0.8 * Math.abs(to - now), 0.35, 1.1), ease: [0.2, 0.7, 0.3, 1], onComplete: () => { coast = null; } });
+            coast = { anim, by: now };
+        };
         const read = () => {
             frame = 0;
             const box = rail.current;
@@ -162,15 +179,30 @@ const TheScreen = ({ picks, start = 0, act, reducedMotion, iris = true }) => {
             const top = parseFloat(getComputedStyle(screen).top) || 0;
             const span = box.offsetHeight - screen.offsetHeight;
             const p = span > 0 ? clamp((top - box.getBoundingClientRect().top) / span, 0, 1) : 0;
-            if (last !== null && p !== last && grip.current === null) {
-                turning.current?.stop();
+            // a cut can change the monitor's height (titles differ), and a scroll that comes with
+            // it is the page making room, not a hand: turning the ring by it would cut straight back
+            const h = screen.offsetHeight;
+            if (last !== null && p !== last && h === tall && grip.current === null) {
+                const d = (p - last) * PIN;
+                const t = performance.now();
+                gap = t - then;
+                then = t;
                 hold.set(0);
-                at.set(at.get() + (p - last) * PIN);
                 touched();
+                const coasting = coast && turning.current === coast.anim && Math.sign(d) === way;
+                if (coasting) coast.by += d;
+                if (!coasting || (coast.by - at.get()) * way > 0) {
+                    const to = coasting ? coast.by : at.get() + d;
+                    turning.current?.stop();
+                    coast = null;
+                    at.set(to);
+                }
+                way = Math.sign(d);
                 clearTimeout(settle);
-                settle = setTimeout(() => run(Math.round(at.get()), { duration: 0.45, ease: [0.2, 0.7, 0.3, 1] }), 160);
+                settle = setTimeout(rest, clamp(2 * gap, QUIET, 600));
             }
             last = p;
+            tall = h;
         };
         const onScroll = () => { if (!frame) frame = requestAnimationFrame(read); };
         read();
@@ -314,7 +346,7 @@ const TheScreen = ({ picks, start = 0, act, reducedMotion, iris = true }) => {
         <section
             ref={root}
             aria-label="Picked for you"
-            className={pinned ? 'sticky top-[76px] md:top-[84px]' : 'relative'}
+            className={pinned ? 'sticky top-[76px] md:top-[84px] [overflow-anchor:none]' : 'relative'}
             onFocus={(e) => { if (e.target.getAttribute('role') !== 'slider') setReading(true); }}
             onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setReading(false); }}
         >
@@ -385,8 +417,10 @@ const TheScreen = ({ picks, start = 0, act, reducedMotion, iris = true }) => {
     return (
         <div ref={rail} className="relative">
             {screen}
-            {/* the stretch of page it holds on screen for, while the scroll turns its ring */}
-            <div aria-hidden="true" style={{ height: `${PIN * PIN_STEP * 100}vh` }} />
+            {/* the stretch of page it holds on screen for, while the scroll turns its ring (neither
+                is the browser's scroll anchor, so a cut that changes the monitor's height doesn't
+                move the page) */}
+            <div aria-hidden="true" className="[overflow-anchor:none]" style={{ height: `${PIN * PIN_STEP * 100}vh` }} />
         </div>
     );
 };
