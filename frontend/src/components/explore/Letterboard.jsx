@@ -10,9 +10,10 @@
  *
  * Each letter sits a hair off true, the same way on every visit (a hash of where
  * it is). When a phrase changes, only its letters are re-set: they drop into the
- * groove one by one, and a glint of light crosses the glass.
+ * groove one by one, and a glint of light crosses the glass. A phrase can also carry a
+ * word being tried out (`tryout`): it's set over the phrase in the same way, and taken down.
  *
- * lines: [{ size: 'small' | 'big' | 'medium' | 'list' | 'sort', phrases: [{ id, text, control?, blank?, label?, onClick?, onRemove? }] }]
+ * lines: [{ size: 'small' | 'big' | 'medium' | 'list' | 'sort', phrases: [{ id, text, tryout?, control?, blank?, label?, onClick?, onRemove? }] }]
  */
 
 const SIZES = {
@@ -61,14 +62,24 @@ const Cross = () => (
 );
 
 const Phrase = ({ phrase, animate, n }) => {
-    const letters = <Letters text={phrase.text} seed={phrase.id} animate={animate} />;
+    // a word the board is trying out sits over the phrase's own letters, which keep their place
+    // (unseen), so nothing else on the board moves; when it's taken down, the phrase's own letters
+    // are put back, one by one
+    const letters = phrase.tryout ? (
+        <span className="relative inline-block">
+            <span className="invisible"><Letters text={phrase.text} seed={phrase.id} /></span>
+            <span key={phrase.tryout} className="absolute inset-0 flex justify-center whitespace-nowrap">
+                <Letters text={phrase.tryout} seed={`${phrase.id}|${phrase.tryout}`} animate />
+            </span>
+        </span>
+    ) : <Letters text={phrase.text} seed={phrase.id} animate={animate} />;
     // the board's label reads the whole sentence, so plain words aren't spelt out letter by letter
     if (!phrase.control) return <span aria-hidden="true" className="text-[#f3efe6]">{letters}</span>;
     const ring = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light';
-    // a blank (or the order): one menu, its word and its ▾
+    // a blank (or the order): one menu, its word and its ▾ (lit while a word is tried in it)
     if (phrase.blank || !phrase.onRemove) {
         return (
-            <button type="button" onClick={phrase.onClick} aria-label={`${phrase.label}. Change`} aria-haspopup="dialog" className={`board-slot ${phrase.blank ? 'is-blank' : 'is-set'} uppercase ${ring}`} style={{ '--n': n }}>
+            <button type="button" onClick={phrase.onClick} aria-label={`${phrase.label}. Change`} aria-haspopup="dialog" className={`board-slot ${phrase.blank && !phrase.tryout ? 'is-blank' : 'is-set'} uppercase ${ring}`} style={{ '--n': n }}>
                 <span>{letters}</span>
                 <span aria-hidden="true" className="board-slot-chevron"><Chevron /></span>
             </button>

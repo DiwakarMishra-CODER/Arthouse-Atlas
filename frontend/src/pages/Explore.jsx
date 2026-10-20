@@ -66,6 +66,36 @@ const countryWords = (c) => {
     return THE.test(name) ? `the ${name}` : name;
 };
 
+// what the board tries out, in turn, to show what its gold words do: two places, two kinds of film,
+// two more places… Only words that fit in their blank, so nothing else on the board moves, and
+// only words that change what's showing (not a kind most films are). Places are paired across the
+// list (the most films with the fourth most, and so on), so the two in a turn are far apart.
+const tryoutsFrom = (facets, total) => {
+    const fit = (list, blank, words = (v) => v) => (list || [])
+        .filter((o) => o.n > 0 && o.n <= total / 2 + 100 && words(o.value).length <= blank.length)
+        .sort((a, b) => b.n - a.n)
+        .map((o) => ({ text: words(o.value), n: o.n }));
+    const places = fit(facets.country, 'anywhere', countryWords);
+    const kinds = fit(facets.genre, 'genre').filter((o) => o.n <= total / 2);
+    const pairs = (list) => {
+        const out = [];
+        for (let i = 0; i + 3 < list.length && out.length < 3; i++) out.push([list[i], list[i + 3]]);
+        if (!out.length && list.length >= 2) out.push([list[0], list[1]]);
+        return out;
+    };
+    const p = pairs(places);
+    const k = kinds.length >= 2 ? [[kinds[0], kinds[1]]] : [];
+    const out = [];
+    for (let i = 0; i < Math.max(p.length, k.length); i++) {
+        if (p[i]) out.push({ id: 'country', picks: p[i] });
+        if (k[i]) out.push({ id: 'genre', picks: k[i] });
+    }
+    return out;
+};
+// a turn of the board: the board as it is, then the first word tried, then the second (ms)
+const TRY_REST = 2400;
+const TRY_HOLD = 1400;
+
 // a new shuffle (kept in the URL, so the same shuffle comes back with Back)
 const newSeed = () => String(Math.floor(Math.random() * 1e9));
 
@@ -113,9 +143,25 @@ const Explore = () => {
     const [knowsTheWay, setKnowsTheWay] = useState(() => {
         try { return localStorage.getItem('explore:knows-the-way') === '1'; } catch { return false; }
     });
+    // until a word has been opened, the board tries its gold words out by itself (see tryoutsFrom),
+    // while it's on screen and nobody's hand is on it
+    const [beat, setBeat] = useState(0);
+    const [held, setHeld] = useState(false);
+    const [boardSeen, setBoardSeen] = useState(true);
+    const [opened, setOpened] = useState(false);
+    const board = useRef(null);
     const restoreY = useRef(null);
     const sentinel = useRef(null);
     const restoring = navigation === 'POP';
+    const openPicker = useCallback((id) => { setPicker(id); setOpened(true); }, []);
+
+    useEffect(() => {
+        const el = board.current;
+        if (!el) return undefined;
+        const io = new IntersectionObserver(([entry]) => setBoardSeen(entry.isIntersecting), { threshold: 0.5 });
+        io.observe(el);
+        return () => io.disconnect();
+    }, []);
 
     // places to start, for the search and the line under it
     useEffect(() => {
@@ -258,16 +304,28 @@ const Explore = () => {
     const any = FILTERS.some((k) => sel[k]);
     const total = wall.total;
     const word = (id, text) => ({ id, text });
-    const control = (id, text, label, extra = {}) => ({ id, text, control: true, label, onClick: () => setPicker(id), onRemove: () => choose(id, ''), ...extra });
-    const blank = (id, text, label) => ({ id, text, control: true, blank: true, label, onClick: () => setPicker(id) });
+    const control = (id, text, label, extra = {}) => ({ id, text, control: true, label, onClick: () => openPicker(id), onRemove: () => choose(id, ''), ...extra });
+    const blank = (id, text, label) => ({ id, text, control: true, blank: true, label, onClick: () => openPicker(id) });
+
+    // the word the board is trying out just now, and what would be showing with it
+    const tryouts = useMemo(() => (wall.facets?.country ? tryoutsFrom(wall.facets, total) : []), [wall.facets, total]);
+    const trying = !reducedMotion && ready && !wall.failed && !any && !knowsTheWay && !opened && !picker && !held && boardSeen && tryouts.length > 0;
+    const turn = tryouts.length ? tryouts[Math.floor(beat / 3) % tryouts.length] : null;
+    const tryout = trying && beat % 3 > 0 ? { id: turn.id, ...turn.picks[(beat % 3) - 1] } : null;
+    const tried = (id, text) => (tryout?.id === id ? text : undefined);
+    useEffect(() => {
+        if (!trying) return undefined;
+        const t = setTimeout(() => setBeat((b) => b + 1), beat % 3 === 0 ? TRY_REST : TRY_HOLD);
+        return () => clearTimeout(t);
+    }, [trying, beat]);
 
     const countText = wall.key === null || wall.failed ? '· · ·' : !any ? `all ${total} films` : `${total} ${total === 1 ? 'film' : 'films'}`;
-    const big = [word('count', countText)];
+    const big = [{ ...word('count', countText), tryout: tryout && `${tryout.n} ${tryout.n === 1 ? 'film' : 'films'}` }];
     if (sel.q) big.push(word('q-w', 'matching'), control('q', `“${sel.q}”`, `Search: ${sel.q}`, { onClick: focusSearch }));
     if (started) big.push(word('like-w', 'like'), control(sel.like ? 'like' : 'from', startTitle || '…', `Starting from ${startTitle || 'a film'}`, { onClick: focusSearch }));
     const medium = [
         word('country-w', 'from'),
-        sel.country ? control('country', countryWords(sel.country), `Country: ${sel.country}`) : blank('country', 'anywhere', 'Country: anywhere'),
+        sel.country ? control('country', countryWords(sel.country), `Country: ${sel.country}`) : { ...blank('country', 'anywhere', 'Country: anywhere'), tryout: tried('country', tryout?.text) },
         ...(sel.decade
             ? [word('decade-w', 'made in the'), control('decade', `${sel.decade}s`, `Decade: the ${sel.decade}s`)]
             : [word('decade-w', 'made'), blank('decade', 'any time', 'Decade: any time')]),
@@ -277,7 +335,7 @@ const Explore = () => {
     const list = [
         sel.movement ? control('movement', movementTitle, `Movement: ${movementTitle}`) : blank('movement', 'movement', 'Movement: any'),
         sel.mood ? control('mood', sel.mood, `Mood: ${sel.mood}`) : blank('mood', 'mood', 'Mood: any'),
-        sel.genre ? control('genre', sel.genre, `Genre: ${sel.genre}`) : blank('genre', 'genre', 'Genre: any'),
+        sel.genre ? control('genre', sel.genre, `Genre: ${sel.genre}`) : { ...blank('genre', 'genre', 'Genre: any'), tryout: tried('genre', tryout?.text) },
         sel.length ? control('length', LENGTH_WORDS[sel.length] || sel.length, `Length: ${LENGTH_WORDS[sel.length]}`) : blank('length', 'length', 'Length: any'),
     ];
     const lines = [
@@ -315,7 +373,16 @@ const Explore = () => {
                 <MdArrowBack aria-hidden="true" /> Back
             </button>
             <div className="max-w-7xl mx-auto px-4 md:px-14">
-                <Letterboard lines={lines} label={boardLabel} version={`${key}|${total}`} reducedMotion={reducedMotion} chosen={any} onReset={reset} />
+                {/* a hand on the board (or the keyboard in it) stops it trying words out */}
+                <div
+                    ref={board}
+                    onPointerEnter={(e) => { if (e.pointerType === 'mouse') setHeld(true); }}
+                    onPointerLeave={() => setHeld(false)}
+                    onFocus={() => setHeld(true)}
+                    onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setHeld(false); }}
+                >
+                    <Letterboard lines={lines} label={boardLabel} version={`${key}|${total}|${beat}`} reducedMotion={reducedMotion} chosen={any} onReset={reset} />
+                </div>
 
                 {/* ask for anything, or let the projector choose; and, until you've chosen something
                     once, a line for someone who knows no names yet */}
