@@ -41,6 +41,7 @@ const Navbar = () => {
     const [showProfileMenu, setShowProfileMenu] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [lightsDown, setLightsDown] = useState(false);
     const profileMenuRef = useRef(null);
 
     useEffect(() => {
@@ -61,7 +62,15 @@ const Navbar = () => {
         // a page made of full-screen scenes (the home page, marked data-scene) keeps the gradient all
         // the way down: blurring scenes that change every frame is the most expensive thing a page can
         // ask of the GPU, and switching the glass on as one passes reads as a flicker
-        const onScroll = () => setScrolled(window.scrollY > 24 && !document.querySelector('[data-scene]'));
+        // while a scene marked data-lights-down holds the whole screen, the house lights go down: the bar
+        // leaves until the scene lets go
+        const onScroll = () => {
+            setScrolled(window.scrollY > 24 && !document.querySelector('[data-scene]'));
+            setLightsDown([...document.querySelectorAll('[data-lights-down]')].some((el) => {
+                const r = el.getBoundingClientRect();
+                return r.top <= 2 && r.bottom >= window.innerHeight - 2;
+            }));
+        };
         onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
         return () => window.removeEventListener('scroll', onScroll);
@@ -80,7 +89,10 @@ const Navbar = () => {
     const initial = (user?.username || '?').trim().charAt(0).toUpperCase();
 
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50">
+        <nav
+            className={`fixed top-0 left-0 right-0 z-50 focus-within:!opacity-100 focus-within:!translate-y-0 ${lightsDown && !isMobileMenuOpen ? 'opacity-0 -translate-y-full pointer-events-none' : ''}`}
+            style={{ transition: 'opacity 600ms ease, transform 700ms cubic-bezier(0.4, 0, 0.2, 1)' }}
+        >
             <div aria-hidden="true" className={`absolute inset-x-0 top-0 h-[150%] -z-10 pointer-events-none bg-gradient-to-b from-[#050505]/85 via-[#050505]/40 to-transparent transition-opacity duration-500 ${scrolled ? 'opacity-0' : 'opacity-100'}`} />
             <div aria-hidden="true" className={`absolute inset-0 -z-10 pointer-events-none bg-[#050505]/60 backdrop-blur-xl transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-0'}`}>
                 {/* the glass's lower edge catches the light */}

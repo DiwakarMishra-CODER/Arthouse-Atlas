@@ -392,7 +392,8 @@ const ArthouseBreath = ({ films = [], reducedMotion = false }) => {
 
     return (
         // its height is pure CSS, so the page is full height on its first paint (Back lands exactly)
-        <section ref={section} className="relative" style={{ height: `calc(100vh + ${SCROLL_VH}vh)` }}>
+        // (data-lights-down: while it holds the screen, the navbar leaves)
+        <section ref={section} data-lights-down className="relative" style={{ height: `calc(100vh + ${SCROLL_VH}vh)` }}>
             <div className="sticky top-0 h-screen overflow-hidden">
                 <motion.div className="absolute inset-0 bg-black" style={{ opacity: underOp }} />
                 {BEATS.map((beat, i) => <Beat key={beat.title} p={p} i={i} n={n} beat={beat} film={found[i]} />)}
