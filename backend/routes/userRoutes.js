@@ -7,7 +7,11 @@ import {
   clearRating,
   getRecommendations,
   toggleNotFor,
-  googleLogin
+  googleLogin,
+  getFestival,
+  updateMe,
+  changePassword,
+  deleteMe
 } from '../controllers/userController.js';
 import { protect } from '../middleware/authMiddleware.js';
 import { authLimiter } from '../middleware/rateLimiter.js';
@@ -21,6 +25,10 @@ router.post('/watched/:movieId', protect, toggleWatched);
 router.put('/ratings/:movieId', protect, rateMovie);
 router.delete('/ratings/:movieId', protect, clearRating);
 router.get('/recommendations', protect, getRecommendations);
+router.get('/me/festival', protect, getFestival);
+router.put('/me', protect, updateMe);
+router.put('/me/password', protect, authLimiter, changePassword);
+router.delete('/me', protect, authLimiter, deleteMe);
 router.post('/not-for-me/:movieId', protect, toggleNotFor);
 router.post('/google', authLimiter, googleLogin);
 

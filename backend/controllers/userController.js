@@ -7,6 +7,8 @@ import axios from 'axios';
 import { getErrorResponse } from '../utils/errorResponse.js';
 import { loadCatalogue } from '../services/catalogue.js';
 import { buildForYou } from './recsController.js';
+import { buildFestival } from '../services/festival.js';
+import { nameProblem, passwordProblem, deleteProblem } from '../services/account.js';
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -172,6 +174,80 @@ export const toggleNotFor = async (req, res) => {
 // @desc    For You: the films picked for this person, with why each was picked
 // @route   GET /api/users/recommendations
 // @access  Private
+// @desc    Change your name
+// @route   PUT /api/users/me
+// @access  Private
+export const updateMe = async (req, res) => {
+  try {
+    const username = (req.body.username || '').trim();
+    const problem = nameProblem(username);
+    if (problem) return res.status(400).json({ message: problem });
+    const taken = await User.findOne({ username, _id: { $ne: req.user._id } }).select('_id').lean();
+    if (taken) return res.status(400).json({ message: 'Someone already has that name.' });
+    await User.updateOne({ _id: req.user._id }, { $set: { username } });
+    res.json({ username });
+  } catch (error) {
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
+  }
+};
+
+// @desc    Change your password (the current one first)
+// @route   PUT /api/users/me/password
+// @access  Private
+export const changePassword = async (req, res) => {
+  try {
+    const { current, next } = req.body || {};
+    const problem = passwordProblem({ current, next });
+    if (problem) return res.status(400).json({ message: problem });
+    const user = await User.findById(req.user._id);
+    if (!user || !(await user.comparePassword(current))) return res.status(400).json({ message: 'That isn’t your current password.' });
+    user.password = next; // hashed as it's saved
+    await user.save();
+    res.json({ message: 'Password changed.' });
+  } catch (error) {
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
+  }
+};
+
+// @desc    Delete your account (confirmed by typing your name)
+// @route   DELETE /api/users/me
+// @access  Private
+export const deleteMe = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).select('username').lean();
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    const problem = deleteProblem({ confirm: req.body?.confirm, username: user.username });
+    if (problem) return res.status(400).json({ message: problem });
+    await User.deleteOne({ _id: user._id });
+    res.json({ message: 'Account deleted.' });
+  } catch (error) {
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
+  }
+};
+
+// @desc    The member's festival: prizes from their ratings, and their films (the Profile room)
+// @route   GET /api/users/me/festival
+// @access  Private
+export const getFestival = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).select('username createdAt favorites watched watchlist notFor ratings').lean();
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    const catalogue = await loadCatalogue();
+    res.setHeader('Cache-Control', 'no-store');
+    res.json(buildFestival({ user, catalogue }));
+  } catch (error) {
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
+  }
+};
+
 export const getRecommendations = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).lean();

@@ -74,7 +74,11 @@ export const userAPI = {
   rateMovie: (movieId, value) => api.put(`/users/ratings/${movieId}`, { value }),
   clearRating: (movieId) => api.delete(`/users/ratings/${movieId}`),
   getRecommendations: () => api.get('/users/recommendations', { params: { _t: Date.now() } }),
-  toggleNotFor: (movieId) => api.post(`/users/not-for-me/${movieId}`)
+  toggleNotFor: (movieId) => api.post(`/users/not-for-me/${movieId}`),
+  getFestival: () => api.get('/users/me/festival'),
+  updateMe: (username) => api.put('/users/me', { username }),
+  changePassword: (current, next) => api.put('/users/me/password', { current, next }),
+  deleteMe: (confirm) => api.delete('/users/me', { data: { confirm } }),
 };
 
 export default api;

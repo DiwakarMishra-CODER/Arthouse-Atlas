@@ -890,3 +890,13 @@ html[data-cover] .projected-black { visibility: hidden; }
 .shot-up { animation: shot-up 700ms cubic-bezier(0.4, 0, 0.2, 1) both, breath-push 5s cubic-bezier(0.2, 0.6, 0.2, 1) both; }
 @keyframes shot-up { from { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .shot-up { animation: none; } }
+
+/* the festival laurel: the stem drawn in, then its leaves grow from it one after another */
+.laurel-stem { animation: laurel-stem 500ms ease-out both; }
+@keyframes laurel-stem { from { opacity: 0; } }
+.laurel-leaf { transform-box: fill-box; transform-origin: 0% 50%; animation: laurel-leaf 420ms cubic-bezier(0.2, 0.8, 0.3, 1.2) both; }
+@keyframes laurel-leaf { from { opacity: 0; transform: scale(0.2); } }
+/* the time left on a prize before the next is announced */
+.prize-clock { transform-origin: 0 50%; animation: prize-clock var(--hold, 4500ms) linear both; }
+@keyframes prize-clock { from { transform: scaleX(0); } }
+@media (prefers-reduced-motion: reduce) { .laurel-stem, .laurel-leaf, .prize-clock { animation: none; } }

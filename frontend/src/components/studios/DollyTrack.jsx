@@ -9,6 +9,9 @@ import { pic } from '../directors/arrange';
  * smaller, so a drag reads as a camera dollying past sets. Drag or swipe it through every film, or use
  * the arrow keys; left alone it dollies on by itself, a film every few seconds. The decades are marked
  * where they turn. Only the stills near the middle are drawn, so a house of 476 costs what one of 14 does.
+ *
+ * decades: mark the decades (for films in the order they were made) · note(film): one more line under
+ * the film in the middle (a member's mark, on their profile)
  */
 
 const STEP = 3000; // ms between films while it dollies by itself
@@ -17,13 +20,13 @@ const AROUND = 4; // stills drawn either side of the middle
 const clamp = (x, lo, hi) => Math.min(hi, Math.max(lo, x));
 const decadeOf = (f) => (f?.y ? Math.floor(f.y / 10) * 10 : null);
 
-const Frame = ({ f, i, prev, pos, unit, width }) => {
+const Frame = ({ f, i, prev, pos, unit, width, decades }) => {
     const d = useTransform(pos, (p) => Math.abs(i - p));
     const scale = useTransform(d, [0, 1], [1, 0.84], { clamp: true });
     const fade = useTransform(d, [0, 1, 3], [1, 0.42, 0.18], { clamp: true });
     const opacity = useMotionTemplate`${fade}`;
     const src = f.s ? pic(f.s, 'w780') : f.o ? pic(f.o, 'w500') : null;
-    const turn = decadeOf(f) !== decadeOf(prev);
+    const turn = decades && decadeOf(f) !== decadeOf(prev);
     return (
         <div className="absolute top-0 left-0" style={{ transform: `translateX(${i * unit}px)`, width }}>
             {/* the decade, where it turns */}
@@ -35,7 +38,7 @@ const Frame = ({ f, i, prev, pos, unit, width }) => {
     );
 };
 
-const DollyTrack = ({ films, reducedMotion }) => {
+const DollyTrack = ({ films, reducedMotion, decades = true, note }) => {
     const box = useRef(null);
     const pos = useMotionValue(0);
     const [w, setW] = useState(1200);
@@ -141,7 +144,7 @@ const DollyTrack = ({ films, reducedMotion }) => {
                 onPointerCancel={() => { hand.current = null; go(Math.round(pos.get())); }}
             >
                 <motion.div className="absolute inset-y-0 left-0" style={{ x }}>
-                    {visible.map((i) => <Frame key={films[i].id} f={films[i]} i={i} prev={films[i - 1]} pos={pos} unit={unit} width={width} />)}
+                    {visible.map((i) => <Frame key={films[i].id} f={films[i]} i={i} prev={films[i - 1]} pos={pos} unit={unit} width={width} decades={decades} />)}
                 </motion.div>
             </div>
             {/* the film in the middle, named */}
@@ -152,6 +155,7 @@ const DollyTrack = ({ films, reducedMotion }) => {
                         <div className="mt-1.5 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gray-400">
                             {[lit.d?.join(' & '), lit.y, lit.r && `${lit.r} min`].filter(Boolean).join(' · ')}
                         </div>
+                        {note?.(lit) && <div className="mt-1.5 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gold">{note(lit)}</div>}
                         <Link to={`/movie/${lit.id}`} className="mt-3 inline-flex items-center gap-1.5 min-h-11 px-4 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gold hover:text-gold-light">
                             Open ›
                         </Link>

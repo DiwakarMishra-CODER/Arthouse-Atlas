@@ -1,311 +1,156 @@
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { useMovie } from '../context/MovieContext';
-import PosterCard from '../components/PosterCard';
-import LoadingSkeleton from '../components/LoadingSkeleton';
+import { recsAPI, userAPI } from '../services/api';
+import { useMotionPreference } from '../hooks/useMotionPreference';
+import AwardsNight from '../components/profile/AwardsNight';
+import DollyTrack from '../components/studios/DollyTrack';
+import YourAtlas from '../components/profile/YourAtlas';
+import Account from '../components/profile/Account';
+import Picker from '../components/profile/Picker';
+
+/**
+ * Your profile, as your own awards night: every film you rate is a vote, and your ratings pick the
+ * winners (your favourite film, director, movement, country, decade, and your hidden gem), each against
+ * its nominees and said in plain words. Under it, your films, one shelf at a time, on a track you dolly
+ * along. Before you've rated anything, the night says how it opens.
+ */
+
+const SHELVES = [
+    ['favourites', 'Favourites', 'Films you make a favourite come here.'],
+    ['rated', 'Your ratings', 'Films you rate come here, with your mark.'],
+    ['watched', 'Watched', 'Films you mark as watched come here.'],
+    ['watchlist', 'Watchlist', 'Films you put on your watchlist come here.'],
+    ['notFor', 'Not for me', 'Films you set aside in For You come here, and For You never picks them.'],
+];
+const monthOf = (d) => (d ? new Date(d).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }) : null);
 
 const Profile = () => {
-    const { user, loading } = useAuth();
-    const { ratings } = useMovie();
-    const sortedRatings = [...ratings].sort((a, b) => b.rating - a.rating);
+    const reducedMotion = useMotionPreference();
+    const [fest, setFest] = useState(null);
+    const [failed, setFailed] = useState(false);
+    const [reel, setReel] = useState([]);
+    const [shelf, setShelf] = useState(null);
+    // the films you've seen (rated, favourites, watched), once each, as the map wants them
+    const seen = useMemo(() => {
+        if (!fest) return [];
+        const out = new Map();
+        for (const f of [...fest.shelves.rated, ...fest.shelves.favourites, ...fest.shelves.watched]) {
+            if (f.c && f.y && !out.has(f.id)) out.set(f.id, { id: f.id, t: f.t, y: f.y, c: f.c, s: f.s, d: f.d?.join(' & '), r: null });
+        }
+        return [...out.values()];
+    }, [fest]);
 
-    if (loading) {
+    useEffect(() => {
+        let gone = false;
+        window.scrollTo(0, 0);
+        userAPI.getFestival()
+            .then((r) => {
+                if (gone) return;
+                setFest(r.data);
+                // the first shelf with something on it
+                setShelf((SHELVES.find(([k]) => r.data.shelves[k]?.length) || SHELVES[0])[0]);
+                if (!r.data.awards?.length) {
+                    recsAPI.starters().then((s) => {
+                        if (!gone) setReel((s.data.starters || []).filter((f) => f.still).slice(0, 12).map((f) => ({ _id: f._id, title: f.title, year: f.year, s: f.still })));
+                    }).catch(() => {});
+                }
+            })
+            .catch(() => { if (!gone) setFailed(true); });
+        return () => { gone = true; };
+    }, []);
+
+    if (failed) {
         return (
-            <div className="min-h-screen pt-24">
-                <LoadingSkeleton />
+            <div className="min-h-screen pt-40 px-6 text-center">
+                <p className="font-serif text-3xl text-gray-100">The festival office didn’t answer.</p>
+                <button type="button" onClick={() => window.location.reload()} className="mt-6 font-label text-[13px] tracking-[0.14em] uppercase text-gold hover:text-gold-light">Try again ›</button>
             </div>
         );
     }
+    if (!fest) return <div className="min-h-screen pt-40 text-center font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">The festival is opening…</div>;
 
-    if (!user) {
-        return (
-            <div className="min-h-screen pt-24 flex items-center justify-center">
-                <p className="text-muted">Please sign in to view your profile</p>
-            </div>
-        );
-    }
+    const since = monthOf(fest.since);
+    const { rated, favourites, hours, countries, from, to } = fest.ballot || {};
+    const ballot = [
+        `${rated} ${rated === 1 ? 'film' : 'films'} rated`,
+        `${favourites} ${favourites === 1 ? 'favourite' : 'favourites'}`,
+        hours > 0 && `${hours} ${hours === 1 ? 'hour' : 'hours'} of film`,
+        countries > 0 && `${countries} ${countries === 1 ? 'country' : 'countries'}`,
+        from && to && (from === to ? `${from}` : `${from}–${to}`),
+        since && `member since ${since}`,
+    ].filter(Boolean).join('  ·  ');
+
+    const films = shelf ? fest.shelves[shelf] || [] : [];
+    const [, , empty] = SHELVES.find(([k]) => k === shelf) || SHELVES[0];
 
     return (
-        <>
-            {/* MOBILE VIEW (Favorites Only) */}
-            <div className="md:hidden min-h-screen bg-black pt-28 pb-10 px-4 text-white">
-                {/* Header */}
-                <div className="flex items-end gap-2 mb-8 border-b border-white/10 pb-4">
-                    <h1 className="text-3xl font-serif text-white">Favorites</h1>
-                    <span className="text-gold text-xs font-label mb-1">
-                        ({user.favorites?.length || 0})
-                    </span>
+        <div className="own-transitions relative min-h-screen pb-28">
+            {/* what this page is, in one look */}
+            <header className="pt-24 md:pt-28 pb-6 md:pb-8">
+                <div className="max-w-7xl mx-auto px-4 md:px-10 flex items-start justify-between gap-6">
+                    <div className="title-rise">
+                        <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">Your profile</div>
+                        <h1 className="mt-1 font-serif font-light text-[2.4rem] md:text-6xl leading-[1.05] text-white">{fest.name}’s Film Awards</h1>
+                        <p className="mt-2 max-w-2xl font-serif text-lg md:text-xl leading-snug text-gray-200">Every film you rate is a vote. These are your winners: your favourite film, director, decade and more.</p>
+                        <p className="mt-2 font-label text-[12px] tracking-[0.14em] uppercase text-gray-400">{ballot}</p>
+                    </div>
+                    <button
+                        type="button"
+                        onClick={() => document.getElementById('account')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' })}
+                        className="shrink-0 mt-1 min-h-11 px-1 font-label text-[12px] tracking-[0.14em] uppercase text-gold hover:text-gold-light"
+                    >
+                        Your account ›
+                    </button>
                 </div>
+            </header>
 
-                {/* Favorites Grid */}
-                {user.favorites && user.favorites.length > 0 ? (
-                    <div className="grid grid-cols-3 gap-3">
-                        {user.favorites.map((movie) => (
-                            <Link
-                                to={`/movie/${movie._id}`}
-                                key={movie._id}
-                                className="relative group"
-                            >
-                                <img
-                                    src={movie.posterUrl}
-                                    alt={movie.title}
-                                    className="w-full aspect-[2/3] object-cover rounded shadow-lg border border-gold/20"
-                                />
-                                {/* Mobile Title Hidden as per requirements */}
-                                <div className="hidden md:block absolute bottom-0 left-0 right-0 bg-black/60 p-2 text-xs truncate">
-                                    {movie.title}
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-                ) : (
-                    <div className="text-center mt-20">
-                        <p className="text-gray-500 font-serif italic text-sm mb-6">No favorites yet.</p>
-                        <Link
-                            to="/explore"
-                            className="font-label inline-block px-6 py-2 border border-gold text-gold text-xs uppercase tracking-[0.14em] hover:bg-gold hover:text-black transition-colors"
-                        >
-                            Explore Films
-                        </Link>
-                    </div>
-                )}
+            <AwardsNight awards={fest.awards || []} reel={reel} reducedMotion={reducedMotion} />
+            {fest.awards?.length > 0 && (
+                <p className="max-w-7xl mx-auto px-4 md:px-10 mt-3 font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">Films you love: the ones you rated 4 or 5, or made a favourite.</p>
+            )}
 
-                {/* Watched History Section */}
-                <div className="flex items-end gap-2 mb-8 border-b border-white/10 pb-4 mt-12">
-                    <h1 className="text-3xl font-serif text-white">Watched</h1>
-                    <span className="text-gold text-xs font-label mb-1">
-                        ({user.watched?.length || 0})
-                    </span>
+            {/* your films, one shelf at a time */}
+            <section className="pt-16 md:pt-24">
+                <div className="max-w-7xl mx-auto px-4 md:px-10">
+                    <div className="flex items-baseline gap-4">
+                        <h2 className="font-serif font-light text-3xl md:text-5xl text-white">Your films</h2>
+                        <span className="flex-1 h-px bg-white/10" />
+                    </div>
+                    <p className="mt-2 font-serif italic text-lg text-gray-300">Everything you’ve kept, one shelf at a time.</p>
+                    <div className="mt-6">
+                        <Picker
+                            tabs
+                            label="Your shelves"
+                            layoutId="shelf-rule"
+                            value={shelf}
+                            onChange={setShelf}
+                            items={SHELVES.map(([k, label]) => ({ key: k, label, count: fest.shelves[k]?.length || 0 }))}
+                        />
+                    </div>
                 </div>
-
-                {user.watched && user.watched.length > 0 ? (
-                    <div className="grid grid-cols-3 gap-3">
-                        {user.watched.map((movie) => (
-                            <Link
-                                to={`/movie/${movie._id}`}
-                                key={movie._id}
-                                className="relative group"
-                            >
-                                <img
-                                    src={movie.posterUrl}
-                                    alt={movie.title}
-                                    className="w-full aspect-[2/3] object-cover rounded shadow-lg border border-gold/20"
-                                />
-                                <div className="hidden md:block absolute bottom-0 left-0 right-0 bg-black/60 p-2 text-xs truncate">
-                                    {movie.title}
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-                ) : (
-                    <div className="text-center mt-10">
-                        <p className="text-gray-500 font-serif italic text-sm">No films watched yet.</p>
-                    </div>
-                )}
-
-                {/* Watchlist Section */}
-                <div className="flex items-end gap-2 mb-8 border-b border-white/10 pb-4 mt-12">
-                    <h1 className="text-3xl font-serif text-white">Watchlist</h1>
-                    <span className="text-gold text-xs font-label mb-1">
-                        ({user.watchlist?.length || 0})
-                    </span>
-                </div>
-
-                {user.watchlist && user.watchlist.length > 0 ? (
-                    <div className="grid grid-cols-3 gap-3">
-                        {user.watchlist.map((movie) => (
-                            <Link
-                                to={`/movie/${movie._id}`}
-                                key={movie._id}
-                                className="relative group"
-                            >
-                                <img
-                                    src={movie.posterUrl}
-                                    alt={movie.title}
-                                    className="w-full aspect-[2/3] object-cover rounded shadow-lg border border-gold/20"
-                                />
-                                <div className="hidden md:block absolute bottom-0 left-0 right-0 bg-black/60 p-2 text-xs truncate">
-                                    {movie.title}
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-                ) : (
-                    <div className="text-center mt-10">
-                        <p className="text-gray-500 font-serif italic text-sm">Your watchlist is empty.</p>
-                    </div>
-                )}
-
-                {/* Ratings Section — Mobile */}
-                <div className="flex items-end gap-2 mb-6 border-b border-white/10 pb-4 mt-12">
-                    <h1 className="text-3xl font-serif text-white">Your Ratings</h1>
-                    <span className="text-gold text-xs font-label mb-1">
-                        ({sortedRatings.length})
-                    </span>
-                </div>
-
-                {sortedRatings.length > 0 ? (
-                    <div className="grid grid-cols-3 gap-3">
-                        {sortedRatings.map((item) => (
-                            <div key={item.id} className="flex flex-col group">
-                                <Link to={`/movie/${item.id}`}>
-                                    <img
-                                        src={item.movie?.posterUrl}
-                                        alt={item.movie?.title}
-                                        className="w-full aspect-[2/3] object-cover rounded shadow-lg border border-white/5 group-hover:border-gold/50 transition-colors"
-                                    />
-                                </Link>
-                                <div className="flex justify-center gap-1 mt-1.5">
-                                    {[1, 2, 3, 4, 5].map((star) => (
-                                        <span
-                                            key={star}
-                                            className={`text-base ${item.rating >= star ? 'text-gold' : 'text-white/30'}`}
-                                        >
-                                            ★
-                                        </span>
-                                    ))}
-                                </div>
+                <div className="mt-8 md:mt-10">
+                    {films.length ? (
+                        <DollyTrack
+                            key={shelf}
+                            films={films}
+                            reducedMotion={reducedMotion}
+                            decades={false}
+                            note={(f) => (f.mark ? `Your mark: ${f.mark} of 5` : null)}
+                        />
+                    ) : (
+                        <div className="max-w-7xl mx-auto px-4 md:px-10">
+                            <div className="py-16 md:py-20 text-center ring-1 ring-white/10 bg-white/[0.02]">
+                                <p className="font-serif italic text-xl md:text-2xl text-gray-200">{empty}</p>
+                                <Link to="/explore" className="mt-4 inline-flex items-center min-h-11 font-label text-[13px] tracking-[0.14em] uppercase text-gold hover:text-gold-light">Find films ›</Link>
                             </div>
-                        ))}
-                    </div>
-                ) : (
-                    <div className="text-center mt-10">
-                        <p className="text-gray-500 font-serif italic text-sm">No films rated yet.</p>
-                    </div>
-                )}
-            </div>
-
-            {/* DESKTOP VIEW */}
-            <div className="hidden md:block min-h-screen pt-24 pb-20">
-                <div className="max-w-[1800px] mx-auto px-8">
-                    {/* User Info */}
-                    <div className="mb-20">
-                        <h1 className="font-serif text-7xl text-gray-100 mb-3">
-                            {user.username}
-                        </h1>
-                        <p className="text-muted text-lg">{user.email}</p>
-                    </div>
-
-                    {/* Favorites */}
-                    <div className="mb-24">
-                        <div className="mb-10">
-                            <h2 className="font-serif text-4xl text-gray-100 mb-2">Favorites</h2>
-                            <p className="text-muted">
-                                {user.favorites?.length || 0} {user.favorites?.length === 1 ? 'film' : 'films'}
-                            </p>
                         </div>
-
-                        {user.favorites && user.favorites.length > 0 ? (
-                            <div className="masonry-grid">
-                                {user.favorites.map((movie) => (
-                                    <div key={movie._id} className="relative hover:z-50">
-                                        <PosterCard movie={movie} />
-                                    </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="text-center py-20 border border-white/10">
-                                <p className="text-muted text-lg mb-6">No favorites yet</p>
-                                <a
-                                    href="/explore"
-                                    className="font-label inline-block px-8 py-4 bg-gold/10 border border-gold/30 text-gold tracking-[0.14em] uppercase text-sm hover:bg-gold/20 transition-colors"
-                                >
-                                    Explore Films
-                                </a>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Watched History */}
-                    <div>
-                        <div className="mb-10">
-                            <h2 className="font-serif text-4xl text-gray-100 mb-2">Watched History</h2>
-                            <p className="text-muted">
-                                {user.watched?.length || 0} {user.watched?.length === 1 ? 'film' : 'films'}
-                            </p>
-                        </div>
-
-                        {user.watched && user.watched.length > 0 ? (
-                            <div className="masonry-grid">
-                                {user.watched.map((movie) => (
-                                    <div key={movie._id} className="relative hover:z-50">
-                                        <PosterCard movie={movie} />
-                                    </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="text-center py-20 border border-white/10">
-                                <p className="text-muted text-lg">No films watched yet</p>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Watchlist */}
-                    <div className="mt-24">
-                        <div className="mb-10">
-                            <h2 className="font-serif text-4xl text-gray-100 mb-2">Watchlist</h2>
-                            <p className="text-muted">
-                                {user.watchlist?.length || 0} {user.watchlist?.length === 1 ? 'film' : 'films'}
-                            </p>
-                        </div>
-
-                        {user.watchlist && user.watchlist.length > 0 ? (
-                            <div className="masonry-grid">
-                                {user.watchlist.map((movie) => (
-                                    <div key={movie._id} className="relative hover:z-50">
-                                        <PosterCard movie={movie} />
-                                    </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="text-center py-20 border border-white/10">
-                                <p className="text-muted text-lg">No films in watchlist</p>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Ratings — Desktop */}
-                    <div className="mt-24">
-                        <div className="mb-10">
-                            <h2 className="font-serif text-4xl text-gray-100 mb-2">Your Ratings</h2>
-                            <p className="text-muted">
-                                {sortedRatings.length} {sortedRatings.length === 1 ? 'film' : 'films'} rated
-                            </p>
-                        </div>
-
-                        {sortedRatings.length > 0 ? (
-                            <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                                {sortedRatings.map((item) => (
-                                    <div key={item.id} className="flex flex-col group">
-                                        <Link to={`/movie/${item.id}`}>
-                                            <img
-                                                src={item.movie?.posterUrl}
-                                                alt={item.movie?.title}
-                                                className="w-full aspect-[2/3] object-cover rounded-lg shadow-xl border border-white/5 group-hover:border-gold/50 transition-colors duration-300"
-                                            />
-                                        </Link>
-                                        <div className="flex justify-center gap-1.5 mt-2">
-                                            {[1, 2, 3, 4, 5].map((star) => (
-                                                <span
-                                                    key={star}
-                                                    className={`text-xl ${item.rating >= star ? 'text-gold' : 'text-white/30'}`}
-                                                >
-                                                    ★
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="text-center py-20 border border-white/10">
-                                <p className="text-muted text-lg">No films rated yet</p>
-                            </div>
-                        )}
-                    </div>
+                    )}
                 </div>
-            </div>
-        </>
+            </section>
+
+            {seen.length > 0 && <YourAtlas films={seen} reducedMotion={reducedMotion} />}
+            <Account name={fest.name} onRenamed={(username) => setFest((f) => ({ ...f, name: username }))} />
+        </div>
     );
 };
 

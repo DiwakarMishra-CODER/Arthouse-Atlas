@@ -17,7 +17,9 @@
  * view is drawn live from the vector shapes as the projection animates, so it
  * stays sharp at any zoom. Draws only while on screen.
  *
- * Usage: const map = createAtlasRenderer(canvas, { topo, regions, model, getYear, onStatus, onHover, onFilmHover })
+ * Usage: const map = createAtlasRenderer(canvas, { topo, regions, model, getYear, getAll, onStatus, onHover, onFilmHover })
+ *   getAll() (0..1, default 0): how far every film shows at once, whatever the year: a country lit by
+ *   how many films it has (a member's own atlas rests there)
  *   map.setPointer(x, y) / setPointer(null) · map.setHighlight(key) · map.setSelected(key | null, { instant })
  *   map.setFilmHighlight(id) · map.filmAtPointer() · map.resize() · map.destroy()
  */
@@ -52,7 +54,7 @@ const glowSprite = () => {
 
 // `room` is the strip at the foot of the canvas kept clear of land for the controls laid over it (px):
 // a little for the world, all of it for a country
-export const createAtlasRenderer = (canvas, { topo, regions, model, getYear, room = () => ({ world: 0, country: 0 }), onStatus = () => {}, onHover = () => {}, onFilmHover = () => {} }) => {
+export const createAtlasRenderer = (canvas, { topo, regions, model, getYear, getAll = () => 0, room = () => ({ world: 0, country: 0 }), onStatus = () => {}, onHover = () => {}, onFilmHover = () => {} }) => {
     const ctx = canvas.getContext('2d');
     const world = feature(topo, topo.objects.countries).features.filter((f) => f.properties.name !== 'Antarctica');
     const byName = new Map(world.map((f) => [f.properties.name, f]));
@@ -238,8 +240,14 @@ export const createAtlasRenderer = (canvas, { topo, regions, model, getYear, roo
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         const ranked = [];
         let hit = null;
+        const all = getAll();
         lit.forEach((d, key) => {
-            const { bright, made, now, count } = happening(shapes.get(key), year, d.weight);
+            const s = shapes.get(key);
+            const h = happening(s, year, d.weight);
+            // every film at once: lit by how many it has for its size (even one shows; a vast country needs more)
+            const bright = all ? h.bright * (1 - all) + Math.min(1, (0.3 + s.films.length / FULL) / d.weight) * all : h.bright;
+            const { made, count } = h;
+            const now = all ? h.now * (1 - all) + s.films.length * all : h.now;
             const focus = key === hovered || key === highlight;
             const halo = Math.max(bright, focus ? 0.5 : 0) * fade;
             if (halo > 0.01) {
@@ -295,7 +303,7 @@ export const createAtlasRenderer = (canvas, { topo, regions, model, getYear, roo
         for (const { f, at } of fly.films) {
             const [x, y] = projection(at);
             const d = Math.abs(f.y - year);
-            const blaze = d < WINDOW ? 1 - d / WINDOW : 0;
+            const blaze = Math.max(d < WINDOW ? 1 - d / WINDOW : 0, getAll());
             const strong = f.r != null && f.r <= 150;
             const on = f.id === filmHighlight || (hoveredFilm && f.id === hoveredFilm.id);
             const light = Math.max(0.55, blaze) * t;
