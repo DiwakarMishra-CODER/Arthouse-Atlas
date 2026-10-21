@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { useLayoutEffect, useRef } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavigationType } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { MovieProvider } from './context/MovieContext';
 import Navbar from './components/Navbar';
@@ -33,9 +34,25 @@ const ProtectedRoute = ({ children }) => {
   return isAuthenticated ? children : <Navigate to="/login" state={{ from: location.pathname }} />;
 };
 
+// a page you open starts at its top; Back and Forward are left to each page, which puts you back
+// where you were (Home and Explore keep their own note of it). A change within a page (Explore's
+// filters) isn't a new page.
+const ArriveAtTop = () => {
+  const { pathname } = useLocation();
+  const navigation = useNavigationType();
+  const last = useRef(pathname);
+  useLayoutEffect(() => {
+    if (last.current === pathname) return;
+    last.current = pathname;
+    if (navigation !== 'POP') window.scrollTo(0, 0);
+  }, [pathname, navigation]);
+  return null;
+};
+
 function AppRoutes() {
   return (
     <div className="relative min-h-screen bg-[#050505] text-white selection:bg-gold selection:text-black overflow-x-clip">
+      <ArriveAtTop />
       <ProjectedBlack />
       <Navbar />
       <div className="relative z-10">
