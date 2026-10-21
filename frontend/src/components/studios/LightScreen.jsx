@@ -9,7 +9,11 @@ import { pic } from '../directors/arrange';
  * two films of one house it flashes back through the white; when the scroll races, it simply cuts.
  * Only opacity moves (element.animate), and the words are the only state.
  *
- * ref: { credit(house), film(f, { cut }) -> Promise, img() } · className sizes the screen
+ * Where the house's real logo is known (house.about.logo, from TMDB), it stands in the light exactly as
+ * it is, only ever faded; a logo drawn light (for a dark ground) stands on the black instead.
+ *
+ * ref: { credit(house), film(f, { cut }) -> Promise, img() } · className sizes the screen · push: the
+ * camera creeps in on the film while it's held
  */
 
 // the white up or down, from wherever it is now
@@ -23,7 +27,9 @@ const fade = (el, to, duration) => {
 };
 const srcOf = (f) => (f?.s ? pic(f.s, 'w1280') : f?.o ? pic(f.o, 'w780') : null);
 
-const LightScreen = ({ ref, className = '', reducedMotion, caption = true }) => {
+const LOGO = 'https://image.tmdb.org/t/p/w500';
+
+const LightScreen = ({ ref, className = '', reducedMotion, caption = true, push = false }) => {
     const img = useRef(null);
     const light = useRef(null);
     const gen = useRef(0);
@@ -62,9 +68,12 @@ const LightScreen = ({ ref, className = '', reducedMotion, caption = true }) => 
     }), [reducedMotion]);
 
     const { house, film } = words;
+    const logo = house?.about?.logo;
+    const onBlack = house?.about?.logoTone === 'light';
+    const ink = onBlack ? 'text-[#d9d2c3]' : 'text-[#3a332a]';
     return (
         <div className={`relative overflow-hidden bg-black ${className}`}>
-            <img ref={img} alt="" decoding="async" className="absolute inset-0 w-full h-full object-cover max-w-none" />
+            <img ref={img} alt="" decoding="async" className={`absolute inset-0 w-full h-full object-cover max-w-none ${push && !reducedMotion ? 'breath-push' : ''}`} />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(0,0,0,0.5))]" />
             {caption && film && (
                 <div className="absolute inset-x-0 bottom-0 px-4 md:px-6 pt-10 pb-3 md:pb-4 bg-gradient-to-t from-black/85 to-transparent">
@@ -75,13 +84,17 @@ const LightScreen = ({ ref, className = '', reducedMotion, caption = true }) => 
                     </div>
                 </div>
             )}
-            {/* the projector's white, with the house's name standing in it */}
-            <div ref={light} className="light-plate absolute inset-0 flex items-center justify-center" style={{ opacity: 1 }}>
+            {/* the projector's white, with the house's mark standing in it (its logo, or its name) */}
+            <div ref={light} className={`${onBlack ? 'bg-black' : 'light-plate'} absolute inset-0 flex items-center justify-center`} style={{ opacity: 1 }}>
                 {house && (
-                    <div key={house.slug} className="title-rise text-center px-6">
-                        <div className="font-serif uppercase tracking-[0.12em] leading-[1.05] text-[#16130e] text-[clamp(1.7rem,5vw,4.6rem)]">{house.name}</div>
-                        <div className="mt-3 flex items-center justify-center gap-3 font-label text-[11px] md:text-[13px] tracking-[0.35em] uppercase text-[#3a332a]">
-                            <span className="w-8 h-px bg-[#3a332a]/50" />presents<span className="w-8 h-px bg-[#3a332a]/50" />
+                    <div key={house.slug} className="title-rise relative w-full h-full flex flex-col items-center justify-center text-center px-6">
+                        {logo ? (
+                            <img src={`${LOGO}${logo}`} alt={house.name} className="max-w-[56%] max-h-[38%] w-auto h-auto object-contain" />
+                        ) : (
+                            <div className="font-serif uppercase tracking-[0.12em] leading-[1.05] text-[#16130e] text-[clamp(1.7rem,5vw,4.6rem)]">{house.name}</div>
+                        )}
+                        <div className={`mt-3 md:mt-4 flex items-center justify-center gap-3 font-label text-[11px] md:text-[13px] tracking-[0.35em] uppercase ${ink}`}>
+                            <span className="w-8 h-px bg-current opacity-50" />presents<span className="w-8 h-px bg-current opacity-50" />
                         </div>
                     </div>
                 )}

@@ -876,3 +876,6 @@ html[data-cover] .projected-black { visibility: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .band-open { animation: none; }
 }
+/* a house's name and founding, rising once its film has come up out of the light */
+.studio-title { animation: title-rise 700ms cubic-bezier(0.2, 0.7, 0.2, 1) 1500ms both; }
+@media (prefers-reduced-motion: reduce) { .studio-title { animation: none; } }

@@ -1,0 +1,657 @@
+{
+ "mk2": {
+  "founded": 1974,
+  "founders": [
+   "Marin Karmitz"
+  ],
+  "place": "Paris",
+  "wiki": null,
+  "tmdbCompany": 187078,
+  "logo": "/l5ddsxbEk95G7cPGDsYiu039fvL.png",
+  "logoTone": "dark"
+ },
+ "argos": {
+  "founded": 1949,
+  "founders": [
+   "Anatole Dauman",
+   "Philippe Lifchitz"
+  ],
+  "place": "Paris",
+  "wiki": null,
+  "tmdbCompany": 6116,
+  "logo": "/yCu2D15iD7lcYsBWqXjU65U9nkH.png",
+  "logoTone": "dark"
+ },
+ "toho": {
+  "founded": 1932,
+  "founders": [
+   "Ichizō Kobayashi"
+  ],
+  "place": "Tokyo",
+  "wiki": "https://en.wikipedia.org/wiki/Toho",
+  "tmdbCompany": 882,
+  "logo": "/fRSWWjquvzcHjACbtF53utZFIll.png",
+  "logoTone": "dark"
+ },
+ "shochiku": {
+  "founded": 1895,
+  "founders": [],
+  "place": "Kyoto",
+  "wiki": "https://en.wikipedia.org/wiki/Shochiku",
+  "tmdbCompany": 192,
+  "logo": "/93eAKlnQecDdMtucfOprzcjMw9V.png",
+  "logoTone": "dark"
+ },
+ "film4": {
+  "founded": 1982,
+  "founders": [],
+  "place": null,
+  "wiki": "https://en.wikipedia.org/wiki/Film4_Productions",
+  "tmdbCompany": 181,
+  "logo": "/A8SjepJ332C0YMamdFEMco0nstt.png",
+  "logoTone": "dark"
+ },
+ "sf-studios": {
+  "founded": 1899,
+  "founders": [],
+  "place": "Stockholm",
+  "wiki": "https://en.wikipedia.org/wiki/SF_Studios",
+  "tmdbCompany": 6181,
+  "logo": "/gYyww91VI1jdH89xpZgFFc8zN3F.png",
+  "logoTone": "dark"
+ },
+ "mosfilm": {
+  "founded": 1924,
+  "founders": [],
+  "place": "Moscow",
+  "wiki": "https://en.wikipedia.org/wiki/Mosfilm",
+  "tmdbCompany": 344,
+  "logo": "/xenuUvcunUNpbaDOYGhWZERaym7.png",
+  "logoTone": "dark"
+ },
+ "barrandov": {
+  "founded": 1931,
+  "founders": [
+   "Miloš Havel"
+  ],
+  "place": "Prague",
+  "wiki": "https://en.wikipedia.org/wiki/Barrandov_Studios",
+  "tmdbCompany": 1931,
+  "logo": "/5erHhgvym2cTORao8ajtn2gbiTH.png",
+  "logoTone": "dark"
+ },
+ "daiei": {
+  "founded": 1942,
+  "founders": [
+   "Masaichi Nagata"
+  ],
+  "place": null,
+  "wiki": "https://en.wikipedia.org/wiki/Daiei_Film",
+  "tmdbCompany": 880,
+  "logo": "/4p3GsoTCSSpsId8W2vBcjd42nAL.png",
+  "logoTone": "dark"
+ },
+ "ghibli": {
+  "founded": 1985,
+  "founders": [
+   "Hayao Miyazaki",
+   "Isao Takahata",
+   "Toshio Suzuki",
+   "Yasuyoshi Tokuma"
+  ],
+  "place": "Tokyo",
+  "wiki": "https://en.wikipedia.org/wiki/Studio_Ghibli",
+  "tmdbCompany": 10342,
+  "logo": "/uFuxPEZRUcBTEiYIxjHJq62Vr77.png",
+  "logoTone": "dark"
+ },
+ "parc-film": {
+  "founded": null,
+  "founders": [
+   "Mag Bodard"
+  ],
+  "place": "Paris",
+  "wiki": null,
+  "tmdbCompany": 14680,
+  "logo": null,
+  "logoTone": null
+ },
+ "bbc-film": {
+  "founded": 1990,
+  "founders": [],
+  "place": "London",
+  "wiki": "https://en.wikipedia.org/wiki/BBC_Film",
+  "tmdbCompany": 288,
+  "logo": "/aW0IpM9d4Zjj978EqgDVSxXXhTj.png",
+  "logoTone": "dark"
+ },
+ "films-du-fleuve": {
+  "founded": 1994,
+  "founders": [],
+  "place": "Liège",
+  "wiki": "https://en.wikipedia.org/wiki/Les_Films_du_Fleuve",
+  "tmdbCompany": 1926,
+  "logo": "/eSnbNBmDyok9rcpWxYRaBjTaq1n.png",
+  "logoTone": "dark"
+ },
+ "cj": {
+  "founded": 1995,
+  "founders": [
+   "CJ Group"
+  ],
+  "place": "Seoul",
+  "wiki": "https://en.wikipedia.org/wiki/CJ_ENM_Films_%26_Television",
+  "tmdbCompany": 7036,
+  "logo": "/javbyY0ZCvlFJtly3tpZqf2NwLX.png",
+  "logoTone": "dark"
+ },
+ "films-du-losange": {
+  "founded": 1962,
+  "founders": [
+   "Barbet Schroeder",
+   "Éric Rohmer"
+  ],
+  "place": "Paris",
+  "wiki": "https://en.wikipedia.org/wiki/Les_Films_du_Losange",
+  "tmdbCompany": 223,
+  "logo": "/pdthRbCuXNlrGNwnmLFRxv5Zy3t.png",
+  "logoTone": "dark"
+ },
+ "studiocanal": {
+  "founded": 1984,
+  "founders": [
+   "Pierre Lescure"
+  ],
+  "place": "Boulogne-Billancourt",
+  "wiki": "https://en.wikipedia.org/wiki/StudioCanal",
+  "tmdbCompany": 183,
+  "logo": "/eadyph99FClrWlnE0jPniwOcvvw.png",
+  "logoTone": "dark"
+ },
+ "rank": {
+  "founded": 1937,
+  "founders": [
+   "J. Arthur Rank, 1st Baron Rank"
+  ],
+  "place": "London",
+  "wiki": "https://en.wikipedia.org/wiki/The_Rank_Organisation",
+  "tmdbCompany": 14377,
+  "logo": null,
+  "logoTone": null
+ },
+ "kanoon": {
+  "founded": 1965,
+  "founders": [],
+  "place": "Tehran",
+  "wiki": "https://en.wikipedia.org/wiki/Institute_for_the_Intellectual_Development_of_Children_and_Young_Adults",
+  "tmdbCompany": 11459,
+  "logo": "/q05YOjsHS2MBfteVQod3MRGkjCD.png",
+  "logoTone": "dark"
+ },
+ "films-du-carrosse": {
+  "founded": 1957,
+  "founders": [
+   "François Truffaut"
+  ],
+  "place": "Paris",
+  "wiki": null,
+  "tmdbCompany": 53,
+  "logo": "/3cWJikm9MdWCMKdatuk8gDTa5xy.png",
+  "logoTone": "light"
+ },
+ "ciby-2000": {
+  "founded": 1990,
+  "founders": [
+   "Francis Bouygues"
+  ],
+  "place": "Boulogne-Billancourt",
+  "wiki": "https://en.wikipedia.org/wiki/Ciby_2000",
+  "tmdbCompany": 252360,
+  "logo": null,
+  "logoTone": null
+ },
+ "united-artists": {
+  "founded": 1919,
+  "founders": [
+   "Mary Pickford",
+   "Charlie Chaplin",
+   "Douglas Fairbanks",
+   "D. W. Griffith"
+  ],
+  "place": "Hollywood",
+  "wiki": "https://en.wikipedia.org/wiki/United_Artists",
+  "tmdbCompany": 60,
+  "logo": "/4YldLvCWQL9VIAHQ2Fu3Ffkh9Si.png",
+  "logoTone": "dark"
+ },
+ "why-not": {
+  "founded": 1990,
+  "founders": [
+   "Pascal Caucheteux",
+   "Grégoire Sorlat"
+  ],
+  "place": "Paris",
+  "wiki": "https://en.wikipedia.org/wiki/Why_Not_Productions",
+  "tmdbCompany": 729,
+  "logo": "/hNxGdbddbsDDnEWJ7RNLcGCRSLQ.png",
+  "logoTone": "dark"
+ },
+ "the-archers": {
+  "founded": 1939,
+  "founders": [
+   "Michael Powell",
+   "Emeric Pressburger"
+  ],
+  "place": "London",
+  "wiki": "https://en.wikipedia.org/wiki/Powell_and_Pressburger",
+  "tmdbCompany": 4397,
+  "logo": null,
+  "logoTone": null
+ },
+ "pandora": {
+  "founded": null,
+  "founders": [
+   "Karl Baumgartner",
+   "Reinhard Brundig"
+  ],
+  "place": null,
+  "wiki": "https://en.wikipedia.org/wiki/Pandora_Film",
+  "tmdbCompany": 140,
+  "logo": "/ooz5b0ov3PLfBoOJyMmdoffVuHs.png",
+  "logoTone": "dark"
+ },
+ "zentropa": {
+  "founded": 1992,
+  "founders": [
+   "Lars von Trier",
+   "Peter Aalbæk Jensen"
+  ],
+  "place": "Copenhagen",
+  "wiki": "https://en.wikipedia.org/wiki/Zentropa",
+  "tmdbCompany": 76,
+  "logo": "/nebkQYtQKhZyHJfh5v0oGpNbPzu.png",
+  "logoTone": "dark"
+ },
+ "paradis": {
+  "founded": null,
+  "founders": [],
+  "place": null,
+  "wiki": null,
+  "tmdbCompany": 255,
+  "logo": "/b1zTOpnNn5g0nHjhpn3Dx17QaoP.png",
+  "logoTone": "dark"
+ },
+ "titanus": {
+  "founded": 1904,
+  "founders": [
+   "Gustavo Lombardo"
+  ],
+  "place": "Naples",
+  "wiki": "https://en.wikipedia.org/wiki/Titanus",
+  "tmdbCompany": 641,
+  "logo": "/w8flpSJntsxVCMkIU1qeg1kJcJh.png",
+  "logoTone": "light"
+ },
+ "chaplin": {
+  "founded": null,
+  "founders": [
+   "Charlie Chaplin"
+  ],
+  "place": null,
+  "wiki": "https://en.wikipedia.org/wiki/Charlie_Chaplin",
+  "tmdbCompany": 1315,
+  "logo": null,
+  "logoTone": null
+ },
+ "cmpc": {
+  "founded": 1954,
+  "founders": [],
+  "place": "Taipei",
+  "wiki": "https://en.wikipedia.org/wiki/Central_Motion_Picture_Corporation",
+  "tmdbCompany": 25345,
+  "logo": "/pFRF57Hp5x8EKIqmWHv1t34dWVR.png",
+  "logoTone": "dark"
+ },
+ "komplizen": {
+  "founded": null,
+  "founders": [],
+  "place": null,
+  "wiki": null,
+  "tmdbCompany": 1618,
+  "logo": "/dacmPYkpGE9Mbu2dqG2sFTXpsqr.png",
+  "logoTone": "dark"
+ },
+ "ghoulardi": {
+  "founded": null,
+  "founders": [
+   "Paul Thomas Anderson"
+  ],
+  "place": null,
+  "wiki": "https://en.wikipedia.org/wiki/Paul_Thomas_Anderson",
+  "tmdbCompany": 178,
+  "logo": null,
+  "logoTone": null
+ },
+ "louverture": {
+  "founded": 2005,
+  "founders": [
+   "Danny Glover",
+   "Joslyn Barnes"
+  ],
+  "place": null,
+  "wiki": "https://en.wikipedia.org/wiki/Louverture_Films",
+  "tmdbCompany": 8469,
+  "logo": "/gSSXLuayChi5h9KEuzfwd2UjWjm.png",
+  "logoTone": "dark"
+ },
+ "cineriz": {
+  "founded": 1956,
+  "founders": [
+   "Angelo Rizzoli"
+  ],
+  "place": "Rome",
+  "wiki": "https://en.wikipedia.org/wiki/Cineriz",
+  "tmdbCompany": 9387,
+  "logo": null,
+  "logoTone": null
+ },
+ "lux-film": {
+  "founded": 1934,
+  "founders": [
+   "Riccardo Gualino"
+  ],
+  "place": "Turin",
+  "wiki": "https://en.wikipedia.org/wiki/Lux_Film",
+  "tmdbCompany": 1679,
+  "logo": null,
+  "logoTone": null
+ },
+ "tv-man-union": {
+  "founded": null,
+  "founders": [],
+  "place": null,
+  "wiki": null,
+  "tmdbCompany": 12424,
+  "logo": "/nBer3gCkrK5yCG3Q0sJhFSuwZIk.png",
+  "logoTone": "dark"
+ },
+ "cab": {
+  "founded": null,
+  "founders": [],
+  "place": null,
+  "wiki": null,
+  "tmdbCompany": 22587,
+  "logo": null,
+  "logoTone": null
+ },
+ "tor": {
+  "founded": null,
+  "founders": [],
+  "place": "Warsaw",
+  "wiki": null,
+  "tmdbCompany": 266296,
+  "logo": null,
+  "logoTone": null
+ },
+ "anouchka": {
+  "founded": null,
+  "founders": [],
+  "place": null,
+  "wiki": null,
+  "tmdbCompany": 14679,
+  "logo": null,
+  "logoTone": null
+ },
+ "champion": {
+  "founded": null,
+  "founders": [
+   "Carlo Ponti"
+  ],
+  "place": "Rome",
+  "wiki": null,
+  "tmdbCompany": 10000,
+  "logo": null,
+  "logoTone": null
+ },
+ "memento": {
+  "founded": null,
+  "founders": [],
+  "place": null,
+  "wiki": null,
+  "tmdbCompany": 5162,
+  "logo": "/MVQnWo9PznYQ6Hz8vESofPOlCX.png",
+  "logoTone": "dark"
+ },
+ "herzog": {
+  "founded": null,
+  "founders": [
+   "Werner Herzog"
+  ],
+  "place": "Munich",
+  "wiki": "https://en.wikipedia.org/wiki/Werner_Herzog",
+  "tmdbCompany": 843,
+  "logo": "/2OHdsgrtHxa9CtFlkxnbyrZv8Jy.png",
+  "logoTone": "dark"
+ },
+ "jet-tone": {
+  "founded": null,
+  "founders": [
+   "Wong Kar-wai",
+   "Jeffrey Lau"
+  ],
+  "place": "Hong Kong",
+  "wiki": null,
+  "tmdbCompany": 540,
+  "logo": "/gqx0uCS4P0hEgaDl61TfKODIwMe.png",
+  "logoTone": "dark"
+ },
+ "gaumont": {
+  "founded": 1895,
+  "founders": [
+   "Léon Gaumont"
+  ],
+  "place": "Paris",
+  "wiki": "https://en.wikipedia.org/wiki/Gaumont",
+  "tmdbCompany": 27644,
+  "logo": null,
+  "logoTone": null
+ },
+ "xstream": {
+  "founded": 2003,
+  "founders": [],
+  "place": "Beijing",
+  "wiki": "https://en.wikipedia.org/wiki/Xstream_Pictures",
+  "tmdbCompany": 1079,
+  "logo": null,
+  "logoTone": null
+ },
+ "alain-sarde": {
+  "founded": null,
+  "founders": [],
+  "place": null,
+  "wiki": "https://en.wikipedia.org/wiki/Alain_Sarde",
+  "tmdbCompany": 635,
+  "logo": "/ikp5Hokscs88jMWSkM9dB98U3Ak.png",
+  "logoTone": "dark"
+ },
+ "woodfall": {
+  "founded": null,
+  "founders": [
+   "Tony Richardson",
+   "John Osborne",
+   "Harry Saltzman"
+  ],
+  "place": null,
+  "wiki": "https://en.wikipedia.org/wiki/Woodfall_Film_Productions",
+  "tmdbCompany": 1980,
+  "logo": null,
+  "logoTone": null
+ },
+ "wega": {
+  "founded": null,
+  "founders": [
+   "Veit Heiduschka"
+  ],
+  "place": "Vienna",
+  "wiki": null,
+  "tmdbCompany": 224,
+  "logo": "/fCv129CE3olInpdEiOWcC5s2YbQ.png",
+  "logoTone": "dark"
+ },
+ "kick-the-machine": {
+  "founded": null,
+  "founders": [
+   "Apichatpong Weerasethakul"
+  ],
+  "place": "Bangkok",
+  "wiki": "https://en.wikipedia.org/wiki/Apichatpong_Weerasethakul",
+  "tmdbCompany": 59665,
+  "logo": "/y4o2bOBnd6HCNrATWnsfyWg0ttE.png",
+  "logoTone": "dark"
+ },
+ "anna-sanders": {
+  "founded": null,
+  "founders": [],
+  "place": null,
+  "wiki": null,
+  "tmdbCompany": 61201,
+  "logo": null,
+  "logoTone": null
+ },
+ "killer-films": {
+  "founded": 1995,
+  "founders": [
+   "Christine Vachon",
+   "Pamela Koffler"
+  ],
+  "place": "New York City",
+  "wiki": "https://en.wikipedia.org/wiki/Killer_Films",
+  "tmdbCompany": 1422,
+  "logo": "/rIB6DuimR1qgLE14cBwpMABC2xx.png",
+  "logoTone": "dark"
+ },
+ "icaic": {
+  "founded": 1959,
+  "founders": [
+   "Alfredo Guevara Valdés",
+   "José Massip"
+  ],
+  "place": null,
+  "wiki": "https://en.wikipedia.org/wiki/Cuban_Institute_of_Cinematographic_Art_and_Industry",
+  "tmdbCompany": 5175,
+  "logo": "/685bT26uK9vuaCwf2Hylufdb4yI.png",
+  "logoTone": "dark"
+ },
+ "detour": {
+  "founded": null,
+  "founders": [
+   "Richard Linklater"
+  ],
+  "place": "Austin",
+  "wiki": "https://en.wikipedia.org/wiki/Richard_Linklater",
+  "tmdbCompany": 11510,
+  "logo": "/gg3gP2wHNNfOfLKdXGjYC9qJ9ok.png",
+  "logoTone": "dark"
+ },
+ "archipel": {
+  "founded": null,
+  "founders": [],
+  "place": null,
+  "wiki": null,
+  "tmdbCompany": 2695,
+  "logo": null,
+  "logoTone": null
+ },
+ "hawk-films": {
+  "founded": 1964,
+  "founders": [
+   "Stanley Kubrick"
+  ],
+  "place": null,
+  "wiki": "https://en.wikipedia.org/wiki/Hawk_Films",
+  "tmdbCompany": 88,
+  "logo": null,
+  "logoTone": null
+ },
+ "a24": {
+  "founded": 2012,
+  "founders": [],
+  "place": "New York City",
+  "wiki": "https://en.wikipedia.org/wiki/A24",
+  "tmdbCompany": 41077,
+  "logo": "/1ZXsGaFPgrgS6ZZGS37AqD5uU12.png",
+  "logoTone": "dark"
+ },
+ "criterion": {
+  "founded": 1984,
+  "founders": [
+   "Robert Stein",
+   "Joe Medjuck"
+  ],
+  "place": "New York City",
+  "wiki": "https://en.wikipedia.org/wiki/The_Criterion_Collection",
+  "tmdbCompany": 204170,
+  "logo": "/kaKA5gYb9f1w5WOn4TJMvsBC83d.png",
+  "logoTone": "light"
+ },
+ "neon": {
+  "founded": 2017,
+  "founders": [
+   "Tom Quinn",
+   "Tim League"
+  ],
+  "place": "New York",
+  "wiki": "https://en.wikipedia.org/wiki/Neon_(company)",
+  "tmdbCompany": 90733,
+  "logo": "/3K9wCZTyDgop3ITK1rDi6T2PckE.png",
+  "logoTone": "dark"
+ },
+ "sony-pictures-classics": {
+  "founded": 1992,
+  "founders": [
+   "Michael Barker",
+   "Tom Bernard"
+  ],
+  "place": "Hollywood",
+  "wiki": "https://en.wikipedia.org/wiki/Sony_Pictures_Classics",
+  "tmdbCompany": 58,
+  "logo": "/voYCwlBHJQANtjvm5MNIkCF1dDH.png",
+  "logoTone": "dark"
+ },
+ "ifc": {
+  "founded": null,
+  "founders": [],
+  "place": "New York City",
+  "wiki": "https://en.wikipedia.org/wiki/Independent_Film_Company",
+  "tmdbCompany": 307,
+  "logo": "/gUi3pAUznQJpR296lw4mSVbB7zx.png",
+  "logoTone": "dark"
+ },
+ "kino-lorber": {
+  "founded": 1976,
+  "founders": [],
+  "place": "New York City",
+  "wiki": "https://en.wikipedia.org/wiki/Kino_Lorber",
+  "tmdbCompany": 39134,
+  "logo": "/sijjN3vMtjCnc1LkCM7HSBErcO3.png",
+  "logoTone": "dark"
+ },
+ "dogwoof": {
+  "founded": 2004,
+  "founders": [],
+  "place": "London",
+  "wiki": "https://en.wikipedia.org/wiki/Dogwoof",
+  "tmdbCompany": 8191,
+  "logo": "/bXYH4HA4GqN5mAIn2pRdlqnDRyI.png",
+  "logoTone": "dark"
+ },
+ "curzon": {
+  "founded": 1976,
+  "founders": [],
+  "place": "London",
+  "wiki": "https://en.wikipedia.org/wiki/Curzon_Film",
+  "tmdbCompany": null,
+  "logo": null,
+  "logoTone": null
+ }
+}

@@ -36,6 +36,7 @@ const Studios = () => {
     const [failed, setFailed] = useState(false);
     const [focus, setFocus] = useState(null); // the house the crane came down onto
     const [phone, setPhone] = useState(() => window.innerWidth < 768);
+    const [cameBack] = useState(() => new URLSearchParams(window.location.search).get('focus')); // back from a house's stage
     const canvas = useRef(null);
     const lot = useRef(null);
     const screen = useRef(null);
@@ -65,7 +66,9 @@ const Studios = () => {
         const r = createLotRenderer(canvas.current, { plan, index, sheet });
         lot.current = r;
         r.resize();
-        r.arrive(plan.stages.find((s) => s.house.slug === 'criterion') || plan.stages[0], { still: reducedMotion });
+        // (back from a house's stage, the camera starts over its roof and settles straight onto it)
+        const from = plan.stages.find((s) => s.house.slug === cameBack) || plan.stages.find((s) => s.house.slug === 'criterion') || plan.stages[0];
+        r.arrive(from, { still: reducedMotion });
         let gone = false;
         document.fonts?.load('500 10px Oswald').then(() => { if (!gone) r.resize(); }).catch(() => {});
         // (the small sheet only: close up, each film's own still is fetched, and the big sheet's upload
@@ -86,7 +89,7 @@ const Studios = () => {
             window.removeEventListener('resize', onResize);
             el.removeEventListener('wheel', onWheel);
         };
-    }, [plan, index, sheet, reducedMotion]);
+    }, [plan, index, sheet, reducedMotion, cameBack]);
 
     // the crane comes down onto a house: its name in the light, then its film comes up out of it
     const frame = useMemo(() => (phone ? { x: 0.04, y: 0.13, w: 0.92, h: 0.36 } : { x: 0.03, y: 0.12, w: 0.56, h: 0.8 }), [phone]);
@@ -104,6 +107,13 @@ const Studios = () => {
         if (details.has(house.slug)) show(details.get(house.slug));
         else studiosAPI.getOne(house.slug).then((r) => { details.set(house.slug, r.data); show(r.data); }).catch(() => show(null));
     }, [stageOf, frame]);
+    const cameDown = useRef(false);
+    useEffect(() => {
+        const stage = cameBack && lot.current && stageOf.get(cameBack);
+        if (!stage || cameDown.current) return undefined;
+        const t = setTimeout(() => { cameDown.current = true; open(stage.house); }, 120);
+        return () => clearTimeout(t);
+    }, [cameBack, stageOf, open, index, sheet]);
     // (its name goes up in the light as soon as the panel is there to hold it)
     useEffect(() => { if (focus) screen.current?.credit(focus); }, [focus]);
     const close = useCallback(() => {

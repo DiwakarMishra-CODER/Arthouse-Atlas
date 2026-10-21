@@ -1,65 +1,24 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { MdArrowBack, MdArrowOutward } from 'react-icons/md';
 import { studiosAPI } from '../services/api';
 import { useMotionPreference } from '../hooks/useMotionPreference';
 import LightScreen from '../components/studios/LightScreen';
-import FrameStrip from '../components/studios/FrameStrip';
+import DollyTrack from '../components/studios/DollyTrack';
 import { pic } from '../components/directors/arrange';
 
 /**
- * One house. The screen first holds its name in the projector's white; under it, every film it made,
- * by year, as a strip pulled through a gate, stepping on by itself until a hand takes it, and the
- * film in the gate comes up out of the light. Then every film it made (or, for a label, brought out)
- * as credits, and the directors who made them here, with their retrospectives where the atlas has one.
+ * One house: you've come down off the lot and onto its stage. It plays as the house's own opening
+ * titles. The screen goes white and its mark stands in the light (its real logo, or its name), then
+ * its signature film comes up out of the light and the camera creeps in, with the house's name and
+ * when, where and by whom it was founded. A few lines about it. Then the stage itself: every film it
+ * made here, in order, on a track you dolly along. Its style in a line; the people who worked here,
+ * standing taller the more films they made here; and its neighbours on the lot.
  */
 
-const STEP = 2200; // ms per film while the strip runs by itself
-const REST = 5000; // ms it waits after a hand has been on it
-
-// the screen and the strip under it
-const HouseReel = ({ house, reducedMotion }) => {
-    const screen = useRef(null);
-    const reel = useRef(null);
-    const opened = useRef(0);
-    const resting = useRef(0);
-    const films = useMemo(() => [...house.films].sort((a, b) => (a.y || 0) - (b.y || 0)), [house]);
-
-    useEffect(() => {
-        screen.current?.credit(house);
-        opened.current = performance.now();
-    }, [house]);
-    // the name holds in the light a moment, then the film in the gate comes up
-    const onGate = useCallback((f, fast) => {
-        const wait = 1000 - (performance.now() - opened.current);
-        if (wait > 0) setTimeout(() => screen.current?.film(f), wait);
-        else screen.current?.film(f, { cut: fast });
-    }, []);
-    // the strip steps on by itself, a film at a time, until a hand takes it
-    useEffect(() => {
-        if (reducedMotion) return undefined;
-        const t = setInterval(() => {
-            const strip = reel.current?.querySelector('ol');
-            if (!strip || document.hidden || Date.now() < resting.current) return;
-            const step = strip.children[0]?.offsetWidth + 8 || 160;
-            if (strip.scrollLeft + strip.clientWidth >= strip.scrollWidth - 4) strip.scrollTo({ left: 0, behavior: 'smooth' });
-            else strip.scrollBy({ left: step, behavior: 'smooth' });
-        }, STEP);
-        return () => clearInterval(t);
-    }, [reducedMotion]);
-    const hold = () => { resting.current = Date.now() + REST; };
-
-    return (
-        <div>
-            <LightScreen ref={screen} reducedMotion={reducedMotion} className="w-full max-w-5xl mx-auto aspect-video shadow-[0_40px_120px_-30px_rgba(241,236,226,0.22)]" />
-            <div ref={reel} className="mt-6 max-w-5xl mx-auto" onPointerDown={hold} onWheel={hold} onKeyDown={hold} onTouchStart={hold}>
-                <FrameStrip films={films} onGate={onGate} />
-            </div>
-        </div>
-    );
-};
-
 const COUNTRY = { 'United States of America': 'United States' };
+const named = (list) => (list.length > 1 ? `${list.slice(0, -1).join(', ')} and ${list.at(-1)}` : list[0]);
+const yearsOf = (y) => (y ? (y[0] === y[1] ? `${y[0]}` : `${y[0]}–${y[1]}`) : '');
 
 const StudioDetail = () => {
     const { slug } = useParams();
@@ -67,6 +26,7 @@ const StudioDetail = () => {
     const navigate = useNavigate();
     const reducedMotion = useMotionPreference();
     const [result, setResult] = useState({ slug: null, data: null });
+    const screen = useRef(null);
 
     useEffect(() => {
         let gone = false;
@@ -79,77 +39,150 @@ const StudioDetail = () => {
 
     const loading = result.slug !== slug;
     const house = loading ? null : result.data;
+    const films = useMemo(() => (house ? [...house.films].sort((a, b) => (a.y || 0) - (b.y || 0)) : []), [house]);
+
+    // the opening titles: its mark in the light, then its signature film comes up out of it
+    useEffect(() => {
+        if (!house) return undefined;
+        screen.current?.credit(house);
+        const signature = house.run?.[0] || films.find((f) => f.s);
+        if (signature?.s) new Image().src = pic(signature.s, 'w1280'); // (fetched while its mark is held)
+        const t = setTimeout(() => screen.current?.film(signature), reducedMotion ? 0 : 1400);
+        return () => clearTimeout(t);
+    }, [house, films, reducedMotion]);
+
     const goBack = () => (location.key !== 'default' ? navigate(-1) : navigate('/studios'));
-    const years = house?.years ? (house.years[0] === house.years[1] ? `${house.years[0]}` : `${house.years[0]}–${house.years[1]}`) : '';
+    if (loading) return <div className="min-h-screen pt-40 text-center font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">The light is coming up…</div>;
+    if (!house) {
+        return (
+            <div className="min-h-screen pt-40 px-6 text-center">
+                <p className="font-serif text-3xl text-gray-100">There’s no house here by that name.</p>
+                <Link to="/studios" className="mt-6 inline-block font-label text-[13px] tracking-[0.14em] uppercase text-gold hover:text-gold-light">The whole lot ›</Link>
+            </div>
+        );
+    }
+
+    const about = house.about || {};
+    const founding = [
+        about.founded && `Founded ${about.founded}`,
+        about.place && `${about.founded ? 'in' : 'In'} ${about.place}`,
+        about.founders?.length && `by ${named(about.founders)}`,
+    ].filter(Boolean).join(' ');
+    const facts = [founding, `${house.count} ${house.count === 1 ? 'film' : 'films'} here, ${yearsOf(house.years)}`].filter(Boolean).join('  ·  ');
+
+    // its style, in a line
+    const style = house.style || {};
+    const top = style.countries?.[0];
+    const bw = style.bw || { n: 0, of: 0 };
+    const [d1, d2] = style.decades || [];
+    const decades = d2?.count > 1 ? [d1.value, d2.value].sort((a, b) => a - b) : null;
+    const place = top && (COUNTRY[top.value] || top.value);
+    const styleLine = [
+        top && (top.count === house.count ? `All from ${place}` : top.count > house.count / 2 && `Mostly from ${place}`),
+        bw.n > 0 && (bw.n === house.count ? 'All in black and white' : bw.of === house.count ? `${bw.n} of ${house.count} in black and white` : `${bw.n} in black and white`),
+        d1 && (d1.count === house.count ? `All made in the ${d1.value}s` : decades ? `Busiest in the ${decades[0]}s and ${decades[1]}s` : d1.count > 1 && `Busiest in the ${d1.value}s`),
+        style.longest && `Longest: ${style.longest.t}, ${style.longest.r} min`,
+    ].filter(Boolean);
+
+    const most = Math.max(...house.directors.map((d) => d.n), 1);
+    // (where there's no portrait of a director, a frame from their own film here stands in)
+    const frameBy = (name) => films.find((f) => f.s && f.d?.includes(name))?.s;
 
     return (
-        <div className="own-transitions relative min-h-screen pt-28 md:pt-32 pb-32">
-            <button type="button" onClick={goBack} className="font-label absolute top-24 left-4 md:left-10 z-20 flex items-center gap-2 text-xs tracking-[0.14em] uppercase text-gray-300 hover:text-white transition-colors">
-                <MdArrowBack aria-hidden="true" /> Studios
-            </button>
-            <div className="max-w-6xl mx-auto px-4 md:px-10">
-                {loading && <p className="py-24 font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">The light is coming up…</p>}
-                {!loading && !house && (
-                    <div className="py-24">
-                        <p className="font-serif text-3xl text-gray-100">There’s no house here by that name.</p>
-                        <Link to="/studios" className="mt-6 inline-block font-label text-[13px] tracking-[0.14em] uppercase text-gold hover:text-gold-light">Every house ›</Link>
+        <div className="own-transitions relative min-h-screen pb-32">
+            {/* the opening titles */}
+            <section className="relative h-[88svh] min-h-[460px] overflow-hidden">
+                {/* (the picture fades into the room at its foot, under the house's name) */}
+                <div className="h-full [mask-image:linear-gradient(to_bottom,black_45%,transparent_98%)]">
+                    <LightScreen ref={screen} push caption={false} reducedMotion={reducedMotion} className="h-full" />
+                </div>
+                <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-[#050505]/80 to-transparent" />
+                <button type="button" onClick={goBack} className="font-label absolute top-24 left-4 md:left-10 z-20 flex items-center gap-2 text-xs tracking-[0.14em] uppercase text-gray-200 hover:text-white transition-colors [text-shadow:0_1px_8px_rgba(0,0,0,0.6)]">
+                    <MdArrowBack aria-hidden="true" /> Studios
+                </button>
+                <div className="absolute inset-x-0 bottom-0">
+                    <div className="studio-title max-w-7xl mx-auto px-4 md:px-10 pb-8 md:pb-12">
+                        <div className="font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gold">{[COUNTRY[house.country] || house.country, house.kind === 'label' ? 'Label' : null].filter(Boolean).join(' · ')}</div>
+                        <h1 className="mt-2 font-serif font-light text-[2.8rem] md:text-7xl lg:text-[6rem] leading-[0.98] text-white [text-shadow:0_2px_30px_rgba(0,0,0,0.5)]">{house.name}</h1>
+                        <div className="mt-3 md:mt-4 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gray-200">{facts}</div>
                     </div>
-                )}
-                {house && (
-                    <>
-                        <header className="pt-4">
-                            <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">{[COUNTRY[house.country] || house.country, house.kind === 'label' ? 'Label' : null].filter(Boolean).join(' · ')}</div>
-                            <h1 className="mt-2 font-serif font-light text-[2.6rem] md:text-6xl lg:text-7xl leading-[1.02] text-white">{house.name}</h1>
-                            <div className="mt-3 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gray-400">{house.count} {house.count === 1 ? 'film' : 'films'} · {years} · {house.directors.length} {house.directors.length === 1 ? 'director' : 'directors'}</div>
-                        </header>
+                </div>
+            </section>
 
-                        <div className="mt-8 md:mt-10">
-                            <HouseReel key={house.slug} house={house} reducedMotion={reducedMotion} />
-                        </div>
-
-                        <div className="mt-16 md:mt-20 grid grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] gap-14 lg:gap-16 items-start">
-                            <section>
-                                <h2 className="mb-4 flex items-baseline gap-4">
-                                    <span className="font-label text-[12px] md:text-[13px] tracking-[0.3em] uppercase text-gold">Films</span>
-                                    <span className="flex-1 h-px bg-white/10" />
-                                </h2>
-                                <ol>
-                                    {house.films.map((f) => (
-                                        <li key={f.id}>
-                                            <Link to={`/movie/${f.id}`} className="credit-line flex flex-wrap md:flex-nowrap items-baseline gap-x-3 py-[7px] md:py-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light">
-                                                {f.spine != null && <span className="shrink-0 w-14 font-label text-[11px] md:text-[12px] tracking-[0.1em] text-gray-500">No. {f.spine}</span>}
-                                                <span className="credit-name min-w-0 flex-1 md:flex-none md:max-w-[55%] truncate font-serif italic text-[17px] md:text-[19px] text-white">{f.t}</span>
-                                                <span aria-hidden="true" className="credit-leader hidden md:block flex-1 min-w-6" />
-                                                {/* on a phone, who made it and when go under the title rather than squeeze beside it */}
-                                                <span className={`credit-film basis-full md:basis-auto shrink-0 md:max-w-[40%] truncate font-serif text-[14px] md:text-[16px] text-gray-400 ${f.spine != null ? 'pl-[4.25rem] md:pl-0' : ''}`}>{f.d?.join(' & ')}{f.y ? `, ${f.y}` : ''}</span>
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ol>
-                            </section>
-                            <section>
-                                <h2 className="mb-5 flex items-baseline gap-4">
-                                    <span className="font-label text-[12px] md:text-[13px] tracking-[0.3em] uppercase text-gold">Directors</span>
-                                    <span className="flex-1 h-px bg-white/10" />
-                                </h2>
-                                <ul className="flex flex-col gap-3">
-                                    {house.directors.map((d) => (
-                                        <li key={d.name}>
-                                            <Link to={d.id ? `/directors/${d.id}` : `/explore?director=${encodeURIComponent(d.name)}`} className="group flex items-center gap-3">
-                                                <span className="w-10 h-10 shrink-0 rounded-full overflow-hidden bg-[#141210] ring-1 ring-white/15">
-                                                    {d.p && <img src={pic(d.p, 'w185')} alt="" loading="lazy" className="w-full h-full object-cover max-w-none grayscale contrast-[1.08]" />}
-                                                </span>
-                                                <span className="font-serif text-[17px] text-gray-100 group-hover:text-gold-light transition-colors">{d.name}</span>
-                                                <span className="font-label text-[11px] tracking-[0.14em] text-gray-500">{d.n}</span>
-                                                {d.id && <MdArrowOutward aria-hidden="true" className="text-gray-500 group-hover:text-gold" />}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </section>
-                        </div>
-                    </>
+            <div className="max-w-7xl mx-auto px-4 md:px-10">
+                {/* a few lines about it */}
+                {house.note && (
+                    <section className="pt-10 md:pt-16 max-w-3xl">
+                        <p className="font-serif text-[1.35rem] md:text-[1.9rem] leading-snug text-gray-100">{house.note}</p>
+                        {about.wiki && (
+                            <a href={about.wiki} target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-1.5 font-label text-[11px] tracking-[0.14em] uppercase text-gray-500 hover:text-gray-300">
+                                More on Wikipedia <MdArrowOutward aria-hidden="true" />
+                            </a>
+                        )}
+                    </section>
                 )}
+            </div>
+
+            {/* on the stage: every film it made here, in order */}
+            <section className="pt-16 md:pt-24">
+                <div className="max-w-7xl mx-auto px-4 md:px-10 mb-5 md:mb-7 flex items-baseline gap-4">
+                    <h2 className="font-label text-[12px] md:text-[13px] tracking-[0.3em] uppercase text-gold">On this stage</h2>
+                    <span className="flex-1 h-px bg-white/10" />
+                </div>
+                <DollyTrack films={films} reducedMotion={reducedMotion} />
+                {styleLine.length > 0 && (
+                    <p className="mt-10 md:mt-12 px-4 text-center [text-wrap:balance] font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gray-300">
+                        {styleLine.join('  ·  ')}
+                    </p>
+                )}
+            </section>
+
+            <div className="max-w-7xl mx-auto px-4 md:px-10">
+                {/* the people who worked here, standing taller the more films they made here */}
+                <section className="pt-20 md:pt-28">
+                    <div className="mb-6 md:mb-8 flex items-baseline gap-4">
+                        <h2 className="font-label text-[12px] md:text-[13px] tracking-[0.3em] uppercase text-gold">Who worked here</h2>
+                        <span className="flex-1 h-px bg-white/10" />
+                    </div>
+                    <ul className="flex items-end gap-4 md:gap-6 overflow-x-auto pb-3 [scrollbar-width:thin]">
+                        {house.directors.map((d) => {
+                            const base = house.directors.length <= 3 ? 170 : 110; // (a few stand bigger)
+                            const h = Math.round(base + base * ((d.n - 1) / Math.max(1, most - 1)));
+                            return (
+                                <li key={d.name} className="shrink-0">
+                                    <Link to={d.id ? `/directors/${d.id}` : `/explore?director=${encodeURIComponent(d.name)}`} className="group block" style={{ width: Math.round((h * 3) / 4) }}>
+                                        <div className="relative overflow-hidden bg-[#141210] ring-1 ring-white/10 group-hover:ring-white/40" style={{ height: h }}>
+                                            {d.p
+                                                ? <img src={pic(d.p, 'w185')} alt="" loading="lazy" className="w-full h-full object-cover max-w-none grayscale contrast-[1.08]" />
+                                                : frameBy(d.name) && <img src={pic(frameBy(d.name), 'w300')} alt="" loading="lazy" className="w-full h-full object-cover max-w-none grayscale contrast-[1.08] brightness-90" />}
+                                        </div>
+                                        <div className="mt-2 font-serif text-[15px] leading-tight text-gray-100 group-hover:text-gold-light">{d.name}</div>
+                                        <div className="font-label text-[11px] tracking-[0.14em] uppercase text-gray-500">{d.n} {d.n === 1 ? 'film' : 'films'}</div>
+                                    </Link>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </section>
+
+                {/* its neighbours on the lot */}
+                <section className="pt-20 md:pt-28">
+                    <div className="mb-6 md:mb-8 flex items-baseline gap-4">
+                        <h2 className="font-label text-[12px] md:text-[13px] tracking-[0.3em] uppercase text-gold">Next door on the lot</h2>
+                        <span className="flex-1 h-px bg-white/10" />
+                        <Link to={`/studios?focus=${house.slug}`} className="font-label text-[12px] tracking-[0.14em] uppercase text-gray-300 hover:text-white">Back to the lot ›</Link>
+                    </div>
+                    <ul className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
+                        {(house.neighbours || []).map((n) => (
+                            <li key={n.slug}>
+                                <Link to={`/studios/${n.slug}`} className="group relative block aspect-video overflow-hidden bg-[#0d0c0b] ring-1 ring-white/10 hover:ring-gold/70">
+                                    {n.s && <img src={pic(n.s, 'w780')} alt="" loading="lazy" className="w-full h-full object-cover max-w-none transition-transform duration-700 group-hover:scale-105" />}
+                                    <span className="absolute inset-x-0 bottom-0 px-4 pt-10 pb-3 bg-gradient-to-t from-black/90 to-transparent font-label text-[13px] md:text-[14px] tracking-[0.18em] uppercase text-white">{n.name}</span>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </section>
             </div>
         </div>
     );
