@@ -86,6 +86,8 @@ const Navbar = () => {
     }, [isMobileMenuOpen]);
 
     const closeMobileMenu = () => setIsMobileMenuOpen(false);
+    // signing in brings you back here (from the sign-in page itself, back to wherever you were before it)
+    const back = /^\/(login|register)/.test(location.pathname) ? location.state : { from: location.pathname + location.search };
     const initial = (user?.username || '?').trim().charAt(0).toUpperCase();
 
     return (
@@ -129,8 +131,8 @@ const Navbar = () => {
                             </>
                         ) : (
                             <>
-                                <Link to="/login" onClick={closeMobileMenu} className={`${SIGN} text-sm text-gray-200`}>Sign in</Link>
-                                <Link to="/register" onClick={closeMobileMenu} className={`${SIGN} text-sm px-5 py-2.5 ring-1 ring-gold/60 text-gold`}>Join</Link>
+                                <Link to="/login" state={back} onClick={closeMobileMenu} className={`${SIGN} text-sm text-gray-200`}>Sign in</Link>
+                                <Link to="/register" state={back} onClick={closeMobileMenu} className={`${SIGN} text-sm px-5 py-2.5 ring-1 ring-gold/60 text-gold`}>Join</Link>
                             </>
                         )}
                     </div>
@@ -206,10 +208,10 @@ const Navbar = () => {
                             </div>
                         ) : (
                             <div className="flex items-center gap-7">
-                                <Link to="/login" className={`${SIGN} text-[13px] ${inRoom(location.pathname, '/login') ? 'is-lit' : 'text-gray-300 hover:text-white'}`}>
+                                <Link to="/login" state={back} className={`${SIGN} text-[13px] ${inRoom(location.pathname, '/login') ? 'is-lit' : 'text-gray-300 hover:text-white'}`}>
                                     Sign in
                                 </Link>
-                                <Link to="/register" className={`${SIGN} text-[13px] px-5 py-2 ring-1 ring-gold/50 text-gold hover:bg-gold hover:text-black transition-colors`}>
+                                <Link to="/register" state={back} className={`${SIGN} text-[13px] px-5 py-2 ring-1 ring-gold/50 text-gold hover:bg-gold hover:text-black transition-colors`}>
                                     Join
                                 </Link>
                             </div>

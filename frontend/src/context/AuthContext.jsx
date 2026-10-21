@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { authAPI } from '../services/api';
+import api, { authAPI } from '../services/api';
 
 const AuthContext = createContext(null);
 
@@ -51,6 +51,14 @@ export const AuthProvider = ({ children }) => {
         return response.data;
     };
 
+    // Google hands over an access token; the atlas trades it for its own
+    const loginWithGoogle = async (accessToken) => {
+        const response = await api.post('/users/google', { token: accessToken });
+        localStorage.setItem('token', response.data.token);
+        setUser(response.data);
+        return response.data;
+    };
+
     const logout = () => {
         localStorage.removeItem('token');
         setUser(null);
@@ -60,6 +68,7 @@ export const AuthProvider = ({ children }) => {
         user,
         login,
         register,
+        loginWithGoogle,
         logout,
         loading,
         isAuthenticated: !!user,

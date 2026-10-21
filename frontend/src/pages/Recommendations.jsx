@@ -140,7 +140,7 @@ const ForYou = () => {
 
                 {!isAuthenticated && loved.length > 0 && (
                     <p className="mt-10 text-center text-[16px] text-gray-300">
-                        <Link to="/login" className="text-gold-light underline decoration-gold/40 underline-offset-4 hover:text-white">Keep these: sign in</Link>, and your films come with you.
+                        <Link to="/login" state={{ from: location.pathname }} className="text-gold-light underline decoration-gold/40 underline-offset-4 hover:text-white">Keep these: sign in</Link>, and your films come with you.
                     </p>
                 )}
 

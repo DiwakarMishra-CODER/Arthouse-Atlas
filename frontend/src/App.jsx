@@ -1,10 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { MovieProvider } from './context/MovieContext';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
+import Admission from './pages/Admission';
 import Explore from './pages/Explore';
 import MovieDetail from './pages/MovieDetail';
 import Profile from './pages/Profile';
@@ -21,6 +20,7 @@ import ProjectedBlack from './components/ProjectedBlack';
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
+  const location = useLocation();
 
   if (loading) {
     return (
@@ -30,7 +30,7 @@ const ProtectedRoute = ({ children }) => {
     );
   }
 
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  return isAuthenticated ? children : <Navigate to="/login" state={{ from: location.pathname }} />;
 };
 
 function AppRoutes() {
@@ -41,8 +41,8 @@ function AppRoutes() {
       <div className="relative z-10">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Admission scene="in" />} />
+          <Route path="/register" element={<Admission scene="join" />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/movie/:id" element={<MovieDetail />} />
           <Route path="/directors" element={<Directors />} />

@@ -116,7 +116,7 @@ const MovieDetail = () => {
     // signed out, the shelf buttons send you to sign in rather than doing nothing
     const shelf = (fn) => (e) => {
         e.preventDefault();
-        if (!isAuthenticated) return navigate('/login');
+        if (!isAuthenticated) return navigate('/login', { state: { from: window.location.pathname } });
         return fn(movie);
     };
     const shelfButtons = [

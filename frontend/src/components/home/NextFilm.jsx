@@ -294,7 +294,7 @@ const NextFilm = ({ reducedMotion = false }) => {
                             ? <Link to="/recommendations" className="hover:text-white transition-colors">All your picks, with why each was chosen →</Link>
                             : isAuthenticated
                             ? <>Rate a few films and the tickets become <Link to="/explore" className="py-3 text-gray-200 underline underline-offset-4 hover:text-white">yours</Link>.</>
-                            : <><Link to="/login" className="py-3 text-gray-200 underline underline-offset-4 hover:text-white">Sign in</Link> and the box office picks films for you.</>}
+                            : <><Link to="/login" state={{ from: '/' }} className="py-3 text-gray-200 underline underline-offset-4 hover:text-white">Sign in</Link> and the box office picks films for you.</>}
                     </p>
                 </div>
 
