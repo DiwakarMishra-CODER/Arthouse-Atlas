@@ -102,7 +102,7 @@ const CanonMarquee = ({ film, accent, reducedMotion = false }) => {
             </div>
             <p className="mt-4 text-center text-sm text-gray-500">
                 {canon
-                    ? 'Ranked by how 20 critics’ polls, year-end lists and festival juries place it, and for how long.'
+                    ? 'Its place among all the films in the atlas, and among the films of its decade.'
                     : 'None of the 20 polls, lists and prizes we read place this film. It is in the atlas on the curator’s judgement.'}
             </p>
 
@@ -171,7 +171,7 @@ const CanonMarquee = ({ film, accent, reducedMotion = false }) => {
             {company.length > 1 && (
                 <div className="mt-16">
                     <div className="text-center font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">
-                        {canon.lead === 'atlas' ? 'In its company · the atlas' : `In its company · the ${canon.decade}s`}
+                        {canon.lead === 'atlas' ? 'Ranked either side of it · in the atlas' : `Ranked either side of it · the ${canon.decade}s`}
                     </div>
                     <ol className="mt-6 flex justify-center items-end gap-3 md:gap-5">
                         {company.map((c) => {

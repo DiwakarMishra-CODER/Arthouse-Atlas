@@ -221,7 +221,7 @@ const MovieDetail = () => {
                     {/* ===== THE PROGRAMME NOTE + TECHNICAL SHEET ===== */}
                     <section className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-16 pt-16 md:pt-20">
                         <motion.div {...reveal()} className="lg:col-span-7">
-                            {kicker('Programme note')}
+                            {kicker('About the film')}
                             {note && (
                                 <p className="text-gray-200 text-lg md:text-xl leading-relaxed first-letter:float-left first-letter:font-serif first-letter:text-[4.6rem] first-letter:leading-[0.8] first-letter:mr-3 first-letter:mt-1.5 first-letter:text-[var(--light)]" style={{ '--light': light }}>
                                     {note}
@@ -298,7 +298,8 @@ const MovieDetail = () => {
 
                     {/* ===== WHERE THE CANON PLACES IT ===== */}
                     <section className="pt-24 md:pt-32">
-                        <h2 className="font-serif text-4xl md:text-5xl text-center mb-10">Where the canon places it</h2>
+                        <h2 className="font-serif text-4xl md:text-5xl text-center">How the critics rank it</h2>
+                        <p className="mt-3 mb-10 text-center font-serif italic text-lg text-gray-400">From 20 critics’ polls, year-end lists and festival prizes, and for how long they’ve placed it.</p>
                         <CanonMarquee film={movie} accent={light} reducedMotion={reducedMotion} />
                     </section>
 
@@ -307,7 +308,7 @@ const MovieDetail = () => {
                         const t = treatmentFor(m);
                         return (
                             <motion.section key={m._id} {...reveal()} className="pt-24 md:pt-32">
-                                {kicker('Part of a movement')}
+                                {kicker('The movement it belongs to')}
                                 <Link to={`/movements/${m.tag || m._id}`} className="group grid grid-cols-1 md:grid-cols-12 gap-0 ring-1 ring-white/[0.08] hover:ring-white/20 transition-colors overflow-hidden bg-[#0b0b0b]">
                                     <div className="md:col-span-5 relative aspect-video md:aspect-auto md:min-h-[15rem] overflow-hidden">
                                         {m.heroBackdrop && (
@@ -347,7 +348,7 @@ const MovieDetail = () => {
                     {/* ===== CONTACT SHEET ===== */}
                     {stills.length >= 2 && (
                         <section className="pt-24 md:pt-32">
-                            {kicker('Contact sheet')}
+                            {kicker('Stills from the film')}
                             <div className={`grid grid-cols-2 gap-2 p-2 bg-[#0d0d0d] ring-1 ring-white/[0.06] ${stills.length % 3 === 0 ? 'md:grid-cols-3' : ''}`}>
                                 {stills.map((s, i) => (
                                     <motion.figure key={s} {...reveal(i * 0.06)} className="relative aspect-video overflow-hidden group">
@@ -363,9 +364,12 @@ const MovieDetail = () => {
                     {similarMovies.length > 0 && (
                         <section className="pt-24 md:pt-32 pb-28">
                             <div className="flex items-end justify-between gap-6 mb-8">
-                                <h2 className="font-serif text-4xl md:text-5xl">Make it a double bill</h2>
+                                <div>
+                                    <h2 className="font-serif text-4xl md:text-5xl">Films like it</h2>
+                                    <p className="mt-2 font-serif italic text-lg text-gray-400">To watch next.</p>
+                                </div>
                                 <Link to={`/explore?like=${movie._id}`} className="font-label text-[12px] tracking-[0.14em] uppercase text-gray-300 hover:text-white pb-2 whitespace-nowrap">
-                                    All the films like it →
+                                    See them all →
                                 </Link>
                             </div>
                             <div className="grid grid-cols-3 md:grid-cols-6 gap-3 md:gap-4">

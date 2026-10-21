@@ -223,7 +223,7 @@ export const getTonight = async (req, res) => {
     const date = /^\d{4}-\d{2}-\d{2}$/.test(req.query.date || '') ? req.query.date : new Date().toISOString().slice(0, 10);
     const n = Math.max(0, parseInt(req.query.n, 10) || 0); // "another film" asks for the next pick of the same day
     const pick = await pickTonight(date, n);
-    if (!pick) return res.status(404).json({ message: 'No film tonight' });
+    if (!pick) return res.status(404).json({ message: 'No film today' });
 
     const movie = await Movie.findById(pick.id)
       .select('title originalTitle year directors country runtime posterUrl backdropUrl stills trailerUrl editorial.hook canonRank canonDecadeRank provenance')
@@ -231,7 +231,7 @@ export const getTonight = async (req, res) => {
     const { canon } = await canonFor(movie, { withCompany: false });
     // a film this long gets fair warning, whatever the reason it was chosen
     const reason = movie.runtime > MARATHON
-      ? `${pick.reason ? `${pick.reason} ` : ''}Tonight's marathon: clear your evening, and the next.`
+      ? `${pick.reason ? `${pick.reason} ` : ''}Today's marathon: clear an afternoon for it.`
       : pick.reason;
     res.json({ ...movie, provenance: (movie.provenance || []).slice(0, 1), canon, reason, date, n });
   } catch (error) {

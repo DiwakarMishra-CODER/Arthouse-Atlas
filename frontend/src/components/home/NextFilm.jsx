@@ -210,7 +210,7 @@ const NextFilm = ({ reducedMotion = false }) => {
                             {/* the cashier's lamp, and a card propped against the glass */}
                             <span className="absolute left-1/2 top-[30%] -translate-x-1/2 w-40 h-40 rounded-full bg-[radial-gradient(circle,rgba(255,210,140,0.45),transparent_65%)]" />
                             <div className="absolute left-1/2 bottom-[16%] -translate-x-1/2 rotate-[-3deg] px-4 py-2 bg-[#efe5cf] text-[#1c1812] shadow-[0_6px_14px_rgba(0,0,0,0.5)] text-center">
-                                <div className="font-oswald font-bold text-sm tracking-[0.3em] uppercase">Tonight</div>
+                                <div className="font-oswald font-bold text-sm tracking-[0.3em] uppercase">Today</div>
                                 <div className="font-label text-[12px] tracking-[0.14em] whitespace-nowrap">20:00 · {current ? `Screen ${(current.n % 3) + 1}` : 'All screens'}</div>
                             </div>
                             {/* the grille at the speaking hole */}
@@ -261,7 +261,7 @@ const NextFilm = ({ reducedMotion = false }) => {
                                                     transition={{ delay: reducedMotion ? 0 : 1.65, type: 'spring', stiffness: 500, damping: 18 }}
                                                     className="absolute left-[38%] bottom-9 sm:left-auto sm:right-[92px] sm:bottom-9 px-2 py-1 border-2 border-[#a3302a] text-[#a3302a] font-oswald font-bold text-[11px] tracking-[0.2em] uppercase rotate-[-12deg] mix-blend-multiply pointer-events-none"
                                                 >
-                                                    {current.mine ? 'For you' : 'Tonight'}
+                                                    {current.mine ? 'For you' : 'Today'}
                                                 </motion.span>
                                             </div>
                                         )}
