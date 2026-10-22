@@ -22,7 +22,8 @@ import connectDB from '../config/database.js';
 import Director from '../models/Director.js';
 import Movement from '../models/Movement.js';
 import Movie from '../models/Movie.js';
-import { tmdbGet, createLimiter, normalizeName, namesMatch, TMDB_IMAGE } from './lib/tmdbResolve.js';
+import { createLimiter, normalizeName, namesMatch } from './lib/tmdbResolve.js';
+import { resolvePerson } from './lib/tmdbPeople.js';
 
 dotenv.config();
 
@@ -33,38 +34,8 @@ const limit = createLimiter(4);
 // names TMDB files under another form
 const SEARCH_AS = { 'G. Aravindan': 'Govindan Aravindan' };
 
-// TMDB person → { id, name, profileUrl, directed: Set<tmdbId> }
-const person = async (id) => {
-  const [p, credits] = await Promise.all([tmdbGet(`/person/${id}`), tmdbGet(`/person/${id}/movie_credits`)]);
-  return {
-    id,
-    name: p.name,
-    profileUrl: p.profile_path ? `${TMDB_IMAGE.backdrop}${p.profile_path}` : '',
-    bio: p.biography || '',
-    birthDate: p.birthday || '',
-    deathDate: p.deathday || null,
-    placeOfBirth: p.place_of_birth || '',
-    directed: new Set((credits.crew || []).filter((c) => c.job === 'Director').map((c) => c.id))
-  };
-};
-
-const resolve = async (name, catalogue) => {
-  const query = SEARCH_AS[name] || name;
-  const { results = [] } = await tmdbGet('/search/person', { query });
-  const candidates = results.slice(0, 5);
-  let best = null;
-  for (const c of candidates) {
-    const p = await person(c.id);
-    const held = catalogue.filter((m) => p.directed.has(m.tmdbId));
-    if (held.length && (!best || held.length > best.held.length)) best = { p, held };
-  }
-  if (best) return { status: 'confirmed', ...best };
-
-  // nothing of theirs in the catalogue: accept the top result only if they're a director by trade and the name agrees
-  const top = candidates.find((c) => c.known_for_department === 'Directing' && namesMatch(c.name, query));
-  if (top) return { status: 'portrait-only', p: await person(top.id), held: [] };
-  return { status: 'not-found', held: [] };
-};
+// finding each one on TMDB (scripts/lib/tmdbPeople.js)
+const resolve = (name, catalogue) => resolvePerson(name, catalogue, SEARCH_AS);
 
 const main = async () => {
   await connectDB();

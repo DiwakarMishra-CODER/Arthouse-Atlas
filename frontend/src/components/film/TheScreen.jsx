@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
@@ -7,6 +7,7 @@ import { sized } from '../movements/treatments';
 import { sizeFor, useDecoded } from '../about/frames';
 import { ShelfSigns, TicketDock, TrailerScreen } from './Ticket';
 import BillingBlock from './BillingBlock';
+import { directorPath } from './directorPath';
 
 /**
  * The film page's opening: the page plays the film's opening titles.
@@ -191,11 +192,22 @@ const Projection = ({ movie, stills, start, shared, onClose }) => {
 // the title card's words: what it is, its title racked into focus, its line, and your tickets
 const TitleBlock = ({ movie, light, frames, canPlay, trailer, onPlay, playRef, playing }) => {
     const ed = movie.editorial || {};
-    const facts = [(movie.directors || []).join(' & '), movie.year, COUNTRY[movie.country] || movie.country, movie.originalLanguage, movie.runtime && `${movie.runtime} min`].filter(Boolean);
+    const facts = [movie.year, COUNTRY[movie.country] || movie.country, movie.originalLanguage, movie.runtime && `${movie.runtime} min`].filter(Boolean);
+    const directors = movie.directors || [];
     const line = ed.hook || (movie.tagline && `“${movie.tagline.replace(/^["“]|["”]$/g, '')}”`);
     return (
         <div className="[text-shadow:0_2px_24px_rgba(0,0,0,0.6)]">
-            <div className="card-rise font-label text-[12px] tracking-[0.16em] uppercase" style={{ color: light }}>{facts.join('  ·  ')}</div>
+            {/* who made it leads the line, and leads to them: their page, or their films in the atlas */}
+            <div className="card-rise font-label text-[12px] tracking-[0.16em] uppercase" style={{ color: light }}>
+                {directors.map((d, i) => (
+                    <Fragment key={d}>
+                        {i > 0 && ' & '}
+                        <Link to={directorPath(movie, d)} className="underline decoration-1 underline-offset-4 hover:text-gold-light" style={{ textDecorationColor: `${light}99` }}>{d}</Link>
+                    </Fragment>
+                ))}
+                {directors.length > 0 && facts.length > 0 && '  ·  '}
+                {facts.join('  ·  ')}
+            </div>
             <div className="relative mt-3 md:mt-4">
                 <h1 className="focus-in font-serif font-light leading-[0.95] text-[2.9rem] sm:text-6xl md:text-7xl lg:text-[6.5rem] max-w-5xl">{movie.title}</h1>
                 {/* the title out of focus, given up as the lens finds it */}
@@ -223,8 +235,8 @@ const Entry = ({ e, i, movie, light }) => (
             {e.names.map((n, k) => (
                 <span key={n} className={e.stack ? 'block mt-1 md:mt-2' : ''}>
                     {!e.stack && k > 0 && <span className="text-gray-400"> &amp; </span>}
-                    {e.big && k === 0 && movie.directorId
-                        ? <Link to={`/directors/${movie.directorId}`} className="underline decoration-1 underline-offset-[10px] hover:text-gold-light" style={{ textDecorationColor: `${light}99` }}>{n}</Link>
+                    {e.big
+                        ? <Link to={directorPath(movie, n)} className="underline decoration-1 underline-offset-[10px] hover:text-gold-light" style={{ textDecorationColor: `${light}99` }}>{n}</Link>
                         : n}
                 </span>
             ))}

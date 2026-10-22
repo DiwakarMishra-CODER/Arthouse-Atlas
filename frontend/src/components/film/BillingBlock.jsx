@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { sized } from '../movements/treatments';
+import { directorPath } from './directorPath';
 
 /**
  * The film's credits as the foot of its poster prints them: the billing block. Condensed capitals,
@@ -46,10 +47,14 @@ const BillingBlock = ({ movie, light, providers, reducedMotion }) => {
     const source = writers.find((w) => SOURCE[w.job]);
     // "written and directed by" when the director wrote it alone
     const auteur = directors.length === 1 && wrote.length === 1 && wrote[0] === directors[0];
+    // every director's name goes somewhere: their page, or their films in the atlas
     const director = directors.length
-        ? directors.map((d, i) => (i === 0 && movie.directorId
-            ? <Link key={d} to={`/directors/${movie.directorId}`} className="whitespace-nowrap underline decoration-1 underline-offset-[6px] hover:text-gold-light" style={{ textDecorationColor: `${light}99` }}>{d}</Link>
-            : <Fragment key={d}>{i > 0 && ' and '}{whole(d, d)}</Fragment>))
+        ? directors.map((d, i) => (
+            <Fragment key={d}>
+                {i > 0 && ' and '}
+                <Link to={directorPath(movie, d)} className="whitespace-nowrap underline decoration-1 underline-offset-[6px] hover:text-gold-light" style={{ textDecorationColor: `${light}99` }}>{d}</Link>
+            </Fragment>
+        ))
         : null;
 
     const lines = [

@@ -306,21 +306,17 @@ export const getMovieById = async (req, res) => {
       return res.status(404).json({ message: 'Movie not found' });
     }
 
-    // Dynamic Director Lookup
-    // Check if the first listed director exists in our Director collection
-    let directorId = null;
-    if (movie.directors && movie.directors.length > 0) {
-      const directorProfile = await Director.findOne({ name: movie.directors[0] });
-      if (directorProfile) {
-        directorId = directorProfile._id;
-      }
-    }
+    // each director's page, where they have one (records are spelt as the films credit them)
+    const pages = movie.directors?.length ? await Director.find({ name: { $in: movie.directors } }).select('name').lean() : [];
+    const directorIds = Object.fromEntries(pages.map((d) => [d.name, d._id]));
+    const directorId = directorIds[movie.directors?.[0]] || null;
 
     const { canon } = await canonFor(movie);
 
     res.json({
         ...movie.toObject(),
         directorId,
+        directorIds,
         canon,
         audience: audienceOf(movie.tmdbId)
     });
