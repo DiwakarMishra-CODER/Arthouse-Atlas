@@ -23,6 +23,7 @@ export const config = {
 
 const SITE = 'Arthouse Atlas';
 const PICTURE = 'https://image.tmdb.org/t/p/w1280';
+const FRAME = 'https://image.tmdb.org/t/p/w780';
 
 // the rooms, as they introduce themselves
 const ROOMS = {
@@ -48,6 +49,13 @@ export const pictureOf = (src, origin) => {
     return src.startsWith('/stills/') ? `${origin}${src}` : `${PICTURE}${src}`;
 };
 
+// a film's first frame as its opening shows it first (the small copy, TheScreen.jsx), so the browser
+// fetches it while the app is still loading; null where there's none or it isn't a stored path
+export const firstFrameOf = (src, origin) => {
+    if (!src || /^https?:\/\//.test(src)) return null;
+    return src.startsWith('/stills/') ? `${origin}${src}` : `${FRAME}${src}`;
+};
+
 // a page's one address: no query string, no trailing slash, and a movement at its slug
 export const canonicalOf = (url, facts) => {
     const [, room] = url.pathname.split('/');
@@ -70,7 +78,7 @@ export const structuredData = (room, { title, line, picture, url }, facts) => {
 };
 
 // the preview's tags, as they go into the page's <head>
-export const previewTags = ({ title, line, picture, url, ld = null }) => [
+export const previewTags = ({ title, line, picture, url, ld = null, preload = null }) => [
     `<title>${esc(title)} · ${SITE}</title>`,
     `<meta name="description" content="${esc(line)}" />`,
     `<meta property="og:site_name" content="${SITE}" />`,
@@ -82,6 +90,7 @@ export const previewTags = ({ title, line, picture, url, ld = null }) => [
     '<meta name="twitter:card" content="summary_large_image" />',
     `<link rel="canonical" href="${esc(url)}" />`,
     ...(ld ? [ldScript(ld)] : []),
+    ...(preload ? [`<link rel="preload" as="image" href="${esc(preload)}" fetchpriority="high" />`] : []),
 ].join('\n    ');
 
 export const withPreview = (html, preview) => html.replace(/<!-- meta -->[\s\S]*?<!-- \/meta -->/, `<!-- meta -->\n    ${previewTags(preview)}\n    <!-- /meta -->`);
@@ -114,8 +123,10 @@ export default async function middleware(request) {
         const page = await shell();
         if (!subject || !page.ok) return page;
         const [title, line, picture, facts] = subject;
+        const room = url.pathname.split('/')[1];
         const preview = { title, line, picture: pictureOf(picture, url.origin), url: canonicalOf(url, facts) };
-        preview.ld = structuredData(url.pathname.split('/')[1], preview, facts);
+        preview.ld = structuredData(room, preview, facts);
+        if (room === 'movie') preview.preload = firstFrameOf(picture, url.origin);
         return served(withPreview(await page.text(), preview));
     } catch {
         return shell();

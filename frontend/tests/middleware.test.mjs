@@ -3,7 +3,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import middleware, { pictureOf, withPreview } from '../middleware.js';
+import middleware, { firstFrameOf, pictureOf, withPreview } from '../middleware.js';
 
 const root = new URL('../', import.meta.url);
 const SHELL = fs.readFileSync(new URL('index.html', root), 'utf8');
@@ -42,6 +42,15 @@ test("a film's link shows its title, its line and its picture", async () => {
     assert.equal(tag(html, 'og:url'), `https://arthouse-atlas.vercel.app/movie/${id}`);
     assert.equal((html.match(/<title>/g) || []).length, 1, 'one title only');
     assert.match(html, /<script type="module"/, 'the app itself is still on the page');
+});
+
+test("a film's page starts fetching its first frame, the copy its opening shows first", async () => {
+    const [id, [, , picture]] = Object.entries(films).find(([, f]) => f[2] && !f[2].startsWith('/stills/'));
+    const { html } = await page(`/movie/${id}`);
+    assert.match(html, new RegExp(`<link rel="preload" as="image" href="https://image.tmdb.org/t/p/w780${picture}" fetchpriority="high" />`));
+    assert.equal(firstFrameOf('/stills/l-avventura.jpg', 'https://x.app'), 'https://x.app/stills/l-avventura.jpg');
+    assert.equal(firstFrameOf(null, 'https://x.app'), null);
+    assert.doesNotMatch((await page('/about')).html, /rel="preload"/, 'only a film page has one');
 });
 
 test('a director, a movement (by slug) and a studio each get their own', async () => {

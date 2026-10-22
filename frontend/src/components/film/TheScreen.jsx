@@ -90,24 +90,34 @@ const cardsOf = (movie) => {
     ].filter(Boolean);
 };
 
+// the frame on the screen. A frame (its small w780 copy) is cut to only once it can be shown, and the
+// last one holds till then, so the screen never goes black waiting on TMDB (a full-size still can
+// take seconds); the small copy shows first and is sharpened in place once the full-size one is in.
+// [the frame shown, the picture to draw for it]
+const useHeld = (frame, size, ready) => {
+    const [shown, setShown] = useState(null);
+    if (frame && frame !== shown && (ready.has(frame) || ready.has(sized(frame, size)))) setShown(frame);
+    return [shown, shown && (ready.has(sized(shown, size)) ? sized(shown, size) : shown)];
+};
+
 // the film's frames, run like a projector (each decoded before it's shown)
 const Frames = ({ stills }) => {
     const [size] = useState(sizeFor);
     const [ready, want] = useDecoded();
     const [k, setK] = useState(0);
-    const urls = stills.map((s) => sized(s, size));
-    const key = urls.join('|');
-    useEffect(() => { want(key.split('|')); }, [key, want]);
+    const next = stills[(k + 1) % stills.length];
+    useEffect(() => { want([stills[k], sized(stills[k], size), next, sized(next, size), ...stills]); });
     useEffect(() => {
         const t = setInterval(() => setK((x) => (x + 1) % stills.length), FRAME);
         return () => clearInterval(t);
     }, [stills.length]);
+    const [shown, pic] = useHeld(stills[k], size, ready);
     return (
         <>
-            {ready.has(urls[k]) && <img key={k} src={urls[k]} alt="" className="frame-push absolute inset-0 w-full h-full object-cover max-w-none" />}
-            <span key={`s${k}`} aria-hidden="true" className="shutter absolute inset-0 bg-black" />
+            {pic && <img key={shown} src={pic} alt="" className="frame-push absolute inset-0 w-full h-full object-cover max-w-none" />}
+            <span key={`s${shown}`} aria-hidden="true" className="shutter absolute inset-0 bg-black" />
             <span aria-hidden="true" className="absolute inset-0 still-grain opacity-60 pointer-events-none" />
-            <span className="absolute right-3 bottom-2 font-label text-[12px] tracking-[0.14em] text-white/70 tabular-nums">{String(k + 1).padStart(2, '0')}A</span>
+            {shown && <span className="absolute right-3 bottom-2 font-label text-[12px] tracking-[0.14em] text-white/70 tabular-nums">{String(stills.indexOf(shown) + 1).padStart(2, '0')}A</span>}
         </>
     );
 };
@@ -368,8 +378,8 @@ const TheScreen = ({ movie, light, reducedMotion, providers, tags }) => {
     const n = cards.length;
     const card = cards[c];
     // each card cuts to the next frame; on the title card they cut by themselves too
-    const frameAt = (i) => (frames.length ? sized(frames[(i + idle) % frames.length], size) : null);
-    const src = frameAt(c);
+    const frameAt = (i) => (frames.length ? frames[(i + idle) % frames.length] : null);
+    const [shown, pic] = useHeld(frameAt(c), size, ready);
 
     // (one function for the screen's life: the player is built once per showing, not per render)
     const stop = useCallback(() => { setPlaying(null); setTimeout(() => play.current?.focus(), 0); }, []);
@@ -378,7 +388,8 @@ const TheScreen = ({ movie, light, reducedMotion, providers, tags }) => {
         const i = Math.min(n - 1, Math.max(0, Math.floor(p * n)));
         if (i !== c) setC(i);
     });
-    useEffect(() => { want([frameAt(c), frameAt(c + 1)]); });
+    // this frame and the next at full size; every frame's small copy, so any cut has one at hand
+    useEffect(() => { want([frameAt(c), sized(frameAt(c), size), frameAt(c + 1), sized(frameAt(c + 1), size), ...frames]); });
     useEffect(() => {
         const el = section.current;
         if (!el) return undefined;
@@ -459,8 +470,8 @@ const TheScreen = ({ movie, light, reducedMotion, providers, tags }) => {
             {/* (once the titles run, the house lights go down: the navbar leaves until the opening's over) */}
             <div data-lights-down={c > 0 ? '' : undefined} className="sticky top-0 h-[100svh] overflow-hidden bg-black">
                 {/* the frame, cut to the next as the card changes, the camera creeping in */}
-                {src && ready.has(src) && <img key={src} src={src} alt="" className="frame-push absolute inset-0 w-full h-full object-cover max-w-none [object-position:50%_30%] [transform-origin:50%_30%]" />}
-                <span key={`cut-${src}`} aria-hidden="true" className="shutter absolute inset-0 bg-black" />
+                {pic && <img key={shown} src={pic} alt="" className="frame-push absolute inset-0 w-full h-full object-cover max-w-none [object-position:50%_30%] [transform-origin:50%_30%]" />}
+                <span key={`cut-${shown}`} aria-hidden="true" className="shutter absolute inset-0 bg-black" />
                 <span aria-hidden="true" className="absolute inset-0 still-grain opacity-50 pointer-events-none" />
                 {/* the dark the words need: low and to the left on the title card, round the centre for credits, at the foot for subtitles, all over as the lights come up */}
                 <div aria-hidden="true" className={`absolute inset-0 transition-opacity duration-700 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-transparent ${card.kind === 'title' ? 'opacity-100' : 'opacity-0'}`} />
