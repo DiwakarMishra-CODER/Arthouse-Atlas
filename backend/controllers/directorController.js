@@ -3,6 +3,19 @@ import Movie from '../models/Movie.js';
 import Movement from '../models/Movement.js';
 import { getErrorResponse } from '../utils/errorResponse.js';
 import { directorIndex, namesOf } from '../services/directorIndex.js';
+import { loadCatalogue } from '../services/catalogue.js';
+
+// A director's movements as their page shows them: each movement's own still, how many of the
+// atlas's films it holds, and the others named as key to it
+const theirMovements = async (movements, directorId) => {
+    const { cards, movementsByTitle } = await loadCatalogue();
+    return movements.map(({ keyDirectors, ...m }) => ({
+        ...m,
+        still: movementsByTitle.get(m.title)?.heroStill || null,
+        films: cards.filter((c) => c.movements.includes(m.title)).length,
+        others: keyDirectors.filter((d) => !d.directorId?.equals(directorId)).map((d) => d.name)
+    }));
+};
 
 // @desc    Get all directors
 // @route   GET /api/directors
@@ -86,7 +99,7 @@ export const getDirector = async (req, res) => {
 
         // The movements they're named as key to, and the others named alongside them there
         const movements = await Movement.find({ 'keyDirectors.directorId': director._id })
-            .select('title tag era startYear endYear region keyDirectors')
+            .select('title tag era startYear endYear region heroFocus keyDirectors')
             .sort({ startYear: 1 })
             .lean();
         const peerIds = [...new Set(movements.flatMap((m) => m.keyDirectors
@@ -101,7 +114,7 @@ export const getDirector = async (req, res) => {
             data: {
                 ...director.toObject(),
                 films,
-                movements: movements.map(({ keyDirectors, ...m }) => m),
+                movements: await theirMovements(movements, director._id),
                 peers
             }
         });

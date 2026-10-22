@@ -93,9 +93,12 @@ const Directors = () => {
         return () => window.removeEventListener('resize', onResize);
     }, [geo]);
 
-    const sections = useMemo(() => (index ? narrow(arrange(index, by), q) : []), [index, by, q]);
+    const arranged = useMemo(() => (index ? arrange(index, by) : []), [index, by]);
+    const sections = useMemo(() => narrow(arranged, q), [arranged, q]);
     const places = useMemo(() => new Map(sections.flatMap((s) => s.places.map((p) => [`${s.key}|${p.d.id}`, p]))), [sections]);
-    const titles = useMemo(() => (reducedMotion ? [] : sections.flatMap((s) => s.places).slice(0, OPENING)), [sections, reducedMotion]);
+    // the opening plays the arrangement's first ten, whatever the search: its length is scroll above
+    // the search box, so if typing changed it, the page would jump under the reader's hands
+    const titles = useMemo(() => (reducedMotion ? [] : arranged.flatMap((s) => s.places).slice(0, OPENING)), [arranged, reducedMotion]);
     const shown = sections.reduce((n, s) => n + s.places.length, 0);
     useEffect(() => { placesRef.current = places; }, [places]);
 
@@ -116,6 +119,9 @@ const Directors = () => {
     const dockOp = useTransform(dolly, [0.8, 1], [0, 1]);
     const openCard = useMotionTemplate`${openOp}`;
     const dockCard = useMotionTemplate`${dockOp}`;
+    // the opening card's button takes a tap or a key only while the card can be seen
+    const [openLive, setOpenLive] = useState(true);
+    useMotionValueEvent(openOp, 'change', (v) => setOpenLive(v > 0.5));
 
     const titleAt = useCallback((v) => (v >= seg ? n - 1 : Math.min(n - 1, Math.floor((v / seg) * n))), [n, seg]);
     useMotionValueEvent(p, 'change', (v) => {
@@ -127,7 +133,7 @@ const Directors = () => {
         }
     });
     // the first director is on the screen as soon as the room opens (and the titles follow a new
-    // arrangement or search)
+    // arrangement)
     useEffect(() => {
         if (!n) return;
         const v = p.get();
@@ -210,11 +216,11 @@ const Directors = () => {
     };
 
     // ---- into the retrospective: the film on the screen grows into it ----
-    const onOpen = useCallback((e, k) => {
+    // (from a line of the credits, by its key, or from the opening's own title card)
+    const openPlace = useCallback((e, place) => {
         if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
         e.preventDefault();
         try { sessionStorage.setItem(NOTE, JSON.stringify({ at: `${by}|${q}`, y: Math.round(window.scrollY) })); } catch { /* storage blocked */ }
-        const place = placesRef.current.get(k);
         if (!place) return;
         const go = () => navigate(`/directors/${place.d.id}`, {
             state: { from: 'index', name: place.d.n, portrait: place.d.p ? pic(place.d.p, 'h632') : null, still: screen.current?.img()?.currentSrc || null },
@@ -233,10 +239,11 @@ const Directors = () => {
             });
         });
     }, [by, q, navigate, reducedMotion]);
+    const onOpen = useCallback((e, k) => openPlace(e, placesRef.current.get(k)), [openPlace]);
 
     return (
         <div className="own-transitions relative min-h-screen pb-[60vh]">
-            <Screen ref={screen} box={box} size={{ w: geom.w, h: geom.h }} openCard={openCard} dockCard={dockCard} dock={geom.dock} phone={geom.phone} reducedMotion={reducedMotion} />
+            <Screen ref={screen} box={box} size={{ w: geom.w, h: geom.h }} openCard={openCard} dockCard={dockCard} dock={geom.dock} phone={geom.phone} openLive={openLive && n > 0} onOpen={openPlace} reducedMotion={reducedMotion} />
 
             {/* the opening titles: scroll that the screen plays through, full-bleed */}
             <div ref={opening} aria-hidden="true" style={{ height: n ? `calc(100vh + ${span}vh)` : (geom.phone ? `${geom.dock.y + geom.h + 16}px` : '84px') }}>

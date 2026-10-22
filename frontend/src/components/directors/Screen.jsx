@@ -1,4 +1,5 @@
 import { useImperativeHandle, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import TreatmentTitle from '../movements/TreatmentTitle';
 import { pic } from './arrange';
@@ -14,7 +15,9 @@ import { pic } from './arrange';
  * Two layers swap roles, moved with element.animate, so nothing re-renders while a frame rolls; the
  * only state is the title card (once per director).
  * ref: { show(place, { roll, quick }) -> Promise (the frame is up), img() } · props: box (the screen's transform), size {w, h},
- * openCard / dockCard (their opacities), dock {x, y, w, h} (where the docked card sits), phone
+ * openCard / dockCard (their opacities), dock {x, y, w, h} (where the docked card sits), phone,
+ * openLive (the opening card can be seen) and onOpen(event, place): the card's way into the director's page.
+ * The picture is decoration (hidden from screen readers, and it lets taps through); the card's button isn't.
  */
 
 const ROLL = 560;
@@ -36,7 +39,7 @@ const filmLine = (place) => {
     return [f.t, f.y].filter(Boolean).join(', ') + (place.rank ? `  ·  No. ${place.rank}` : '');
 };
 
-const Screen = ({ ref, box, size, openCard, dockCard, dock, phone, reducedMotion }) => {
+const Screen = ({ ref, box, size, openCard, dockCard, dock, phone, openLive = false, onOpen, reducedMotion }) => {
     const layerA = useRef(null);
     const layerB = useRef(null);
     const imgA = useRef(null);
@@ -102,8 +105,8 @@ const Screen = ({ ref, box, size, openCard, dockCard, dock, phone, reducedMotion
     );
 
     return (
-        <div aria-hidden="true" className="fixed inset-0 z-30 pointer-events-none">
-            <motion.div className="absolute left-0 top-0 origin-top-left overflow-hidden bg-black" style={{ width: size.w, height: size.h, transform: box }}>
+        <div className="fixed inset-0 z-30 pointer-events-none">
+            <motion.div aria-hidden="true" className="absolute left-0 top-0 origin-top-left overflow-hidden bg-black" style={{ width: size.w, height: size.h, transform: box }}>
                 {layer(layerA, imgA, 2)}
                 {layer(layerB, imgB, 1)}
                 {/* the projector's light and the room's dark at the edges */}
@@ -119,9 +122,21 @@ const Screen = ({ ref, box, size, openCard, dockCard, dock, phone, reducedMotion
                     style={{ opacity: openCard, top: phone ? `calc(50% + ${Math.round(size.h / 2) - 20}px)` : undefined }}
                 >
                     <div key={card.key} className="title-rise">
-                        <div className="font-label text-[12px] md:text-[13px] tracking-[0.3em] uppercase text-gold">Directed by</div>
-                        <div className="mt-3 md:mt-4">{name(card.place, 'display')}</div>
-                        <div className="mt-4 md:mt-5 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gray-300">{filmLine(card.place)}</div>
+                        <div aria-hidden="true">
+                            <div className="font-label text-[12px] md:text-[13px] tracking-[0.3em] uppercase text-gold">Directed by</div>
+                            <div className="mt-3 md:mt-4">{name(card.place, 'display')}</div>
+                            <div className="mt-4 md:mt-5 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gray-300">{filmLine(card.place)}</div>
+                        </div>
+                        <Link
+                            to={`/directors/${card.place.d.id}`}
+                            onClick={(e) => onOpen?.(e, card.place)}
+                            tabIndex={openLive ? 0 : -1}
+                            aria-hidden={openLive ? undefined : true}
+                            aria-label={`See ${card.place.d.n}'s films`}
+                            className={`mt-5 md:mt-6 inline-flex items-center min-h-11 px-5 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gold ring-1 ring-gold/50 bg-black/40 hover:bg-gold hover:text-black transition-colors ${openLive ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                        >
+                            See their films ›
+                        </Link>
                     </div>
                 </motion.div>
             )}
@@ -129,6 +144,7 @@ const Screen = ({ ref, box, size, openCard, dockCard, dock, phone, reducedMotion
             {/* docked: the name under the screen (over its foot on a phone) */}
             {card && (
                 <motion.div
+                    aria-hidden="true"
                     className="absolute"
                     style={{ opacity: dockCard, left: dock.x, top: phone ? dock.y + dock.h - 54 : dock.y + dock.h + 18, width: dock.w }}
                 >

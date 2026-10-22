@@ -10,6 +10,7 @@ import StillDrift from '../components/director/StillDrift';
 import ArchiveCard from '../components/director/ArchiveCard';
 import PosterWall from '../components/director/PosterWall';
 import Constellation from '../components/director/Constellation';
+import Season from '../components/director/Season';
 import useFilmLight from '../components/film/useFilmLight';
 import { sized } from '../components/movements/treatments';
 import { usePageTitle } from '../hooks/usePageTitle';
@@ -161,6 +162,17 @@ const DirectorDetail = () => {
                             <span className="hidden sm:block font-label text-[12px] tracking-[0.14em] uppercase text-gray-500 pb-2">hover a poster to turn its lamp up</span>
                         </div>
                         <PosterWall films={films} accent={light} reducedMotion={reducedMotion} />
+                    </section>
+                )}
+
+                {/* ===== THEIR MOVEMENT: each one's screen, and the way into its page ===== */}
+                {!loading && director.movements?.length > 0 && (
+                    <section className="pt-28 md:pt-36">
+                        <div className="flex items-end justify-between gap-6 mb-8">
+                            <h2 className="font-serif text-4xl md:text-5xl">{director.movements.length === 1 ? 'Their movement' : 'Their movements'}</h2>
+                            <span className="hidden sm:block font-label text-[12px] tracking-[0.14em] uppercase text-gray-500 pb-2">{director.movements.length === 1 ? 'its own page: its films, its people, what it stood for' : 'each with its own page: its films, its people, what it stood for'}</span>
+                        </div>
+                        <Season movements={director.movements} reducedMotion={reducedMotion} />
                     </section>
                 )}
 
