@@ -201,6 +201,7 @@ Each room has one physical idea from cinema, acted out with frames, the camera a
   - **The navbar** leaves while the opening runs (an element marked `data-lights-down`), and the pointer at the top edge brings it back.
   - **`ListYears.jsx`** draws its line in CSS when it comes into view.
   - **`DoubleBill.jsx`** uses a CSS animation's end as its clock, so pausing the bar pauses the bill.
+  - **The director, irised in** (`Retrospective.jsx`): a director with a page gets their face in an iris before their name on the title card and above it on the opening's director card (with "Open their retrospective", or "Their films in the atlas" for a director without a page), and further down a large iris that opens on their portrait, then cuts through their other films (one frame of black between). The iris opens from the frame around it, since Chrome never counts an element clipped to nothing as on screen. Co-directors stand side by side, the second starting halfway through their films.
 - **For You** (`components/foryou/`).
   - One motion value, the playhead, drives the whole monitor. A whole number is a pick landed. In between, the focus racks and the camera dollies, and both are derived values.
   - Every pick's soft, out-of-focus picture is prepared in idle time.

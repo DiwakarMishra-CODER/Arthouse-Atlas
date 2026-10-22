@@ -907,6 +907,11 @@ html[data-cover] .projected-black { visibility: hidden; }
 @keyframes frame-cut { from { opacity: 0; } }
 .subtitle-in { animation: frame-cut 200ms ease-out both; }
 @media (prefers-reduced-motion: reduce) { .frame-cut, .frame-push, .subtitle-in { animation: none; } }
+/* the iris: a circle opening on a face, the way silent films introduced someone (a director's face
+   on a film's title card, and their retrospective further down) */
+.iris-in { animation: iris-in 760ms cubic-bezier(0.22, 1, 0.36, 1) var(--iris-delay, 0.35s) both; }
+@keyframes iris-in { from { clip-path: circle(0% at 50% 50%); } to { clip-path: circle(50% at 50% 50%); } }
+@media (prefers-reduced-motion: reduce) { .iris-in { animation: none; } }
 /* the four films at the end of "What is arthouse cinema?": each frame breathes in and out, slowly */
 .frame-breathe { animation: breath-push 11s ease-in-out infinite alternate; }
 @media (prefers-reduced-motion: reduce) { .frame-breathe { animation: none; } }

@@ -197,14 +197,31 @@ const TitleBlock = ({ movie, light, frames, canPlay, trailer, onPlay, playRef, p
     const line = ed.hook || (movie.tagline && `“${movie.tagline.replace(/^["“]|["”]$/g, '')}”`);
     return (
         <div className="[text-shadow:0_2px_24px_rgba(0,0,0,0.6)]">
-            {/* who made it leads the line, and leads to them: their page, or their films in the atlas */}
-            <div className="card-rise font-label text-[12px] tracking-[0.16em] uppercase" style={{ color: light }}>
-                {directors.map((d, i) => (
-                    <Fragment key={d}>
-                        {i > 0 && ' & '}
-                        <Link to={directorPath(movie, d)} className="underline decoration-1 underline-offset-4 hover:text-gold-light" style={{ textDecorationColor: `${light}99` }}>{d}</Link>
-                    </Fragment>
-                ))}
+            {/* who made it leads the line, as films open on it ("a film by"), and leads to them: a chip
+                that reads as a button, with their face irised in where they have a page */}
+            <div className="card-rise font-label text-[12px] tracking-[0.16em] uppercase leading-[2.4]" style={{ color: light }}>
+                {directors.length > 0 && <span className="mr-2">A film by</span>}
+                {directors.map((d, i) => {
+                    const face = movie.retrospectives?.find((r) => r.name === d)?.portrait;
+                    return (
+                        <Fragment key={d}>
+                            {i > 0 && <span className="mx-1.5">&amp;</span>}
+                            <Link
+                                to={directorPath(movie, d)}
+                                className={`group/who inline-flex items-center gap-2 align-middle rounded-full ${face ? 'pl-1' : 'pl-3.5'} pr-3 py-1 bg-black/45 backdrop-blur-sm text-white hover:bg-black/70 transition-colors [text-shadow:none]`}
+                                style={{ boxShadow: `0 0 0 1px ${light}99, 0 0 18px ${light}33` }}
+                            >
+                                {face && (
+                                    <span aria-hidden="true" className="iris-in relative inline-block w-7 h-7 rounded-full overflow-hidden shrink-0 bg-black">
+                                        <img src={sized(face, 'w185')} alt="" className="w-full h-full object-cover max-w-none grayscale group-hover/who:grayscale-0 transition-[filter] duration-500" />
+                                    </span>
+                                )}
+                                <span>{d}</span>
+                                <span aria-hidden="true" style={{ color: light }} className="transition-transform duration-300 group-hover/who:translate-x-0.5">›</span>
+                            </Link>
+                        </Fragment>
+                    );
+                })}
                 {directors.length > 0 && facts.length > 0 && '  ·  '}
                 {facts.join('  ·  ')}
             </div>
@@ -230,6 +247,8 @@ const TitleBlock = ({ movie, light, frames, canPlay, trailer, onPlay, playRef, p
 // director last and largest, on a line of their own
 const Entry = ({ e, i, movie, light }) => (
     <div className={i ? 'card-rise-late' : 'card-rise'}>
+        {/* the director's face irised in above their credit: someone you can visit */}
+        {e.big && <Faces movie={movie} names={e.names} light={light} />}
         <div className="font-label text-[12px] md:text-[13px] tracking-[0.3em] uppercase text-gray-200">{e.role}</div>
         <div className={`mt-2 md:mt-3 font-serif font-light leading-[1.02] text-white ${e.big ? 'text-5xl md:text-8xl' : e.stack ? 'text-4xl md:text-7xl' : 'text-3xl md:text-5xl'}`}>
             {e.names.map((n, k) => (
@@ -241,6 +260,41 @@ const Entry = ({ e, i, movie, light }) => (
                 </span>
             ))}
         </div>
+    </div>
+);
+
+// a face in an iris for each director with a page, opening as their card comes up
+const Faces = ({ movie, names, light }) => {
+    const faces = names.map((n) => movie.retrospectives?.find((r) => r.name === n)).filter((r) => r?.portrait);
+    if (!faces.length) return null;
+    return (
+        <div className="mb-5 md:mb-7 flex justify-center gap-5 md:gap-8">
+            {faces.map((r) => (
+                <Link key={r.id} to={`/directors/${r.id}`} aria-label={`Open ${r.name}'s retrospective`} className="group/face relative block rounded-full">
+                    <span className="iris-in block w-20 h-20 md:w-28 md:h-28 rounded-full overflow-hidden bg-black" style={{ '--iris-delay': '0.2s' }}>
+                        <img src={sized(r.portrait, 'w185')} alt="" className="w-full h-full object-cover max-w-none grayscale group-hover/face:grayscale-0 transition-[filter] duration-500" />
+                    </span>
+                    <span aria-hidden="true" className="absolute -inset-1 rounded-full transition-transform duration-500 group-hover/face:scale-105" style={{ boxShadow: `0 0 0 1px ${light}aa, 0 0 40px ${light}44` }} />
+                </Link>
+            ))}
+        </div>
+    );
+};
+
+// under the director's card, the way on: their retrospective, or their films where they have no page
+const WayOn = ({ movie, names }) => (
+    <div className="card-rise-late flex flex-wrap justify-center gap-x-8 gap-y-3">
+        {names.map((n) => {
+            const page = movie.retrospectives?.find((r) => r.name === n);
+            const label = page
+                ? (names.length > 1 ? `${n}'s retrospective` : 'Open their retrospective')
+                : (names.length > 1 ? `${n}'s films in the atlas` : 'Their films in the atlas');
+            return (
+                <Link key={n} to={directorPath(movie, n)} className="inline-flex items-center min-h-11 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gold hover:text-gold-light">
+                    {label} ›
+                </Link>
+            );
+        })}
     </div>
 );
 
@@ -260,6 +314,7 @@ const Credits = ({ card, movie, light }) => {
                     {[COUNTRY[movie.country] || movie.country, movie.year, movie.runtime && `${movie.runtime} minutes`, movie.languages?.length && `in ${movie.languages.slice(0, 2).join(' and ')}`].filter(Boolean).join('  ·  ')}
                 </div>
             )}
+            {big && <WayOn movie={movie} names={big.names} />}
         </div>
     );
 };

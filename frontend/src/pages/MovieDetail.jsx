@@ -9,6 +9,7 @@ import CanonMarquee from '../components/film/CanonMarquee';
 import TheScreen from '../components/film/TheScreen';
 import ListYears from '../components/film/ListYears';
 import DoubleBill from '../components/film/DoubleBill';
+import Retrospective from '../components/film/Retrospective';
 import useFilmLight from '../components/film/useFilmLight';
 import { treatmentFor, displayTitle, sized } from '../components/movements/treatments';
 import { usePageTitle } from '../hooks/usePageTitle';
@@ -160,6 +161,9 @@ const MovieDetail = () => {
                             </motion.section>
                         );
                     })}
+
+                    {/* ===== THEIR RETROSPECTIVE: the director, irised in, and the way to their page ===== */}
+                    <Retrospective movie={movie} light={light} reducedMotion={reducedMotion} />
 
                     {/* ===== DOUBLE BILL ===== */}
                     {similarMovies.length > 0 ? <DoubleBill film={movie} picks={similarMovies} light={light} reducedMotion={reducedMotion} /> : <div className="pb-28" />}

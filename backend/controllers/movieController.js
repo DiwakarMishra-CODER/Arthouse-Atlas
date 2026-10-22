@@ -307,9 +307,21 @@ export const getMovieById = async (req, res) => {
     }
 
     // each director's page, where they have one (records are spelt as the films credit them)
-    const pages = movie.directors?.length ? await Director.find({ name: { $in: movie.directors } }).select('name').lean() : [];
+    const pages = movie.directors?.length ? await Director.find({ name: { $in: movie.directors } }).select('name profileUrl').lean() : [];
     const directorIds = Object.fromEntries(pages.map((d) => [d.name, d._id]));
     const directorId = directorIds[movie.directors?.[0]] || null;
+    // and what their page holds, for the film page's invitation to it: their face, how much of their
+    // work the atlas has, and frames from their other films, the most acclaimed first
+    const { cards } = await loadCatalogue();
+    const retrospectives = (movie.directors || []).map((name) => pages.find((d) => d.name === name)).filter(Boolean).map((d) => {
+      const theirs = cards.filter((c) => c.directors.includes(d.name));
+      const years = theirs.map((c) => c.year).filter(Boolean);
+      const others = theirs.filter((c) => c._id !== String(movie._id) && c.still)
+        .sort((a, b) => ((a.canonRank ?? Infinity) - (b.canonRank ?? Infinity)) || ((a.year ?? 0) - (b.year ?? 0)))
+        .slice(0, 8)
+        .map((c) => ({ _id: c._id, title: c.title, year: c.year, still: c.still }));
+      return { id: d._id, name: d.name, portrait: d.profileUrl || null, films: theirs.length, from: years.length ? Math.min(...years) : null, to: years.length ? Math.max(...years) : null, others };
+    });
 
     const { canon } = await canonFor(movie);
 
@@ -317,6 +329,7 @@ export const getMovieById = async (req, res) => {
         ...movie.toObject(),
         directorId,
         directorIds,
+        retrospectives,
         canon,
         audience: audienceOf(movie.tmdbId)
     });
