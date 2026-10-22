@@ -39,10 +39,10 @@ How the site is put together: the data, the canon engine, the recommender, the p
 | Collection | What it holds |
 |---|---|
 | `movies` (1,120: 1,118 films and two series the lists count as films, *Dekalog* and *Twin Peaks: The Return*, which carry `tmdbTv` in place of `tmdbId`) | Title, original title, year, directors, countries, runtime, genres; pictures (poster, backdrop, up to six stills); trailer; cast, writers, editors, cinematographers, composers, languages and tagline; the movements it belongs to; `provenance` (every list that cites it, with rank, year and strength); `canonRank` and `canonDecadeRank`; editorial text (a hook, a note, why it matters) for 159 films |
-| `directors` (189) | Name, portrait, birth and death, birthplace, biography |
+| `directors` (231) | Name, portrait, birth and death, birthplace, biography. A page for every movement's key directors who have films here, and for everyone credited on three or more of the atlas's films (`scripts/catalogue/addDirectors.js`). A film's page links each of its directors to theirs, or, without one, to their films in Explore |
 | `movements` (26) | Title, years, region, philosophy, visual signatures, its essential films and key directors; 7 are still happening |
 | `studios` | The older studio records; the Studios room itself (62 houses) is built from the catalogue's production companies in `services/studios.js` |
-| `users` | Account, favourites, watchlist, watched, ratings (1 to 5 stars, with dates), "not for me" |
+| `users` | Account, favourites, watchlist, watched, ratings (1 to 5 stars, with dates), "not for me". Signed out, the same marks live in the browser (`MovieContext`), go to For You's preview with each request, and move into the account at sign-in: ratings one by one, the rest through `POST /api/users/me/shelf`, which only ever adds |
 
 **How the catalogue grows:** by one rule, applied by `scripts/catalogue/planAdditions.js`. Every film cited by two or more of the 20 sources that the canon would rank in its top 500 if it were added is a candidate. Each is checked against TMDB (a five-minute extra had stood in for *WALL·E*), mainstream ones are marked by hand (studio spectacle and franchise films stay out), and the edge cases are decided by hand. The pass on 2026-10-22 added 263 films and two series.
 
@@ -217,9 +217,9 @@ Each room has one physical idea from cinema, acted out with frames, the camera a
 Services that draw a shared link's preview don't run JavaScript, so a single-page app would show the site's own title and picture for every link. Search engines see the same HTML first.
 
 - **The middleware:** `frontend/middleware.js` runs on Vercel before a film's, director's, movement's or studio's page (and the main rooms) is served. It puts that page's own title, line and picture into the HTML, in the block between `<!-- meta -->` and `<!-- /meta -->`.
-- **The data:** comes from `frontend/public/meta/*.json` (1,120 films, 189 directors, 26 movements by slug and by id, 62 studios). These are written from the database by `backend/scripts/exportMeta.js`.
+- **The data:** comes from `frontend/public/meta/*.json` (1,120 films, 231 directors, 26 movements by slug and by id, 62 studios). These are written from the database by `backend/scripts/exportMeta.js`.
 - **For search engines:** every page gets a canonical address (no query string, no trailing slash, a movement always at its slug), and schema.org data: a `Movie` (its own title, year, directors, country, picture) on a film's page, a `Person` on a director's, the `WebSite` on the home page. The data goes into a `<script type="application/ld+json">` with every `<` escaped, so nothing in a title can close it.
-- **The sitemap:** `exportMeta.js` also writes `frontend/public/sitemap.xml`: the 7 rooms, 1,120 films, 189 directors, 26 movements and 62 studios, 1,404 pages, each once. `robots.txt` points to it and keeps signing in and the profile out of search.
+- **The sitemap:** `exportMeta.js` also writes `frontend/public/sitemap.xml`: the 7 rooms, 1,120 films, 231 directors, 26 movements and 62 studios, 1,446 pages, each once. `robots.txt` points to it and keeps signing in and the profile out of search.
 - **Failure is safe:** a key it doesn't know, or any failure, serves the page unchanged.
 - **Tests:** `frontend/tests/middleware.test.mjs` runs the middleware against the real `index.html` and data files.
 - **In the browser,** `usePageTitle` keeps the tab's title in step with each page.

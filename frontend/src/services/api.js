@@ -71,6 +71,8 @@ export const userAPI = {
   toggleFavorite: (movieId) => api.post(`/users/favorites/${movieId}`),
   toggleWatchlist: (movieId) => api.post(`/users/watchlist/${movieId}`),
   toggleWatched: (movieId) => api.post(`/users/watched/${movieId}`),
+  // what was marked in this browser before signing in, added to the account (only ever added)
+  keepShelf: (lists) => api.post('/users/me/shelf', lists),
   rateMovie: (movieId, value) => api.put(`/users/ratings/${movieId}`, { value }),
   clearRating: (movieId) => api.delete(`/users/ratings/${movieId}`),
   getRecommendations: () => api.get('/users/recommendations', { params: { _t: Date.now() } }),

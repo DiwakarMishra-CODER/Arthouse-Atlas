@@ -28,9 +28,11 @@ import { usePageTitle } from '../hooks/usePageTitle';
 
 const HOW = { loved: 'Loved', watched: 'Watched · counts half', watchlist: 'On your watchlist · counts half' };
 
+const idOf = (m) => String(m?._id || m?.id || m);
+
 const ForYou = () => {
     const { isAuthenticated, loading: authLoading } = useAuth();
-    const { ratings, setMovieRating, notFor, toggleNotFor, isInWatchlist, toggleWatchlist } = useMovie();
+    const { ratings, setMovieRating, notFor, toggleNotFor, isInWatchlist, toggleWatchlist, favorites, watched, watchlist } = useMovie();
     const reducedMotion = useMotionPreference();
     usePageTitle('For you', 'Films picked for you from the ones you loved, learned from 32 million ratings by real viewers.');
     const location = useLocation();
@@ -51,8 +53,12 @@ const ForYou = () => {
 
     // signed out, the engine is told your ratings and set-asides with every request
     const previewBody = useMemo(
-        () => (isAuthenticated ? null : { ratings: ratings.map((r) => ({ id: r.id, value: r.rating })), notFor }),
-        [isAuthenticated, ratings, notFor],
+        () => (isAuthenticated ? null : {
+            ratings: ratings.map((r) => ({ id: r.id, value: r.rating })),
+            favorites: favorites.map(idOf), watched: watched.map(idOf), watchlist: watchlist.map(idOf),
+            notFor,
+        }),
+        [isAuthenticated, ratings, favorites, watched, watchlist, notFor],
     );
 
     useEffect(() => {
@@ -81,7 +87,7 @@ const ForYou = () => {
     // what you can do with a pick; signed in, the account answers, so ask again once it has
     const refresh = () => setNonce((n) => n + 1);
     const act = {
-        canList: isAuthenticated,
+        canList: true,
         listed: (id) => isInWatchlist(id),
         watchlist: (film) => toggleWatchlist(film),
         rate: async (film, n) => { await setMovieRating(film, n); if (isAuthenticated) refresh(); },

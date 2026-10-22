@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaStar } from 'react-icons/fa';
 import { MdBookmark, MdBookmarkBorder, MdCheck, MdFavorite, MdFavoriteBorder, MdPlayArrow } from 'react-icons/md';
@@ -25,7 +25,6 @@ import { useDecoded } from '../about/frames';
 
 // what you can do with the film, and whether it's done
 const useShelf = (movie) => {
-    const navigate = useNavigate();
     const { isAuthenticated } = useAuth();
     const shelf = useMovie();
     const id = movie._id;
@@ -34,10 +33,8 @@ const useShelf = (movie) => {
         { key: 'watchlist', label: 'Watchlist', on: shelf.isInWatchlist(id), Icon: MdBookmarkBorder, OnIcon: MdBookmark, toggle: () => shelf.toggleWatchlist(movie), say: (on) => (on ? 'On your watchlist. Press to remove' : 'Add to your watchlist') },
         { key: 'favourite', label: 'Favourite', on: shelf.isFavorite(id), Icon: MdFavoriteBorder, OnIcon: MdFavorite, toggle: () => shelf.toggleFavorite(movie), say: (on) => (on ? 'A favourite. Press to undo' : 'Add to your favourites') },
     ];
-    const act = (item) => {
-        if (!isAuthenticated) { navigate('/login', { state: { from: window.location.pathname } }); return; }
-        item.toggle();
-    };
+    // signed out, a mark is kept in this browser (MovieContext) and moves into the account at sign-in
+    const act = (item) => item.toggle();
     return { items, act, signedIn: isAuthenticated, rating: shelf.getMovieRating(id), rate: (s) => shelf.setMovieRating(movie, s) };
 };
 
@@ -130,7 +127,11 @@ export const ShelfSigns = ({ movie, light }) => {
     const { items, act, signedIn, rating, rate } = useShelf(movie);
     return (
         <div role="group" aria-label="Keep track of this film" className="[text-shadow:0_2px_14px_rgba(0,0,0,0.7)]">
-            {!signedIn && <div className="mb-2 font-label text-[12px] tracking-[0.14em] uppercase text-gray-300">Sign in to keep track of it</div>}
+            {!signedIn && (
+                <div className="mb-2 font-label text-[12px] tracking-[0.14em] uppercase text-gray-300">
+                    Kept on this device · <Link to="/login" state={{ from: window.location.pathname }} className="text-gold underline decoration-gold/50 underline-offset-4 hover:text-gold-light">Sign in</Link> to keep it everywhere
+                </div>
+            )}
             <div className="flex flex-wrap items-center gap-2.5">
                 {items.map((it) => <Sign key={it.key} it={it} light={light} act={act} />)}
             </div>
@@ -183,7 +184,7 @@ export const TicketDock = ({ movie, light, frames, onPlay, playLabel }) => {
                 {items.map((it, i) => <Sign key={`${it.key}-${shown}`} it={it} light={light} act={act} compact i={i} />)}
                 <span aria-hidden="true" className="mx-1 h-6 w-px bg-white/15" />
                 <Stars rating={rating} rate={rate} light={light} size="text-[14px]" cell="w-6 h-9" />
-                {!signedIn && <span className="sr-only">Sign in to keep track</span>}
+                {!signedIn && <span className="sr-only">Kept on this device until you sign in</span>}
             </aside>
 
             {/* a phone: a bar along the foot, there from the start */}

@@ -6,7 +6,7 @@
 
 ![The home page: the wall of every film's stills dives into today's film](docs/screens/clip-home.webp)
 
-| 1,120 films | 189 directors | 26 movements | 62 studios and labels | 75 countries | 1915 to 2025 |
+| 1,120 films | 231 directors | 26 movements | 62 studios and labels | 75 countries | 1915 to 2025 |
 |---|---|---|---|---|---|
 
 ---
@@ -69,7 +69,7 @@ You arrive on the film's title card, over its own frames. Scroll, and the screen
 
 ![For You: the monitor racks focus from the film you loved to your pick](docs/screens/clip-for-you.webp)
 
-Your taste is the lens. A film you loved stands sharp in the foreground, your pick waits far behind it, and the focus racks from one to the other. Under the picture, why it was picked, with real counts. It turns by itself every few seconds; drag the focus ring, swipe, or tap the picture to open the film. Newcomers rate a few films most people have seen, and it works without an account (your ratings move into the account when you sign up).
+Your taste is the lens. A film you loved stands sharp in the foreground, your pick waits far behind it, and the focus racks from one to the other. Under the picture, why it was picked, with real counts. It turns by itself every few seconds; drag the focus ring, swipe, or tap the picture to open the film. Newcomers rate a few films most people have seen, and it works without an account: your ratings, favourites, watchlist and watched films are kept in your browser, feed your picks, and move into the account when you sign in.
 
 ### The other rooms
 
@@ -151,7 +151,7 @@ On film pages, the same data gives **what viewers made of it** ("On MovieLens, 1
 - **The canon countdown:** an Academy-leader sweep wipes each film in with a clip-path driven by framer-motion motion values, with no React re-render per frame. Section heights are pure CSS, so Back restores the scroll position exactly.
 - **The film page's opening** is one sticky stage whose card is picked by scroll progress. The trailer's little screen grows into the full screen through a shared layout animation. It plays in YouTube's IFrame API, which falls back to the film's own frames if the video can't play.
 - **Link previews:** WhatsApp, LinkedIn, Slack and the rest don't run a page's JavaScript. So a small Vercel middleware ([`frontend/middleware.js`](frontend/middleware.js)) puts each film's, director's, movement's and studio's own title, line and picture into the HTML before it's served.
-- **Search engines:** the same middleware gives every page its canonical address and schema.org data (a `Movie` with its director and year on a film's page, a `Person` on a director's), and `exportMeta.js` writes a sitemap of all 1,404 pages.
+- **Search engines:** the same middleware gives every page its canonical address and schema.org data (a `Movie` with its director and year on a film's page, a `Person` on a director's), and `exportMeta.js` writes a sitemap of all 1,446 pages.
 - **Performance:** animations move only `transform` and `opacity`. Frame timing for each animated section is measured in headless Chrome, aiming for 60 fps.
 - **Accessibility:**
   - axe-core, the standard automated checker, finds no violations on any page, at desktop or phone size. That covers all 14 pages, For You with picks showing, and the profile signed in.

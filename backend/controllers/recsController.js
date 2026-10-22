@@ -59,8 +59,8 @@ export const buildForYou = async ({ touched, notFor = [] }) => {
   };
 };
 
-// @desc    For You for someone signed out: their ratings travel with the request
-// @route   POST /api/recs/preview   body: { ratings: [{ id, value }], notFor: [id] }
+// @desc    For You for someone signed out: what they marked in their browser travels with the request
+// @route   POST /api/recs/preview   body: { ratings: [{ id, value }], favorites: [id], watched: [id], watchlist: [id], notFor: [id] }
 // @access  Public (rate-limited)
 export const previewForYou = async (req, res) => {
   try {
@@ -68,10 +68,18 @@ export const previewForYou = async (req, res) => {
     const ratings = Array.isArray(req.body?.ratings) ? req.body.ratings.slice(0, 200) : [];
     const notForIds = Array.isArray(req.body?.notFor) ? req.body.notFor.slice(0, 200) : [];
     const touched = new Map();
+    // the same marks a signed-in account gives (userController's getRecommendations)
+    const touch = (id, mark) => {
+      const card = byId.get(String(id));
+      if (card?._tmdb) touched.set(card._tmdb, { ...(touched.get(card._tmdb) || {}), ...mark });
+    };
+    const listOf = (key) => (Array.isArray(req.body?.[key]) ? req.body[key].slice(0, 200) : []);
+    listOf('favorites').forEach((id) => touch(id, { favorite: true }));
+    listOf('watched').forEach((id) => touch(id, { watched: true }));
+    listOf('watchlist').forEach((id) => touch(id, { listed: true }));
     for (const r of ratings) {
-      const card = byId.get(String(r?.id));
       const value = Number(r?.value);
-      if (card?._tmdb && value >= 1 && value <= 5) touched.set(card._tmdb, { rating: value });
+      if (value >= 1 && value <= 5) touch(r?.id, { rating: value });
     }
     const notFor = notForIds.map((id) => byId.get(String(id))?._tmdb).filter(Boolean);
     if (!touched.size) return res.json({ recommendations: [], basedOn: { films: [] }, notFor: [] });

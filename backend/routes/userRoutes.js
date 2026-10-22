@@ -1,6 +1,7 @@
 import express from 'express';
 import {
   toggleFavorite,
+  keepShelf,
   toggleWatchlist,
   toggleWatched,
   rateMovie,
@@ -26,6 +27,7 @@ router.put('/ratings/:movieId', protect, rateMovie);
 router.delete('/ratings/:movieId', protect, clearRating);
 router.get('/recommendations', protect, getRecommendations);
 router.get('/me/festival', protect, getFestival);
+router.post('/me/shelf', protect, keepShelf);
 router.put('/me', protect, updateMe);
 router.put('/me/password', protect, authLimiter, changePassword);
 router.delete('/me', protect, authLimiter, deleteMe);

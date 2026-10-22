@@ -24,22 +24,38 @@ export const MovieProvider = ({ children }) => {
     // Local state for optimistic UI
     const [favorites, setFavorites] = useState(() => kept('favorites'));
     const [watchlist, setWatchlist] = useState(() => kept('watchlist'));
-    const [watched, setWatched] = useState([]);
+    const [watched, setWatched] = useState(() => kept('watched'));
     const [ratings, setRatings] = useState(() => kept('ratings'));
     // films you've said aren't for you (For You never picks them); kept like ratings
     const [notFor, setNotFor] = useState(() => kept('notFor'));
 
     // Guard against rapid double-clicks causing duplicate API calls
     const pendingToggles = useRef(new Set());
+    // the marks from this browser already sent to the account this visit (so they go once)
+    const sentHere = useRef(new Set());
 
     // 1. (what this browser kept is the state's starting value, above)
 
     // 2. Sync with User from DB (Run when user changes)
     useEffect(() => {
         if (user) {
-            if (user.favorites) setFavorites(user.favorites);
-            if (user.watchlist) setWatchlist(user.watchlist);
-            if (user.watched) setWatched(user.watched);
+            // what was marked in this browser while signed out comes along into the account, as
+            // ratings do (only those marked here: on a shared computer, nobody else's account moves)
+            const idOf = (m) => String(m?._id || m?.id || m);
+            const shelf = { favorites: [user.favorites, setFavorites], watchlist: [user.watchlist, setWatchlist], watched: [user.watched, setWatched] };
+            const toKeep = {};
+            for (const [key, [theirs, set]] of Object.entries(shelf)) {
+                if (!theirs) continue;
+                const here = kept(key).filter((m) => m?.local && !theirs.some((t) => idOf(t) === idOf(m)));
+                set([...theirs, ...here]);
+                const fresh = here.map(idOf).filter((id) => !sentHere.current.has(`${key}:${id}`));
+                if (fresh.length) {
+                    toKeep[key] = fresh;
+                    fresh.forEach((id) => sentHere.current.add(`${key}:${id}`));
+                }
+            }
+            // (they show at once from here; the account's own copy takes over on the next load)
+            if (Object.keys(toKeep).length) userAPI.keepShelf(toKeep).catch(() => {});
             if (user.ratings) {
                 const saved = user.ratings.filter((r) => r.movie).map((r) => ({ id: r.movie._id, rating: r.value, movie: r.movie }));
                 // films rated in this browser while signed out come along into the account (only
@@ -95,8 +111,14 @@ export const MovieProvider = ({ children }) => {
     };
 
     const toggleFavorite = async (movie) => {
-        if (!isAuthenticated) return;
         const movieId = movie._id || movie.id || movie;
+        // signed out, it's kept in this browser, and goes into the account at sign-in
+        if (!isAuthenticated) {
+            setFavorites((prev) => (isFavorite(movieId)
+                ? prev.filter((m) => (m._id || m.id || m) !== movieId)
+                : [...prev, { _id: movieId, title: movie.title, local: true }]));
+            return;
+        }
         // Block if already in-flight
         if (pendingToggles.current.has(`fav-${movieId}`)) return;
         pendingToggles.current.add(`fav-${movieId}`);
@@ -120,8 +142,14 @@ export const MovieProvider = ({ children }) => {
     };
 
     const toggleWatchlist = async (movie) => {
-        if (!isAuthenticated) return;
         const movieId = movie._id || movie.id || movie;
+        // signed out, it's kept in this browser, and goes into the account at sign-in
+        if (!isAuthenticated) {
+            setWatchlist((prev) => (isInWatchlist(movieId)
+                ? prev.filter((m) => (m._id || m.id || m) !== movieId)
+                : [...prev, { _id: movieId, title: movie.title, local: true }]));
+            return;
+        }
         // Block if already in-flight
         if (pendingToggles.current.has(`wl-${movieId}`)) return;
         pendingToggles.current.add(`wl-${movieId}`);
@@ -145,8 +173,14 @@ export const MovieProvider = ({ children }) => {
     };
 
     const toggleWatched = async (movie) => {
-        if (!isAuthenticated) return;
         const movieId = movie._id || movie.id || movie;
+        // signed out, it's kept in this browser, and goes into the account at sign-in
+        if (!isAuthenticated) {
+            setWatched((prev) => (isWatched(movieId)
+                ? prev.filter((m) => (m._id || m.id || m) !== movieId)
+                : [...prev, { _id: movieId, title: movie.title, local: true }]));
+            return;
+        }
         // Block if already in-flight
         if (pendingToggles.current.has(`wd-${movieId}`)) return;
         pendingToggles.current.add(`wd-${movieId}`);

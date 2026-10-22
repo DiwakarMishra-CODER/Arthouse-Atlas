@@ -19,6 +19,27 @@ const generateToken = (id) => {
   });
 };
 
+// @desc    Keep what someone marked in this browser before signing in: favourites, watchlist and
+//          watched, added to the account (only ever added, so sending the same film twice is harmless)
+// @route   POST /api/users/me/shelf   body: { favorites: [id], watchlist: [id], watched: [id] }
+// @access  Private
+export const keepShelf = async (req, res) => {
+  try {
+    const lists = {};
+    for (const key of ['favorites', 'watchlist', 'watched']) {
+      const asked = Array.isArray(req.body?.[key]) ? req.body[key].slice(0, 500).map(String) : [];
+      lists[key] = asked.length ? (await Movie.find({ _id: { $in: asked.filter((id) => /^[a-f0-9]{24}$/.test(id)) } }).select('_id').lean()).map((m) => m._id) : [];
+    }
+    const add = Object.fromEntries(Object.entries(lists).filter(([, ids]) => ids.length).map(([key, ids]) => [key, { $each: ids }]));
+    if (Object.keys(add).length) await User.findByIdAndUpdate(req.user._id, { $addToSet: add });
+    res.json({ kept: Object.fromEntries(Object.entries(lists).map(([key, ids]) => [key, ids.length])) });
+  } catch (error) {
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
+  }
+};
+
 // @desc    Toggle favorite status
 // @route   POST /api/users/favorites/:movieId
 // @access  Private
