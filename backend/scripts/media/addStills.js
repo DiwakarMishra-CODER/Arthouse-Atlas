@@ -104,7 +104,8 @@ const planFilm = async (f) => {
 const afterOf = (p) => [...(p.seed ? [p.seed] : p.before), ...p.add.map((a) => a.url)];
 
 const dryRun = async () => {
-  const films = await Movie.find({}).select('title year tmdbId stills backdropUrl').lean();
+  // films only: a series (Dekalog) has no TMDB film id, and its credits and pictures came with it
+  const films = await Movie.find({ tmdbId: { $type: 'number' } }).select('title year tmdbId stills backdropUrl').lean();
   let done = 0;
   const plan = await Promise.all(films.map((f) => films6(async () => {
     const p = await planFilm(f);

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Laurel from './Laurel';
@@ -86,6 +87,7 @@ const CanonMarquee = ({ film, accent, reducedMotion = false }) => {
 
     const shown = cites.slice(0, SHOWN);
     const viewers = film.audience;
+    const [aboutMovieLens, setAboutMovieLens] = useState(false); // the note saying what MovieLens is
     const share = viewers && fractionWords(viewers.loved, viewers.rated);
 
     return (
@@ -143,8 +145,29 @@ const CanonMarquee = ({ film, accent, reducedMotion = false }) => {
             {viewers && (
                 <p className="mt-10 mx-auto max-w-2xl text-center font-serif text-lg md:text-xl leading-snug text-gray-200">
                     And viewers: on MovieLens, <span className="text-gold-light">{viewers.loved.toLocaleString()}</span> people loved it (4 stars or more){share ? `, ${share} of the ${viewers.rated.toLocaleString()} who rated it` : ''}.
-                    {' '}<Link to="/about#foryou-how" className="font-label text-[12px] tracking-[0.14em] uppercase text-gold hover:text-gold-light whitespace-nowrap">What’s MovieLens ›</Link>
+                    {' '}
+                    <button type="button" aria-expanded={aboutMovieLens} aria-controls="movielens-note" onClick={() => setAboutMovieLens((open) => !open)} className="py-2 font-label text-[12px] tracking-[0.14em] uppercase text-gold hover:text-gold-light whitespace-nowrap">
+                        What’s MovieLens <span aria-hidden="true" className={`inline-block transition-transform ${aboutMovieLens ? 'rotate-90' : ''}`}>›</span>
+                    </button>
                 </p>
+            )}
+            {/* what MovieLens is, said where the question is asked */}
+            {viewers && (
+                <div id="movielens-note" hidden={!aboutMovieLens}>
+                    {aboutMovieLens && (
+                        <motion.div
+                            initial={reducedMotion ? false : { opacity: 0, y: -6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="mt-3 mx-auto max-w-2xl px-5 py-4 ring-1 ring-white/10 bg-white/[0.03]"
+                        >
+                            <p className="font-serif text-[15px] md:text-base leading-relaxed text-gray-300">
+                                <span className="text-white">MovieLens</span> is a free film-rating website run by GroupLens, a research lab at the University of Minnesota. Its members rate films to get suggestions, and the lab shares those ratings, without names, for research. The atlas uses that public set: 32 million ratings from about 200,000 people. That’s where these counts come from, and what For You learns from.
+                            </p>
+                            <Link to="/about#foryou-how" className="mt-1 inline-block py-2 font-label text-[12px] tracking-[0.14em] uppercase text-gold hover:text-gold-light">How For You uses them ›</Link>
+                        </motion.div>
+                    )}
+                </div>
             )}
         </div>
     );

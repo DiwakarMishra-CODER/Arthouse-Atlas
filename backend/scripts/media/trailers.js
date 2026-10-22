@@ -81,7 +81,8 @@ const videosOf = (tmdbId) => api(async () => {
 });
 
 const dryRun = async () => {
-  const films = await Movie.find({}).select('title year tmdbId trailerUrl canonRank').lean();
+  // films only: a series (Dekalog) has no TMDB film id, and its credits and pictures came with it
+  const films = await Movie.find({ tmdbId: { $type: 'number' } }).select('title year tmdbId trailerUrl canonRank').lean();
   let done = 0;
   const plan = await Promise.all(films.map(async (f) => {
     const current = youTubeId(f.trailerUrl);

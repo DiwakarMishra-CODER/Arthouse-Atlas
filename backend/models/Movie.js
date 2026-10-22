@@ -53,6 +53,12 @@ const movieSchema = new mongoose.Schema({
     unique: true,
     sparse: true
   },
+  tmdbTv: {
+    type: Number      // a series the lists count as one film (Dekalog): its TMDB television id; it has no tmdbId
+  },
+  tmdbSeason: {
+    type: Number      // and which season, when it's one (Twin Peaks: The Return is season 3)
+  },
   decade: {
     type: Number,
     index: true

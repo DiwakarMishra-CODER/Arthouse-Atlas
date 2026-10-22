@@ -22,13 +22,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import Movie from '../models/Movie.js';
-import { generateTags } from '../services/taggingService.js';
-import { assignMoods } from '../services/moodService.js';
-import { calculateArthouseScore } from '../services/arthouseScoring.js';
-import {
-  calculateBaseCanonScore, calculateCriticalConsensus, calculateFormalInnovation,
-  calculateCulturalInfluence, calculateDepthScore
-} from '../services/baseCanonScoring.js';
+import { recomputeDerived } from './lib/derived.js';
 import { fetchMovieFields, findCandidate, namesMatch, surnamesMatch, sleep } from './lib/tmdbResolve.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -45,20 +39,6 @@ const OUT_DIR = argValue('--out') || path.join(__dirname, 'reports');
 
 const log = [];
 const say = (line) => { console.log(line); log.push(line); };
-
-const recomputeDerived = (doc) => {
-  const derivedTags = generateTags({ synopsis: doc.synopsis, keywords: doc.keywords, genres: doc.genres });
-  const merged = { ...doc, derivedTags };
-  merged.moods = assignMoods(merged);
-  merged.criticalConsensus = calculateCriticalConsensus(merged);
-  merged.formalInnovation = calculateFormalInnovation(merged);
-  merged.culturalInfluence = calculateCulturalInfluence(merged);
-  merged.depthScore = calculateDepthScore(merged);
-  merged.arthouseScore = calculateArthouseScore(merged);
-  merged.baseCanonScore = calculateBaseCanonScore(merged);
-  const { derivedTags: t, moods, criticalConsensus, formalInnovation, culturalInfluence, depthScore, arthouseScore, baseCanonScore } = merged;
-  return { derivedTags: t, moods, criticalConsensus, formalInnovation, culturalInfluence, depthScore, arthouseScore, baseCanonScore };
-};
 
 const loadCandidates = () => {
   if (LIST_PATH) return JSON.parse(fs.readFileSync(LIST_PATH, 'utf8'));

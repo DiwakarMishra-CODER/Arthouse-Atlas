@@ -72,7 +72,8 @@ export const creditsOf = (d) => {
 };
 
 const dryRun = async () => {
-  const films = await Movie.find({}).select('title year tmdbId').lean();
+  // films only: a series (Dekalog) has no TMDB film id, and its credits and pictures came with it
+  const films = await Movie.find({ tmdbId: { $type: 'number' } }).select('title year tmdbId').lean();
   let done = 0;
   const plan = await Promise.all(films.map((f) => api(async () => {
     const d = await get(`/movie/${f.tmdbId}`, { append_to_response: 'credits' });
