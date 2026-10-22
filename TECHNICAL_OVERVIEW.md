@@ -212,12 +212,14 @@ Each room has one physical idea from cinema, acted out with frames, the camera a
 - Opacity tied to the scroll goes through `useMotionTemplate`, because Chrome mistimes the native scroll timeline framer-motion would otherwise hand it to.
 - Sections whose transforms change every frame opt out of a site-wide CSS transition rule (`.own-transitions`). Otherwise each frame would start a 150 ms transition, which shows as shaking on phones.
 
-## 7. Link previews
+## 7. Link previews and search
 
-Services that draw a shared link's preview don't run JavaScript, so a single-page app would show the site's own title and picture for every link.
+Services that draw a shared link's preview don't run JavaScript, so a single-page app would show the site's own title and picture for every link. Search engines see the same HTML first.
 
 - **The middleware:** `frontend/middleware.js` runs on Vercel before a film's, director's, movement's or studio's page (and the main rooms) is served. It puts that page's own title, line and picture into the HTML, in the block between `<!-- meta -->` and `<!-- /meta -->`.
 - **The data:** comes from `frontend/public/meta/*.json` (1,120 films, 189 directors, 26 movements by slug and by id, 62 studios). These are written from the database by `backend/scripts/exportMeta.js`.
+- **For search engines:** every page gets a canonical address (no query string, no trailing slash, a movement always at its slug), and schema.org data: a `Movie` (its own title, year, directors, country, picture) on a film's page, a `Person` on a director's, the `WebSite` on the home page. The data goes into a `<script type="application/ld+json">` with every `<` escaped, so nothing in a title can close it.
+- **The sitemap:** `exportMeta.js` also writes `frontend/public/sitemap.xml`: the 7 rooms, 1,120 films, 189 directors, 26 movements and 62 studios, 1,404 pages, each once. `robots.txt` points to it and keeps signing in and the profile out of search.
 - **Failure is safe:** a key it doesn't know, or any failure, serves the page unchanged.
 - **Tests:** `frontend/tests/middleware.test.mjs` runs the middleware against the real `index.html` and data files.
 - **In the browser,** `usePageTitle` keeps the tab's title in step with each page.
@@ -242,7 +244,7 @@ Services that draw a shared link's preview don't run JavaScript, so a single-pag
 ## 10. Tests
 
 - **Backend** (`npm test` in `backend/`): 83 tests. They cover the canon breakdown against `scoreFilm()`, each list's order and the About index's picks, Explore's filters, counts and orders (a decade in its own ranking), For You's reasons and shares, the studios and director indexes, the profile's awards, account changes and the Google sign-in check, and the film-page data scripts' pure parts (choosing a trailer, reading credits).
-- **Frontend** (`npm test` in `frontend/`): 6 tests of the link-preview middleware.
+- **Frontend** (`npm test` in `frontend/`): 10 tests of the middleware (previews, canonical addresses, structured data) and the sitemap.
 - **The recommender's evaluation** is a test of its own, written and committed before it was run.
 
 ## 11. Changing the data safely

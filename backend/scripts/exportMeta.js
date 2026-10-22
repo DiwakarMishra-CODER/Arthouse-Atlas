@@ -4,8 +4,11 @@
  * don't run the page's JavaScript, so the frontend's middleware.js puts these into the page's HTML
  * from the files written here. Read-only: nothing in the database changes.
  *
- * Writes frontend/public/meta/{films,directors,movements,studios}.json, each { key: [title, line, picture] }
- * (the key is the one in the page's address; the picture is a TMDB path, a /stills/ path, or null).
+ * Writes frontend/public/meta/{films,directors,movements,studios}.json, each { key: [title, line, picture, facts] }
+ * (the key is the one in the page's address; the picture is a TMDB path, a /stills/ path, or null;
+ * facts, where there are any, feed the page's structured data: a film's own title, year, directors
+ * and country, or a movement's slug, its one canonical address).
+ * And frontend/public/sitemap.xml: every page a search engine should know, at its canonical address.
  * Run it again after the catalogue changes:  node scripts/exportMeta.js
  */
 import fs from 'fs';
@@ -20,7 +23,11 @@ import { getMovements } from '../controllers/movementController.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const BACKEND = path.resolve(__dirname, '..');
-const OUT = path.resolve(BACKEND, '../frontend/public/meta');
+const PUBLIC = path.resolve(BACKEND, '../frontend/public');
+const OUT = path.join(PUBLIC, 'meta');
+const SITE_URL = process.env.SITE_URL || 'https://arthouse-atlas.vercel.app';
+// the rooms a search engine should know (sign-in and the profile stay out, as robots.txt says)
+const ROOMS = ['/', '/explore', '/directors', '/movements', '/studios', '/recommendations', '/about'];
 dotenv.config({ path: path.join(BACKEND, '.env') });
 
 // a TMDB picture as its path ("/abc.jpg"), so the middleware can ask for the size previews want
@@ -44,7 +51,8 @@ const films = async () => {
     const by = f.directors?.length ? `A film by ${listed(f.directors)}` : null;
     const line = f.editorial?.hook || f.tagline || firstSentence(f.synopsis);
     const description = clip([line, [by, f.country, f.year].filter(Boolean).join(', ')].filter(Boolean).join(' · '));
-    return [String(f._id), [`${f.title}${f.year ? ` (${f.year})` : ''}`, description, pathOf(f.backdropUrl || f.stills?.[0])]];
+    const facts = { n: f.title, ...(f.year ? { y: f.year } : {}), ...(f.directors?.length ? { d: f.directors } : {}), ...(f.country ? { c: f.country } : {}) };
+    return [String(f._id), [`${f.title}${f.year ? ` (${f.year})` : ''}`, description, pathOf(f.backdropUrl || f.stills?.[0]), facts]];
   }));
 };
 
@@ -63,7 +71,7 @@ const movements = async () => {
   const out = {};
   for (const m of all) {
     const description = clip([m.tagline, m.era, m.filmCount ? `${filmsWord(m.filmCount)} in the atlas` : null].filter(Boolean).join(' · '));
-    const entry = [m.title, description, pathOf(m.heroBackdrop)];
+    const entry = [m.title, description, pathOf(m.heroBackdrop), m.tag ? { s: m.tag } : {}];
     // addressed by slug, and by id as the site also allows
     if (m.tag) out[m.tag] = entry;
     out[String(m._id)] = entry;
@@ -84,11 +92,25 @@ const main = async () => {
   await mongoose.connect(process.env.MONGODB_URI);
   try {
     fs.mkdirSync(OUT, { recursive: true });
+    const written = {};
     for (const [name, make] of Object.entries({ films, directors, movements, studios })) {
       const data = await make();
+      written[name] = data;
       fs.writeFileSync(path.join(OUT, `${name}.json`), JSON.stringify(data));
       console.log(`${name}.json: ${Object.keys(data).length} entries`);
     }
+    // a movement is listed once, at its slug (the files also answer to its id)
+    const pages = [
+      ...ROOMS,
+      ...Object.keys(written.films).map((k) => `/movie/${k}`),
+      ...Object.keys(written.directors).map((k) => `/directors/${k}`),
+      ...Object.keys(written.movements).filter((k) => !/^[a-f0-9]{24}$/.test(k)).map((k) => `/movements/${encodeURIComponent(k)}`),
+      ...Object.keys(written.studios).map((k) => `/studios/${encodeURIComponent(k)}`),
+    ];
+    const xml = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+      ...pages.map((p) => `  <url><loc>${SITE_URL}${p === '/' ? '/' : p}</loc></url>`), '</urlset>', ''].join('\n');
+    fs.writeFileSync(path.join(PUBLIC, 'sitemap.xml'), xml);
+    console.log(`sitemap.xml: ${pages.length} pages`);
   } finally {
     await mongoose.disconnect();
   }

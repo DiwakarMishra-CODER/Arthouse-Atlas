@@ -6,13 +6,13 @@ The React app for [Arthouse Atlas](https://arthouse-atlas.vercel.app). It's buil
 cp .env.example .env.local   # VITE_API_URL: where the API runs; VITE_GOOGLE_CLIENT_ID: for Google sign-in
 npm install
 npm run dev                  # http://localhost:5173
-npm test                     # the link-preview middleware's tests
+npm test                     # the middleware's tests: previews, canonical addresses, structured data, the sitemap
 npm run lint
 ```
 
 - `src/pages/`: one file per room of the site.
 - `src/components/<room>/`: each room's parts.
 - `middleware.js`: link previews (runs on Vercel before a film's, director's, movement's or studio's page is served).
-- `public/`: the home page's sprite sheets, the map's shapes, and the link-preview data (`meta/`, written by `backend/scripts/exportMeta.js`).
+- `public/`: the home page's sprite sheets, the map's shapes, the link-preview data (`meta/`) and `sitemap.xml`, both written by `backend/scripts/exportMeta.js`, and `robots.txt`.
 
 See the main [README](../README.md) for the whole project.

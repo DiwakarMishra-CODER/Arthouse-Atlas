@@ -151,6 +151,7 @@ On film pages, the same data gives **what viewers made of it** ("On MovieLens, 1
 - **The canon countdown:** an Academy-leader sweep wipes each film in with a clip-path driven by framer-motion motion values, with no React re-render per frame. Section heights are pure CSS, so Back restores the scroll position exactly.
 - **The film page's opening** is one sticky stage whose card is picked by scroll progress. The trailer's little screen grows into the full screen through a shared layout animation. It plays in YouTube's IFrame API, which falls back to the film's own frames if the video can't play.
 - **Link previews:** WhatsApp, LinkedIn, Slack and the rest don't run a page's JavaScript. So a small Vercel middleware ([`frontend/middleware.js`](frontend/middleware.js)) puts each film's, director's, movement's and studio's own title, line and picture into the HTML before it's served.
+- **Search engines:** the same middleware gives every page its canonical address and schema.org data (a `Movie` with its director and year on a film's page, a `Person` on a director's), and `exportMeta.js` writes a sitemap of all 1,404 pages.
 - **Performance:** animations move only `transform` and `opacity`. Frame timing for each animated section is measured in headless Chrome, aiming for 60 fps.
 - **Accessibility:**
   - axe-core, the standard automated checker, finds no violations on any page, at desktop or phone size. That covers all 14 pages, For You with picks showing, and the profile signed in.
@@ -188,7 +189,7 @@ npm install
 npm run dev                   # http://localhost:5173
 ```
 
-**Tests:** `npm test` in `backend/` runs 83 tests. They cover the canon breakdown, the About lists, Explore's filters, For You's reasons, the studios, the director index, the profile awards, accounts (including the Google sign-in check) and the film-page data scripts. `npm test` in `frontend/` runs 6 tests of the link-preview middleware.
+**Tests:** `npm test` in `backend/` runs 83 tests. They cover the canon breakdown, the About lists, Explore's filters, For You's reasons, the studios, the director index, the profile awards, accounts (including the Google sign-in check) and the film-page data scripts. `npm test` in `frontend/` runs 10 tests of the link-preview and search middleware and the sitemap.
 
 **The data scripts** (all in `backend/scripts/`; the media scripts only write when given `--apply`):
 
@@ -203,7 +204,7 @@ npm run dev                   # http://localhost:5173
 | `recs/` (`npm run recs:*`) | Downloads MovieLens, builds and evaluates the recommender, and counts the reasons and the viewer numbers |
 | `buildMosaic.js` | The home page's sprite sheets |
 | `buildAtlasMap.js` | The map's shapes |
-| `exportMeta.js` | The link-preview titles and pictures (run after the catalogue changes) |
+| `exportMeta.js` | The link-preview titles and pictures, and the sitemap (run after the catalogue changes) |
 
 ## Project structure
 

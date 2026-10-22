@@ -1,0 +1,7 @@
+# Every page is open to search engines except signing in and your own profile.
+User-agent: *
+Disallow: /login
+Disallow: /register
+Disallow: /profile
+
+Sitemap: https://arthouse-atlas.vercel.app/sitemap.xml
