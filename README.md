@@ -1,19 +1,19 @@
 # Arthouse Atlas
 
-**A curated atlas of arthouse cinema: 855 films, ordered by what critics' polls, year-end lists and festival juries have agreed on, not by an algorithm's guesses.**
+**A curated atlas of arthouse cinema: 1,120 films, ordered by what critics' polls, year-end lists and festival juries have agreed on, not by an algorithm's guesses.**
 
 **Live:** [arthouse-atlas.vercel.app](https://arthouse-atlas.vercel.app) · **By** Diwakar Mishra · [GitHub](https://github.com/DiwakarMishra-CODER) · [LinkedIn](https://www.linkedin.com/in/diwakar-mishra-dev)
 
 ![The home page: the wall of every film's stills dives into today's film](docs/screens/clip-home.webp)
 
-| 855 films | 189 directors | 26 movements | 62 studios and labels | 73 countries | 1920 to 2025 |
+| 1,120 films | 189 directors | 26 movements | 62 studios and labels | 75 countries | 1915 to 2025 |
 |---|---|---|---|---|---|
 
 ---
 
 ## What it is
 
-Arthouse Atlas is a website for finding films worth your evening. 791 of its 855 films have earned their place on public lists people trust: the Sight and Sound polls, They Shoot Pictures, Don't They?, the BBC's critics' polls, Cahiers du Cinéma's year-end lists, the big festivals' prizes and more, twenty sources in all. Those lists decide the order of the atlas, and every film's page shows exactly which lists placed it. The other 64 films are there on the curator's judgement, and their pages say so.
+Arthouse Atlas is a website for finding films worth your evening. 1,056 of its 1,120 films have earned their place on public lists people trust: the Sight and Sound polls, They Shoot Pictures, Don't They?, the BBC's critics' polls, Cahiers du Cinéma's year-end lists, the big festivals' prizes and more, twenty sources in all. Those lists decide the order of the atlas, and every film's page shows exactly which lists placed it. The other 64 films are there on the curator's judgement, and their pages say so. Two of the 1,120 are series the lists count as films: Kieślowski's *Dekalog* and Lynch's *Twin Peaks: The Return*.
 
 On top of that sits **For You**: recommendations learned from 32 million ratings by real viewers (the MovieLens dataset), explained in plain numbers ("Nearly half of the 1,963 people who loved Persona loved this too").
 
@@ -61,7 +61,7 @@ You arrive on the film's title card, over its own frames. Scroll, and the screen
 | ![](docs/screens/film-title.jpg) | ![](docs/screens/film-credits.jpg) |
 | **The title card,** here signed in, with the film marked Watched and Favourite and given four stars. The trailer button is a little screen already playing the film's frames. | **The opening titles.** The navbar steps aside while they run; your controls dock at the top right so they're always within reach. |
 | ![](docs/screens/film-trailer.jpg) | ![](docs/screens/film-critics.jpg) |
-| **The trailer plays in place.** The little screen grows into the big one. For the 44 films with no trailer online, the film's own frames run instead. | **How the critics rank it:** the film's standing on a marquee, its strongest lists as laurels, and what MovieLens viewers made of it. |
+| **The trailer plays in place.** The little screen grows into the big one. For the 55 films with no trailer online, the film's own frames run instead. | **How the critics rank it:** the film's standing on a marquee, its strongest lists as laurels, and what MovieLens viewers made of it. |
 | ![](docs/screens/film-lists.jpg) | ![](docs/screens/film-double-bill.jpg) |
 | **When the lists placed it:** every list that names the film, in the decade it named it. Persona: Cahiers' #1 of 1967 through Sight and Sound's #18 in 2022. | **Films like it, as a double bill,** each pairing with its reason: "Only 1 in 95 people loved it, but 1 in 3 of those who loved Persona did." |
 
@@ -124,28 +124,29 @@ The order of the atlas comes from public lists, combined in a way you can check.
 4. **Staying power earns a bonus.** For every further decade in which the great polls have placed the film, its score goes up (up to a limit). Seven Samurai has been in them since the 1980s.
 5. **Fair to young films.** A 2021 film couldn't have been in the 2012 poll, so each film is only judged by the lists it could have appeared on. This gives a second ranking, used to rank a film among the films of its own decade.
 
-**The result:** 791 of the 855 films are ranked, from 3,245 citations. The most cited are Citizen Kane and The Rules of the Game, 16 times each. The other 64 films are in the atlas on curatorial judgement and say so. The top ten:
+**The result:** 1,056 of the 1,120 films are ranked, from 4,187 citations. The most cited are Citizen Kane and The Rules of the Game, 16 times each. The other 64 films are in the atlas on curatorial judgement and say so. The top ten:
 
 > 1. Seven Samurai · 2. Tokyo Story · 3. Citizen Kane · 4. Rashomon · 5. 8½ · 6. L'Avventura · 7. In the Mood for Love · 8. The Passion of Joan of Arc · 9. Vertigo · 10. The Rules of the Game
 
-The About page shows the whole count, step by step, for three real films (Seven Samurai, Parasite and Pacifiction). The breakdown it uses reproduces every stored score exactly: that was checked over all 791 ranked films, and a test covers it.
+The About page shows the whole count, step by step, for three real films (Seven Samurai, Parasite and Pacifiction). The breakdown it uses reproduces every stored score exactly: that was checked over all 1,056 ranked films, and a test covers it.
 
 ## How For You works
 
-The recommendations are learned from **MovieLens 32M**, a public research dataset from GroupLens at the University of Minnesota: 32,000,204 ratings from 200,948 people. 826 of the atlas's 855 films are in it, with 2,033,903 ratings between them.
+The recommendations are learned from **MovieLens 32M**, a public research dataset from GroupLens at the University of Minnesota: 32,000,204 ratings from 200,948 people. 1,086 of the atlas's 1,118 films are in it (the two series aren't), with 3,779,709 ratings between them.
 
 - **The model** is [EASE](https://arxiv.org/abs/1905.03375) (Steck, 2019). It learns, for every pair of films, how much loving one predicts loving the other, after allowing for everything else a person loved. That stops popular films from winning just for being popular. Each film keeps its 50 strongest links. A film MovieLens lacks is linked by director, movement, country and decade instead.
 - **Your picks:** each film you loved votes for its linked films, and the votes add up. Twenty picks come back, each with the film of yours that led to it.
 - **The reasons are real counts**, quoted only when 30 or more people loved both films.
-- **It was tested properly.** The test was written down and committed before it was run, then measured on 7,110 people the model never saw, each given only the last 5 films they loved. For **72.2%** of them, the top 10 already held a film they went on to love. Asked for the exact next film they loved, out of more than 800, it had it in the top 10 for **42.1%**. Random picks get 1.2%, the most popular films 27.6%, and the old hand-tuned engine 12.1%. The full report, with the method and the uncertainty margins, is in [`backend/data/recs/EVALUATION.md`](backend/data/recs/EVALUATION.md).
+- **It was tested properly.** The test was written down and committed before it was run. On the 1,120-film atlas it was measured on 11,090 people the model never saw, each given only the last 5 films they loved. For **66.7%** of them (2 in 3), the top 10 already held a film they went on to love. Asked for the exact next film they loved, out of more than 1,000, it had it in the top 10 for **34.8%**: 4.7 times as often as the old hand-tuned engine (7.4%) and 1.7 times as often as simply showing the most popular films (20.9%). Random picks get 0.9%.
+- **Why the earlier number was higher:** on the 855-film atlas the same test gave 42.1%. With more films to choose from, every method scored lower, the random and popular baselines included, while the model's lead over them held. The task got harder; the model didn't get worse. The full report, with the method and the uncertainty margins, is in [`backend/data/recs/EVALUATION.md`](backend/data/recs/EVALUATION.md).
 
-On film pages, the same data gives **what viewers made of it** ("On MovieLens, 1,963 people loved it, nearly three in four of those who rated it") for the 736 films that 30 or more people rated.
+On film pages, the same data gives **what viewers made of it** ("On MovieLens, 1,963 people loved it, nearly three in four of those who rated it") for the 976 films that 30 or more people rated.
 
 ---
 
 ## Engineering notes
 
-- **The wall of stills** (home page): all 855 stills are packed into one sprite sheet, built with sharp at two sizes, so the wall loads as one request. The resting wall is drawn once off-screen and laid down as a single pattern fill each frame, with a lens under the pointer. At the end of the dive, a plain `<img>` takes over the tile's exact rectangle, so the push-in runs as a cheap compositor transform.
+- **The wall of stills** (home page): a still for each of 1,118 films, packed into one sprite sheet, built with sharp at two sizes, so the wall loads as one request. The resting wall is drawn once off-screen and laid down as a single pattern fill each frame, with a lens under the pointer. At the end of the dive, a plain `<img>` takes over the tile's exact rectangle, so the push-in runs as a cheap compositor transform.
 - **The world map:** Natural Earth's country shapes, drawn with d3-geo. Countries that no longer exist light their successors (the Soviet Union lights 15 states). Countries crossing the 180° line are handled, and each country is framed by its mainland (France without French Guiana).
 - **The canon countdown:** an Academy-leader sweep wipes each film in with a clip-path driven by framer-motion motion values, with no React re-render per frame. Section heights are pure CSS, so Back restores the scroll position exactly.
 - **The film page's opening** is one sticky stage whose card is picked by scroll progress. The trailer's little screen grows into the full screen through a shared layout animation. It plays in YouTube's IFrame API, which falls back to the film's own frames if the video can't play.
@@ -194,7 +195,9 @@ npm run dev                   # http://localhost:5173
 | Script | What it does |
 |---|---|
 | `canon/` | Fetches the 20 sources, resolves them to TMDB, scores and ranks the films |
-| `media/addStills.js` | Adds frames from TMDB, so 799 films have at least four |
+| `catalogue/planAdditions.js` | Plans which missing films to add: every film cited by 2 or more sources that the canon would rank in its top 500, checked against TMDB |
+| `addFilms.js`, `catalogue/addSeries.js` | Add films from TMDB, and the two series the lists count as films |
+| `media/addStills.js` | Adds frames from TMDB, so 1,048 films have at least four |
 | `media/credits.js` | Cast, writers, editors, languages and taglines from TMDB |
 | `media/trailers.js` | Checks every trailer still plays and replaces dead ones |
 | `recs/` (`npm run recs:*`) | Downloads MovieLens, builds and evaluates the recommender, and counts the reasons and the viewer numbers |

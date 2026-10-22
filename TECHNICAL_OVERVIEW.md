@@ -38,19 +38,21 @@ How the site is put together: the data, the canon engine, the recommender, the p
 
 | Collection | What it holds |
 |---|---|
-| `movies` (855) | Title, original title, year, directors, countries, runtime, genres; pictures (poster, backdrop, up to six stills); trailer; cast, writers, editors, cinematographers, composers, languages and tagline; the movements it belongs to; `provenance` (every list that cites it, with rank, year and strength); `canonRank` and `canonDecadeRank`; editorial text (a hook, a note, why it matters) for 159 films |
+| `movies` (1,120: 1,118 films and two series the lists count as films, *Dekalog* and *Twin Peaks: The Return*, which carry `tmdbTv` in place of `tmdbId`) | Title, original title, year, directors, countries, runtime, genres; pictures (poster, backdrop, up to six stills); trailer; cast, writers, editors, cinematographers, composers, languages and tagline; the movements it belongs to; `provenance` (every list that cites it, with rank, year and strength); `canonRank` and `canonDecadeRank`; editorial text (a hook, a note, why it matters) for 159 films |
 | `directors` (189) | Name, portrait, birth and death, birthplace, biography |
 | `movements` (26) | Title, years, region, philosophy, visual signatures, its essential films and key directors; 7 are still happening |
 | `studios` | The older studio records; the Studios room itself (62 houses) is built from the catalogue's production companies in `services/studios.js` |
 | `users` | Account, favourites, watchlist, watched, ratings (1 to 5 stars, with dates), "not for me" |
 
-Coverage, counted from the live database:
-- 853 films have a backdrop, and 799 have at least four distinct frames.
-- 853 have a cast, 843 writers, 829 an editor, 767 a cinematographer and 572 a composer.
-- All 855 have a language, and 532 have their original tagline.
-- 811 have a trailer link: 809 play inside the page, and 2 only on YouTube itself. The other 44 films show their own frames instead.
+**How the catalogue grows:** by one rule, applied by `scripts/catalogue/planAdditions.js`. Every film cited by two or more of the 20 sources that the canon would rank in its top 500 if it were added is a candidate. Each is checked against TMDB (a five-minute extra had stood in for *WALL·E*), mainstream ones are marked by hand (studio spectacle and franchise films stay out), and the edge cases are decided by hand. The pass on 2026-10-22 added 263 films and two series.
 
-**The catalogue in memory** (`services/catalogue.js`). Under a thousand films fit easily in memory. So Explore's filtering, sorting, counting and search happen in plain JavaScript, not in MongoDB queries. Every count is exact, each filter's options are counted with the other filters applied, and a request takes a few milliseconds. The cache reloads every ten minutes.
+Coverage, counted from the live database:
+- 1,118 films have a backdrop, and 1,048 have at least four distinct frames.
+- 1,114 have a cast, 1,100 writers, 1,088 an editor, 1,029 a cinematographer and 769 a composer.
+- All 1,120 have a language, and 744 have their original tagline.
+- 1,065 have a trailer link: 1,063 play inside the page, and 2 only on YouTube itself. The other 55 films show their own frames instead.
+
+**The catalogue in memory** (`services/catalogue.js`). A thousand-odd films fit easily in memory. So Explore's filtering, sorting, counting and search happen in plain JavaScript, not in MongoDB queries. Every count is exact, each filter's options are counted with the other filters applied, and a request takes a few milliseconds. The cache reloads every ten minutes.
 
 ## 3. The canon engine
 
@@ -97,13 +99,13 @@ Independent all-time polls agreeing is the canon itself, so agreement counts for
 - **Eligibility:** a film is only measured against lists it could have been on. Kinema Junpo only lists Japanese films, Busan only Asian films up to 2014, and every list has its own years.
 - **Time to settle:** the slow-canonising families (all-time, filmmakers', regional, critic) count as available in proportion to how long the film has had, `min(1, max(0.15, years / 20))`.
 - **The lift:** a film's raw family total is lifted by `min(1.5, √(23.7 / available))`, where 23.7 is all the family caps added together. That gives the `standing` that decides `canonDecadeRank`. The canon itself takes no such lift, so a recent film can't leapfrog the classics on one good year.
-- **Where each shows:** a film page gives both ("5th of the 2020s · 341st of 791 in the atlas"), and each links to its list. Explore's "most acclaimed" order is the canon, except when a decade is chosen: then it follows `canonDecadeRank`, so the list matches the film pages (`sortCards` in `services/catalogue.js`).
+- **Where each shows:** a film page gives both ("6th of the 2020s · 422nd of 1,056 in the atlas", for Petite Maman), and each links to its list. Explore's "most acclaimed" order is the canon, except when a decade is chosen: then it follows `canonDecadeRank`, so the list matches the film pages (`sortCards` in `services/catalogue.js`).
 
 **Results:**
-- 791 films ranked, from 3,245 citations.
+- 1,056 films ranked, from 4,187 citations.
 - The most cited are Citizen Kane and The Rules of the Game, 16 times each.
 - The top three are Seven Samurai, Tokyo Story and Citizen Kane.
-- `breakdown()` lays the canon score out family by family for the About page. Over all 791 ranked films it reproduces the stored score with a worst difference of 0.000, and `tests/about.test.js` checks it against `scoreFilm()`.
+- `breakdown()` lays the canon score out family by family for the About page. It adds the families up in `scoreFilm()`'s order, so over all 1,056 ranked films it reproduces the stored score with a worst difference of 0.000, and `tests/about.test.js` checks it against `scoreFilm()`.
 
 ## 4. Today's film
 
@@ -121,8 +123,8 @@ Code: `backend/scripts/recs/` builds the model offline, and `backend/services/re
 
 **The data:**
 - MovieLens 32M (GroupLens, University of Minnesota): 32,000,204 ratings from 200,948 people, January 1995 to October 2023.
-- 826 of the atlas's 855 films are matched, by TMDB id or, where MovieLens's link was stale, by IMDb id.
-- That's 2,033,903 ratings of atlas films from 166,216 people. "Loved" means 4 stars or more: 1,425,615 loves.
+- 1,086 of the atlas's 1,118 films are matched, by TMDB id or, where MovieLens's link was stale, by IMDb id. The two series aren't in MovieLens.
+- That's 3,779,709 ratings of atlas films from 191,832 people. "Loved" means 4 stars or more: 2,641,609 loves.
 
 **The pipeline:**
 
@@ -138,7 +140,7 @@ Code: `backend/scripts/recs/` builds the model offline, and `backend/services/re
 
 **The model:**
 - **EASE** (Steck 2019), with λ = 100, chosen on the tuning group. Each film keeps its 50 strongest positive weights.
-- The shipped model has 42,743 film-to-film links. 41,075 come from viewers; the other 1,668 come from a shared country (752), decade (612), movement (256) or director (48). Those cover films and pairs the ratings don't reach.
+- The shipped model has 55,900 film-to-film links. 53,985 come from viewers; the other 1,915 come from a shared country (974), decade (631), movement (257) or director (53). Those cover films and pairs the ratings don't reach.
 
 **Serving:** `score(pick) = Σ weight(your film) × link(your film → pick) / Σ weight(your film)`.
 - **How much each of your films counts:**
@@ -156,21 +158,23 @@ Code: `backend/scripts/recs/` builds the model offline, and `backend/services/re
 
 Every number comes from `together.json`, so it's a real count of people who loved both films. Rounding never flatters: 3.6 times is "more than three times".
 
-**How well it works.** Tested on 7,110 people who were never used to build or tune it. The measure: given the last 5 films a person loved, is the very next film they loved in the top 10?
+**How well it works.** Tested on the 1,120-film atlas, on 11,090 people who were never used to build or tune it. The measure: given the last 5 films a person loved, is the very next film they loved in the top 10?
 
 | Method | Hit in top 10 |
 |---|---|
-| Random picks | 1.2% |
-| Canon order | 3.6% |
-| The old engine (hand-set weights) | 12.1% |
-| Content only (director, movement, country, decade) | 18.0% |
-| The most loved films on MovieLens | 27.6% |
-| Item-kNN (the first learned engine) | 35.3% |
-| **EASE, as shipped** | **42.1%** |
+| Random picks | 0.9% |
+| Canon order | 1.6% |
+| The old engine (hand-set weights) | 7.4% |
+| Content only (director, movement, country, decade) | 10.8% |
+| The most loved films on MovieLens | 20.9% |
+| Item-kNN (the first learned engine) | 25.4% |
+| **EASE, as shipped** | **34.8%** |
 
 Two more views of the same test:
-- For 72.2% of people, at least one film they went on to love was in the top 10, from just their last 5 loves.
-- On the published held-out protocol (Liang et al. 2018), Recall@20 is 69.2%.
+- For 66.7% of people, at least one film they went on to love was in the top 10, from just their last 5 loves.
+- On the published held-out protocol (Liang et al. 2018), Recall@20 is 62.4%.
+
+**Why it's lower than the first run.** The same committed test, run on the 855-film atlas (826 films in MovieLens, 7,110 people), gave EASE 42.1%, the most loved films 27.6%, the old engine 12.1% and random picks 1.2%. With 1,086 films to choose from and more people qualifying, every method scored lower, the baselines included, while EASE's lead held: 4.7 times the old engine (3.5 before) and about 14 points above the most loved films (14.5 before).
 
 Every method ranks every candidate film, with no sampled metrics. The margins of error are in the report.
 
@@ -179,7 +183,7 @@ Every method ranks every candidate film, with no sampled metrics. The margins of
 Each room has one physical idea from cinema, acted out with frames, the camera and the lens. A few techniques do most of the work:
 
 - **Home: the wall** (`mosaicRenderer.js`, `scripts/buildMosaic.js`).
-  - All 855 stills are packed into one sprite sheet with sharp, at 1x and 2x, so the wall is one request.
+  - A still for each of 1,118 films is packed into one sprite sheet with sharp, at 1x and 2x, so the wall is one request.
   - The resting wall is drawn once to an off-screen canvas and laid down as a single pattern fill per frame. Only the lens under the pointer and the few tiles flickering into colour are drawn on top.
   - At the end of the dive into today's film, an `<img>` takes over the tile's exact rectangle, so the push-in is a compositor transform.
 - **Home: the countdown** (`CanonCountdown.jsx`).
@@ -213,7 +217,7 @@ Each room has one physical idea from cinema, acted out with frames, the camera a
 Services that draw a shared link's preview don't run JavaScript, so a single-page app would show the site's own title and picture for every link.
 
 - **The middleware:** `frontend/middleware.js` runs on Vercel before a film's, director's, movement's or studio's page (and the main rooms) is served. It puts that page's own title, line and picture into the HTML, in the block between `<!-- meta -->` and `<!-- /meta -->`.
-- **The data:** comes from `frontend/public/meta/*.json` (855 films, 189 directors, 26 movements by slug and by id, 62 studios). These are written from the database by `backend/scripts/exportMeta.js`.
+- **The data:** comes from `frontend/public/meta/*.json` (1,120 films, 189 directors, 26 movements by slug and by id, 62 studios). These are written from the database by `backend/scripts/exportMeta.js`.
 - **Failure is safe:** a key it doesn't know, or any failure, serves the page unchanged.
 - **Tests:** `frontend/tests/middleware.test.mjs` runs the middleware against the real `index.html` and data files.
 - **In the browser,** `usePageTitle` keeps the tab's title in step with each page.
