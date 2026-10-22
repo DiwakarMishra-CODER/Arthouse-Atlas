@@ -12,6 +12,8 @@ import PosterWall from '../components/director/PosterWall';
 import Constellation from '../components/director/Constellation';
 import useFilmLight from '../components/film/useFilmLight';
 import { sized } from '../components/movements/treatments';
+import { usePageTitle } from '../hooks/usePageTitle';
+import NotFound from './NotFound';
 
 /**
  * A director, presented as a cinémathèque retrospective.
@@ -58,14 +60,11 @@ const DirectorDetail = () => {
     // no portrait: their most canonical film's frame stands in, in grey like a portrait
     const stand = signature?.stills?.[0] || signature?.backdropUrl;
     const light = useFilmLight(glow);
+    usePageTitle(director?.name || (loading ? null : 'Director not found'), director?.name ? `${director.name}: their films in the atlas, as a retrospective.` : undefined);
 
-    if (loading && !arrival) return <div className="min-h-screen pt-24"><LoadingSkeleton /></div>;
+    if (loading && !arrival) return <div className="min-h-screen pt-24"><LoadingSkeleton label="Threading their films" /></div>;
     if (!director) {
-        return (
-            <div className="min-h-screen pt-24 flex items-center justify-center">
-                <p className="text-gray-400">Director not found</p>
-            </div>
-        );
+        return <NotFound kicker="Not in the atlas" title="There’s no director here by that name." line="The link may be wrong, or the director may have left the atlas." links={[{ to: '/directors', label: 'All the directors' }, { to: '/', label: 'The home page' }]} />;
     }
 
     const born = yearOf(director.birthDate);

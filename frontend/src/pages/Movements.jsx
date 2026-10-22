@@ -7,6 +7,8 @@ import MovementCard from '../components/movements/MovementCard';
 import FilmStripTimeline from '../components/movements/FilmStripTimeline';
 import ProjectionRoom from '../components/movements/ProjectionRoom';
 import { treatmentFor } from '../components/movements/treatments';
+import { usePageTitle } from '../hooks/usePageTitle';
+import Leader from '../components/Leader';
 
 /**
  * Movements — every school in the atlas, in the order they began.
@@ -33,6 +35,7 @@ const Movements = () => {
     const [inView, setInView] = useState(null);
     const gridRef = useRef(null);
     const reducedMotion = useMotionPreference();
+    usePageTitle('Movements', 'The movements of arthouse cinema, from the silent avant-garde to now, each with its films.');
 
     useEffect(() => {
         Promise.all([movementsAPI.getAll(), movementsAPI.getStats().catch(() => ({ data: null }))])
@@ -88,7 +91,7 @@ const Movements = () => {
     if (loading) {
         return (
             <div className="h-screen w-full flex items-center justify-center">
-                <div className="text-gold text-xl font-serif animate-pulse motion-reduce:animate-none">Threading the projector...</div>
+                <Leader label="Threading the projector" />
             </div>
         );
     }

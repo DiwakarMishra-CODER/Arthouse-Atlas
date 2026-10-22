@@ -6,6 +6,7 @@ import { useMotionPreference } from '../hooks/useMotionPreference';
 import GoogleAuthButton from '../components/GoogleAuthButton';
 import Slate from '../components/admission/Slate';
 import { pic } from '../components/directors/arrange';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 /**
  * Sign in and Join: your first take. The shot is a film from the atlas, waiting in the dark, and while
@@ -54,6 +55,7 @@ const Admission = ({ scene }) => {
     const location = useLocation();
     const navigate = useNavigate();
     const reducedMotion = useMotionPreference();
+    usePageTitle(scene === 'join' ? 'Join' : 'Sign in');
     const { login, register, isAuthenticated, loading: authLoading } = useAuth();
     const from = location.state?.from;
     const dest = from && !/^\/(login|register)/.test(from) ? from : '/';

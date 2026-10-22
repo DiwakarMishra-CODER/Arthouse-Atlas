@@ -10,6 +10,7 @@ import ColdScreen from '../components/foryou/ColdScreen';
 import FocusReel from '../components/foryou/FocusReel';
 import QuickRate from '../components/foryou/QuickRate';
 import { sized } from '../components/movements/treatments';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 /**
  * For You: the focus puller's monitor. The room is seen through a lens, and the lens is your
@@ -31,6 +32,7 @@ const ForYou = () => {
     const { isAuthenticated, loading: authLoading } = useAuth();
     const { ratings, setMovieRating, notFor, toggleNotFor, isInWatchlist, toggleWatchlist } = useMovie();
     const reducedMotion = useMotionPreference();
+    usePageTitle('For you', 'Films picked for you from the ones you loved, learned from 32 million ratings by real viewers.');
     const location = useLocation();
     const navigate = useNavigate();
     const goBack = () => (location.key !== 'default' ? navigate(-1) : navigate('/'));
@@ -166,7 +168,7 @@ const ForYou = () => {
                         <ul className="flex gap-4 overflow-x-auto pb-3 [scrollbar-width:thin]">
                             {data.basedOn.films.map((f) => (
                                 <li key={f._id} className="flex-shrink-0 w-44">
-                                    <Link to={`/movie/${f._id}`} className="block aspect-video overflow-hidden ring-1 ring-white/10 bg-[#0d0c0b] hover:ring-white/30">
+                                    <Link to={`/movie/${f._id}`} aria-label={f.title} className="block aspect-video overflow-hidden ring-1 ring-white/10 bg-[#0d0c0b] hover:ring-white/30">
                                         {f.still && <img src={sized(f.still, 'w300')} alt="" loading="lazy" className="w-full h-full object-cover max-w-none" />}
                                     </Link>
                                     <div className="mt-2 text-[15px] leading-tight text-gray-100 truncate">{f.title}</div>

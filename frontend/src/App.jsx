@@ -19,6 +19,8 @@ import Studios from './pages/Studios';
 import StudioDetail from './pages/StudioDetail';
 import Recommendations from './pages/Recommendations';
 import ProjectedBlack from './components/ProjectedBlack';
+import Leader from './components/Leader';
+import { PageNotFound } from './pages/NotFound';
 
 
 const ProtectedRoute = ({ children }) => {
@@ -28,7 +30,7 @@ const ProtectedRoute = ({ children }) => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-12 h-12 border-2 border-gold/30 border-t-gold rounded-full animate-spin"></div>
+        <Leader label="Checking it’s you" />
       </div>
     );
   }
@@ -55,9 +57,11 @@ function AppRoutes() {
   return (
     <div className="relative min-h-screen bg-[#050505] text-white selection:bg-gold selection:text-black overflow-x-clip">
       <ArriveAtTop />
+      {/* for the keyboard: straight past the navbar to the page */}
+      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[80] focus:px-4 focus:py-3 focus:bg-gold focus:text-black font-label text-[13px] tracking-[0.14em] uppercase">Skip to the page</a>
       <ProjectedBlack />
       <Navbar />
-      <div className="relative z-10">
+      <main id="main" tabIndex={-1} className="relative z-10 outline-none">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Admission scene="in" />} />
@@ -72,6 +76,7 @@ function AppRoutes() {
           <Route path="/studios/:slug" element={<StudioDetail />} />
           <Route path="/recommendations" element={<Recommendations />} />
           <Route path="/about" element={<About />} />
+          <Route path="*" element={<PageNotFound />} />
 
           <Route
             path="/profile"
@@ -83,6 +88,8 @@ function AppRoutes() {
           />
 
         </Routes>
+      </main>
+      <div className="relative z-10">
         <Footer />
       </div>
     </div>

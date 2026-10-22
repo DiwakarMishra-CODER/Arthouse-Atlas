@@ -75,13 +75,15 @@ const JustMissingOut = ({ films, from = 11, reducedMotion = false }) => {
             </div>
 
             <div className="mt-8 -mx-6 px-6 md:mx-0 md:px-0 overflow-x-auto md:overflow-visible pt-3 pb-10">
-                <ol className="relative flex md:grid md:grid-cols-10 gap-4 md:gap-5 min-w-max md:min-w-0 items-start snap-x">
-                    {/* the rail */}
-                    <span className="absolute -left-2 -right-2 top-0 h-[3px] rounded-full bg-gradient-to-b from-[#8a8a8a] to-[#3a3a3a]" />
-                    {films.map((f, i) => (
-                        <Trim key={f._id} film={f} place={from + i} i={i} swing={swing} reducedMotion={reducedMotion} />
-                    ))}
-                </ol>
+                <div className="relative min-w-max md:min-w-0">
+                    {/* the rail (beside the list, not in it: a list holds only its films) */}
+                    <span aria-hidden="true" className="absolute -left-2 -right-2 top-0 h-[3px] rounded-full bg-gradient-to-b from-[#8a8a8a] to-[#3a3a3a]" />
+                    <ol className="relative flex md:grid md:grid-cols-10 gap-4 md:gap-5 items-start snap-x">
+                        {films.map((f, i) => (
+                            <Trim key={f._id} film={f} place={from + i} i={i} swing={swing} reducedMotion={reducedMotion} />
+                        ))}
+                    </ol>
+                </div>
             </div>
         </section>
     );

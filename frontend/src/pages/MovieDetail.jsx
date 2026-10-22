@@ -11,6 +11,8 @@ import ListYears from '../components/film/ListYears';
 import DoubleBill from '../components/film/DoubleBill';
 import useFilmLight from '../components/film/useFilmLight';
 import { treatmentFor, displayTitle, sized } from '../components/movements/treatments';
+import { usePageTitle } from '../hooks/usePageTitle';
+import NotFound from './NotFound';
 
 /**
  * A film, as one evening with it, top to bottom the way a screening runs.
@@ -38,6 +40,10 @@ const MovieDetail = () => {
     const loading = result.id !== id;
     const movie = loading ? null : result.data;
     const light = useFilmLight(movie?.backdropUrl || movie?.posterUrl);
+    usePageTitle(
+        movie ? `${movie.title}${movie.year ? ` (${movie.year})` : ''}` : loading ? null : 'Film not found',
+        movie ? movie.editorial?.hook || (movie.synopsis || '').split(/(?<=[.!?])\s/)[0] || undefined : undefined,
+    );
 
     useEffect(() => {
         let cancelled = false;
@@ -74,13 +80,9 @@ const MovieDetail = () => {
             .catch((error) => { console.error('Failed to fetch providers:', error); setProviders([]); });
     }, [movie]);
 
-    if (loading) return <div className="min-h-screen pt-24"><LoadingSkeleton /></div>;
+    if (loading) return <div className="min-h-screen pt-24"><LoadingSkeleton label="Threading the film" /></div>;
     if (!movie) {
-        return (
-            <div className="min-h-screen pt-24 flex items-center justify-center">
-                <p className="text-muted">Film not found</p>
-            </div>
-        );
+        return <NotFound kicker="Not in the atlas" title="This film isn’t on our reels." line="The link may be wrong, or the film may have left the atlas." links={[{ to: '/explore', label: 'Explore the films' }, { to: '/', label: 'The home page' }]} />;
     }
 
     const backdrop = movie.backdropUrl || movie.posterUrl;

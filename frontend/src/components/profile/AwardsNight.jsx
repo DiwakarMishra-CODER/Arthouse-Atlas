@@ -173,7 +173,7 @@ const AwardsNight = ({ awards, reel = [], reducedMotion }) => {
             <div className="absolute inset-x-0 top-0 z-20 pt-7 md:pt-10 pointer-events-none">
                 <div className="max-w-7xl mx-auto px-4 md:px-10">
                     <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">{open ? `Award ${show.at + 1} of ${n}` : 'Your awards'}</div>
-                    <h3 key={`h-${show.at}`} className="title-rise mt-1.5 font-serif font-light text-[2.1rem] md:text-6xl leading-[1.05] text-white [text-shadow:0_2px_24px_rgba(0,0,0,0.7)]">{award.label}</h3>
+                    <h2 key={`h-${show.at}`} className="title-rise mt-1.5 font-serif font-light text-[2.1rem] md:text-6xl leading-[1.05] text-white [text-shadow:0_2px_24px_rgba(0,0,0,0.7)]">{award.label}</h2>
                     <p key={`q-${show.at}`} className="title-rise mt-1.5 font-serif italic text-base md:text-2xl text-gray-200 [text-shadow:0_2px_18px_rgba(0,0,0,0.7)]">{award.question}</p>
                 </div>
             </div>

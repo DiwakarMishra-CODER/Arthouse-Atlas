@@ -6,6 +6,9 @@ import { useMotionPreference } from '../hooks/useMotionPreference';
 import LightScreen from '../components/studios/LightScreen';
 import DollyTrack from '../components/studios/DollyTrack';
 import { pic } from '../components/directors/arrange';
+import { usePageTitle } from '../hooks/usePageTitle';
+import NotFound from './NotFound';
+import Leader from '../components/Leader';
 
 /**
  * One house: you've come down off the lot and onto its stage. It plays as the house's own opening
@@ -39,6 +42,7 @@ const StudioDetail = () => {
 
     const loading = result.slug !== slug;
     const house = loading ? null : result.data;
+    usePageTitle(house?.name || (loading ? null : 'Studio not found'), house?.name ? `${house.name}: its films in the atlas.` : undefined);
     const films = useMemo(() => (house ? [...house.films].sort((a, b) => (a.y || 0) - (b.y || 0)) : []), [house]);
 
     // the opening titles: its mark in the light, then its signature film comes up out of it
@@ -52,14 +56,9 @@ const StudioDetail = () => {
     }, [house, films, reducedMotion]);
 
     const goBack = () => (location.key !== 'default' ? navigate(-1) : navigate('/studios'));
-    if (loading) return <div className="min-h-screen pt-40 text-center font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">The light is coming up…</div>;
+    if (loading) return <div className="min-h-screen pt-40"><Leader label="The light is coming up" /></div>;
     if (!house) {
-        return (
-            <div className="min-h-screen pt-40 px-6 text-center">
-                <p className="font-serif text-3xl text-gray-100">There’s no house here by that name.</p>
-                <Link to="/studios" className="mt-6 inline-block font-label text-[13px] tracking-[0.14em] uppercase text-gold hover:text-gold-light">The whole lot ›</Link>
-            </div>
-        );
+        return <NotFound kicker="Not in the atlas" title="There’s no house here by that name." line="The link may be wrong, or the house may have left the atlas." links={[{ to: '/studios', label: 'The whole lot' }, { to: '/', label: 'The home page' }]} />;
     }
 
     const about = house.about || {};

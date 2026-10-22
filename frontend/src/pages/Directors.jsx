@@ -7,6 +7,7 @@ import { useMotionPreference } from '../hooks/useMotionPreference';
 import Screen from '../components/directors/Screen';
 import Credits from '../components/directors/Credits';
 import { ARRANGEMENTS, arrange, narrow, pic } from '../components/directors/arrange';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 /**
  * Directors: "Directed by". The scroll is the projector. The room opens on one screen, full-bleed,
@@ -55,6 +56,7 @@ const Directors = () => {
     const navigate = useNavigate();
     const navigation = useNavigationType();
     const reducedMotion = useMotionPreference();
+    usePageTitle('Directors', 'Every director in the atlas, their films rolling through the projector’s gate.');
     const [params, setParams] = useSearchParams();
     const by = ARRANGEMENTS.some((a) => a.key === params.get('by')) ? params.get('by') : 'acclaim';
     const q = params.get('q') || '';

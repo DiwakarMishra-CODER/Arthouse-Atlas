@@ -93,7 +93,7 @@ const FilmReel = ({ films, treatment: t }) => {
                                             to={`/movie/${f._id}`}
                                             tabIndex={on ? 0 : -1}
                                             aria-label={`${f.title} (${f.year})`}
-                                            className="block aspect-video overflow-hidden bg-[#0a0a0a] focus:outline-none"
+                                            className="block aspect-video overflow-hidden bg-[#0a0a0a] focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                                         >
                                             {still(f) ? (
                                                 <img

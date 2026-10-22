@@ -7,6 +7,7 @@ import TheCount from '../components/about/TheCount';
 import TheLists from '../components/about/TheLists';
 import ForYouExample from '../components/about/ForYouExample';
 import Credits from '../components/about/Credits';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 /**
  * About: how the atlas is made. What it is, in two lines; why it exists, in its maker's words, played as
@@ -25,6 +26,7 @@ const CHAPTERS = [
 
 const About = () => {
     const reducedMotion = useMotionPreference();
+    usePageTitle('About', 'Why the atlas was made, how a film earns its place, the lists it’s built from, and how For You works.');
     const location = useLocation();
     const [facts, setFacts] = useState(null);
 

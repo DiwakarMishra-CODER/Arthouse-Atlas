@@ -9,6 +9,7 @@ import JustMissingOut from '../components/home/JustMissingOut';
 import AtlasMap from '../components/home/AtlasMap';
 import Auditorium from '../components/home/Auditorium';
 import NextFilm from '../components/home/NextFilm';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 /**
  * The front door of the atlas.
@@ -24,6 +25,7 @@ let topCache = null;
 
 const Home = () => {
     const reducedMotion = useMotionPreference();
+    usePageTitle();
     const navigation = useNavigationType();
     const [top, setTop] = useState(() => topCache || { films: [], next: [], of: 0 });
 

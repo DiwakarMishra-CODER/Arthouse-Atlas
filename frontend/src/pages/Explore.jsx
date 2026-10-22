@@ -19,6 +19,7 @@ import GenrePicker from '../components/explore/pickers/GenrePicker';
 import LengthPicker from '../components/explore/pickers/LengthPicker';
 import OrderPicker from '../components/explore/pickers/OrderPicker';
 import { LENGTH_WORDS } from '../components/explore/words';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 /**
  * Explore: the cinema foyer.
@@ -120,6 +121,7 @@ const Explore = () => {
     // back to wherever you came from (or home, when Explore is where you arrived)
     const goBack = () => (location.key !== 'default' ? navigate(-1) : navigate('/'));
     const reducedMotion = useMotionPreference();
+    usePageTitle('Explore the films', 'Every film in the atlas, in canon order: narrow it by movement, decade, country, length, genre, mood or director, or start from a film you love.');
     const oldLink = fromOldLink(params);
 
     const sel = useMemo(() => Object.fromEntries([...FILTERS, 'sort', 'seed'].map((k) => [k, params.get(k) || ''])), [params]);

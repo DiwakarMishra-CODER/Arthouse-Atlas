@@ -167,8 +167,7 @@ export const TicketDock = ({ movie, light, frames, onPlay, playLabel }) => {
     return createPortal(
         <>
             {/* a wide screen: a slim glass sign-board at the top right */}
-            <div
-                role="group"
+            <aside
                 aria-label="Keep track of this film"
                 className={`own-transitions hidden md:flex fixed right-6 lg:right-10 top-[80px] z-40 items-center gap-1 h-14 pl-1.5 pr-4 rounded-full bg-[#0b0a09]/80 backdrop-blur-md ring-1 ring-white/12 shadow-[0_14px_40px_rgba(0,0,0,0.6)] transition-[transform,opacity] duration-700 ease-out ${shown ? (dark ? '-translate-y-[58px] opacity-100' : 'translate-y-0 opacity-100') : '-translate-y-4 opacity-0 pointer-events-none'}`}
             >
@@ -185,17 +184,17 @@ export const TicketDock = ({ movie, light, frames, onPlay, playLabel }) => {
                 <span aria-hidden="true" className="mx-1 h-6 w-px bg-white/15" />
                 <Stars rating={rating} rate={rate} light={light} size="text-[14px]" cell="w-6 h-9" />
                 {!signedIn && <span className="sr-only">Sign in to keep track</span>}
-            </div>
+            </aside>
 
             {/* a phone: a bar along the foot, there from the start */}
-            <div className={`md:hidden fixed inset-x-0 bottom-0 z-40 transition-transform duration-300 ${atFoot ? 'translate-y-full' : 'translate-y-0'}`}>
+            <aside aria-label="Keep track of this film" className={`md:hidden fixed inset-x-0 bottom-0 z-40 transition-transform duration-300 ${atFoot ? 'translate-y-full' : 'translate-y-0'}`}>
                 {stars && (
                     <div className="flex items-center justify-center gap-2 py-1.5 bg-[#0b0a09]/95 backdrop-blur-md border-t border-white/10">
                         <span className="font-label text-[12px] tracking-[0.14em] uppercase text-gray-200">Rate it</span>
                         <Stars rating={rating} rate={(s) => { rate(s); setStars(false); }} light={light} size="text-[22px]" cell="w-10 h-11" />
                     </div>
                 )}
-                <div role="group" aria-label="Keep track of this film" className="grid grid-cols-5 bg-[#0b0a09]/90 backdrop-blur-md border-t border-white/10 pb-[env(safe-area-inset-bottom)]">
+                <div className="grid grid-cols-5 bg-[#0b0a09]/90 backdrop-blur-md border-t border-white/10 pb-[env(safe-area-inset-bottom)]">
                     {onPlay && (
                         <button type="button" onClick={onPlay} aria-label={playLabel} className="flex flex-col items-center justify-center gap-1 h-[60px] font-label text-[11px] tracking-[0.1em] uppercase text-white">
                             <span className="relative w-[44px] aspect-video overflow-hidden ring-1 ring-white/25">
@@ -219,7 +218,7 @@ export const TicketDock = ({ movie, light, frames, onPlay, playLabel }) => {
                         {rating ? `Rated ${rating}` : 'Rate'}
                     </button>
                 </div>
-            </div>
+            </aside>
         </>,
         document.body,
     );

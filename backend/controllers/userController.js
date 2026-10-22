@@ -4,11 +4,12 @@ import Movie from '../models/Movie.js';
 import { OAuth2Client } from 'google-auth-library';
 import jwt from 'jsonwebtoken';
 import axios from 'axios';
+import crypto from 'crypto';
 import { getErrorResponse } from '../utils/errorResponse.js';
 import { loadCatalogue } from '../services/catalogue.js';
 import { buildForYou } from './recsController.js';
 import { buildFestival } from '../services/festival.js';
-import { nameProblem, passwordProblem, deleteProblem } from '../services/account.js';
+import { nameProblem, passwordProblem, deleteProblem, googleProblem } from '../services/account.js';
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -402,16 +403,26 @@ const legacyRecommendations = async (user) => {
 // @access  Public
 export const googleLogin = async (req, res) => {
   const { token } = req.body;
+  if (!token) return res.status(400).json({ message: 'Google Login Failed' });
 
   try {
-    // Verify Access Token & Get User Info
+    // Ask Google who the token was issued to before trusting it
+    const info = await client.getTokenInfo(token);
+    const problem = googleProblem(info, process.env.GOOGLE_CLIENT_ID);
+    if (problem) {
+      console.warn('Google Login refused:', problem);
+      return res.status(401).json({ message: problem });
+    }
+
+    // Name and picture from the profile; the email is the one tokeninfo vouched for
     const googleRes = await axios.get(`https://www.googleapis.com/oauth2/v3/userinfo`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
     });
 
-    const { name, email, picture } = googleRes.data;
+    const { name, picture } = googleRes.data;
+    const { email } = info;
 
     let user = await User.findOne({ email }).populate('favorites watchlist watched').populate('ratings.movie', 'title posterUrl year');
 
@@ -428,7 +439,7 @@ export const googleLogin = async (req, res) => {
         token: generateToken(user._id)
       });
     } else {
-      const randomPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+      const randomPassword = crypto.randomBytes(24).toString('base64url');
       user = await User.create({
         username: name, 
         email,
@@ -450,6 +461,6 @@ export const googleLogin = async (req, res) => {
     }
   } catch (error) {
     console.error('Google Login Error:', error);
-    res.status(400).json({ message: 'Google Login Failed', error: error.message });
+    res.status(400).json({ message: 'Google Login Failed' });
   }
 };

@@ -7,6 +7,7 @@ import DollyTrack from '../components/studios/DollyTrack';
 import YourAtlas from '../components/profile/YourAtlas';
 import Account from '../components/profile/Account';
 import Picker from '../components/profile/Picker';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 /**
  * Your profile, as your own awards night: every film you rate is a vote, and your ratings pick the
@@ -26,6 +27,7 @@ const monthOf = (d) => (d ? new Date(d).toLocaleDateString('en-GB', { month: 'lo
 
 const Profile = () => {
     const reducedMotion = useMotionPreference();
+    usePageTitle('Your profile');
     const [fest, setFest] = useState(null);
     const [failed, setFailed] = useState(false);
     const [reel, setReel] = useState([]);

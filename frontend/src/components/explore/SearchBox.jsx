@@ -141,7 +141,7 @@ const SearchBox = ({ value, start, onSearch, on }) => {
 
     return (
         <div ref={box} className="relative w-full">
-            <label className="flex items-center gap-3 border-b border-white/25 focus-within:border-gold transition-colors">
+            <label className="flex items-center gap-3 border-b border-white/25 focus-within:border-gold focus-within:shadow-[0_1px_0_0_var(--color-gold)] transition-colors">
                 <MdSearch className="text-gray-400 text-xl flex-shrink-0" aria-hidden="true" />
                 <input
                     id="explore-search"
@@ -152,6 +152,8 @@ const SearchBox = ({ value, start, onSearch, on }) => {
                     onKeyDown={onKey}
                     placeholder={placeholder}
                     aria-label="Search the atlas: a film, a director, a place or a mood"
+                    role="combobox"
+                    aria-autocomplete="list"
                     aria-expanded={open && rows.length > 0}
                     aria-controls="explore-suggestions"
                     autoComplete="off"

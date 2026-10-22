@@ -32,7 +32,8 @@ const ordinal = (n) => ordinalWord(n).toUpperCase(); // the marquee is set in ca
 const SHOWN = 5;
 
 export const Letters = ({ text, reducedMotion, delay = 0, className }) => (
-    <span className={className} aria-label={text}>
+    <span className={className}>
+        <span className="sr-only">{text}</span>
         {[...text].map((ch, i) => (
             <motion.span
                 key={i}
@@ -103,8 +104,8 @@ const CanonMarquee = ({ film, accent, reducedMotion = false }) => {
                 {canon
                     ? 'Its place among all the films in the atlas, and among the films of its decade.'
                     : 'None of the 20 polls, lists and prizes we read place this film. It is in the atlas on the curator’s judgement.'}
-                {' '}<Link to="/about#count" className="text-gold hover:text-gold-light whitespace-nowrap">How it’s counted ›</Link>
-                {' '}<Link to="/about#lists" className="text-gold hover:text-gold-light whitespace-nowrap">See all 20 lists ›</Link>
+                {' '}<Link to="/about#count" className="text-gold underline decoration-gold/50 underline-offset-4 hover:text-gold-light whitespace-nowrap">How it’s counted ›</Link>
+                {' '}<Link to="/about#lists" className="text-gold underline decoration-gold/50 underline-offset-4 hover:text-gold-light whitespace-nowrap">See all 20 lists ›</Link>
             </p>
 
             {/* the laurels */}

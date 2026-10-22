@@ -14,6 +14,8 @@ import LineageTimeline from '../components/movements/LineageTimeline';
 import OpeningScene from '../components/movements/OpeningScene';
 import ProjectionRoom from '../components/movements/ProjectionRoom';
 import { treatmentFor, displayTitle, sized } from '../components/movements/treatments';
+import { usePageTitle } from '../hooks/usePageTitle';
+import NotFound from './NotFound';
 
 /**
  * One movement, structured like a screening rather than an article:
@@ -106,14 +108,11 @@ const MovementDetail = () => {
 
     const loading = result.slug !== slug;
     const movement = result.data;
+    usePageTitle(movement ? displayTitle(movement) : loading ? null : 'Movement not found', movement?.tagline || undefined);
 
-    if (loading) return <div className="min-h-screen pt-24"><LoadingSkeleton /></div>;
+    if (loading) return <div className="min-h-screen pt-24"><LoadingSkeleton label="Threading the movement" /></div>;
     if (!movement) {
-        return (
-            <div className="min-h-screen pt-24 flex items-center justify-center">
-                <div className="text-xl text-gray-400">Movement not found</div>
-            </div>
-        );
+        return <NotFound kicker="Not in the atlas" title="There’s no movement here by that name." line="The link may be wrong, or the movement may have been renamed." links={[{ to: '/movements', label: 'All the movements' }, { to: '/', label: 'The home page' }]} />;
     }
 
     const t = treatmentFor(movement);

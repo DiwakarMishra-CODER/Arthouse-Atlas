@@ -324,6 +324,9 @@ const TheScreen = ({ movie, light, reducedMotion, providers, tags }) => {
         const t = setInterval(() => setIdle((x) => x + 1), IDLE);
         return () => clearInterval(t);
     }, [c, seen, playing, reducedMotion, frames.length]);
+    // a new card can turn the house lights down or up (the navbar and the docked ticket check on
+    // scroll, and a single jump of the scroll is over before the stage says which card it's on)
+    useEffect(() => { window.dispatchEvent(new Event('scroll')); }, [c]);
     // (with reduced motion it's set still, as text)
     useEffect(() => {
         if (!reducedMotion) return undefined;

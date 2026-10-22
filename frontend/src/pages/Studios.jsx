@@ -6,6 +6,7 @@ import { useMotionPreference } from '../hooks/useMotionPreference';
 import LightScreen from '../components/studios/LightScreen';
 import { layout } from '../components/studios/lotLayout';
 import { createLotRenderer } from '../components/studios/lotRenderer';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 /**
  * Studios: the Lot. A studio backlot at night, seen from the air, built out of the films
@@ -30,6 +31,7 @@ const loadImage = (src) => new Promise((resolve, reject) => {
 
 const Studios = () => {
     const reducedMotion = useMotionPreference();
+    usePageTitle('Studios', 'The houses behind the films (studios, producers and labels), as a backlot seen from a crane.');
     const [houses, setHouses] = useState(cachedHouses);
     const [index, setIndex] = useState(null);
     const [sheet, setSheet] = useState(null);
