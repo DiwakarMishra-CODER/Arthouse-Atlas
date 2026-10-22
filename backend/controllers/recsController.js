@@ -1,7 +1,7 @@
 import Movie from '../models/Movie.js';
 import { getErrorResponse } from '../utils/errorResponse.js';
 import { getIndex, inRankedOrder, CARD_FIELDS, REASONS } from '../services/recommender.js';
-import { recommendFrom, togetherOf, getTogether } from '../services/forYou.js';
+import { recommendFrom, togetherOf, getTogether, sharedFacts } from '../services/forYou.js';
 import { loadCatalogue } from '../services/catalogue.js';
 
 /**
@@ -12,18 +12,6 @@ import { loadCatalogue } from '../services/catalogue.js';
 
 // a film as the reasons name it
 const filmOf = (c) => c && { _id: c._id, title: c.title, year: c.year, still: c.still || c.posterUrl || null, directors: c.directors };
-
-// what's simply true of both films (shown as a small fact, never as the reason)
-const sharedFacts = (a, b) => {
-  if (!a || !b) return null;
-  const director = a.directors.find((d) => b.directors.includes(d));
-  if (director) return { director };
-  const movement = a.movements.find((m) => b.movements.includes(m));
-  if (movement) return { movement };
-  if (a.country && a.country === b.country) return { country: a.country };
-  if (a.decade && a.decade === b.decade) return { decade: a.decade };
-  return null;
-};
 
 const round = (x) => Math.round(x * 1000) / 1000;
 

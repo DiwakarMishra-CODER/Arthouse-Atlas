@@ -16,7 +16,8 @@
     "recs:evaluate": "node scripts/recs/evaluate.js",
     "recs:final": "node scripts/recs/evaluate.js --final",
     "recs:build": "node scripts/recs/build.js",
-    "recs:together": "node scripts/recs/together.js"
+    "recs:together": "node scripts/recs/together.js",
+    "recs:audience": "node scripts/recs/audience.js"
   },
   "keywords": [
     "arthouse",

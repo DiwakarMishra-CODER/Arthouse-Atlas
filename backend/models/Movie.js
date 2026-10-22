@@ -189,6 +189,13 @@ const movieSchema = new mongoose.Schema({
     type: String,
     index: true  // Enable filtering by production company (e.g., A24)
   }],
+  // The rest of the credits, for the billing block (scripts/media/credits.js)
+  cast: [{ _id: false, name: String, character: String }],  // the first six billed
+  writers: [{ _id: false, name: String, job: String }],      // screenplay first, then story, then the source
+  editors: [{ type: String }],
+  originalLanguage: { type: String, default: null },
+  languages: [{ type: String }],                             // the language it's in first
+  tagline: { type: String, default: null },                  // as its posters carried it
   backdropUrl: {
     type: String,  // High-res 16:9 backdrop from TMDB (for UI wallpapers)
     default: null

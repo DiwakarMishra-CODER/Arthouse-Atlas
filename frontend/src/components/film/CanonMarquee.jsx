@@ -1,19 +1,19 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
-import { MdExpandMore } from 'react-icons/md';
+import { motion } from 'framer-motion';
 import Laurel from './Laurel';
 import { ordinal as ordinalWord, citation } from './canonWords';
-import { sized } from '../movements/treatments';
+import { fractionWords } from '../foryou/whyWords';
 
 /**
  * Where the canon places a film, the way a cinema would announce it.
  *
  * A backlit marquee spells out its standing — its place in the atlas when
  * that's in the top hundred, otherwise its place among films of its decade —
- * letter by letter, with the bulbs chasing round the sign. Below it, every
- * list that places the film is a poster laurel, strongest first, in plain
- * words. Then the films ranked either side of it, so the number has company.
+ * letter by letter, with the bulbs chasing round the sign. Below it, the
+ * strongest five lists that place the film, each a poster laurel in plain
+ * words (every list, by when it named the film, follows in ListYears). Then
+ * what viewers made of it: how many MovieLens viewers loved it, and what share
+ * of those who rated it.
  */
 
 // what kind of recognition, in words, for the breadth line
@@ -58,7 +58,6 @@ const Bulbs = ({ count, vertical = false }) => (
 );
 
 const CanonMarquee = ({ film, accent, reducedMotion = false }) => {
-    const [open, setOpen] = useState(false);
     const cites = film.provenance || [];
     const canon = film.canon;
 
@@ -82,8 +81,8 @@ const CanonMarquee = ({ film, accent, reducedMotion = false }) => {
         .map(([f, k]) => `${k} ${(FAMILY[f] || [f, `${f}s`])[k === 1 ? 0 : 1]}`);
 
     const shown = cites.slice(0, SHOWN);
-    const rest = cites.slice(SHOWN);
-    const company = film.company || [];
+    const viewers = film.audience;
+    const share = viewers && fractionWords(viewers.loved, viewers.rated);
 
     return (
         <div>
@@ -126,77 +125,15 @@ const CanonMarquee = ({ film, accent, reducedMotion = false }) => {
                             Placed by {breadth.join('  ·  ')}
                         </p>
                     )}
-                    {rest.length > 0 && (
-                        <div className="mt-6 max-w-2xl mx-auto">
-                            <button
-                                onClick={() => setOpen((o) => !o)}
-                                aria-expanded={open}
-                                className="font-label mx-auto flex items-center gap-2 px-5 py-2.5 text-xs tracking-[0.14em] uppercase text-gray-200 ring-1 ring-white/15 hover:ring-white/40 hover:text-white transition-colors"
-                            >
-                                {open ? 'Show fewer' : `And ${rest.length} more ${rest.length === 1 ? 'list' : 'lists'}`}
-                                <MdExpandMore className={`text-lg transition-transform ${open ? 'rotate-180' : ''}`} />
-                            </button>
-                            <AnimatePresence initial={false}>
-                                {open && (
-                                    <motion.ul
-                                        className="mt-4 overflow-hidden border-t border-white/[0.08]"
-                                        initial={{ height: 0, opacity: 0 }}
-                                        animate={{ height: 'auto', opacity: 1 }}
-                                        exit={{ height: 0, opacity: 0 }}
-                                        transition={{ duration: 0.35 }}
-                                    >
-                                        {rest.map((p, i) => {
-                                            const c = citation(p);
-                                            const row = (
-                                                <>
-                                                    <span className="text-gray-400 text-sm">{c.name}</span>
-                                                    <span className="font-serif text-gray-100">{c.place}</span>
-                                                </>
-                                            );
-                                            return (
-                                                <li key={p._id || `${p.source}-r${i}`} className="border-b border-white/[0.08]">
-                                                    {p.url
-                                                        ? <a href={p.url} target="_blank" rel="noopener noreferrer" className="flex items-baseline justify-between gap-4 py-3 hover:bg-white/[0.03]">{row}</a>
-                                                        : <div className="flex items-baseline justify-between gap-4 py-3">{row}</div>}
-                                                </li>
-                                            );
-                                        })}
-                                    </motion.ul>
-                                )}
-                            </AnimatePresence>
-                        </div>
-                    )}
                 </>
             )}
 
-            {/* in its company */}
-            {company.length > 1 && (
-                <div className="mt-16">
-                    <div className="text-center font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">
-                        {canon.lead === 'atlas' ? 'Ranked either side of it · in the atlas' : `Ranked either side of it · the ${canon.decade}s`}
-                    </div>
-                    <ol className="mt-6 flex justify-center items-end gap-3 md:gap-5">
-                        {company.map((c) => {
-                            const self = c._id === film._id;
-                            const r = canon.lead === 'atlas' ? c.canonRank : c.canonDecadeRank;
-                            const poster = (
-                                <>
-                                    <span className={`block aspect-[2/3] overflow-hidden bg-[#111] transition-transform duration-300 ${self ? '' : 'group-hover:-translate-y-1.5'}`}
-                                        style={{ boxShadow: self ? `0 0 0 2px ${accent}, 0 18px 50px ${accent}55` : '0 0 0 1px rgba(255,255,255,0.12)' }}>
-                                        {c.posterUrl && <img src={sized(c.posterUrl, 'w342')} alt="" loading="lazy" className={`w-full h-full object-cover ${self ? '' : 'grayscale-[0.5] group-hover:grayscale-0 transition-[filter]'}`} />}
-                                    </span>
-                                    <span className="block mt-2 text-center font-oswald text-lg leading-none" style={{ color: self ? accent : 'rgb(156 163 175)' }}>{ordinal(r).toLowerCase()}</span>
-                                    <span className={`block mt-1 text-center text-[12px] leading-tight line-clamp-2 ${self ? 'text-white' : 'text-gray-400 group-hover:text-white'}`}>{c.title}</span>
-                                </>
-                            );
-                            return (
-                                <li key={c._id} className={self ? 'w-28 md:w-36' : 'w-20 md:w-28'}>
-                                    {self ? <div>{poster}</div> : <Link to={`/movie/${c._id}`} className="group block">{poster}</Link>}
-                                </li>
-                            );
-                        })}
-                    </ol>
-                </div>
+            {/* what viewers made of it */}
+            {viewers && (
+                <p className="mt-10 mx-auto max-w-2xl text-center font-serif text-lg md:text-xl leading-snug text-gray-200">
+                    And viewers: on MovieLens, <span className="text-gold-light">{viewers.loved.toLocaleString()}</span> people loved it (4 stars or more){share ? `, ${share} of the ${viewers.rated.toLocaleString()} who rated it` : ''}.
+                    {' '}<Link to="/about#foryou-how" className="font-label text-[12px] tracking-[0.14em] uppercase text-gold hover:text-gold-light whitespace-nowrap">What’s MovieLens ›</Link>
+                </p>
             )}
         </div>
     );

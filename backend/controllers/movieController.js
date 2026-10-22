@@ -5,6 +5,8 @@ import { pickTonight, MARATHON } from '../services/tonight.js';
 import { loadCatalogue, applyFilters, sortCards, facetCounts, publicCard, searchScore, nameMatches, withinStart, tally, MOODS, LENGTHS, SORTS } from '../services/catalogue.js';
 import { normalizeName } from '../services/nameUtils.js';
 import { getBridge, outsideCard } from '../services/bridge.js';
+import { togetherOf, getTogether, sharedFacts } from '../services/forYou.js';
+import { audienceOf } from '../services/audience.js';
 
 const shuffleArray = (array) => {
   const shuffled = [...array]; // Create a copy to avoid mutating original
@@ -191,10 +193,9 @@ export const getMovies = async (req, res) => {
 };
 
 // Where the canon places a film: its all-time standing and its standing among films of its decade.
-// Pages lead with whichever says more — all-time inside the top 100, otherwise its decade — and
-// show the films ranked either side of it there.
-const canonFor = async (movie, { withCompany = true } = {}) => {
-  if (!movie.canonRank) return { canon: null, company: [] };
+// Pages lead with whichever says more: all-time inside the top 100, otherwise its decade.
+const canonFor = async (movie) => {
+  if (!movie.canonRank) return { canon: null };
   const decade = Math.floor(movie.year / 10) * 10;
   const inDecade = { year: { $gte: decade, $lt: decade + 10 }, canonDecadeRank: { $ne: null } };
   const [of, decadeOf] = await Promise.all([
@@ -202,17 +203,7 @@ const canonFor = async (movie, { withCompany = true } = {}) => {
     Movie.countDocuments(inDecade)
   ]);
   const lead = movie.canonRank <= 100 ? 'atlas' : 'decade';
-  const canon = { rank: movie.canonRank, of, decadeRank: movie.canonDecadeRank, decadeOf, decade, lead };
-  if (!withCompany) return { canon, company: [] };
-
-  const near = (r) => ({ $gte: Math.max(1, r - 2), $lte: r + 2 });
-  const company = await Movie.find(lead === 'atlas'
-    ? { canonRank: near(movie.canonRank) }
-    : { ...inDecade, canonDecadeRank: near(movie.canonDecadeRank) })
-    .sort(lead === 'atlas' ? { canonRank: 1 } : { canonDecadeRank: 1 })
-    .select('title year posterUrl canonRank canonDecadeRank')
-    .lean();
-  return { canon, company };
+  return { canon: { rank: movie.canonRank, of, decadeRank: movie.canonDecadeRank, decadeOf, decade, lead } };
 };
 
 // @desc    Tonight's film: one film a day from the films worth an evening, with the reason it was chosen
@@ -228,7 +219,7 @@ export const getTonight = async (req, res) => {
     const movie = await Movie.findById(pick.id)
       .select('title originalTitle year directors country runtime posterUrl backdropUrl stills trailerUrl editorial.hook canonRank canonDecadeRank provenance')
       .lean();
-    const { canon } = await canonFor(movie, { withCompany: false });
+    const { canon } = await canonFor(movie);
     // a film this long gets fair warning, whatever the reason it was chosen
     const reason = movie.runtime > MARATHON
       ? `${pick.reason ? `${pick.reason} ` : ''}Today's marathon: clear an afternoon for it.`
@@ -325,13 +316,13 @@ export const getMovieById = async (req, res) => {
       }
     }
 
-    const { canon, company } = await canonFor(movie);
+    const { canon } = await canonFor(movie);
 
     res.json({
         ...movie.toObject(),
         directorId,
         canon,
-        company
+        audience: audienceOf(movie.tmdbId)
     });
   } catch (error) {
     console.error(error);
@@ -357,11 +348,23 @@ export const getSimilarMovies = async (req, res) => {
     if (index?.films.has(movie.tmdbId)) {
       const ranked = similarTo(index, movie.tmdbId, { limit: 12 });
       const docs = await Movie.find({ tmdbId: { $in: ranked.map((r) => r.tmdbId) } }).select(CARD_FIELDS).lean();
-      const similar = inRankedOrder(docs, ranked).slice(0, 10).map(({ film, score, because }) => ({
-        ...film,
-        similarityScore: Math.round(score * 1e4) / 1e4,
-        because: because && { reason: REASONS[because.reason] }
-      }));
+      // why each one: how many who loved this film loved it too (when enough did), and what the two share
+      const { byTmdb } = await loadCatalogue();
+      const together = getTogether();
+      const self = byTmdb.get(movie.tmdbId);
+      const similar = inRankedOrder(docs, ranked).slice(0, 10).map(({ film, score, because }) => {
+        const card = byTmdb.get(film.tmdbId);
+        return {
+          ...film,
+          stills: card?.stills?.length ? card.stills.slice(0, 2) : film.stills,
+          similarityScore: Math.round(score * 1e4) / 1e4,
+          because: because && {
+            reason: REASONS[because.reason],
+            together: because.reason === 'v' ? togetherOf(together, movie.tmdbId, film.tmdbId) : null,
+            shared: sharedFacts(self, card),
+          },
+        };
+      });
       res.setHeader('Cache-Control', 'public, max-age=3600');
       return res.json(similar);
     }

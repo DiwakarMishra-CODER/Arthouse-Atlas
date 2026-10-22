@@ -42,6 +42,7 @@ const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [lightsDown, setLightsDown] = useState(false);
+    const [peek, setPeek] = useState(false); // the pointer at the top edge, while the lights are down
     const profileMenuRef = useRef(null);
 
     useEffect(() => {
@@ -75,6 +76,13 @@ const Navbar = () => {
         window.addEventListener('scroll', onScroll, { passive: true });
         return () => window.removeEventListener('scroll', onScroll);
     }, [location.pathname]);
+    // with the lights down, reaching for the top of the screen brings the bar back while you need it
+    useEffect(() => {
+        if (!lightsDown) return undefined;
+        const onMove = (e) => setPeek((was) => (was ? e.clientY < 110 : e.clientY < 56));
+        window.addEventListener('mousemove', onMove, { passive: true });
+        return () => { window.removeEventListener('mousemove', onMove); setPeek(false); };
+    }, [lightsDown]);
 
     // Lock body scroll when mobile menu is open
     useEffect(() => {
@@ -92,7 +100,7 @@ const Navbar = () => {
 
     return (
         <nav
-            className={`fixed top-0 left-0 right-0 z-50 focus-within:!opacity-100 focus-within:!translate-y-0 ${lightsDown && !isMobileMenuOpen ? 'opacity-0 -translate-y-full pointer-events-none' : ''}`}
+            className={`fixed top-0 left-0 right-0 z-50 focus-within:!opacity-100 focus-within:!translate-y-0 ${lightsDown && !peek && !isMobileMenuOpen ? 'opacity-0 -translate-y-full pointer-events-none' : ''}`}
             style={{ transition: 'opacity 600ms ease, transform 700ms cubic-bezier(0.4, 0, 0.2, 1)' }}
         >
             <div aria-hidden="true" className={`absolute inset-x-0 top-0 h-[150%] -z-10 pointer-events-none bg-gradient-to-b from-[#050505]/85 via-[#050505]/40 to-transparent transition-opacity duration-500 ${scrolled ? 'opacity-0' : 'opacity-100'}`} />

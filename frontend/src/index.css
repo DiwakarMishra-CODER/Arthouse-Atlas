@@ -910,3 +910,48 @@ html[data-cover] .projected-black { visibility: hidden; }
 /* the punch line, a beat after its lead-in, as subtitles come */
 .subtitle-late { animation: frame-cut 260ms ease-out 350ms both; }
 @media (prefers-reduced-motion: reduce) { .subtitle-late { animation: none; } }
+
+/* the film page's screen: the house goes dark, then the masking either side of the picture opens */
+.house-down { animation: frame-cut 600ms ease-out both; }
+.mask-up { animation: mask-up 760ms cubic-bezier(0.6, 0, 0.2, 1) 300ms both; }
+.mask-down { animation: mask-down 760ms cubic-bezier(0.6, 0, 0.2, 1) 300ms both; }
+@keyframes mask-up { to { transform: translateY(-101%); } }
+@keyframes mask-down { to { transform: translateY(101%); } }
+@media (prefers-reduced-motion: reduce) { .house-down { animation: none; } .mask-up, .mask-down { animation: none; display: none; } }
+
+/* when the lists placed it: the line runs out from the film's year like a leader, and each decade's
+   lists light as it reaches them (--k of --n along it) */
+.years-line { transform: scaleX(0); transform-origin: 0 50%; }
+.years-line-v { transform: scaleY(0); transform-origin: 50% 0; }
+.years-mark, .years-dot { opacity: 0; }
+[data-on] .years-line { animation: years-line 1.8s cubic-bezier(0.45, 0, 0.25, 1) both; }
+[data-on] .years-line-v { animation: years-line-v 1.8s cubic-bezier(0.45, 0, 0.25, 1) both; }
+[data-on] .years-dot { animation: years-dot 420ms cubic-bezier(0.2, 0.8, 0.3, 1.3) both; animation-delay: calc(1.8s * var(--k) / var(--n)); }
+[data-on] .years-mark { animation: years-mark 520ms cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: calc(1.8s * var(--k) / var(--n) + 120ms + var(--j, 0) * 90ms); }
+@keyframes years-line { to { transform: scaleX(1); } }
+@keyframes years-line-v { to { transform: scaleY(1); } }
+@keyframes years-dot { from { opacity: 0; transform: scale(0.2); } to { opacity: 1; transform: scale(1); } }
+@keyframes years-mark { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .years-line, .years-line-v { transform: none; animation: none !important; }
+  .years-mark, .years-dot { opacity: 1; animation: none !important; }
+}
+
+/* the film page's opening: the title racked into focus (a soft copy gives way to the sharp one), a
+   hole punched in your ticket */
+.focus-in { animation: focus-in 900ms cubic-bezier(0.3, 0, 0.2, 1) 250ms both; }
+.focus-out { animation: focus-out 1100ms cubic-bezier(0.3, 0, 0.2, 1) 150ms both; }
+@keyframes focus-in { from { opacity: 0; } }
+@keyframes focus-out { to { opacity: 0; transform: scale(1.015); } }
+.punch-in { animation: punch-in 260ms cubic-bezier(0.2, 0.9, 0.3, 1.4) both; }
+@keyframes punch-in { from { transform: scale(0.15); opacity: 0; } }
+.card-rise { animation: card-rise 600ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.card-rise-late { animation: card-rise 600ms cubic-bezier(0.2, 0.7, 0.2, 1) 220ms both; }
+@keyframes card-rise { from { opacity: 0; transform: translateY(18px); } }
+@media (prefers-reduced-motion: reduce) { .focus-in, .punch-in, .card-rise, .card-rise-late { animation: none; } .focus-out { display: none; } }
+/* the film page's signs: one that's yours strikes on like a lamp (as the navbar's room does); the
+   trailer's play button breathes like a lamp warming */
+.sign-on { animation: sign-strike 560ms steps(1, end) both; animation-delay: calc(var(--i, 0) * 80ms); }
+.lamp-breathe { animation: lamp-breathe 2.4s ease-in-out infinite; }
+@keyframes lamp-breathe { 0%, 100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 1; transform: scale(1.08); } }
+@media (prefers-reduced-motion: reduce) { .sign-on, .lamp-breathe { animation: none; } }

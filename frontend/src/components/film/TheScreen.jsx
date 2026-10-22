@@ -1,0 +1,464 @@
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
+import { MdArrowBack, MdArrowDownward, MdArrowOutward, MdClose } from 'react-icons/md';
+import { sized } from '../movements/treatments';
+import { sizeFor, useDecoded } from '../about/frames';
+import { ShelfSigns, TicketDock, TrailerScreen } from './Ticket';
+import BillingBlock from './BillingBlock';
+
+/**
+ * The film page's opening: the page plays the film's opening titles.
+ *
+ * You arrive on its title card, set over its own frames, which cut from one to the next while you
+ * stay (a frame of black between, the camera creeping in); the title is racked into focus. Scroll,
+ * and the screen holds while the opening titles play one card at a time over its frames: who's in
+ * it, who shot it, scored it and cut it, who wrote and directed it; then its programme note as
+ * subtitles, a sentence or two at a time; then why it matters; then the house lights come up on
+ * where to watch it. "Read it as text" (and reduced motion) sets it all still instead.
+ *
+ * Play the trailer and it plays right here: the house goes dark, the masking above and below the
+ * picture opens, and YouTube's player runs on the screen (Close, Esc, or the trailer's end brings
+ * the lights back up). A film with no trailer that plays here runs its own frames instead, like a
+ * projector, and says so in plain words.
+ */
+
+const FRAME = 2600; // ms on each frame in the projection
+const IDLE = 4500; // ms between cuts while you stay on the title card
+const STEP = 40; // svh of scroll for each card
+const COUNTRY = { 'United States of America': 'United States', 'United Kingdom': 'UK' };
+const SOURCE = { Novel: 'the novel by', Book: 'the book by', Play: 'the play by', 'Short Story': 'the story by', 'Comic Book': 'the comic by', Author: 'the work of' };
+
+const youTubeId = (url) => (url || '').match(/(?:v=|embed\/|youtu\.be\/)([\w-]{11})/)?.[1] || null;
+
+// YouTube's player script, loaded the first time a trailer is played
+let youTube = null;
+const loadYouTube = () => {
+    if (youTube) return youTube;
+    youTube = new Promise((resolve, reject) => {
+        if (window.YT?.Player) { resolve(window.YT); return; }
+        const before = window.onYouTubeIframeAPIReady;
+        window.onYouTubeIframeAPIReady = () => { before?.(); resolve(window.YT); };
+        const s = document.createElement('script');
+        s.src = 'https://www.youtube.com/iframe_api';
+        s.onerror = () => { youTube = null; reject(new Error('YouTube unavailable')); };
+        document.head.appendChild(s);
+    });
+    return youTube;
+};
+
+// the programme note, cut into subtitles: whole sentences, about two to a card
+const subtitlesOf = (text) => {
+    const sentences = (text || '').replace(/\s+/g, ' ').trim().split(/(?<=[.!?…])\s+(?=[A-Z0-9"“‘'(])/);
+    const cards = [];
+    for (const s of sentences) {
+        const last = cards.at(-1);
+        if (last && last.length + s.length < 240) cards[cards.length - 1] = `${last} ${s}`;
+        else cards.push(s);
+    }
+    // never more than four: the rest joins the last
+    return cards.length > 4 ? [...cards.slice(0, 3), cards.slice(3).join(' ')] : cards.filter(Boolean);
+};
+
+// the opening, card by card
+const cardsOf = (movie) => {
+    const directors = movie.directors || [];
+    const writers = movie.writers || [];
+    const wrote = writers.filter((w) => ['Screenplay', 'Writer'].includes(w.job)).map((w) => w.name);
+    const source = writers.find((w) => SOURCE[w.job]);
+    const auteur = directors.length === 1 && wrote.length === 1 && wrote[0] === directors[0];
+    const crew = [
+        movie.cinematographers?.length && { role: 'Photographed by', names: movie.cinematographers.slice(0, 2) },
+        movie.composers?.length && { role: 'Music by', names: movie.composers.slice(0, 2) },
+        movie.editors?.length && { role: 'Edited by', names: movie.editors.slice(0, 2) },
+    ].filter(Boolean);
+    const made = [
+        source && { role: `Based on ${SOURCE[source.job]}`, names: [source.name] },
+        !auteur && wrote.length && { role: 'Written by', names: wrote.slice(0, 3) },
+    ].filter(Boolean);
+    const ed = movie.editorial || {};
+    return [
+        { kind: 'title' },
+        movie.cast?.length && { kind: 'credits', label: 'Starring', entries: [{ role: 'Starring', names: movie.cast.slice(0, 3).map((c) => c.name), stack: true }] },
+        crew.length && { kind: 'credits', label: 'The crew', entries: crew },
+        directors.length && { kind: 'credits', label: auteur ? 'Written and directed' : 'Directed', entries: [...made, { role: auteur ? 'Written and directed by' : 'Directed by', names: directors, big: true }], facts: true },
+        ...subtitlesOf(ed.synopsis || movie.synopsis).map((text, i) => ({ kind: 'note', label: i === 0 ? 'About the film' : null, text })),
+        ed.whyItMatters && { kind: 'why', label: 'Why it matters', text: ed.whyItMatters },
+        { kind: 'end', label: 'Where to watch it' },
+    ].filter(Boolean);
+};
+
+// the film's frames, run like a projector (each decoded before it's shown)
+const Frames = ({ stills }) => {
+    const [size] = useState(sizeFor);
+    const [ready, want] = useDecoded();
+    const [k, setK] = useState(0);
+    const urls = stills.map((s) => sized(s, size));
+    const key = urls.join('|');
+    useEffect(() => { want(key.split('|')); }, [key, want]);
+    useEffect(() => {
+        const t = setInterval(() => setK((x) => (x + 1) % stills.length), FRAME);
+        return () => clearInterval(t);
+    }, [stills.length]);
+    return (
+        <>
+            {ready.has(urls[k]) && <img key={k} src={urls[k]} alt="" className="frame-push absolute inset-0 w-full h-full object-cover max-w-none" />}
+            <span key={`s${k}`} aria-hidden="true" className="shutter absolute inset-0 bg-black" />
+            <span aria-hidden="true" className="absolute inset-0 still-grain opacity-60 pointer-events-none" />
+            <span className="absolute right-3 bottom-2 font-label text-[12px] tracking-[0.14em] text-white/70 tabular-nums">{String(k + 1).padStart(2, '0')}A</span>
+        </>
+    );
+};
+
+// the house dark, the screen open: the trailer, or the frames
+const Projection = ({ movie, stills, start, shared, onClose }) => {
+    const id = youTubeId(movie.trailerUrl);
+    const [failed, setFailed] = useState(start === 'frames' ? 'none' : null);
+    const [started, setStarted] = useState(false); // the trailer's running: the film's picture gives way
+    const host = useRef(null);
+    const close = useRef(null);
+
+    useEffect(() => {
+        close.current?.focus();
+        const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+        const overflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        window.addEventListener('keydown', onKey);
+        return () => { window.removeEventListener('keydown', onKey); document.body.style.overflow = overflow; };
+    }, [onClose]);
+
+    useEffect(() => {
+        if (failed || !id || !host.current) return undefined;
+        let player = null;
+        let gone = false;
+        const el = document.createElement('div');
+        host.current.appendChild(el);
+        loadYouTube().then((YT) => {
+            if (gone) return;
+            player = new YT.Player(el, {
+                host: 'https://www.youtube-nocookie.com',
+                videoId: id,
+                width: '100%',
+                height: '100%',
+                playerVars: { autoplay: 1, rel: 0, playsinline: 1, modestbranding: 1 },
+                events: {
+                    onError: (e) => setFailed([101, 150].includes(e.data) ? 'elsewhere' : 'gone'),
+                    onStateChange: (e) => {
+                        if (e.data === 1) setStarted(true);
+                        if (e.data === 0) onClose(); // the trailer's over: lights up
+                    },
+                },
+            });
+        }).catch(() => { if (!gone) setFailed('gone'); });
+        const box = host.current;
+        return () => { gone = true; player?.destroy?.(); box.replaceChildren(); };
+    }, [id, failed, onClose]);
+
+    const frames = failed && stills.length > 1;
+    const onYouTube = id && <a href={`https://www.youtube.com/watch?v=${id}`} target="_blank" rel="noreferrer" className="not-italic inline-flex items-center gap-1 font-label text-[12px] tracking-[0.14em] uppercase text-gold hover:text-gold-light">Watch it on YouTube <MdArrowOutward aria-hidden="true" /></a>;
+    return createPortal(
+        <div role="dialog" aria-modal="true" aria-label={`${movie.title}: ${frames ? 'frames from the film' : 'trailer'}`} className="fixed inset-0 z-[70] flex flex-col items-center justify-center px-0 md:px-8">
+            <div aria-hidden="true" className="house-down absolute inset-0 bg-black" onClick={onClose} />
+            <div className="relative w-full flex items-center justify-between gap-4 px-4 md:px-0 pb-3 max-w-[min(100%,calc((100svh-8rem)*16/9))]">
+                <div className="subtitle-in font-label text-[12px] tracking-[0.14em] uppercase text-gray-300 truncate">
+                    <span className="text-white">{movie.title}</span> · {frames ? 'Frames from the film' : 'Trailer'}
+                </div>
+                <button ref={close} type="button" onClick={onClose} className="shrink-0 flex items-center gap-1.5 min-h-11 font-label text-[12px] tracking-[0.14em] uppercase text-gray-200 hover:text-white">
+                    Close <MdClose size={18} aria-hidden="true" />
+                </button>
+            </div>
+            {/* the screen: the little one that was pressed, grown to full size */}
+            <motion.div layoutId={shared} transition={{ duration: 0.6, ease: [0.6, 0, 0.2, 1] }} className="relative w-full aspect-video overflow-hidden bg-black max-w-[min(100%,calc((100svh-8rem)*16/9))]">
+                {frames ? <Frames stills={stills} /> : <div ref={host} className="absolute inset-0 [&_iframe]:w-full [&_iframe]:h-full" />}
+                {/* the film's picture, carried by the screen as it grows, until the trailer runs */}
+                {!frames && stills[0] && <img src={sized(stills[0], 'w780')} alt="" className={`absolute inset-0 z-[5] w-full h-full object-cover max-w-none pointer-events-none transition-opacity duration-700 ${started ? 'opacity-0' : 'opacity-100'}`} />}
+                {/* (grown from the little screen, the growing is the reveal; otherwise the masking opens) */}
+                {!shared && <span aria-hidden="true" className="mask-up absolute inset-x-0 top-0 h-1/2 bg-black z-10" />}
+                {!shared && <span aria-hidden="true" className="mask-down absolute inset-x-0 bottom-0 h-1/2 bg-black z-10" />}
+            </motion.div>
+            <div className="relative w-full px-4 md:px-0 pt-3 min-h-11 max-w-[min(100%,calc((100svh-8rem)*16/9))] font-serif italic text-[15px] md:text-base text-gray-300">
+                {!failed && id && <>Trouble playing it? {onYouTube}</>}
+                {failed === 'none' && 'No trailer for it online. These are frames from the film.'}
+                {failed === 'gone' && 'Its trailer is no longer online. These are frames from the film.'}
+                {failed === 'elsewhere' && <>Its trailer only plays on YouTube itself. These are frames from the film. {onYouTube}</>}
+            </div>
+        </div>,
+        document.body,
+    );
+};
+
+// the title card's words: what it is, its title racked into focus, its line, and your tickets
+const TitleBlock = ({ movie, light, frames, canPlay, trailer, onPlay, playRef, playing }) => {
+    const ed = movie.editorial || {};
+    const facts = [(movie.directors || []).join(' & '), movie.year, COUNTRY[movie.country] || movie.country, movie.originalLanguage, movie.runtime && `${movie.runtime} min`].filter(Boolean);
+    const line = ed.hook || (movie.tagline && `“${movie.tagline.replace(/^["“]|["”]$/g, '')}”`);
+    return (
+        <div className="[text-shadow:0_2px_24px_rgba(0,0,0,0.6)]">
+            <div className="card-rise font-label text-[12px] tracking-[0.16em] uppercase" style={{ color: light }}>{facts.join('  ·  ')}</div>
+            <div className="relative mt-3 md:mt-4">
+                <h1 className="focus-in font-serif font-light leading-[0.95] text-[2.9rem] sm:text-6xl md:text-7xl lg:text-[6.5rem] max-w-5xl">{movie.title}</h1>
+                {/* the title out of focus, given up as the lens finds it */}
+                <div aria-hidden="true" className="focus-out pointer-events-none absolute inset-0 font-serif font-light leading-[0.95] text-[2.9rem] sm:text-6xl md:text-7xl lg:text-[6.5rem] max-w-5xl blur-[7px]">{movie.title}</div>
+            </div>
+            {movie.originalTitle && movie.originalTitle !== movie.title && (
+                <div className="card-rise-late mt-2 md:mt-3 font-serif italic text-lg md:text-2xl text-gray-300">{movie.originalTitle}</div>
+            )}
+            {line && <p className="card-rise-late mt-4 md:mt-5 max-w-2xl font-serif italic text-lg md:text-2xl leading-snug text-gray-100">{line}</p>}
+            <div className="card-rise-late mt-6 md:mt-8 flex flex-col md:flex-row md:items-end gap-5 md:gap-12 [text-shadow:none]">
+                {canPlay && <TrailerScreen buttonRef={playRef} frames={frames} light={light} trailer={trailer} onClick={() => onPlay('title')} shared="trailer-screen" hidden={playing?.from === 'title'} />}
+                {/* (on a phone the bar along the foot keeps track instead) */}
+                <div className="hidden md:block"><ShelfSigns movie={movie} light={light} /></div>
+            </div>
+        </div>
+    );
+};
+
+// the credits on a card, as a film's opening titles set them: the role small, the name large; the
+// director last and largest, on a line of their own
+const Entry = ({ e, i, movie, light }) => (
+    <div className={i ? 'card-rise-late' : 'card-rise'}>
+        <div className="font-label text-[12px] md:text-[13px] tracking-[0.3em] uppercase text-gray-200">{e.role}</div>
+        <div className={`mt-2 md:mt-3 font-serif font-light leading-[1.02] text-white ${e.big ? 'text-5xl md:text-8xl' : e.stack ? 'text-4xl md:text-7xl' : 'text-3xl md:text-5xl'}`}>
+            {e.names.map((n, k) => (
+                <span key={n} className={e.stack ? 'block mt-1 md:mt-2' : ''}>
+                    {!e.stack && k > 0 && <span className="text-gray-400"> &amp; </span>}
+                    {e.big && k === 0 && movie.directorId
+                        ? <Link to={`/directors/${movie.directorId}`} className="underline decoration-1 underline-offset-[10px] hover:text-gold-light" style={{ textDecorationColor: `${light}99` }}>{n}</Link>
+                        : n}
+                </span>
+            ))}
+        </div>
+    </div>
+);
+
+const Credits = ({ card, movie, light }) => {
+    const small = card.entries.filter((e) => !e.big);
+    const big = card.entries.find((e) => e.big);
+    return (
+        <div className="flex flex-col items-center gap-7 md:gap-10 text-center [text-shadow:0_0_3px_rgba(0,0,0,0.7),0_2px_22px_rgba(0,0,0,0.85)]">
+            {small.length > 0 && (
+                <div className={`grid grid-cols-1 gap-6 md:gap-14 ${small.length === 3 ? 'md:grid-cols-3' : small.length === 2 ? 'md:grid-cols-2' : ''}`}>
+                    {small.map((e, i) => <Entry key={e.role} e={e} i={i} movie={movie} light={light} />)}
+                </div>
+            )}
+            {big && <Entry e={big} i={small.length} movie={movie} light={light} />}
+            {card.facts && (
+                <div className="card-rise-late font-label text-[12px] md:text-[13px] tracking-[0.22em] uppercase text-gray-300">
+                    {[COUNTRY[movie.country] || movie.country, movie.year, movie.runtime && `${movie.runtime} minutes`, movie.languages?.length && `in ${movie.languages.slice(0, 2).join(' and ')}`].filter(Boolean).join('  ·  ')}
+                </div>
+            )}
+        </div>
+    );
+};
+
+const WhereToWatch = ({ movie, providers, tags }) => (
+    <div className="flex flex-col items-center text-center">
+        <div className="card-rise font-label text-[12px] md:text-[13px] tracking-[0.3em] uppercase text-gray-200">Where to watch it</div>
+        {providers === null ? (
+            <div className="mt-5 animate-pulse h-10 w-48 bg-white/5" />
+        ) : providers.length ? (
+            <div className="card-rise-late mt-5 flex flex-wrap justify-center gap-2 max-w-3xl">
+                {providers.map((p) => (
+                    <a key={p.provider_id} href={`https://www.google.com/search?q=Watch+${encodeURIComponent(movie.title)}+on+${encodeURIComponent(p.provider_name)}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 pr-3 bg-black/50 ring-1 ring-white/15 hover:ring-white/40 transition-colors">
+                        <img src={`https://image.tmdb.org/t/p/w45${p.logo_path}`} alt="" className="w-9 h-9 object-cover" />
+                        <span className="text-[13px] text-gray-100 whitespace-nowrap">{p.provider_name}</span>
+                    </a>
+                ))}
+            </div>
+        ) : (
+            <p className="card-rise-late mt-4 font-serif italic text-xl text-gray-200">Not streaming in India or the US just now.</p>
+        )}
+        {tags.length > 0 && (
+            <p className="card-rise-late mt-8 max-w-2xl text-[15px] leading-loose">
+                {tags.map((t, i) => (
+                    <span key={t.label}>
+                        {i > 0 && <span className="mx-2.5 text-gray-500">/</span>}
+                        <Link to={t.to} className="text-gray-200 hover:text-white capitalize">{t.label}</Link>
+                    </span>
+                ))}
+            </p>
+        )}
+    </div>
+);
+
+const TheScreen = ({ movie, light, reducedMotion, providers, tags }) => {
+    const navigate = useNavigate();
+    const section = useRef(null);
+    const play = useRef(null);
+    const [playing, setPlaying] = useState(null); // { kind: 'trailer' | 'frames', from: 'title' | 'dock' }
+    const [asText, setAsText] = useState(false);
+    const [c, setC] = useState(0);
+    const [idle, setIdle] = useState(0);
+    const [seen, setSeen] = useState(true);
+    const [size] = useState(sizeFor);
+    const [ready, want] = useDecoded();
+
+    const frames = [...new Set([movie.backdropUrl, ...(movie.stills || [])].filter(Boolean).map((s) => sized(s, 'w780')))];
+    const trailer = !!youTubeId(movie.trailerUrl);
+    const canPlay = trailer || frames.length > 1;
+    const cards = cardsOf(movie);
+    const n = cards.length;
+    const card = cards[c];
+    // each card cuts to the next frame; on the title card they cut by themselves too
+    const frameAt = (i) => (frames.length ? sized(frames[(i + idle) % frames.length], size) : null);
+    const src = frameAt(c);
+
+    // (one function for the screen's life: the player is built once per showing, not per render)
+    const stop = useCallback(() => { setPlaying(null); setTimeout(() => play.current?.focus(), 0); }, []);
+    const { scrollYProgress } = useScroll({ target: section, offset: ['start start', 'end end'] });
+    useMotionValueEvent(scrollYProgress, 'change', (p) => {
+        const i = Math.min(n - 1, Math.max(0, Math.floor(p * n)));
+        if (i !== c) setC(i);
+    });
+    useEffect(() => { want([frameAt(c), frameAt(c + 1)]); });
+    useEffect(() => {
+        const el = section.current;
+        if (!el) return undefined;
+        const io = new IntersectionObserver(([e]) => setSeen(e.isIntersecting));
+        io.observe(el);
+        return () => io.disconnect();
+    }, [asText]);
+    useEffect(() => {
+        if (c !== 0 || !seen || playing || reducedMotion || frames.length < 2) return undefined;
+        const t = setInterval(() => setIdle((x) => x + 1), IDLE);
+        return () => clearInterval(t);
+    }, [c, seen, playing, reducedMotion, frames.length]);
+    // (with reduced motion it's set still, as text)
+    useEffect(() => {
+        if (!reducedMotion) return undefined;
+        const t = setTimeout(() => setAsText(true), 0);
+        return () => clearTimeout(t);
+    }, [reducedMotion]);
+
+    const toCard = (i) => {
+        const el = section.current;
+        const top = el.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: top + ((el.offsetHeight - window.innerHeight) * (i + 0.5)) / n, behavior: 'smooth' });
+    };
+    const skip = () => document.getElementById('critics')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const back = (
+        <button onClick={() => navigate(-1)} className="font-label absolute top-20 md:top-24 left-4 md:left-10 z-20 flex items-center gap-2 min-h-11 text-xs tracking-[0.14em] uppercase text-gray-300 hover:text-white transition-colors">
+            <MdArrowBack /> Back
+        </button>
+    );
+    const projection = playing && <Projection movie={movie} stills={frames} start={playing.kind} shared={playing.from === 'title' ? 'trailer-screen' : undefined} onClose={stop} />;
+    const onPlay = (from = 'dock') => setPlaying({ kind: trailer ? 'trailer' : 'frames', from });
+    const dock = <TicketDock movie={movie} light={light} frames={frames} onPlay={canPlay ? () => onPlay('dock') : null} playLabel={trailer ? 'Play the trailer' : 'Play its frames'} />;
+
+    // still, as text: the title card, then the billing block and the note as they read on paper
+    if (asText) {
+        const ed = movie.editorial || {};
+        const note = ed.synopsis || movie.synopsis;
+        return (
+            <div ref={section}>
+                <section className="relative h-[88vh] min-h-[560px] overflow-hidden">
+                    {movie.backdropUrl && <img src={sized(movie.backdropUrl, 'original')} alt="" className="absolute inset-0 w-full h-full object-cover [object-position:50%_30%]" />}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/55 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-[#050505]/20 to-transparent" />
+                    {back}
+                    <div className="absolute inset-x-0 bottom-0 max-w-7xl mx-auto px-4 md:px-10 pb-10 md:pb-14">
+                        <TitleBlock movie={movie} light={light} frames={frames} canPlay={canPlay} trailer={trailer} onPlay={onPlay} playRef={play} playing={playing} />
+                    </div>
+                    {projection}
+                    {dock}
+                </section>
+                <div className="max-w-7xl mx-auto px-4 md:px-10">
+                    {!reducedMotion && <div className="pt-8 text-right"><button type="button" onClick={() => setAsText(false)} className="min-h-11 font-label text-[12px] tracking-[0.14em] uppercase text-gold hover:text-gold-light">Play it as the opening ›</button></div>}
+                    <BillingBlock movie={movie} light={light} providers={providers} reducedMotion={reducedMotion} />
+                    {(note || ed.whyItMatters) && (
+                        <section className="pt-20 md:pt-28 max-w-3xl mx-auto">
+                            <h2 className="font-label text-[12px] tracking-[0.14em] uppercase text-gray-400 mb-6">About the film</h2>
+                            {note && <p className="text-gray-200 text-lg md:text-xl leading-relaxed">{note}</p>}
+                            {ed.whyItMatters && (
+                                <blockquote className="mt-12 pl-6 border-l-2" style={{ borderColor: light }}>
+                                    <div className="font-label text-[12px] tracking-[0.14em] uppercase mb-3" style={{ color: light }}>Why it matters</div>
+                                    <p className="font-serif text-2xl md:text-[1.7rem] leading-snug text-white">{ed.whyItMatters}</p>
+                                </blockquote>
+                            )}
+                        </section>
+                    )}
+                </div>
+            </div>
+        );
+    }
+
+    const low = card.kind === 'note';
+    return (
+        <section ref={section} aria-label={`${movie.title}: its opening titles`} className="own-transitions relative" style={{ height: `${100 + n * STEP}svh` }}>
+            {/* (once the titles run, the house lights go down: the navbar leaves until the opening's over) */}
+            <div data-lights-down={c > 0 ? '' : undefined} className="sticky top-0 h-[100svh] overflow-hidden bg-black">
+                {/* the frame, cut to the next as the card changes, the camera creeping in */}
+                {src && ready.has(src) && <img key={src} src={src} alt="" className="frame-push absolute inset-0 w-full h-full object-cover max-w-none [object-position:50%_30%] [transform-origin:50%_30%]" />}
+                <span key={`cut-${src}`} aria-hidden="true" className="shutter absolute inset-0 bg-black" />
+                <span aria-hidden="true" className="absolute inset-0 still-grain opacity-50 pointer-events-none" />
+                {/* the dark the words need: low and to the left on the title card, round the centre for credits, at the foot for subtitles, all over as the lights come up */}
+                <div aria-hidden="true" className={`absolute inset-0 transition-opacity duration-700 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-transparent ${card.kind === 'title' ? 'opacity-100' : 'opacity-0'}`} />
+                <div aria-hidden="true" className={`absolute inset-0 transition-opacity duration-700 bg-gradient-to-r from-[#050505]/80 via-[#050505]/15 to-transparent ${card.kind === 'title' ? 'opacity-100' : 'opacity-0'}`} />
+                <div aria-hidden="true" className={`absolute inset-0 transition-opacity duration-700 bg-[radial-gradient(ellipse_75%_60%_at_50%_50%,rgba(0,0,0,0.72),rgba(0,0,0,0.35)_70%,rgba(0,0,0,0.2))] ${card.kind === 'credits' || card.kind === 'why' ? 'opacity-100' : 'opacity-0'}`} />
+                <div aria-hidden="true" className={`absolute inset-x-0 bottom-0 h-[55%] transition-opacity duration-700 bg-[linear-gradient(to_top,rgba(0,0,0,0.92),rgba(0,0,0,0.7)_40%,transparent)] ${low ? 'opacity-100' : 'opacity-0'}`} />
+                <div aria-hidden="true" className={`absolute inset-0 transition-opacity duration-700 bg-[#050505]/80 ${card.kind === 'end' ? 'opacity-100' : 'opacity-0'}`} />
+                {back}
+
+                {/* the card (the credits, the note and why it matters are read out from the words below instead) */}
+                <div key={`card-${c}`} aria-hidden={['credits', 'note', 'why'].includes(card.kind) || undefined} className="absolute inset-0 px-4 md:px-10 pt-24 pb-40 md:pb-24 flex">
+                    {card.kind === 'title' && (
+                        <div className="self-end w-full max-w-7xl mx-auto">
+                            <TitleBlock movie={movie} light={light} frames={frames} canPlay={canPlay} trailer={trailer} onPlay={onPlay} playRef={play} playing={playing} />
+                        </div>
+                    )}
+                    {card.kind === 'credits' && <div className="m-auto"><Credits card={card} movie={movie} light={light} /></div>}
+                    {card.kind === 'note' && (
+                        <div className="self-end w-full flex flex-col items-center text-center [text-shadow:0_0_2px_rgba(0,0,0,0.95),0_2px_12px_rgba(0,0,0,0.85)]">
+                            {card.label && <div className="card-rise font-label text-[12px] tracking-[0.3em] uppercase text-gray-300 mb-3">{card.label}</div>}
+                            <p className="subtitle-in max-w-4xl font-serif text-[1.3rem] md:text-[2rem] leading-snug text-[#fbf8f2]">{card.text}</p>
+                        </div>
+                    )}
+                    {card.kind === 'why' && (
+                        <div className="m-auto max-w-4xl text-center">
+                            <div className="card-rise font-label text-[12px] md:text-[13px] tracking-[0.3em] uppercase" style={{ color: light }}>{card.label}</div>
+                            <p className="card-rise-late mt-4 md:mt-6 font-serif font-light text-[1.7rem] md:text-[3rem] leading-[1.15] text-white">{card.text}</p>
+                        </div>
+                    )}
+                    {card.kind === 'end' && <div className="m-auto"><WhereToWatch movie={movie} providers={providers} tags={tags} /></div>}
+                </div>
+
+                {/* where you are in the opening, and the ways out of it */}
+                <div className="absolute inset-x-0 bottom-0 px-4 md:px-10 pb-[4.5rem] md:pb-4 pt-10 bg-gradient-to-t from-black/75 to-transparent">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="relative h-[2px] bg-white/15">
+                            <motion.span className="absolute inset-0 bg-gold origin-left" style={{ scaleX: scrollYProgress }} />
+                        </div>
+                        <div className="mt-1 flex items-center justify-between gap-4 font-label text-[12px] tracking-[0.14em] uppercase">
+                            <button type="button" onClick={skip} className="min-h-10 text-gray-300 hover:text-white whitespace-nowrap">Skip the opening ›</button>
+                            <ol className="hidden md:flex items-center gap-1">
+                                {cards.map((x, i) => (
+                                    <li key={i}>
+                                        <button type="button" onClick={() => toCard(i)} aria-label={`Card ${i + 1}${x.label ? `: ${x.label}` : ''}`} className="w-6 h-10 flex items-center justify-center">
+                                            <span className={`block h-[3px] transition-[width,background-color] ${i === c ? 'w-5 bg-gold' : 'w-2 bg-white/35'}`} />
+                                        </button>
+                                    </li>
+                                ))}
+                            </ol>
+                            <span className="flex items-center gap-4 md:gap-6">
+                                {c < n - 1 && <span className="hidden sm:flex items-center gap-1 text-gray-400">{c === 0 ? 'Scroll for its opening titles' : 'Scroll on'} <MdArrowDownward aria-hidden="true" /></span>}
+                                <button type="button" onClick={() => setAsText(true)} className="min-h-10 text-gold hover:text-gold-light whitespace-nowrap">Read it as text ›</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/* the opening, in words, for a screen reader */}
+            <div className="sr-only">
+                {cards.map((x, i) => (
+                    x.kind === 'credits' ? <p key={i}>{x.entries.map((e) => `${e.role} ${e.names.join(' and ')}.`).join(' ')}</p>
+                        : x.kind === 'note' || x.kind === 'why' ? <p key={i}>{x.label ? `${x.label}: ` : ''}{x.text}</p> : null
+                ))}
+            </div>
+            {projection}
+            {dock}
+        </section>
+    );
+};
+
+export default TheScreen;

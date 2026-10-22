@@ -86,6 +86,18 @@ export const togetherOf = (together, seed, pick) => {
   return pickLoved && together.people ? { loved, both, pickLoved, people: together.people } : { loved, both };
 };
 
+// what's simply true of both films, as catalogue cards (shown as a small fact, never as the reason)
+export const sharedFacts = (a, b) => {
+  if (!a || !b) return null;
+  const director = a.directors.find((d) => b.directors.includes(d));
+  if (director) return { director };
+  const movement = a.movements.find((m) => b.movements.includes(m));
+  if (movement) return { movement };
+  if (a.country && a.country === b.country) return { country: a.country };
+  if (a.decade && a.decade === b.decade) return { decade: a.decade };
+  return null;
+};
+
 let together;
 export const getTogether = () => {
   if (together !== undefined) return together;
