@@ -151,8 +151,9 @@ const ShortCut = ({ films }) => {
     const credit = ch.card?.line || [film?.d?.join(' & '), film?.y].filter(Boolean).join(', ');
 
     return (
-        <div ref={section} className="relative" style={{ height: `${100 + n * STEP}svh` }}>
-            <div aria-hidden="true" className="sticky top-0 h-[100svh] pt-16 md:pt-20 flex flex-col bg-black select-none">
+        // (data-lights-down: while it holds the screen, the navbar leaves, so the monitor has the whole of it)
+        <div ref={section} data-lights-down className="relative" style={{ height: `${100 + n * STEP}svh` }}>
+            <div aria-hidden="true" className="sticky top-0 h-[100svh] flex flex-col bg-black select-none">
                 {/* the top bar: the track, and the chapter, named in the black */}
                 <div className="relative shrink-0 h-10 md:h-11 px-4 md:px-8 flex items-center justify-between gap-4">
                     <div className="flex items-center gap-2 font-label text-[11px] md:text-[12px] tracking-[0.18em] uppercase text-gray-400 whitespace-nowrap">

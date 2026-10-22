@@ -140,7 +140,8 @@ const CanonCountdown = ({ films, of, reducedMotion = false }) => {
 
     return (
         // its height is pure CSS, so the page is full height on its first paint (Back lands exactly)
-        <section ref={section} style={{ height: `calc(100vh + ${n * STEP_VH}vh)` }} className="relative">
+        // (data-lights-down: while it holds the screen, the navbar leaves)
+        <section ref={section} data-lights-down style={{ height: `calc(100vh + ${n * STEP_VH}vh)` }} className="relative">
             <div className="sticky top-0 h-screen overflow-hidden bg-[#3b3a37]">
                 {/* the screen: each film wiped in over the last */}
                 {reel.map((f, j) => <Screen key={f._id} film={f} j={j} s={s} eager={j < 2} near={j >= lead - 1 && j <= lead + 1} />)}
