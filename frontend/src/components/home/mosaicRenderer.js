@@ -18,11 +18,18 @@
  *     a full-screen still every frame is what made the arrival lag.
  *
  * Sharpness: the wall starts on a small sheet and takes a sharp one when it
- * arrives (setSprite); and any tile the lens or the dive enlarges past the
- * sheet's resolution is drawn from that film's own still, fetched on demand.
+ * arrives (setSprite), where the screen draws tiles big enough to show the
+ * difference (sharpSheetWanted); and any tile the lens or the dive enlarges past
+ * the sheet's resolution is drawn from that film's own still, fetched on demand.
+ *
+ * The sheets come as ImageBitmaps (sheetOf), decoded off the main thread: a canvas
+ * decodes an <img> on the main thread the first time it draws it, whatever
+ * img.decode() promised, and the sharp sheet's decode alone froze the page for a
+ * third of a second on a first visit.
  *
  * Usage: const wall = createMosaicRenderer(canvas, { sprite, index, getDive, reducedMotion })
- *        wall.setSprite(sharperImage) · wall.setPointer(x, y) / wall.setPointer(null) · wall.setTarget(filmId)
+ *        (sprite: an ImageBitmap, from sheetOf(url))
+ *        wall.setSprite(sharperBitmap) · wall.setPointer(x, y) / wall.setPointer(null) · wall.setTarget(filmId)
  *        wall.tileAtPointer() → tile · wall.resize() · wall.destroy()
  */
 
@@ -42,12 +49,23 @@ const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
 
 const STILL = 'https://image.tmdb.org/t/p/';
 
-// a grey copy of the sprite, made once: a canvas filter where the browser has one, pixels otherwise
+// a sprite sheet, fetched and decoded off the main thread
+export const sheetOf = (url) => fetch(url).then((r) => r.blob()).then((b) => createImageBitmap(b));
+
+// a tile's width on this screen, in CSS px
+const tileWidth = (W) => Math.max(56, Math.min(104, W / 17));
+// whether this screen draws tiles big enough for the sharp sheet to show (a retina desktop does;
+// a phone, or a screen at 1x, would fetch and decode 4 MB to look the same)
+export const sharpSheetWanted = (sheet, cols) => tileWidth(window.innerWidth) * Math.min(2, window.devicePixelRatio || 1) > (sheet.width / cols) * 1.25;
+
+// a grey copy of the sprite, made once, on the GPU (a canvas made for reading pixels back is drawn
+// in software, where this took hundreds of ms): a grayscale filter where the browser has one;
+// otherwise (Safari) each pixel keeps its lightness and takes a grey's colour, none
 const greyOf = (img) => {
     const c = document.createElement('canvas');
-    c.width = img.naturalWidth;
-    c.height = img.naturalHeight;
-    const ctx = c.getContext('2d', { willReadFrequently: true });
+    c.width = img.width;
+    c.height = img.height;
+    const ctx = c.getContext('2d');
     // ask the prototype, not the context: assigning an unknown property would seem to work
     if ('filter' in CanvasRenderingContext2D.prototype) {
         ctx.filter = 'grayscale(1)';
@@ -55,13 +73,9 @@ const greyOf = (img) => {
         return c;
     }
     ctx.drawImage(img, 0, 0);
-    const data = ctx.getImageData(0, 0, c.width, c.height);
-    const p = data.data;
-    for (let i = 0; i < p.length; i += 4) {
-        const y = 0.299 * p[i] + 0.587 * p[i + 1] + 0.114 * p[i + 2];
-        p[i] = p[i + 1] = p[i + 2] = y;
-    }
-    ctx.putImageData(data, 0, 0);
+    ctx.globalCompositeOperation = 'saturation';
+    ctx.fillStyle = '#808080';
+    ctx.fillRect(0, 0, c.width, c.height);
     return c;
 };
 
@@ -79,8 +93,8 @@ export const createMosaicRenderer = (canvas, { sprite: firstSprite, index, getDi
     const { cols, rows, tiles } = index;
     let sprite = firstSprite;
     let grey = greyOf(sprite);
-    let SW = sprite.naturalWidth / cols;   // a tile's size in whichever sheet is loaded
-    let SH = sprite.naturalHeight / rows;
+    let SW = sprite.width / cols;   // a tile's size in whichever sheet is loaded
+    let SH = sprite.height / rows;
 
     // films' own stills, fetched when a tile is shown bigger than the sheet holds it
     const stills = new Map(); // `${slot}@${size}` → Image (drawn once complete)
@@ -118,7 +132,7 @@ export const createMosaicRenderer = (canvas, { sprite: firstSprite, index, getDi
     // The resting wall, painted once into an off-screen canvas and laid down each frame as a
     // repeating pattern: one fill instead of hundreds of tiles. Repainted on resize or a new sheet.
     let wall = null;              // { pattern, key }
-    const wallKey = () => `${tw}|${dpr}|${sprite.naturalWidth}`;
+    const wallKey = () => `${tw}|${dpr}|${sprite.width}`;
     const paintWall = () => {
         const off = document.createElement('canvas');
         off.width = Math.round(cols * tw * dpr);
@@ -142,7 +156,7 @@ export const createMosaicRenderer = (canvas, { sprite: firstSprite, index, getDi
         H = canvas.clientHeight;
         canvas.width = Math.round(W * dpr);
         canvas.height = Math.round(H * dpr);
-        tw = Math.max(56, Math.min(104, W / 17));
+        tw = tileWidth(W);
         th = (tw * 9) / 16;
         restingArrived = false; // resizing clears the canvas: draw the arrival frame again
     };
@@ -346,18 +360,18 @@ export const createMosaicRenderer = (canvas, { sprite: firstSprite, index, getDi
     return {
         resize,
         setPointer: (x, y) => { pointer = x == null ? null : { x, y }; lastPointer = performance.now(); },
-        // the sharp sheet: decoded first, and its grey copy made when the browser is idle,
-        // so the swap never costs a frame
+        // the sharp sheet (already decoded): its grey copy and the resting wall made when the
+        // browser is idle, so the swap never costs a frame
         setSprite: (img) => {
             const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 200));
-            img.decode().catch(() => {}).then(() => idle(() => {
+            idle(() => {
                 const g = greyOf(img);
                 sprite = img;
                 grey = g;
-                SW = img.naturalWidth / cols;
-                SH = img.naturalHeight / rows;
-                paintWall(); // repaint the resting wall from the sharp sheet, still in the idle time
-            }));
+                SW = img.width / cols;
+                SH = img.height / rows;
+                paintWall();
+            });
         },
         setTarget: (id) => {
             const slot = tiles.findIndex((t) => t.id === id);

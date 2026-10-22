@@ -8,7 +8,7 @@ import useFilmLight from '../film/useFilmLight';
 import { Letters } from '../film/CanonMarquee';
 import { ordinal, citationLine } from '../film/canonWords';
 import { sized } from '../movements/treatments';
-import { createMosaicRenderer } from './mosaicRenderer';
+import { createMosaicRenderer, sharpSheetWanted, sheetOf } from './mosaicRenderer';
 
 /**
  * The front door: every film in the atlas, then one.
@@ -47,20 +47,19 @@ const HomeHero = () => {
     const [handoffReady, setHandoffReady] = useState(null); // film id whose full still is decoded
     const date = useRef(today()).current;
 
-    // the wall: a small sheet to show at once, then a sharp one swapped in when it arrives
+    // the wall: a small sheet to show at once, then, where the screen would show the difference, a
+    // sharp one swapped in when it arrives (both decoded off the main thread)
     const sharp = useRef(null);
     useEffect(() => {
         let gone = false;
-        fetch('/mosaic/mosaic.json').then((r) => r.json()).then((j) => { if (!gone) setIndex(j); }).catch(() => {});
-        const small = new Image();
-        small.onload = () => {
-            if (gone) return;
-            setSprite(small);
-            const big = new Image();
-            big.onload = () => { if (gone) return; sharp.current = big; wall.current?.setSprite(big); };
-            big.src = '/mosaic/mosaic-2x.webp';
-        };
-        small.src = '/mosaic/mosaic-1x.webp';
+        const json = fetch('/mosaic/mosaic.json').then((r) => r.json());
+        json.then((j) => { if (!gone) setIndex(j); }).catch(() => {});
+        const small = sheetOf('/mosaic/mosaic-1x.webp');
+        small.then((s) => { if (!gone) setSprite(s); }).catch(() => {});
+        Promise.all([small, json]).then(([s, j]) => {
+            if (gone || !sharpSheetWanted(s, j.cols)) return;
+            sheetOf('/mosaic/mosaic-2x.webp').then((big) => { if (gone) return; sharp.current = big; wall.current?.setSprite(big); }).catch(() => {});
+        }).catch(() => {});
         return () => { gone = true; };
     }, []);
 
