@@ -17,7 +17,7 @@ A full-stack web app (React, Express, MongoDB) for discovering arthouse films:
 | | |
 |---|---|
 | **A fair ranking from messy sources** | Citations weighted by rank, grouped into seven capped families so five similar lists can't count five times, judged only against lists a film could have been on, with a bonus for staying power across decades. The About page shows the whole count for a film, and that breakdown reproduces every stored score exactly. |
-| **An honest recommender evaluation** | The test was committed before it was run, then run on 7,110 held-out people. Next film loved, in the top 10: **42.1%**, against 27.6% for the most popular films and 12.1% for the old hand-tuned engine. |
+| **An honest recommender evaluation** | Committed before it was run, then run on 7,110 held-out people from their last 5 loves. For **72.2%**, the top 10 held a film they went on to love; for **42.1%**, it held the exact next one, out of more than 800 (random 1.2%, most popular 27.6%, old engine 12.1%). |
 | **Fast, cinematic rendering** | All 855 stills packed into one sprite sheet and drawn as one pattern fill per frame. Motion only on `transform` and `opacity`, scroll-driven scenes built on framer-motion values, and frame timing measured in headless Chrome against 60 fps. |
 | **Link previews for a single-page app** | A Vercel middleware puts each film's own title, line and picture into the HTML for WhatsApp, LinkedIn and Slack previews, with its own tests. |
 | **Accessibility** | Zero axe-core violations on every page at desktop and phone sizes, a skip link, visible focus everywhere, reduced-motion versions, and standard controls that stay in reach through the scroll-driven scenes. |
@@ -28,7 +28,7 @@ A full-stack web app (React, Express, MongoDB) for discovering arthouse films:
 - **Catalogue:** 855 films from 73 countries, 1920 to 2025.
 - **Lists:** 3,245 list citations across the 791 ranked films.
 - **MovieLens:** 32,000,204 ratings from 200,948 people. 826 of the films are matched, with 2,033,903 ratings between them.
-- **Tests:** 82 backend tests and 6 frontend tests.
+- **Tests:** 83 backend tests and 6 frontend tests.
 
 ## Stack
 

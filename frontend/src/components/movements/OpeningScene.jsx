@@ -41,8 +41,8 @@ const OpeningScene = ({ movement, treatment: t, backdrop, gesture, title, kicker
         <span>
             Still ·{' '}
             {movement.heroCredit._id ? (
-                <Link to={`/movie/${movement.heroCredit._id}`} className="hover:text-white transition-colors">
-                    {movement.heroCredit.title} ({movement.heroCredit.year})
+                <Link to={`/movie/${movement.heroCredit._id}`} className="text-gold hover:text-gold-light transition-colors">
+                    {movement.heroCredit.title} ({movement.heroCredit.year}) ›
                 </Link>
             ) : `${movement.heroCredit.title} (${movement.heroCredit.year})`}
         </span>

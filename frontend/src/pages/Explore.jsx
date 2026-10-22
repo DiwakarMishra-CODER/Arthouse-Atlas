@@ -459,6 +459,7 @@ const Explore = () => {
                             films={wall.films}
                             sort={sort}
                             plainCanon={sort === 'acclaimed' && !any}
+                            decadeRanked={sort === 'acclaimed' && !!sel.decade && !sel.q}
                             decadeCounts={decadeCounts}
                             onDirector={onDirector}
                             onMovement={onMovement}

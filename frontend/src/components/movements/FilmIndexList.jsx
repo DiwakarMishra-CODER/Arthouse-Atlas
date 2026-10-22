@@ -1,14 +1,15 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import PosterCard from '../PosterCard';
+import OneSheets from './OneSheets';
 import { sized } from './treatments';
 
 /**
  * A movement's films as an index — year, title, director, country — the way
  * a programme or a retrospective catalogue lists them. Hovering a row floats
- * that film's still beside the cursor. A toggle keeps the poster grid.
+ * that film's still beside the cursor. The posters view hangs them as one-sheets
+ * in lit frames (OneSheets).
  */
-const FilmIndexList = ({ films, treatment, view: forced }) => {
+const FilmIndexList = ({ films, treatment, view: forced, reducedMotion = false }) => {
     const [own, setView] = useState('index');
     const view = forced || own; // a parent can choose the view and hide the toggle
     const [preview, setPreview] = useState(null);
@@ -40,13 +41,7 @@ const FilmIndexList = ({ films, treatment, view: forced }) => {
             </div>
 
             {view === 'posters' ? (
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 md:gap-4">
-                    {films.map((film) => (
-                        <div key={film._id} className="relative z-0 hover:z-50">
-                            <PosterCard movie={film} />
-                        </div>
-                    ))}
-                </div>
+                <OneSheets films={films} reducedMotion={reducedMotion} />
             ) : (
                 <>
                     <ol className="border-t border-white/[0.08]" onMouseMove={track}>

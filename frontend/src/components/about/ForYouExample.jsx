@@ -42,7 +42,7 @@ const ForYouExample = ({ reducedMotion }) => {
                 <div className="mt-8 flex flex-wrap items-baseline gap-x-5 gap-y-1">
                     <span className="font-serif text-xl md:text-2xl text-gray-100">Say you loved</span>
                     {SEEDS.map((t) => (
-                        <button key={t} type="button" onClick={() => setSeed(t)} className={`min-h-11 font-serif italic text-xl md:text-2xl transition-colors ${t === seed ? 'text-gold-light underline decoration-gold underline-offset-[7px]' : 'text-gray-500 hover:text-gray-200'}`}>
+                        <button key={t} type="button" onClick={() => setSeed(t)} className={`min-h-11 font-serif italic text-xl md:text-2xl transition-colors ${t === seed ? 'text-gold-light underline decoration-gold underline-offset-[7px]' : 'text-gray-300 hover:text-white'}`}>
                             {t}
                         </button>
                     ))}

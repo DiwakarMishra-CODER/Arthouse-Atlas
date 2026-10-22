@@ -76,7 +76,7 @@ Your taste is the lens. A film you loved stands sharp in the foreground, your pi
 | | |
 |---|---|
 | ![](docs/screens/explore.jpg) | ![](docs/screens/explore-foyer.jpg) |
-| **Explore: the foyer.** A cinema letterboard says what's showing, and every gold word is a choice (country, decade, director, movement, mood, genre, length, order), each made with pictures. | **The display cases.** Films in canon order, lit as you reach them; hover one and its frames run. Start from a film you know, or let the projector pick. |
+| **Explore: the foyer.** A cinema letterboard says what's showing, and every gold word is a choice (country, decade, director, movement, mood, genre, length, order), each made with pictures. | **The display cases.** Films in canon order (pick a decade and it's that decade's own ranking), lit as you reach them; hover one and its frames run. Start from a film you know, or let the projector pick. |
 | ![](docs/screens/directors.jpg) | ![](docs/screens/director.jpg) |
 | **Directors: "Directed by".** The scroll is the projector; each director's best film rolls into the gate, then everyone appears as end credits. | **A director's page** is a retrospective: the career on a projector, a poster wall, the biography on an archive card, the circle they worked with. |
 | ![](docs/screens/movements.jpg) | ![](docs/screens/movement.jpg) |
@@ -137,7 +137,7 @@ The recommendations are learned from **MovieLens 32M**, a public research datase
 - **The model** is [EASE](https://arxiv.org/abs/1905.03375) (Steck, 2019). It learns, for every pair of films, how much loving one predicts loving the other, after allowing for everything else a person loved. That stops popular films from winning just for being popular. Each film keeps its 50 strongest links. A film MovieLens lacks is linked by director, movement, country and decade instead.
 - **Your picks:** each film you loved votes for its linked films, and the votes add up. Twenty picks come back, each with the film of yours that led to it.
 - **The reasons are real counts**, quoted only when 30 or more people loved both films.
-- **It was tested properly.** The test was written down and committed before it was run, then measured on 7,110 people the model never saw. Given the last 5 films someone loved, the very next film they loved was in the top 10 for **42.1%** of them. The old hand-tuned engine managed 12.1%, and simply showing the most popular films got 27.6%. The full report, with the method and the uncertainty margins, is in [`backend/data/recs/EVALUATION.md`](backend/data/recs/EVALUATION.md).
+- **It was tested properly.** The test was written down and committed before it was run, then measured on 7,110 people the model never saw, each given only the last 5 films they loved. For **72.2%** of them, the top 10 already held a film they went on to love. Asked for the exact next film they loved, out of more than 800, it had it in the top 10 for **42.1%**. Random picks get 1.2%, the most popular films 27.6%, and the old hand-tuned engine 12.1%. The full report, with the method and the uncertainty margins, is in [`backend/data/recs/EVALUATION.md`](backend/data/recs/EVALUATION.md).
 
 On film pages, the same data gives **what viewers made of it** ("On MovieLens, 1,963 people loved it, nearly three in four of those who rated it") for the 736 films that 30 or more people rated.
 
@@ -187,7 +187,7 @@ npm install
 npm run dev                   # http://localhost:5173
 ```
 
-**Tests:** `npm test` in `backend/` runs 82 tests. They cover the canon breakdown, the About lists, Explore's filters, For You's reasons, the studios, the director index, the profile awards, accounts (including the Google sign-in check) and the film-page data scripts. `npm test` in `frontend/` runs 6 tests of the link-preview middleware.
+**Tests:** `npm test` in `backend/` runs 83 tests. They cover the canon breakdown, the About lists, Explore's filters, For You's reasons, the studios, the director index, the profile awards, accounts (including the Google sign-in check) and the film-page data scripts. `npm test` in `frontend/` runs 6 tests of the link-preview middleware.
 
 **The data scripts** (all in `backend/scripts/`; the media scripts only write when given `--apply`):
 

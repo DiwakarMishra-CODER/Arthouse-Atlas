@@ -58,6 +58,9 @@ const Bulbs = ({ count, vertical = false }) => (
     </div>
 );
 
+// a standing's list: a gold-ringed button, as Sign in is
+const STANDING = 'inline-flex items-center min-h-11 px-5 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gold ring-1 ring-gold/50 hover:bg-gold hover:text-black transition-colors';
+
 const CanonMarquee = ({ film, accent, reducedMotion = false }) => {
     const cites = film.provenance || [];
     const canon = film.canon;
@@ -100,6 +103,13 @@ const CanonMarquee = ({ film, accent, reducedMotion = false }) => {
                     <Letters text={subline} reducedMotion={reducedMotion} delay={0.5} className="mt-3 block font-oswald text-[11px] sm:text-sm md:text-base tracking-[0.18em] text-[#3a332b]" />
                 </div>
             </div>
+            {/* each standing opens its own list, in its order, the one the sign leads with first */}
+            {canon && (
+                <div className={`mt-6 flex flex-wrap justify-center gap-3 ${canon.lead === 'atlas' ? 'flex-row-reverse' : ''}`}>
+                    <Link to={`/explore?decade=${canon.decade}`} className={STANDING}>See the {canon.decade}s, ranked ›</Link>
+                    <Link to="/explore" className={STANDING}>See the whole atlas ›</Link>
+                </div>
+            )}
             <p className="mt-4 text-center text-sm text-gray-500">
                 {canon
                     ? 'Its place among all the films in the atlas, and among the films of its decade.'

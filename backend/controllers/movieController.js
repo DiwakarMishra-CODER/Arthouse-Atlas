@@ -625,7 +625,7 @@ export const exploreMovies = async (req, res) => {
     const limit = Math.min(96, Math.max(1, parseInt(q.limit, 10) || 24));
     const page = Math.max(1, parseInt(q.page, 10) || 1);
 
-    const matched = sortCards(applyFilters(pool, filters), sort, { seed: q.seed, q: filters.q, near: started?.near });
+    const matched = sortCards(applyFilters(pool, filters), sort, { seed: q.seed, q: filters.q, near: started?.near, decade: filters.decade });
     const films = matched.slice((page - 1) * limit, page * limit).map((c) => {
       const card = publicCard(c);
       if (started) card.why = WHY[started.near.get(c._tmdb)?.reason] || null;

@@ -191,7 +191,7 @@ const ForYou = () => {
                 <section className="mt-24 max-w-3xl">
                     <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">How it chooses</div>
                     <p className="mt-3 text-[16px] leading-relaxed text-gray-400">
-                        It learned from 32 million ratings: what people who loved one film went on to love. Tested on 7,110 people it had never seen, the film they watched next was in its top ten 42% of the time; the atlas’s old engine managed 12%.
+                        It learned from 32 million ratings: what people who loved one film went on to love. We tested it on 7,110 people it had never seen, giving it only the last five films each had loved. For 7 in 10, its top ten already held a film they went on to love. Asked for the exact next film they loved, out of more than 800, it was right 4 times in 10. Random picks manage about 1 in 100, and the atlas’s old engine about 1 in 8.
                     </p>
                 </section>
             </div>

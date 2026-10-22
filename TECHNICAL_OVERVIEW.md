@@ -97,6 +97,7 @@ Independent all-time polls agreeing is the canon itself, so agreement counts for
 - **Eligibility:** a film is only measured against lists it could have been on. Kinema Junpo only lists Japanese films, Busan only Asian films up to 2014, and every list has its own years.
 - **Time to settle:** the slow-canonising families (all-time, filmmakers', regional, critic) count as available in proportion to how long the film has had, `min(1, max(0.15, years / 20))`.
 - **The lift:** a film's raw family total is lifted by `min(1.5, √(23.7 / available))`, where 23.7 is all the family caps added together. That gives the `standing` that decides `canonDecadeRank`. The canon itself takes no such lift, so a recent film can't leapfrog the classics on one good year.
+- **Where each shows:** a film page gives both ("5th of the 2020s · 341st of 791 in the atlas"), and each links to its list. Explore's "most acclaimed" order is the canon, except when a decade is chosen: then it follows `canonDecadeRank`, so the list matches the film pages (`sortCards` in `services/catalogue.js`).
 
 **Results:**
 - 791 films ranked, from 3,245 citations.
@@ -236,7 +237,7 @@ Services that draw a shared link's preview don't run JavaScript, so a single-pag
 
 ## 10. Tests
 
-- **Backend** (`npm test` in `backend/`): 82 tests. They cover the canon breakdown against `scoreFilm()`, each list's order and the About index's picks, Explore's filters and counts, For You's reasons and shares, the studios and director indexes, the profile's awards, account changes and the Google sign-in check, and the film-page data scripts' pure parts (choosing a trailer, reading credits).
+- **Backend** (`npm test` in `backend/`): 83 tests. They cover the canon breakdown against `scoreFilm()`, each list's order and the About index's picks, Explore's filters, counts and orders (a decade in its own ranking), For You's reasons and shares, the studios and director indexes, the profile's awards, account changes and the Google sign-in check, and the film-page data scripts' pure parts (choosing a trailer, reading credits).
 - **Frontend** (`npm test` in `frontend/`): 6 tests of the link-preview middleware.
 - **The recommender's evaluation** is a test of its own, written and committed before it was run.
 

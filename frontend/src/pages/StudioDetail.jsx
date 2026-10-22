@@ -114,7 +114,7 @@ const StudioDetail = () => {
                     <section className="pt-10 md:pt-16 max-w-3xl">
                         <p className="font-serif text-[1.35rem] md:text-[1.9rem] leading-snug text-gray-100">{house.note}</p>
                         {about.wiki && (
-                            <a href={about.wiki} target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-1.5 font-label text-[11px] tracking-[0.14em] uppercase text-gray-500 hover:text-gray-300">
+                            <a href={about.wiki} target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-1.5 min-h-11 font-label text-[12px] tracking-[0.14em] uppercase text-gold hover:text-gold-light">
                                 More on Wikipedia <MdArrowOutward aria-hidden="true" />
                             </a>
                         )}

@@ -53,6 +53,21 @@ test('search: accents and punctuation ignored; title beats other titles beats di
   assert.deepEqual(ids(sortCards(applyFilters(cards, { q: 'tokyo' }), 'acclaimed', { q: 'tokyo' })), ['a', 'd']);
 });
 
+test('within one decade, most acclaimed follows the decade\'s own ranking, as the film pages count it', () => {
+  // all-time, Petite Maman leads (two all-time polls); within the 2020s, the others do (prizes, year-end lists)
+  const twenties = [
+    film('pm', { title: 'Petite Maman', year: 2021, canonRank: 341, canonDecadeRank: 5 }),
+    film('acc', { title: 'It Was Just an Accident', year: 2025, canonRank: 405, canonDecadeRank: 3 }),
+    film('dmc', { title: 'Drive My Car', year: 2021, canonRank: 422, canonDecadeRank: 4 }),
+    film('un', { title: 'Unranked', year: 2022, provenanceScore: 1 }),
+  ];
+  assert.equal(twenties[0].canonDecadeRank, 5);
+  assert.deepEqual(ids(sortCards(twenties, 'acclaimed')), ['pm', 'acc', 'dmc', 'un']);
+  assert.deepEqual(ids(sortCards(twenties, 'acclaimed', { decade: 2020 })), ['acc', 'dmc', 'pm', 'un']);
+  assert.deepEqual(ids(sortCards(twenties, 'acclaimed', { decade: 2020, q: 'drive' })).slice(0, 1), ['dmc']); // a search still leads with its match
+  assert.deepEqual(ids(sortCards(twenties, 'newest', { decade: 2020 })), ['acc', 'un', 'pm', 'dmc']); // other orders keep their own
+});
+
 test('sorts: the canon (unranked after, by evidence), oldest, newest, and a seeded shuffle', () => {
   assert.deepEqual(ids(sortCards(cards, 'acclaimed')), ['a', 'c', 'b', 'e', 'd']);
   assert.deepEqual(ids(sortCards(cards, 'oldest')), ['b', 'e', 'a', 'c', 'd']);

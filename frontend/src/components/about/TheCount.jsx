@@ -218,7 +218,7 @@ const TheCount = ({ reducedMotion }) => {
                     <ol className="mt-2 md:mt-6 grid grid-cols-4 border-b border-white/[0.08]">
                         {STEPS.map((s, i) => (
                             <li key={s.label}>
-                                <button type="button" onClick={() => toStep(i)} className={`relative w-full text-left pb-2.5 md:pb-3 min-h-11 font-label text-[11px] md:text-[13px] tracking-[0.12em] uppercase transition-colors ${i === step ? 'text-white' : 'text-gray-500 hover:text-gray-300'}`}>
+                                <button type="button" onClick={() => toStep(i)} className={`relative w-full text-left pb-2.5 md:pb-3 min-h-11 font-label text-[12px] md:text-[13px] tracking-[0.12em] uppercase transition-colors ${i === step ? 'text-white' : 'text-gray-300 hover:text-white'}`}>
                                     <span className={`mr-1.5 ${i === step ? 'text-gold' : ''}`}>{i + 1}</span>{s.label}
                                     {i === step && <motion.span layoutId="count-step" className="absolute left-0 right-3 -bottom-px h-[2px] bg-gold" />}
                                 </button>

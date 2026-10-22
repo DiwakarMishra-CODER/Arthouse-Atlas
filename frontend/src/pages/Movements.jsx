@@ -179,7 +179,7 @@ const Movements = () => {
                                                             onClick={() => goTo(m._id)}
                                                             onMouseEnter={() => setHovered(m._id)}
                                                             onMouseLeave={() => setHovered(null)}
-                                                            className={`relative -ml-px flex w-full items-baseline gap-3 py-1 pl-4 text-left border-l-2 transition-colors duration-300 ${on ? 'text-white' : 'border-transparent text-gray-500 hover:text-gray-200'}`}
+                                                            className={`relative -ml-px flex w-full items-baseline gap-3 py-1 pl-4 text-left border-l-2 transition-colors duration-300 ${on ? 'text-white' : 'border-transparent text-gray-400 hover:text-gray-100'}`}
                                                             style={on ? { borderColor: treatmentFor(m).accent } : undefined}
                                                         >
                                                             <span className="font-label text-[12px] tabular-nums" style={on ? { color: treatmentFor(m).accent } : undefined}>{m.startYear}</span>

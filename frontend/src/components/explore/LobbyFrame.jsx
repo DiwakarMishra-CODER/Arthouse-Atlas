@@ -1,6 +1,7 @@
 import { memo, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { sized } from '../movements/treatments';
+import { ordinal } from '../film/canonWords';
 
 /**
  * A lobby card in the foyer's display case: the film's still in black lacquer with a gilt
@@ -12,6 +13,9 @@ import { sized } from '../movements/treatments';
  * projector advances through the film's own frames, one frame of black between each. A film
  * with a single frame breathes instead: a slow push-in, the picture weaving in the gate.
  * Never another film's picture.
+ *
+ * Its corner badge is its place in the atlas's canon; on a wall of one decade in canon order
+ * (decadeRanked), its place among that decade's films, as its own page counts it.
  */
 
 const COUNTRY = { 'United States of America': 'United States' };
@@ -62,7 +66,7 @@ const Plaque = ({ film, large, compact, to, onDirector, onMovement }) => {
     );
 };
 
-const LobbyFrame = memo(function LobbyFrame({ film, size = 'small', compact = false, index = 0, onDirector, onMovement, picked = false, reducedMotion = false, className = '' }) {
+const LobbyFrame = memo(function LobbyFrame({ film, size = 'small', compact = false, index = 0, decadeRanked = false, onDirector, onMovement, picked = false, reducedMotion = false, className = '' }) {
     const frames = film.stills?.length ? film.stills : film.still ? [film.still] : [];
     const [running, setRunning] = useState(false);
     const [shown, setShown] = useState(0);
@@ -148,7 +152,11 @@ const LobbyFrame = memo(function LobbyFrame({ film, size = 'small', compact = fa
                     <span aria-hidden="true" className="case-shade absolute inset-0 bg-black/65 pointer-events-none" />
                     <span aria-hidden="true" className="case-light absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,rgba(255,244,225,0.10),transparent_75%)]" />
                     <span aria-hidden="true" className="absolute inset-0 pointer-events-none bg-[linear-gradient(118deg,rgba(255,255,255,0.10)_0%,rgba(255,255,255,0.02)_28%,transparent_42%)]" />
-                    {film.canonRank && (
+                    {decadeRanked && film.canonDecadeRank && film.decade ? (
+                        <span className="absolute left-3 top-3 px-2 py-1 bg-black/70 font-label text-[12px] tracking-[0.14em] uppercase text-gold">
+                            {ordinal(film.canonDecadeRank)} of the {film.decade}s
+                        </span>
+                    ) : film.canonRank && (
                         <span className="absolute left-3 top-3 px-2 py-1 bg-black/70 font-label text-[12px] tracking-[0.14em] text-gold" title={`Number ${film.canonRank} in the atlas's canon`}>
                             № {film.canonRank}
                         </span>

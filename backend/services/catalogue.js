@@ -85,6 +85,7 @@ export const toCard = (m) => {
     // moods from our own notes only: the ones guessed from keywords put Tokyo Story down as "surreal"
     moods: (m.editorial?.tags || []).filter((t) => MOODS.includes(t)),
     canonRank: m.canonRank ?? null,
+    canonDecadeRank: m.canonDecadeRank ?? null, // its place among the films of its own decade
     provenanceScore: m.provenanceScore || 0,
     provenanceCount: m.provenanceCount || 0,
     still: frames[0] || null,
@@ -177,6 +178,9 @@ const byCanon = (a, b) => ((a.canonRank ?? Infinity) - (b.canonRank ?? Infinity)
   || (b.provenanceScore - a.provenanceScore)
   || ((a.year ?? 9999) - (b.year ?? 9999))
   || a.title.localeCompare(b.title);
+// within one decade, the decade's own standing (fairer to films too new for the all-time polls),
+// the order the film pages' "5th of the 2020s" counts in
+const byDecadeRank = (a, b) => ((a.canonDecadeRank ?? Infinity) - (b.canonDecadeRank ?? Infinity)) || byCanon(a, b);
 
 // mulberry32: a small seeded generator, so a shuffled wall is the same shuffle when you come back
 const seeded = (seed) => {
@@ -190,7 +194,7 @@ const seeded = (seed) => {
 };
 
 // near: on a wall that starts from a film, tmdbId -> { score } for every film it leads to
-export const sortCards = (cards, sort = 'acclaimed', { seed = 1, q = '', near = null } = {}) => {
+export const sortCards = (cards, sort = 'acclaimed', { seed = 1, q = '', near = null, decade = '' } = {}) => {
   const list = [...cards].sort(byCanon);
   if (sort === 'closest' && near) return list.sort((a, b) => ((near.get(b._tmdb)?.score ?? 0) - (near.get(a._tmdb)?.score ?? 0)) || byCanon(a, b));
   if (sort === 'oldest') return list.sort((a, b) => ((a.year ?? 9999) - (b.year ?? 9999)) || byCanon(a, b));
@@ -203,8 +207,9 @@ export const sortCards = (cards, sort = 'acclaimed', { seed = 1, q = '', near = 
     }
     return list;
   }
-  // most acclaimed first; while searching, the best matches lead
+  // most acclaimed first; while searching, the best matches lead; within one decade, by its own ranking
   if (isSet(q)) return list.sort((a, b) => (searchScore(b, q) - searchScore(a, q)) || byCanon(a, b));
+  if (isSet(decade)) return list.sort(byDecadeRank);
   return list;
 };
 
@@ -274,7 +279,7 @@ export const facetCounts = (cards, filters) => {
 // ---------------------------------------------------------------------------
 // the catalogue, loaded and kept for ten minutes
 // ---------------------------------------------------------------------------
-const FIELDS = 'tmdbId vote_count title originalTitle altTitles year decade directors country countries runtime genres movements canonRank provenanceScore provenanceCount stills backdropUrl posterUrl editorial.hook editorial.tags productionCompanies provenance.source provenance.detail provenance.rank provenance.pollYear provenance.weight provenance.url';
+const FIELDS = 'tmdbId vote_count title originalTitle altTitles year decade directors country countries runtime genres movements canonRank canonDecadeRank provenanceScore provenanceCount stills backdropUrl posterUrl editorial.hook editorial.tags productionCompanies provenance.source provenance.detail provenance.rank provenance.pollYear provenance.weight provenance.url';
 
 let cache = { at: 0, value: null };
 export const loadCatalogue = async () => {

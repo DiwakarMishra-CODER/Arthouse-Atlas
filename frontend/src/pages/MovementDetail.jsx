@@ -293,7 +293,7 @@ const MovementDetail = () => {
                                 })}
                             </div>
                         </div>
-                        {filmView !== 'reel' && <FilmIndexList films={films} treatment={t} view={filmView} />}
+                        {filmView !== 'reel' && <FilmIndexList films={films} treatment={t} view={filmView} reducedMotion={reducedMotion} />}
                     </section>
                 </div>
 

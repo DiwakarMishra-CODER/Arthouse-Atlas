@@ -311,7 +311,7 @@ const AtlasMap = ({ heading = null }) => {
                             Now showing <span className="text-gray-500">· {Math.ceil(y - WINDOW)}–{Math.floor(y + WINDOW)} · {strip.length} {strip.length === 1 ? 'film' : 'films'}</span>
                             {held && playing && <span className="ml-3 text-[#f6d48f]">· the years wait while you choose</span>}
                         </div>
-                        <Link to="/explore" className="shrink-0 whitespace-nowrap py-3.5 -my-3.5 font-label text-[12px] tracking-[0.14em] uppercase text-gray-400 hover:text-white">All {films?.length || ''} films →</Link>
+                        <Link to="/explore" className="shrink-0 whitespace-nowrap py-3.5 -my-3.5 font-label text-[12px] tracking-[0.14em] uppercase text-gold hover:text-gold-light">All {films?.length || ''} films →</Link>
                     </div>
                     <ol
                         className="flex gap-3 overflow-x-auto pb-3 snap-x [scrollbar-width:thin]"

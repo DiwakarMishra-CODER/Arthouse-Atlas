@@ -80,7 +80,7 @@ const Group = ({ films, mirror, frame }) => {
     );
 };
 
-const FoyerWall = ({ films, sort, plainCanon, decadeCounts, onDirector, onMovement, pickedId, reducedMotion, end = null }) => {
+const FoyerWall = ({ films, sort, plainCanon, decadeRanked = false, decadeCounts, onDirector, onMovement, pickedId, reducedMotion, end = null }) => {
     const wall = useRef(null);
 
     // each case (and title card) lights as it comes into view; with reduced motion, all at once
@@ -108,6 +108,7 @@ const FoyerWall = ({ films, sort, plainCanon, decadeCounts, onDirector, onMoveme
             key={film._id}
             film={film}
             index={i}
+            decadeRanked={decadeRanked}
             onDirector={onDirector}
             onMovement={onMovement}
             picked={film._id === pickedId}
