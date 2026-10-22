@@ -8,13 +8,15 @@ import { createNoteBurn } from './noteBurn';
 /**
  * What is arthouse cinema? Films whose makers didn't take the note.
  *
- * The section pins. It opens on a film playing on a screen masked to widescreen,
- * as its director framed it. Then — if a studio had its way — three notes, each
+ * The section pins. It opens on its question, set over the masking, and a film
+ * playing on a screen masked to widescreen, as its director framed it, its name
+ * under it. Then — if a studio had its way — three notes, each
  * acted out by the frame itself: "too wide" (the masks close in to a television's
  * 4:3 and the camera pans across, hunting for something to look at), "too empty"
  * (it punches in, and the landscape is gone), "too slow" (jump cuts). Then it
- * stops: the masks pull away and the whole still frame is back. Every film gets
- * notes. The masking slides open, and four famous films get theirs, one after
+ * stops: the masks pull away and the whole still frame is back, with the film's
+ * true story (Cannes booed it; it won the Jury Prize). Every film gets notes.
+ * The masking slides open, and four famous films get theirs, one after
  * another,
  * as you scroll: the studio's memo to the director types itself out, centre
  * frame, over the film drained to grey, weaving slightly like film in a gate.
@@ -22,7 +24,8 @@ import { createNoteBurn } from './noteBurn';
  * as film does when it stalls in a projector (noteBurn.js); the film breaks
  * through in colour on a flare of burnt light, with the director's answer and
  * what it does to you.
- * It ends on the definition, the four films in a row to start with.
+ * It ends on the definition, on black, and the four films' frames, each at the
+ * width its director chose, the masking opening on each in turn.
  *
  * A film the atlas can't find still has its beat, on the dark, without a still.
  * With reduced motion: the notes and answers, laid out still.
@@ -31,33 +34,37 @@ import { createNoteBurn } from './noteBurn';
 const BEATS = [
     {
         title: 'Mulholland Drive',
+        ratio: 1.85, // the shape its director framed it in, for the end
         note: 'Explain the ending. Audiences hate being confused.',
         answer: 'Leave them a mystery to carry home.',
         feel: 'It makes sense the way a dream does, right up until you wake.'
     },
     {
         title: 'Tokyo Story',
-        note: "It's too slow. Cut it down.",
+        ratio: 1.37,
+        note: 'Nothing happens. Give them a big scene.',
         answer: 'Let the moment last until you feel it.',
         feel: 'An old couple visits their busy grown-up children. Nothing explodes, and it will still undo you.'
     },
     {
         title: 'In the Mood for Love',
+        ratio: 1.66,
         note: "Have them finally say 'I love you'.",
         answer: 'Say it with a look. Never out loud.',
         feel: 'Two neighbours, a narrow corridor, one song played again and again. They never say it. You feel all of it.'
     },
     {
         title: 'Persona',
-        note: 'Just tell a simple story about a nurse and her patient.',
+        ratio: 1.37,
+        note: "Don't remind people they're watching a film.",
         answer: 'Let the film itself come apart.',
-        feel: 'A nurse and an actress who has stopped speaking, alone by the sea, until their two faces seem to become one.'
+        feel: 'A nurse and an actress who has stopped speaking, alone by the sea. Halfway through, the film snaps and burns, and their two faces become one.'
     }
 ];
-// the scroll, shared out: the set-up, the four films, the definition
-const INTRO = 0.17;
-const OUTRO = 0.16;
-const SCROLL_VH = 478;
+// the scroll, shared out: the set-up (about 101vh), the four films (80vh each), the definition (76vh)
+const INTRO = 0.2033;
+const OUTRO = 0.1536;
+const SCROLL_VH = 498;
 // the set-up: the film as its director framed it, then three notes the frame acts out, then the
 // whole frame again. Moments are shares of the set-up's stretch of scroll.
 // L'Avventura's island: Claudia alone on the bare rock, the sea behind her, one far-off figure in white.
@@ -65,19 +72,26 @@ const SCROLL_VH = 478;
 // `focus` is where she stands, as a share of the frame's width; `head` is where the push-ins grow from,
 // as a share of the screen's height (just above her face, so a close-up keeps it); `position` keeps her
 // head in the wide screen.
-const OPENER = { title: "L'Avventura", still: '/h8VGSAhOVA8BBYeK8EQM10QD1O8.jpg', focus: 0.67, head: 0.065, position: '50% 10%' };
+// `story`: what really happened to it, told once the whole frame is back.
+const OPENER = {
+    title: "L'Avventura", still: '/h8VGSAhOVA8BBYeK8EQM10QD1O8.jpg', focus: 0.67, head: 0.065, position: '50% 10%',
+    story: ['The Cannes audience booed it.', 'It won the Jury Prize.']
+};
 const NOTES = [
-    { text: 'Too wide.', from: 0.1, to: 0.35 },
-    { text: 'Too empty.', from: 0.36, to: 0.49 },
-    { text: 'Too slow.', from: 0.5, to: 0.67 }
+    { text: 'Too wide.', from: 0.08, to: 0.28 },
+    { text: 'Too empty.', from: 0.289, to: 0.393 },
+    { text: 'Too slow.', from: 0.401, to: 0.538 }
 ];
-const BOXED = [0.13, 0.19]; // the masks close in to 4:3…
-const PAN = [0.19, 0.33]; // …and the camera pans from the bare rocks across to her
-const PUNCH = [0.39, 0.45]; // "too empty": in on her, until the land is gone
-const JUMP = [0.53, 0.66]; // "too slow": cut, cut, cut
-const RESTORE = 0.68; // and it stops: the whole frame, still
+const BOXED = [0.104, 0.152]; // the masks close in to 4:3…
+const PAN = [0.152, 0.265]; // …and the camera pans from the bare rocks across to her
+const PUNCH = [0.313, 0.361]; // "too empty": in on her, until the land is gone
+const JUMP = [0.425, 0.53]; // "too slow": cut, cut, cut
+const RESTORE = 0.546; // and it stops: the whole frame, still
+const STORY = [0.56, 0.6, 0.72, 0.74]; // its true story: in, its second line in, both out
+const POINT = [0.759, 0.808, 0.888, 0.912]; // the point: in, its second line in, both out
 const LINES = ['Every film gets notes.', "Here's what four directors did with theirs."];
-const OPEN = [0.9, 1]; // the masking slides away onto the first film
+const DIP = [0.904, 0.936]; // the film dips to black…
+const OPEN = [0.92, 1]; // …and the masking slides away onto the first film
 const inIntro = (share) => share * INTRO;
 
 // within a film's stretch of the scroll: typed, cut, burnt
@@ -259,8 +273,8 @@ const MaskedScreen = ({ p, opener }) => {
     const topY = useTransform(p, OPEN.map(inIntro), ['0%', '-100%'], { ease: easeInOut });
     const bottomY = useTransform(p, OPEN.map(inIntro), ['0%', '100%'], { ease: easeInOut });
     // the film dips to black before the masks open, so the first of the four comes up clean
-    const screenOp = useOpacity(p, [inIntro(0.88), inIntro(0.92)], [1, 0]);
-    const kickerOp = useOpacity(p, [inIntro(0.86), inIntro(0.9)], [1, 0]);
+    const screenOp = useOpacity(p, DIP.map(inIntro), [1, 0]);
+    const questionOp = useOpacity(p, [inIntro(POINT[2]), inIntro(0.92)], [1, 0]);
 
     const first = inIntro(NOTES[0].from);
     const restore = inIntro(RESTORE);
@@ -290,25 +304,30 @@ const MaskedScreen = ({ p, opener }) => {
     const shotX = useTransform(shot, (f) => `${f.x}%`);
     const shotScale = useTransform(shot, (f) => f.s);
 
-    // under the screen: whose framing you're watching, and the note being acted out
-    const madeOp = useOpacity(p, [...hard(first, restore), inIntro(0.88), inIntro(0.92)], [1, 0, 0, 1, 1, 0]);
+    // under the screen: the film and whose framing you're watching, or the note being acted out
+    const madeOp = useOpacity(p, [...hard(first, restore), ...DIP.map(inIntro)], [1, 0, 0, 1, 1, 0]);
     const studioOp = useOpacity(p, hard(first, restore), [0, 1, 1, 0]);
-    const creditOp = useOpacity(p, [...hard(first, restore), inIntro(0.88), inIntro(0.92)], [1, 0, 0, 1, 1, 0]);
     const hintOp = useOpacity(p, [0, first], [1, 0]);
 
-    // after it stops, the point, once
-    const lineOp = useOpacity(p, [inIntro(0.7), inIntro(0.73), inIntro(0.86), inIntro(0.89)], [0, 1, 1, 0]);
-    const subOp = useOpacity(p, [inIntro(0.76), inIntro(0.79), inIntro(0.86), inIntro(0.89)], [0, 1, 1, 0]);
+    // after it stops: the film's true story, then the point, each once, like title cards
+    const fade = ([a, , c, d]) => [a, a + 0.02, c, d].map(inIntro);
+    const late = ([, b, c, d]) => [b, b + 0.022, c, d].map(inIntro);
+    const storyOp = useOpacity(p, fade(STORY), [0, 1, 1, 0]);
+    const storySubOp = useOpacity(p, late(STORY), [0, 1, 1, 0]);
+    const lineOp = useOpacity(p, fade(POINT), [0, 1, 1, 0]);
+    const subOp = useOpacity(p, late(POINT), [0, 1, 1, 0]);
+    const darkOp = useOpacity(p, [STORY[0], STORY[0] + 0.02, POINT[2], POINT[3]].map(inIntro), [0, 1, 1, 0]);
 
     const film = opener?.film;
     const still = opener?.still;
-    const surname = film?.directors?.[0]?.split(' ').at(-1);
-    const credit = film && [film.title, film.year].filter(Boolean).join('  ·  ');
+    const director = film?.directors?.[0];
+    const story = opener?.story;
 
     return (
         <div className="absolute inset-0 flex flex-col pointer-events-none" aria-hidden="true">
+            {/* the question, set on the masking over the screen like a film's title */}
             <motion.div className="relative flex-1 bg-black" style={{ y: topY }}>
-                <motion.div className="absolute inset-x-0 bottom-0 max-w-7xl mx-auto px-6 md:px-14 pb-4 md:pb-5 font-label text-[12px] tracking-[0.14em] uppercase text-gold" style={{ opacity: kickerOp }}>What is arthouse cinema?</motion.div>
+                <motion.div className="absolute inset-x-0 bottom-0 px-6 pb-4 md:pb-5 text-center font-serif font-light leading-none text-white text-[clamp(2rem,min(3.6vw,6.2vh),3.5rem)]" style={{ opacity: questionOp }}>What is arthouse cinema?</motion.div>
             </motion.div>
             <motion.div className="relative w-full max-h-[80vh] aspect-[1.85/1] md:aspect-[2.39/1] bg-black overflow-hidden" style={{ opacity: screenOp }}>
                 {still && (
@@ -323,27 +342,57 @@ const MaskedScreen = ({ p, opener }) => {
                 <motion.div className="absolute inset-y-0 -left-px w-[calc(14%+1px)] md:w-[calc(22.1%+1px)] bg-black" style={{ x: leftX }} />
                 <motion.div className="absolute inset-y-0 -right-px w-[calc(14%+1px)] md:w-[calc(22.1%+1px)] bg-black" style={{ x: rightX }} />
 
-                {/* stopped: the point, once, over a little dark so it reads */}
-                <motion.div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_70%_at_50%_52%,rgba(0,0,0,0.55),transparent_75%)]" style={{ opacity: lineOp }} />
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-                    <motion.p style={{ opacity: lineOp }} className="font-serif text-white leading-[1.02] text-[clamp(1.6rem,4.6vw,4.6rem)] [text-shadow:0_2px_30px_rgba(0,0,0,0.6)]">{LINES[0]}</motion.p>
-                    <motion.p style={{ opacity: subOp }} className="mt-2 md:mt-4 text-gray-200 text-[clamp(0.85rem,1.5vw,1.35rem)] [text-shadow:0_1px_10px_rgba(0,0,0,0.8)]">{LINES[1]}</motion.p>
-                </div>
+                {/* stopped: its story, then the point, over a little dark so they read */}
+                <motion.div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_70%_at_50%_52%,rgba(0,0,0,0.55),transparent_75%)]" style={{ opacity: darkOp }} />
+                {[[story, storyOp, storySubOp], [LINES, lineOp, subOp]].map(([lines, op, subOpacity], k) => lines && (
+                    <div key={k} className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+                        <motion.p style={{ opacity: op }} className="font-serif text-white leading-[1.02] text-[clamp(1.6rem,4.6vw,4.6rem)] [text-shadow:0_2px_30px_rgba(0,0,0,0.6)]">{lines[0]}</motion.p>
+                        <motion.p style={{ opacity: subOpacity }} className="mt-2 md:mt-4 text-gray-200 text-[clamp(0.95rem,1.5vw,1.35rem)] [text-shadow:0_1px_10px_rgba(0,0,0,0.8)]">{lines[1]}</motion.p>
+                    </div>
+                ))}
             </motion.div>
             <motion.div className="relative flex-1 bg-black" style={{ y: bottomY }}>
-                <div className="relative pt-4 md:pt-5 px-6 text-center font-label uppercase">
-                    <div className="relative h-4 text-[10px] md:text-[11px] tracking-[0.3em]">
-                        <motion.span className="absolute inset-x-0 text-gray-300" style={{ opacity: madeOp }}>{surname ? `As ${surname} framed it` : 'As its director framed it'}</motion.span>
+                {/* the film's name, as a caption: what you're watching, and whose framing it is */}
+                <div className="relative pt-3 md:pt-4 px-6 text-center">
+                    <div className="relative h-5 font-label uppercase text-[12px] md:text-[13px] tracking-[0.14em]">
+                        <motion.span className="absolute inset-x-0 text-gray-300" style={{ opacity: madeOp }}>{director ? `As ${director} framed it` : 'As its director framed it'}</motion.span>
                         <motion.span className="absolute inset-x-0 text-[#e0a64a]" style={{ opacity: studioOp }}>If a studio had its way</motion.span>
                     </div>
-                    <div className="relative mt-2 md:mt-3 h-8">
-                        {credit && <motion.div className="absolute inset-x-0 top-0 text-[10px] tracking-[0.25em] text-gray-500" style={{ opacity: creditOp }}>{credit}</motion.div>}
+                    <div className="relative mt-1 md:mt-1.5 h-10 md:h-11">
+                        {film && (
+                            <motion.div className="absolute inset-x-0 top-0 font-serif italic text-white leading-tight text-[clamp(1.6rem,2.5vw,2.25rem)]" style={{ opacity: madeOp }}>
+                                {film.title}
+                                {film.year && <span className="ml-3 not-italic font-label text-[12px] md:text-[13px] tracking-[0.14em] text-gray-300 align-middle">{film.year}</span>}
+                            </motion.div>
+                        )}
                         {NOTES.map((note) => <TypedNote key={note.text} p={p} {...note} />)}
                     </div>
-                    <motion.div className="text-[10px] tracking-[0.3em] text-gray-600" style={{ opacity: hintOp }}>Scroll ↓</motion.div>
+                    <motion.div className="mt-1 font-label uppercase text-[12px] tracking-[0.14em] text-gray-400" style={{ opacity: hintOp }}>Scroll ↓</motion.div>
                 </div>
             </motion.div>
         </div>
+    );
+};
+
+// one of the four at the end: its frame at its own width, the masking parting on it as you arrive,
+// breathing slowly; the whole of it opens the film
+const EndFrame = ({ p, i, from, beat, film }) => {
+    const open = useTransform(p, [from + i * 0.012, from + i * 0.012 + 0.03], [0, 1], { ease: easeInOut });
+    const leftX = useTransform(open, (k) => `${-100 * k}%`);
+    const rightX = useTransform(open, (k) => `${100 * k}%`);
+    const still = stillOf(film);
+    return (
+        <Link to={film ? `/movie/${film._id}` : '/explore'} className="group block min-w-0" style={{ flex: `${beat.ratio} 1 0%` }}>
+            <div className="relative overflow-hidden bg-[#141414] ring-1 ring-white/15 group-hover:ring-gold/70 transition-colors" style={{ aspectRatio: beat.ratio }}>
+                {still && <img src={sized(still, 'w1280')} alt="" className="frame-breathe absolute inset-0 w-full h-full object-cover max-w-none" style={{ animationDelay: `${-3 * i}s` }} />}
+                <motion.div className="absolute inset-y-0 left-0 w-1/2 bg-black" style={{ x: leftX }} />
+                <motion.div className="absolute inset-y-0 right-0 w-1/2 bg-black" style={{ x: rightX }} />
+            </div>
+            <div className="mt-2 flex items-baseline gap-1.5 font-serif text-sm md:text-lg leading-tight text-gray-100 group-hover:text-white">
+                <span className="truncate">{film?.title || beat.title}</span>
+                <MdArrowForward aria-hidden="true" className="shrink-0 self-center text-gold text-sm transition-transform duration-300 group-hover:translate-x-1" />
+            </div>
+        </Link>
     );
 };
 
@@ -374,7 +423,9 @@ const ArthouseBreath = ({ films = [], reducedMotion = false }) => {
     const end = 1 - OUTRO;
     const endOp = useOpacity(p, [end + 0.02, end + 0.08], [0, 1]);
     const endY = useTransform(p, [end + 0.02, end + 0.1], [30, 0]);
-    const dim = useOpacity(p, [end, end + 0.06], [0, 0.94]);
+    // all the way to black, so nothing of the last film shows through
+    const dim = useOpacity(p, [end, end + 0.06], [0, 1]);
+    const marksOp = useOpacity(p, [end, end + 0.04], [1, 0]);
     // what can be pressed: the film whose answer is up (0 to n − 1), the definition (n), or nothing
     const len = (1 - INTRO - OUTRO) / n;
     const [live, setLive] = useState(-1);
@@ -424,31 +475,34 @@ const ArthouseBreath = ({ films = [], reducedMotion = false }) => {
 
                 {/* the set-up: a film the studio "fixes" in subtitles, then the masking opens onto the first film */}
                 <MaskedScreen p={p} opener={opener} />
-                <p className="sr-only">What is arthouse cinema? {LINES.join(' ')}</p>
+                <h2 className="sr-only">What is arthouse cinema?</h2>
+                <p className="sr-only">
+                    {opener?.film && `${opener.film.title}${opener.film.year ? `, ${opener.film.year}` : ''}. `}
+                    {opener?.story && `${opener.story.join(' ')} `}
+                    {LINES.join(' ')}
+                </p>
 
                 {/* where you are in the four */}
-                <div className="absolute right-6 md:right-14 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10" aria-hidden="true">
+                <motion.div className="absolute right-6 md:right-14 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10" style={{ opacity: marksOp }} aria-hidden="true">
                     {BEATS.map((beat, i) => <BeatMark key={beat.title} p={p} i={i} n={n} />)}
-                </div>
+                </motion.div>
 
-                {/* the definition, the four films in a row to start with */}
+                {/* the definition, and the four films' frames, each at the width its director chose */}
                 <motion.div className="absolute inset-0 bg-[#050505] pointer-events-none" style={{ opacity: dim }} />
                 <motion.div className={`absolute inset-0 flex items-center z-10 ${live === n ? '' : 'pointer-events-none'}`} style={{ opacity: endOp, y: endY }}>
                     <div className="w-full max-w-7xl mx-auto px-6 md:px-14">
                         {definition}
-                        <div className="mt-10 grid grid-cols-4 gap-3 md:gap-5 max-w-3xl">
-                            {BEATS.map((beat, i) => {
-                                const f = found[i];
-                                const poster = f?.posterUrl || stillOf(f);
-                                return (
-                                    <Link key={beat.title} to={f ? `/movie/${f._id}` : '/explore'} className="group block">
-                                        <div className="aspect-[2/3] overflow-hidden bg-[#141414] ring-1 ring-white/10 group-hover:ring-white/50 transition-colors">
-                                            {poster && <img src={sized(poster, 'w342')} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />}
-                                        </div>
-                                        <div className="mt-2 font-serif text-xs md:text-base leading-tight text-gray-200 group-hover:text-white line-clamp-2">{f?.title || beat.title}</div>
-                                    </Link>
-                                );
-                            })}
+                        <div className="mt-8 md:mt-12 font-label text-[12px] tracking-[0.14em] uppercase text-gray-300">As their directors framed them</div>
+                        {/* two rows of two on a phone, one row on a wider screen; in a row, frames share one height */}
+                        <div className="mt-3 md:mt-4 flex flex-col md:flex-row gap-4 md:gap-5">
+                            {[BEATS.slice(0, 2), BEATS.slice(2)].map((pair, row) => (
+                                <div key={row} className="flex gap-3 md:contents">
+                                    {pair.map((beat, k) => {
+                                        const i = row * 2 + k;
+                                        return <EndFrame key={beat.title} p={p} i={i} from={end + 0.035} beat={beat} film={found[i]} />;
+                                    })}
+                                </div>
+                            ))}
                         </div>
                         <Link to="/explore" className="mt-[18px] -mb-3.5 py-3.5 inline-flex items-center gap-2 font-label text-[12px] tracking-[0.14em] uppercase text-gray-300 hover:text-white transition-colors">
                             Find more like these <MdArrowOutward />

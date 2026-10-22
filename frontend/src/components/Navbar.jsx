@@ -139,8 +139,8 @@ const Navbar = () => {
                             </>
                         ) : (
                             <>
-                                <Link to="/login" state={back} onClick={closeMobileMenu} className={`${SIGN} text-sm text-gray-200`}>Sign in</Link>
-                                <Link to="/register" state={back} onClick={closeMobileMenu} className={`${SIGN} text-sm px-5 py-2.5 ring-1 ring-gold/60 text-gold`}>Join</Link>
+                                {/* one door: the page it opens has Join too */}
+                                <Link to="/login" state={back} onClick={closeMobileMenu} className={`${SIGN} text-sm px-5 py-2.5 ring-1 ring-gold/60 text-gold`}>Sign in</Link>
                             </>
                         )}
                     </div>
@@ -221,14 +221,14 @@ const Navbar = () => {
                                 )}
                             </div>
                         ) : (
-                            <div className="flex items-center gap-7">
-                                <Link to="/login" state={back} className={`${SIGN} text-[13px] ${inRoom(location.pathname, '/login') ? 'is-lit' : 'text-gray-300 hover:text-white'}`}>
-                                    Sign in
-                                </Link>
-                                <Link to="/register" state={back} className={`${SIGN} text-[13px] px-5 py-2 ring-1 ring-gold/50 text-gold hover:bg-gold hover:text-black transition-colors`}>
-                                    Join
-                                </Link>
-                            </div>
+                            // one door: the page it opens has Join too
+                            <Link
+                                to="/login"
+                                state={back}
+                                className={`${SIGN} text-[13px] px-5 py-2 ring-1 ring-gold/50 ${inRoom(location.pathname, '/login') || inRoom(location.pathname, '/register') ? 'is-lit' : 'text-gold hover:bg-gold hover:text-black transition-colors'}`}
+                            >
+                                Sign in
+                            </Link>
                         )}
                     </div>
 

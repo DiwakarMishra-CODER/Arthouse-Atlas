@@ -37,8 +37,10 @@ From the commentary on the About page, where I talk through the films that made 
 |---|---|
 | ![](docs/screens/home-wall.jpg) | ![](docs/screens/home-today.jpg) |
 | **The front door.** Every film's still, on one wall. Scroll and the camera dives into one tile: today's film, the same for everyone today. | **Today's film** comes with its reason. Here: "Because Julie Dash was born on this day in 1952." Sundays get a long film. |
-| ![](docs/screens/home-arthouse-note.jpg) | ![](docs/screens/home-arthouse-answer.jpg) |
-| **What is arthouse cinema?** A studio's note on a film ("Explain the ending") burns through like film stuck in a projector… | **…and the director's answer** takes its place. Four films, four notes, four answers. |
+| ![](docs/screens/home-arthouse-open.jpg) | ![](docs/screens/home-arthouse-note.jpg) |
+| **What is arthouse cinema?** It opens on *L'Avventura*, as Antonioni framed it. The frame acts out a studio's notes ("Too wide", "Too empty", "Too slow"), then comes the film's true story: the Cannes audience booed it, and it won the Jury Prize. | **Then four films get a note.** The studio's memo ("Explain the ending") burns through like film stuck in a projector… |
+| ![](docs/screens/home-arthouse-answer.jpg) | ![](docs/screens/home-arthouse-end.jpg) |
+| **…and the director's answer** takes its place. Four films, four notes, four answers. | **That's arthouse cinema:** films whose makers didn't take the note, each frame shown at the width its director chose. |
 | ![](docs/screens/home-countdown.jpg) | ![](docs/screens/home-just-missing.jpg) |
 | **The countdown.** The ten films the critics agree on most (one per director), wiped in by an Academy leader's sweep. | **Just missing out:** 11 to 20, hung like trims in an editing room, swaying as you scroll. |
 | ![](docs/screens/home-map.jpg) | ![](docs/screens/home-auditorium.jpg) |
@@ -57,7 +59,7 @@ You arrive on the film's title card, over its own frames. Scroll, and the screen
 | | |
 |---|---|
 | ![](docs/screens/film-title.jpg) | ![](docs/screens/film-credits.jpg) |
-| **The title card.** The trailer button is a little screen already playing the film's frames. Watched, Watchlist, Favourite and your stars sit beside it. | **The opening titles.** The navbar steps aside while they run; your controls dock at the top right so they're always within reach. |
+| **The title card,** here signed in, with the film marked Watched and Favourite and given four stars. The trailer button is a little screen already playing the film's frames. | **The opening titles.** The navbar steps aside while they run; your controls dock at the top right so they're always within reach. |
 | ![](docs/screens/film-trailer.jpg) | ![](docs/screens/film-critics.jpg) |
 | **The trailer plays in place.** The little screen grows into the big one. For the 44 films with no trailer online, the film's own frames run instead. | **How the critics rank it:** the film's standing on a marquee, its strongest lists as laurels, and what MovieLens viewers made of it. |
 | ![](docs/screens/film-lists.jpg) | ![](docs/screens/film-double-bill.jpg) |

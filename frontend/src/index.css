@@ -907,6 +907,9 @@ html[data-cover] .projected-black { visibility: hidden; }
 @keyframes frame-cut { from { opacity: 0; } }
 .subtitle-in { animation: frame-cut 200ms ease-out both; }
 @media (prefers-reduced-motion: reduce) { .frame-cut, .frame-push, .subtitle-in { animation: none; } }
+/* the four films at the end of "What is arthouse cinema?": each frame breathes in and out, slowly */
+.frame-breathe { animation: breath-push 11s ease-in-out infinite alternate; }
+@media (prefers-reduced-motion: reduce) { .frame-breathe { animation: none; } }
 /* the punch line, a beat after its lead-in, as subtitles come */
 .subtitle-late { animation: frame-cut 260ms ease-out 350ms both; }
 @media (prefers-reduced-motion: reduce) { .subtitle-late { animation: none; } }

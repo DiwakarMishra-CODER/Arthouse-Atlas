@@ -189,7 +189,7 @@ Each room has one physical idea from cinema, acted out with frames, the camera a
   - Natural Earth's 1:110m shapes via world-atlas, drawn with d3-geo on off-screen layers.
   - A country that no longer exists lights its successors (the Soviet Union lights 15).
   - Countries crossing the 180° line are re-centred, and each country is framed by its mainland, so France doesn't include French Guiana and the United States leaves out Alaska and Hawaii.
-- **Home: the arthouse scene** (`ArthouseBreath.jsx`, `noteBurn.js`). A studio's note is typed, cut and burnt through on a canvas as you scroll. The four films' layers are stacked, and only the one on screen takes taps.
+- **Home: the arthouse scene** (`ArthouseBreath.jsx`, `noteBurn.js`). A studio's note is typed, cut and burnt through on a canvas as you scroll. The four films' layers are stacked, and only the one on screen takes taps. At the end, each film's frame is shown at its own aspect ratio (1.85, 1.37, 1.66, 1.37): every frame's flex-grow is its ratio, so a row of them shares one height, and on a phone two rows of two come from the same markup (`display: contents` on the row wrappers above the phone size). The masking parts on each frame with transforms only.
 - **The film page** (`components/film/`).
   - **The opening** (`TheScreen.jsx`) is a sticky stage. Its card is picked from `useScroll` progress, and each card change cuts to the next of the film's frames.
   - **The trailer** grows out of a little screen through a shared framer-motion `layoutId`, then plays in YouTube's IFrame API. Its `onError` falls back to the film's frames.
