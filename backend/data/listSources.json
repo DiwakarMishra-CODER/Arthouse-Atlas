@@ -1,0 +1,142 @@
+{
+ "ss2022-critics": {
+  "family": "all-time-poll",
+  "kind": "ranked",
+  "size": 250,
+  "label": "Sight & Sound 2022 — critics' poll",
+  "url": "https://www.bfi.org.uk/sight-and-sound/greatest-films-all-time"
+ },
+ "ss2022-directors": {
+  "family": "peer-poll",
+  "kind": "ranked",
+  "size": 100,
+  "label": "Sight & Sound 2022 — directors' poll",
+  "url": "https://www.bfi.org.uk/sight-and-sound/directors-100-greatest-films-all-time"
+ },
+ "tspdt-1000": {
+  "family": "all-time-poll",
+  "kind": "ranked",
+  "size": 1000,
+  "label": "They Shoot Pictures, Don't They? — 1,000 Greatest Films",
+  "url": "https://www.theyshootpictures.com/gf1000_all1000films_table.php"
+ },
+ "criterion": {
+  "family": "institution",
+  "kind": "membership",
+  "size": null,
+  "label": "The Criterion Collection",
+  "url": "https://en.wikipedia.org/wiki/List_of_films_in_the_Criterion_Collection"
+ },
+ "cahiers-top10": {
+  "family": "year-end",
+  "kind": "ranked-yearly",
+  "size": null,
+  "label": "Cahiers du Cinéma — annual top 10",
+  "url": "https://en.wikipedia.org/wiki/Cahiers_du_Cin%C3%A9ma%27s_Annual_Top_10_Lists"
+ },
+ "festival-awards": {
+  "family": "prize",
+  "kind": "membership",
+  "size": null,
+  "label": "Major festival prizes (Wikidata)",
+  "url": "https://query.wikidata.org/sparql"
+ },
+ "bbc-21c": {
+  "family": "all-time-poll",
+  "kind": "ranked",
+  "size": 100,
+  "label": "BBC Culture — The 21st Century's 100 Greatest Films (2016)",
+  "url": "https://www.bbc.com/culture/article/20160819-the-21st-centurys-100-greatest-films"
+ },
+ "bbc-foreign": {
+  "family": "all-time-poll",
+  "kind": "ranked",
+  "size": 100,
+  "label": "BBC Culture — The 100 Greatest Foreign-Language Films (2018)",
+  "url": "https://www.bbc.com/culture/article/20181029-the-100-greatest-foreign-language-films"
+ },
+ "bbc-women": {
+  "family": "all-time-poll",
+  "kind": "ranked",
+  "size": 100,
+  "label": "BBC Culture — The 100 Greatest Films Directed by Women (2019)",
+  "url": "https://www.bbc.com/culture/article/20191125-the-100-greatest-films-directed-by-women-poll"
+ },
+ "busan-asian100": {
+  "family": "regional-poll",
+  "kind": "ranked",
+  "size": 100,
+  "label": "Busan IFF's Asian Cinema 100 (2015)",
+  "url": "http://www.biff.kr/Template/Builder/00000001/page.asp?page_num=5865"
+ },
+ "criticstop10": {
+  "family": "year-end",
+  "kind": "ranked-yearly",
+  "size": null,
+  "label": "CriticsTop10 — critics' year-end top-ten consensus",
+  "url": "https://criticstop10.com"
+ },
+ "ebert-great": {
+  "family": "critic",
+  "kind": "membership",
+  "size": null,
+  "label": "Roger Ebert's Great Movies",
+  "url": "https://www.rogerebert.com/great-movies"
+ },
+ "kinema-junpo": {
+  "family": "year-end",
+  "kind": "ranked-yearly",
+  "size": 10,
+  "label": "Kinema Junpo Best Ten (Japanese films)",
+  "url": "https://ja.wikipedia.org/wiki/キネマ旬報ベスト・テン"
+ },
+ "nyt-21c": {
+  "family": "peer-poll",
+  "kind": "ranked",
+  "size": 100,
+  "label": "The New York Times — The 100 Best Movies of the 21st Century (2025)",
+  "url": "https://www.nytimes.com/interactive/2025/movies/best-movies-21st-century.html"
+ },
+ "rosenbaum-1000": {
+  "family": "all-time-poll",
+  "kind": "membership",
+  "size": 1000,
+  "label": "Jonathan Rosenbaum's 1000 Essential Films",
+  "url": "https://jonathanrosenbaum.net/2024/01/1000-favorites-a-personal-canon/"
+ },
+ "ss-docs": {
+  "family": "all-time-poll",
+  "kind": "ranked",
+  "size": 50,
+  "label": "Sight and Sound — Critics' 50 Greatest Documentaries of All Time (2014)",
+  "url": "https://www.bfi.org.uk/sight-and-sound/critics-50-greatest-documentaries-all-time"
+ },
+ "ss-historic": {
+  "family": "all-time-poll",
+  "kind": "ranked-historic",
+  "size": 10,
+  "label": "Sight and Sound — Greatest Films polls 1952–2002 (top tens)",
+  "url": "https://www.bfi.org.uk/sight-and-sound/polls/greatest-films-all-time/1952"
+ },
+ "ss-yearend": {
+  "family": "year-end",
+  "kind": "ranked-yearly",
+  "size": 50,
+  "label": "Sight and Sound — critics' poll of the year's best films",
+  "url": "https://www.bfi.org.uk/sight-and-sound/articles/type/polls"
+ },
+ "ss2012-critics": {
+  "family": "all-time-poll",
+  "kind": "ranked",
+  "size": 100,
+  "label": "Sight and Sound — Greatest Films of All Time 2012 (critics' poll)",
+  "url": "https://www.bfi.org.uk/sight-and-sound/polls/greatest-films-all-time-2012"
+ },
+ "ss2012-directors": {
+  "family": "all-time-poll",
+  "kind": "ranked",
+  "size": 100,
+  "label": "Sight and Sound — Greatest Films of All Time 2012 (directors' poll)",
+  "url": "https://www.bfi.org.uk/sight-and-sound/polls/greatest-films-all-time/directors-100-best"
+ }
+}

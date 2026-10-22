@@ -84,6 +84,15 @@ export const userAPI = {
 export default api;
 
 // For You without an account (ratings travel with the request), and the deck newcomers rate
+export const aboutAPI = {
+  facts: () => api.get('/about/facts'),
+  lists: () => api.get('/about/lists'),
+  list: (source) => api.get(`/about/lists/${source}`),
+  examples: () => api.get('/about/examples'),
+  count: (id) => api.get(`/about/count/${id}`),
+  films: (titles) => api.get('/about/films', { params: { t: titles }, paramsSerializer: { indexes: null } }),
+};
+
 export const recsAPI = {
   preview: (body) => api.post('/recs/preview', body),
   starters: () => api.get('/recs/starters'),

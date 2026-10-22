@@ -103,15 +103,15 @@ const POLL_YEAR = {
   'nyt-21c': 2025, 'ss-docs': 2014, 'busan-asian100': 2015
 };
 
+// the decades in which the great polls placed the film (as their first year: 1972 -> 1970)
+const pollDecades = (evidence, sources) => [...new Set(evidence
+  .filter((x) => ['all-time-poll', 'peer-poll', 'regional-poll'].includes(sources[x.source]?.family))
+  .map((x) => x.pollYear || POLL_YEAR[x.source])
+  .filter(Boolean)
+  .map((y) => Math.floor(y / 10) * 10))].sort((a, b) => a - b);
+
 // decades in which the great polls placed the film, beyond the first
-const endurance = (evidence, sources) => {
-  const decades = new Set(evidence
-    .filter((x) => ['all-time-poll', 'peer-poll', 'regional-poll'].includes(sources[x.source]?.family))
-    .map((x) => x.pollYear || POLL_YEAR[x.source])
-    .filter(Boolean)
-    .map((y) => Math.floor(y / 10)));
-  return Math.min(3, 0.6 * Math.max(0, decades.size - 1));
-};
+const endurance = (evidence, sources) => Math.min(3, 0.6 * Math.max(0, pollDecades(evidence, sources).length - 1));
 
 // how far a list could really have reached this film: lists that canonise slowly need time
 const SLOW = new Set(['all-time-poll', 'peer-poll', 'regional-poll', 'critic']);
@@ -119,6 +119,38 @@ const opportunity = (film, src) => {
   if (!SLOW.has(src.family) || !film.year || !src.eligible) return 1;
   const settled = src.eligible.to + 1 - film.year;
   return Math.min(1, Math.max(0.15, settled / 20));
+};
+
+/**
+ * The canon score, step by step, for showing how a film earns its place (About): its votes by family,
+ * what each family credits (its cap, and what it would have given uncapped), the canon weight of
+ * each, and the endurance bonus with the decades behind it. Adds up to scoreFilm's score.
+ * evidence: as scoreFilm's (any other fields on a vote are kept, for naming it).
+ */
+export const breakdown = (evidence, sources) => {
+  const byFamily = {};
+  for (const x of evidence) (byFamily[sources[x.source]?.family || 'institution'] ||= []).push(x);
+  const families = Object.entries(byFamily).map(([family, votes]) => {
+    const strengths = votes.map((v) => v.strength);
+    const cap = FAMILY_CAP[family] ?? 1;
+    const credited = familyScore(strengths, cap, family);
+    return {
+      family, cap,
+      weight: CANON_WEIGHT[family] ?? 0.7,
+      votes: [...votes].sort((a, b) => b.strength - a.strength),
+      uncapped: +familyScore(strengths, Infinity, family).toFixed(2),
+      credited: +credited.toFixed(2),
+      counts: credited * (CANON_WEIGHT[family] ?? 0.7),
+    };
+  }).sort((a, b) => b.counts - a.counts);
+  const decades = pollDecades(evidence, sources);
+  const bonus = endurance(evidence, sources);
+  const score = families.reduce((sum, f) => sum + f.counts, 0) + bonus;
+  return {
+    families: families.map(({ counts, ...f }) => ({ ...f, counts: +counts.toFixed(2) })),
+    endurance: { decades, bonus: +bonus.toFixed(2) },
+    score: +score.toFixed(2),
+  };
 };
 
 /**

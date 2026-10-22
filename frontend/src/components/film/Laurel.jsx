@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 /**
  * A poster laurel — the wreath films wear for a festival selection — around
@@ -47,7 +48,8 @@ const Branch = ({ flip, color, delay, reducedMotion }) => (
     </g>
 );
 
-const Laurel = ({ name, place, color = '#d4b26a', href, delay = 0, reducedMotion = false }) => {
+// to: a page in the atlas (the list, in About); href: a page elsewhere
+const Laurel = ({ name, place, color = '#d4b26a', href, to, delay = 0, reducedMotion = false }) => {
     const body = (
         <div className="relative w-[220px] h-[140px] shrink-0 group">
             <svg viewBox="0 0 220 140" className="absolute inset-0 w-full h-full" aria-hidden="true">
@@ -66,6 +68,7 @@ const Laurel = ({ name, place, color = '#d4b26a', href, delay = 0, reducedMotion
             </motion.div>
         </div>
     );
+    if (to) return <Link to={to} className="hover:brightness-125 transition-[filter]" title="See the whole list">{body}</Link>;
     return href
         ? <a href={href} target="_blank" rel="noopener noreferrer" className="hover:brightness-125 transition-[filter]" title="Read the essay">{body}</a>
         : body;

@@ -103,10 +103,10 @@ const Navbar = () => {
 
             {/* on a phone, the rooms: their signs strike on one after another */}
             {isMobileMenuOpen && (
-                <div className="fixed inset-0 md:hidden bg-[#050505] flex flex-col justify-center px-8">
+                <div className="fixed inset-0 lg:hidden bg-[#050505] flex flex-col justify-center px-8">
                     <div aria-hidden="true" className="projected-black absolute inset-0" />
                     <ul className="relative space-y-4">
-                        {[{ to: '/', label: 'Home' }, ...ROOMS].map(({ to, label }, i) => {
+                        {[{ to: '/', label: 'Home' }, ...ROOMS, { to: '/about', label: 'About' }].map(({ to, label }, i) => {
                             const here = inRoom(location.pathname, to);
                             return (
                                 <li key={to}>
@@ -142,7 +142,7 @@ const Navbar = () => {
             <div className="relative max-w-[1800px] mx-auto px-5 md:px-8 py-5 md:py-6">
                 <div className="flex justify-between items-center">
                     {/* the name over the door */}
-                    <Link to="/" className="group z-50 relative flex items-center gap-3" onClick={closeMobileMenu} aria-label="Arthouse Atlas, home">
+                    <Link to="/" className="group z-50 relative flex items-center gap-3 shrink-0 whitespace-nowrap" onClick={closeMobileMenu} aria-label="Arthouse Atlas, home">
                         <HouseMark reel={location.pathname} />
                         <span className="font-serif text-[1.4rem] md:text-[1.55rem] leading-none tracking-[-0.01em] text-white">
                             Arthouse <span className="italic text-gold transition-colors group-hover:text-gold-light">Atlas</span>
@@ -150,8 +150,9 @@ const Navbar = () => {
                     </Link>
 
                     {/* the rooms */}
-                    <div className="hidden md:flex items-center gap-8 lg:gap-11 flex-shrink-0">
-                        <ul className="flex items-center gap-8 lg:gap-11">
+                    {/* (from 1024px wide: below that the rooms and the door don't fit, so one word opens them) */}
+                    <div className="hidden lg:flex items-center gap-5 xl:gap-11 flex-shrink-0 ml-8">
+                        <ul className="flex items-center gap-5 xl:gap-11">
                             {ROOMS.map(({ to, label }) => {
                                 const here = inRoom(location.pathname, to);
                                 return (
@@ -165,6 +166,11 @@ const Navbar = () => {
                         </ul>
 
                         <span aria-hidden="true" className="w-px h-4 bg-white/15" />
+
+                        {/* how the atlas is made: a quiet word beside the door, not a room */}
+                        <Link to="/about" aria-current={inRoom(location.pathname, '/about') ? 'page' : undefined} className={`${SIGN} hidden xl:inline-flex text-[13px] ${inRoom(location.pathname, '/about') ? 'is-lit' : 'text-gray-400 hover:text-white'}`}>
+                            About
+                        </Link>
 
                         {isAuthenticated ? (
                             <div className="relative" ref={profileMenuRef}>
@@ -221,7 +227,7 @@ const Navbar = () => {
                     {/* on a phone, one plain word opens the rooms */}
                     <button
                         type="button"
-                        className={`${SIGN} md:hidden relative z-50 text-[13px] text-gray-100 py-2`}
+                        className={`${SIGN} lg:hidden relative z-50 text-[13px] text-gray-100 py-2`}
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                         aria-expanded={isMobileMenuOpen}
                     >

@@ -5,6 +5,8 @@ import { MovieProvider } from './context/MovieContext';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Admission from './pages/Admission';
+import About from './pages/About';
+import Footer from './components/Footer';
 import Explore from './pages/Explore';
 import MovieDetail from './pages/MovieDetail';
 import Profile from './pages/Profile';
@@ -69,6 +71,7 @@ function AppRoutes() {
           <Route path="/studios" element={<Studios />} />
           <Route path="/studios/:slug" element={<StudioDetail />} />
           <Route path="/recommendations" element={<Recommendations />} />
+          <Route path="/about" element={<About />} />
 
           <Route
             path="/profile"
@@ -80,6 +83,7 @@ function AppRoutes() {
           />
 
         </Routes>
+        <Footer />
       </div>
     </div>
   );

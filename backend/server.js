@@ -11,6 +11,7 @@ import directorRoutes from './routes/directorRoutes.js';
 import movementRoutes from './routes/movementRoutes.js';
 import studioRoutes from './routes/studioRoutes.js';
 import recsRoutes from './routes/recsRoutes.js';
+import aboutRoutes from './routes/aboutRoutes.js';
 
 dotenv.config();
 
@@ -41,6 +42,7 @@ app.use('/api/directors', directorRoutes);
 app.use('/api/movements', movementRoutes);
 app.use('/api/studios', studioRoutes);
 app.use('/api/recs', recsRoutes);
+app.use('/api/about', aboutRoutes);
 
 // Keep-Alive Ping Route for Render (no DB, no auth, instant response)
 app.get('/api/ping', (req, res) => {

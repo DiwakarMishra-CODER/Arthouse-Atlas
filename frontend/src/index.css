@@ -900,3 +900,13 @@ html[data-cover] .projected-black { visibility: hidden; }
 .prize-clock { transform-origin: 0 50%; animation: prize-clock var(--hold, 4500ms) linear both; }
 @keyframes prize-clock { from { transform: scaleX(0); } }
 @media (prefers-reduced-motion: reduce) { .laurel-stem, .laurel-leaf, .prize-clock { animation: none; } }
+
+/* the commentary track (About): a cut to a chapter's frame as the camera creeps in, a card cut in, subtitles */
+.frame-cut { animation: frame-cut 260ms ease-out both; }
+.frame-push { animation: frame-cut 260ms ease-out both, breath-push 9s cubic-bezier(0.2, 0.6, 0.2, 1) both; }
+@keyframes frame-cut { from { opacity: 0; } }
+.subtitle-in { animation: frame-cut 200ms ease-out both; }
+@media (prefers-reduced-motion: reduce) { .frame-cut, .frame-push, .subtitle-in { animation: none; } }
+/* the punch line, a beat after its lead-in, as subtitles come */
+.subtitle-late { animation: frame-cut 260ms ease-out 350ms both; }
+@media (prefers-reduced-motion: reduce) { .subtitle-late { animation: none; } }

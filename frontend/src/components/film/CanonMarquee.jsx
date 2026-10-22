@@ -104,6 +104,8 @@ const CanonMarquee = ({ film, accent, reducedMotion = false }) => {
                 {canon
                     ? 'Its place among all the films in the atlas, and among the films of its decade.'
                     : 'None of the 20 polls, lists and prizes we read place this film. It is in the atlas on the curator’s judgement.'}
+                {' '}<Link to="/about#count" className="text-gold hover:text-gold-light whitespace-nowrap">How it’s counted ›</Link>
+                {' '}<Link to="/about#lists" className="text-gold hover:text-gold-light whitespace-nowrap">See all 20 lists ›</Link>
             </p>
 
             {/* the laurels */}
@@ -114,7 +116,7 @@ const CanonMarquee = ({ film, accent, reducedMotion = false }) => {
                             const c = citation(p);
                             return (
                                 <li key={p._id || `${p.source}-${i}`}>
-                                    <Laurel name={c.name} place={c.place} color={LAUREL_INK} href={p.url} delay={0.2 + i * 0.18} reducedMotion={reducedMotion} />
+                                    <Laurel name={c.name} place={c.place} color={LAUREL_INK} to={`/about?list=${p.source}`} delay={0.2 + i * 0.18} reducedMotion={reducedMotion} />
                                 </li>
                             );
                         })}
