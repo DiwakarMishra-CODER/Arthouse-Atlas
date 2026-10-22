@@ -5,7 +5,10 @@ import { sized } from '../movements/treatments';
 /**
  * The ten just behind the countdown, under the same rule (one film per
  * director), hung like trims in an editing room's bin: short strips of each
- * film clipped to a rail, labelled on tape. Scrolling past sets them swinging.
+ * film clipped to a rail, labelled on tape. Scrolling past sets them swinging: one sway that
+ * settles, from the scroll's speed smoothed first (a thumb's flick reports a jagged speed, which
+ * would shake them). The bin keeps its own transitions, so the site's blanket rule doesn't drag
+ * each frame's swing 150 ms behind.
  *
  * A trim holds two or three of the film's stills, repeating one when that's all
  * there is, or its poster; with none, the tape alone names it.
@@ -16,8 +19,8 @@ const SPROCKETS = 'bg-[repeating-linear-gradient(180deg,transparent_0_5px,#05050
 
 const Trim = ({ film, place, i, swing, reducedMotion }) => {
     // each trim takes the swing a little differently: its own weight, its own lag
-    const push = useTransform(swing, (v) => Math.max(-9, Math.min(9, (v / 260) * (0.7 + (i % 4) * 0.15))));
-    const rotate = useSpring(push, { stiffness: 50 + (i % 3) * 18, damping: 5 + (i % 2) * 2, mass: 0.8 });
+    const push = useTransform(swing, (v) => Math.max(-5, Math.min(5, (v / 650) * (0.7 + (i % 4) * 0.15))));
+    const rotate = useSpring(push, { stiffness: 46 + (i % 3) * 12, damping: 11 + (i % 2) * 2, mass: 0.8 });
 
     const stills = (film.stills || []).slice(0, 3);
     const pool = stills.length ? stills : [film.backdropUrl || film.posterUrl].filter(Boolean);
@@ -62,10 +65,10 @@ const Trim = ({ film, place, i, swing, reducedMotion }) => {
 
 const JustMissingOut = ({ films, from = 11, reducedMotion = false }) => {
     const { scrollY } = useScroll();
-    const swing = useVelocity(scrollY);
+    const swing = useSpring(useVelocity(scrollY), { stiffness: 160, damping: 34 });
 
     return (
-        <section className="max-w-7xl mx-auto px-6 md:px-14 pt-14 md:pt-20">
+        <section className="own-transitions max-w-7xl mx-auto px-6 md:px-14 pt-14 md:pt-20">
             <div className="flex items-baseline gap-4">
                 <h3 className="font-serif text-2xl md:text-3xl text-white">Just missing out</h3>
                 <span className="font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">{from} to {from + films.length - 1}</span>

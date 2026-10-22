@@ -4,6 +4,12 @@ import { userAPI } from '../services/api';
 
 const MovieContext = createContext(null);
 
+// what this browser kept: read once, as the state's starting value (a separate load-on-mount effect
+// lost them in development, where React runs effects twice and the save step wrote the empty start)
+const kept = (key) => {
+    try { return JSON.parse(localStorage.getItem(key)) || []; } catch { return []; }
+};
+
 export const useMovie = () => {
     const context = useContext(MovieContext);
     if (!context) {
@@ -16,27 +22,17 @@ export const MovieProvider = ({ children }) => {
     const { user, isAuthenticated } = useAuth();
 
     // Local state for optimistic UI
-    const [favorites, setFavorites] = useState([]);
-    const [watchlist, setWatchlist] = useState([]);
+    const [favorites, setFavorites] = useState(() => kept('favorites'));
+    const [watchlist, setWatchlist] = useState(() => kept('watchlist'));
     const [watched, setWatched] = useState([]);
-    const [ratings, setRatings] = useState([]);
+    const [ratings, setRatings] = useState(() => kept('ratings'));
     // films you've said aren't for you (For You never picks them); kept like ratings
-    const [notFor, setNotFor] = useState([]);
+    const [notFor, setNotFor] = useState(() => kept('notFor'));
 
     // Guard against rapid double-clicks causing duplicate API calls
     const pendingToggles = useRef(new Set());
 
-    // 1. Initial Load from LocalStorage (Run ONCE on mount)
-    useEffect(() => {
-        const storedFavs = JSON.parse(localStorage.getItem("favorites")) || [];
-        const storedWatch = JSON.parse(localStorage.getItem("watchlist")) || [];
-        const storedRatings = JSON.parse(localStorage.getItem("ratings")) || [];
-        const storedNotFor = JSON.parse(localStorage.getItem("notFor")) || [];
-        setFavorites(storedFavs);
-        setWatchlist(storedWatch);
-        setRatings(storedRatings);
-        setNotFor(storedNotFor);
-    }, []);
+    // 1. (what this browser kept is the state's starting value, above)
 
     // 2. Sync with User from DB (Run when user changes)
     useEffect(() => {

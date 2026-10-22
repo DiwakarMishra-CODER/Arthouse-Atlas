@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { animate, motion, useMotionValue, useMotionValueEvent, useTransform } from 'framer-motion';
 import DepthStage from './DepthStage';
 import MonitorHUD from './MonitorHUD';
@@ -19,22 +20,19 @@ import { becauseWords, evidenceWords, alsoWords, factWords } from './whyWords';
  *
  * It turns by itself, a pick every few seconds (a gold line runs out under "Next" while a pick
  * holds), and you can take it: turn the ring through all your picks (a fling carries on, letting
- * go settles on the nearest), swipe the picture, or step with the buttons or arrow keys. A hand
- * on it rests the turning for a few seconds; so do reading the words, focus inside, being off
- * screen or in a hidden tab, and Pause.
+ * go settles on the nearest), swipe the picture, or step with the buttons or arrow keys. A tap on
+ * the picture (one that doesn't move) opens the film on it. A hand on it rests the turning for a
+ * few seconds; so do reading the words, focus inside, being off screen or in a hidden tab, and Pause.
  *
- * Scrolling past it turns it too: the monitor holds on screen for a stretch of the page, and the
- * page's own scroll is the focus wheel, a few picks' worth (scrolling back turns it back). When
- * the scroll stops, it coasts on to the next pick the way it was going.
+ * The film's name is on its picture, a lower third that racks into focus as the pick lands, so the
+ * two never come apart. The page's scroll only moves the page: nothing on the monitor changes under
+ * someone scrolling to read it.
  */
 
 const COUNTRY = { 'United States of America': 'United States' };
 const STEP = 2; // seconds from one landed pick to the next
 const HOLD = 2.6; // seconds a landed pick stays before the ring turns on
 const REST = 5; // seconds the ring waits after a hand has been on it
-const PIN = 3; // picks the page's scroll turns the ring through while the monitor holds on screen
-const PIN_STEP = 0.4; // of the screen's height, scrolled for each of them
-const QUIET = 320; // ms without a scroll before it settles (longer while momentum trickles in)
 const LANDED = 0.04; // this close to a pick, it has landed
 const KNOWS_THE_RING = 'foryou:turned';
 const LAST_SEEN = 'foryou:shot';
@@ -74,11 +72,12 @@ const TheScreen = ({ picks, start = 0, act, reducedMotion, iris = true }) => {
         try { return localStorage.getItem(KNOWS_THE_RING) === '1'; } catch { return false; }
     });
     const root = useRef(null);
-    const rail = useRef(null); // the stretch of page the monitor holds on screen for
     const shotRef = useRef(first);
     const turning = useRef(null); // the playhead's animation, so a hand can stop it
     const grip = useRef(null);
     const swipe = useRef(null);
+    const swiped = useRef(false); // the press that just ended was a swipe, not a tap
+    const navigate = useNavigate();
     const restTimer = useRef(0);
     const paused = !playing || resting || !onScreen || hidden || reading;
 
@@ -147,74 +146,6 @@ const TheScreen = ({ picks, start = 0, act, reducedMotion, iris = true }) => {
         restTimer.current = setTimeout(() => setResting(false), REST * 1000);
     }, []);
     useEffect(() => () => clearTimeout(restTimer.current), []);
-
-    // while the monitor holds on screen, the page's scroll turns the ring (a pick for every
-    // PIN_STEP of the screen). When the scroll stops, the ring coasts on to the next pick the way
-    // it was going, never back: a trackpad's momentum trickles in with growing gaps, and a settle
-    // that pulled back between them would see-saw across a cut. A scroll arriving while it coasts
-    // adds to the coast, and only takes the ring over once it gets ahead of it.
-    const pinned = !reducedMotion && n > 1;
-    useEffect(() => {
-        if (!pinned) return undefined;
-        let last = null; // the pin's progress at the last read
-        let tall = 0; // and the monitor's height
-        let frame = 0;
-        let settle = 0;
-        let then = 0; // when the scroll last turned it
-        let gap = 0; // and the time before that
-        let way = 0; // which way
-        let coast = null; // the settle under way, and where the scroll alone would have the playhead
-        const rest = () => {
-            const now = at.get();
-            const to = way > 0 ? Math.ceil(now - LANDED) : Math.floor(now + LANDED);
-            if ((to - now) * way <= 0) return; // landed already
-            const anim = run(to, { duration: clamp(0.3 + 0.8 * Math.abs(to - now), 0.35, 1.1), ease: [0.2, 0.7, 0.3, 1], onComplete: () => { coast = null; } });
-            coast = { anim, by: now };
-        };
-        const read = () => {
-            frame = 0;
-            const box = rail.current;
-            const screen = root.current;
-            if (!box || !screen) return;
-            const top = parseFloat(getComputedStyle(screen).top) || 0;
-            const span = box.offsetHeight - screen.offsetHeight;
-            const p = span > 0 ? clamp((top - box.getBoundingClientRect().top) / span, 0, 1) : 0;
-            // a cut can change the monitor's height (titles differ), and a scroll that comes with
-            // it is the page making room, not a hand: turning the ring by it would cut straight back
-            const h = screen.offsetHeight;
-            if (last !== null && p !== last && h === tall && grip.current === null) {
-                const d = (p - last) * PIN;
-                const t = performance.now();
-                gap = t - then;
-                then = t;
-                hold.set(0);
-                touched();
-                const coasting = coast && turning.current === coast.anim && Math.sign(d) === way;
-                if (coasting) coast.by += d;
-                if (!coasting || (coast.by - at.get()) * way > 0) {
-                    const to = coasting ? coast.by : at.get() + d;
-                    turning.current?.stop();
-                    coast = null;
-                    at.set(to);
-                }
-                way = Math.sign(d);
-                clearTimeout(settle);
-                settle = setTimeout(rest, clamp(2 * gap, QUIET, 600));
-            }
-            last = p;
-            tall = h;
-        };
-        const onScroll = () => { if (!frame) frame = requestAnimationFrame(read); };
-        read();
-        window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', onScroll);
-        return () => {
-            cancelAnimationFrame(frame);
-            clearTimeout(settle);
-            window.removeEventListener('scroll', onScroll);
-            window.removeEventListener('resize', onScroll);
-        };
-    }, [pinned, at, hold, run, touched]);
 
     // every pick's soft pictures are drawn while nothing else is happening, so a turn of the ring
     // finds them ready; the sharp pictures of the shots either side are fetched ahead
@@ -292,6 +223,7 @@ const TheScreen = ({ picks, start = 0, act, reducedMotion, iris = true }) => {
         onPointerDown: (e) => {
             if (e.button !== 0) return;
             swipe.current = { x: e.clientX, moved: false };
+            swiped.current = false;
         },
         onPointerMove: (e) => {
             const s = swipe.current;
@@ -306,6 +238,7 @@ const TheScreen = ({ picks, start = 0, act, reducedMotion, iris = true }) => {
         onPointerUp: (e) => {
             const s = swipe.current;
             swipe.current = null;
+            swiped.current = !!s?.moved;
             if (!s?.moved) return;
             const dx = e.clientX - s.x;
             animate(nudge, 0, { type: 'spring', stiffness: 380, damping: 36 });
@@ -338,7 +271,8 @@ const TheScreen = ({ picks, start = 0, act, reducedMotion, iris = true }) => {
     const facts = [pick.year, COUNTRY[pick.country] || pick.country, pick.runtime && `${pick.runtime} min`, pick.directors?.length && `by ${pick.directors.join(' & ')}`].filter(Boolean);
     const fact = factWords(pick.because?.shared);
     const also = alsoWords(pick.also);
-    const markTag = 'px-1.5 py-0.5 bg-black/55 font-label text-[11px] md:text-[12px] tracking-[0.14em] uppercase text-white/90';
+    // (a long title ends in an ellipsis in its corner, leaving the foot's middle to "Open the film")
+    const markTag = 'max-w-full overflow-hidden text-ellipsis px-1.5 py-0.5 bg-black/55 font-label text-[11px] md:text-[12px] tracking-[0.14em] uppercase text-white/90';
     const control = 'font-label text-[13px] tracking-[0.14em] uppercase text-gray-200 hover:text-white transition-colors';
     const holdStill = { onPointerEnter: (e) => e.pointerType === 'mouse' && setReading(true), onPointerLeave: () => setReading(false) };
 
@@ -346,17 +280,36 @@ const TheScreen = ({ picks, start = 0, act, reducedMotion, iris = true }) => {
         <section
             ref={root}
             aria-label="Picked for you"
-            className={pinned ? 'sticky top-[76px] md:top-[84px] [overflow-anchor:none]' : 'relative'}
+            className="relative"
             onFocus={(e) => { if (e.target.getAttribute('role') !== 'slider') setReading(true); }}
             onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setReading(false); }}
         >
             <div className={iris && !reducedMotion ? 'iris-in' : ''}>
                 {/* (a still pressed and moved would start the browser's own image drag, so that's off) */}
-                <motion.div style={{ x: nudge }} className={turnable ? 'touch-pan-y cursor-grab active:cursor-grabbing select-none [&_img]:[-webkit-user-drag:none]' : ''} onDragStartCapture={(e) => e.preventDefault()} {...stage}>
+                {/* (a tap on the picture opens the film on it; a swipe turns to the next) */}
+                <motion.div
+                    style={{ x: nudge }}
+                    className={turnable ? 'touch-pan-y cursor-grab active:cursor-grabbing select-none [&_img]:[-webkit-user-drag:none]' : 'cursor-pointer'}
+                    onDragStartCapture={(e) => e.preventDefault()}
+                    onClick={() => { if (swiped.current) { swiped.current = false; return; } navigate(`/movie/${pick._id}`); }}
+                    {...stage}
+                >
                     <DepthStage key={shot} seed={seed?.still} pick={stillOf(pick)} deep={deep} focus={focus} camera={camera} distance={distance} drift={hold} onReady={onReady} className="aspect-[4/5] sm:aspect-video lg:aspect-[2.39/1] ring-1 ring-white/10 shadow-[0_50px_100px_-40px_rgba(0,0,0,0.95)]">
                         {ghost?.key === shot && ghost.src && (
                             <img src={ghost.src} alt="" aria-hidden="true" className="shot-ghost absolute left-[-13%] top-[-13%] w-[126%] h-[126%] object-cover max-w-none pointer-events-none [mask-image:radial-gradient(closest-side,#000_60%,transparent)]" />
                         )}
+                        {/* the film's name on its picture: a lower third, racked into focus as the pick lands */}
+                        <span aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
+                        <div className="absolute left-[5.5%] right-[5.5%] bottom-[15%] md:bottom-[17%] [text-shadow:0_2px_18px_rgba(0,0,0,0.85)]">
+                            <h2 className={`max-w-4xl font-serif font-light leading-[1.02] text-white ${pick.title.length > 40 ? 'text-[1.5rem] sm:text-4xl lg:text-5xl' : 'text-[2rem] sm:text-5xl lg:text-6xl'}`}>
+                                <Link to={`/movie/${pick._id}`} onClick={(e) => { e.stopPropagation(); if (swiped.current) { e.preventDefault(); swiped.current = false; } }} className="hover:text-gold-light">
+                                    <RackText key={shot} play={landed} out={!landed}>{pick.title}</RackText>
+                                </Link>
+                            </h2>
+                            <div className={`mt-2 md:mt-3 font-label text-[11px] md:text-[13px] tracking-[0.14em] uppercase text-gray-200 transition-opacity ${landed ? 'duration-500 opacity-100' : 'duration-200 opacity-0'}`}>
+                                {facts.join(' · ')}<span className="text-gold">{facts.length ? ' · ' : ''}Open the film ›</span>
+                            </div>
+                        </div>
                         <MonitorHUD
                             distance={distance}
                             running={!paused && !reducedMotion}
@@ -373,18 +326,16 @@ const TheScreen = ({ picks, start = 0, act, reducedMotion, iris = true }) => {
             </div>
             {turnable && (
                 <>
-                    <div className="mt-3"><MarkRing at={at} shot={shot} titles={titles} control={ring} /></div>
-                    {!knowsRing && <p className="mt-2 text-right font-label text-[12px] tracking-[0.14em] uppercase text-gray-400">‹ Turn the ring to go through all {n} ›</p>}
+                    <div className="mt-2"><MarkRing at={at} shot={shot} titles={titles} control={ring} /></div>
+                    {!knowsRing && <p className="mt-1 text-right font-label text-[12px] tracking-[0.14em] uppercase text-gray-400">‹ Turn the ring to go through all {n} ›</p>}
                 </>
             )}
 
-            <div className="mt-6 grid md:grid-cols-[1fr_auto] gap-x-10 gap-y-6 items-end">
+            <div className="mt-3 md:mt-2 grid md:grid-cols-[1fr_auto] gap-x-10 gap-y-6 items-end">
                 <div className="min-w-0" {...holdStill}>
                     {seed && <p className="font-serif italic text-[1.2rem] md:text-[1.45rem] text-gray-200">{becauseWords(pick.because.how, seed.title)}</p>}
-                    <h2 className="mt-1 font-serif font-light text-[2.6rem] md:text-7xl leading-[1.02] text-white"><RackText key={shot} play={landed} out={!landed}>{pick.title}</RackText></h2>
                     <div className={`transition-[opacity,transform] ${landed ? 'duration-500 delay-100 opacity-100 translate-y-0' : 'duration-200 opacity-0 translate-y-2'}`}>
-                        <div className="mt-3 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gray-400">{facts.join(' · ')}</div>
-                        <p className="mt-4 max-w-2xl text-[17px] md:text-[19px] leading-relaxed text-gray-200">
+                        <p className="mt-2 max-w-2xl text-[17px] md:text-[19px] leading-relaxed text-gray-200">
                             {evidenceWords(pick.because, { turn: index })}{also && <span className="text-gray-400"> {also}</span>}
                         </p>
                         {fact && <span className="mt-3 inline-block px-2.5 py-1 ring-1 ring-gold/40 font-label text-[11px] tracking-[0.14em] uppercase text-gold">{fact}</span>}
@@ -413,16 +364,7 @@ const TheScreen = ({ picks, start = 0, act, reducedMotion, iris = true }) => {
             </div>
         </section>
     );
-    if (!pinned) return screen;
-    return (
-        <div ref={rail} className="relative">
-            {screen}
-            {/* the stretch of page it holds on screen for, while the scroll turns its ring (neither
-                is the browser's scroll anchor, so a cut that changes the monitor's height doesn't
-                move the page) */}
-            <div aria-hidden="true" className="[overflow-anchor:none]" style={{ height: `${PIN * PIN_STEP * 100}vh` }} />
-        </div>
-    );
+    return screen;
 };
 
 export default TheScreen;

@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { easeInOut, motion, useMotionTemplate, useScroll, useSpring, useTransform } from 'framer-motion';
-import { MdArrowOutward } from 'react-icons/md';
+import { easeInOut, motion, useMotionTemplate, useMotionValueEvent, useScroll, useSpring, useTransform } from 'framer-motion';
+import { MdArrowForward, MdArrowOutward } from 'react-icons/md';
 import { sized, stillSrc } from '../movements/treatments';
 import { createNoteBurn } from './noteBurn';
 
@@ -157,7 +157,7 @@ const BurningNote = ({ p, a, len, beat, film, seed }) => {
     );
 };
 
-const Beat = ({ p, i, n, beat, film }) => {
+const Beat = ({ p, i, n, beat, film, live }) => {
     const len = (1 - INTRO - OUTRO) / n;
     const a = INTRO + i * len;
     const b = a + len;
@@ -183,7 +183,8 @@ const Beat = ({ p, i, n, beat, film }) => {
     const director = film?.directors?.[0];
 
     return (
-        <motion.div className="absolute inset-0" style={{ opacity: op }}>
+        // (the four lie one over another: only the one whose answer is up takes a tap, see `live`)
+        <motion.div className="absolute inset-0 pointer-events-none" style={{ opacity: op }}>
             {still && (
                 <motion.div className="absolute inset-0" style={{ scale: zoom }}>
                     {/* the grey of the note, and the colour of the film, as two layers so only an opacity changes */}
@@ -212,9 +213,21 @@ const Beat = ({ p, i, n, beat, film }) => {
                     </motion.div>
                     <motion.div style={{ opacity: feelOp }} className="mt-5 md:mt-6 flex flex-col md:flex-row md:items-end gap-4 md:gap-10">
                         <p className="max-w-xl text-base md:text-xl leading-relaxed text-gray-100">{beat.feel}</p>
+                        {/* the film itself, as a programme card: its poster, its name, and the way to it */}
                         {film && (
-                            <Link to={`/movie/${film._id}`} className="group shrink-0 inline-flex items-center min-h-11 gap-2 self-start md:self-auto px-4 py-2.5 bg-white/10 ring-1 ring-white/25 hover:bg-white hover:text-[#141110] font-label text-[12px] tracking-[0.14em] uppercase text-white transition-colors">
-                                Watch {film.title} <MdArrowOutward />
+                            <Link
+                                to={`/movie/${film._id}`}
+                                tabIndex={live ? 0 : -1}
+                                className={`group shrink-0 self-start md:self-auto flex items-center gap-3.5 pl-1.5 pr-5 py-1.5 bg-black/50 backdrop-blur-md ring-1 ring-white/20 hover:ring-gold/70 shadow-[0_14px_40px_rgba(0,0,0,0.5)] ${live ? 'pointer-events-auto' : ''}`}
+                            >
+                                {film.posterUrl && <img src={sized(film.posterUrl, 'w154')} alt="" className="w-11 md:w-12 aspect-[2/3] object-cover max-w-none ring-1 ring-white/10 transition-transform duration-300 group-hover:-translate-y-0.5" />}
+                                <span className="text-left">
+                                    <span className="block font-serif italic text-lg md:text-xl leading-tight text-white">{film.title}</span>
+                                    <span className="block mt-0.5 font-label text-[11px] tracking-[0.14em] uppercase text-gray-300">{[director, film.year].filter(Boolean).join('  ·  ')}</span>
+                                    <span className="mt-1.5 flex items-center gap-1 font-label text-[12px] tracking-[0.14em] uppercase text-gold group-hover:text-gold-light">
+                                        See the film <MdArrowForward aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1" />
+                                    </span>
+                                </span>
                             </Link>
                         )}
                     </motion.div>
@@ -362,6 +375,17 @@ const ArthouseBreath = ({ films = [], reducedMotion = false }) => {
     const endOp = useOpacity(p, [end + 0.02, end + 0.08], [0, 1]);
     const endY = useTransform(p, [end + 0.02, end + 0.1], [30, 0]);
     const dim = useOpacity(p, [end, end + 0.06], [0, 0.94]);
+    // what can be pressed: the film whose answer is up (0 to n − 1), the definition (n), or nothing
+    const len = (1 - INTRO - OUTRO) / n;
+    const [live, setLive] = useState(-1);
+    useMotionValueEvent(p, 'change', (v) => {
+        let k = v >= end + 0.02 ? n : -1;
+        for (let i = 0; i < n && k < 0; i++) {
+            const a = INTRO + i * len;
+            if (v >= a + len * 0.52 && v < (i === n - 1 ? end + 0.02 : a + len - 0.025)) k = i;
+        }
+        if (k !== live) setLive(k);
+    });
 
     const definition = (
         <>
@@ -381,7 +405,7 @@ const ArthouseBreath = ({ films = [], reducedMotion = false }) => {
                             <div className="font-courier text-sm text-gray-400 line-through decoration-[#c62828] decoration-2">Studio note: {beat.note}</div>
                             <p className="mt-3 font-serif text-3xl text-white">{beat.answer}</p>
                             <p className="mt-2 text-gray-300">{beat.feel}</p>
-                            {found[i] && <Link to={`/movie/${found[i]._id}`} className="mt-2 inline-block font-label text-[12px] tracking-[0.14em] uppercase text-gray-300 hover:text-white">Watch {found[i].title} →</Link>}
+                            {found[i] && <Link to={`/movie/${found[i]._id}`} className="mt-2 inline-block font-label text-[12px] tracking-[0.14em] uppercase text-gold hover:text-gold-light">See {found[i].title} →</Link>}
                         </div>
                     ))}
                 </div>
@@ -396,7 +420,7 @@ const ArthouseBreath = ({ films = [], reducedMotion = false }) => {
         <section ref={section} data-lights-down className="relative" style={{ height: `calc(100vh + ${SCROLL_VH}vh)` }}>
             <div className="sticky top-0 h-screen overflow-hidden">
                 <motion.div className="absolute inset-0 bg-black" style={{ opacity: underOp }} />
-                {BEATS.map((beat, i) => <Beat key={beat.title} p={p} i={i} n={n} beat={beat} film={found[i]} />)}
+                {BEATS.map((beat, i) => <Beat key={beat.title} p={p} i={i} n={n} beat={beat} film={found[i]} live={live === i} />)}
 
                 {/* the set-up: a film the studio "fixes" in subtitles, then the masking opens onto the first film */}
                 <MaskedScreen p={p} opener={opener} />
@@ -409,7 +433,7 @@ const ArthouseBreath = ({ films = [], reducedMotion = false }) => {
 
                 {/* the definition, the four films in a row to start with */}
                 <motion.div className="absolute inset-0 bg-[#050505] pointer-events-none" style={{ opacity: dim }} />
-                <motion.div className="absolute inset-0 flex items-center z-10" style={{ opacity: endOp, y: endY }}>
+                <motion.div className={`absolute inset-0 flex items-center z-10 ${live === n ? '' : 'pointer-events-none'}`} style={{ opacity: endOp, y: endY }}>
                     <div className="w-full max-w-7xl mx-auto px-6 md:px-14">
                         {definition}
                         <div className="mt-10 grid grid-cols-4 gap-3 md:gap-5 max-w-3xl">

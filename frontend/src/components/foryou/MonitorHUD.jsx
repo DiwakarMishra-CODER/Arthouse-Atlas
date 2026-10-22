@@ -57,7 +57,7 @@ const MonitorHUD = ({ distance, running = true, top = 'A CAM · 50 MM · T2', ri
             <Timecode running={running} />
             {right && <span className="absolute right-[5.5%] top-[7.5%]">{right}</span>}
             <motion.span className={`absolute left-[5.5%] bottom-[7.5%] ${OSD} text-[12px] md:text-[13px] text-white/90 tabular-nums`}>{reading}</motion.span>
-            {bottomRight && <span className="absolute right-[5.5%] bottom-[7.5%]">{bottomRight}</span>}
+            {bottomRight && <span className="absolute right-[5.5%] bottom-[7.5%] max-w-[36%]">{bottomRight}</span>}
         </div>
     );
 };
