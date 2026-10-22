@@ -4,3 +4,7 @@ data/movielens/
 data/recs/work/
 data/backups/
 scripts/reports/*-plan.json
+# the canon build's dry-run output (scripts/canon/buildProvenance.js): regenerated on every run
+scripts/reports/provenance.json
+scripts/reports/provenance-report.md
+scripts/reports/canon-gaps.md

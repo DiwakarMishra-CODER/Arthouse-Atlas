@@ -33174,11 +33174,12 @@
   "director": "The Wachowskis"
  },
  "partiedecampagne|1936|jeanrenoir": {
-  "tmdbId": null,
-  "confidence": "unresolved",
+  "tmdbId": 43878,
+  "confidence": "manual",
   "title": "Partie de campagne",
   "year": 1936,
-  "director": "Jean Renoir"
+  "director": "Jean Renoir",
+  "note": "shot in 1936, released in 1946 (TMDB: A Day in the Country)"
  },
  "twinpeaksthereturn|2017|davidlynch": {
   "tmdbId": null,

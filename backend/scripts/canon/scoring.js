@@ -130,7 +130,7 @@ const opportunity = (film, src) => {
 export const breakdown = (evidence, sources) => {
   const byFamily = {};
   for (const x of evidence) (byFamily[sources[x.source]?.family || 'institution'] ||= []).push(x);
-  const families = Object.entries(byFamily).map(([family, votes]) => {
+  const unsorted = Object.entries(byFamily).map(([family, votes]) => {
     const strengths = votes.map((v) => v.strength);
     const cap = FAMILY_CAP[family] ?? 1;
     const credited = familyScore(strengths, cap, family);
@@ -142,10 +142,12 @@ export const breakdown = (evidence, sources) => {
       credited: +credited.toFixed(2),
       counts: credited * (CANON_WEIGHT[family] ?? 0.7),
     };
-  }).sort((a, b) => b.counts - a.counts);
+  });
   const decades = pollDecades(evidence, sources);
   const bonus = endurance(evidence, sources);
-  const score = families.reduce((sum, f) => sum + f.counts, 0) + bonus;
+  // added up in scoreFilm's order, so the rounding comes out the same to the last digit
+  const score = unsorted.reduce((sum, f) => sum + f.counts, 0) + bonus;
+  const families = [...unsorted].sort((a, b) => b.counts - a.counts);
   return {
     families: families.map(({ counts, ...f }) => ({ ...f, counts: +counts.toFixed(2) })),
     endurance: { decades, bonus: +bonus.toFixed(2) },
