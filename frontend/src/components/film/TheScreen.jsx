@@ -9,6 +9,7 @@ import { sizeFor, useDecoded } from '../about/frames';
 import { ShelfSigns, TicketDock, TrailerScreen } from './Ticket';
 import BillingBlock from './BillingBlock';
 import { directorPath } from './directorPath';
+import { framesOf } from './frames';
 
 /**
  * The film page's opening: the page plays the film's opening titles.
@@ -379,7 +380,7 @@ const TheScreen = ({ movie, light, reducedMotion, providers, tags }) => {
     const [size] = useState(sizeFor);
     const [ready, want] = useDecoded();
 
-    const frames = [...new Set([movie.backdropUrl, ...(movie.stills || [])].filter(Boolean).map((s) => sized(s, 'w780')))];
+    const frames = framesOf(movie);
     const trailer = !!youTubeId(movie.trailerUrl);
     const canPlay = trailer || frames.length > 1;
     const cards = cardsOf(movie);

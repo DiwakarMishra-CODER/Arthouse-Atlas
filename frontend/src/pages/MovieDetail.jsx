@@ -10,6 +10,7 @@ import TheScreen from '../components/film/TheScreen';
 import ListYears from '../components/film/ListYears';
 import DoubleBill from '../components/film/DoubleBill';
 import Retrospective from '../components/film/Retrospective';
+import Stills from '../components/film/Stills';
 import useFilmLight from '../components/film/useFilmLight';
 import { treatmentFor, displayTitle, sized } from '../components/movements/treatments';
 import { usePageTitle } from '../hooks/usePageTitle';
@@ -112,6 +113,9 @@ const MovieDetail = () => {
                 <TheScreen movie={movie} light={light} reducedMotion={reducedMotion} providers={providers} tags={tags} />
 
                 <div className="max-w-7xl mx-auto px-4 md:px-10">
+                    {/* ===== ITS FRAMES, ALL OF THEM: a contact sheet, each opening full screen ===== */}
+                    <Stills movie={movie} />
+
                     {/* ===== WHERE THE CANON PLACES IT ===== */}
                     <section id="critics" className="pt-24 md:pt-32 scroll-mt-4">
                         <h2 className="font-serif text-4xl md:text-5xl text-center">How the critics rank it</h2>
