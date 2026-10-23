@@ -1,33 +1,42 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { MdFastRewind } from 'react-icons/md';
+import { MdArrowBack } from 'react-icons/md';
 import { previousPage } from '../hooks/trail';
 
 /**
- * Back, as a reel is wound back: framed by a viewfinder's corner marks, it reads like a title card,
- * "Back to" printed small in gold and the place in italic. It goes back through the browser's history
- * to the page you came from (so that page's scroll and state come back with it), named; arriving from
- * another site, it goes up to the room above this one instead (`up`).
+ * Back: one arrow, in the navbar beside the crest, on every page but the home page, so it's in the
+ * same place on every page and there the whole way down. It goes back through the browser's
+ * history to the page you came from (so that page's scroll and state come back with it); arriving
+ * from another site, up to the room above this one. Where it goes is said to a screen reader and in
+ * its tooltip ("Back to Explore"), not on the page.
  */
 
 // the rooms as the navbar names them; any other page by its title, without the year
 const NAMES = { '/': 'Home', '/explore': 'Explore', '/recommendations': 'For You', '/profile': 'your profile', '/login': 'Sign in', '/register': 'Join' };
 const nameOf = (page) => NAMES[page.path] || (page.title || '').replace(/\s*\(\d{4}\)$/, '');
+// the room above a page, for someone who arrived from outside
+const UP = [[/^\/movie\//, '/explore', 'the films'], [/^\/directors\/./, '/directors', 'the directors'], [/^\/movements\/./, '/movements', 'the movements'], [/^\/studios\/./, '/studios', 'the studios']];
+const upOf = (path) => {
+    const room = UP.find(([re]) => re.test(path));
+    return room ? { to: room[1], label: room[2] } : { to: '/', label: 'Home' };
+};
 
-const BackButton = ({ up = { to: '/', label: 'Home' }, className = '' }) => {
+const BackButton = () => {
     const navigate = useNavigate();
     const { pathname } = useLocation(); // (read again on every move: a page can stay mounted from one address to the next)
     const prev = previousPage();
+    const up = upOf(pathname);
     // the same page a step ago (Explore keeps each choice in its address): Back undoes the last one
     const name = !prev ? up.label : prev.path === pathname ? 'your last pick' : nameOf(prev);
+    const says = name ? `Back to ${name}` : 'Back';
     return (
         <button
             type="button"
             onClick={() => (prev ? navigate(-1) : navigate(up.to))}
-            className={`viewfinder group relative inline-flex items-center gap-2.5 min-h-11 pl-3.5 pr-4 max-w-[min(82vw,26rem)] bg-black/60 backdrop-blur-md ring-1 ring-white/10 [text-shadow:none] ${className}`}
+            aria-label={says}
+            title={says}
+            className="group shrink-0 flex items-center justify-center w-10 h-10 rounded-full ring-1 ring-white/25 bg-black/40 text-gray-100 hover:ring-gold/70 hover:text-gold-light"
         >
-            <MdFastRewind aria-hidden="true" size={17} className="shrink-0 text-gold-light transition-transform duration-300 group-hover:-translate-x-1" />
-            <span className="shrink-0 font-label text-[12px] tracking-[0.14em] uppercase text-gold">{name ? 'Back to' : 'Back'}</span>
-            {name && <span className="truncate font-serif italic text-[17px] leading-tight text-white group-hover:text-gold-light">{name}</span>}
+            <MdArrowBack size={19} aria-hidden="true" className="transition-transform duration-300 group-hover:-translate-x-0.5" />
         </button>
     );
 };

@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import BackButton from '../components/BackButton';
 import { userAPI, recsAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useMovie } from '../context/MovieContext';
@@ -118,7 +117,6 @@ const ForYou = () => {
     return (
         <div className="own-transitions relative min-h-screen pt-36 md:pt-32 pb-32">
             <h1 className="sr-only">For you: films picked from the ones you loved</h1>
-            <BackButton className="absolute top-24 left-4 md:left-10 z-20" />
             <div className="max-w-6xl mx-auto px-4 md:px-10">
                 {failed && !data.ready ? (
                     <div className="py-24 text-center">

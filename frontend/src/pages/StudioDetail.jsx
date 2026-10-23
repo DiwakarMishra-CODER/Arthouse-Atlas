@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { MdArrowOutward } from 'react-icons/md';
-import BackButton from '../components/BackButton';
 import { studiosAPI } from '../services/api';
 import { useMotionPreference } from '../hooks/useMotionPreference';
 import LightScreen from '../components/studios/LightScreen';
@@ -94,7 +93,6 @@ const StudioDetail = () => {
                     <LightScreen ref={screen} push caption={false} reducedMotion={reducedMotion} className="h-full" />
                 </div>
                 <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-[#050505]/80 to-transparent" />
-                <BackButton up={{ to: '/studios', label: 'the studios' }} className="absolute top-24 left-4 md:left-10 z-20" />
                 <div className="absolute inset-x-0 bottom-0">
                     <div className="studio-title max-w-7xl mx-auto px-4 md:px-10 pb-8 md:pb-12">
                         <div className="font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gold">{[COUNTRY[house.country] || house.country, house.kind === 'label' ? 'Label' : null].filter(Boolean).join(' · ')}</div>

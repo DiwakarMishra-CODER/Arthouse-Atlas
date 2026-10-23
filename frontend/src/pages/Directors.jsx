@@ -2,7 +2,6 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 import { useNavigate, useNavigationType, useSearchParams } from 'react-router-dom';
 import { motion, useMotionTemplate, useMotionValue, useMotionValueEvent, useScroll, useTransform } from 'framer-motion';
 import { MdSearch, MdSkipNext } from 'react-icons/md';
-import BackButton from '../components/BackButton';
 import { directorsAPI } from '../services/api';
 import { useMotionPreference } from '../hooks/useMotionPreference';
 import Screen from '../components/directors/Screen';
@@ -270,8 +269,6 @@ const Directors = () => {
 
     return (
         <div className="own-transitions relative min-h-screen pb-[60vh]">
-            {/* (above the projector's screen, which holds the whole window) */}
-            <BackButton className="absolute top-24 left-4 md:left-10 z-40" />
             <Screen ref={screen} box={box} size={{ w: geom.w, h: geom.h }} openCard={openCard} dockCard={dockCard} dock={geom.dock} phone={geom.phone} openLive={openLive && n > 0} onOpen={openPlace} reducedMotion={reducedMotion} />
 
             {/* the opening titles: scroll that the screen plays through, full-bleed */}
@@ -289,8 +286,7 @@ const Directors = () => {
             <div className="relative z-20 px-4 md:pl-24 md:pr-10" style={{ width: geom.phone ? '100%' : geom.column }}>
                 <div className="max-w-3xl md:ml-auto md:mr-12 lg:mr-20">
                     <header ref={list} className="pt-10">
-                        <div className="mb-7 flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
-                            <BackButton />
+                        <div className="mb-5 flex justify-end">
                             {n > 0 && <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="min-h-11 font-label text-[12px] tracking-[0.14em] uppercase text-gold hover:text-gold-light">Play the opening ↑</button>}
                         </div>
                         <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">{index ? `${index.directors.length} in the atlas` : 'In the atlas'}</div>

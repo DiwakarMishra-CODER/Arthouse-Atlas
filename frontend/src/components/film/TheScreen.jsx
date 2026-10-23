@@ -3,7 +3,6 @@ import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import { MdArrowDownward, MdArrowOutward, MdClose, MdSkipNext } from 'react-icons/md';
-import BackButton from '../BackButton';
 import { sized } from '../movements/treatments';
 import { sizeFor, useDecoded } from '../about/frames';
 import { ShelfSigns, TicketDock, TrailerScreen } from './Ticket';
@@ -427,9 +426,6 @@ const TheScreen = ({ movie, light, reducedMotion, providers, tags }) => {
         window.scrollTo({ top: top + ((el.offsetHeight - window.innerHeight) * (i + 0.5)) / n, behavior: 'smooth' });
     };
     const skip = () => document.getElementById('critics')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    const back = (
-        <BackButton up={{ to: '/explore', label: 'the films' }} className="absolute top-20 md:top-24 left-4 md:left-10 z-20" />
-    );
     const projection = playing && <Projection movie={movie} stills={frames} start={playing.kind} shared={playing.from === 'title' ? 'trailer-screen' : undefined} onClose={stop} />;
     const onPlay = (from = 'dock') => setPlaying({ kind: trailer ? 'trailer' : 'frames', from });
     const dock = <TicketDock movie={movie} light={light} frames={frames} onPlay={canPlay ? () => onPlay('dock') : null} playLabel={trailer ? 'Play the trailer' : 'Play its frames'} />;
@@ -444,7 +440,6 @@ const TheScreen = ({ movie, light, reducedMotion, providers, tags }) => {
                     {movie.backdropUrl && <img src={sized(movie.backdropUrl, 'original')} alt="" className="absolute inset-0 w-full h-full object-cover [object-position:50%_30%]" />}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/55 to-transparent" />
                     <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-[#050505]/20 to-transparent" />
-                    {back}
                     <div className="absolute inset-x-0 bottom-0 max-w-7xl mx-auto px-4 md:px-10 pb-10 md:pb-14">
                         <TitleBlock movie={movie} light={light} frames={frames} canPlay={canPlay} trailer={trailer} onPlay={onPlay} playRef={play} playing={playing} />
                     </div>
@@ -486,7 +481,6 @@ const TheScreen = ({ movie, light, reducedMotion, providers, tags }) => {
                 <div aria-hidden="true" className={`absolute inset-0 transition-opacity duration-700 bg-[radial-gradient(ellipse_75%_60%_at_50%_50%,rgba(0,0,0,0.72),rgba(0,0,0,0.35)_70%,rgba(0,0,0,0.2))] ${card.kind === 'credits' || card.kind === 'why' ? 'opacity-100' : 'opacity-0'}`} />
                 <div aria-hidden="true" className={`absolute inset-x-0 bottom-0 h-[55%] transition-opacity duration-700 bg-[linear-gradient(to_top,rgba(0,0,0,0.92),rgba(0,0,0,0.7)_40%,transparent)] ${low ? 'opacity-100' : 'opacity-0'}`} />
                 <div aria-hidden="true" className={`absolute inset-0 transition-opacity duration-700 bg-[#050505]/80 ${card.kind === 'end' ? 'opacity-100' : 'opacity-0'}`} />
-                {back}
 
                 {/* the card (the credits, the note and why it matters are read out from the words below instead) */}
                 <div key={`card-${c}`} aria-hidden={['credits', 'note', 'why'].includes(card.kind) || undefined} className="absolute inset-0 px-4 md:px-10 pt-24 pb-40 md:pb-24 flex">

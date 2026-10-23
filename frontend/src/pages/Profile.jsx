@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import BackButton from '../components/BackButton';
 import { recsAPI, userAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useMovie } from '../context/MovieContext';
@@ -106,7 +105,6 @@ const Profile = () => {
         <div className="own-transitions relative min-h-screen pb-28">
             {/* what this page is, in one look */}
             <header className="pt-24 md:pt-28 pb-6 md:pb-8">
-                <div className="max-w-7xl mx-auto px-4 md:px-10 mb-6"><BackButton className="title-rise" /></div>
                 <div className="max-w-7xl mx-auto px-4 md:px-10 flex flex-col md:flex-row md:items-start md:justify-between gap-2 md:gap-6">
                     <div className="title-rise">
                         <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">{example ? 'An example: the maker’s profile' : 'Your profile'}</div>

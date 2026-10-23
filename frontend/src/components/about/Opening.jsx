@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MdArrowOutward } from 'react-icons/md';
-import BackButton from '../BackButton';
 import { sized } from '../movements/treatments';
 import { sizeFor, useDecoded } from './frames';
 import { MAKER, MAKER_FILMS, MAKER_LINKS } from './maker';
@@ -56,7 +55,6 @@ const Opening = ({ films = {}, reducedMotion }) => {
             <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-[#050505]/15 to-transparent" />
             </div>
 
-            <BackButton className="absolute top-20 md:top-24 left-4 md:left-10 z-20" />
 
             {/* the film on the screen just now */}
             {shown && (

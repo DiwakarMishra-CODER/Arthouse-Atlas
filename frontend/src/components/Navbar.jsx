@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { MdEmojiEvents, MdLogout } from 'react-icons/md';
 import { useAuth } from '../context/AuthContext';
+import BackButton from './BackButton';
 
 /**
  * The house's signs. The navbar is the row of signs over the doors of a picture house:
@@ -150,6 +151,9 @@ const Navbar = () => {
 
             <div className="relative max-w-[1800px] mx-auto px-5 md:px-8 py-5 md:py-6">
                 <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-3 md:gap-4 min-w-0">
+                    {/* the way back, beside the crest: on every page but the home page, always in the same place */}
+                    {location.pathname !== '/' && <BackButton />}
                     {/* the name over the door */}
                     <Link to="/" className="group z-50 relative flex items-center gap-3 shrink-0 whitespace-nowrap" onClick={closeMobileMenu} aria-label="Arthouse Atlas, home">
                         <HouseMark reel={location.pathname} />
@@ -157,6 +161,7 @@ const Navbar = () => {
                             Arthouse <span className="italic text-gold transition-colors group-hover:text-gold-light">Atlas</span>
                         </span>
                     </Link>
+                    </div>
 
                     {/* the rooms */}
                     {/* (from 1024px wide: below that the rooms and the door don't fit, so one word opens them) */}

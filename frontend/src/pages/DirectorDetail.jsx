@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import BackButton from '../components/BackButton';
 import api from '../services/api';
 import { useMotionPreference } from '../hooks/useMotionPreference';
 import LoadingSkeleton from '../components/LoadingSkeleton';
@@ -87,7 +86,6 @@ const DirectorDetail = () => {
             </div>
 
             <div className="relative max-w-7xl mx-auto px-4 md:px-10">
-                <BackButton up={{ to: '/directors', label: 'the directors' }} className="absolute top-24 left-4 md:left-10 z-20" />
 
                 {/* ===== THE RETROSPECTIVE OPENS ===== */}
                 <div className="absolute inset-x-[-50vw] top-0 h-[100vh] -z-0">
