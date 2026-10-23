@@ -52,6 +52,7 @@ const REGION = {
   'Hong Kong New Wave': 'East Asia', 'Korean New Wave': 'East Asia', 'Chinese Fifth & Sixth Generations': 'East Asia',
   'Iranian New Wave': 'South & West Asia', 'Indian Parallel Cinema': 'South & West Asia',
   'Hollywood Auteurs': 'Americas', 'New Hollywood': 'Americas', 'L.A. Rebellion': 'Americas', 'New Queer Cinema': 'Americas',
+  'American Independent Cinema': 'Americas',
   'Third Cinema / Latin American Political Cinema': 'Americas',
   'Slow Cinema': 'Global', 'Documentary / Cinema Vérité': 'Global', 'Avant-garde / Experimental Cinema': 'Global'
 };
@@ -61,6 +62,10 @@ const REGION = {
 // Dogme 95, which is a certified membership — Dogville and Melancholia are von
 // Trier films but not Dogme films. Only essentials apply for these.
 const ESSENTIALS_ONLY = new Set(['Documentary / Cinema Vérité', 'Avant-garde / Experimental Cinema', 'Dogme 95']);
+
+// Films a key director made in the era that still don't belong (taken off by hand once; without this
+// every sync would put them back): Hitchcock's British films aren't Hollywood.
+const NOT_IN = { 'Hollywood Auteurs': ['The 39 Steps', 'The Lady Vanishes'] };
 
 const main = async () => {
   await mongoose.connect(process.env.MONGODB_URI);
@@ -96,7 +101,7 @@ const main = async () => {
         // Full-name match only: key directors are full names, and a surname
         // match tags Satyajit Ray's films as Nicholas Ray's
         const hit = (f.directors || []).some((d) => m.keyDirectors.some((kd) => namesMatch(d, kd.name || kd)));
-        if (hit) { addTag(f, m.title); byDirector++; }
+        if (hit && !NOT_IN[m.title]?.includes(f.title)) { addTag(f, m.title); byDirector++; }
       }
     }
 

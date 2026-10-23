@@ -5,6 +5,7 @@
  */
 
 export const movementHeroes = {
+  'American Independent Cinema': { film: 'A Woman Under the Influence', focus: '50% 35%' },
   'German Expressionism': { film: 'The Cabinet of Dr. Caligari', focus: '50% 40%' },
   'Soviet Montage': { film: 'Man with a Movie Camera', focus: '50% 40%' },
   'Italian Neorealism': { film: 'Bicycle Thieves', focus: '50% 30%' },

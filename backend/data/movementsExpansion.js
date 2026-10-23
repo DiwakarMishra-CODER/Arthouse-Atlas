@@ -336,5 +336,33 @@ export const movementsExpansion = [
     tag: "chinese_generations",
     icon: "lantern",
     cardColor: "#9b2d20"
+  },
+  {
+    title: "American Independent Cinema",
+    era: "1959–present",
+    vibe: "Close, rough and unhurried: people talking in small rooms, shot by friends.",
+    philosophy: "Make it outside the studios, with your own money and your own people, and let the performances and the place do what a budget would.",
+    visualSignatures: ["handheld 16mm in borrowed apartments", "scenes that run on past where a studio would cut", "friends and non-professionals cast", "real streets, motels and small towns"],
+    keyDirectors: ["John Cassavetes", "Shirley Clarke", "Barbara Loden", "Jim Jarmusch", "Spike Lee", "Steven Soderbergh", "Richard Linklater", "Todd Haynes", "Gus Van Sant", "Kelly Reichardt", "Noah Baumbach", "Greta Gerwig", "Barry Jenkins", "Sean Baker", "Josh Safdie", "Benny Safdie", "Debra Granik"],
+    essentialFilms: [
+      { title: "Shadows", year: 1959 },
+      { title: "Portrait of Jason", year: 1967 },
+      { title: "Faces", year: 1968 },
+      { title: "Wanda", year: 1970 },
+      { title: "A Woman Under the Influence", year: 1974 },
+      { title: "Stranger Than Paradise", year: 1984 },
+      { title: "Do the Right Thing", year: 1989 },
+      { title: "sex, lies, and videotape", year: 1989 },
+      { title: "Slacker", year: 1990 },
+      { title: "Safe", year: 1995 },
+      { title: "Wendy and Lucy", year: 2008 },
+      { title: "Moonlight", year: 2016 },
+      { title: "The Florida Project", year: 2017 }
+    ],
+    description: "American films made outside the studios, from John Cassavetes's Shadows, paid for partly with money raised on late-night radio, to Kelly Reichardt's quiet Oregon. Cheaper and rougher than Hollywood, and closer to the people in them. When sex, lies, and videotape won the Palme d'Or in 1989, the independents found a market; the best of them kept the old habits.",
+    tagline: "Off the lot.",
+    tag: "american_independent",
+    icon: "lamp",
+    cardColor: "#8a5a2b"
   }
 ];

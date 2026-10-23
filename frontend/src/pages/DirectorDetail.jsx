@@ -68,7 +68,8 @@ const DirectorDetail = () => {
 
     const born = yearOf(director.birthDate);
     const died = yearOf(director.deathDate);
-    const span = films.length ? `${films[0].year}–${films[films.length - 1].year}` : null;
+    // (one year when it's all one year: a director with a single film in the atlas)
+    const span = !films.length ? null : films[0].year === films[films.length - 1].year ? `${films[0].year}` : `${films[0].year}–${films[films.length - 1].year}`;
     // stills for the drift behind the opening: every still and backdrop they have here
     const drift = [...new Set(films.flatMap((f) => [...(f.stills || []), f.backdropUrl]).filter(Boolean))].slice(0, 24);
     const reveal = (delay = 0) => (reducedMotion ? {} : {
