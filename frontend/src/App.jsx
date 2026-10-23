@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigationType } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { MovieProvider } from './context/MovieContext';
@@ -20,6 +20,8 @@ import StudioDetail from './pages/StudioDetail';
 import Recommendations from './pages/Recommendations';
 import ProjectedBlack from './components/ProjectedBlack';
 import { PageNotFound } from './pages/NotFound';
+import { markPage } from './hooks/trail';
+import { SITE, SITE_TITLE } from './hooks/usePageTitle';
 
 
 // a page you open starts at its top; Back and Forward are left to each page, which puts you back
@@ -37,10 +39,22 @@ const ArriveAtTop = () => {
   return null;
 };
 
+// every step of the tab's history goes on the trail, so a Back button can name it: a new page, and
+// a change within one (Explore's choices keep their own address, under the same title); a page whose
+// title comes later (a film, once loaded) puts it there itself (usePageTitle)
+const MarkTrail = () => {
+  const location = useLocation();
+  useEffect(() => {
+    markPage({ path: location.pathname, title: document.title === SITE_TITLE ? null : document.title.replace(` · ${SITE}`, '') });
+  }, [location]);
+  return null;
+};
+
 function AppRoutes() {
   return (
     <div className="relative min-h-screen bg-[#050505] text-white selection:bg-gold selection:text-black overflow-x-clip">
       <ArriveAtTop />
+      <MarkTrail />
       {/* for the keyboard: straight past the navbar to the page */}
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[80] focus:px-4 focus:py-3 focus:bg-gold focus:text-black font-label text-[13px] tracking-[0.14em] uppercase">Skip to the page</a>
       <ProjectedBlack />

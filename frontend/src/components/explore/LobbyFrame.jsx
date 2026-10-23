@@ -10,16 +10,19 @@ import { ordinal } from '../film/canonWords';
  * the name to follow them), when, where and how long, its movement, and one line about it.
  *
  * The still runs. Hover a frame (on a phone: bring it to the middle of the screen) and the
- * projector advances through the film's own frames, one frame of black between each. A film
- * with a single frame breathes instead: a slow push-in, the picture weaving in the gate.
- * Never another film's picture.
+ * projector advances through the film's own frames, one frame of black between each: the first
+ * cut almost at once (its second frame is fetched as the case comes near, not on the hover), the
+ * case brightening and a frame count in its corner while it runs. A film with a single frame
+ * breathes instead: a slow push-in, the picture weaving in the gate. Never another film's picture.
+ * (The case keeps its own transitions: the site's blanket 150 ms rule turned the push-in into a jolt.)
  *
  * Its corner badge is its place in the atlas's canon; on a wall of one decade in canon order
  * (decadeRanked), its place among that decade's films, as its own page counts it.
  */
 
 const COUNTRY = { 'United States of America': 'United States' };
-const STEP = 1100; // how long each frame holds while the still runs
+const FIRST = 150; // ms before the first cut once you point at it (you notice it's a projector)
+const STEP = 800; // how long each frame holds while the still runs
 
 // one observer for every frame on a touch screen: the frame crossing the middle of the screen runs
 const watchCentre = (() => {
@@ -70,6 +73,7 @@ const LobbyFrame = memo(function LobbyFrame({ film, size = 'small', compact = fa
     const frames = film.stills?.length ? film.stills : film.still ? [film.still] : [];
     const [running, setRunning] = useState(false);
     const [shown, setShown] = useState(0);
+    const [cuts, setCuts] = useState(0); // cuts since it started running (the frame of black is a cut's, never the start's)
     const [armed, setArmed] = useState(false); // the other frames load once you've shown interest
     const [loaded, setLoaded] = useState(() => new Set([0])); // frames ready to show (never a half-loaded one)
     const ref = useRef(null);
@@ -92,8 +96,10 @@ const LobbyFrame = memo(function LobbyFrame({ film, size = 'small', compact = fa
     useEffect(() => {
         if (!running || frames.length < 2) return undefined;
         let steps = 0;
-        const t = setInterval(() => {
+        let t = 0;
+        const advance = () => {
             steps++;
+            setCuts((c) => c + 1);
             setShown((s) => {
                 for (let k = 1; k <= frames.length; k++) {
                     const next = (s + k) % frames.length;
@@ -102,16 +108,17 @@ const LobbyFrame = memo(function LobbyFrame({ film, size = 'small', compact = fa
                 return s;
             });
             if (once && steps >= frames.length) { clearInterval(t); setRunning(false); }
-        }, STEP);
-        return () => clearInterval(t);
+        };
+        const first = setTimeout(() => { advance(); t = setInterval(advance, STEP); }, FIRST);
+        return () => { clearTimeout(first); clearInterval(t); };
     }, [running, once, frames.length, loaded]);
 
-    const start = () => { if (!reducedMotion) { setArmed(true); setOnce(false); setRunning(true); } };
+    const start = () => { if (!reducedMotion) { setArmed(true); setOnce(false); setCuts(0); setRunning(true); } };
     const stop = () => setRunning(false);
     const width = large ? 'w1280' : 'w780';
 
     return (
-        <article ref={ref} data-film={film._id} className={`lobby relative flex flex-col ${picked ? 'lobby-picked' : ''} ${className}`} style={{ '--i': index }}>
+        <article ref={ref} data-film={film._id} className={`own-transitions lobby relative flex flex-col ${picked ? 'lobby-picked' : ''} ${className}`} style={{ '--i': index }}>
             {/* the case's light spilling onto the wall around it */}
             <span aria-hidden="true" className="case-glow pointer-events-none absolute -inset-3 bg-[radial-gradient(ellipse_at_center,rgba(255,236,205,0.10),transparent_70%)]" />
             <Link
@@ -126,12 +133,12 @@ const LobbyFrame = memo(function LobbyFrame({ film, size = 'small', compact = fa
                 <span className={`lobby-mat relative block overflow-hidden bg-[#0c0b0a] ${large ? 'aspect-video lg:aspect-[3/2]' : 'aspect-[16/10]'}`}>
                     {frames.length > 0 ? (
                         <span className={`absolute inset-0 transition-transform ease-out ${running ? 'scale-[1.06] duration-[8000ms]' : 'scale-100 duration-[1200ms]'}`}>
-                            {frames.map((src, i) => (i === 0 || armed) && (
+                            {frames.map((src, i) => (i <= 1 || armed) && (
                                 <img
                                     key={src}
                                     src={sized(src, width)}
                                     alt=""
-                                    loading={i === 0 ? 'lazy' : 'eager'}
+                                    loading={i <= 1 ? 'lazy' : 'eager'}
                                     decoding="async"
                                     onLoad={i ? () => setLoaded((l) => new Set(l).add(i)) : undefined}
                                     className={`absolute inset-0 w-full h-full object-cover max-w-none ${i === shown ? 'opacity-100' : 'opacity-0'} ${running && frames.length === 1 ? 'breath-weave' : ''}`}
@@ -146,7 +153,12 @@ const LobbyFrame = memo(function LobbyFrame({ film, size = 'small', compact = fa
                     ) : (
                         <span className="absolute inset-0 flex items-center justify-center p-6 text-center font-serif text-2xl text-gray-300">{film.title}</span>
                     )}
-                    {running && frames.length > 1 && <span key={shown} aria-hidden="true" className="shutter absolute inset-0 bg-black" />}
+                    {running && cuts > 0 && frames.length > 1 && <span key={cuts} aria-hidden="true" className="shutter absolute inset-0 bg-black" />}
+                    {/* while it runs, the case burns brighter and counts its frames, as a projector's gate does */}
+                    <span aria-hidden="true" className={`absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,rgba(255,244,225,0.16),transparent_72%)] transition-opacity duration-300 ${running ? 'opacity-100' : 'opacity-0'}`} />
+                    {running && frames.length > 1 && (
+                        <span aria-hidden="true" className="absolute right-3 top-3 px-2 py-1 bg-black/70 font-label text-[12px] tracking-[0.14em] tabular-nums text-white/85">{String(shown + 1).padStart(2, '0')}A</span>
+                    )}
                     <span aria-hidden="true" className="absolute inset-0 still-grain opacity-70 pointer-events-none" />
                     {/* until its tubes strike on, the picture waits in the dark; then it glows from behind, under glass */}
                     <span aria-hidden="true" className="case-shade absolute inset-0 bg-black/65 pointer-events-none" />

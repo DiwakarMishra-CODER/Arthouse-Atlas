@@ -79,7 +79,7 @@ const Phrase = ({ phrase, animate, n }) => {
     // a blank (or the order): one menu, its word and its ▾ (lit while a word is tried in it)
     if (phrase.blank || !phrase.onRemove) {
         return (
-            <button type="button" onClick={phrase.onClick} aria-label={`${phrase.label}. Change`} aria-haspopup="dialog" className={`board-slot ${phrase.blank && !phrase.tryout ? 'is-blank' : 'is-set'} uppercase ${ring}`} style={{ '--n': n }}>
+            <button type="button" onClick={phrase.onClick} aria-label={`${phrase.label}. Change`} aria-haspopup="dialog" className={`board-slot ${phrase.blank && !phrase.tryout ? 'is-blank' : 'is-set'}${phrase.next ? ' is-next' : ''} uppercase ${ring}`} style={{ '--n': n }}>
                 <span>{letters}</span>
                 <span aria-hidden="true" className="board-slot-chevron"><Chevron /></span>
             </button>

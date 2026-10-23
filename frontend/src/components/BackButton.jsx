@@ -15,9 +15,10 @@ const nameOf = (page) => NAMES[page.path] || (page.title || '').replace(/\s*\(\d
 
 const BackButton = ({ up = { to: '/', label: 'Home' }, className = '' }) => {
     const navigate = useNavigate();
-    useLocation(); // (read again on every move: a page can stay mounted from one address to the next)
+    const { pathname } = useLocation(); // (read again on every move: a page can stay mounted from one address to the next)
     const prev = previousPage();
-    const name = prev ? nameOf(prev) : up.label;
+    // the same page a step ago (Explore keeps each choice in its address): Back undoes the last one
+    const name = !prev ? up.label : prev.path === pathname ? 'your last pick' : nameOf(prev);
     return (
         <button
             type="button"
