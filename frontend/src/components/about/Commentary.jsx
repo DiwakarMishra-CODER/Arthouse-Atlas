@@ -14,7 +14,8 @@ import { sizeFor, useDecoded } from './frames';
  * a slim strip above it, never on it, and the words are its subtitles, low over the picture the way a
  * film's are, on a soft dark that rises from its foot: a lead-in and then, a beat later, the line that
  * matters most. "Read it as text" sets the whole note as a page
- * (and with reduced motion it starts that way).
+ * (and with reduced motion it starts that way). When the short cut ends, the director's cut is offered:
+ * a line of the note the short cut never plays, how long the whole of it takes to read, and the way on.
  *
  * The words are the owner's own, edited lightly with them by Claude (2026-10-22), nothing added.
  * *Title* is set in italics.
@@ -51,9 +52,8 @@ const CHAPTERS = [
         ['Maybe her own life had started to feel like a role she was playing, so she stopped speaking.'],
         ['I didn’t know two people on screen for an hour and a half could be this gripping.'],
     ] },
-    { film: 'Mirror', phone: '50% 0%', focus: '50% 0%', lead: 'I watched it after coming back from a maths exam. A film of under two hours took me more than two and a half.', best: 'That burning barn is burned into my head.',  frame: '/9UAcMhSCDJ2OCo5QdPpSERjhMA1.jpg', lines: [
-        ['I watched *Mirror* after coming back from a maths exam.'],
-        ['I knew it was called one of the most confusing films ever made, and went in anyway.'],
+    { film: 'Mirror', phone: '50% 0%', focus: '50% 0%', lead: 'It’s called one of the most confusing films ever made. A film of under two hours took me more than two and a half.', best: 'That burning barn is burned into my head.',  frame: '/9UAcMhSCDJ2OCo5QdPpSERjhMA1.jpg', lines: [
+        ['I went into *Mirror* knowing it was called one of the most confusing films ever made.'],
         ['A film of under two hours took me more than two and a half,'],
         ['pausing, trying to understand what was on screen.'],
         ['It plays like memory: a dying man’s life coming back to him in pieces,'],
@@ -111,6 +111,15 @@ const CHAPTERS = [
 // *Title* in italics
 const words = (text) => text.split(/(\*[^*]+\*)/).map((s, i) => (s.startsWith('*') ? <em key={i}>{s.slice(1, -1)}</em> : s));
 const STEP = 55; // svh of scrolling for each film
+
+// the whole note's length, and a line from it the short cut never plays (what the rest is like)
+const NOTE_LINES = CHAPTERS.reduce((sum, c) => sum + c.lines.length, 0);
+const NOTE_MINUTES = Math.max(1, Math.round(CHAPTERS.flatMap((c) => c.lines.map(([t]) => t)).join(' ').split(/\s+/).length / 230));
+const PEEK = (() => {
+    const lines = CHAPTERS.at(-1).lines.map(([t]) => t);
+    const i = lines.findIndex((t) => t.startsWith('They changed what I thought'));
+    return i < 0 ? null : lines.slice(i, i + 3).join(' ');
+})();
 // (each frame is held from its top, so a crop only ever takes the bottom and never a head, and on its
 // faces sideways: focus on a wide screen, phone on a tall one, where the sides go)
 
@@ -201,6 +210,27 @@ const ShortCut = ({ films }) => {
     );
 };
 
+// after the short cut, the director's cut: the whole note, offered with a taste of it
+const DirectorsCut = ({ onRead }) => (
+    <div className="max-w-7xl mx-auto px-4 md:px-10 pt-14 md:pt-20">
+        <div className="max-w-3xl">
+            <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">The director’s cut</div>
+            {PEEK && <blockquote className="mt-4 font-serif font-light text-[1.65rem] md:text-[2.5rem] leading-[1.18] text-white">“{words(PEEK)}”</blockquote>}
+            <p className="mt-5 font-serif italic text-lg md:text-xl leading-snug text-gray-300">
+                {PEEK ? 'That line isn’t in the short cut. ' : ''}The short cut plays two lines a film; the whole note is {NOTE_LINES} lines, about {NOTE_MINUTES} minutes to read.
+            </p>
+            <div className="mt-7 flex flex-col sm:flex-row sm:items-center gap-x-8 gap-y-2">
+                <button type="button" onClick={onRead} className="self-start inline-flex items-center gap-2 min-h-11 px-5 bg-gold text-[#141110] hover:bg-gold-light font-label text-[13px] tracking-[0.14em] uppercase">
+                    Read the whole note <span aria-hidden="true">›</span>
+                </button>
+                <button type="button" onClick={() => document.getElementById('count')?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className="self-start min-h-11 font-label text-[12px] tracking-[0.14em] uppercase text-gray-300 hover:text-white">
+                    Or on to how a film earns its place ↓
+                </button>
+            </div>
+        </div>
+    </div>
+);
+
 const Commentary = ({ reducedMotion }) => {
     const [films, setFilms] = useState({});
     const [asText, setAsText] = useState(false);
@@ -250,7 +280,7 @@ const Commentary = ({ reducedMotion }) => {
             </div>
             {asText
                 ? <div className="max-w-3xl mx-auto px-4 md:px-10 pb-6">{fullText}</div>
-                : <><div className="sr-only">{fullText}</div><ShortCut films={films} /></>}
+                : <><div className="sr-only">{fullText}</div><ShortCut films={films} /><DirectorsCut onRead={toggle} /></>}
         </section>
     );
 };

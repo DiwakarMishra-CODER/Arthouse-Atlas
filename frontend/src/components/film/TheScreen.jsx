@@ -2,7 +2,7 @@ import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
-import { MdArrowBack, MdArrowDownward, MdArrowOutward, MdClose } from 'react-icons/md';
+import { MdArrowBack, MdArrowDownward, MdArrowOutward, MdClose, MdSkipNext } from 'react-icons/md';
 import { sized } from '../movements/treatments';
 import { sizeFor, useDecoded } from '../about/frames';
 import { ShelfSigns, TicketDock, TrailerScreen } from './Ticket';
@@ -27,7 +27,7 @@ import { directorPath } from './directorPath';
 
 const FRAME = 2600; // ms on each frame in the projection
 const IDLE = 4500; // ms between cuts while you stay on the title card
-const STEP = 40; // svh of scroll for each card
+const STEP = 30; // svh of scroll for each card
 const COUNTRY = { 'United States of America': 'United States', 'United Kingdom': 'UK' };
 const SOURCE = { Novel: 'the novel by', Book: 'the book by', Play: 'the play by', 'Short Story': 'the story by', 'Comic Book': 'the comic by', Author: 'the work of' };
 
@@ -49,17 +49,17 @@ const loadYouTube = () => {
     return youTube;
 };
 
-// the programme note, cut into subtitles: whole sentences, about two to a card
+// the programme note, cut into subtitles: whole sentences, a few to a card
 const subtitlesOf = (text) => {
     const sentences = (text || '').replace(/\s+/g, ' ').trim().split(/(?<=[.!?…])\s+(?=[A-Z0-9"“‘'(])/);
     const cards = [];
     for (const s of sentences) {
         const last = cards.at(-1);
-        if (last && last.length + s.length < 240) cards[cards.length - 1] = `${last} ${s}`;
+        if (last && last.length + s.length < 300) cards[cards.length - 1] = `${last} ${s}`;
         else cards.push(s);
     }
-    // never more than four: the rest joins the last
-    return cards.length > 4 ? [...cards.slice(0, 3), cards.slice(3).join(' ')] : cards.filter(Boolean);
+    // never more than three: the rest joins the last
+    return cards.length > 3 ? [...cards.slice(0, 2), cards.slice(2).join(' ')] : cards.filter(Boolean);
 };
 
 // the opening, card by card
@@ -69,7 +69,9 @@ const cardsOf = (movie) => {
     const wrote = writers.filter((w) => ['Screenplay', 'Writer'].includes(w.job)).map((w) => w.name);
     const source = writers.find((w) => SOURCE[w.job]);
     const auteur = directors.length === 1 && wrote.length === 1 && wrote[0] === directors[0];
+    // who's in it and who made it with them, on one card
     const crew = [
+        movie.cast?.length && { role: 'Starring', names: movie.cast.slice(0, 3).map((c) => c.name), stack: true },
         movie.cinematographers?.length && { role: 'Photographed by', names: movie.cinematographers.slice(0, 2) },
         movie.composers?.length && { role: 'Music by', names: movie.composers.slice(0, 2) },
         movie.editors?.length && { role: 'Edited by', names: movie.editors.slice(0, 2) },
@@ -81,8 +83,7 @@ const cardsOf = (movie) => {
     const ed = movie.editorial || {};
     return [
         { kind: 'title' },
-        movie.cast?.length && { kind: 'credits', label: 'Starring', entries: [{ role: 'Starring', names: movie.cast.slice(0, 3).map((c) => c.name), stack: true }] },
-        crew.length && { kind: 'credits', label: 'The crew', entries: crew },
+        crew.length && { kind: 'credits', label: 'Cast and crew', entries: crew },
         directors.length && { kind: 'credits', label: auteur ? 'Written and directed' : 'Directed', entries: [...made, { role: auteur ? 'Written and directed by' : 'Directed by', names: directors, big: true }], facts: true },
         ...subtitlesOf(ed.synopsis || movie.synopsis).map((text, i) => ({ kind: 'note', label: i === 0 ? 'About the film' : null, text })),
         ed.whyItMatters && { kind: 'why', label: 'Why it matters', text: ed.whyItMatters },
@@ -222,7 +223,7 @@ const TitleBlock = ({ movie, light, frames, canPlay, trailer, onPlay, playRef, p
                                 style={{ boxShadow: `0 0 0 1px ${light}99, 0 0 18px ${light}33` }}
                             >
                                 {face && (
-                                    <span aria-hidden="true" className="iris-in relative inline-block w-7 h-7 rounded-full overflow-hidden shrink-0 bg-black">
+                                    <span aria-hidden="true" className="face-iris relative inline-block w-7 h-7 rounded-full overflow-hidden shrink-0 bg-black">
                                         <img src={sized(face, 'w185')} alt="" className="w-full h-full object-cover max-w-none grayscale group-hover/who:grayscale-0 transition-[filter] duration-500" />
                                     </span>
                                 )}
@@ -253,6 +254,11 @@ const TitleBlock = ({ movie, light, frames, canPlay, trailer, onPlay, playRef, p
     );
 };
 
+// a name that never breaks at its hyphens (Suk-Ping, Ki-Hop), only between its words
+const unbroken = (name) => name.split(' ').map((w, k) => (
+    <Fragment key={k}>{k > 0 && ' '}{w.includes('-') ? <span className="whitespace-nowrap">{w}</span> : w}</Fragment>
+));
+
 // the credits on a card, as a film's opening titles set them: the role small, the name large; the
 // director last and largest, on a line of their own
 const Entry = ({ e, i, movie, light }) => (
@@ -260,13 +266,13 @@ const Entry = ({ e, i, movie, light }) => (
         {/* the director's face irised in above their credit: someone you can visit */}
         {e.big && <Faces movie={movie} names={e.names} light={light} />}
         <div className="font-label text-[12px] md:text-[13px] tracking-[0.3em] uppercase text-gray-200">{e.role}</div>
-        <div className={`mt-2 md:mt-3 font-serif font-light leading-[1.02] text-white ${e.big ? 'text-5xl md:text-8xl' : e.stack ? 'text-4xl md:text-7xl' : 'text-3xl md:text-5xl'}`}>
+        <div className={`mt-2 md:mt-3 font-serif font-light leading-[1.02] text-white ${e.big ? 'text-5xl md:text-8xl' : e.stack ? 'text-3xl md:text-6xl' : 'text-2xl md:text-5xl'}`}>
             {e.names.map((n, k) => (
-                <span key={n} className={e.stack ? 'block mt-1 md:mt-2' : ''}>
+                <span key={n} className={e.stack ? 'block mt-1' : ''}>
                     {!e.stack && k > 0 && <span className="text-gray-400"> &amp; </span>}
                     {e.big
-                        ? <Link to={directorPath(movie, n)} className="underline decoration-1 underline-offset-[10px] hover:text-gold-light" style={{ textDecorationColor: `${light}99` }}>{n}</Link>
-                        : n}
+                        ? <Link to={directorPath(movie, n)} className="underline decoration-1 underline-offset-[10px] hover:text-gold-light" style={{ textDecorationColor: `${light}99` }}>{unbroken(n)}</Link>
+                        : unbroken(n)}
                 </span>
             ))}
         </div>
@@ -281,7 +287,7 @@ const Faces = ({ movie, names, light }) => {
         <div className="mb-5 md:mb-7 flex justify-center gap-5 md:gap-8">
             {faces.map((r) => (
                 <Link key={r.id} to={`/directors/${r.id}`} aria-label={`Open ${r.name}'s retrospective`} className="group/face relative block rounded-full">
-                    <span className="iris-in block w-20 h-20 md:w-28 md:h-28 rounded-full overflow-hidden bg-black" style={{ '--iris-delay': '0.2s' }}>
+                    <span className="face-iris block w-20 h-20 md:w-28 md:h-28 rounded-full overflow-hidden bg-black" style={{ '--iris-delay': '0.2s' }}>
                         <img src={sized(r.portrait, 'w185')} alt="" className="w-full h-full object-cover max-w-none grayscale group-hover/face:grayscale-0 transition-[filter] duration-500" />
                     </span>
                     <span aria-hidden="true" className="absolute -inset-1 rounded-full transition-transform duration-500 group-hover/face:scale-105" style={{ boxShadow: `0 0 0 1px ${light}aa, 0 0 40px ${light}44` }} />
@@ -309,13 +315,15 @@ const WayOn = ({ movie, names }) => (
 );
 
 const Credits = ({ card, movie, light }) => {
-    const small = card.entries.filter((e) => !e.big);
+    const cast = card.entries.find((e) => e.stack);
+    const small = card.entries.filter((e) => !e.big && !e.stack);
     const big = card.entries.find((e) => e.big);
     return (
         <div className="flex flex-col items-center gap-7 md:gap-10 text-center [text-shadow:0_0_3px_rgba(0,0,0,0.7),0_2px_22px_rgba(0,0,0,0.85)]">
+            {cast && <Entry e={cast} i={0} movie={movie} light={light} />}
             {small.length > 0 && (
                 <div className={`grid grid-cols-1 gap-6 md:gap-14 ${small.length === 3 ? 'md:grid-cols-3' : small.length === 2 ? 'md:grid-cols-2' : ''}`}>
-                    {small.map((e, i) => <Entry key={e.role} e={e} i={i} movie={movie} light={light} />)}
+                    {small.map((e, i) => <Entry key={e.role} e={e} i={i + (cast ? 1 : 0)} movie={movie} light={light} />)}
                 </div>
             )}
             {big && <Entry e={big} i={small.length} movie={movie} light={light} />}
@@ -511,7 +519,9 @@ const TheScreen = ({ movie, light, reducedMotion, providers, tags }) => {
                             <motion.span className="absolute inset-0 bg-gold origin-left" style={{ scaleX: scrollYProgress }} />
                         </div>
                         <div className="mt-1 flex items-center justify-between gap-4 font-label text-[12px] tracking-[0.14em] uppercase">
-                            <button type="button" onClick={skip} className="min-h-10 text-gray-300 hover:text-white whitespace-nowrap">Skip the opening ›</button>
+                            <button type="button" onClick={skip} className="inline-flex items-center gap-2 min-h-10 px-4 bg-black/60 backdrop-blur-sm ring-1 ring-gold/70 text-white hover:bg-black/80 hover:ring-gold-light whitespace-nowrap">
+                                Skip the opening <MdSkipNext aria-hidden="true" size={18} className="text-gold-light" />
+                            </button>
                             <ol className="hidden md:flex items-center gap-1">
                                 {cards.map((x, i) => (
                                     <li key={i}>
