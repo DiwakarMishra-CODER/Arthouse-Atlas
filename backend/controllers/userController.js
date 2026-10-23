@@ -8,7 +8,7 @@ import crypto from 'crypto';
 import { getErrorResponse } from '../utils/errorResponse.js';
 import { loadCatalogue } from '../services/catalogue.js';
 import { buildForYou } from './recsController.js';
-import { buildFestival } from '../services/festival.js';
+import { buildFestival, memberFromMarks } from '../services/festival.js';
 import { nameProblem, passwordProblem, deleteProblem, googleProblem } from '../services/account.js';
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -263,6 +263,40 @@ export const getFestival = async (req, res) => {
     const catalogue = await loadCatalogue();
     res.setHeader('Cache-Control', 'no-store');
     res.json(buildFestival({ user, catalogue }));
+  } catch (error) {
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
+  }
+};
+
+// @desc    The example night: the maker's own, read live, for a visitor who hasn't marked a film
+//          (said in their name; their watchlist and the films they set aside stay private)
+// @route   GET /api/users/festival/example
+// @access  Public (rate-limited)
+const EXAMPLE = { id: '69538572eba7cf3b66674d0c', name: 'Diwakar' };
+export const exampleFestival = async (req, res) => {
+  try {
+    const user = await User.findById(EXAMPLE.id).select('createdAt favorites watched ratings').lean();
+    if (!user) return res.status(404).json({ message: 'There is no example night just now' });
+    const night = buildFestival({ user: { ...user, username: EXAMPLE.name, watchlist: [], notFor: [] }, catalogue: await loadCatalogue(), as: EXAMPLE.name });
+    res.setHeader('Cache-Control', 'public, max-age=300');
+    res.json({ ...night, example: true });
+  } catch (error) {
+    console.error(error);
+    const { status, message } = getErrorResponse(error);
+    res.status(status).json({ message });
+  }
+};
+
+// @desc    The festival without an account: the same night, from the marks this browser kept
+// @route   POST /api/users/festival/preview
+// @access  Public (rate-limited)
+export const previewFestival = async (req, res) => {
+  try {
+    const catalogue = await loadCatalogue();
+    res.setHeader('Cache-Control', 'no-store');
+    res.json(buildFestival({ user: memberFromMarks(req.body, catalogue.byId), catalogue }));
   } catch (error) {
     console.error(error);
     const { status, message } = getErrorResponse(error);

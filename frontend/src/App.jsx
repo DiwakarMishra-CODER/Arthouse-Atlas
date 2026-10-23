@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavigationType } from 'react-router-dom';
-import { AuthProvider, useAuth } from './context/AuthContext';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigationType } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
 import { MovieProvider } from './context/MovieContext';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -19,24 +19,8 @@ import Studios from './pages/Studios';
 import StudioDetail from './pages/StudioDetail';
 import Recommendations from './pages/Recommendations';
 import ProjectedBlack from './components/ProjectedBlack';
-import Leader from './components/Leader';
 import { PageNotFound } from './pages/NotFound';
 
-
-const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, loading } = useAuth();
-  const location = useLocation();
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Leader label="Checking it’s you" />
-      </div>
-    );
-  }
-
-  return isAuthenticated ? children : <Navigate to="/login" state={{ from: location.pathname }} />;
-};
 
 // a page you open starts at its top; Back and Forward are left to each page, which puts you back
 // where you were (Home and Explore keep their own note of it). A change within a page (Explore's
@@ -78,14 +62,8 @@ function AppRoutes() {
           <Route path="/about" element={<About />} />
           <Route path="*" element={<PageNotFound />} />
 
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
+          {/* (for everyone: signed out, it's made from what this browser kept) */}
+          <Route path="/profile" element={<Profile />} />
 
         </Routes>
       </main>

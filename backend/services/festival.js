@@ -63,9 +63,27 @@ const tally = (cards, valuesOf) => {
     return [...by].map(([value, films]) => ({ value, films: [...films].sort(byCanon) }))
         .sort((a, b) => b.films.length - a.films.length || byCanon(a.films[0], b.films[0]));
 };
-const filmsWord = (n) => (n === 1 ? '1 film you love' : `${n} films you love`);
+const filmsWord = (n, you = 'you', love = 'love') => (n === 1 ? `1 film ${you} ${love}` : `${n} films ${you} ${love}`);
 
-export const buildFestival = ({ user, catalogue }) => {
+// a member made of the marks a browser kept, for the night without an account: only films in the
+// atlas count, ratings from 1 to 5, at most 500 of each; the browser keeps its newest rating last,
+// so it's dated last, and listed first
+export const memberFromMarks = (body, byId) => {
+    const known = (id) => byId.has(String(id));
+    const listOf = (key) => (Array.isArray(body?.[key]) ? body[key].slice(0, 500).map(String).filter(known) : []);
+    const ratings = (Array.isArray(body?.ratings) ? body.ratings.slice(0, 500) : [])
+        .map((r, i) => ({ movie: String(r?.id), value: Number(r?.value), ratedAt: new Date(i) }))
+        .filter((r) => known(r.movie) && r.value >= 1 && r.value <= 5);
+    return { username: null, createdAt: null, favorites: listOf('favorites'), watched: listOf('watched'), watchlist: listOf('watchlist'), notFor: listOf('notFor'), ratings };
+};
+
+export const buildFestival = ({ user, catalogue, as = null }) => {
+    // who the night is said to: you, or, named (`as`), someone else (the example night a visitor sees)
+    const Your = as ? `${as}’s` : 'Your';
+    const your = as ? `${as}’s` : 'your';
+    const You = as || 'You';
+    const you = as || 'you';
+    const love = as ? 'loves' : 'love';
     const { byId, directors, movementsByTitle } = catalogue;
     // ids -> cards, once each, in the order given
     const cardsOf = (ids = []) => {
@@ -88,7 +106,7 @@ export const buildFestival = ({ user, catalogue }) => {
 
     const awards = [];
     const score = (c) => markOf(c) ?? (fav.has(c._id) ? 4.5 : 0);
-    const filmSub = (c) => (markOf(c) ? `You rated it ${markOf(c)}/5` : 'One of your favourites');
+    const filmSub = (c) => (markOf(c) ? `${You} rated it ${markOf(c)}/5` : `One of ${your} favourites`);
 
     // Your favourite film
     const films = [...loved].sort((a, b) => score(b) - score(a) || Number(fav.has(b._id)) - Number(fav.has(a._id)) || byCanon(a, b)).slice(0, MOST);
@@ -96,8 +114,8 @@ export const buildFestival = ({ user, catalogue }) => {
         const w = films[0];
         const mark = markOf(w);
         awards.push({
-            key: 'film', label: 'Your favourite film', question: 'The film you rated highest',
-            why: mark ? `You rated it ${mark} out of 5${fav.has(w._id) ? ', and made it a favourite' : ''}.` : 'You made it a favourite.',
+            key: 'film', label: `${Your} favourite film`, question: `The film ${you} rated highest`,
+            why: mark ? `${You} rated it ${mark} out of 5${fav.has(w._id) ? ', and made it a favourite' : ''}.` : `${You} made it a favourite.`,
             to: `/movie/${w._id}`,
             nominees: films.map((c, i) => ({ name: c.title, sub: filmSub(c), ...pictureOf([c]), ...(fav.has(c._id) ? { fav: true } : {}), to: `/movie/${c._id}`, win: i === 0 })),
         });
@@ -112,21 +130,21 @@ export const buildFestival = ({ user, catalogue }) => {
             key, label, question,
             why: why(w.films.length, listOf(w.films.map((c) => c.title))),
             to: to(w.value),
-            nominees: ranked.map((r, i) => ({ name: nameOf(r.value), sub: filmsWord(r.films.length), ...pictureOf(r.films), ...extra(r), to: to(r.value), win: i === 0 })),
+            nominees: ranked.map((r, i) => ({ name: nameOf(r.value), sub: filmsWord(r.films.length, you, love), ...pictureOf(r.films), ...extra(r), to: to(r.value), win: i === 0 })),
         });
     };
     const pageOf = (name) => directors.get(normalizeName(name));
     counted({
-        key: 'director', label: 'Your favourite director', question: 'Whose films you love most',
+        key: 'director', label: `${Your} favourite director`, question: `Whose films ${you} ${love} most`,
         valuesOf: (c) => c.directors,
-        why: (n, list) => `You love ${n} of their films: ${list}.`,
+        why: (n, list) => `${You} ${love} ${n} of their films: ${list}.`,
         extra: (r) => (pageOf(r.value)?.profileUrl ? { p: compact(pageOf(r.value).profileUrl) } : {}),
         to: (v) => (pageOf(v) ? `/directors/${pageOf(v)._id}` : `/explore?director=${encodeURIComponent(v)}`),
     });
     counted({
-        key: 'movement', label: 'Your favourite movement', question: 'The film movement most of the films you love belong to',
+        key: 'movement', label: `${Your} favourite movement`, question: `The film movement most of the films ${you} ${love} belong to`,
         valuesOf: (c) => c.movements,
-        why: (n, list) => `${n} of the films you love belong to it: ${list}.`,
+        why: (n, list) => `${n} of the films ${you} ${love} belong to it: ${list}.`,
         extra: (r) => (movementsByTitle.get(r.value)?.heroStill ? { s: compact(movementsByTitle.get(r.value).heroStill) } : {}),
         to: (v) => {
             const room = movementsByTitle.get(v);
@@ -134,17 +152,17 @@ export const buildFestival = ({ user, catalogue }) => {
         },
     });
     counted({
-        key: 'country', label: 'Your favourite country', question: 'Where most of the films you love were made',
+        key: 'country', label: `${Your} favourite country`, question: `Where most of the films ${you} ${love} were made`,
         valuesOf: (c) => (c.countries?.length ? c.countries : [c.country]),
         nameOf: (v) => PLACE[v] || v,
-        why: (n, list) => `${n} of the films you love were made there: ${list}.`,
+        why: (n, list) => `${n} of the films ${you} ${love} were made there: ${list}.`,
         to: (v) => `/explore?country=${encodeURIComponent(v)}`,
     });
     counted({
-        key: 'decade', label: 'Your favourite decade', question: 'When most of the films you love were made',
+        key: 'decade', label: `${Your} favourite decade`, question: `When most of the films ${you} ${love} were made`,
         valuesOf: (c) => [c.decade],
         nameOf: (v) => `The ${v}s`,
-        why: (n, list) => `${n} of the films you love were made then: ${list}.`,
+        why: (n, list) => `${n} of the films ${you} ${love} were made then: ${list}.`,
         to: (v) => `/explore?decade=${v}`,
     });
 
@@ -156,8 +174,8 @@ export const buildFestival = ({ user, catalogue }) => {
     if (gems.length >= 2 && rarer(gems[0]) > 0.5) {
         const w = gems[0];
         awards.push({
-            key: 'gem', label: 'Your hidden gem', question: 'The least-seen film you love',
-            why: `Fewer people have seen it than ${tenths(w)} in 10 films in the atlas, and you love it.`,
+            key: 'gem', label: `${Your} hidden gem`, question: `The least-seen film ${you} ${love}`,
+            why: `Fewer people have seen it than ${tenths(w)} in 10 films in the atlas, and ${you} ${love} it.`,
             to: `/movie/${w._id}`,
             nominees: gems.map((c, i) => ({
                 name: c.title,

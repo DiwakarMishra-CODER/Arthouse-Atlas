@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { MdPerson, MdLogout } from 'react-icons/md';
+import { MdEmojiEvents, MdLogout } from 'react-icons/md';
 import { useAuth } from '../context/AuthContext';
 
 /**
@@ -134,11 +134,12 @@ const Navbar = () => {
                     <div className="relative mt-12 flex items-center gap-6">
                         {isAuthenticated ? (
                             <>
-                                <Link to="/profile" onClick={closeMobileMenu} className={`${SIGN} text-sm text-gray-200`}>Profile</Link>
+                                <Link to="/profile" onClick={closeMobileMenu} className={`${SIGN} text-sm text-gray-200`}>Your profile</Link>
                                 <button type="button" onClick={() => { logout(); closeMobileMenu(); }} className={`${SIGN} text-sm text-gray-400`}>Sign out</button>
                             </>
                         ) : (
                             <>
+                                <Link to="/profile" onClick={closeMobileMenu} className={`${SIGN} text-sm text-gray-200`}>Your profile</Link>
                                 {/* one door: the page it opens has Join too */}
                                 <Link to="/login" state={back} onClick={closeMobileMenu} className={`${SIGN} text-sm px-5 py-2.5 ring-1 ring-gold/60 text-gold`}>Sign in</Link>
                             </>
@@ -185,43 +186,66 @@ const Navbar = () => {
                                 <button
                                     type="button"
                                     onClick={() => setShowProfileMenu(!showProfileMenu)}
-                                    aria-label="Your account"
+                                    aria-label="Your profile"
                                     aria-expanded={showProfileMenu}
-                                    className="flex items-center justify-center w-9 h-9 rounded-full ring-1 ring-gold/50 text-gold font-serif text-base hover:bg-gold hover:text-black transition-colors"
+                                    className={`${SIGN} group flex items-center gap-2.5 pl-1.5 pr-3.5 py-1.5 text-[13px] ring-1 ring-gold/50 hover:ring-gold ${showProfileMenu || inRoom(location.pathname, '/profile') ? 'is-lit' : 'text-gold'}`}
                                 >
-                                    {initial}
+                                    <span aria-hidden="true" className="flex items-center justify-center w-7 h-7 rounded-full ring-1 ring-gold/60 font-serif normal-case tracking-normal text-[15px] text-gold-light">{initial}</span>
+                                    <span className="hidden xl:inline">Your profile</span>
+                                    <span aria-hidden="true" className={`text-[10px] transition-transform duration-300 ${showProfileMenu ? 'rotate-180' : ''}`}>▼</span>
                                 </button>
 
+                                {/* your ticket: who's in the seat, torn along its perforation from what you can do */}
                                 {showProfileMenu && (
-                                    <div className="absolute right-0 mt-3 w-56 py-2 bg-[#12110f] ring-1 ring-white/10 shadow-2xl z-50">
-                                        <div className="px-5 py-3 border-b border-white/10 mb-2">
-                                            <p className="font-label text-[12px] text-gray-400 uppercase tracking-[0.14em] mb-1">Signed in as</p>
-                                            <p className="text-base text-white truncate font-serif">{user?.username}</p>
+                                    <div className="ticket-drop absolute right-0 mt-3 w-64 z-50 drop-shadow-[0_18px_40px_rgba(0,0,0,0.75)]">
+                                        <div className="relative bg-[#15120e] ring-1 ring-gold/35">
+                                            <div className="px-5 pt-4 pb-4">
+                                                <div className="flex items-center justify-between font-label text-[12px] tracking-[0.14em] uppercase">
+                                                    <span className="text-gold">Admit one</span>
+                                                    <span className="text-gray-500">Signed in</span>
+                                                </div>
+                                                <p className="mt-2 font-serif text-2xl leading-tight text-white truncate">{user?.username}</p>
+                                            </div>
+                                            {/* the perforation, notched at both edges */}
+                                            <div aria-hidden="true" className="relative mx-3 border-t border-dashed border-white/25">
+                                                <span className="absolute -left-[1.3rem] -top-[9px] w-[18px] h-[18px] rounded-full bg-[#050505] ring-1 ring-gold/35 [clip-path:inset(0_0_0_50%)]" />
+                                                <span className="absolute -right-[1.3rem] -top-[9px] w-[18px] h-[18px] rounded-full bg-[#050505] ring-1 ring-gold/35 [clip-path:inset(0_50%_0_0)]" />
+                                            </div>
+                                            <div className="py-2">
+                                                <Link
+                                                    to="/profile"
+                                                    className="group/t flex items-center gap-3 px-5 py-2.5 hover:bg-white/[0.04]"
+                                                    onClick={() => setShowProfileMenu(false)}
+                                                >
+                                                    <MdEmojiEvents aria-hidden="true" className="text-lg text-gold-light" />
+                                                    <span>
+                                                        <span className="block font-label text-[13px] tracking-[0.14em] uppercase text-white group-hover/t:text-gold-light">Your profile</span>
+                                                        <span className="block font-serif italic text-[15px] text-gray-400">Your awards night</span>
+                                                    </span>
+                                                </Link>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        logout();
+                                                        setShowProfileMenu(false);
+                                                    }}
+                                                    className="group/t flex w-full items-center gap-3 text-left px-5 py-2.5 hover:bg-white/[0.04]"
+                                                >
+                                                    <MdLogout aria-hidden="true" className="text-lg text-gray-400" />
+                                                    <span className="font-label text-[13px] tracking-[0.14em] uppercase text-gray-300 group-hover/t:text-white">Sign out</span>
+                                                </button>
+                                            </div>
                                         </div>
-                                        <Link
-                                            to="/profile"
-                                            className="flex items-center px-5 py-3 text-sm text-gray-200 hover:bg-white/5 hover:text-gold transition-colors"
-                                            onClick={() => setShowProfileMenu(false)}
-                                        >
-                                            <MdPerson className="text-lg mr-3" />
-                                            My profile
-                                        </Link>
-                                        <button
-                                            type="button"
-                                            onClick={() => {
-                                                logout();
-                                                setShowProfileMenu(false);
-                                            }}
-                                            className="flex w-full items-center text-left px-5 py-3 text-sm text-gray-200 hover:bg-white/5 hover:text-red-300 transition-colors"
-                                        >
-                                            <MdLogout className="text-lg mr-3" />
-                                            Sign out
-                                        </button>
                                     </div>
                                 )}
                             </div>
                         ) : (
-                            // one door: the page it opens has Join too
+                            <>
+                            {/* your awards night, for everyone (before you've marked a film, it shows the maker's) */}
+                            <Link to="/profile" aria-current={inRoom(location.pathname, '/profile') ? 'page' : undefined} className={`${SIGN} hidden xl:inline-flex text-[13px] ${inRoom(location.pathname, '/profile') ? 'is-lit' : 'text-gray-300 hover:text-white'}`}>
+                                Your profile
+                            </Link>
+                            {/* one door: the page it opens has Join too */}
                             <Link
                                 to="/login"
                                 state={back}
@@ -229,6 +253,7 @@ const Navbar = () => {
                             >
                                 Sign in
                             </Link>
+                            </>
                         )}
                     </div>
 

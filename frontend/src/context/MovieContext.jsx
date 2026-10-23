@@ -254,7 +254,15 @@ export const MovieProvider = ({ children }) => {
         }
     };
 
+    // what this browser has marked, as the awards night without an account wants it, and how many
+    // films that is (the film page offers the night once there are three)
+    const idOf = (m) => m?._id || m?.id || m;
+    const marks = { favorites: favorites.map(idOf), watched: watched.map(idOf), watchlist: watchlist.map(idOf), notFor: notFor.map(idOf), ratings: ratings.map((r) => ({ id: r.id, value: r.rating })) };
+    const marked = new Set([...marks.favorites, ...marks.watched, ...marks.ratings.map((r) => r.id)]).size;
+
     const value = {
+        marks,
+        marked,
         isFavorite,
         isInWatchlist,
         isWatched,

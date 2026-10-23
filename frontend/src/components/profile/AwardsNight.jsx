@@ -46,7 +46,7 @@ const drumroll = (n, to) => {
     return seq.map((spot, i) => { const at = t; t += (raw[i] / sum) * SWEEP; return { spot, at }; });
 };
 
-const AwardsNight = ({ awards, reel = [], reducedMotion }) => {
+const AwardsNight = ({ awards, reel = [], whose = 'Your', reducedMotion }) => {
     const open = awards.length > 0;
     // before the night opens: one award, its nominees the films everyone knows
     const list = useMemo(() => (open ? awards : reel.length >= 2 ? [{
@@ -172,7 +172,7 @@ const AwardsNight = ({ awards, reel = [], reducedMotion }) => {
             {/* the award, in plain words */}
             <div className="absolute inset-x-0 top-0 z-20 pt-7 md:pt-10 pointer-events-none">
                 <div className="max-w-7xl mx-auto px-4 md:px-10">
-                    <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">{open ? `Award ${show.at + 1} of ${n}` : 'Your awards'}</div>
+                    <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">{open ? `Award ${show.at + 1} of ${n}` : `${whose} awards`}</div>
                     <h2 key={`h-${show.at}`} className="title-rise mt-1.5 font-serif font-light text-[2.1rem] md:text-6xl leading-[1.05] text-white [text-shadow:0_2px_24px_rgba(0,0,0,0.7)]">{award.label}</h2>
                     <p key={`q-${show.at}`} className="title-rise mt-1.5 font-serif italic text-base md:text-2xl text-gray-200 [text-shadow:0_2px_18px_rgba(0,0,0,0.7)]">{award.question}</p>
                 </div>

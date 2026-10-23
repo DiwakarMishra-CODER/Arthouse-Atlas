@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import BackButton from '../components/BackButton';
 import { recsAPI, userAPI } from '../services/api';
+import { useAuth } from '../context/AuthContext';
+import { useMovie } from '../context/MovieContext';
 import { useMotionPreference } from '../hooks/useMotionPreference';
 import AwardsNight from '../components/profile/AwardsNight';
 import DollyTrack from '../components/studios/DollyTrack';
@@ -14,6 +17,11 @@ import { usePageTitle } from '../hooks/usePageTitle';
  * winners (your favourite film, director, movement, country, decade, and your hidden gem), each against
  * its nominees and said in plain words. Under it, your films, one shelf at a time, on a track you dolly
  * along. Before you've rated anything, the night says how it opens.
+ *
+ * It's open to everyone: signed out, the night is made from what this browser kept (the same awards,
+ * from POST /users/festival/preview), and where the account would be, signing in keeps it. Before
+ * you've marked a film, it plays the maker's own night as the example (live, in their name; their
+ * watchlist stays private), and your turn is offered at its foot.
  */
 
 const SHELVES = [
@@ -28,6 +36,11 @@ const monthOf = (d) => (d ? new Date(d).toLocaleDateString('en-GB', { month: 'lo
 const Profile = () => {
     const reducedMotion = useMotionPreference();
     usePageTitle('Your profile');
+    const { isAuthenticated, loading } = useAuth();
+    // (what this browser kept, as the page opened: the night is made from it once)
+    const { marks, marked } = useMovie();
+    const [kept] = useState(marks);
+    const [none] = useState(marked === 0);
     const [fest, setFest] = useState(null);
     const [failed, setFailed] = useState(false);
     const [reel, setReel] = useState([]);
@@ -43,9 +56,10 @@ const Profile = () => {
     }, [fest]);
 
     useEffect(() => {
+        if (loading) return undefined;
         let gone = false;
         window.scrollTo(0, 0);
-        userAPI.getFestival()
+        (isAuthenticated ? userAPI.getFestival() : none ? userAPI.exampleFestival() : userAPI.previewFestival(kept))
             .then((r) => {
                 if (gone) return;
                 setFest(r.data);
@@ -59,7 +73,7 @@ const Profile = () => {
             })
             .catch(() => { if (!gone) setFailed(true); });
         return () => { gone = true; };
-    }, []);
+    }, [loading, isAuthenticated, kept, none]);
 
     if (failed) {
         return (
@@ -84,49 +98,57 @@ const Profile = () => {
 
     const films = shelf ? fest.shelves[shelf] || [] : [];
     const [, , empty] = SHELVES.find(([k]) => k === shelf) || SHELVES[0];
+    // the maker's night, as the example: said in their name, and only the shelves that are public
+    const example = !!fest.example;
+    const shelves = example ? SHELVES.filter(([k]) => !['watchlist', 'notFor'].includes(k)).map(([k, label, e]) => [k, k === 'rated' ? 'Ratings' : label, e]) : SHELVES;
 
     return (
         <div className="own-transitions relative min-h-screen pb-28">
             {/* what this page is, in one look */}
             <header className="pt-24 md:pt-28 pb-6 md:pb-8">
-                <div className="max-w-7xl mx-auto px-4 md:px-10 flex items-start justify-between gap-6">
+                <div className="max-w-7xl mx-auto px-4 md:px-10 mb-6"><BackButton className="title-rise" /></div>
+                <div className="max-w-7xl mx-auto px-4 md:px-10 flex flex-col md:flex-row md:items-start md:justify-between gap-2 md:gap-6">
                     <div className="title-rise">
-                        <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">Your profile</div>
-                        <h1 className="mt-1 font-serif font-light text-[2.4rem] md:text-6xl leading-[1.05] text-white">{fest.name}’s Film Awards</h1>
-                        <p className="mt-2 max-w-2xl font-serif text-lg md:text-xl leading-snug text-gray-200">Every film you rate is a vote. These are your winners: your favourite film, director, decade and more.</p>
+                        <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">{example ? 'An example: the maker’s profile' : 'Your profile'}</div>
+                        <h1 className="mt-1 font-serif font-light text-[2.4rem] md:text-6xl leading-[1.05] text-white">{fest.name ? `${fest.name}’s Film Awards` : 'Your Film Awards'}</h1>
+                        <p className="mt-2 max-w-2xl font-serif text-lg md:text-xl leading-snug text-gray-200">
+                            {example
+                                ? `This is the awards night of ${fest.name}, who made the atlas. Every film rated is a vote; rate three of yours, and the night becomes yours.`
+                                : 'Every film you rate is a vote. These are your winners: your favourite film, director, decade and more.'}
+                        </p>
                         <p className="mt-2 font-label text-[12px] tracking-[0.14em] uppercase text-gray-400">{ballot}</p>
                     </div>
                     <button
                         type="button"
                         onClick={() => document.getElementById('account')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' })}
-                        className="shrink-0 mt-1 min-h-11 px-1 font-label text-[12px] tracking-[0.14em] uppercase text-gold hover:text-gold-light"
+                        className="self-start shrink-0 md:mt-1 min-h-11 md:px-1 font-label text-[12px] tracking-[0.14em] uppercase text-gold hover:text-gold-light"
                     >
-                        Your account ›
+                        {isAuthenticated ? 'Your account ›' : example ? 'Make your own ›' : 'Keep it ›'}
                     </button>
                 </div>
             </header>
 
-            <AwardsNight awards={fest.awards || []} reel={reel} reducedMotion={reducedMotion} />
+            <AwardsNight awards={fest.awards || []} reel={reel} whose={example ? `${fest.name}’s` : 'Your'} reducedMotion={reducedMotion} />
             {fest.awards?.length > 0 && (
-                <p className="max-w-7xl mx-auto px-4 md:px-10 mt-3 font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">Films you love: the ones you rated 4 or 5, or made a favourite.</p>
+                <p className="max-w-7xl mx-auto px-4 md:px-10 mt-3 font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">{example ? `Films ${fest.name} loves: the ones rated 4 or 5, or made a favourite.` : 'Films you love: the ones you rated 4 or 5, or made a favourite.'}</p>
             )}
 
             {/* your films, one shelf at a time */}
             <section className="pt-16 md:pt-24">
                 <div className="max-w-7xl mx-auto px-4 md:px-10">
                     <div className="flex items-baseline gap-4">
-                        <h2 className="font-serif font-light text-3xl md:text-5xl text-white">Your films</h2>
+                        <h2 className="font-serif font-light text-3xl md:text-5xl text-white">{example ? `${fest.name}’s films` : 'Your films'}</h2>
                         <span className="flex-1 h-px bg-white/10" />
                     </div>
-                    <p className="mt-2 font-serif italic text-lg text-gray-300">Everything you’ve kept, one shelf at a time.</p>
+                    <p className="mt-2 font-serif italic text-lg text-gray-300">{example ? 'Everything rated and kept, one shelf at a time.' : 'Everything you’ve kept, one shelf at a time.'}</p>
                     <div className="mt-6">
                         <Picker
                             tabs
-                            label="Your shelves"
+                            label={example ? 'Shelves' : 'Your shelves'}
                             layoutId="shelf-rule"
                             value={shelf}
                             onChange={setShelf}
-                            items={SHELVES.map(([k, label]) => ({ key: k, label, count: fest.shelves[k]?.length || 0 }))}
+                            items={shelves.map(([k, label]) => ({ key: k, label, count: fest.shelves[k]?.length || 0 }))}
                         />
                     </div>
                 </div>
@@ -137,7 +159,7 @@ const Profile = () => {
                             films={films}
                             reducedMotion={reducedMotion}
                             decades={false}
-                            note={(f) => (f.mark ? `Your mark: ${f.mark} of 5` : null)}
+                            note={(f) => (f.mark ? (example ? `Rated ${f.mark} of 5` : `Your mark: ${f.mark} of 5`) : null)}
                         />
                     ) : (
                         <div className="max-w-7xl mx-auto px-4 md:px-10">
@@ -151,7 +173,27 @@ const Profile = () => {
             </section>
 
             {seen.length > 0 && <YourAtlas films={seen} reducedMotion={reducedMotion} />}
-            <Account name={fest.name} onRenamed={(username) => setFest((f) => ({ ...f, name: username }))} />
+            {isAuthenticated
+                ? <Account name={fest.name} onRenamed={(username) => setFest((f) => ({ ...f, name: username }))} />
+                : (
+                    // signed out: where the account would be, the way to keep the night
+                    <section id="account" className="scroll-mt-24 max-w-7xl mx-auto px-4 md:px-10 pt-20 md:pt-28">
+                        <div className="ring-1 ring-white/10 bg-white/[0.02] p-7 md:p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                            <div className="max-w-2xl">
+                                <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">{example ? 'Your turn' : 'Kept on this device'}</div>
+                                <p className="mt-2 font-serif text-2xl md:text-3xl leading-snug text-white">
+                                    {example ? 'Rate three films you’ve seen, and this becomes your awards night. No account needed.' : 'Sign in, and your night moves into your account, on every device.'}
+                                </p>
+                            </div>
+                            <div className="shrink-0 flex items-center gap-6">
+                                {example
+                                    ? <Link to="/explore" className="inline-flex items-center min-h-11 px-6 bg-gold text-[#141110] hover:bg-gold-light font-label text-[13px] tracking-[0.14em] uppercase">Find films to rate</Link>
+                                    : <Link to="/login" state={{ from: '/profile' }} className="inline-flex items-center min-h-11 px-6 bg-gold text-[#141110] hover:bg-gold-light font-label text-[13px] tracking-[0.14em] uppercase">Sign in</Link>}
+                                <Link to={example ? '/login' : '/register'} state={{ from: '/profile' }} className="inline-flex items-center min-h-11 font-label text-[13px] tracking-[0.14em] uppercase text-gold hover:text-gold-light">{example ? 'Sign in ›' : 'Join ›'}</Link>
+                            </div>
+                        </div>
+                    </section>
+                )}
         </div>
     );
 };

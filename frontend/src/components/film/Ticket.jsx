@@ -35,7 +35,7 @@ const useShelf = (movie) => {
     ];
     // signed out, a mark is kept in this browser (MovieContext) and moves into the account at sign-in
     const act = (item) => item.toggle();
-    return { items, act, signedIn: isAuthenticated, rating: shelf.getMovieRating(id), rate: (s) => shelf.setMovieRating(movie, s) };
+    return { items, act, signedIn: isAuthenticated, marked: shelf.marked, rating: shelf.getMovieRating(id), rate: (s) => shelf.setMovieRating(movie, s) };
 };
 
 // lit: the film's light, glowing
@@ -124,10 +124,15 @@ const Stars = ({ rating, rate, light, size = 'text-[18px]', cell = 'w-8 h-10' })
 };
 
 export const ShelfSigns = ({ movie, light }) => {
-    const { items, act, signedIn, rating, rate } = useShelf(movie);
+    const { items, act, signedIn, marked, rating, rate } = useShelf(movie);
     return (
         <div role="group" aria-label="Keep track of this film" className="[text-shadow:0_2px_14px_rgba(0,0,0,0.7)]">
-            {!signedIn && (
+            {/* (from three films marked, your awards night has winners: it's offered here) */}
+            {marked >= 3 ? (
+                <div className="mb-2 font-label text-[12px] tracking-[0.14em] uppercase text-gray-300">
+                    {!signedIn && 'Kept on this device · '}<Link to="/profile" className="text-gold underline decoration-gold/50 underline-offset-4 hover:text-gold-light">Your awards night is ready ›</Link>
+                </div>
+            ) : !signedIn && (
                 <div className="mb-2 font-label text-[12px] tracking-[0.14em] uppercase text-gray-300">
                     Kept on this device · <Link to="/login" state={{ from: window.location.pathname }} className="text-gold underline decoration-gold/50 underline-offset-4 hover:text-gold-light">Sign in</Link> to keep it everywhere
                 </div>

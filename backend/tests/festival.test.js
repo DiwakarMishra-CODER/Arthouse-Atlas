@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { toCard } from '../services/catalogue.js';
-import { buildFestival } from '../services/festival.js';
+import { buildFestival, memberFromMarks } from '../services/festival.js';
 
 const film = (id, extra) => toCard({ _id: id, title: `Film ${id}`, year: 1960, directors: ['Someone'], countries: ['France'], movements: [], vote_count: 5000, ...extra });
 const cards = [
@@ -82,4 +82,29 @@ test('an award needs a contest: two nominees, and a winner with two films behind
     assert.deepEqual(one.awards, []);
     const two = buildFestival({ user: { username: 'Two', ratings: [{ movie: 'c', value: 5 }, { movie: 'd', value: 4 }] }, catalogue });
     assert.deepEqual(two.awards.map((a) => a.key), ['film']); // (one movement, one country: no contest)
+});
+
+test('without an account, the night is made from the marks the browser kept, and only real ones count', () => {
+    const member = memberFromMarks({
+        favorites: ['b', 'not-a-film'],
+        ratings: [{ id: 'c', value: 4 }, { id: 'a', value: 5 }, { id: 'd', value: 9 }, { id: 'nope', value: 3 }],
+        watched: 'not a list',
+    }, catalogue.byId);
+    assert.deepEqual(member.favorites, ['b']);
+    assert.deepEqual(member.watched, []);
+    assert.deepEqual(member.ratings.map((r) => r.movie), ['c', 'a']);
+    const night = buildFestival({ user: member, catalogue });
+    assert.equal(night.name, null);
+    assert.deepEqual(night.shelves.rated.map((f) => f.id), ['a', 'c'], 'the newest rating first');
+    assert.equal(night.awards.find((a) => a.key === 'film').nominees.find((n) => n.win).name, 'Persona');
+});
+
+test('a night said in someone else\'s name reads as theirs, never "you"', () => {
+    const theirs = buildFestival({ user, catalogue, as: 'Ana' });
+    const film = theirs.awards.find((a) => a.key === 'film');
+    assert.equal(film.label, 'Ana’s favourite film');
+    assert.equal(film.question, 'The film Ana rated highest');
+    assert.equal(theirs.awards.find((a) => a.key === 'director').question, 'Whose films Ana loves most');
+    const words = JSON.stringify(theirs.awards.map(({ label, question, why, nominees }) => [label, question, why, nominees.map((x) => x.sub)]));
+    assert.doesNotMatch(words, /\b[Yy]ou(r)?\b/);
 });

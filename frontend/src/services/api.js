@@ -78,6 +78,10 @@ export const userAPI = {
   getRecommendations: () => api.get('/users/recommendations', { params: { _t: Date.now() } }),
   toggleNotFor: (movieId) => api.post(`/users/not-for-me/${movieId}`),
   getFestival: () => api.get('/users/me/festival'),
+  // the same night without an account, from what this browser kept
+  previewFestival: (marks) => api.post('/users/festival/preview', marks),
+  // the maker's own night, the example a visitor sees before marking a film
+  exampleFestival: () => api.get('/users/festival/example'),
   updateMe: (username) => api.put('/users/me', { username }),
   changePassword: (current, next) => api.put('/users/me/password', { current, next }),
   deleteMe: (confirm) => api.delete('/users/me', { data: { confirm } }),
