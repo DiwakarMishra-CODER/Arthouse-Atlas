@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Navigate, useNavigationType, useSearchParams } from 'react-router-dom';
 import { MdMovieFilter } from 'react-icons/md';
-import BackButton from '../components/BackButton';
 import { moviesAPI } from '../services/api';
 import { useMotionPreference } from '../hooks/useMotionPreference';
 import Letterboard from '../components/explore/Letterboard';
@@ -11,7 +10,6 @@ import Intertitle from '../components/explore/Intertitle';
 import SearchBox from '../components/explore/SearchBox';
 import ProjectorPick from '../components/explore/ProjectorPick';
 import Tray from '../components/explore/Tray';
-import { PickerPanel } from '../components/explore/pickers/parts';
 import PlacePicker from '../components/explore/pickers/PlacePicker';
 import TimePicker from '../components/explore/pickers/TimePicker';
 import MakerPicker from '../components/explore/pickers/MakerPicker';
@@ -28,9 +26,10 @@ import { usePageTitle } from '../hooks/usePageTitle';
  *
  * The letterboard says, in plain words, what's showing: every
  * word you can change sits in a gold slot, dashed while it's a blank ("FROM [ANYWHERE]"),
- * lit once chosen; tap one to open its picker. Under it, the box of letters (Tray) shows the
- * choices as pictures from the start, and after each pick asks for the next blank word, which the
- * board lights. (The board no longer tries words out by itself: a sign whose words change on their
+ * lit once chosen; tap one and its picker opens in the box of letters under the board (Tray), which
+ * shows the choices as pictures from the start and, after each pick, opens the picker for the next
+ * blank word, which the board lights. (There are no dropdowns: a picker that opened somewhere below
+ * went unseen.) (The board no longer tries words out by itself: a sign whose words change on their
  * own reads as a display, not as something to press.) Every choice is
  * made with pictures: the night earth for places, a strip of film for decades, a contact
  * sheet for directors, title cards for movements, a mood board, tickets, reels. Below, the
@@ -72,6 +71,13 @@ const countryWords = (c) => {
     return THE.test(name) ? `the ${name}` : name;
 };
 
+// the board's next word still blank after those already chosen (wrapping round), or the first
+const nextBlank = (chosen, after = null) => {
+    const at = after ? STEPS.findIndex((x) => x.id === after) : STEPS.map((x) => !!chosen(x.id)).lastIndexOf(true);
+    const order = [...STEPS.slice(at + 1), ...STEPS.slice(0, at + 1)];
+    return order.find((x) => x.id !== after && !chosen(x.id))?.id || null;
+};
+
 // a new shuffle (kept in the URL, so the same shuffle comes back with Back)
 const newSeed = () => String(Math.floor(Math.random() * 1e9));
 
@@ -108,7 +114,6 @@ const Explore = () => {
     }, [query]);
 
     const [wall, setWall] = useState({ key: null, films: [], total: 0, facets: null, selected: {}, notes: null });
-    const [picker, setPicker] = useState(null);
     const [loadingMore, setLoadingMore] = useState(false);
     const [attempt, setAttempt] = useState(0);
     const [start, setStart] = useState(null);
@@ -117,14 +122,21 @@ const Explore = () => {
     const [knowsTheWay, setKnowsTheWay] = useState(() => {
         try { return localStorage.getItem('explore:knows-the-way') === '1'; } catch { return false; }
     });
-    // the tray's open tab (a bit of everything, or one of the board's words), and whether it has
+    // the tray's open tab (one of the board's words, or the order), and whether it has
     // started asking for the next word (after the first pick from it)
-    const [trayTab, setTrayTab] = useState('mix');
+    // (it opens where a pick would leave it: on the next word still blank after what's chosen, and
+    // with nothing chosen, on the first, the map)
+    const [trayTab, setTrayTab] = useState(() => nextBlank((k) => params.get(k)));
     const [asked, setAsked] = useState(false);
     const restoreY = useRef(null);
     const sentinel = useRef(null);
     const restoring = navigation === 'POP';
-    const openPicker = useCallback((id) => setPicker(id), []);
+    // a gold word opens its picker in the tray, and brings the tray into view if it's out of it
+    const openPicker = useCallback((id) => {
+        setTrayTab(id);
+        setAsked(false);
+        setTimeout(() => document.getElementById('ways-in')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'nearest' }), 0);
+    }, [reducedMotion]);
 
     // places to start, for the search and the line under it
     useEffect(() => {
@@ -209,13 +221,6 @@ const Explore = () => {
         return () => io.disconnect();
     }, [hasMore, loadMore]);
 
-    // Esc closes a picker
-    useEffect(() => {
-        if (!picker) return undefined;
-        const onKey = (e) => { if (e.key === 'Escape') setPicker(null); };
-        window.addEventListener('keydown', onKey);
-        return () => window.removeEventListener('keydown', onKey);
-    }, [picker]);
 
     // change one word on the board (from a card, also go back up to the board to see it change)
     const choose = useCallback((k, v, { up = false } = {}) => {
@@ -232,21 +237,33 @@ const Explore = () => {
         if (k === 'sort' && v === 'acclaimed' && (next.has('like') || next.has('from'))) { next.set('sort', 'acclaimed'); next.delete('seed'); }
         else tidyOrder(next);
         setParams(next);
-        setPicker(null);
         if (!knowsTheWay) {
             setKnowsTheWay(true);
             try { localStorage.setItem('explore:knows-the-way', '1'); } catch { /* storage blocked: it just shows again next time */ }
         }
         if (up) window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
     }, [params, setParams, reducedMotion, knowsTheWay]);
-    const reset = () => { setParams(new URLSearchParams()); setPicker(null); setTrayTab('mix'); setAsked(false); };
+    const reset = () => { setParams(new URLSearchParams()); setTrayTab(STEPS[0].id); setAsked(false); };
     const trayPick = (id, value) => {
+        if (value === '' || value == null) { choose(id, ''); return; }
         const on = String(sel[id] || '') === String(value);
         choose(id, on ? '' : value);
         if (on) return;
-        const at = STEPS.findIndex((x) => x.id === id);
-        const next = [...STEPS.slice(at + 1), ...STEPS.slice(0, at)].find((x) => !sel[x.id]);
-        if (next) { setTrayTab(next.id); setAsked(true); } else setAsked(false);
+        const next = nextBlank((k) => sel[k], id);
+        if (next) { setTrayTab(next); setAsked(true); } else setAsked(false);
+    };
+    // each way in's own picker, made of pictures, as the tray shows it
+    const pickerFor = (id) => {
+        const on = (v) => trayPick(id, v);
+        if (id === 'country') return <PlacePicker options={facets.country} value={sel.country} onPick={on} />;
+        if (id === 'decade') return <TimePicker options={facets.decade} value={sel.decade} onPick={on} />;
+        if (id === 'director') return <MakerPicker options={facets.director} value={sel.director} onPick={on} />;
+        if (id === 'movement') return <MovementPicker options={facets.movement} value={sel.movement} onPick={on} />;
+        if (id === 'mood') return <MoodPicker options={facets.mood} value={sel.mood} onPick={on} notes={wall.notes?.moodFilms} />;
+        if (id === 'genre') return <GenrePicker options={facets.genre} value={sel.genre} onPick={on} />;
+        if (id === 'length') return <LengthPicker options={facets.length} value={sel.length} onPick={on} />;
+        if (id === 'sort') return <OrderPicker value={sort} started={started} onPick={(v) => choose('sort', v)} />;
+        return null;
     };
     const toWall = () => document.getElementById('the-wall')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
     const focusSearch = () => document.getElementById('explore-search')?.focus();
@@ -328,13 +345,16 @@ const Explore = () => {
     if (oldLink) return <Navigate to={`/explore?${oldLink.toString()}`} replace />;
 
     return (
-        <div className="relative min-h-screen pt-24 pb-32">
+        <div className="relative min-h-screen pt-28 md:pt-32 pb-32">
             <h1 className="sr-only">Explore the atlas</h1>
             <div className="max-w-7xl mx-auto px-4 md:px-14">
-                <BackButton className="mb-6" />
                 <Letterboard lines={lines} label={boardLabel} version={`${key}|${total}`} reducedMotion={reducedMotion} chosen={any} onReset={reset} />
                 {/* the box of letters: the choices as pictures, open from the start */}
-                {wall.facets && <Tray facets={facets} total={total} sel={sel} tab={trayTab} onTab={setTrayTab} asked={asked} onPick={trayPick} onMore={openPicker} onShow={toWall} />}
+                {wall.facets && (
+                    <div id="ways-in" className="scroll-mt-24">
+                        <Tray sel={sel} tab={trayTab} onTab={setTrayTab} asked={asked} first={!any} onShow={toWall} titles={PICKER_TITLES} picker={pickerFor} />
+                    </div>
+                )}
 
                 {/* ask for anything, or let the projector choose; and, until you've chosen something
                     once, a line for someone who knows no names yet */}
@@ -360,18 +380,6 @@ const Explore = () => {
                     )}
                 </div>
 
-                {picker && wall.facets && (
-                    <PickerPanel title={PICKER_TITLES[picker] || ''} onClose={() => setPicker(null)}>
-                        {picker === 'country' && <PlacePicker options={facets.country} value={sel.country} onPick={(v) => choose('country', v)} />}
-                        {picker === 'decade' && <TimePicker options={facets.decade} value={sel.decade} onPick={(v) => choose('decade', v)} />}
-                        {picker === 'director' && <MakerPicker options={facets.director} value={sel.director} onPick={(v) => choose('director', v)} />}
-                        {picker === 'movement' && <MovementPicker options={facets.movement} value={sel.movement} onPick={(v) => choose('movement', v)} />}
-                        {picker === 'mood' && <MoodPicker options={facets.mood} value={sel.mood} onPick={(v) => choose('mood', v)} notes={wall.notes?.moodFilms} />}
-                        {picker === 'genre' && <GenrePicker options={facets.genre} value={sel.genre} onPick={(v) => choose('genre', v)} />}
-                        {picker === 'length' && <LengthPicker options={facets.length} value={sel.length} onPick={(v) => choose('length', v)} />}
-                        {picker === 'sort' && <OrderPicker value={sort} started={started} onPick={(v) => choose('sort', v)} />}
-                    </PickerPanel>
-                )}
 
                 {ready && <Banner selected={wall.selected} />}
 

@@ -8,8 +8,8 @@ import { norm, countryName, filmsWord } from './util';
 /**
  * From where: the atlas's own night earth. Every country that made films here glows, brighter
  * for more; the chosen one is lit gold. A land that has made films under two names (Russia,
- * and the Soviet Union before it) asks which. Below it, a printed index of every country with
- * dotted leaders: the way to reach places too small to click, and for screen readers, the
+ * and the Soviet Union before it) asks which. Folded below it, a printed index of every country
+ * with dotted leaders: the way to reach places too small to click, and for screen readers, the
  * real control (the map is a picture of it).
  */
 
@@ -69,7 +69,8 @@ const PlacePicker = ({ options = [], value, onPick }) => {
     return (
         <>
             <Clear label="Everywhere" active={!value} onClick={() => onPick('')} />
-            <div className="relative -mx-2 md:mx-0">
+            {/* (no wider than a screen's worth of height, so the films below stay near) */}
+            <div className="relative -mx-2 md:mx-auto md:max-w-[min(100%,calc(62svh*1.92))]">
                 <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto" aria-hidden="true">
                     <defs>
                         <filter id="place-glow" x="-30%" y="-30%" width="160%" height="160%">
@@ -120,8 +121,13 @@ const PlacePicker = ({ options = [], value, onPick }) => {
                 </div>
             )}
 
-            {/* the printed index */}
-            <div className="mt-7">
+            {/* the printed index, folded under the map (it's long: the map is the first look) */}
+            <details className="group/idx mt-5">
+                <summary className="list-none [&::-webkit-details-marker]:hidden cursor-pointer inline-flex items-center min-h-11 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gold hover:text-gold-light">
+                    <span className="group-open/idx:hidden">List every country ({options.filter((o) => o.n > 0).length}) ›</span>
+                    <span className="hidden group-open/idx:inline">Hide the list</span>
+                </summary>
+                <div className="mt-3">
                 <Filter value={typed} onChange={setTyped} placeholder="Type a country" />
                 <ul className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-10">
                     {listed.map((o) => {
@@ -137,7 +143,8 @@ const PlacePicker = ({ options = [], value, onPick }) => {
                         );
                     })}
                 </ul>
-            </div>
+                </div>
+            </details>
         </>
     );
 };
