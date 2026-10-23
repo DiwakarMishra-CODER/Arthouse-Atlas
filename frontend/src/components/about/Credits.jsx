@@ -1,25 +1,19 @@
 import { MdArrowOutward } from 'react-icons/md';
+import { MAKER, MAKER_LINKS } from './maker';
 
 /**
  * The credits: who made the atlas, and where everything in it comes from, set like a film's last
  * title card.
  */
 
-const LINKS = [
-    ['Portfolio', 'https://diwakar-mishra-portfolio.vercel.app/'],
-    ['GitHub', 'https://github.com/DiwakarMishra-CODER'],
-    ['LinkedIn', 'https://www.linkedin.com/in/diwakar-mishra-dev'],
-    ['The code', 'https://github.com/DiwakarMishra-CODER/Arthouse-Atlas'],
-];
-
 const Credits = () => (
     <section aria-labelledby="credits" className="pt-28 md:pt-40 pb-16">
         <div className="max-w-4xl mx-auto px-4 md:px-10 text-center">
             <div className="font-label text-[12px] tracking-[0.3em] uppercase text-gold">Credits</div>
             <div className="mt-6 font-label text-[13px] tracking-[0.3em] uppercase text-gray-400">An atlas by</div>
-            <h2 id="credits" className="scroll-mt-40 mt-2 font-serif font-light text-5xl md:text-7xl leading-none text-white">Diwakar Mishra</h2>
+            <h2 id="credits" className="scroll-mt-40 mt-2 font-serif font-light text-5xl md:text-7xl leading-none text-white">{MAKER}</h2>
             <div className="mt-6 flex flex-wrap justify-center gap-x-8 gap-y-1">
-                {LINKS.map(([label, href]) => (
+                {MAKER_LINKS.map(([label, href]) => (
                     <a key={label} href={href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 min-h-11 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gold hover:text-gold-light">
                         {label} <MdArrowOutward aria-hidden="true" />
                     </a>

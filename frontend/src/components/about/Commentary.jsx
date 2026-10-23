@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
-import { aboutAPI } from '../../services/api';
 import { pic } from '../directors/arrange';
 import { sizeFor, useDecoded } from './frames';
+import { CHAPTERS } from './note';
 
 /**
  * Why the atlas exists, as a commentary track: on a film's disc, the director talks over the film as
@@ -17,96 +18,8 @@ import { sizeFor, useDecoded } from './frames';
  * (and with reduced motion it starts that way). When the short cut ends, the director's cut is offered:
  * a line of the note the short cut never plays, how long the whole of it takes to read, and the way on.
  *
- * The words are the owner's own, edited lightly with them by Claude (2026-10-22), nothing added.
- * *Title* is set in italics.
+ * The chapters (the owner's own words) are in note.js; their films' facts come from About (`films`).
  */
-
-const CHAPTERS = [
-    { film: 'Moonlight', phone: '35% 0%', focus: '50% 0%', lead: '*Moonlight* was where it started for me: family made not by blood but by people who care.', best: 'Juan holding Chiron up in the sea, teaching him to float: one of the most powerful moments in cinema.',  frame: '/rKftsJQc7E6SmLW6q9ITTWarOSN.jpg', lines: [
-        ['*Moonlight* was the first.'],
-        ['I kept seeing it on one decade-end list after another, so I watched it.'],
-        ['I still think of Juan holding Chiron up in the sea, teaching him to float,'],
-        ['and of the home Chiron finds with him and Teresa:'],
-        ['family made not by blood but by people who care.', true],
-    ] },
-    { film: 'Mulholland Drive', phone: '59% 0%', focus: '50% 0%', lead: 'I’d never seen a film like it, or felt that way watching one.', best: 'While it plays, it makes a kind of sense, the way a dream does while you’re in it.',  frame: '/g9ClaS5EqU0Hk8WIbMNhld0Bk6f.jpg', lines: [
-        ['Then I found *Mulholland Drive*.'],
-        ['I’d never seen a film like it, or felt that way watching one.'],
-        ['While it plays, it makes a kind of sense, the way a dream does while you’re in it.', true],
-        ['Then you wake up, try to follow it back to an answer, and there isn’t one, just like a dream.'],
-        ['There’s an eerie feeling all the way through, like something is wrong,'],
-        ['and you can’t point to what or why.'],
-        ['It feels almost real, until something from somewhere seeps in'],
-        ['and strange things start to happen, and you wonder whether any of it is real.'],
-        ['Maybe it’s all a dream.'],
-        ['Maybe it’s an actress building a perfect world for herself,'],
-        ['where everything goes the way she wants, while reality keeps seeping in.'],
-        ['You never get to know which.'],
-    ] },
-    { film: 'Persona', phone: '22% 0%', focus: '50% 0%', lead: 'An actress stops speaking, and the nurse caring for her talks and talks to fill the silence.', best: 'Then their faces merge into one, and you’re no longer sure they’re two different people.',  frame: '/32gSSQeykkCvmQ3rJ6mt6pht8cz.jpg', lines: [
-        ['Then *Persona*.'],
-        ['An actress stops speaking, and her nurse talks to fill the silence.'],
-        ['For the whole film you think the actress is soaking up the nurse’s life.'],
-        ['Then their two faces merge into one, and you realise you don’t know.', true],
-        ['Is she absorbing the nurse, or is the nurse only a part of her, and she’s alone?'],
-        ['Maybe her own life had started to feel like a role she was playing, so she stopped speaking.'],
-        ['I didn’t know two people on screen for an hour and a half could be this gripping.'],
-    ] },
-    { film: 'Mirror', phone: '50% 0%', focus: '50% 0%', lead: 'It’s called one of the most confusing films ever made. A film of under two hours took me more than two and a half.', best: 'That burning barn is burned into my head.',  frame: '/9UAcMhSCDJ2OCo5QdPpSERjhMA1.jpg', lines: [
-        ['I went into *Mirror* knowing it was called one of the most confusing films ever made.'],
-        ['A film of under two hours took me more than two and a half,'],
-        ['pausing, trying to understand what was on screen.'],
-        ['It plays like memory: a dying man’s life coming back to him in pieces,'],
-        ['his mother, his childhood home.'],
-        ['That burning barn is burned into my head,', true],
-        ['and his mother sitting on the fence, and floating above her bed.'],
-        ['You don’t remember everything, only fragments, and the film is made of fragments.'],
-        ['It left me feeling a strange way.'],
-    ] },
-    { film: 'Portrait of a Lady on Fire', phone: '48% 0%', focus: '50% 0%', lead: 'There’s hardly any music: the two women’s acting, the space between them and the shots do it all.', best: 'Love that’s felt, not said, and never pushed on you by a score.',  frame: '/xhuGwXvm5o2G9ms9YxP23NXjbl7.jpg', lines: [
-        ['*Portrait of a Lady on Fire* is a painting in every frame, which is right for a film about a painter.'],
-        ['The two leads play it so quietly that you feel the love without anyone having to say it.'],
-        ['There’s hardly any music: their acting, the space between them and the shots do it all.'],
-        ['So when the music does come, it’s overwhelming:'],
-        ['the women singing around the fire, and Vivaldi’s storm at the very end.'],
-        ['They notice the smallest things about each other,'],
-        ['an expression, what one of them does when she’s moved:'],
-        ['the understanding of someone you truly love.'],
-        ['Love that’s felt, not said, and never pushed on you by a score.', true],
-        ['The truest love I’ve seen on film.'],
-    ] },
-    { film: 'Chungking Express', phone: '41% 0%', focus: '50% 0%', lead: 'Wong Kar-wai films the neon-lit city of Hong Kong, full of people longing for connection.', best: 'On the surface, so beautiful and bright; at heart, just as lonely.',  frame: '/8e6avmXiqurj5LHkmdHBq6rc5jm.jpg', card: { title: 'Wong Kar-wai' }, lines: [
-        ['Wong Kar-wai films the neon-lit city of Hong Kong, full of people longing for connection.'],
-        ['On the surface, so beautiful and bright; at heart, just as lonely.', true],
-    ] },
-    { film: 'Three Colors: Red', phone: '62% 0%', focus: '60% 0%', lead: 'Three films, *Blue*, *White* and *Red*, each take one word of France’s motto (liberty, equality, fraternity) and ask what it means in an ordinary life now.', best: 'In all three, an old woman struggles to push a bottle into a recycling bin. Only in *Red*, the film about fraternity, does someone help her.',  frame: '/pZcoSJUb3Lgr9Rzg2shg1PtTBP9.jpg', card: { title: 'Three Colours', line: 'Krzysztof Kieślowski · 1993–1994' }, lines: [
-        ['And Krzysztof Kieślowski’s *Three Colours*.'],
-        ['Most trilogies need the film before; these each stand on their own,'],
-        ['taking one word of France’s motto (liberty, equality, fraternity)'],
-        ['and asking what it means in an ordinary life now.'],
-        ['In *Blue*, a woman whose husband and daughter have died'],
-        ['tries to free herself from his life and his work, and can’t.'],
-        ['In *Red*, a lonely retired judge listens in on his neighbours’ calls,'],
-        ['and Valentine shows him there’s still kindness in people.'],
-        ['In all three films an old woman struggles to push a bottle into a recycling bin,'],
-        ['and only Valentine helps her.', true],
-        ['At the end, the three stories meet.'],
-    ] },
-    { film: 'Jeanne Dielman, 23, quai du Commerce, 1080 Bruxelles', phone: '58% 0%', focus: '50% 0%', lead: 'There are so many films, and I only wanted the best, so I went digging for sources I could trust.', best: 'So the atlas is built on what critics and filmmakers have actually agreed on, list by list, not on an algorithm’s guesses. This is my attempt to do these films justice.',  card: { title: 'Why the atlas', line: 'In the frame: Sight and Sound’s greatest film, Jeanne Dielman' }, sign: true, lines: [
-        ['They changed what I thought a film could be:'],
-        ['not just a story to follow,'],
-        ['but someone’s own way of seeing the world, made with care and never shouting about it.'],
-        ['There are so many films, and I only wanted to watch the best,'],
-        ['so I went digging for sources I could trust:'],
-        ['Sight and Sound’s greatest-films polls and its lists of the year,'],
-        ['the BBC’s polls, CriticsTop10, the Criterion Closet picks, and many more.'],
-        ['I wanted them all in one place.'],
-        ['Not an algorithm’s guesses, but what critics and filmmakers have actually agreed on, list by list,'],
-        ['so anyone who wants to explore these films can, without all the digging I had to do.'],
-        ['I wanted to do these filmmakers justice.'],
-        ['This is my attempt at it.', true],
-    ] },
-];
 
 // *Title* in italics
 const words = (text) => text.split(/(\*[^*]+\*)/).map((s, i) => (s.startsWith('*') ? <em key={i}>{s.slice(1, -1)}</em> : s));
@@ -166,7 +79,7 @@ const ShortCut = ({ films }) => {
                 {/* the top bar: the track, and the chapter, named in the black */}
                 <div className="relative shrink-0 h-10 md:h-11 px-4 md:px-8 flex items-center justify-between gap-4">
                     <div className="flex items-center gap-2 font-label text-[11px] md:text-[12px] tracking-[0.18em] uppercase text-gray-400 whitespace-nowrap">
-                        <span className="w-1.5 h-1.5 rounded-full bg-gold" /><span className="hidden sm:inline">Commentary · Diwakar Mishra</span><span className="sm:hidden">Commentary</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-gold" /><span className="hidden sm:inline">Why I made this · Diwakar Mishra</span><span className="sm:hidden">Diwakar Mishra</span>
                     </div>
                     <div key={`t-${c}`} className="subtitle-in min-w-0 flex items-baseline justify-end md:justify-center gap-2 md:gap-3 md:absolute md:left-1/2 md:-translate-x-1/2 text-right md:text-center">
                         <span className="font-label text-[11px] md:text-[12px] tracking-[0.2em] uppercase text-gold whitespace-nowrap">Chapter {c + 1} of {n}</span>
@@ -186,6 +99,15 @@ const ShortCut = ({ films }) => {
                             {ch.lead && <p key={`a-${c}`} className="subtitle-in max-w-3xl font-serif text-[1.05rem] md:text-[1.3rem] leading-snug text-[#e9e3d6]">{words(ch.lead)}</p>}
                             <p key={`b-${c}`} className="subtitle-late mt-2 max-w-4xl font-serif text-[1.2rem] md:text-[1.65rem] leading-snug text-[#fbf8f2]">{words(ch.best)}</p>
                             {ch.sign && <p key={`s-${c}`} className="subtitle-late mt-1 font-serif italic text-[1.1rem] md:text-[1.3rem] text-gold-light">Diwakar Mishra</p>}
+                            {/* the film itself, a tap away (the words for a screen reader, and keys, are below and in "Read it as text") */}
+                            {film?.id && (
+                                <Link key={`l-${c}`} to={`/movie/${film.id}`} tabIndex={-1} className="subtitle-late mt-2 inline-flex items-baseline gap-1.5 py-2 leading-none font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gold hover:text-gold-light [text-shadow:0_1px_8px_rgba(0,0,0,0.9)]">
+                                    {/* (the word, the title and the mark sit on one baseline, though their type differs) */}
+                                    <span>See</span>
+                                    <span className="normal-case tracking-normal font-serif italic leading-none text-[16px] md:text-[18px]">{ch.film}</span>
+                                    <span aria-hidden="true">›</span>
+                                </Link>
+                            )}
                         </div>
                         {/* where you are */}
                         <div className="max-w-5xl mx-auto mt-4 md:mt-5 [text-shadow:none]">
@@ -214,10 +136,10 @@ const ShortCut = ({ films }) => {
 const DirectorsCut = ({ onRead }) => (
     <div className="max-w-7xl mx-auto px-4 md:px-10 pt-14 md:pt-20">
         <div className="max-w-3xl">
-            <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">The director’s cut</div>
+            <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">There’s more</div>
             {PEEK && <blockquote className="mt-4 font-serif font-light text-[1.65rem] md:text-[2.5rem] leading-[1.18] text-white">“{words(PEEK)}”</blockquote>}
             <p className="mt-5 font-serif italic text-lg md:text-xl leading-snug text-gray-300">
-                {PEEK ? 'That line isn’t in the short cut. ' : ''}The short cut plays two lines a film; the whole note is {NOTE_LINES} lines, about {NOTE_MINUTES} minutes to read.
+                {PEEK ? 'You haven’t seen that line yet. ' : ''}Above, each film gets two lines; everything Diwakar wrote is {NOTE_LINES} lines, about {NOTE_MINUTES} minutes to read.
             </p>
             <div className="mt-7 flex flex-col sm:flex-row sm:items-center gap-x-8 gap-y-2">
                 <button type="button" onClick={onRead} className="self-start inline-flex items-center gap-2 min-h-11 px-5 bg-gold text-[#141110] hover:bg-gold-light font-label text-[13px] tracking-[0.14em] uppercase">
@@ -231,19 +153,10 @@ const DirectorsCut = ({ onRead }) => (
     </div>
 );
 
-const Commentary = ({ reducedMotion }) => {
-    const [films, setFilms] = useState({});
+const Commentary = ({ films = {}, reducedMotion }) => {
     const [asText, setAsText] = useState(false);
     const top = useRef(null);
 
-    useEffect(() => {
-        let gone = false;
-        aboutAPI.films(CHAPTERS.map((c) => c.film)).then((r) => {
-            if (gone) return;
-            setFilms(r.data);
-        }).catch(() => {});
-        return () => { gone = true; };
-    }, []);
     // (with reduced motion it starts as text)
     useEffect(() => {
         if (!reducedMotion) return undefined;
@@ -252,11 +165,16 @@ const Commentary = ({ reducedMotion }) => {
     }, [reducedMotion]);
     const toggle = () => { setAsText((v) => !v); setTimeout(() => top.current?.scrollIntoView({ block: 'start' }), 0); };
 
-    const fullText = (
+    // (read as text, each chapter's film is a link; the copy a screen reader hears beside the played
+    // version has none, so no key ever lands on something unseen)
+    const fullText = (links) => (
         <div className="grid gap-12">
             {CHAPTERS.map((c, i) => (
                 <div key={c.film}>
-                    <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">Chapter {i + 1} · {c.card?.title || c.film}</div>
+                    <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                        <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">Chapter {i + 1} · {c.card?.title || c.film}</div>
+                        {links && films[c.film]?.id && <Link to={`/movie/${films[c.film].id}`} className="font-label text-[12px] tracking-[0.14em] uppercase text-gold-light underline decoration-gold/40 underline-offset-4 hover:text-white">See {c.film} ›</Link>}
+                    </div>
                     <p className="mt-3 font-serif text-[1.25rem] md:text-[1.45rem] leading-[1.55] text-gray-100">
                         {c.lines.map(([t], j) => <span key={j}>{words(t)}{' '}</span>)}
                     </p>
@@ -270,17 +188,17 @@ const Commentary = ({ reducedMotion }) => {
         <section aria-labelledby="why" className="relative">
             <div ref={top} className="scroll-mt-16 max-w-7xl mx-auto px-4 md:px-10 mb-6 md:mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-2">
                 <div>
-                    <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">The maker’s note</div>
+                    <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">In Diwakar’s words</div>
                     <h2 id="why" className="scroll-mt-24 mt-1 font-serif font-light text-4xl md:text-6xl leading-[1.05] text-white">Why I made this</h2>
-                    <p className="mt-2 max-w-2xl font-serif italic text-lg text-gray-300">A commentary on the films that made the atlas, by the person who made it.</p>
+                    <p className="mt-2 max-w-2xl font-serif italic text-lg text-gray-300">The films that made the atlas, and what each one meant, told by the person who made it.</p>
                 </div>
                 <button type="button" onClick={toggle} className="shrink-0 self-start md:self-end min-h-11 font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gold hover:text-gold-light">
-                    {asText ? 'Play it as the commentary ›' : 'Read it as text ›'}
+                    {asText ? 'Play it over the films ›' : 'Read it as text ›'}
                 </button>
             </div>
             {asText
-                ? <div className="max-w-3xl mx-auto px-4 md:px-10 pb-6">{fullText}</div>
-                : <><div className="sr-only">{fullText}</div><ShortCut films={films} /><DirectorsCut onRead={toggle} /></>}
+                ? <div className="max-w-3xl mx-auto px-4 md:px-10 pb-6">{fullText(true)}</div>
+                : <><div className="sr-only">{fullText(false)}</div><ShortCut films={films} /><DirectorsCut onRead={toggle} /></>}
         </section>
     );
 };
