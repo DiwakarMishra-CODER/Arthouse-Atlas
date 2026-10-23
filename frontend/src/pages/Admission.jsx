@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { animate, motion, useMotionValue, useTransform } from 'framer-motion';
+import BackButton from '../components/BackButton';
 import { useAuth } from '../context/AuthContext';
 import { useMotionPreference } from '../hooks/useMotionPreference';
 import GoogleAuthButton from '../components/GoogleAuthButton';
@@ -194,7 +195,7 @@ const Admission = ({ scene }) => {
 
     const join = shown === 'join';
     return (
-        <div className="own-transitions relative min-h-[100svh] px-4 md:px-10 lg:px-[6vw] pt-32 md:pt-36 pb-12 flex flex-col justify-center items-center lg:items-start overflow-hidden">
+        <div className="own-transitions relative min-h-[100svh] px-4 md:px-10 lg:px-[6vw] pt-24 md:pt-28 pb-12 flex flex-col justify-center items-center lg:items-start overflow-hidden">
             {/* the shot: a film, waiting in the dark beside the slate (on a phone, behind it) */}
             <motion.div aria-hidden="true" className="fixed inset-0 overflow-hidden" style={{ y: jolt }}>
                 {/* (on a wide screen it stands right of the slate, its edge fading into the dark) */}
@@ -207,6 +208,9 @@ const Admission = ({ scene }) => {
                     <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#050505]/70 to-transparent" />
                 </motion.div>
             </motion.div>
+
+            {/* the way back, above the slate (in the flow, so the slate can never cover it) */}
+            <div className="relative z-20 w-full max-w-[580px] mb-8 md:mb-10"><BackButton /></div>
 
             {/* the slate, held up to the lens */}
             <motion.div

@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { markPage } from './trail';
 
 /**
  * The browser tab's title, and the page's description, for each page.
@@ -29,6 +30,7 @@ export const usePageTitle = (title, description) => {
     useEffect(() => {
         document.title = title ? `${title} · ${SITE}` : SITE_TITLE;
         setDescription(description || SITE_LINE);
+        markPage({ path: window.location.pathname, title: title || null }); // (so a Back button can name this page)
         return () => {
             document.title = SITE_TITLE;
             setDescription(SITE_LINE);

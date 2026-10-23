@@ -1,8 +1,9 @@
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
-import { MdArrowBack, MdArrowDownward, MdArrowOutward, MdClose, MdSkipNext } from 'react-icons/md';
+import { MdArrowDownward, MdArrowOutward, MdClose, MdSkipNext } from 'react-icons/md';
+import BackButton from '../BackButton';
 import { sized } from '../movements/treatments';
 import { sizeFor, useDecoded } from '../about/frames';
 import { ShelfSigns, TicketDock, TrailerScreen } from './Ticket';
@@ -368,7 +369,6 @@ const WhereToWatch = ({ movie, providers, tags }) => (
 );
 
 const TheScreen = ({ movie, light, reducedMotion, providers, tags }) => {
-    const navigate = useNavigate();
     const section = useRef(null);
     const play = useRef(null);
     const [playing, setPlaying] = useState(null); // { kind: 'trailer' | 'frames', from: 'title' | 'dock' }
@@ -427,9 +427,7 @@ const TheScreen = ({ movie, light, reducedMotion, providers, tags }) => {
     };
     const skip = () => document.getElementById('critics')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     const back = (
-        <button onClick={() => navigate(-1)} className="font-label absolute top-20 md:top-24 left-4 md:left-10 z-20 flex items-center gap-2 min-h-11 text-xs tracking-[0.14em] uppercase text-gray-300 hover:text-white transition-colors">
-            <MdArrowBack /> Back
-        </button>
+        <BackButton up={{ to: '/explore', label: 'the films' }} className="absolute top-20 md:top-24 left-4 md:left-10 z-20" />
     );
     const projection = playing && <Projection movie={movie} stills={frames} start={playing.kind} shared={playing.from === 'title' ? 'trailer-screen' : undefined} onClose={stop} />;
     const onPlay = (from = 'dock') => setPlaying({ kind: trailer ? 'trailer' : 'frames', from });

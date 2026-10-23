@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
+import BackButton from '../components/BackButton';
 import { studiosAPI } from '../services/api';
 import { useMotionPreference } from '../hooks/useMotionPreference';
 import LightScreen from '../components/studios/LightScreen';
@@ -187,6 +188,7 @@ const Studios = () => {
     return (
         <div className="own-transitions relative h-[100svh] overflow-hidden select-none">
             <h1 className="sr-only">Studios: every house, as a backlot of its films</h1>
+            <BackButton className="absolute top-24 left-4 md:left-10 z-30" />
             {/* the lot, seen from a crane: tilted away into the night, flat under the camera once it comes down */}
             <canvas
                 ref={canvas}
@@ -204,7 +206,7 @@ const Studios = () => {
             <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(5,5,5,0.75))]" />
 
             {/* the room's title, over the night sky */}
-            <header className={`pointer-events-none absolute left-4 md:left-10 top-24 md:top-28 transition-opacity duration-500 ${focus ? 'opacity-0' : 'opacity-100'}`}>
+            <header className={`pointer-events-none absolute left-4 md:left-10 top-[9.25rem] md:top-[10.5rem] transition-opacity duration-500 ${focus ? 'opacity-0' : 'opacity-100'}`}>
                 <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">{houses ? `${houses.length} houses · ${films} films` : 'The houses'}</div>
                 <div className="mt-1 font-serif font-light text-[2.4rem] md:text-6xl leading-[1.02] text-white">Presented by</div>
             </header>

@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useNavigationType, useSearchParams } from 'react-router-dom';
 import { motion, useMotionTemplate, useMotionValue, useMotionValueEvent, useScroll, useTransform } from 'framer-motion';
-import { MdSearch } from 'react-icons/md';
+import { MdSearch, MdSkipNext } from 'react-icons/md';
+import BackButton from '../components/BackButton';
 import { directorsAPI } from '../services/api';
 import { useMotionPreference } from '../hooks/useMotionPreference';
 import Screen from '../components/directors/Screen';
@@ -21,15 +22,25 @@ import { usePageTitle } from '../hooks/usePageTitle';
  * Four ways in (acclaim, country, decade, movement) and a search that also knows their films. A line
  * opens the retrospective: the film on the screen grows into it. The arrangement and the search live
  * in the address, and Back lands where you were.
+ *
+ * The opening is shown once: "Skip to the list" passes it, and someone who has seen it (or skipped
+ * it) arrives at the list from then on, the opening still above it ("Play the opening").
  */
 
 let cached = null; // the index, kept for this visit to the site, so Back finds the page full height
 const NOTE = 'directors:place';
+const SEEN = 'directors:opened'; // the opening has been seen (or skipped): later visits start at the list
 const OPENING = 10; // directors in the opening titles
 const NOTCH = 35; // vh of scroll for each of them
 const DOLLY = 60; // vh of scroll for the dolly back
 const IDLE = 3000; // ms between steps when nobody scrolls
 
+const seenOpening = () => {
+    try { return localStorage.getItem(SEEN) === '1'; } catch { return false; }
+};
+const markOpening = () => {
+    try { localStorage.setItem(SEEN, '1'); } catch { /* storage blocked: it plays each time */ }
+};
 const readNote = () => {
     try { return JSON.parse(sessionStorage.getItem(NOTE) || 'null'); } catch { return null; }
 };
@@ -68,6 +79,8 @@ const Directors = () => {
     const screen = useRef(null);
     const opening = useRef(null);
     const iris = useRef(null);
+    const list = useRef(null);
+    const marked = useRef(false);
     const placesRef = useRef(new Map());
     const at = useRef(-1); // which of the opening titles the screen shows (-1: the credits have it)
     const gate = useRef({ el: null, t: 0 });
@@ -125,6 +138,7 @@ const Directors = () => {
 
     const titleAt = useCallback((v) => (v >= seg ? n - 1 : Math.min(n - 1, Math.floor((v / seg) * n))), [n, seg]);
     useMotionValueEvent(p, 'change', (v) => {
+        if (v >= 0.999 && !marked.current) { marked.current = true; markOpening(); }
         if (!n || v > seg + 0.02) return;
         const i = titleAt(v);
         if (i !== at.current) {
@@ -200,13 +214,26 @@ const Directors = () => {
         window.addEventListener('scroll', onScroll, { passive: true });
         return () => { clearTimeout(t); window.removeEventListener('scroll', onScroll); };
     }, [by, q]);
+    // past the opening, to the top of the list: just under the navbar, or on a phone just under the
+    // screen docked above it
+    const toList = useCallback(() => {
+        const el = list.current;
+        if (!el) return;
+        const g = geometry(window.innerWidth, window.innerHeight);
+        window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - (g.phone ? g.dock.y + g.h + 12 : 84));
+        marked.current = true;
+        markOpening();
+    }, []);
     useLayoutEffect(() => {
         if (!index || restored.current) return;
         restored.current = true;
-        if (!restoring) return;
+        if (!restoring) {
+            if (n && seenOpening()) toList();
+            return;
+        }
         const note = readNote();
         if (note && note.at === `${by}|${q}`) window.scrollTo(0, note.y);
-    }, [index, restoring, by, q]);
+    }, [index, restoring, by, q, n, toList]);
 
     const change = (key, value) => {
         const next = new URLSearchParams(params);
@@ -243,21 +270,29 @@ const Directors = () => {
 
     return (
         <div className="own-transitions relative min-h-screen pb-[60vh]">
+            {/* (above the projector's screen, which holds the whole window) */}
+            <BackButton className="absolute top-24 left-4 md:left-10 z-40" />
             <Screen ref={screen} box={box} size={{ w: geom.w, h: geom.h }} openCard={openCard} dockCard={dockCard} dock={geom.dock} phone={geom.phone} openLive={openLive && n > 0} onOpen={openPlace} reducedMotion={reducedMotion} />
 
             {/* the opening titles: scroll that the screen plays through, full-bleed */}
-            <div ref={opening} aria-hidden="true" style={{ height: n ? `calc(100vh + ${span}vh)` : (geom.phone ? `${geom.dock.y + geom.h + 16}px` : '84px') }}>
-                {n > 0 && (
-                    <motion.div className="sticky top-[calc(100svh-3.25rem)] z-40 text-center font-label text-[12px] tracking-[0.3em] uppercase text-gray-300" style={{ opacity: openCard }}>
-                        Scroll for the next ↓
-                    </motion.div>
-                )}
-            </div>
+            <div ref={opening} aria-hidden="true" style={{ height: n ? `calc(100vh + ${span}vh)` : (geom.phone ? `${geom.dock.y + geom.h + 16}px` : '84px') }} />
+            {n > 0 && (
+                <motion.div className={`fixed inset-x-0 bottom-0 z-40 pb-5 flex flex-col items-center gap-2.5 ${openLive ? '' : 'pointer-events-none'}`} style={{ opacity: openCard }}>
+                    <span aria-hidden="true" className="font-label text-[12px] tracking-[0.3em] uppercase text-gray-300 [text-shadow:0_1px_8px_rgba(0,0,0,0.9)]">Scroll for the next ↓</span>
+                    <button type="button" tabIndex={openLive ? 0 : -1} onClick={toList} className="inline-flex items-center gap-2 min-h-11 px-5 bg-black/60 backdrop-blur-sm ring-1 ring-gold/70 hover:ring-gold-light hover:bg-black/80 font-label text-[12px] tracking-[0.14em] uppercase text-white">
+                        Skip to the list <MdSkipNext aria-hidden="true" size={18} className="text-gold-light" />
+                    </button>
+                </motion.div>
+            )}
 
             {/* the credits, beside the docked screen (under it, on a phone) */}
             <div className="relative z-20 px-4 md:pl-24 md:pr-10" style={{ width: geom.phone ? '100%' : geom.column }}>
                 <div className="max-w-3xl md:ml-auto md:mr-12 lg:mr-20">
-                    <header className="pt-10">
+                    <header ref={list} className="pt-10">
+                        <div className="mb-7 flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
+                            <BackButton />
+                            {n > 0 && <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="min-h-11 font-label text-[12px] tracking-[0.14em] uppercase text-gold hover:text-gold-light">Play the opening ↑</button>}
+                        </div>
                         <div className="font-label text-[12px] tracking-[0.14em] uppercase text-gold">{index ? `${index.directors.length} in the atlas` : 'In the atlas'}</div>
                         <h1 className="mt-2 font-serif font-light text-[2.7rem] md:text-6xl lg:text-7xl leading-[1.02] text-white">Directed by</h1>
                         <label className="mt-7 flex items-center gap-3 pb-2 border-b border-white/25 focus-within:border-gold transition-colors">

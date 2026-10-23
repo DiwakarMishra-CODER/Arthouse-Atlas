@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { Navigate, useLocation, useNavigate, useNavigationType, useSearchParams } from 'react-router-dom';
-import { MdArrowBack, MdMovieFilter } from 'react-icons/md';
+import { Navigate, useNavigationType, useSearchParams } from 'react-router-dom';
+import { MdMovieFilter } from 'react-icons/md';
+import BackButton from '../components/BackButton';
 import { moviesAPI } from '../services/api';
 import { useMotionPreference } from '../hooks/useMotionPreference';
 import Letterboard from '../components/explore/Letterboard';
@@ -116,10 +117,7 @@ const tidyOrder = (next) => {
 const Explore = () => {
     const [params, setParams] = useSearchParams();
     const navigation = useNavigationType();
-    const location = useLocation();
-    const navigate = useNavigate();
     // back to wherever you came from (or home, when Explore is where you arrived)
-    const goBack = () => (location.key !== 'default' ? navigate(-1) : navigate('/'));
     const reducedMotion = useMotionPreference();
     usePageTitle('Explore the films', 'Every film in the atlas, in canon order: narrow it by movement, decade, country, length, genre, mood or director, or start from a film you love.');
     const oldLink = fromOldLink(params);
@@ -369,12 +367,10 @@ const Explore = () => {
     if (oldLink) return <Navigate to={`/explore?${oldLink.toString()}`} replace />;
 
     return (
-        <div className="relative min-h-screen pt-36 md:pt-32 pb-32">
+        <div className="relative min-h-screen pt-24 pb-32">
             <h1 className="sr-only">Explore the atlas</h1>
-            <button type="button" onClick={goBack} className="font-label absolute top-24 left-4 md:left-10 z-20 flex items-center gap-2 text-xs tracking-[0.14em] uppercase text-gray-300 hover:text-white transition-colors">
-                <MdArrowBack aria-hidden="true" /> Back
-            </button>
             <div className="max-w-7xl mx-auto px-4 md:px-14">
+                <BackButton className="mb-6" />
                 {/* a hand on the board (or the keyboard in it) stops it trying words out */}
                 <div
                     ref={board}

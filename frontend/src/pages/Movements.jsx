@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import BackButton from '../components/BackButton';
 import { movementsAPI } from '../services/api';
 import { useMotionPreference } from '../hooks/useMotionPreference';
 import MovementCard from '../components/movements/MovementCard';
@@ -102,6 +103,7 @@ const Movements = () => {
         <div className="min-h-screen text-white pt-28 pb-28 overflow-x-clip selection:bg-gold selection:text-black">
             <ProjectionRoom tint={tint} reducedMotion={reducedMotion} />
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <BackButton className="mb-6" />
 
                 {/* opening */}
                 <motion.header

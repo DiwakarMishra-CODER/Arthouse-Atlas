@@ -989,3 +989,29 @@ html[data-cover] .projected-black { visibility: hidden; }
   85% { transform: translateX(-16px); opacity: 0.4; }
 }
 @media (prefers-reduced-motion: reduce) { .gate-scratch { animation: none; } }
+
+/* ---- Back: a viewfinder's corner marks round it, opening out as you reach for it ---- */
+.viewfinder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  --vf: color-mix(in srgb, var(--color-gold) 85%, transparent);
+  --vl: 10px;
+  background:
+    linear-gradient(var(--vf), var(--vf)) left top / var(--vl) 1px no-repeat,
+    linear-gradient(var(--vf), var(--vf)) left top / 1px var(--vl) no-repeat,
+    linear-gradient(var(--vf), var(--vf)) right top / var(--vl) 1px no-repeat,
+    linear-gradient(var(--vf), var(--vf)) right top / 1px var(--vl) no-repeat,
+    linear-gradient(var(--vf), var(--vf)) left bottom / var(--vl) 1px no-repeat,
+    linear-gradient(var(--vf), var(--vf)) left bottom / 1px var(--vl) no-repeat,
+    linear-gradient(var(--vf), var(--vf)) right bottom / var(--vl) 1px no-repeat,
+    linear-gradient(var(--vf), var(--vf)) right bottom / 1px var(--vl) no-repeat;
+  transition: inset 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.viewfinder:hover::before, .viewfinder:focus-visible::before { inset: -4px; }
+
+/* ---- your ticket: the account menu drops from its slot ---- */
+.ticket-drop { animation: ticket-drop 240ms cubic-bezier(0.22, 1, 0.36, 1) both; transform-origin: top right; }
+@keyframes ticket-drop { from { opacity: 0; transform: translateY(-10px) rotate(-1.5deg); } }
+@media (prefers-reduced-motion: reduce) { .ticket-drop { animation: none; } }

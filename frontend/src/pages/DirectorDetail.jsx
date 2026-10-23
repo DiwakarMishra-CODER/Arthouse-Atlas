@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { MdArrowBack } from 'react-icons/md';
+import BackButton from '../components/BackButton';
 import api from '../services/api';
 import { useMotionPreference } from '../hooks/useMotionPreference';
 import LoadingSkeleton from '../components/LoadingSkeleton';
@@ -36,7 +36,6 @@ const strongest = (f) => [...(f.provenance || [])].sort((a, b) => (b.weight || 0
 
 const DirectorDetail = () => {
     const { id } = useParams();
-    const navigate = useNavigate();
     const location = useLocation();
     const arrival = location.state?.from === 'index' ? location.state : null;
     const reducedMotion = useMotionPreference();
@@ -88,9 +87,7 @@ const DirectorDetail = () => {
             </div>
 
             <div className="relative max-w-7xl mx-auto px-4 md:px-10">
-                <button onClick={() => navigate(-1)} className="font-label absolute top-24 left-4 md:left-10 z-20 flex items-center gap-2 text-xs tracking-[0.14em] uppercase text-gray-400 hover:text-white transition-colors">
-                    <MdArrowBack /> Back
-                </button>
+                <BackButton up={{ to: '/directors', label: 'the directors' }} className="absolute top-24 left-4 md:left-10 z-20" />
 
                 {/* ===== THE RETROSPECTIVE OPENS ===== */}
                 <div className="absolute inset-x-[-50vw] top-0 h-[100vh] -z-0">

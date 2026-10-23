@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import BackButton from '../components/BackButton';
 import { aboutAPI } from '../services/api';
 import { useMotionPreference } from '../hooks/useMotionPreference';
 import Commentary from '../components/about/Commentary';
@@ -48,8 +49,9 @@ const About = () => {
     return (
         <div className="own-transitions relative min-h-screen">
             {/* what this is */}
-            <header className="pt-28 md:pt-36 pb-10 md:pb-14">
+            <header className="pt-24 md:pt-28 pb-10 md:pb-14">
                 <div className="max-w-7xl mx-auto px-4 md:px-10">
+                    <BackButton className="title-rise mb-7 md:mb-9" />
                     <div className="title-rise font-label text-[12px] tracking-[0.14em] uppercase text-gold">About the atlas</div>
                     <h1 className="title-rise mt-2 font-serif font-light text-[2.8rem] md:text-7xl lg:text-8xl leading-[1.02] text-white">How the atlas is made</h1>
                     <p className="title-rise mt-5 max-w-3xl font-serif text-xl md:text-2xl leading-snug text-gray-200">

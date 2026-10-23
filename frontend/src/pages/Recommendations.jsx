@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { MdArrowBack } from 'react-icons/md';
+import { Link, useLocation } from 'react-router-dom';
+import BackButton from '../components/BackButton';
 import { userAPI, recsAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useMovie } from '../context/MovieContext';
@@ -36,8 +36,6 @@ const ForYou = () => {
     const reducedMotion = useMotionPreference();
     usePageTitle('For you', 'Films picked for you from the ones you loved, learned from 32 million ratings by real viewers.');
     const location = useLocation();
-    const navigate = useNavigate();
-    const goBack = () => (location.key !== 'default' ? navigate(-1) : navigate('/'));
 
     const [data, setData] = useState({ ready: false, recommendations: [], basedOn: { films: [] } });
     const [failed, setFailed] = useState(false);
@@ -120,9 +118,7 @@ const ForYou = () => {
     return (
         <div className="own-transitions relative min-h-screen pt-36 md:pt-32 pb-32">
             <h1 className="sr-only">For you: films picked from the ones you loved</h1>
-            <button type="button" onClick={goBack} className="font-label absolute top-24 left-4 md:left-10 z-20 flex items-center gap-2 text-xs tracking-[0.14em] uppercase text-gray-300 hover:text-white transition-colors">
-                <MdArrowBack aria-hidden="true" /> Back
-            </button>
+            <BackButton className="absolute top-24 left-4 md:left-10 z-20" />
             <div className="max-w-6xl mx-auto px-4 md:px-10">
                 {failed && !data.ready ? (
                     <div className="py-24 text-center">

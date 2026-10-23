@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { MdArrowBack, MdArrowOutward, MdTheaters, MdViewList, MdGridView } from 'react-icons/md';
+import { MdArrowOutward, MdTheaters, MdViewList, MdGridView } from 'react-icons/md';
+import BackButton from '../components/BackButton';
 import { movementsAPI } from '../services/api';
 import { useMotionPreference } from '../hooks/useMotionPreference';
 import LoadingSkeleton from '../components/LoadingSkeleton';
@@ -135,9 +136,7 @@ const MovementDetail = () => {
             {/* the same projection room as the index, lit for this movement alone */}
             <ProjectionRoom tint={t.accent} reducedMotion={reducedMotion} />
 
-            <Link to="/movements" className="font-label absolute top-24 left-4 md:left-10 z-30 flex items-center gap-2 text-xs tracking-[0.14em] uppercase text-gray-500 hover:text-white transition-colors">
-                <MdArrowBack /> Movements
-            </Link>
+            <BackButton up={{ to: '/movements', label: 'the movements' }} className="absolute top-24 left-4 md:left-10 z-30" />
 
             <div className="relative">
                 {/* ===== 1 · LIGHTS DOWN — the title card gives way to the screen ===== */}

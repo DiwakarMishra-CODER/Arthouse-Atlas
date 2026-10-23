@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { MdArrowBack, MdArrowOutward } from 'react-icons/md';
+import { Link, useParams } from 'react-router-dom';
+import { MdArrowOutward } from 'react-icons/md';
+import BackButton from '../components/BackButton';
 import { studiosAPI } from '../services/api';
 import { useMotionPreference } from '../hooks/useMotionPreference';
 import LightScreen from '../components/studios/LightScreen';
@@ -25,8 +26,6 @@ const yearsOf = (y) => (y ? (y[0] === y[1] ? `${y[0]}` : `${y[0]}–${y[1]}`) : 
 
 const StudioDetail = () => {
     const { slug } = useParams();
-    const location = useLocation();
-    const navigate = useNavigate();
     const reducedMotion = useMotionPreference();
     const [result, setResult] = useState({ slug: null, data: null });
     const screen = useRef(null);
@@ -55,7 +54,6 @@ const StudioDetail = () => {
         return () => clearTimeout(t);
     }, [house, films, reducedMotion]);
 
-    const goBack = () => (location.key !== 'default' ? navigate(-1) : navigate('/studios'));
     if (loading) return <div className="min-h-screen pt-40"><Leader label="The light is coming up" /></div>;
     if (!house) {
         return <NotFound kicker="Not in the atlas" title="There’s no house here by that name." line="The link may be wrong, or the house may have left the atlas." links={[{ to: '/studios', label: 'The whole lot' }, { to: '/', label: 'The home page' }]} />;
@@ -96,9 +94,7 @@ const StudioDetail = () => {
                     <LightScreen ref={screen} push caption={false} reducedMotion={reducedMotion} className="h-full" />
                 </div>
                 <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-[#050505]/80 to-transparent" />
-                <button type="button" onClick={goBack} className="font-label absolute top-24 left-4 md:left-10 z-20 flex items-center gap-2 text-xs tracking-[0.14em] uppercase text-gray-200 hover:text-white transition-colors [text-shadow:0_1px_8px_rgba(0,0,0,0.6)]">
-                    <MdArrowBack aria-hidden="true" /> Studios
-                </button>
+                <BackButton up={{ to: '/studios', label: 'the studios' }} className="absolute top-24 left-4 md:left-10 z-20" />
                 <div className="absolute inset-x-0 bottom-0">
                     <div className="studio-title max-w-7xl mx-auto px-4 md:px-10 pb-8 md:pb-12">
                         <div className="font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gold">{[COUNTRY[house.country] || house.country, house.kind === 'label' ? 'Label' : null].filter(Boolean).join(' · ')}</div>
