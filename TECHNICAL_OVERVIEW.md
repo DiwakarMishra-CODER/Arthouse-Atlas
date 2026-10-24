@@ -39,15 +39,15 @@ How the site is put together: the data, the canon engine, the recommender, the p
 | Collection | What it holds |
 |---|---|
 | `movies` (1,120: 1,118 films and two series the lists count as films, *Dekalog* and *Twin Peaks: The Return*, which carry `tmdbTv` in place of `tmdbId`) | Title, original title, year, directors, countries, runtime, genres; pictures (poster, backdrop, up to six stills); trailer; cast, writers, editors, cinematographers, composers, languages and tagline; the movements it belongs to; `provenance` (every list that cites it, with rank, year and strength); `canonRank` and `canonDecadeRank`; editorial text (a hook, a note, why it matters) for 159 films |
-| `directors` (231) | Name, portrait, birth and death, birthplace, biography. A page for every movement's key directors who have films here, and for everyone credited on three or more of the atlas's films (`scripts/catalogue/addDirectors.js`). A film's page links each of its directors to theirs, or, without one, to their films in Explore |
-| `movements` (26) | Title, years, region, philosophy, visual signatures, its essential films and key directors; 7 are still happening |
+| `directors` (238) | Name, portrait, birth and death, birthplace, biography. A page for every movement's key directors who have films here, and for everyone credited on three or more of the atlas's films (`scripts/catalogue/addDirectors.js`). A film's page links each of its directors to theirs, or, without one, to their films in Explore |
+| `movements` (27) | Title, years, region, philosophy, visual signatures, its essential films and key directors; 8 are still happening |
 | `studios` | The older studio records; the Studios room itself (62 houses) is built from the catalogue's production companies in `services/studios.js` |
-| `users` | Account, favourites, watchlist, watched, ratings (1 to 5 stars, with dates), "not for me". Signed out, the same marks live in the browser (`MovieContext`), go to For You's preview with each request, and move into the account at sign-in: ratings one by one, the rest through `POST /api/users/me/shelf`, which only ever adds |
+| `users` | Account, favourites, watchlist, watched, ratings (1 to 5 stars, with dates), "not for me". Signed out, the same marks live in the browser (`MovieContext`), go to For You's preview with each request, make the signed-out profile (`POST /api/users/festival/preview`), and move into the account at sign-in: ratings one by one, the rest through `POST /api/users/me/shelf`, which only ever adds |
 
 **How the catalogue grows:** by one rule, applied by `scripts/catalogue/planAdditions.js`. Every film cited by two or more of the 20 sources that the canon would rank in its top 500 if it were added is a candidate. Each is checked against TMDB (a five-minute extra had stood in for *WALL·E*), mainstream ones are marked by hand (studio spectacle and franchise films stay out), and the edge cases are decided by hand. The pass on 2026-10-22 added 263 films and two series.
 
 Coverage, counted from the live database:
-- 1,118 films have a backdrop, and 1,048 have at least four distinct frames.
+- 1,116 films have a backdrop, and 1,044 have at least four distinct frames. Four have none, because TMDB has no clean frame for them (§11).
 - 1,114 have a cast, 1,100 writers, 1,088 an editor, 1,029 a cinematographer and 769 a composer.
 - All 1,120 have a language, and 744 have their original tagline.
 - 1,065 have a trailer link: 1,063 play inside the page, and 2 only on YouTube itself. The other 55 films show their own frames instead.
@@ -113,9 +113,10 @@ Code: `backend/services/tonight.js`. It picks one film a day, the same for every
 - **The pool:** the canon's top 300, plus every decade's top ten, so a strong recent film can be chosen.
 - **The rules, in order:**
   1. **An occasion.** A director born or died on this day gets their strongest film, from anything in the top 600. Births come before deaths.
-  2. **Sundays** get a long film, between 2½ and 3½ hours.
-  3. **Otherwise,** a pick that shares no decade, country or director with the past three days'.
-- **Seeded by the date,** so the choice is fixed for the day. "Another film" steps to the next varied pick.
+  2. **Sundays** get a long film, between 2½ and 3½ hours: 42 in the pool today, worked through in a round of their own the same way as the classics below, so a Sunday film comes back only after all the others have had their turn.
+  3. **Otherwise, a classic.** The classics are the canon's hundred best, two films a director at most (on today's catalogue they reach down to 115th, by 77 directors). The ordinary days, counted from 1 January 2026 and skipping Sundays and occasion days, work through them in rounds: each film once a round. Each round is shuffled by its number, and each day's film shares no decade, country or director with the three days before it, carried across from the end of the last round, as long as a film is left that can. The screen says "One of the hundred films the critics agree on most."
+- **Seeded by the date,** so the choice is fixed for the day. "Another film" steps to a varied pick from the whole pool, which is how the newer films still come up.
+- **Tests:** `tests/tonight.test.js` checks that a round holds every film once, that days next to each other differ, that Sundays and occasions don't use up a classic, and that an occasion doesn't use up a Sunday's turn.
 
 ## 5. The recommender
 
@@ -183,7 +184,8 @@ Every method ranks every candidate film, with no sampled metrics. The margins of
 Each room has one physical idea from cinema, acted out with frames, the camera and the lens. A few techniques do most of the work:
 
 - **Home: the wall** (`mosaicRenderer.js`, `scripts/buildMosaic.js`).
-  - A still for each of 1,118 films is packed into one sprite sheet with sharp, at 1x and 2x, so the wall is one request.
+  - A still for each of 1,116 films is packed into one sprite sheet with sharp, at 1x and 2x, so the wall is one request. The build caches each tile by film and picture, so a film whose lead frame changes gets a new tile.
+  - A first visit doesn't freeze: the sheets become ImageBitmaps decoded off the main thread (`sheetOf`), the grey resting copy is made on the GPU, and the 2x sheet only loads where it shows (`sharpSheetWanted`). Main-thread tasks went from 0.5–0.9 s to under 0.1 s.
   - The resting wall is drawn once to an off-screen canvas and laid down as a single pattern fill per frame. Only the lens under the pointer and the few tiles flickering into colour are drawn on top.
   - At the end of the dive into today's film, an `<img>` takes over the tile's exact rectangle, so the push-in is a compositor transform.
 - **Home: the countdown** (`CanonCountdown.jsx`).
@@ -196,12 +198,19 @@ Each room has one physical idea from cinema, acted out with frames, the camera a
   - Countries crossing the 180° line are re-centred, and each country is framed by its mainland, so France doesn't include French Guiana and the United States leaves out Alaska and Hawaii.
 - **Home: the arthouse scene** (`ArthouseBreath.jsx`, `noteBurn.js`). A studio's note is typed, cut and burnt through on a canvas as you scroll. The four films' layers are stacked, and only the one on screen takes taps. At the end, each film's frame is shown at its own aspect ratio (1.85, 1.37, 1.66, 1.37): every frame's flex-grow is its ratio, so a row of them shares one height, and on a phone two rows of two come from the same markup (`display: contents` on the row wrappers above the phone size). The masking parts on each frame with transforms only.
 - **The film page** (`components/film/`).
-  - **The opening** (`TheScreen.jsx`) is a sticky stage. Its card is picked from `useScroll` progress, and each card change cuts to the next of the film's frames.
+  - **The opening** (`TheScreen.jsx`) is a sticky stage. Its card is picked from `useScroll` progress, and each card change cuts to the next of the film's frames. The cast and crew share one card, the film's note takes three subtitle cards at most, and Skip is always visible.
+  - **It never cuts to black** waiting on TMDB (`useHeld`): a cut only lands on a frame that has decoded, the w780 copy shows first and sharpens in place, the middleware preloads the first frame (`firstFrameOf`), and `index.html` preconnects to TMDB.
+  - **Stills from the film** (`Stills.jsx`, `framesOf` in `frames.js`): every frame as a contact sheet, each opening full screen, stepped through with arrows, keys or a swipe.
   - **The trailer** grows out of a little screen through a shared framer-motion `layoutId`, then plays in YouTube's IFrame API. Its `onError` falls back to the film's frames.
   - **The navbar** leaves while the opening runs (an element marked `data-lights-down`), and the pointer at the top edge brings it back.
   - **`ListYears.jsx`** draws its line in CSS when it comes into view.
   - **`DoubleBill.jsx`** uses a CSS animation's end as its clock, so pausing the bar pauses the bill.
   - **The director, irised in** (`Retrospective.jsx`): a director with a page gets their face in an iris before their name on the title card and above it on the opening's director card (with "Open their retrospective", or "Their films in the atlas" for a director without a page), and further down a large iris that opens on their portrait, then cuts through their other films (one frame of black between). The iris opens from the frame around it, since Chrome never counts an element clipped to nothing as on screen. Co-directors stand side by side, the second starting halfway through their films.
+- **Explore** (`pages/Explore.jsx`, `components/explore/Tray.jsx`): no dropdowns. Every picker lives in a tray under the letterboard. It opens on the next blank word (`nextBlank`, the map when nothing's chosen) and moves on after each pick, while the board lights the word it's asking for.
+- **About** opens like a film (`about/Opening.jsx`): Mulholland Drive, The Tree of Life and Dekalog run under "An atlas by Diwakar Mishra".
+- **Profile without an account** (`userController.js`, `buildFestival`): signed out, the awards night is made from what the browser kept (`memberFromMarks`). With nothing marked, the maker's own night plays as the example, live and in the maker's name, with the watchlist and "not for me" kept private.
+- **Back** (`components/BackButton.jsx`, `hooks/trail.js`): a rewind mark under the navbar on every page but home, leaving with the navbar when the lights go down. It goes back through history (`history.state.idx`, recorded on every move), so the page keeps its scroll and state; arriving from outside, it goes up a room. Where it goes is in its tooltip and its label for screen readers.
+- **Directors** plays its opening once (`localStorage directors:opened`), with "Skip to the list".
 - **For You** (`components/foryou/`).
   - One motion value, the playhead, drives the whole monitor. A whole number is a pick landed. In between, the focus racks and the camera dollies, and both are derived values.
   - Every pick's soft, out-of-focus picture is prepared in idle time.
@@ -218,9 +227,9 @@ Each room has one physical idea from cinema, acted out with frames, the camera a
 Services that draw a shared link's preview don't run JavaScript, so a single-page app would show the site's own title and picture for every link. Search engines see the same HTML first.
 
 - **The middleware:** `frontend/middleware.js` runs on Vercel before a film's, director's, movement's or studio's page (and the main rooms) is served. It puts that page's own title, line and picture into the HTML, in the block between `<!-- meta -->` and `<!-- /meta -->`.
-- **The data:** comes from `frontend/public/meta/*.json` (1,120 films, 231 directors, 26 movements by slug and by id, 62 studios). These are written from the database by `backend/scripts/exportMeta.js`.
+- **The data:** comes from `frontend/public/meta/*.json` (1,120 films, 238 directors, 27 movements by slug and by id, 62 studios). These are written from the database by `backend/scripts/exportMeta.js`.
 - **For search engines:** every page gets a canonical address (no query string, no trailing slash, a movement always at its slug), and schema.org data: a `Movie` (its own title, year, directors, country, picture) on a film's page, a `Person` on a director's, the `WebSite` on the home page. The data goes into a `<script type="application/ld+json">` with every `<` escaped, so nothing in a title can close it.
-- **The sitemap:** `exportMeta.js` also writes `frontend/public/sitemap.xml`: the 7 rooms, 1,120 films, 231 directors, 26 movements and 62 studios, 1,446 pages, each once. `robots.txt` points to it and keeps signing in and the profile out of search.
+- **The sitemap:** `exportMeta.js` also writes `frontend/public/sitemap.xml`: the 7 rooms, 1,120 films, 238 directors, 27 movements and 62 studios, 1,454 pages, each once. `robots.txt` points to it and keeps signing in and the profile out of search.
 - **Failure is safe:** a key it doesn't know, or any failure, serves the page unchanged.
 - **Tests:** `frontend/tests/middleware.test.mjs` runs the middleware against the real `index.html` and data files.
 - **In the browser,** `usePageTitle` keeps the tab's title in step with each page.
@@ -244,8 +253,8 @@ Services that draw a shared link's preview don't run JavaScript, so a single-pag
 
 ## 10. Tests
 
-- **Backend** (`npm test` in `backend/`): 83 tests. They cover the canon breakdown against `scoreFilm()`, each list's order and the About index's picks, Explore's filters, counts and orders (a decade in its own ranking), For You's reasons and shares, the studios and director indexes, the profile's awards, account changes and the Google sign-in check, and the film-page data scripts' pure parts (choosing a trailer, reading credits).
-- **Frontend** (`npm test` in `frontend/`): 10 tests of the middleware (previews, canonical addresses, structured data) and the sitemap.
+- **Backend** (`npm test` in `backend/`): 90 tests. They cover the canon breakdown against `scoreFilm()`, each list's order and the About index's picks, Explore's filters, counts and orders (a decade in its own ranking), For You's reasons and shares, the studios and director indexes, the profile's awards (and the signed-out night made from the browser's marks), today's film's rounds (the classics and the Sundays), account changes and the Google sign-in check, and the film-page data scripts' pure parts (choosing a trailer, reading credits).
+- **Frontend** (`npm test` in `frontend/`): 11 tests of the middleware (previews, the first-frame preload, canonical addresses, structured data) and the sitemap.
 - **The recommender's evaluation** is a test of its own, written and committed before it was run.
 
 ## 11. Changing the data safely
@@ -256,3 +265,8 @@ The scripts that change the catalogue (`scripts/media/addStills.js`, `credits.js
 3. **`--restore <file>`:** puts the backup back.
 
 The plans and backups are gitignored.
+
+**Pictures kept off the site.** Every picture the site can show (7,758 at the first pass) was screened for nudity and sex scenes:
+- **Two models,** because neither caught everything alone (`scripts/media/screen/`). NudeNet finds exposed body parts. CLIP (ViT-B-32) weighs each picture against descriptions of nudity and sex and against ordinary film frames, so it also catches covered scenes. NudeNet missed a nude frame that CLIP scored 0.94, and CLIP missed a poster NudeNet caught. NudeNet alone flagged 142 pictures, of which about 9 were real.
+- **A person decides.** The flags go on a numbered contact sheet. What should go is listed in `data/blockedFrames.json`, and `scripts/media/explicit.js` takes it off in the same three steps. A blocked lead frame becomes the film's next clean frame, a blocked poster is replaced by TMDB's next clean one, and the copies of posters that movements and studios keep follow their films.
+- **It stays off.** `addStills.js` skips a blocked picture even when TMDB has it under another file name (perceptual hash). The screen keeps its scores, so after a catalogue change it only looks at new pictures. It runs on the CPU at low priority.

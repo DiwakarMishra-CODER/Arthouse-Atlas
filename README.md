@@ -6,7 +6,7 @@
 
 ![The home page: the wall of every film's stills dives into today's film](docs/screens/clip-home.webp)
 
-| 1,120 films | 231 directors | 26 movements | 62 studios and labels | 75 countries | 1915 to 2025 |
+| 1,120 films | 238 directors | 27 movements | 62 studios and labels | 75 countries | 1915 to 2025 |
 |---|---|---|---|---|---|
 
 ---
@@ -36,13 +36,13 @@ From the commentary on the About page, where I talk through the films that made 
 | | |
 |---|---|
 | ![](docs/screens/home-wall.jpg) | ![](docs/screens/home-today.jpg) |
-| **The front door.** Every film's still, on one wall. Scroll and the camera dives into one tile: today's film, the same for everyone today. | **Today's film** comes with its reason. Here: "Because Julie Dash was born on this day in 1952." Sundays get a long film. |
+| **The front door.** Every film's still, on one wall. Scroll and the camera dives into one tile: today's film, the same for everyone today. | **Today's film** comes with its reason. A director's birthday picks their film, and Sundays get a long one. Any other day it's one of the hundred films the critics agree on most. Each comes round once before any comes again, and so does each Sunday film. |
 | ![](docs/screens/home-arthouse-open.jpg) | ![](docs/screens/home-arthouse-note.jpg) |
 | **What is arthouse cinema?** It opens on *L'Avventura*, as Antonioni framed it. The frame acts out a studio's notes ("Too wide", "Too empty", "Too slow"), then comes the film's true story: the Cannes audience booed it, and it won the Jury Prize. | **Then four films get a note.** The studio's memo ("Explain the ending") burns through like film stuck in a projector… |
 | ![](docs/screens/home-arthouse-answer.jpg) | ![](docs/screens/home-arthouse-end.jpg) |
 | **…and the director's answer** takes its place. Four films, four notes, four answers. | **That's arthouse cinema:** films whose makers didn't take the note, each frame shown at the width its director chose. |
 | ![](docs/screens/home-countdown.jpg) | ![](docs/screens/home-just-missing.jpg) |
-| **The countdown.** The ten films the critics agree on most (one per director), wiped in by an Academy leader's sweep. | **Just missing out:** 11 to 20, hung like trims in an editing room, swaying as you scroll. |
+| **The countdown.** The ten films the critics agree on most (one per director), wiped in by an Academy leader's sweep. | **Just missing out:** 11 to 20, hung like trims in an editing room, swaying as you scroll (on a phone they hang still). |
 | ![](docs/screens/home-map.jpg) | ![](docs/screens/home-auditorium.jpg) |
 | **The atlas.** The earth at night; a country glows while its cinema is happening. Click one to fly in and see its films. | **Three rooms** of the site, played as trailers on a turning stage. |
 
@@ -54,16 +54,18 @@ From the commentary on the About page, where I talk through the films that made 
 
 ![A film's page: the opening titles play as you scroll](docs/screens/clip-film.webp)
 
-You arrive on the film's title card, over its own frames. Scroll, and the screen holds while the credits come up one card at a time, then the film's note as subtitles, then why it matters, then where to watch it. **Skip the opening** and **Read it as text** are always at the foot.
+You arrive on the film's title card, over its own frames. Scroll, and the screen holds while the titles come up: the director, the cast and crew on one card, the film's note as subtitles, why it matters, and where to watch it. **Skip the opening** and **Read it as text** are always at the foot.
 
 | | |
 |---|---|
 | ![](docs/screens/film-title.jpg) | ![](docs/screens/film-credits.jpg) |
-| **The title card,** here signed in, with the film marked Watched and Favourite and given four stars. The trailer button is a little screen already playing the film's frames. | **The opening titles.** The navbar steps aside while they run; your controls dock at the top right so they're always within reach. |
+| **The title card,** with the film marked Watched and Favourite and given four stars. No account is needed: the marks are kept in the browser and move into an account at sign-in. The trailer button is a little screen already playing the film's frames. | **The opening titles.** The director's card irises in on their face. The navbar steps aside while the titles run, and your controls dock at the top so they're always within reach. |
 | ![](docs/screens/film-trailer.jpg) | ![](docs/screens/film-critics.jpg) |
 | **The trailer plays in place.** The little screen grows into the big one. For the 55 films with no trailer online, the film's own frames run instead. | **How the critics rank it:** the film's standing on a marquee, its strongest lists as laurels, and what MovieLens viewers made of it. |
 | ![](docs/screens/film-lists.jpg) | ![](docs/screens/film-double-bill.jpg) |
 | **When the lists placed it:** every list that names the film, in the decade it named it. Persona: Cahiers' #1 of 1967 through Sight and Sound's #18 in 2022. | **Films like it, as a double bill,** each pairing with its reason: "Only 1 in 95 people loved it, but 1 in 3 of those who loved Persona did." |
+| ![](docs/screens/film-stills.jpg) | ![](docs/screens/film-retrospective.jpg) |
+| **Stills from the film,** as a contact sheet. Each opens full screen, and arrows, keys or a swipe step through them. | **Their retrospective:** an iris opens on the director's portrait, then their other films cut in inside it. |
 
 ### For You: the focus puller's monitor
 
@@ -76,19 +78,23 @@ Your taste is the lens. A film you loved stands sharp in the foreground, your pi
 | | |
 |---|---|
 | ![](docs/screens/explore.jpg) | ![](docs/screens/explore-foyer.jpg) |
-| **Explore: the foyer.** A cinema letterboard says what's showing, and every gold word is a choice (country, decade, director, movement, mood, genre, length, order), each made with pictures. | **The display cases.** Films in canon order (pick a decade and it's that decade's own ranking), lit as you reach them; hover one and its frames run. Start from a film you know, or let the projector pick. |
+| **Explore: the foyer.** A cinema letterboard says what's showing, and every gold word is a choice: country, decade, director, movement, mood, genre, length, order. The choices sit in a tray under the board, made with pictures. It opens on the next blank word (the map, to start) and moves on after each pick. | **The display cases.** Films in canon order (pick a decade and it's that decade's own ranking), lit as you reach them; hover one and its frames run. Start from a film you know, or let the projector pick. |
 | ![](docs/screens/directors.jpg) | ![](docs/screens/director.jpg) |
-| **Directors: "Directed by".** The scroll is the projector; each director's best film rolls into the gate, then everyone appears as end credits. | **A director's page** is a retrospective: the career on a projector, a poster wall, the biography on an archive card, the circle they worked with. |
+| **Directors: "Directed by".** The scroll is the projector; each director's best film rolls into the gate, then everyone appears as end credits. It plays once, and "Skip to the list" goes straight to the credits. | **A director's page** is a retrospective: the career on a projector, a poster wall, the biography on an archive card, the circle they worked with. |
 | ![](docs/screens/movements.jpg) | ![](docs/screens/movement.jpg) |
-| **Movements:** 26 schools of cinema on one strip of film from 1920 to now. 7 are still happening. | **A movement's page** plays like a screening, its type and grade taken from the movement itself. |
+| **Movements:** 27 schools of cinema on one strip of film from 1920 to now. 8 are still happening. | **A movement's page** plays like a screening, its type and grade taken from the movement itself. |
 | ![](docs/screens/studios.jpg) | ![](docs/screens/studio.jpg) |
 | **Studios: the Lot.** 62 houses (55 production companies and 7 labels) as soundstages made of their own films, seen from a crane. | **A house's page** opens with its own titles: its mark in the projector's light, then its signature film. |
-| ![](docs/screens/about-commentary.jpg) | ![](docs/screens/about-count.jpg) |
-| **About: why I made this,** played as a commentary track over the films. | **How a film earns its place,** counted step by step for a real film (here, Seven Samurai). |
-| ![](docs/screens/about-lists.jpg) | ![](docs/screens/sign-in.jpg) |
-| **The 20 lists,** each playing its number one and its rarest pick. | **Sign in is your first take:** the form is a clapperboard; Action claps it shut. |
-| ![](docs/screens/profile.jpg) | ![](docs/screens/not-found.jpg) |
-| **Your profile is your own awards night:** your ratings pick your favourite film, director, movement, country, decade and hidden gem. *(Shown with sample ratings.)* | **A missing page** is the end of a reel: the projector still running, nothing in the gate. |
+| ![](docs/screens/about.jpg) | ![](docs/screens/about-commentary.jpg) |
+| **About opens like a film:** Mulholland Drive, The Tree of Life and Dekalog run under the maker's name. | **Why I made this,** played as a commentary track over the films. |
+| ![](docs/screens/about-count.jpg) | ![](docs/screens/about-lists.jpg) |
+| **How a film earns its place,** counted step by step for a real film (here, Seven Samurai). | **The 20 lists,** each playing its number one and its rarest pick. |
+| ![](docs/screens/sign-in.jpg) | ![](docs/screens/profile.jpg) |
+| **Sign in is your first take:** the form is a clapperboard; Action claps it shut. | **Your profile is your own awards night:** your ratings pick your favourite film, director, movement, country, decade and hidden gem. No account is needed: signed out, it's made from what you've marked in the browser, and until you've marked a film it plays the maker's own night (shown). |
+
+![A missing page: the end of a reel](docs/screens/not-found.jpg)
+
+**A missing page** is the end of a reel: the projector still running, nothing in the gate. And on every page but the home page, **Back** is a rewind mark under the navbar. It goes back through the browser's history, so the page you return to keeps its place; arriving from another site, it goes up a room.
 
 **On a phone:**
 
@@ -146,12 +152,15 @@ On film pages, the same data gives **what viewers made of it** ("On MovieLens, 1
 
 ## Engineering notes
 
-- **The wall of stills** (home page): a still for each of 1,118 films, packed into one sprite sheet, built with sharp at two sizes, so the wall loads as one request. The resting wall is drawn once off-screen and laid down as a single pattern fill each frame, with a lens under the pointer. At the end of the dive, a plain `<img>` takes over the tile's exact rectangle, so the push-in runs as a cheap compositor transform.
+- **The wall of stills** (home page): a still for each of 1,116 films, packed into one sprite sheet, built with sharp at two sizes, so the wall loads as one request. The resting wall is drawn once off-screen and laid down as a single pattern fill each frame, with a lens under the pointer. At the end of the dive, a plain `<img>` takes over the tile's exact rectangle, so the push-in runs as a cheap compositor transform.
+- **No freeze on a first visit:** the sheets are decoded off the main thread (`createImageBitmap`), the grey resting copy is made on the GPU, and the sharp sheet only loads on screens that show it. Main-thread work on a first visit went from 0.5–0.9 s to under 0.1 s.
+- **A film's opening never goes black** waiting for a picture: each cut waits until the next frame is decoded, the small copy shows first and sharpens in place, and the middleware has the browser fetch the first frame while the page is still loading.
+- **Today's film** (`services/tonight.js`): seeded by the date, so it's the same for everyone. A director's birthday or anniversary comes first. Sundays work through a round of long films, and any other day takes the next film in a round of the canon's hundred best (two films a director at most). A round shows each film once, in an order where no day shares a decade, country or director with the three before it.
 - **The world map:** Natural Earth's country shapes, drawn with d3-geo. Countries that no longer exist light their successors (the Soviet Union lights 15 states). Countries crossing the 180° line are handled, and each country is framed by its mainland (France without French Guiana).
 - **The canon countdown:** an Academy-leader sweep wipes each film in with a clip-path driven by framer-motion motion values, with no React re-render per frame. Section heights are pure CSS, so Back restores the scroll position exactly.
 - **The film page's opening** is one sticky stage whose card is picked by scroll progress. The trailer's little screen grows into the full screen through a shared layout animation. It plays in YouTube's IFrame API, which falls back to the film's own frames if the video can't play.
 - **Link previews:** WhatsApp, LinkedIn, Slack and the rest don't run a page's JavaScript. So a small Vercel middleware ([`frontend/middleware.js`](frontend/middleware.js)) puts each film's, director's, movement's and studio's own title, line and picture into the HTML before it's served.
-- **Search engines:** the same middleware gives every page its canonical address and schema.org data (a `Movie` with its director and year on a film's page, a `Person` on a director's), and `exportMeta.js` writes a sitemap of all 1,446 pages.
+- **Search engines:** the same middleware gives every page its canonical address and schema.org data (a `Movie` with its director and year on a film's page, a `Person` on a director's), and `exportMeta.js` writes a sitemap of all 1,454 pages.
 - **Performance:** animations move only `transform` and `opacity`. Frame timing for each animated section is measured in headless Chrome, aiming for 60 fps.
 - **Accessibility:**
   - axe-core, the standard automated checker, finds no violations on any page, at desktop or phone size. That covers all 14 pages, For You with picks showing, and the profile signed in.
@@ -159,6 +168,7 @@ On film pages, the same data gives **what viewers made of it** ("On MovieLens, 1
   - The site follows the system's reduced-motion setting.
   - The scroll-driven scenes (a film's opening, the home page's arthouse scene, About's commentary, the Directors opening) carry their text for screen readers too.
 - **Data changes are careful.** The scripts that fix the catalogue (stills, credits, trailers, moods) do a dry run by default, back up what they'll change before `--apply`, and can restore from that backup.
+- **Every picture is screened.** Two models check every picture the site can show for nudity: NudeNet finds exposed bodies, and CLIP compares each picture with ordinary film frames, so it also catches covered scenes. Neither caught everything alone. A person checks every flag, and what's taken off goes on a blocklist that the stills script respects.
 
 More detail, with the formulas: [TECHNICAL_OVERVIEW.md](TECHNICAL_OVERVIEW.md).
 
@@ -169,7 +179,7 @@ More detail, with the formulas: [TECHNICAL_OVERVIEW.md](TECHNICAL_OVERVIEW.md).
 | **Frontend** | React 19, Vite 7, Tailwind CSS 4, framer-motion 12, React Router 7, d3-geo and topojson-client |
 | **Backend** | Node.js, Express 4, MongoDB with Mongoose 8, JWT and bcrypt, Google sign-in, rate limiting |
 | **Data scripts** | sharp (image sprites), world-atlas (Natural Earth shapes), the TMDB API, MovieLens 32M |
-| **Hosting** | Vercel (the site), Render (the API, kept awake by an uptime monitor), MongoDB Atlas |
+| **Hosting** | Vercel (the site, with its cookie-free Web Analytics), Render (the API, kept awake by an uptime monitor), MongoDB Atlas |
 
 ## Running it locally
 
@@ -189,7 +199,7 @@ npm install
 npm run dev                   # http://localhost:5173
 ```
 
-**Tests:** `npm test` in `backend/` runs 83 tests. They cover the canon breakdown, the About lists, Explore's filters, For You's reasons, the studios, the director index, the profile awards, accounts (including the Google sign-in check) and the film-page data scripts. `npm test` in `frontend/` runs 10 tests of the link-preview and search middleware and the sitemap.
+**Tests:** `npm test` in `backend/` runs 90 tests. They cover the canon breakdown, the About lists, Explore's filters, For You's reasons, the studios, the director index, the profile awards (signed in and from the browser's marks), today's film, accounts (including the Google sign-in check) and the film-page data scripts. `npm test` in `frontend/` runs 11 tests of the link-preview and search middleware (including the first-frame preload) and the sitemap.
 
 **The data scripts** (all in `backend/scripts/`; the media scripts only write when given `--apply`):
 
@@ -198,7 +208,8 @@ npm run dev                   # http://localhost:5173
 | `canon/` | Fetches the 20 sources, resolves them to TMDB, scores and ranks the films |
 | `catalogue/planAdditions.js` | Plans which missing films to add: every film cited by 2 or more sources that the canon would rank in its top 500, checked against TMDB |
 | `addFilms.js`, `catalogue/addSeries.js` | Add films from TMDB, and the two series the lists count as films |
-| `media/addStills.js` | Adds frames from TMDB, so 1,048 films have at least four |
+| `media/addStills.js` | Adds frames from TMDB, so 1,044 films have at least four |
+| `media/screen/`, `media/explicit.js` | Screen the pictures for nudity (NudeNet and CLIP, then a person), and take what's blocked off the site |
 | `media/credits.js` | Cast, writers, editors, languages and taglines from TMDB |
 | `media/trailers.js` | Checks every trailer still plays and replaces dead ones |
 | `recs/` (`npm run recs:*`) | Downloads MovieLens, builds and evaluates the recommender, and counts the reasons and the viewer numbers |
