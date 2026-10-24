@@ -72,6 +72,9 @@ const main = async () => {
   const all = [...movementsData, ...movementsExpansion];
   const films = await Movie.find({}).select('title originalTitle altTitles year directors movements curatedMovements posterUrl').lean();
   const directorDocs = await Director.find({}).select('name').lean();
+  // a key director's portrait on the movement entry (for one with no page) is kept across syncs
+  const portraits = new Map((await Movement.find({}).select('title keyDirectors').lean())
+    .flatMap((m) => (m.keyDirectors || []).filter((k) => k.profileUrl).map((k) => [`${m.title}|${k.name}`, k.profileUrl])));
 
   const normT = (s = '') => normalizeName(s);
   const findFilm = (title, year) => films.find((f) =>
@@ -108,7 +111,7 @@ const main = async () => {
     const keyDirectors = m.keyDirectors.map((kd) => {
       const name = kd.name || kd;
       const doc = directorDocs.find((d) => namesMatch(d.name, name));
-      return { name, directorId: doc?._id || null };
+      return { name, directorId: doc?._id || null, profileUrl: portraits.get(`${m.title}|${name}`) || null };
     });
 
     // Lineage: stated once as grewFrom in data/movementLineage.js; fed is the inverse

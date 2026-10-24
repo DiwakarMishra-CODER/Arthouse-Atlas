@@ -11,6 +11,9 @@
  *
  *   node scripts/linkKeyDirectors.js            dry run: report only, writes nothing
  *   node scripts/linkKeyDirectors.js --apply    back up, then write
+ *   --portraits-only                            never create a page: everyone without one only
+ *                                               gets their portrait on the movement entry (which
+ *                                               directors get pages is the owner's pick)
  *
  * The report and backups go to $OUT_DIR (default: ./scripts/output).
  */
@@ -28,6 +31,7 @@ import { resolvePerson } from './lib/tmdbPeople.js';
 dotenv.config();
 
 const APPLY = process.argv.includes('--apply');
+const PORTRAITS_ONLY = process.argv.includes('--portraits-only');
 const OUT_DIR = process.env.OUT_DIR || path.resolve('scripts/output');
 const limit = createLimiter(4);
 
@@ -102,7 +106,7 @@ const main = async () => {
 
   const idFor = new Map(); // movement's name → Director _id
   for (const r of group('existing-record')) idFor.set(r.name, r.existingId);
-  for (const r of group('confirmed')) {
+  for (const r of PORTRAITS_ONLY ? [] : group('confirmed')) {
     const p = r.person;
     const doc = await Director.findOneAndUpdate(
       { tmdbId: p.id },
@@ -111,7 +115,7 @@ const main = async () => {
     );
     idFor.set(r.name, doc._id);
   }
-  const portraitFor = new Map(group('portrait-only').map((r) => [r.name, r.profileUrl]));
+  const portraitFor = new Map([...group('portrait-only'), ...(PORTRAITS_ONLY ? group('confirmed') : [])].map((r) => [r.name, r.profileUrl]));
 
   let linked = 0;
   for (const m of movements) {
