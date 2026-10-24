@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring, useTransform } from 'framer-motion';
+import { MdSkipNext } from 'react-icons/md';
 import { sized } from './treatments';
 
 /**
@@ -11,7 +12,7 @@ import { sized } from './treatments';
  * claw, it pulls one frame at a time and holds it dead centre in the gate,
  * rather than sliding continuously. The frame in the gate
  * plays in the movement's grade; the rest wait in grey. Beneath the strip, the
- * film in the gate is named — year, director, and its one-line hook.
+ * film in the gate is named — year, director, and its one-line hook. "Skip the reel" goes past it.
  */
 
 const SPROCKETS = 'bg-[repeating-linear-gradient(90deg,transparent_0_12px,#000_12px_22px)]';
@@ -55,6 +56,12 @@ const FilmReel = ({ films, treatment: t }) => {
 
     const film = films[active];
     const still = (f) => f && sized(f.stills?.[0] || f.backdropUrl, 'w780');
+
+    // past the reel, to whatever follows it
+    const skip = () => {
+        const el = section.current;
+        if (el) window.scrollTo({ top: el.getBoundingClientRect().bottom + window.scrollY, behavior: 'auto' });
+    };
 
     // vertical scroll spent per frame — enough to linger, not so much it drags
     const height = `calc(100vh + ${Math.round(travel * 0.75)}px)`;
@@ -125,7 +132,10 @@ const FilmReel = ({ films, treatment: t }) => {
                         <span className="h-px flex-1 mx-4 bg-white/10 relative overflow-hidden">
                             <motion.span className="absolute inset-y-0 left-0 right-0 origin-left" style={{ scaleX: scrollYProgress, backgroundColor: t.accent }} />
                         </span>
-                        <span>scroll</span>
+                        {/* a long reel (a movement can hold 40 films) is never a wall: past it in one tap */}
+                        <button type="button" onClick={skip} className="shrink-0 inline-flex items-center gap-1.5 min-h-10 px-3.5 rounded-full bg-black/50 ring-1 ring-gold/60 text-gray-100 uppercase hover:ring-gold-light hover:text-white">
+                            Skip the reel <MdSkipNext aria-hidden="true" size={16} className="text-gold-light" />
+                        </button>
                     </div>
                     <AnimatePresence mode="wait">
                         {film && (

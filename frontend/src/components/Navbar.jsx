@@ -100,6 +100,9 @@ const Navbar = () => {
     const initial = (user?.username || '?').trim().charAt(0).toUpperCase();
 
     return (
+        <>
+        {/* the way back, under the bar: it goes when the bar goes (the lights down) and comes back with it */}
+        <BackButton hidden={lightsDown && !peek} />
         <nav
             className={`fixed top-0 left-0 right-0 z-50 focus-within:!opacity-100 focus-within:!translate-y-0 ${lightsDown && !peek && !isMobileMenuOpen ? 'opacity-0 -translate-y-full pointer-events-none' : ''}`}
             style={{ transition: 'opacity 600ms ease, transform 700ms cubic-bezier(0.4, 0, 0.2, 1)' }}
@@ -151,9 +154,6 @@ const Navbar = () => {
 
             <div className="relative max-w-[1800px] mx-auto px-5 md:px-8 py-5 md:py-6">
                 <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-3 md:gap-4 min-w-0">
-                    {/* the way back, beside the crest: on every page but the home page, always in the same place */}
-                    {location.pathname !== '/' && <BackButton />}
                     {/* the name over the door */}
                     <Link to="/" className="group z-50 relative flex items-center gap-3 shrink-0 whitespace-nowrap" onClick={closeMobileMenu} aria-label="Arthouse Atlas, home">
                         <HouseMark reel={location.pathname} />
@@ -161,7 +161,6 @@ const Navbar = () => {
                             Arthouse <span className="italic text-gold transition-colors group-hover:text-gold-light">Atlas</span>
                         </span>
                     </Link>
-                    </div>
 
                     {/* the rooms */}
                     {/* (from 1024px wide: below that the rooms and the door don't fit, so one word opens them) */}
@@ -274,6 +273,7 @@ const Navbar = () => {
                 </div>
             </div>
         </nav>
+        </>
     );
 };
 

@@ -345,7 +345,7 @@ const Explore = () => {
     if (oldLink) return <Navigate to={`/explore?${oldLink.toString()}`} replace />;
 
     return (
-        <div className="relative min-h-screen pt-28 md:pt-32 pb-32">
+        <div className="relative min-h-screen pt-36 md:pt-32 pb-32">
             <h1 className="sr-only">Explore the atlas</h1>
             <div className="max-w-7xl mx-auto px-4 md:px-14">
                 <Letterboard lines={lines} label={boardLabel} version={`${key}|${total}`} reducedMotion={reducedMotion} chosen={any} onReset={reset} />

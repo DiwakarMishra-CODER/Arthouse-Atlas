@@ -99,7 +99,7 @@ const Movements = () => {
     const living = movements.filter((m) => !m.endYear).length;
 
     return (
-        <div className="min-h-screen text-white pt-28 pb-28 overflow-x-clip selection:bg-gold selection:text-black">
+        <div className="min-h-screen text-white pt-36 md:pt-28 pb-28 overflow-x-clip selection:bg-gold selection:text-black">
             <ProjectionRoom tint={tint} reducedMotion={reducedMotion} />
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
