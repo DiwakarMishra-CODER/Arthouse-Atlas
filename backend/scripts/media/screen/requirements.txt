@@ -1,0 +1,5 @@
+nudenet>=3.4
+open_clip_torch>=2.24
+torch>=2.2
+pillow>=10
+numpy

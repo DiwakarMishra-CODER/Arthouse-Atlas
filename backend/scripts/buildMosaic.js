@@ -2,7 +2,7 @@
  * Build the home page's wall: every film in the atlas as one image.
  *
  * Downloads each film's still (cached under data/mosaic-cache/, so a re-run
- * only fetches new films), cuts it to a 16:9 tile, and packs all the tiles into
+ * only fetches new films and changed frames), cuts it to a 16:9 tile, and packs all the tiles into
  * a single sprite sheet, so the wall loads as one request instead of 855.
  * Alongside it, mosaic.json maps each tile back to its film and carries the
  * tile's dominant colour.
@@ -44,7 +44,8 @@ const shuffle = (xs) => {
 const tileFor = async (film) => {
   const src = film.stills?.[0] || film.backdropUrl;
   if (!src) return null;
-  const file = path.join(CACHE, `${film._id}.jpg`);
+  // keyed by the picture as well as the film, so a film whose lead frame changes gets a new tile
+  const file = path.join(CACHE, `${film._id}-${path.basename(src)}`);
   if (!fs.existsSync(file)) {
     if (src.startsWith('/stills/')) {
       // a still the atlas hosts itself, in the frontend's public folder

@@ -4,6 +4,10 @@ data/movielens/
 data/recs/work/
 data/backups/
 scripts/reports/*-plan.json
+# the picture screen (scripts/media/screen/): its score cache, the flagged pictures and the sheet
+data/screen-cache/
+scripts/reports/screen/
+scripts/reports/screen-*.json
 # the canon build's dry-run output (scripts/canon/buildProvenance.js): regenerated on every run
 scripts/reports/provenance.json
 scripts/reports/provenance-report.md

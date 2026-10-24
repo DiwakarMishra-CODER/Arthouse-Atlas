@@ -5,7 +5,8 @@
  * the candidates: roughly 16:9, at least 1280 px wide, best voted first. A
  * candidate is skipped when the film already has that file, when it's the same
  * picture under another file name (re-uploaded, re-graded or re-cropped), or
- * when it looks like artwork rather than a frame (lib/frameMatch.js). New stills are appended after the film's own, in the
+ * when it looks like artwork rather than a frame (lib/frameMatch.js), or when it's a picture kept
+ * off the site (nudity, sex scenes: lib/blocked.js), under its own file name or another. New stills are appended after the film's own, in the
  * same w780 form, until the film has six distinct frames, its backdrop counted
  * once. A film with no stills is first given its backdrop as stills[0] (as
  * every other film has), so the picture each page leads with doesn't change.
@@ -25,6 +26,7 @@ import mongoose from 'mongoose';
 import Movie from '../../models/Movie.js';
 import { tmdbGet, createLimiter, TMDB_IMAGE } from '../lib/tmdbResolve.js';
 import { analyse, fingerprintBuffer, compare, FLAT_ARTWORK } from './lib/frameMatch.js';
+import { blockedPictures } from './lib/blocked.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const BACKEND = path.resolve(__dirname, '../..');
@@ -45,6 +47,8 @@ const RATIO_SLACK = 0.06;  // |aspect − 16/9|
 const api = createLimiter(4);   // TMDB API calls in flight
 const cdn = createLimiter(4);   // thumbnail downloads in flight
 const films6 = createLimiter(6); // films being worked on at once (bounds memory)
+const BLOCKED = blockedPictures();
+const blockedFiles = new Set(BLOCKED.map((p) => p.file));
 
 const fileOf = (url) => (url ? url.split('/').pop() : null);
 const asStill = (url) => url.replace(/\/t\/p\/[^/]+\//, '/t/p/w780/');
@@ -69,7 +73,7 @@ const planFilm = async (f) => {
 
   const res = await api(() => tmdbGet(`/movie/${f.tmdbId}/images`, { include_image_language: 'null' }));
   const candidates = (res?.backdrops || [])
-    .filter((b) => b.iso_639_1 == null && Math.abs(b.aspect_ratio - 16 / 9) <= RATIO_SLACK && b.width >= MIN_WIDTH && !have.has(fileOf(b.file_path)))
+    .filter((b) => b.iso_639_1 == null && Math.abs(b.aspect_ratio - 16 / 9) <= RATIO_SLACK && b.width >= MIN_WIDTH && !have.has(fileOf(b.file_path)) && !blockedFiles.has(fileOf(b.file_path)))
     .sort((a, b) => b.vote_average - a.vote_average || b.vote_count - a.vote_count || b.width - a.width);
   if (!candidates.length) return { ...base, status: 'tmdb-has-no-more', add: [] };
 
@@ -82,6 +86,12 @@ const planFilm = async (f) => {
     try { kept.push(await fingerprintUrl(url)); } catch { unreadable.push(url); } // compared by file name only
   }
 
+  // the film's blocked pictures, so one re-uploaded under another file name is caught too
+  const banned = [];
+  for (const b of BLOCKED.filter((p) => p.id === String(f._id))) {
+    try { banned.push((await cdn(() => analyse(b.file))).fp); } catch { /* compared by file name only */ }
+  }
+
   const add = [];
   const skipped = [];
   for (const c of candidates) {
@@ -91,6 +101,7 @@ const planFilm = async (f) => {
     let flat;
     try { ({ fp, flat } = await cdn(() => analyse(file))); } catch { skipped.push({ file, why: 'unreadable' }); continue; }
     if (flat >= FLAT_ARTWORK) { skipped.push({ file, why: 'artwork', flat: +flat.toFixed(3) }); continue; }
+    if (banned.some((k) => compare(fp, k).same)) { skipped.push({ file, why: 'blocked' }); continue; }
     const hit = kept.map((k) => ({ k, ...compare(fp, k) })).find((x) => x.same);
     if (hit) { skipped.push({ file, why: 'same picture', as: hit.k.file, bits: hit.bits, zoom: +hit.zoom.toFixed(3) }); continue; }
     kept.push(fp);
