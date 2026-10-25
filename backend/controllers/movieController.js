@@ -7,6 +7,7 @@ import { normalizeName } from '../services/nameUtils.js';
 import { getBridge, outsideCard } from '../services/bridge.js';
 import { togetherOf, getTogether, sharedFacts } from '../services/forYou.js';
 import { audienceOf } from '../services/audience.js';
+import { housesOfFilm, studiosNamed } from '../services/studios.js';
 
 const shuffleArray = (array) => {
   const shuffled = [...array]; // Create a copy to avoid mutating original
@@ -331,7 +332,9 @@ export const getMovieById = async (req, res) => {
         directorIds,
         retrospectives,
         canon,
-        audience: audienceOf(movie.tmdbId)
+        audience: audienceOf(movie.tmdbId),
+        // the studios that made or released it, each with its own page
+        houses: await housesOfFilm(movie._id)
     });
   } catch (error) {
     console.error(error);
@@ -574,11 +577,14 @@ const startOf = (q, { byId, byTmdb }) => {
 
 // With nothing typed yet, places to start: films most people know (they lead into the bridge),
 // the most acclaimed directors here with a face to show, and the biggest moods and places
+// widely seen films the owner doesn't want as a newcomer's first door (by TMDB id): The Wolf of Wall Street
+const NOT_A_DOOR = new Set([106646]);
+
 const startingPoints = (cards, directors, bridge) => {
   // films most people know: from outside the atlas when the bridge is built; always the most
   // widely seen films here (by TMDB votes), each a door to the films like it
   const outside = bridge ? bridge.popular({ since: 2000, limit: 6 }).map(outsideCard) : [];
-  const known = [...cards].sort((a, b) => b._votes - a._votes).slice(0, 6)
+  const known = [...cards].filter((c) => !NOT_A_DOOR.has(c._tmdb)).sort((a, b) => b._votes - a._votes).slice(0, 6)
     .map((c) => ({ _id: c._id, title: c.title, year: c.year, still: c.still, posterUrl: c.posterUrl }));
   const weight = (rank) => (rank == null ? 0.1 : rank <= 50 ? 1 : rank <= 250 ? 0.5 : 0.2);
   const people = new Map();
@@ -712,7 +718,7 @@ export const exploreMovies = async (req, res) => {
   }
 };
 
-// @desc    Explore's search: films here, directors, places, movements, moods and genres, and
+// @desc    Explore's search: films here, directors, places, movements, studios, moods and genres, and
 //          films that aren't here (start from them). With nothing typed: places to start.
 // @route   GET /api/movies/explore/suggest?q=
 // @access  Public
@@ -762,10 +768,15 @@ export const exploreSuggest = async (req, res) => {
       .map((m) => ({ ...m, tag: movementsByTitle.get(m.value)?.tag || null }))
       .filter((m) => m.tag);
 
+    // the studios a search names, the biggest first
+    const studios = (await studiosNamed((name) => nameMatches(name, q)))
+      .slice(0, 3)
+      .map((h) => ({ slug: h.slug, name: h.name, kind: h.kind, country: h.country, count: h.count, still: h.run[0]?.s || null }));
+
     // films that aren't here: start from them
     const outside = bridge ? bridge.search(q, 4).map(outsideCard) : [];
 
-    res.json({ films, directors: found, places, movements, moods, genres, outside });
+    res.json({ films, directors: found, places, movements, studios, moods, genres, outside });
   } catch (error) {
     console.error(error);
     const { status, message } = getErrorResponse(error);

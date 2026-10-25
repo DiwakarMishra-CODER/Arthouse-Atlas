@@ -137,6 +137,37 @@ export const buildStudios = ({ cards, records, directors, facts = {}, notes = {}
     return built.map((h) => ({ ...h, neighbours: near.get(h.slug) }));
 };
 
+// the houses a film is in, the makers before the labels and the bigger house first, each with its logo
+// where known (for its opening titles and its billing block)
+export const housesByFilm = (all) => {
+    const by = new Map();
+    for (const h of [...all].sort((a, b) => (a.kind === 'label') - (b.kind === 'label'))) {
+        for (const f of h.films) {
+            if (!by.has(String(f.id))) by.set(String(f.id), []);
+            by.get(String(f.id)).push({ slug: h.slug, name: h.name, kind: h.kind, logo: h.about?.logo || null, tone: h.about?.logoTone || null });
+        }
+    }
+    return by;
+};
+
+// the houses a director worked with (under any name the films credit them by), for their page: how many
+// of their films each holds, and a frame from the best known of them that the houses before it haven't
+// shown; the makers before the labels, most films first
+export const theirHouses = (all, names) => {
+    const theirs = (f) => f.d?.some((d) => names.includes(d)) && f.s;
+    const shown = new Set();
+    return all
+        .map((h) => ({ h, n: h.directors.filter((d) => names.includes(d.name)).reduce((t, d) => t + d.n, 0) }))
+        .filter(({ n }) => n)
+        .sort((a, b) => (a.h.kind === 'label') - (b.h.kind === 'label') || b.n - a.n || a.h.name.localeCompare(b.h.name))
+        .map(({ h, n }) => {
+            const frames = [...h.run.filter(theirs), ...h.films.filter(theirs)].map((f) => f.s);
+            const s = frames.find((f) => !shown.has(f)) || frames[0] || null;
+            shown.add(s);
+            return { slug: h.slug, name: h.name, kind: h.kind, country: h.country, n, s };
+        });
+};
+
 // built once per catalogue (kept for ten minutes)
 let cache = { of: null, value: null };
 const studios = async () => {
@@ -145,9 +176,14 @@ const studios = async () => {
     const records = await Studio.find({}).select('name featuredFilms').lean();
     const read = (file) => { try { return JSON.parse(fs.readFileSync(new URL(`../data/${file}`, import.meta.url), 'utf8')); } catch { return {}; } }; // (not fetched yet)
     const all = buildStudios({ cards: catalogue.cards, records, directors: catalogue.directors, facts: read('studioFacts.json'), notes: NOTES, colour: read('filmColour.json') });
-    cache = { of: catalogue, value: { all, bySlug: new Map(all.map((s) => [s.slug, s])) } };
+    cache = { of: catalogue, value: { all, bySlug: new Map(all.map((s) => [s.slug, s])), byFilm: housesByFilm(all) } };
     return cache.value;
 };
+
+export const housesOfFilm = async (id) => (await studios()).byFilm.get(String(id)) || [];
+export const housesOfDirector = async (names) => theirHouses((await studios()).all, names);
+// the houses whose name passes a test (for search), the biggest first
+export const studiosNamed = async (test) => (await studios()).all.filter((h) => test(h.name));
 
 // every house with its films' ids in the order they were made (the Lot builds each stage from them)
 export const studioIndex = async () => (await studios()).all.map(({ films, directors, strip, about, note, style, neighbours, ...s }) => ({

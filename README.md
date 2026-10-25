@@ -84,7 +84,7 @@ Your taste is the lens. A film you loved stands sharp in the foreground, your pi
 | ![](docs/screens/movements.jpg) | ![](docs/screens/movement.jpg) |
 | **Movements:** 27 schools of cinema on one strip of film from 1920 to now. 8 are still happening. | **A movement's page** plays like a screening, its type and grade taken from the movement itself. |
 | ![](docs/screens/studios.jpg) | ![](docs/screens/studio.jpg) |
-| **Studios: the Lot.** 62 houses (55 production companies and 7 labels) as soundstages made of their own films, seen from a crane. | **A house's page** opens with its own titles: its mark in the projector's light, then its signature film. |
+| **Studios: the Lot.** 62 houses (55 production companies and 7 labels) as soundstages made of their own films, seen from a crane. | **A house's page** opens with its own titles: its mark in the projector's light, then its signature film. A film's opening names the studio that presents it (its logo on a chip, and again in the credits), a director's page their studios, and search finds them by name. |
 | ![](docs/screens/about.jpg) | ![](docs/screens/about-commentary.jpg) |
 | **About opens like a film:** Mulholland Drive, The Tree of Life and Dekalog run under the maker's name. | **Why I made this,** played as a commentary track over the films. |
 | ![](docs/screens/about-count.jpg) | ![](docs/screens/about-lists.jpg) |
@@ -199,7 +199,7 @@ npm install
 npm run dev                   # http://localhost:5173
 ```
 
-**Tests:** `npm test` in `backend/` runs 90 tests. They cover the canon breakdown, the About lists, Explore's filters, For You's reasons, the studios, the director index, the profile awards (signed in and from the browser's marks), today's film, accounts (including the Google sign-in check) and the film-page data scripts. `npm test` in `frontend/` runs 11 tests of the link-preview and search middleware (including the first-frame preload) and the sitemap.
+**Tests:** `npm test` in `backend/` runs 92 tests. They cover the canon breakdown, the About lists, Explore's filters, For You's reasons, the studios, the director index, the profile awards (signed in and from the browser's marks), today's film, accounts (including the Google sign-in check) and the film-page data scripts. `npm test` in `frontend/` runs 11 tests of the link-preview and search middleware (including the first-frame preload) and the sitemap.
 
 **The data scripts** (all in `backend/scripts/`; the media scripts only write when given `--apply`):
 

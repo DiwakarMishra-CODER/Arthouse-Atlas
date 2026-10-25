@@ -7,8 +7,8 @@ import { directorPath } from './directorPath';
 /**
  * The film's credits as the foot of its poster prints them: the billing block. Condensed capitals,
  * the roles small and the names large, run together on centred lines: who's in it, who made the
- * music, cut it, shot it, wrote it (and what it was based on), whose production, and last and
- * largest, who directed it. Under it, the plain facts and where to watch it. Its poster stands
+ * music, cut it, shot it, wrote it (and what it was based on), whose production and who releases
+ * it (each studio a way to its page), and last and largest, who directed it. Under it, the plain facts and where to watch it. Its poster stands
  * beside it as a one-sheet. Lines are set one after another as it comes into view.
  */
 
@@ -56,6 +56,17 @@ const BillingBlock = ({ movie, light, providers, reducedMotion }) => {
             </Fragment>
         ))
         : null;
+    // and every studio's goes to its page: the houses that made it (or TMDB's first credit, when it's in
+    // no house), and the labels that release it
+    const studio = (h, name = h.name) => (
+        <Link key={h.slug} to={`/studios/${h.slug}`} className="whitespace-nowrap underline decoration-1 underline-offset-[6px] hover:text-gold-light" style={{ textDecorationColor: `${light}99` }}>{name}</Link>
+    );
+    const makers = (movie.houses || []).filter((h) => h.kind === 'house').slice(0, 2);
+    const made = makers.length
+        ? ['a', <>{makers.flatMap((h, i) => [i > 0 && ' and ', studio(h)]).filter(Boolean)} production</>]
+        : movie.productionCompanies?.length && ['a', whole(`${movie.productionCompanies[0]} production`)];
+    const released = (movie.houses || []).filter((h) => h.kind === 'label')
+        .map((h) => (h.slug === 'criterion' ? ['in', studio(h, 'the Criterion Collection')] : ['released by', studio(h)]));
 
     const lines = [
         movie.cast?.length && [['starring', dots(movie.cast.slice(0, 4).map((c) => c.name))]],
@@ -63,7 +74,7 @@ const BillingBlock = ({ movie, light, providers, reducedMotion }) => {
         movie.cinematographers?.length && [['photographed by', and(movie.cinematographers.slice(0, 2))]],
         [source && [`based on ${SOURCE[source.job]}`, whole(source.name)], story.length && ['story by', and(story)]].filter(Boolean),
         !auteur && wrote.length && [['written by', and(wrote.slice(0, 3))]],
-        movie.productionCompanies?.length && [['a', whole(`${movie.productionCompanies[0]} production`)]],
+        [made, ...released].filter(Boolean),
     ].filter((l) => l && l.length);
     const facts = [COUNTRY[movie.country] || movie.country, movie.year, movie.runtime && `${movie.runtime} minutes`, movie.languages?.length && `in ${movie.languages.slice(0, 2).join(' and ')}`].filter(Boolean);
 

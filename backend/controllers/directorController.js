@@ -4,6 +4,7 @@ import Movement from '../models/Movement.js';
 import { getErrorResponse } from '../utils/errorResponse.js';
 import { directorIndex, namesOf } from '../services/directorIndex.js';
 import { loadCatalogue } from '../services/catalogue.js';
+import { housesOfDirector } from '../services/studios.js';
 
 // A director's movements as their page shows them: each movement's own still, how many of the
 // atlas's films it holds, and the others named as key to it
@@ -115,7 +116,9 @@ export const getDirector = async (req, res) => {
                 ...director.toObject(),
                 films,
                 movements: await theirMovements(movements, director._id),
-                peers
+                peers,
+                // the studios that made or released their films, each with its own page
+                houses: await housesOfDirector(namesOf(director.name))
             }
         });
     } catch (error) {

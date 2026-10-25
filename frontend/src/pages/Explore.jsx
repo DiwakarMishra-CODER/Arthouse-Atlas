@@ -349,22 +349,15 @@ const Explore = () => {
             <h1 className="sr-only">Explore the atlas</h1>
             <div className="max-w-7xl mx-auto px-4 md:px-14">
                 <Letterboard lines={lines} label={boardLabel} version={`${key}|${total}`} reducedMotion={reducedMotion} chosen={any} onReset={reset} />
-                {/* the box of letters: the choices as pictures, open from the start */}
-                {wall.facets && (
-                    <div id="ways-in" className="scroll-mt-24">
-                        <Tray sel={sel} tab={trayTab} onTab={setTrayTab} asked={asked} first={!any} onShow={toWall} titles={PICKER_TITLES} picker={pickerFor} />
-                    </div>
-                )}
-
-                {/* ask for anything, or let the projector choose; and, until you've chosen something
-                    once, a line for someone who knows no names yet */}
-                <div className="mt-8 md:mt-10 max-w-3xl mx-auto">
-                    <div className="flex items-end gap-3 md:gap-5">
+                {/* ask for anything, right under the board, or let the projector choose; and, until you've
+                    chosen something once, a line for someone who knows no names yet */}
+                <div className="relative z-20 mt-7 md:mt-9 max-w-3xl mx-auto">
+                    <div className="flex items-stretch gap-2.5 md:gap-4">
                         <div className="flex-1 min-w-0">
                             <SearchBox value={sel.q} start={start} onSearch={(q) => choose('q', q)} on={searchOn} />
                         </div>
-                        <button type="button" onClick={() => setProjector(true)} className="flex-shrink-0 mb-1 inline-flex items-center gap-2 px-3 md:px-4 py-2.5 ring-1 ring-gold/50 text-gold font-label text-[12px] tracking-[0.14em] uppercase hover:bg-gold hover:text-black transition-colors">
-                            <MdMovieFilter aria-hidden="true" className="text-base" /> <span className="hidden sm:inline">Pick one for me</span><span className="sm:hidden">Pick one</span>
+                        <button type="button" onClick={() => setProjector(true)} className="flex-shrink-0 inline-flex items-center gap-2 px-3 md:px-5 ring-1 ring-gold/50 text-gold font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase hover:bg-gold hover:text-black transition-colors">
+                            <MdMovieFilter aria-hidden="true" className="text-lg" /> <span className="hidden sm:inline">Pick one for me</span><span className="sm:hidden">Pick one</span>
                         </button>
                     </div>
                     {!any && !knowsTheWay && known.length > 0 && (
@@ -380,6 +373,12 @@ const Explore = () => {
                     )}
                 </div>
 
+                {/* the box of letters: the choices as pictures, open from the start */}
+                {wall.facets && (
+                    <div id="ways-in" className="scroll-mt-24">
+                        <Tray sel={sel} tab={trayTab} onTab={setTrayTab} asked={asked} first={!any} onShow={toWall} titles={PICKER_TITLES} picker={pickerFor} />
+                    </div>
+                )}
 
                 {ready && <Banner selected={wall.selected} />}
 

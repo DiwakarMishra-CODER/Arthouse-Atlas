@@ -10,6 +10,7 @@ import ArchiveCard from '../components/director/ArchiveCard';
 import PosterWall from '../components/director/PosterWall';
 import Constellation from '../components/director/Constellation';
 import Season from '../components/director/Season';
+import TheirStudios from '../components/director/TheirStudios';
 import useFilmLight from '../components/film/useFilmLight';
 import { sized } from '../components/movements/treatments';
 import { usePageTitle } from '../hooks/usePageTitle';
@@ -169,6 +170,17 @@ const DirectorDetail = () => {
                             <span className="hidden sm:block font-label text-[12px] tracking-[0.14em] uppercase text-gray-500 pb-2">{director.movements.length === 1 ? 'its own page: its films, its people, what it stood for' : 'each with its own page: its films, its people, what it stood for'}</span>
                         </div>
                         <Season movements={director.movements} reducedMotion={reducedMotion} />
+                    </section>
+                )}
+
+                {/* ===== THEIR STUDIOS: the houses that made or released their films ===== */}
+                {!loading && director.houses?.length > 0 && (
+                    <section className="pt-28 md:pt-36">
+                        <div className="flex items-end justify-between gap-6 mb-8">
+                            <h2 className="font-serif text-4xl md:text-5xl">{director.houses.length === 1 ? 'Their studio' : 'Their studios'}</h2>
+                            <span className="hidden sm:block font-label text-[12px] tracking-[0.14em] uppercase text-gray-500 pb-2">who made or released their films, each with its own page</span>
+                        </div>
+                        <TheirStudios houses={director.houses} reducedMotion={reducedMotion} />
                     </section>
                 )}
 

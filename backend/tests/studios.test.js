@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { toCard } from '../services/catalogue.js';
-import { buildStudios } from '../services/studios.js';
+import { buildStudios, housesByFilm, theirHouses } from '../services/studios.js';
 
 const film = (id, extra) => toCard({ _id: id, title: `Film ${id}`, year: 1960, directors: ['Someone'], countries: ['Japan'], movements: [], ...extra });
 
@@ -68,4 +68,19 @@ test('the houses that share a director are each other’s neighbours', () => {
 test('the mainstream majors are not houses here', () => {
     const paramount = toCard({ _id: 'p', title: 'Vertigo', year: 1958, directors: ['Alfred Hitchcock'], productionCompanies: ['Paramount Pictures'] });
     assert.equal(buildStudios({ cards: [paramount], records: [], directors: new Map() }).some((s) => s.slug === 'paramount'), false);
+});
+
+test('a film knows its houses, the makers before the labels', () => {
+    const by = housesByFilm(all);
+    assert.deepEqual(by.get('a').map((h) => [h.slug, h.kind]), [['toho', 'house'], ['criterion', 'label']]);
+    assert.deepEqual(by.get('e').map((h) => h.slug), ['neon']);
+    assert.equal(by.get('d'), undefined, 'a film checked as another company\'s is in no house');
+});
+
+test("a director's houses: makers first, how many of their films each holds, a frame from the best known", () => {
+    assert.deepEqual(theirHouses(all, ['Akira Kurosawa']), [
+        { slug: 'toho', name: 'Toho', kind: 'house', country: 'Japan', n: 2, s: '/samurai.jpg' },
+        { slug: 'criterion', name: 'The Criterion Collection', kind: 'label', country: 'United States', n: 2, s: '/samurai.jpg' },
+    ]);
+    assert.deepEqual(theirHouses(all, ['Nobody']), []);
 });

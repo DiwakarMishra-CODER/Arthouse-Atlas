@@ -77,9 +77,12 @@ const cardsOf = (movie) => {
         movie.composers?.length && { role: 'Music by', names: movie.composers.slice(0, 2) },
         movie.editors?.length && { role: 'Edited by', names: movie.editors.slice(0, 2) },
     ].filter(Boolean);
+    // the studios that made it, where they have a page, credited just before the director as films do
+    const studios = (movie.houses || []).filter((h) => h.kind === 'house').slice(0, 2);
     const made = [
         source && { role: `Based on ${SOURCE[source.job]}`, names: [source.name] },
         !auteur && wrote.length && { role: 'Written by', names: wrote.slice(0, 3) },
+        studios.length && { role: 'Produced by', names: studios.map((h) => h.name), studios },
     ].filter(Boolean);
     const ed = movie.editorial || {};
     return [
@@ -201,14 +204,46 @@ const Projection = ({ movie, stills, start, shared, onClose }) => {
     );
 };
 
+// a studio that made the film, as a chip that reads as a button: its logo on a plate of light (or of
+// black, for a logo drawn light), its name, and the way to its page
+const StudioChip = ({ house, light }) => (
+    <Link
+        to={`/studios/${house.slug}`}
+        className={`group/house inline-flex items-center gap-2 align-middle rounded-full ${house.logo ? 'pl-1' : 'pl-3.5'} pr-3 py-1 bg-black/45 backdrop-blur-sm text-white hover:bg-black/70 transition-colors [text-shadow:none]`}
+        style={{ boxShadow: `0 0 0 1px ${light}99, 0 0 18px ${light}33` }}
+    >
+        {house.logo && (
+            <span aria-hidden="true" className={`inline-flex items-center justify-center h-7 px-2.5 rounded-full shrink-0 ${house.tone === 'light' ? 'bg-black' : 'bg-white'}`}>
+                <img src={`https://image.tmdb.org/t/p/w185${house.logo}`} alt="" className="h-4 w-auto max-w-[56px] object-contain" />
+            </span>
+        )}
+        <span>{house.name}</span>
+        <span aria-hidden="true" style={{ color: light }} className="transition-transform duration-300 group-hover/house:translate-x-0.5">›</span>
+    </Link>
+);
+
 // the title card's words: what it is, its title racked into focus, its line, and your tickets
-const TitleBlock = ({ movie, light, frames, canPlay, trailer, onPlay, playRef, playing }) => {
+const TitleBlock =({ movie, light, frames, canPlay, trailer, onPlay, playRef, playing }) => {
     const ed = movie.editorial || {};
     const facts = [movie.year, COUNTRY[movie.country] || movie.country, movie.originalLanguage, movie.runtime && `${movie.runtime} min`].filter(Boolean);
     const directors = movie.directors || [];
     const line = ed.hook || (movie.tagline && `“${movie.tagline.replace(/^["“]|["”]$/g, '')}”`);
+    const makers = (movie.houses || []).filter((h) => h.kind === 'house').slice(0, 2);
     return (
         <div className="[text-shadow:0_2px_24px_rgba(0,0,0,0.6)]">
+            {/* first, as films open on it, the studio that presents it: a chip like the director's, its
+                mark standing in the light as it does on its own page, and the way there */}
+            {makers.length > 0 && (
+                <div className="card-rise mb-1 font-label text-[12px] tracking-[0.16em] uppercase leading-[2.4] text-gray-200">
+                    {makers.map((h, i) => (
+                        <Fragment key={h.slug}>
+                            {i > 0 && <span className="mx-1.5">&amp;</span>}
+                            <StudioChip house={h} light={light} />
+                        </Fragment>
+                    ))}
+                    <span className="ml-2">{makers.length > 1 ? 'present' : 'presents'}</span>
+                </div>
+            )}
             {/* who made it leads the line, as films open on it ("a film by"), and leads to them: a chip
                 that reads as a button, with their face irised in where they have a page */}
             <div className="card-rise font-label text-[12px] tracking-[0.16em] uppercase leading-[2.4]" style={{ color: light }}>
@@ -269,11 +304,15 @@ const Entry = ({ e, i, movie, light }) => (
         <div className="font-label text-[12px] md:text-[13px] tracking-[0.3em] uppercase text-gray-200">{e.role}</div>
         <div className={`mt-2 md:mt-3 font-serif font-light leading-[1.02] text-white ${e.big ? 'text-5xl md:text-8xl' : e.stack ? 'text-3xl md:text-6xl' : 'text-2xl md:text-5xl'}`}>
             {e.names.map((n, k) => (
-                <span key={n} className={e.stack ? 'block mt-1' : ''}>
-                    {!e.stack && k > 0 && <span className="text-gray-400"> &amp; </span>}
+                // (two studios' long names each take a line of their own on a phone)
+                <span key={n} className={e.stack ? 'block mt-1' : e.studios ? 'block md:inline mt-1 md:mt-0' : ''}>
+                    {!e.stack && k > 0 && <span className={`text-gray-400 ${e.studios ? 'hidden md:inline' : ''}`}> &amp; </span>}
                     {e.big
                         ? <Link to={directorPath(movie, n)} className="underline decoration-1 underline-offset-[10px] hover:text-gold-light" style={{ textDecorationColor: `${light}99` }}>{unbroken(n)}</Link>
-                        : unbroken(n)}
+                        : e.studios
+                            // (a studio's name goes to its page, with the mark a way on carries)
+                            ? <Link to={`/studios/${e.studios[k].slug}`} className="group/st underline decoration-1 underline-offset-[8px] hover:text-gold-light" style={{ textDecorationColor: `${light}99` }}>{unbroken(n)}<span aria-hidden="true" className="inline-block ml-2 text-[0.55em] align-middle transition-transform duration-300 group-hover/st:translate-x-1" style={{ color: light }}>›</span></Link>
+                            : unbroken(n)}
                 </span>
             ))}
         </div>

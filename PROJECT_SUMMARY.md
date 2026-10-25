@@ -28,7 +28,7 @@ A full-stack web app (React, Express, MongoDB) for discovering arthouse films:
 - **Catalogue:** 1,120 films from 75 countries, 1915 to 2025, chosen by one rule: every film our canon would rank in its top 500 is in.
 - **Lists:** 4,187 list citations across the 1,056 ranked films.
 - **MovieLens:** 32,000,204 ratings from 200,948 people. 1,086 of the films are matched, with 3,779,709 ratings between them.
-- **Tests:** 90 backend tests and 11 frontend tests.
+- **Tests:** 92 backend tests and 11 frontend tests.
 
 ## Stack
 

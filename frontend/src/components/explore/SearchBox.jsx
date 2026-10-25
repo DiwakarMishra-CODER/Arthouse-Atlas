@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MdSearch } from 'react-icons/md';
 import { moviesAPI } from '../../services/api';
-import { sized } from '../movements/treatments';
+import { sized, stillSrc } from '../movements/treatments';
 
 /**
- * Ask for anything: a film you love, a director, a place, a mood. For someone who knows no
+ * Ask for anything: a film you love, a director, a place, a mood, a studio. For someone who knows no
  * names yet, the field offers places to start before a word is typed: films most people have
  * seen (each opens a wall of the films like it), famous directors with the film they're known
  * for, a few moods and places. Typing searches all of it at once (accents and a typo per word
@@ -16,7 +16,7 @@ import { sized } from '../movements/treatments';
  * Its placeholder runs once through a few examples, then rests (nothing moves forever).
  */
 
-const GROUPS = { films: 'Films', like: 'Or start from a film', directors: 'Directors', places: 'Countries', movements: 'Movements', moods: 'Moods', genres: 'Genres', outside: 'Not in the atlas: start from it', all: 'Or' };
+const GROUPS = { films: 'Films', like: 'Or start from a film', directors: 'Directors', places: 'Countries', movements: 'Movements', studios: 'Studios', moods: 'Moods', genres: 'Genres', outside: 'Not in the atlas: start from it', all: 'Or' };
 const ORDER = Object.keys(GROUPS);
 
 // how plainly a row answers what was typed: its exact name (3), a whole word of it, like a
@@ -108,6 +108,7 @@ const SearchBox = ({ value, start, onSearch, on }) => {
         results.directors?.forEach((d) => rows.push({ group: 'directors', key: `d${d.name}`, label: d.name, sub: `${d.films} ${d.films === 1 ? 'film' : 'films'} here${d.best ? ` · best known for ${d.best}` : ''}`, image: d.portrait && sized(d.portrait, 'w185'), round: true, act: () => on.director(d.name) }));
         results.places?.forEach((p) => rows.push({ group: 'places', key: `p${p.value}`, label: p.value === 'United States of America' ? 'United States' : p.value, sub: `${p.n} films`, act: () => on.country(p.value) }));
         results.movements?.forEach((m) => rows.push({ group: 'movements', key: `mv${m.tag}`, label: m.value, sub: `${m.n} films`, act: () => on.movement(m.tag) }));
+        results.studios?.forEach((h) => rows.push({ group: 'studios', key: `s${h.slug}`, label: h.name, sub: `${h.kind === 'label' ? 'A label' : 'A studio'}, ${h.country === 'United States of America' ? 'United States' : h.country} · ${h.count} films here`, image: h.still && stillSrc(h.still, 'w300'), wide: true, act: () => navigate(`/studios/${h.slug}`) }));
         results.moods?.forEach((m) => rows.push({ group: 'moods', key: `m${m.value}`, label: m.value, sub: `${m.n} films`, act: () => on.mood(m.value) }));
         results.genres?.forEach((g) => rows.push({ group: 'genres', key: `g${g.value}`, label: g.value, sub: `${g.n} films`, act: () => on.genre(g.value) }));
         results.outside?.forEach((f) => rows.push({ group: 'outside', key: `o${f.tmdbId}`, label: f.title, sub: `${f.year || ''} · its fans loved films here`, image: f.poster, act: () => on.from(f.tmdbId) }));
@@ -141,8 +142,9 @@ const SearchBox = ({ value, start, onSearch, on }) => {
 
     return (
         <div ref={box} className="relative w-full">
-            <label className="flex items-center gap-3 border-b border-white/25 focus-within:border-gold focus-within:shadow-[0_1px_0_0_var(--color-gold)] transition-colors">
-                <MdSearch className="text-gray-400 text-xl flex-shrink-0" aria-hidden="true" />
+            {/* a window you can see is a search from across the room: framed, lit gold when it's yours */}
+            <label className="flex items-center gap-3 px-3.5 md:px-5 bg-black/45 ring-1 ring-white/25 hover:ring-white/40 focus-within:ring-gold focus-within:shadow-[0_0_30px_rgba(217,173,98,0.16)] cursor-text">
+                <MdSearch className="text-gold text-[22px] md:text-2xl flex-shrink-0" aria-hidden="true" />
                 <input
                     id="explore-search"
                     type="search"
@@ -157,7 +159,7 @@ const SearchBox = ({ value, start, onSearch, on }) => {
                     aria-expanded={open && rows.length > 0}
                     aria-controls="explore-suggestions"
                     autoComplete="off"
-                    className="w-full bg-transparent py-3 font-serif text-[1.2rem] md:text-[1.35rem] text-gray-100 placeholder:text-gray-500 placeholder:italic outline-none [&::-webkit-search-cancel-button]:appearance-none"
+                    className="w-full min-w-0 bg-transparent py-3.5 md:py-4 font-serif text-[1.15rem] md:text-[1.4rem] text-gray-100 placeholder:text-gray-400 placeholder:italic outline-none [&::-webkit-search-cancel-button]:appearance-none"
                 />
             </label>
             {open && rows.length > 0 && (
