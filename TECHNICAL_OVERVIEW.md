@@ -253,7 +253,7 @@ Services that draw a shared link's preview don't run JavaScript, so a single-pag
 
 ## 10. Tests
 
-- **Backend** (`npm test` in `backend/`): 92 tests. They cover the canon breakdown against `scoreFilm()`, each list's order and the About index's picks, Explore's filters, counts and orders (a decade in its own ranking), For You's reasons and shares, the studios and director indexes, the profile's awards (and the signed-out night made from the browser's marks), today's film's rounds (the classics and the Sundays), account changes and the Google sign-in check, and the film-page data scripts' pure parts (choosing a trailer, reading credits).
+- **Backend** (`npm test` in `backend/`): 96 tests. They cover the canon breakdown against `scoreFilm()`, each list's order and the About index's picks, Explore's filters, counts and orders (a decade in its own ranking), For You's reasons and shares, the studios and director indexes, the profile's awards (and the signed-out night made from the browser's marks), today's film's rounds (the classics and the Sundays), account changes and the Google sign-in check, the Letterboxd import (reading the export, matching titles a year either way), and the film-page data scripts' pure parts (choosing a trailer, reading credits).
 - **Frontend** (`npm test` in `frontend/`): 11 tests of the middleware (previews, the first-frame preload, canonical addresses, structured data) and the sitemap.
 - **The recommender's evaluation** is a test of its own, written and committed before it was run.
 

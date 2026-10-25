@@ -59,7 +59,7 @@ You arrive on the film's title card, over its own frames. Scroll, and the screen
 | | |
 |---|---|
 | ![](docs/screens/film-title.jpg) | ![](docs/screens/film-credits.jpg) |
-| **The title card,** with the film marked Watched and Favourite and given four stars. No account is needed: the marks are kept in the browser and move into an account at sign-in. The trailer button is a little screen already playing the film's frames. | **The opening titles.** The director's card irises in on their face. The navbar steps aside while the titles run, and your controls dock at the top so they're always within reach. |
+| **The title card** opens on the studio that presents it, which leads to its page, with the film marked Watched and Favourite and given four stars. No account is needed: the marks are kept in the browser and move into an account at sign-in. The trailer button is a little screen already playing the film's frames. | **The opening titles.** The director's card irises in on their face. The navbar steps aside while the titles run, and your controls dock at the top so they're always within reach. |
 | ![](docs/screens/film-trailer.jpg) | ![](docs/screens/film-critics.jpg) |
 | **The trailer plays in place.** The little screen grows into the big one. For the 55 films with no trailer online, the film's own frames run instead. | **How the critics rank it:** the film's standing on a marquee, its strongest lists as laurels, and what MovieLens viewers made of it. |
 | ![](docs/screens/film-lists.jpg) | ![](docs/screens/film-double-bill.jpg) |
@@ -78,7 +78,7 @@ Your taste is the lens. A film you loved stands sharp in the foreground, your pi
 | | |
 |---|---|
 | ![](docs/screens/explore.jpg) | ![](docs/screens/explore-foyer.jpg) |
-| **Explore: the foyer.** A cinema letterboard says what's showing, and every gold word is a choice: country, decade, director, movement, mood, genre, length, order. The choices sit in a tray under the board, made with pictures. It opens on the next blank word (the map, to start) and moves on after each pick. | **The display cases.** Films in canon order (pick a decade and it's that decade's own ranking), lit as you reach them; hover one and its frames run. Start from a film you know, or let the projector pick. |
+| **Explore: the foyer.** A cinema letterboard says what's showing, and every gold word is a choice: country, decade, director, movement, mood, genre, length, order. Under it, a search for anything (a film, a director, a place, a studio). The choices sit in a tray under the board, made with pictures. It opens on the next blank word (the map, to start) and moves on after each pick. | **The display cases.** Films in canon order (pick a decade and it's that decade's own ranking), lit as you reach them; hover one and its frames run. Start from a film you know, or let the projector pick. |
 | ![](docs/screens/directors.jpg) | ![](docs/screens/director.jpg) |
 | **Directors: "Directed by".** The scroll is the projector; each director's best film rolls into the gate, then everyone appears as end credits. It plays once, and "Skip to the list" goes straight to the credits. | **A director's page** is a retrospective: the career on a projector, a poster wall, the biography on an archive card, the circle they worked with. |
 | ![](docs/screens/movements.jpg) | ![](docs/screens/movement.jpg) |
@@ -199,7 +199,7 @@ npm install
 npm run dev                   # http://localhost:5173
 ```
 
-**Tests:** `npm test` in `backend/` runs 92 tests. They cover the canon breakdown, the About lists, Explore's filters, For You's reasons, the studios, the director index, the profile awards (signed in and from the browser's marks), today's film, accounts (including the Google sign-in check) and the film-page data scripts. `npm test` in `frontend/` runs 11 tests of the link-preview and search middleware (including the first-frame preload) and the sitemap.
+**Tests:** `npm test` in `backend/` runs 96 tests. They cover the canon breakdown, the About lists, Explore's filters, For You's reasons, the studios, the director index, the profile awards (signed in and from the browser's marks), today's film, accounts (including the Google sign-in check), the Letterboxd import and the film-page data scripts. `npm test` in `frontend/` runs 11 tests of the link-preview and search middleware (including the first-frame preload) and the sitemap.
 
 **The data scripts** (all in `backend/scripts/`; the media scripts only write when given `--apply`):
 
