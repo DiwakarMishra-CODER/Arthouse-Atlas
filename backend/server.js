@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
 import compression from 'compression';
+import { corsOptions, sanitizeInput } from './middleware/security.js';
 import dotenv from 'dotenv';
 import connectDB from './config/database.js';
 import authRoutes from './routes/authRoutes.js';
@@ -26,12 +28,21 @@ const PORT = process.env.PORT || 5000;
 // Connect to MongoDB
 connectDB();
 
+// Render puts one proxy in front of the API. Trusting that hop makes req.ip
+// the visitor's address, not the proxy's; without it every visitor shared one
+// rate-limit allowance (20 sign-in attempts per 15 minutes for the whole site).
+app.set('trust proxy', Number(process.env.TRUST_PROXY ?? 1));
+
 // Middleware
-app.use(cors());
+// Security headers. The API only sends JSON, so the cross-origin policy is
+// relaxed: the site and the API live on different domains.
+app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
+app.use(cors(corsOptions()));
 // JSON shrinks four- or five-fold on the way out (Explore's counts are the biggest replies)
 app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(sanitizeInput);
 
 // Routes
 app.use('/api/auth', authRoutes);

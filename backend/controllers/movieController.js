@@ -46,7 +46,7 @@ export const getMovies = async (req, res) => {
 
     // Director filter
     if (director) {
-      query.directors = { $regex: director, $options: 'i' };
+      query.directors = { $regex: escapeRegex(String(director)), $options: 'i' };
     }
 
     // Year filter
