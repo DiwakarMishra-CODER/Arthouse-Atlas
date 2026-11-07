@@ -110,8 +110,7 @@ export const getMe = async (req, res) => {
       favorites: user.favorites,
       watchlist: user.watchlist,
       watched: user.watched,
-      ratings: user.ratings,
-      isAdmin: user.isAdmin
+      ratings: user.ratings
     });
   } catch (error) {
     console.error(error);

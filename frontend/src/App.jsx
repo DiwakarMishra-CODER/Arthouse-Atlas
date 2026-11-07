@@ -1,27 +1,60 @@
-import { useLayoutEffect, useRef, useEffect } from 'react';
+import { useLayoutEffect, useRef, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigationType } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { MovieProvider } from './context/MovieContext';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import Admission from './pages/Admission';
-import About from './pages/About';
 import Footer from './components/Footer';
-import Explore from './pages/Explore';
-import MovieDetail from './pages/MovieDetail';
-import Profile from './pages/Profile';
-
-import Directors from './pages/Directors';
-import DirectorDetail from './pages/DirectorDetail';
-import Movements from './pages/Movements';
-import MovementDetail from './pages/MovementDetail';
-import Studios from './pages/Studios';
-import StudioDetail from './pages/StudioDetail';
-import Recommendations from './pages/Recommendations';
 import ProjectedBlack from './components/ProjectedBlack';
-import { PageNotFound } from './pages/NotFound';
 import { markPage } from './hooks/trail';
 import { SITE, SITE_TITLE } from './hooks/usePageTitle';
+
+// Home is the way in, so it ships with the app; every other room is its own
+// chunk, so a first visit downloads one room rather than all fourteen.
+const rooms = {
+  Admission: () => import('./pages/Admission'),
+  About: () => import('./pages/About'),
+  Explore: () => import('./pages/Explore'),
+  MovieDetail: () => import('./pages/MovieDetail'),
+  Profile: () => import('./pages/Profile'),
+  Directors: () => import('./pages/Directors'),
+  DirectorDetail: () => import('./pages/DirectorDetail'),
+  Movements: () => import('./pages/Movements'),
+  MovementDetail: () => import('./pages/MovementDetail'),
+  Studios: () => import('./pages/Studios'),
+  StudioDetail: () => import('./pages/StudioDetail'),
+  Recommendations: () => import('./pages/Recommendations'),
+  NotFound: () => import('./pages/NotFound').then(m => ({ default: m.PageNotFound })),
+};
+const Admission = lazy(rooms.Admission);
+const About = lazy(rooms.About);
+const Explore = lazy(rooms.Explore);
+const MovieDetail = lazy(rooms.MovieDetail);
+const Profile = lazy(rooms.Profile);
+const Directors = lazy(rooms.Directors);
+const DirectorDetail = lazy(rooms.DirectorDetail);
+const Movements = lazy(rooms.Movements);
+const MovementDetail = lazy(rooms.MovementDetail);
+const Studios = lazy(rooms.Studios);
+const StudioDetail = lazy(rooms.StudioDetail);
+const Recommendations = lazy(rooms.Recommendations);
+const PageNotFound = lazy(rooms.NotFound);
+
+// Once the first room is up, fetch the rest while the browser is idle, so
+// walking between rooms never waits on the network (and the Directors
+// opening's morph into a director's page finds that page ready).
+const FetchOtherRooms = () => {
+  useEffect(() => {
+    const all = () => Object.values(rooms).forEach(load => load().catch(() => { /* fetched again on visit */ }));
+    if ('requestIdleCallback' in window) {
+      const id = requestIdleCallback(all, { timeout: 5000 });
+      return () => cancelIdleCallback(id);
+    }
+    const id = setTimeout(all, 2500);
+    return () => clearTimeout(id);
+  }, []);
+  return null;
+};
 
 
 // a page you open starts at its top; Back and Forward are left to each page, which puts you back
@@ -55,11 +88,14 @@ function AppRoutes() {
     <div className="relative min-h-screen bg-[#050505] text-white selection:bg-gold selection:text-black overflow-x-clip">
       <ArriveAtTop />
       <MarkTrail />
+      <FetchOtherRooms />
       {/* for the keyboard: straight past the navbar to the page */}
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[80] focus:px-4 focus:py-3 focus:bg-gold focus:text-black font-label text-[13px] tracking-[0.14em] uppercase">Skip to the page</a>
       <ProjectedBlack />
       <Navbar />
       <main id="main" tabIndex={-1} className="relative z-10 outline-none">
+        {/* a room still on its way holds the screen dark, so the footer doesn't jump up */}
+        <Suspense fallback={<div className="min-h-screen" />}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Admission scene="in" />} />
@@ -80,6 +116,7 @@ function AppRoutes() {
           <Route path="/profile" element={<Profile />} />
 
         </Routes>
+        </Suspense>
       </main>
       <div className="relative z-10">
         <Footer />
