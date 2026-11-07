@@ -14,6 +14,8 @@ import Stills from '../components/film/Stills';
 import useFilmLight from '../components/film/useFilmLight';
 import { treatmentFor, displayTitle, sized } from '../components/movements/treatments';
 import { usePageTitle } from '../hooks/usePageTitle';
+import { useRegion } from '../hooks/region';
+import WhereToWatch from '../components/film/WhereToWatch';
 import NotFound from './NotFound';
 
 /**
@@ -36,7 +38,9 @@ const MovieDetail = () => {
     const reducedMotion = useMotionPreference();
     // { id, data } — loading is simply "the loaded film isn't this one yet"
     const [result, setResult] = useState({ id: null, data: null });
-    const [providers, setProviders] = useState(null);
+    // where to watch it, in the visitor's country: { key, data } — loading is "not this film and country yet"
+    const region = useRegion();
+    const [listing, setListing] = useState({ key: null, data: null });
     const [similarMovies, setSimilarMovies] = useState([]);
     const [movements, setMovements] = useState([]);
     const loading = result.id !== id;
@@ -64,23 +68,17 @@ const MovieDetail = () => {
         movementsAPI.getAll().then((res) => setMovements(res.data)).catch(() => setMovements([]));
     }, []);
 
+    const listingKey = movie?._id ? `${movie._id}|${region}` : null;
+    const watch = listing.key === listingKey ? listing.data : null;
     useEffect(() => {
-        if (!movie?._id) return;
-        moviesAPI.getMovieProviders(movie._id)
-            .then((response) => {
-                // India and US only; one entry per provider across stream / rent / buy / free
-                const unique = new Map();
-                ['IN', 'US'].forEach((cc) => {
-                    const country = response.data?.[cc];
-                    if (!country) return;
-                    ['flatrate', 'rent', 'buy', 'free'].forEach((cat) => {
-                        (country[cat] || []).forEach((p) => { if (!unique.has(p.provider_id)) unique.set(p.provider_id, p); });
-                    });
-                });
-                setProviders([...unique.values()]);
-            })
-            .catch((error) => { console.error('Failed to fetch providers:', error); setProviders([]); });
-    }, [movie]);
+        if (!listingKey) return;
+        let gone = false;
+        const [filmId, cc] = listingKey.split('|');
+        moviesAPI.getWatch(filmId, cc)
+            .then((res) => { if (!gone) setListing({ key: listingKey, data: res.data }); })
+            .catch((error) => { console.error('Failed to fetch where to watch:', error); if (!gone) setListing({ key: listingKey, data: false }); });
+        return () => { gone = true; };
+    }, [listingKey]);
 
     if (loading) return <div className="min-h-screen pt-24"><LoadingSkeleton label="Threading the film" /></div>;
     if (!movie) {
@@ -110,9 +108,12 @@ const MovieDetail = () => {
 
             <div className="relative">
                 {/* ===== THE SCREEN ===== */}
-                <TheScreen movie={movie} light={light} reducedMotion={reducedMotion} providers={providers} tags={tags} />
+                <TheScreen movie={movie} light={light} reducedMotion={reducedMotion} watch={watch} region={region} tags={tags} />
 
                 <div className="max-w-7xl mx-auto px-4 md:px-10">
+                    {/* ===== WHERE TO WATCH IT, TONIGHT: the box office's window ===== */}
+                    <WhereToWatch watch={watch} region={region} title={movie.title} reducedMotion={reducedMotion} />
+
                     {/* ===== ITS FRAMES, ALL OF THEM: a contact sheet, each opening full screen ===== */}
                     <Stills movie={movie} />
 

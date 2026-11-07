@@ -57,6 +57,13 @@ const Plaque = ({ film, large, compact, to, onDirector, onMovement }) => {
                 </div>
             )}
             <div className="mt-2 font-label text-[12px] tracking-[0.14em] uppercase text-gray-500">{facts.join(' · ')}</div>
+            {/* on a streaming wall: what it's on tonight, where you are */}
+            {film.on?.length > 0 && (
+                <div className="mt-2 inline-flex items-center gap-1.5 rounded-md px-2 py-1 bg-gold/10 ring-1 ring-gold/40 font-label text-[11px] tracking-[0.14em] uppercase text-gold-light">
+                    <svg aria-hidden="true" viewBox="0 0 16 16" className="w-3.5 h-3.5"><rect x="1.5" y="3" width="13" height="9" rx="1.6" fill="none" stroke="currentColor" strokeWidth="1.4" /><path d="M5.5 14h5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /><path d="M7 5.8v3.4l2.8-1.7z" fill="currentColor" /></svg>
+                    On {film.on.join(' · ')}
+                </div>
+            )}
             {(film.movements?.[0] || film.why) && (
                 <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 font-label text-[12px] tracking-[0.14em] uppercase">
                     {film.movements?.[0] && <button type="button" onClick={() => onMovement(film.movements[0])} className="text-left text-gold hover:text-gold-light transition-colors">{film.movements[0]}</button>}

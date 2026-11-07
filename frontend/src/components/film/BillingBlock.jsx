@@ -39,7 +39,7 @@ const Line = ({ parts, i, reducedMotion, big = false }) => (
     </motion.p>
 );
 
-const BillingBlock = ({ movie, light, providers, reducedMotion }) => {
+const BillingBlock = ({ movie, light, reducedMotion }) => {
     const directors = movie.directors || [];
     const writers = movie.writers || [];
     const wrote = writers.filter((w) => ['Screenplay', 'Writer'].includes(w.job)).map((w) => w.name);
@@ -112,29 +112,6 @@ const BillingBlock = ({ movie, light, providers, reducedMotion }) => {
                         )}
                     </motion.div>
 
-                    {(providers === null || providers.length > 0) && (
-                        <div className="mt-9 md:mt-10 normal-case">
-                            <div className="font-label uppercase text-[12px] tracking-[0.14em] text-gray-400 mb-3">Where to watch it</div>
-                            {providers === null ? (
-                                <div className="mx-auto animate-pulse h-9 w-40 bg-white/5" />
-                            ) : (
-                                <div className="flex flex-wrap justify-center gap-2">
-                                    {providers.map((p) => (
-                                        <a
-                                            key={p.provider_id}
-                                            href={`https://www.google.com/search?q=Watch+${encodeURIComponent(movie.title)}+on+${encodeURIComponent(p.provider_name)}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex items-center gap-2 pr-3 bg-white/[0.04] ring-1 ring-white/10 hover:ring-white/30 transition-colors"
-                                        >
-                                            <img src={`https://image.tmdb.org/t/p/w45${p.logo_path}`} alt="" className="w-8 h-8 object-cover" />
-                                            <span className="font-sans text-xs text-gray-200 whitespace-nowrap">{p.provider_name}</span>
-                                        </a>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    )}
                 </div>
             </div>
         </section>

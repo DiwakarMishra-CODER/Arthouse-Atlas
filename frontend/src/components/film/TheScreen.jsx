@@ -7,6 +7,8 @@ import { sized } from '../movements/treatments';
 import { sizeFor, useDecoded } from '../about/frames';
 import { ShelfSigns, TicketDock, TrailerScreen } from './Ticket';
 import BillingBlock from './BillingBlock';
+import { WatchTeaser } from './WhereToWatch';
+import { goToWatch } from './watchJump';
 import { directorPath } from './directorPath';
 import { framesOf } from './frames';
 
@@ -377,23 +379,9 @@ const Credits = ({ card, movie, light }) => {
     );
 };
 
-const WhereToWatch = ({ movie, providers, tags }) => (
+const EndCard = ({ watch, region, tags }) => (
     <div className="flex flex-col items-center text-center">
-        <div className="card-rise font-label text-[12px] md:text-[13px] tracking-[0.3em] uppercase text-gray-200">Where to watch it</div>
-        {providers === null ? (
-            <div className="mt-5 animate-pulse h-10 w-48 bg-white/5" />
-        ) : providers.length ? (
-            <div className="card-rise-late mt-5 flex flex-wrap justify-center gap-2 max-w-3xl">
-                {providers.map((p) => (
-                    <a key={p.provider_id} href={`https://www.google.com/search?q=Watch+${encodeURIComponent(movie.title)}+on+${encodeURIComponent(p.provider_name)}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 pr-3 bg-black/50 ring-1 ring-white/15 hover:ring-white/40 transition-colors">
-                        <img src={`https://image.tmdb.org/t/p/w45${p.logo_path}`} alt="" className="w-9 h-9 object-cover" />
-                        <span className="text-[13px] text-gray-100 whitespace-nowrap">{p.provider_name}</span>
-                    </a>
-                ))}
-            </div>
-        ) : (
-            <p className="card-rise-late mt-4 font-serif italic text-xl text-gray-200">Not streaming in India or the US just now.</p>
-        )}
+        <WatchTeaser watch={watch} region={region} />
         {tags.length > 0 && (
             <p className="card-rise-late mt-8 max-w-2xl text-[15px] leading-loose">
                 {tags.map((t, i) => (
@@ -407,7 +395,7 @@ const WhereToWatch = ({ movie, providers, tags }) => (
     </div>
 );
 
-const TheScreen = ({ movie, light, reducedMotion, providers, tags }) => {
+const TheScreen = ({ movie, light, reducedMotion, watch, region, tags }) => {
     const section = useRef(null);
     const play = useRef(null);
     const [playing, setPlaying] = useState(null); // { kind: 'trailer' | 'frames', from: 'title' | 'dock' }
@@ -464,7 +452,8 @@ const TheScreen = ({ movie, light, reducedMotion, providers, tags }) => {
         const top = el.getBoundingClientRect().top + window.scrollY;
         window.scrollTo({ top: top + ((el.offsetHeight - window.innerHeight) * (i + 0.5)) / n, behavior: 'smooth' });
     };
-    const skip = () => document.getElementById('critics')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // past the opening, the first thing is where to watch it tonight
+    const skip = goToWatch;
     const projection = playing && <Projection movie={movie} stills={frames} start={playing.kind} shared={playing.from === 'title' ? 'trailer-screen' : undefined} onClose={stop} />;
     const onPlay = (from = 'dock') => setPlaying({ kind: trailer ? 'trailer' : 'frames', from });
     const dock = <TicketDock movie={movie} light={light} frames={frames} onPlay={canPlay ? () => onPlay('dock') : null} playLabel={trailer ? 'Play the trailer' : 'Play its frames'} />;
@@ -487,7 +476,7 @@ const TheScreen = ({ movie, light, reducedMotion, providers, tags }) => {
                 </section>
                 <div className="max-w-7xl mx-auto px-4 md:px-10">
                     {!reducedMotion && <div className="pt-8 text-right"><button type="button" onClick={() => setAsText(false)} className="min-h-11 font-label text-[12px] tracking-[0.14em] uppercase text-gold hover:text-gold-light">Play it as the opening ›</button></div>}
-                    <BillingBlock movie={movie} light={light} providers={providers} reducedMotion={reducedMotion} />
+                    <BillingBlock movie={movie} light={light} reducedMotion={reducedMotion} />
                     {(note || ed.whyItMatters) && (
                         <section className="pt-20 md:pt-28 max-w-3xl mx-auto">
                             <h2 className="font-label text-[12px] tracking-[0.14em] uppercase text-gray-400 mb-6">About the film</h2>
@@ -541,7 +530,7 @@ const TheScreen = ({ movie, light, reducedMotion, providers, tags }) => {
                             <p className="card-rise-late mt-4 md:mt-6 font-serif font-light text-[1.7rem] md:text-[3rem] leading-[1.15] text-white">{card.text}</p>
                         </div>
                     )}
-                    {card.kind === 'end' && <div className="m-auto"><WhereToWatch movie={movie} providers={providers} tags={tags} /></div>}
+                    {card.kind === 'end' && <div className="m-auto w-full"><EndCard watch={watch} region={region} tags={tags} /></div>}
                 </div>
 
                 {/* where you are in the opening, and the ways out of it */}

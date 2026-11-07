@@ -96,6 +96,13 @@ export const previewTags = ({ title, line, picture, url, ld = null, preload = nu
 export const withPreview = (html, preview) => html.replace(/<!-- meta -->[\s\S]*?<!-- \/meta -->/, `<!-- meta -->\n    ${previewTags(preview)}\n    <!-- /meta -->`);
 
 // what a page's address names: [title, line, picture, facts], or null for the site's own
+// the visitor's country as Vercel's edge sees it, so "where to watch" opens on their own listings
+// (nothing is asked of the visitor; they can change it on the page)
+export const withCountry = (html, request) => {
+    const cc = request.headers.get('x-vercel-ip-country') || '';
+    return /^[A-Z]{2}$/.test(cc) ? html.replace('</head>', `  <meta name="viewer-country" content="${cc}" />\n  </head>`) : html;
+};
+
 export const subjectOf = async (url, load) => {
     const [, room, key] = url.pathname.split('/');
     if (key && SUBJECTS[room]) {
@@ -109,7 +116,7 @@ export const subjectOf = async (url, load) => {
 export default async function middleware(request) {
     const url = new URL(request.url);
     const shell = () => fetch(new URL('/index.html', url.origin));
-    const served = (html) => new Response(html, { status: 200, headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'public, max-age=0, must-revalidate' } });
+    const served = (html) => new Response(withCountry(html, request), { status: 200, headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'public, max-age=0, must-revalidate' } });
     try {
         // the home page keeps the site's own preview, and gains its address and the site's name
         if (url.pathname === '/') {

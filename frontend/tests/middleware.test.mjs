@@ -79,6 +79,18 @@ test('pictures: TMDB at preview size, our own stills on this site, the site pict
     assert.equal(pictureOf(null, 'https://x.app'), 'https://x.app/og/arthouse-atlas.jpg');
 });
 
+test("the visitor's country goes into the page, so where to watch opens on it; anything odd is left out", async () => {
+    const id = Object.keys(films)[0];
+    const at = async (country) => {
+        serve();
+        const res = await middleware(new Request(`https://arthouse-atlas.vercel.app/movie/${id}`, { headers: country ? { 'x-vercel-ip-country': country } : {} }));
+        return (await res.text()).match(/<meta name="viewer-country" content="([^"]*)"/)?.[1] ?? null;
+    };
+    assert.equal(await at('IN'), 'IN');
+    assert.equal(await at(null), null);
+    assert.equal(await at('"><script>'), null);
+});
+
 test('what goes into the page is escaped', () => {
     const html = withPreview(SHELL, { title: 'A "Film" & <Co>', line: 'x', picture: 'p', url: 'u' });
     assert.match(html, /<meta property="og:title" content="A &quot;Film&quot; &amp; &lt;Co&gt;" \/>/);

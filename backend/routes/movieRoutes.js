@@ -7,7 +7,8 @@ import {
   getGenres,
   getAllTitles,
   getSimilarMovies,
-  getMovieProviders,
+  getMovieWatch,
+  getWatchRegions,
   getTonight,
   getCanonTop,
   getAtlasFilms,
@@ -28,8 +29,9 @@ router.get('/atlas', getAtlasFilms);
 router.get('/directors/list', getDirectors);
 router.get('/tags/list', getTags);
 router.get('/genres/list', getGenres);
+router.get('/watch/regions', getWatchRegions);
 router.get('/:id/similar', getSimilarMovies);
-router.get('/:id/providers', getMovieProviders);
+router.get('/:id/watch', getMovieWatch);
 router.get('/:id', getMovieById);
 
 export default router;

@@ -42,7 +42,9 @@ export const moviesAPI = {
   getSimilarMovies: (id) => api.get(`/movies/${id}/similar`),
   explore: (params) => api.get('/movies/explore', { params }),
   exploreSuggest: (q) => api.get('/movies/explore/suggest', { params: { q } }),
-  getMovieProviders: (id) => api.get(`/movies/${id}/providers`),
+  // where to watch a film in one country, and every country with listings (for the picker)
+  getWatch: (id, region) => api.get(`/movies/${id}/watch`, { params: { region } }),
+  getWatchRegions: () => api.get('/movies/watch/regions'),
   getDirectors: () => api.get('/movies/directors/list'),
   getTags: () => api.get('/movies/tags/list'),
   getGenres: () => api.get('/movies/genres/list')

@@ -3,7 +3,8 @@ import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaStar } from 'react-icons/fa';
-import { MdBookmark, MdBookmarkBorder, MdCheck, MdFavorite, MdFavoriteBorder, MdPlayArrow } from 'react-icons/md';
+import { MdBookmark, MdBookmarkBorder, MdCheck, MdFavorite, MdFavoriteBorder, MdLiveTv, MdPlayArrow } from 'react-icons/md';
+import { goToWatch } from './watchJump';
 import { useAuth } from '../../context/AuthContext';
 import { useMovie } from '../../context/MovieContext';
 import { sized } from '../movements/treatments';
@@ -188,6 +189,11 @@ export const TicketDock = ({ movie, light, frames, onPlay, playLabel }) => {
                 <span aria-hidden="true" className="mx-1 h-6 w-px bg-white/15" />
                 {items.map((it, i) => <Sign key={`${it.key}-${shown}`} it={it} light={light} act={act} compact i={i} />)}
                 <span aria-hidden="true" className="mx-1 h-6 w-px bg-white/15" />
+                {/* down to the box office: where it's showing tonight */}
+                <button type="button" onClick={goToWatch} aria-label="Where to watch it" className="flex items-center gap-2 h-9 px-3 rounded-full font-serif font-medium uppercase text-[12px] tracking-[0.14em] text-gold-light hover:text-white transition-colors">
+                    <MdLiveTv aria-hidden="true" className="text-[16px]" /><span className="hidden lg:inline">Where to watch</span>
+                </button>
+                <span aria-hidden="true" className="mx-1 h-6 w-px bg-white/15" />
                 <Stars rating={rating} rate={rate} light={light} size="text-[14px]" cell="w-6 h-9" />
                 {!signedIn && <span className="sr-only">Kept on this device until you sign in</span>}
             </aside>
@@ -200,7 +206,7 @@ export const TicketDock = ({ movie, light, frames, onPlay, playLabel }) => {
                         <Stars rating={rating} rate={(s) => { rate(s); setStars(false); }} light={light} size="text-[22px]" cell="w-10 h-11" />
                     </div>
                 )}
-                <div className="grid grid-cols-5 bg-[#0b0a09]/90 backdrop-blur-md border-t border-white/10 pb-[env(safe-area-inset-bottom)]">
+                <div className={`grid ${onPlay ? 'grid-cols-6' : 'grid-cols-5'} bg-[#0b0a09]/90 backdrop-blur-md border-t border-white/10 pb-[env(safe-area-inset-bottom)]`}>
                     {onPlay && (
                         <button type="button" onClick={onPlay} aria-label={playLabel} className="flex flex-col items-center justify-center gap-1 h-[60px] font-label text-[11px] tracking-[0.1em] uppercase text-white">
                             <span className="relative w-[44px] aspect-video overflow-hidden ring-1 ring-white/25">
@@ -222,6 +228,10 @@ export const TicketDock = ({ movie, light, frames, onPlay, playLabel }) => {
                     <button type="button" onClick={() => setStars((v) => !v)} aria-label={rating ? `You rated it ${rating} out of 5. Change it` : 'Rate it'} className="flex flex-col items-center justify-center gap-1 h-[60px] font-label text-[11px] tracking-[0.1em] uppercase text-gray-200" style={rating ? glow(light) : undefined}>
                         <FaStar aria-hidden="true" className="text-[18px]" />
                         {rating ? `Rated ${rating}` : 'Rate'}
+                    </button>
+                    <button type="button" onClick={goToWatch} aria-label="Where to watch it" className="flex flex-col items-center justify-center gap-1 h-[60px] font-label text-[11px] tracking-[0.1em] uppercase text-gold-light">
+                        <MdLiveTv aria-hidden="true" className="text-[21px]" />
+                        Stream
                     </button>
                 </div>
             </aside>

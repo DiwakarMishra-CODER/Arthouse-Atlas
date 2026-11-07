@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
 import { corsOptions, sanitizeInput } from './middleware/security.js';
+import { startWatchIndex } from './services/watchIndex.js';
 import dotenv from 'dotenv';
 import connectDB from './config/database.js';
 import authRoutes from './routes/authRoutes.js';
@@ -73,4 +74,6 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  // where to watch every film, rebuilt daily in the background (services/watchIndex.js)
+  startWatchIndex();
 });

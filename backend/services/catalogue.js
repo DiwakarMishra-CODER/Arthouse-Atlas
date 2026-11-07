@@ -16,6 +16,7 @@ import Director from '../models/Director.js';
 import Movement from '../models/Movement.js';
 import { MOODS } from './moodService.js';
 import { normalizeName } from './nameUtils.js';
+import { matchesScreens } from './watchIndex.js';
 
 export { MOODS };
 export const LENGTHS = ['short', 'standard', 'long', 'epic'];
@@ -162,6 +163,8 @@ const MATCHES = {
   mood: (c, v) => c.moods.includes(v),
   genre: (c, v) => c.genres.includes(v),
   length: (c, v) => c.length === v,
+  // streaming in a country: on anything, free, or on the services chosen (services/watchIndex.js)
+  screens: (c, v) => matchesScreens(c._id, v),
 };
 
 const isSet = (v) => v !== undefined && v !== null && v !== '';

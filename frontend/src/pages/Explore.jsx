@@ -18,8 +18,10 @@ import MoodPicker from '../components/explore/pickers/MoodPicker';
 import GenrePicker from '../components/explore/pickers/GenrePicker';
 import LengthPicker from '../components/explore/pickers/LengthPicker';
 import OrderPicker from '../components/explore/pickers/OrderPicker';
+import ScreensPicker from '../components/explore/pickers/ScreensPicker';
 import { LENGTH_WORDS, STEPS } from '../components/explore/words';
 import { usePageTitle } from '../hooks/usePageTitle';
+import { useRegion, setRegion, regionName } from '../hooks/region';
 
 /**
  * Explore: the cinema foyer.
@@ -43,11 +45,20 @@ import { usePageTitle } from '../hooks/usePageTitle';
  */
 
 const PAGE = 24;
-const FILTERS = ['q', 'country', 'decade', 'director', 'movement', 'mood', 'genre', 'length', 'like', 'from'];
+const FILTERS = ['q', 'country', 'decade', 'director', 'movement', 'mood', 'genre', 'length', 'like', 'from', 'screens', 'in'];
 const MOODS = ['contemplative', 'melancholic', 'dreamlike', 'surreal', 'intimate', 'existential', 'psychological', 'minimalist', 'slow', 'austere', 'poetic', 'lyrical', 'enigmatic', 'fragmented', 'bleak'];
 const PICKER_TITLES = {
     country: 'From where', decade: 'When it was made', director: 'Who made it', movement: 'Which movement',
-    mood: 'How it feels', genre: 'What kind of film', length: 'How long', sort: 'In what order',
+    mood: 'How it feels', genre: 'What kind of film', length: 'How long', screens: 'Where you’ll watch it', sort: 'In what order',
+};
+
+// the board's words for what you'll watch it on: "any service", "MUBI or Netflix", "MUBI, Netflix +1"
+const screensWords = (v, facet) => {
+    if (v === 'all') return 'any service';
+    if (v === 'free') return 'a free service';
+    const names = String(v).split(',').map((id) => facet?.services?.find((s) => String(s.id) === id)?.name).filter(Boolean);
+    if (!names.length) return 'your services';
+    return names.length <= 2 ? names.join(' or ') : `${names.slice(0, 2).join(', ')} +${names.length - 2}`;
 };
 const ORDER_WORDS = { acclaimed: 'most acclaimed first', oldest: 'oldest first', newest: 'newest first', surprise: 'in a surprise order', closest: 'closest first' };
 
@@ -106,12 +117,16 @@ const Explore = () => {
     const started = Boolean(sel.like || sel.from);
     const sort = sel.sort || (started ? 'closest' : 'acclaimed');
     const query = useMemo(() => Object.fromEntries(Object.entries(sel).filter(([, v]) => v)), [sel]);
-    const key = useMemo(() => new URLSearchParams(query).toString(), [query]);
+    // every request says which country you watch in, so the Streaming tab counts what's on there
+    // (the address only keeps it once streaming is chosen, so a shared wall shows the same country)
+    const region = useRegion();
+    const ask = useMemo(() => ({ ...query, in: query.in || region }), [query, region]);
+    const key = useMemo(() => new URLSearchParams(ask).toString(), [ask]);
     // what the projector picks from: what's showing, in any order
     const pickQuery = useMemo(() => {
-        const { sort: _sort, seed: _seed, ...rest } = query;
+        const { sort: _sort, seed: _seed, ...rest } = ask;
         return rest;
-    }, [query]);
+    }, [ask]);
 
     const [wall, setWall] = useState({ key: null, films: [], total: 0, facets: null, selected: {}, notes: null });
     const [loadingMore, setLoadingMore] = useState(false);
@@ -151,7 +166,7 @@ const Explore = () => {
         let gone = false;
         const note = restoring ? readNote(key) : null;
         const limit = Math.min(96, Math.max(PAGE, note?.count || PAGE));
-        moviesAPI.explore({ ...query, page: 1, limit })
+        moviesAPI.explore({ ...ask, page: 1, limit })
             .then((r) => {
                 if (gone) return;
                 restoreY.current = note ? note.y : null;
@@ -159,7 +174,7 @@ const Explore = () => {
             })
             .catch(() => { if (!gone) setWall((w) => ({ ...w, key, films: [], total: 0, facets: w.facets, failed: true })); });
         return () => { gone = true; };
-    }, [key, query, restoring, oldLink, attempt]);
+    }, [key, ask, restoring, oldLink, attempt]);
 
     // a film to start from that can't be found (an old link, a film since removed): take it off the board
     useEffect(() => {
@@ -205,7 +220,7 @@ const Explore = () => {
         if (loadingMore) return;
         setLoadingMore(true);
         const page = Math.floor(wall.films.length / PAGE) + 1;
-        moviesAPI.explore({ ...query, page, limit: PAGE, facets: '0' })
+        moviesAPI.explore({ ...ask, page, limit: PAGE, facets: '0' })
             .then((r) => setWall((w) => {
                 if (w.key !== key) return w;
                 const have = new Set(w.films.map((f) => f._id));
@@ -213,7 +228,7 @@ const Explore = () => {
             }))
             .catch(() => {})
             .finally(() => setLoadingMore(false));
-    }, [loadingMore, wall.films.length, query, key]);
+    }, [loadingMore, wall.films.length, ask, key]);
     useEffect(() => {
         if (!hasMore || !sentinel.current) return undefined;
         const io = new IntersectionObserver((entries) => { if (entries[0].isIntersecting) loadMore(); }, { rootMargin: '1200px 0px' });
@@ -233,6 +248,11 @@ const Explore = () => {
             next.delete(k === 'like' ? 'from' : 'like');
             ['q', 'sort', 'seed'].forEach((p) => next.delete(p));
         }
+        // streaming is always somewhere: the address keeps the country with it, and drops it with it
+        if (k === 'screens') {
+            if (v) next.set('in', next.get('in') || region);
+            else next.delete('in');
+        }
         // choosing "most acclaimed" on a wall that starts from a film has to say so (its default is closest)
         if (k === 'sort' && v === 'acclaimed' && (next.has('like') || next.has('from'))) { next.set('sort', 'acclaimed'); next.delete('seed'); }
         else tidyOrder(next);
@@ -242,7 +262,7 @@ const Explore = () => {
             try { localStorage.setItem('explore:knows-the-way', '1'); } catch { /* storage blocked: it just shows again next time */ }
         }
         if (up) window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
-    }, [params, setParams, reducedMotion, knowsTheWay]);
+    }, [params, setParams, reducedMotion, knowsTheWay, region]);
     const reset = () => { setParams(new URLSearchParams()); setTrayTab(STEPS[0].id); setAsked(false); };
     const trayPick = (id, value) => {
         if (value === '' || value == null) { choose(id, ''); return; }
@@ -262,6 +282,19 @@ const Explore = () => {
         if (id === 'mood') return <MoodPicker options={facets.mood} value={sel.mood} onPick={on} notes={wall.notes?.moodFilms} />;
         if (id === 'genre') return <GenrePicker options={facets.genre} value={sel.genre} onPick={on} />;
         if (id === 'length') return <LengthPicker options={facets.length} value={sel.length} onPick={on} />;
+        // (several services at once, so a pick doesn't move the tray on to the next word)
+        if (id === 'screens') {
+            return (
+                <ScreensPicker
+                    facet={facets.screens}
+                    value={sel.screens}
+                    region={sel.in || region}
+                    onChange={(v) => choose('screens', v)}
+                    onRegion={(cc) => { setRegion(cc); if (sel.screens) choose('in', cc); }}
+                    still={reducedMotion}
+                />
+            );
+        };
         if (id === 'sort') return <OrderPicker value={sort} started={started} onPick={(v) => choose('sort', v)} />;
         return null;
     };
@@ -316,11 +349,18 @@ const Explore = () => {
         sel.genre ? control('genre', sel.genre, `Genre: ${sel.genre}`) : blank('genre', 'genre', 'Genre: any'),
         sel.length ? control('length', LENGTH_WORDS[sel.length] || sel.length, `Length: ${LENGTH_WORDS[sel.length]}`) : blank('length', 'length', 'Length: any'),
     ];
+    // where you'll watch it: "ON [ANY SCREEN]", or "STREAMING ON [MUBI OR NETFLIX] IN INDIA"
+    const screensText = sel.screens ? screensWords(sel.screens, facets.screens) : '';
+    const watchedIn = regionName(sel.in || region, { inSentence: true });
+    const screensLine = sel.screens
+        ? [word('screens-w', 'streaming on'), control('screens', screensText, `Streaming on ${screensText} in ${watchedIn}`), word('in-w', `in ${watchedIn}`)]
+        : [word('screens-w', 'on'), blank('screens', 'any screen', 'Streaming: any screen')];
     const lines = [
         { size: 'small', phrases: [{ id: 'now', text: ready && !wall.failed && total === 0 ? 'Nothing showing' : 'Now showing' }] },
         { size: 'big', phrases: big },
         { size: 'medium', phrases: medium },
         { size: 'list', phrases: list },
+        { size: 'list', phrases: screensLine },
         { size: 'sort', phrases: [control('sort', ORDER_WORDS[sort], `Order: ${ORDER_WORDS[sort]}`, { onRemove: null })] },
     ];
     // what's chosen, in words: the board's label for screen readers, and the empty wall's ways out
@@ -334,6 +374,7 @@ const Explore = () => {
         sel.mood && { id: 'mood', text: sel.mood },
         sel.genre && { id: 'genre', text: sel.genre },
         sel.length && { id: 'length', text: LENGTH_WORDS[sel.length] },
+        sel.screens && { id: 'screens', text: `streaming on ${screensText} in ${watchedIn}` },
     ].filter(Boolean);
     const boardLabel = `Now showing: ${[countText, ...chosen.map((c) => c.text)].join(', ')}, ${ORDER_WORDS[sort]}.`;
 

@@ -8,6 +8,7 @@ import { getBridge, outsideCard } from '../services/bridge.js';
 import { togetherOf, getTogether, sharedFacts } from '../services/forYou.js';
 import { audienceOf } from '../services/audience.js';
 import { housesOfFilm, studiosNamed } from '../services/studios.js';
+import { listingFor, listedRegions, streamingIn, screensFacet } from '../services/watchIndex.js';
 
 const shuffleArray = (array) => {
   const shuffled = [...array]; // Create a copy to avoid mutating original
@@ -520,30 +521,32 @@ export const getGenres = async (req, res) => {
   }
 };
 
-// @desc    Get watch providers for a movie by MongoDB ID
-// @route   GET /api/movies/:id/providers
+// @desc    Where to watch a film in one country (JustWatch's listings, via TMDB): its services, how
+//          widely it's showing, and where it is when it isn't showing here
+// @route   GET /api/movies/:id/watch?region=IN
 // @access  Public
-export const getMovieProviders = async (req, res) => {
+export const getMovieWatch = async (req, res) => {
   try {
-    const movie = await Movie.findById(req.params.id);
-    if (!movie || !movie.tmdbId) {
-      return res.status(404).json({ message: 'Movie or TMDB ID not found' });
-    }
-
-    const apiKey = process.env.TMDB_API_KEY;
-    if (!apiKey) {
-      return res.status(500).json({ message: 'TMDB API key not configured on backend' });
-    }
-
-    const response = await fetch(`https://api.themoviedb.org/3/movie/${movie.tmdbId}/watch/providers?api_key=${apiKey}`);
-    const data = await response.json();
-
-    res.json(data.results || {});
+    const region = String(req.query.region || 'US').toUpperCase();
+    if (!/^[A-Z]{2}$/.test(region)) return res.status(400).json({ message: 'region is a two-letter country code' });
+    const movie = await Movie.findById(req.params.id).select('tmdbId tmdbTv tmdbSeason').lean();
+    if (!movie || (!movie.tmdbId && !movie.tmdbTv)) return res.status(404).json({ message: 'Film not found' });
+    const listing = await listingFor(movie, region);
+    res.set('Cache-Control', 'public, max-age=3600');
+    res.json(listing);
   } catch (error) {
-    console.error('Failed to fetch movie providers from TMDB:', error);
+    console.error('Failed to get where to watch:', error.message);
     const { status, message } = getErrorResponse(error);
     res.status(status).json({ message });
   }
+};
+
+// @desc    Every country with a listing, for the country picker
+// @route   GET /api/movies/watch/regions
+// @access  Public
+export const getWatchRegions = (req, res) => {
+  res.set('Cache-Control', 'public, max-age=3600');
+  res.json({ regions: listedRegions() });
 };
 
 // why a film is on a wall that starts from another film (the model's reason for the link)
@@ -633,6 +636,13 @@ export const exploreMovies = async (req, res) => {
       genre: typeof q.genre === 'string' ? q.genre : '',
       length: LENGTHS.includes(q.length) ? q.length : '',
     };
+    // streaming in a country (`in`): on anything (screens=all), free (screens=free), or on the
+    // services chosen (screens=11,8: each a family, its channels and ad tiers included)
+    const region = /^[A-Z]{2}$/.test(q.in || '') ? q.in : '';
+    const screenIds = typeof q.screens === 'string' ? q.screens.split(',').map(Number).filter((n) => Number.isInteger(n) && n > 0).slice(0, 20) : [];
+    if (region && (q.screens === 'all' || q.screens === 'free')) filters.screens = { region, mode: q.screens };
+    else if (region && screenIds.length) filters.screens = { region, mode: 'ids', ids: new Set(screenIds) };
+    else filters.screens = '';
     // a wall that starts from a film holds only the films it leads to, closest first
     const started = startOf(q, catalogue);
     const pool = withinStart(cards, started?.near);
@@ -644,6 +654,12 @@ export const exploreMovies = async (req, res) => {
     const films = matched.slice((page - 1) * limit, page * limit).map((c) => {
       const card = publicCard(c);
       if (started) card.why = WHY[started.near.get(c._tmdb)?.reason] || null;
+      // on a streaming wall, the services it's on there (the ones chosen first)
+      if (filters.screens) {
+        const on = streamingIn(c._id, region);
+        const list = filters.screens.mode === 'ids' ? on.all.filter((f) => filters.screens.ids.has(f.id)) : filters.screens.mode === 'free' ? on.free : on.all;
+        card.on = list.slice(0, 3).map((f) => f.name);
+      }
       return card;
     });
 
@@ -652,6 +668,8 @@ export const exploreMovies = async (req, res) => {
     let facets;
     if (q.facets !== '0') {
       facets = facetCounts(pool, filters);
+      // where it's streaming, in the visitor's country, with the other filters applied
+      if (region) facets.screens = screensFacet(applyFilters(pool, filters, 'screens'), region);
       facets.director = facets.director.map((d, i) => {
         const person = directors.get(normalizeName(d.value));
         const portrait = person?.profileUrl || null;
@@ -702,7 +720,7 @@ export const exploreMovies = async (req, res) => {
       pages: Math.ceil(matched.length / limit),
       facets,
       selected,
-      filters: { ...filters, movement: movement?.tag || '', like: started?.start.kind === 'like' ? started.start.id : '', from: started?.start.kind === 'from' ? String(started.start.tmdbId) : '' },
+      filters: { ...filters, screens: filters.screens ? q.screens : '', in: region, movement: movement?.tag || '', like: started?.start.kind === 'like' ? started.start.id : '', from: started?.start.kind === 'from' ? String(started.start.tmdbId) : '' },
       sort,
       notes: {
         // how many films have moods (they come from our own notes, so not every film has them yet)

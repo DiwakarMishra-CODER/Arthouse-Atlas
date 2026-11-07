@@ -11,4 +11,5 @@ export const STEPS = [
     { id: 'mood', tab: 'Mood', ask: 'How should it feel?' },
     { id: 'genre', tab: 'Genre', ask: 'What kind of film?' },
     { id: 'length', tab: 'Length', ask: 'How long?' },
+    { id: 'screens', tab: 'Streaming', ask: 'Where will you watch it?' },
 ];
