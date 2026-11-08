@@ -1,0 +1,720 @@
+{
+  "model": "gemini-3.5-flash-lite",
+  "top": 5,
+  "writtenAt": "2026-11-08T09:27:57.949Z",
+  "requests": [
+    {
+      "id": "q041",
+      "text": "something slow and melancholic",
+      "feelWords": [
+        "slow",
+        "melancholic"
+      ],
+      "allowed": 1120,
+      "canon": [
+        "6953c75a5dc11e105e36f1f7",
+        "6953c208df81e631d5708e29",
+        "698d859ece51f929e4390720",
+        "6953c208df81e631d5708e26",
+        "6953c208df81e631d5708e35"
+      ],
+      "feel": [
+        "6953c208df81e631d5708e7e",
+        "6953c208df81e631d5708e5f",
+        "698d8552ce51f929e439070e",
+        "6ad4bd32ca6a98a100c2e953",
+        "6953dcf77dde5caa10224dd3"
+      ]
+    },
+    {
+      "id": "q042",
+      "text": "a dreamy, strange film",
+      "feelWords": [
+        "dreamy",
+        "strange"
+      ],
+      "allowed": 1120,
+      "canon": [
+        "6953c75a5dc11e105e36f1f7",
+        "6953c208df81e631d5708e29",
+        "698d859ece51f929e4390720",
+        "6953c208df81e631d5708e26",
+        "6953c208df81e631d5708e35"
+      ],
+      "feel": [
+        "6ada0ad656e61902aecbe6d9",
+        "6ad4bd9eca6a98a100c2ea22",
+        "698f2b44de60139fa7433b76",
+        "6953c75a5dc11e105e36f220",
+        "698f65f3c7ad0ae21f249650"
+      ]
+    },
+    {
+      "id": "q043",
+      "text": "something that feels like a warm hug",
+      "feelWords": [
+        "feels like a warm hug"
+      ],
+      "allowed": 1120,
+      "canon": [
+        "6953c75a5dc11e105e36f1f7",
+        "6953c208df81e631d5708e29",
+        "698d859ece51f929e4390720",
+        "6953c208df81e631d5708e26",
+        "6953c208df81e631d5708e35"
+      ],
+      "feel": [
+        "6ada0a5c56e61902aecbe457",
+        "6ada0a5756e61902aecbe442",
+        "6ad4b7a1f7f9319310bd0890",
+        "6953c208df81e631d5708e5e",
+        "6ada0ac856e61902aecbe694"
+      ]
+    },
+    {
+      "id": "q044",
+      "text": "I want to cry",
+      "feelWords": [
+        "I want to cry"
+      ],
+      "allowed": 1120,
+      "canon": [
+        "6953c75a5dc11e105e36f1f7",
+        "6953c208df81e631d5708e29",
+        "698d859ece51f929e4390720",
+        "6953c208df81e631d5708e26",
+        "6953c208df81e631d5708e35"
+      ],
+      "feel": [
+        "6ada0a8756e61902aecbe535",
+        "6ad4bd00ca6a98a100c2e8f3",
+        "6ad4bc94ca6a98a100c2e824",
+        "6ad4b7c6f7f9319310bd0971",
+        "6953c208df81e631d5708e4d"
+      ]
+    },
+    {
+      "id": "q045",
+      "text": "a tense, gripping film",
+      "feelWords": [
+        "tense",
+        "gripping"
+      ],
+      "allowed": 1120,
+      "canon": [
+        "6953c75a5dc11e105e36f1f7",
+        "6953c208df81e631d5708e29",
+        "698d859ece51f929e4390720",
+        "6953c208df81e631d5708e26",
+        "6953c208df81e631d5708e35"
+      ],
+      "feel": [
+        "6953c75a5dc11e105e36f280",
+        "6ada0a9356e61902aecbe577",
+        "6ada0a7456e61902aecbe4cf",
+        "69917548ea5be1475e68723e",
+        "6953c75a5dc11e105e36f202"
+      ]
+    },
+    {
+      "id": "q046",
+      "text": "something funny and light",
+      "feelWords": [
+        "funny",
+        "light"
+      ],
+      "allowed": 1120,
+      "canon": [
+        "6953c75a5dc11e105e36f1f7",
+        "6953c208df81e631d5708e29",
+        "698d859ece51f929e4390720",
+        "6953c208df81e631d5708e26",
+        "6953c208df81e631d5708e35"
+      ],
+      "feel": [
+        "6ad4bc9aca6a98a100c2e830",
+        "6ada0a9e56e61902aecbe5b6",
+        "6ada0a5156e61902aecbe427",
+        "6ad4b78df7f9319310bd080c",
+        "6953c208df81e631d5708e1f"
+      ]
+    },
+    {
+      "id": "q047",
+      "text": "beautiful and quiet",
+      "feelWords": [
+        "beautiful",
+        "quiet"
+      ],
+      "allowed": 1120,
+      "canon": [
+        "6953c75a5dc11e105e36f1f7",
+        "6953c208df81e631d5708e29",
+        "698d859ece51f929e4390720",
+        "6953c208df81e631d5708e26",
+        "6953c208df81e631d5708e35"
+      ],
+      "feel": [
+        "6953dd247dde5caa10224e24",
+        "6953c208df81e631d5708e81",
+        "698d85e2ce51f929e439073e",
+        "6ad4bd04ca6a98a100c2e8fc",
+        "6953c208df81e631d5708e72"
+      ]
+    },
+    {
+      "id": "q048",
+      "text": "a film that will mess with my head",
+      "feelWords": [
+        "mess with my head"
+      ],
+      "allowed": 1120,
+      "canon": [
+        "6953c75a5dc11e105e36f1f7",
+        "6953c208df81e631d5708e29",
+        "698d859ece51f929e4390720",
+        "6953c208df81e631d5708e26",
+        "6953c208df81e631d5708e35"
+      ],
+      "feel": [
+        "6953c208df81e631d5708e60",
+        "6953c208df81e631d5708e8f",
+        "6ada0aac56e61902aecbe5fe",
+        "6ad4b7a8f7f9319310bd08c3",
+        "6953dd227dde5caa10224e21"
+      ]
+    },
+    {
+      "id": "q049",
+      "text": "something cozy for a rainy evening",
+      "feelWords": [
+        "cozy for a rainy evening"
+      ],
+      "allowed": 1120,
+      "canon": [
+        "6953c75a5dc11e105e36f1f7",
+        "6953c208df81e631d5708e29",
+        "698d859ece51f929e4390720",
+        "6953c208df81e631d5708e26",
+        "6953c208df81e631d5708e35"
+      ],
+      "feel": [
+        "6ad4bc8bca6a98a100c2e812",
+        "6953da6ae6106f41a5ba3375",
+        "6ada0a8a56e61902aecbe541",
+        "6953dcf27dde5caa10224dca",
+        "698d84f997c47dbcc91c43a7"
+      ]
+    },
+    {
+      "id": "q050",
+      "text": "bleak and hopeless",
+      "feelWords": [
+        "bleak and hopeless"
+      ],
+      "allowed": 1120,
+      "canon": [
+        "6953c75a5dc11e105e36f1f7",
+        "6953c208df81e631d5708e29",
+        "698d859ece51f929e4390720",
+        "6953c208df81e631d5708e26",
+        "6953c208df81e631d5708e35"
+      ],
+      "feel": [
+        "6953dcf27dde5caa10224dca",
+        "6ad4bda4ca6a98a100c2ea2b",
+        "6ada0a4f56e61902aecbe418",
+        "6ad4bda9ca6a98a100c2ea34",
+        "6953dcdf7dde5caa10224da9"
+      ]
+    },
+    {
+      "id": "q051",
+      "text": "romantic and bittersweet",
+      "feelWords": [
+        "bittersweet",
+        "romantic"
+      ],
+      "allowed": 1120,
+      "canon": [
+        "6953c75a5dc11e105e36f1f7",
+        "6953c208df81e631d5708e29",
+        "698d859ece51f929e4390720",
+        "6953c208df81e631d5708e26",
+        "6953c208df81e631d5708e35"
+      ],
+      "feel": [
+        "6953c208df81e631d5708e5f",
+        "698d8552ce51f929e439070e",
+        "6990b81ea36b7d1066672f57",
+        "6ad4b7ccf7f9319310bd098f",
+        "6953c208df81e631d5708e5a"
+      ]
+    },
+    {
+      "id": "q052",
+      "text": "atmospheric and eerie",
+      "feelWords": [
+        "atmospheric",
+        "eerie"
+      ],
+      "allowed": 1120,
+      "canon": [
+        "6953c75a5dc11e105e36f1f7",
+        "6953c208df81e631d5708e29",
+        "698d859ece51f929e4390720",
+        "6953c208df81e631d5708e26",
+        "6953c208df81e631d5708e35"
+      ],
+      "feel": [
+        "6953c208df81e631d5708e40",
+        "6ad4bde6ca6a98a100c2ea92",
+        "6953c208df81e631d5708e3d",
+        "6ad4b789f7f9319310bd07f1",
+        "6953c208df81e631d5708e1b"
+      ]
+    },
+    {
+      "id": "q053",
+      "text": "something whimsical",
+      "feelWords": [
+        "whimsical"
+      ],
+      "allowed": 1120,
+      "canon": [
+        "6953c75a5dc11e105e36f1f7",
+        "6953c208df81e631d5708e29",
+        "698d859ece51f929e4390720",
+        "6953c208df81e631d5708e26",
+        "6953c208df81e631d5708e35"
+      ],
+      "feel": [
+        "6ada0a6256e61902aecbe475",
+        "6953c208df81e631d5708e79",
+        "6953c75a5dc11e105e36f23f",
+        "6ad4b7c1f7f9319310bd095f",
+        "6ada0a5356e61902aecbe430"
+      ]
+    },
+    {
+      "id": "q054",
+      "text": "a film about loneliness",
+      "feelWords": [
+        "about loneliness"
+      ],
+      "allowed": 1120,
+      "canon": [
+        "6953c75a5dc11e105e36f1f7",
+        "6953c208df81e631d5708e29",
+        "698d859ece51f929e4390720",
+        "6953c208df81e631d5708e26",
+        "6953c208df81e631d5708e35"
+      ],
+      "feel": [
+        "6ad4b78af7f9319310bd07f7",
+        "6953c208df81e631d5708e5f",
+        "6953c208df81e631d5708e58",
+        "6953c208df81e631d5708e47",
+        "6ada0add56e61902aecbe703"
+      ]
+    },
+    {
+      "id": "q055",
+      "text": "an existential film that makes me think",
+      "feelWords": [
+        "existential",
+        "that makes me think"
+      ],
+      "allowed": 1120,
+      "canon": [
+        "6953c75a5dc11e105e36f1f7",
+        "6953c208df81e631d5708e29",
+        "698d859ece51f929e4390720",
+        "6953c208df81e631d5708e26",
+        "6953c208df81e631d5708e35"
+      ],
+      "feel": [
+        "6953c208df81e631d5708e3d",
+        "6953c208df81e631d5708e2c",
+        "6953c208df81e631d5708e28",
+        "6953c208df81e631d5708e49",
+        "6ad4bd42ca6a98a100c2e977"
+      ]
+    },
+    {
+      "id": "q056",
+      "text": "slow melancholic Japanese films",
+      "feelWords": [
+        "slow",
+        "melancholic"
+      ],
+      "allowed": 101,
+      "canon": [
+        "6953c75a5dc11e105e36f1f7",
+        "6953c208df81e631d5708e29",
+        "6953c208df81e631d5708e26",
+        "6953da66e6106f41a5ba336f",
+        "6953c208df81e631d5708e5e"
+      ],
+      "feel": [
+        "6ad4b796f7f9319310bd0848",
+        "6953c208df81e631d5708e85",
+        "6953c208df81e631d5708e80",
+        "69917548ea5be1475e687241",
+        "6ad4bd2dca6a98a100c2e94a"
+      ]
+    },
+    {
+      "id": "q057",
+      "text": "a dreamy French film from the 60s",
+      "feelWords": [
+        "dreamy"
+      ],
+      "allowed": 49,
+      "canon": [
+        "6953c208df81e631d5708e35",
+        "6953c208df81e631d5708e31",
+        "6953dcdd7dde5caa10224da6",
+        "6953c208df81e631d5708e30",
+        "698f65e7c7ad0ae21f249624"
+      ],
+      "feel": [
+        "6953c208df81e631d5708e35",
+        "6953c208df81e631d5708e8f",
+        "6ad4b79ff7f9319310bd0884",
+        "6953c208df81e631d5708e2f",
+        "6953c75a5dc11e105e36f312"
+      ]
+    },
+    {
+      "id": "q058",
+      "text": "something funny from Italy",
+      "feelWords": [
+        "funny"
+      ],
+      "allowed": 122,
+      "canon": [
+        "6953c208df81e631d5708e35",
+        "6953c208df81e631d5708e31",
+        "6953c208df81e631d5708e24",
+        "6953c208df81e631d5708ea7",
+        "698f65e7c7ad0ae21f249624"
+      ],
+      "feel": [
+        "6953c75a5dc11e105e36f2a5",
+        "6ad4b790f7f9319310bd0821",
+        "6ada0a5d56e61902aecbe45a",
+        "6953c208df81e631d5708e35",
+        "698d8610ce51f929e4390752"
+      ]
+    },
+    {
+      "id": "q059",
+      "text": "a tense Korean film",
+      "feelWords": [
+        "tense"
+      ],
+      "allowed": 24,
+      "canon": [
+        "6953c208df81e631d5708e82",
+        "6953c208df81e631d5708e65",
+        "698d8550ce51f929e439070d",
+        "6953c75a5dc11e105e36f29b",
+        "6953c208df81e631d5708e9d"
+      ],
+      "feel": [
+        "69917548ea5be1475e687241",
+        "6953c208df81e631d5708e82",
+        "6953c208df81e631d5708e65",
+        "6953c208df81e631d5708e9d",
+        "6953c208df81e631d5708e89"
+      ]
+    },
+    {
+      "id": "q060",
+      "text": "a sad film under 90 minutes",
+      "feelWords": [
+        "sad"
+      ],
+      "allowed": 169,
+      "canon": [
+        "6953c208df81e631d5708e26",
+        "6953c208df81e631d5708e1d",
+        "6953c208df81e631d5708e24",
+        "6953c208df81e631d5708e39",
+        "6953c208df81e631d5708e1a"
+      ],
+      "feel": [
+        "6953c208df81e631d5708e1f",
+        "698f64b5320d8e6d8cc98af1",
+        "6953e0132b6d04904db94704",
+        "6ada0ac856e61902aecbe694",
+        "6ad4bdd8ca6a98a100c2ea80"
+      ]
+    },
+    {
+      "id": "q061",
+      "text": "something romantic from Hong Kong",
+      "feelWords": [
+        "romantic"
+      ],
+      "allowed": 23,
+      "canon": [
+        "6953c208df81e631d5708e5f",
+        "6ada0a4c56e61902aecbe406",
+        "698d8554ce51f929e4390710",
+        "6ada0a4e56e61902aecbe412",
+        "698d8550ce51f929e439070d"
+      ],
+      "feel": [
+        "698d8554ce51f929e4390710",
+        "6ad4bce2ca6a98a100c2e8ba",
+        "6953c208df81e631d5708e5f",
+        "698d8552ce51f929e439070e",
+        "6ada0a4e56e61902aecbe412"
+      ]
+    },
+    {
+      "id": "q062",
+      "text": "a bleak Soviet film",
+      "feelWords": [
+        "bleak"
+      ],
+      "allowed": 25,
+      "canon": [
+        "6953c208df81e631d5708e1a",
+        "6953c208df81e631d5708e91",
+        "6953c208df81e631d5708e49",
+        "6953c208df81e631d5708e3a",
+        "6953c75a5dc11e105e36f20d"
+      ],
+      "feel": [
+        "698f65fac7ad0ae21f249662",
+        "6ad4b792f7f9319310bd0830",
+        "6953c208df81e631d5708e40",
+        "6ada0a6c56e61902aecbe4a5",
+        "698d85d5ce51f929e4390738"
+      ]
+    },
+    {
+      "id": "q063",
+      "text": "a surreal Buñuel film",
+      "feelWords": [
+        "surreal"
+      ],
+      "allowed": 14,
+      "canon": [
+        "6953c208df81e631d5708e37",
+        "6953c208df81e631d5708eb1",
+        "6953c75a5dc11e105e36f283",
+        "6953c75a5dc11e105e36f272",
+        "6953c208df81e631d5708e43"
+      ],
+      "feel": [
+        "6953c75a5dc11e105e36f283",
+        "6953da5ce6106f41a5ba335d",
+        "6953da5ae6106f41a5ba335a",
+        "6953c208df81e631d5708e43",
+        "6ada0a8156e61902aecbe517"
+      ]
+    },
+    {
+      "id": "q064",
+      "text": "a contemplative Iranian film",
+      "feelWords": [
+        "contemplative"
+      ],
+      "allowed": 25,
+      "canon": [
+        "6953c208df81e631d5708e95",
+        "6953c208df81e631d5708e71",
+        "6953c208df81e631d5708e5b",
+        "6953dcfa7dde5caa10224dd9",
+        "6953dcff7dde5caa10224de2"
+      ],
+      "feel": [
+        "6953c208df81e631d5708e5b",
+        "6ad4bd42ca6a98a100c2e977",
+        "6953c208df81e631d5708e71",
+        "6ad4bd51ca6a98a100c2e992",
+        "6ad4bd4dca6a98a100c2e989"
+      ]
+    },
+    {
+      "id": "q065",
+      "text": "a warm Japanese animated film",
+      "feelWords": [
+        "warm"
+      ],
+      "allowed": 14,
+      "canon": [
+        "6953c208df81e631d5708e61",
+        "6ad4b7a1f7f9319310bd0890",
+        "6ad4bdd8ca6a98a100c2ea80",
+        "6953c75a5dc11e105e36f225",
+        "6953c208df81e631d5708ea5"
+      ],
+      "feel": [
+        "6ad4b7a1f7f9319310bd0890",
+        "6ad4bdd8ca6a98a100c2ea80",
+        "6953c75a5dc11e105e36f226",
+        "6953c208df81e631d5708e61",
+        "6953c75a5dc11e105e36f288"
+      ]
+    },
+    {
+      "id": "q066",
+      "text": "atmospheric German films from the 1920s",
+      "feelWords": [
+        "atmospheric"
+      ],
+      "allowed": 7,
+      "canon": [
+        "6953c208df81e631d5708e1c",
+        "698f64ad320d8e6d8cc98ad2",
+        "6953da59e6106f41a5ba3357",
+        "6953c208df81e631d5708e1e",
+        "6ada0ac356e61902aecbe679"
+      ],
+      "feel": [
+        "6953c75a5dc11e105e36f1f3",
+        "6953c208df81e631d5708e1c",
+        "698f64ad320d8e6d8cc98ad2",
+        "6953c208df81e631d5708e1e",
+        "6ada0ac356e61902aecbe679"
+      ]
+    },
+    {
+      "id": "q067",
+      "text": "a quiet slow cinema film",
+      "feelWords": [
+        "quiet"
+      ],
+      "allowed": 37,
+      "canon": [
+        "6953c208df81e631d5708e49",
+        "6953da6ce6106f41a5ba3378",
+        "6953c208df81e631d5708e84",
+        "6953dcf07dde5caa10224dc7",
+        "698d8604ce51f929e439074e"
+      ],
+      "feel": [
+        "6953dcf27dde5caa10224dca",
+        "698d85f8ce51f929e4390749",
+        "6953dcf77dde5caa10224dd3",
+        "6953c208df81e631d5708e84",
+        "6953c208df81e631d5708e97"
+      ]
+    },
+    {
+      "id": "q068",
+      "text": "an intimate Bergman film",
+      "feelWords": [
+        "an intimate"
+      ],
+      "allowed": 14,
+      "canon": [
+        "6953c208df81e631d5708e39",
+        "6953c75a5dc11e105e36f26b",
+        "6953c208df81e631d5708e4d",
+        "6953c208df81e631d5708e2c",
+        "698d84f997c47dbcc91c43a7"
+      ],
+      "feel": [
+        "698d84f997c47dbcc91c43a7",
+        "6ad4bda7ca6a98a100c2ea31",
+        "6953c208df81e631d5708e4d",
+        "6953c208df81e631d5708e39",
+        "6ada0ac156e61902aecbe66d"
+      ]
+    },
+    {
+      "id": "q069",
+      "text": "a whimsical comedy",
+      "feelWords": [
+        "whimsical"
+      ],
+      "allowed": 188,
+      "canon": [
+        "6953c208df81e631d5708e22",
+        "6953da5ee6106f41a5ba3360",
+        "6ada0a4b56e61902aecbe3fe",
+        "6953c208df81e631d5708e1f",
+        "698f65e7c7ad0ae21f249624"
+      ],
+      "feel": [
+        "6ada0a6256e61902aecbe475",
+        "6953c208df81e631d5708e79",
+        "6953c75a5dc11e105e36f23f",
+        "6ad4b7c1f7f9319310bd095f",
+        "6ada0a5356e61902aecbe430"
+      ]
+    },
+    {
+      "id": "q070",
+      "text": "a lyrical Indian film from the 50s",
+      "feelWords": [
+        "lyrical"
+      ],
+      "allowed": 7,
+      "canon": [
+        "6953c208df81e631d5708e2a",
+        "69917548ea5be1475e687235",
+        "69917548ea5be1475e687238",
+        "6ad4b7c1f7f9319310bd095c",
+        "6ad4bcc9ca6a98a100c2e88d"
+      ],
+      "feel": [
+        "69917548ea5be1475e687238",
+        "6ad4b79cf7f9319310bd0872",
+        "6ad4b7c1f7f9319310bd095c",
+        "6ad4bccbca6a98a100c2e890",
+        "6ad4bcc9ca6a98a100c2e88d"
+      ]
+    },
+    {
+      "id": "q071",
+      "text": "kurosawa samurai movies",
+      "feelWords": [
+        "samurai"
+      ],
+      "allowed": 13,
+      "canon": [
+        "6953c75a5dc11e105e36f1f7",
+        "6953c208df81e631d5708e26",
+        "6953c208df81e631d5708e28",
+        "6953c75a5dc11e105e36f1f8",
+        "6ad4b793f7f9319310bd0839"
+      ],
+      "feel": [
+        "6953c75a5dc11e105e36f1f8",
+        "6953c75a5dc11e105e36f1f7",
+        "6953c75a5dc11e105e36f1f9",
+        "6953c75a5dc11e105e36f27c",
+        "6953c208df81e631d5708e26"
+      ]
+    },
+    {
+      "id": "q092",
+      "text": "black and white films",
+      "feelWords": [
+        "black and white"
+      ],
+      "allowed": 1120,
+      "canon": [
+        "6953c75a5dc11e105e36f1f7",
+        "6953c208df81e631d5708e29",
+        "698d859ece51f929e4390720",
+        "6953c208df81e631d5708e26",
+        "6953c208df81e631d5708e35"
+      ],
+      "feel": [
+        "6953dcf27dde5caa10224dca",
+        "6ad4b78af7f9319310bd07fd",
+        "6ad4bcf4ca6a98a100c2e8db",
+        "6953c75a5dc11e105e36f2f1",
+        "6953c208df81e631d5708e32"
+      ]
+    }
+  ]
+}

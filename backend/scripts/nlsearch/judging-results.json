@@ -1,0 +1,58 @@
+{
+  "rater": "owner",
+  "top": 5,
+  "requests": 24,
+  "of": 32,
+  "groups": {
+    "all": {
+      "requests": 24,
+      "feel": {
+        "fit": 66,
+        "known": 74,
+        "unknown": 46,
+        "precision": 89
+      },
+      "canon": {
+        "fit": 51,
+        "known": 99,
+        "unknown": 21,
+        "precision": 52
+      }
+    },
+    "feel only": {
+      "requests": 15,
+      "feel": {
+        "fit": 46,
+        "known": 47,
+        "unknown": 28,
+        "precision": 98
+      },
+      "canon": {
+        "fit": 28,
+        "known": 65,
+        "unknown": 10,
+        "precision": 43
+      }
+    },
+    "feel and filters": {
+      "requests": 9,
+      "feel": {
+        "fit": 20,
+        "known": 27,
+        "unknown": 18,
+        "precision": 74
+      },
+      "canon": {
+        "fit": 23,
+        "known": 34,
+        "unknown": 11,
+        "precision": 68
+      }
+    }
+  },
+  "bySentence": {
+    "feel": 15,
+    "canon": 3,
+    "tie": 5
+  }
+}
