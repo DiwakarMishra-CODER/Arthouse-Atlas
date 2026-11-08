@@ -4,7 +4,7 @@
  * sentence search gave feel words.
  */
 const ORDERS = [
-    ['feel', 'Closest to the feel', 'Ranked by how well viewers’ words and the story fit how you described it'],
+    ['feel', 'Best match first', 'Ranked by how well what viewers said, and the story, fit what you searched for'],
     ['closest', 'Closest first', 'The films most like the one you started from'],
     ['acclaimed', 'Most acclaimed first', 'The canon’s own order'],
     ['oldest', 'Oldest first', 'From the silents on'],

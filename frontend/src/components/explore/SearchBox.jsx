@@ -11,14 +11,15 @@ import { sized, stillSrc } from '../movements/treatments';
  * for, a few moods and places. Typing searches all of it at once (accents and a typo per word
  * forgiven), best match first. Enter takes what you plainly named (a director, a country, a
  * film by its exact name: "stanley kubrick" puts BY STANLEY KUBRICK on the board); otherwise it
- * shows every film matching the words, as the last row says. Typed as a sentence ("sad Japanese
- * films from the 60s"), the first row (and Enter) asks the board to read it (natural-language search:
- * see pages/Explore.jsx and the server's /movies/understand); a name or a title never calls the AI.
+ * shows every film matching the words, as the last row says. It looks things up in the atlas's own
+ * data and never calls the AI: describing a film has its own box above it (DescribeBox). When nothing
+ * here is called what was typed ("depressing"), its one row (and Enter) is "Describe it instead",
+ * which hands the words to that box.
  *
  * Its placeholder runs once through a few examples, then rests (nothing moves forever).
  */
 
-const GROUPS = { ask: 'Ask in a sentence', films: 'Films', like: 'Or start from a film', directors: 'Directors', places: 'Countries', movements: 'Movements', studios: 'Studios', moods: 'Moods', genres: 'Genres', outside: 'Not in the atlas: start from it', all: 'Or' };
+const GROUPS = { ask: 'Nothing here is called that', films: 'Films', like: 'Or start from a film', directors: 'Directors', actors: 'Actors', places: 'Countries', movements: 'Movements', studios: 'Studios', moods: 'Moods', genres: 'Genres', outside: 'Not in the atlas: start from it', all: 'Or' };
 const ORDER = Object.keys(GROUPS);
 
 // how plainly a row answers what was typed: its exact name (3), a whole word of it, like a
@@ -33,23 +34,16 @@ const strengthOf = (label, q) => {
     if (a.startsWith(b)) return 2;
     return a.includes(b) ? 1 : 0.5;
 };
-const RESTING = 'A film you love, a director, a place, a mood…';
-
-// typed like a sentence ("sad Japanese films from the 60s"), not a name: three words or more, or two
-// with a word a name rarely has. A name or a title stays the ordinary instant search, with no AI call.
-const LINKS = /^(from|by|in|of|like|with|about|before|after|since|under|over|or|and|not|no|set|made|films?|movies?|something|anything)$/;
-const looksLikeASentence = (q) => {
-    const w = plain(q).split(' ').filter(Boolean);
-    return w.length >= 4 || (w.length >= 2 && w.some((x) => LINKS.test(x)));
-};
+const RESTING = 'A film, a director, a country, a studio…';
 
 const Thumb = ({ src, round = false, wide = false }) => (
-    <span className={`flex-shrink-0 overflow-hidden bg-[#141312] ring-1 ring-white/10 ${round ? 'w-9 h-9 rounded-full' : wide ? 'w-16 aspect-video' : 'w-9 h-12'}`}>
+    <span className={`flex-shrink-0 overflow-hidden bg-[#141312] ring-1 ring-white/10 ${round ? 'w-9 h-9 rounded-full' : wide ? 'w-16 aspect-video rounded-md' : 'w-9 h-12 rounded-md'}`}>
         {src && <img src={src} alt="" loading="lazy" className={`w-full h-full object-cover max-w-none ${round ? 'grayscale' : ''}`} />}
     </span>
 );
 
-const SearchBox = ({ value, start, onSearch, on }) => {
+// compact: the smaller box under the describe box
+const SearchBox = ({ value, start, onSearch, on, compact = false }) => {
     const navigate = useNavigate();
     const [text, setText] = useState(value || '');
     const [results, setResults] = useState({ q: '' });
@@ -78,7 +72,8 @@ const SearchBox = ({ value, start, onSearch, on }) => {
         const done = setTimeout(() => clearInterval(t), 2600 * (examples.length + 1));
         return () => { clearInterval(t); clearTimeout(done); };
     }, [examples.length]);
-    const placeholder = hint < examples.length ? examples[hint] : RESTING;
+    // (the smaller box under the describe box keeps one plain line)
+    const placeholder = compact ? 'A title, director, actor or country' : hint < examples.length ? examples[hint] : RESTING;
 
     useEffect(() => {
         const q = text.trim();
@@ -100,8 +95,6 @@ const SearchBox = ({ value, start, onSearch, on }) => {
     // everything the panel offers, in order, as rows: { group, key, label, sub, image, act }
     const typed = text.trim();
     const rows = [];
-    const sentence = on.ask && looksLikeASentence(typed);
-    if (sentence) rows.push({ group: 'ask', key: 'ask', label: `Ask the board: “${typed}”`, sub: 'It reads your sentence into the board’s words, and sorts by how it should feel', act: () => on.ask(typed) });
     if (typed.length < 2) {
         if (start) {
             start.known?.forEach((f) => rows.push({ group: 'like', key: `k${f._id}`, label: f.title, sub: f.year, image: f.still && sized(f.still, 'w300'), wide: true, act: () => on.like(f._id) }));
@@ -111,7 +104,6 @@ const SearchBox = ({ value, start, onSearch, on }) => {
             start.places?.forEach((p) => rows.push({ group: 'places', key: `p${p.value}`, label: p.value === 'United States of America' ? 'United States' : p.value, sub: `${p.n} films`, act: () => on.country(p.value) }));
         }
     } else if (results.q === typed) {
-        const asked = rows.splice(0); // the sentence row stays first
         results.films?.forEach((f) => rows.push({ group: 'films', key: `f${f._id}`, label: f.title, sub: [f.year, f.directors?.[0]].filter(Boolean).join(' · '), image: f.still ? sized(f.still, 'w300') : f.posterUrl && sized(f.posterUrl, 'w185'), wide: !!f.still, act: () => navigate(`/movie/${f._id}`) }));
         // the best match is also a place to start: the films like it
         if (results.films?.[0]) {
@@ -119,6 +111,7 @@ const SearchBox = ({ value, start, onSearch, on }) => {
             rows.push({ group: 'like', key: `l${f._id}`, label: `Films like ${f.title}`, name: f.title, sub: 'The films people who loved it loved', act: () => on.like(f._id) });
         }
         results.directors?.forEach((d) => rows.push({ group: 'directors', key: `d${d.name}`, label: d.name, sub: `${d.films} ${d.films === 1 ? 'film' : 'films'} here${d.best ? ` · best known for ${d.best}` : ''}`, image: d.portrait && sized(d.portrait, 'w185'), round: true, act: () => on.director(d.name) }));
+        results.actors?.forEach((a) => rows.push({ group: 'actors', key: `a${a.name}`, label: a.name, sub: `In ${a.films} ${a.films === 1 ? 'film' : 'films'} here${a.best ? ` · ${a.best}` : ''}`, act: () => on.actor(a.name) }));
         results.places?.forEach((p) => rows.push({ group: 'places', key: `p${p.value}`, label: p.value === 'United States of America' ? 'United States' : p.value, sub: `${p.n} films`, act: () => on.country(p.value) }));
         results.movements?.forEach((m) => rows.push({ group: 'movements', key: `mv${m.tag}`, label: m.value, sub: `${m.n} films`, act: () => on.movement(m.tag) }));
         results.studios?.forEach((h) => rows.push({ group: 'studios', key: `s${h.slug}`, label: h.name, sub: `${h.kind === 'label' ? 'A label' : 'A studio'}, ${h.country === 'United States of America' ? 'United States' : h.country} · ${h.count} films here`, image: h.still && stillSrc(h.still, 'w300'), wide: true, act: () => navigate(`/studios/${h.slug}`) }));
@@ -129,21 +122,24 @@ const SearchBox = ({ value, start, onSearch, on }) => {
         const best = new Map();
         rows.forEach((r) => best.set(r.group, Math.max(best.get(r.group) || 0, strengthOf(r.name || r.label, typed))));
         rows.sort((a, b) => (best.get(b.group) - best.get(a.group)) || (ORDER.indexOf(a.group) - ORDER.indexOf(b.group)));
+        // nothing here is called that ("depressing"): describing it is the way on
+        if (!rows.length && on.describe && typed.length >= 3) {
+            rows.push({ group: 'ask', key: 'ask', label: `Describe it instead: “${typed}”`, sub: 'Find films that feel like that, in the box above', act: () => on.describe(typed) });
+        }
         rows.push({ group: 'all', key: 'all', label: `Show every film matching “${typed}”`, act: () => onSearch(typed) });
-        rows.unshift(...asked);
     }
 
     // what Enter takes: the one thing plainly named (a single row at the top that names it exactly
     // or by a whole word, like a surname), or else every film matching the words
-    // (a sentence: asking the board, unless it plainly names one thing)
+    // (nothing called that: describing it instead)
     const plainly = typed.length >= 2 ? rows.filter((r) => r.group !== 'all' && r.group !== 'like' && r.group !== 'ask' && strengthOf(r.label, typed) >= 2.5) : [];
-    const enterIndex = plainly.length === 1 ? rows.indexOf(plainly[0]) : sentence ? 0 : rows.findIndex((r) => r.group === 'all');
+    const enterIndex = plainly.length === 1 ? rows.indexOf(plainly[0]) : rows[0]?.group === 'ask' ? 0 : rows.findIndex((r) => r.group === 'all');
     const lit = active >= 0 ? active : enterIndex;
 
     const choose = (row) => {
         setOpen(false);
         if (row) {
-            if (row.group !== 'films' && row.group !== 'all' && row.group !== 'ask') setText('');
+            if (row.group !== 'films' && row.group !== 'all') setText('');
             row.act();
         } else if (typed) onSearch(typed);
     };
@@ -158,8 +154,8 @@ const SearchBox = ({ value, start, onSearch, on }) => {
     return (
         <div ref={box} className="relative w-full">
             {/* a window you can see is a search from across the room: framed, lit gold when it's yours */}
-            <label className="flex items-center gap-3 px-3.5 md:px-5 bg-black/45 ring-1 ring-white/25 hover:ring-white/40 focus-within:ring-gold focus-within:shadow-[0_0_30px_rgba(217,173,98,0.16)] cursor-text">
-                <MdSearch className="text-gold text-[22px] md:text-2xl flex-shrink-0" aria-hidden="true" />
+            <label className={`flex items-center gap-3 px-4 md:px-5 ${compact ? 'min-h-[3.25rem]' : 'min-h-[3.75rem] md:min-h-[4.25rem]'} rounded-2xl bg-[#16130f] ring-1 ring-white/30 hover:ring-white/45 focus-within:ring-gold/80 focus-within:shadow-[0_0_0_4px_rgba(217,173,98,0.12),0_12px_34px_rgba(0,0,0,0.5)] transition-shadow cursor-text`}>
+                <MdSearch className={`text-gold flex-shrink-0 ${compact ? 'text-[20px]' : 'text-[22px] md:text-2xl'}`} aria-hidden="true" />
                 <input
                     id="explore-search"
                     type="search"
@@ -168,22 +164,22 @@ const SearchBox = ({ value, start, onSearch, on }) => {
                     onFocus={() => setOpen(true)}
                     onKeyDown={onKey}
                     placeholder={placeholder}
-                    aria-label="Search the atlas: a film, a director, a place or a mood"
+                    aria-label="Look up a title or name: a film, a director, a country or a studio"
                     role="combobox"
                     aria-autocomplete="list"
                     aria-expanded={open && rows.length > 0}
                     aria-controls="explore-suggestions"
                     autoComplete="off"
-                    className="w-full min-w-0 bg-transparent py-3.5 md:py-4 font-serif text-[1.15rem] md:text-[1.4rem] text-gray-100 placeholder:text-gray-400 placeholder:italic outline-none [&::-webkit-search-cancel-button]:appearance-none"
+                    className={`w-full min-w-0 bg-transparent py-2 ${compact ? 'text-[1rem] md:text-[1.05rem]' : 'text-[1.05rem] md:text-[1.2rem]'} text-white placeholder:text-[#b9b0a2] outline-none [&::-webkit-search-cancel-button]:appearance-none`}
                 />
             </label>
             {open && rows.length > 0 && (
-                <div id="explore-suggestions" role="listbox" className="absolute z-30 left-0 right-0 mt-2 bg-[#0b0a09] ring-1 ring-white/15 shadow-[0_24px_60px_rgba(0,0,0,0.75)] max-h-[64vh] overflow-y-auto py-2">
-                    {!typed && <div className="px-4 pt-2 pb-1 font-serif italic text-[17px] text-gray-200">Start somewhere</div>}
+                <div id="explore-suggestions" role="listbox" className="absolute z-30 left-0 right-0 mt-2.5 rounded-2xl bg-[#100e0c]/95 backdrop-blur-md ring-1 ring-white/12 shadow-[0_28px_70px_rgba(0,0,0,0.8)] max-h-[64vh] overflow-y-auto overscroll-contain p-2 [scrollbar-width:thin]">
+                    {!typed && <div className="px-3 pt-2 pb-1 font-serif italic text-[17px] text-gray-200">Start somewhere</div>}
                     {rows.map((row, i) => (
                         <div key={row.key} role="presentation">
                             {(i === 0 || rows[i - 1].group !== row.group) && (
-                                <div role="presentation" className="px-4 pt-3 pb-1 font-label text-[12px] tracking-[0.14em] uppercase text-gold">
+                                <div role="presentation" className={`px-3 pt-3 pb-1.5 font-label text-[11.5px] tracking-[0.16em] uppercase text-gold ${i ? 'mt-1 border-t border-white/[0.06]' : ''}`}>
                                     {!typed && row.group === 'like' ? 'Films you might know: start from one' : GROUPS[row.group]}
                                     {typed && i === enterIndex && active < 0 && <span className="ml-2 normal-case tracking-normal font-serif italic text-[13px] text-gray-400">(press Enter)</span>}
                                 </div>
@@ -194,7 +190,7 @@ const SearchBox = ({ value, start, onSearch, on }) => {
                                 aria-selected={i === lit}
                                 onMouseEnter={() => setActive(i)}
                                 onClick={() => choose(row)}
-                                className={`w-full flex items-center gap-3 px-4 py-2 text-left ${i === lit ? 'bg-white/[0.08]' : ''} ${row.group === 'all' ? 'border-t border-white/10 mt-1' : ''}`}
+                                className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl text-left transition-colors ${i === lit ? 'bg-white/[0.08] ring-1 ring-white/10' : 'hover:bg-white/[0.04]'} ${row.group === 'ask' ? 'bg-gold/[0.07]' : ''}`}
                             >
                                 {(row.image !== undefined || row.round) && <Thumb src={row.image} round={row.round} wide={row.wide} />}
                                 <span className="min-w-0">

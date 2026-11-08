@@ -36,12 +36,12 @@ const ShowButton = ({ first, total, onShow }) => (first ? (
         Or just show me the films <MdArrowDownward aria-hidden="true" />
     </button>
 ) : (
-    <button type="button" onClick={onShow} className="self-start md:self-auto inline-flex items-center gap-2.5 min-h-11 px-5 bg-gold text-black font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase shadow-[0_10px_30px_-12px_rgba(217,173,98,0.7)] hover:bg-gold-light transition-colors">
+    <button type="button" onClick={onShow} className="self-start md:self-auto inline-flex items-center gap-2.5 min-h-11 px-5 rounded-xl bg-gold text-black font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase shadow-[0_10px_30px_-12px_rgba(217,173,98,0.7)] hover:bg-gold-light transition-colors">
         {total == null ? 'Show me the films' : total === 0 ? 'See what nearly fits' : `Show me the ${total === 1 ? 'film' : filmsWord(total)}`} <MdArrowDownward aria-hidden="true" className="text-[15px]" />
     </button>
 ));
 
-const Tray = ({ sel, tab, onTab, first = false, total = null, multi = [], onShow, titles, picker }) => {
+const Tray = ({ sel, tab, onTab, first = false, total = null, multi = [], onShow, onHide = null, titles, picker }) => {
     const open = TABS.some((t) => t.id === tab) ? tab : STEPS[0].id;
 
     return (
@@ -53,8 +53,15 @@ const Tray = ({ sel, tab, onTab, first = false, total = null, multi = [], onShow
                     </p>
                     {multi.includes(open) && <p className="mt-1 text-[14px] text-gray-400">{MULTI_HINT[open] || 'Pick another to add it with “or”: a film needs only one of them.'}</p>}
                 </div>
-                {/* (never in the way of the films: they're one tap down from the start) */}
-                <ShowButton first={first} total={total} onShow={onShow} />
+                {/* (never in the way of the films: they're one tap down from the start; and the tray folds away) */}
+                <div className="flex items-center gap-4 md:gap-5 self-start md:self-auto">
+                    {onHide && (
+                        <button type="button" onClick={onHide} aria-expanded="true" className="inline-flex items-center gap-1.5 min-h-11 font-label text-[12px] md:text-[12.5px] tracking-[0.14em] uppercase text-gray-400 hover:text-white transition-colors">
+                            Hide filters <span aria-hidden="true" className="text-gold">▴</span>
+                        </button>
+                    )}
+                    <ShowButton first={first} total={total} onShow={onShow} />
+                </div>
             </div>
             {/* the tabs: a bit of everything, then each of the board's words */}
             <div role="tablist" aria-label="Choose by" className="mt-3 -mx-4 px-4 md:mx-0 md:px-0 flex gap-x-5 md:gap-x-7 overflow-x-auto [scrollbar-width:none] border-b border-white/10">

@@ -65,6 +65,12 @@ const Plaque = ({ film, large, compact, to, onDirector, onMovement }) => {
                 </div>
             )}
             {/* on a wall ordered by feel: which of its viewers' own words matched */}
+            {/* on a wall ordered by what it's about: which of its tags matched */}
+            {film.tagged?.length > 0 && (
+                <div className="mt-1.5 text-[14px] italic text-gray-300">
+                    <span className="not-italic font-label text-[11px] tracking-[0.14em] uppercase text-gray-500 mr-1.5">About</span>{film.tagged.join(', ')}
+                </div>
+            )}
             {film.matched?.length > 0 && (
                 <div className="mt-1.5 text-[14px] italic text-gray-300">
                     <span className="not-italic font-label text-[11px] tracking-[0.14em] uppercase text-gray-500 mr-1.5">Viewers said</span>{film.matched.join(', ')}

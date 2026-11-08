@@ -9,7 +9,8 @@ import Intertitle from './Intertitle';
  * so the order holds (in the canon's order, that's each group's most acclaimed).
  *
  * Between reels, a silent film's title card says where you are: in time order, each decade;
- * in the canon's own order with nothing chosen, the ranks that follow. Each case's light
+ * in the canon's own order with nothing chosen, the ranks that follow; on a wall ordered by a search's
+ * describing words, where the films viewers described that way end and the rest begin (`split`). Each case's light
  * strikes on as it comes into view (one observer for the whole wall, and the "lit" mark is
  * a data attribute, so nothing re-renders).
  */
@@ -25,7 +26,10 @@ const chunk = (list, n) => {
 
 // the wall in sections: a decade at a time (time order), reels of the canon (its own order,
 // nothing chosen), or one run
-const sectionsOf = (films, sort, plainCanon, decadeCounts) => {
+const sectionsOf = (films, sort, plainCanon, decadeCounts, split) => {
+    if (split && split.at > 0 && films.length > split.at) {
+        return [{ key: 'sure', films: films.slice(0, split.at) }, { key: 'rest', films: films.slice(split.at), title: split.title, kicker: split.kicker, extra: split.extra }];
+    }
     if (sort === 'oldest' || sort === 'newest') {
         const out = [];
         for (const f of films) {
@@ -80,7 +84,7 @@ const Group = ({ films, mirror, frame }) => {
     );
 };
 
-const FoyerWall = ({ films, sort, plainCanon, decadeRanked = false, decadeCounts, onDirector, onMovement, pickedId, reducedMotion, end = null }) => {
+const FoyerWall = ({ films, sort, plainCanon, decadeRanked = false, decadeCounts, onDirector, onMovement, pickedId, reducedMotion, end = null, split = null }) => {
     const wall = useRef(null);
 
     // each case (and title card) lights as it comes into view; with reduced motion, all at once
@@ -101,7 +105,7 @@ const FoyerWall = ({ films, sort, plainCanon, decadeRanked = false, decadeCounts
         }, { threshold: 0.2 });
         dark.forEach((el) => io.observe(el));
         return () => io.disconnect();
-    }, [films, sort, reducedMotion, end]);
+    }, [films, sort, reducedMotion, end, split]);
 
     const frame = (film, i, opts = {}) => (
         <LobbyFrame
@@ -120,9 +124,9 @@ const FoyerWall = ({ films, sort, plainCanon, decadeRanked = false, decadeCounts
     let n = 0; // groups so far, to mirror every other one
     return (
         <div ref={wall} className="flex flex-col gap-20 md:gap-24">
-            {sectionsOf(films, sort, plainCanon, decadeCounts).map((section) => (
+            {sectionsOf(films, sort, plainCanon, decadeCounts, split).map((section) => (
                 <section key={section.key} className="flex flex-col gap-16 md:gap-20" aria-label={section.title || undefined}>
-                    {section.title && <Intertitle kicker={section.kicker} title={section.title} />}
+                    {section.title && <Intertitle kicker={section.kicker} title={section.title}>{section.extra}</Intertitle>}
                     {chunk(section.films, GROUP).map((group) => {
                         const mirror = n++ % 2 === 1;
                         return <Group key={group[0]._id} films={group} mirror={mirror} frame={frame} />;

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Navigate, useNavigationType, useSearchParams } from 'react-router-dom';
-import { MdMovieFilter } from 'react-icons/md';
+import { MdCasino } from 'react-icons/md';
 import { moviesAPI } from '../services/api';
 import { useMotionPreference } from '../hooks/useMotionPreference';
 import Letterboard from '../components/explore/Letterboard';
@@ -12,7 +12,8 @@ import ProjectorPick from '../components/explore/ProjectorPick';
 import Tray from '../components/explore/Tray';
 import Nearly from '../components/explore/Nearly';
 import { norm } from '../components/explore/pickers/util';
-import ReadingSlip from '../components/explore/ReadingSlip';
+import { SearchNote, SearchResults } from '../components/explore/ReadingSlip';
+import DescribeBox from '../components/explore/DescribeBox';
 import PlacePicker from '../components/explore/pickers/PlacePicker';
 import TimePicker from '../components/explore/pickers/TimePicker';
 import MakerPicker from '../components/explore/pickers/MakerPicker';
@@ -48,10 +49,10 @@ import { useRegion, setRegion, regionName } from '../hooks/region';
  */
 
 const PAGE = 24;
-const FILTERS = ['q', 'country', 'decade', 'director', 'movement', 'mood', 'genre', 'length', 'since', 'until', 'like', 'from', 'screens', 'in', 'feel'];
+const FILTERS = ['q', 'country', 'decade', 'director', 'actor', 'language', 'movement', 'mood', 'genre', 'length', 'known', 'since', 'until', 'like', 'from', 'screens', 'in', 'feel', 'about', 'sure'];
 // the words that can hold several values ("from Japan or South Korea"), kept in the address split by
 // "|": a film needs only one of them. (Between words it's still "and".)
-const MULTI = ['country', 'decade', 'director', 'movement', 'mood', 'genre', 'length'];
+const MULTI = ['country', 'decade', 'director', 'actor', 'language', 'movement', 'mood', 'genre', 'length'];
 const listOf = (v) => (v ? String(v).split('|').filter(Boolean) : []);
 // "Japan", "Japan or Italy", "Japan, Italy or Iran", "Japan, Italy +2 more"
 const orWords = (names) => (names.length <= 1 ? names[0] || ''
@@ -80,7 +81,15 @@ const screensWords = (v, facet) => {
     if (!names.length) return 'your services';
     return names.length <= 2 ? names.join(' or ') : `${names.slice(0, 2).join(', ')} +${names.length - 2}`;
 };
-const ORDER_WORDS = { acclaimed: 'most acclaimed first', oldest: 'oldest first', newest: 'newest first', surprise: 'in a surprise order', closest: 'closest first', feel: 'closest to the feel first' };
+// ways to describe a film, offered under the describe box (each is read when tapped): one of each kind,
+// a different three each visit, so the examples show how much it can take (and aren't all sad)
+const DESCRIBE = [
+    ['something dreamlike', 'funny and under 90 minutes', 'feels like a warm hug', 'something really scary'],
+    ['a heist movie', 'set in Tokyo', 'a road trip film', 'films with Tony Leung', 'Isabelle Huppert films'],
+    ['French New Wave from the 60s', 'hidden gems from Japan', 'Iranian films under 90 minutes', 'something on MUBI tonight'],
+];
+const pickExamples = () => DESCRIBE.map((kind) => kind[Math.floor(Math.random() * kind.length)]);
+const ORDER_WORDS = { acclaimed: 'most acclaimed first', oldest: 'oldest first', newest: 'newest first', surprise: 'in a surprise order', closest: 'closest first', feel: 'best match first' };
 
 // links from before the foyer: ?search= became q, ?tags= becomes a mood when it is one
 const fromOldLink = (params) => {
@@ -120,7 +129,7 @@ const readNote = (key) => {
 // gave feel words, closest when the wall starts from a film), and no order the wall can't have
 const tidyOrder = (next) => {
     const started = next.has('like') || next.has('from');
-    const feeling = next.has('feel');
+    const feeling = next.has('feel') || next.has('about');
     const sort = next.get('sort');
     const natural = feeling ? 'feel' : started ? 'closest' : 'acclaimed';
     if (sort === natural || (sort === 'closest' && !started) || (sort === 'feel' && !feeling)) next.delete('sort');
@@ -138,7 +147,7 @@ const Explore = () => {
 
     const sel = useMemo(() => Object.fromEntries([...FILTERS, 'sort', 'seed'].map((k) => [k, params.get(k) || ''])), [params]);
     const started = Boolean(sel.like || sel.from);
-    const feeling = Boolean(sel.feel);
+    const feeling = Boolean(sel.feel || sel.about);
     const sort = sel.sort || (feeling ? 'feel' : started ? 'closest' : 'acclaimed');
     const query = useMemo(() => Object.fromEntries(Object.entries(sel).filter(([, v]) => v)), [sel]);
     // every request says which country you watch in, so the Streaming tab counts what's on there
@@ -167,9 +176,17 @@ const Explore = () => {
     const restoreY = useRef(null);
     const sentinel = useRef(null);
     const restoring = navigation === 'POP';
+    // the tray of filters: open on a first visit (it's how you learn to choose: the map, the decades, the
+    // faces), closed once you've chosen something before (remembered on this device), so the films come
+    // first; a description search folds it away; a gold word, a tab on its folded bar, or "Show filters"
+    // opens it, and "Hide filters" closes it
+    const [trayOpen, setTrayOpen] = useState(() => {
+        try { return localStorage.getItem('explore:knows-the-way') !== '1'; } catch { return true; }
+    });
     // a gold word opens its picker in the tray, and brings the tray into view if it's out of it
     const openPicker = useCallback((id) => {
         setTrayTab(id);
+        setTrayOpen(true);
         setTimeout(() => document.getElementById('ways-in')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'nearest' }), 0);
     }, [reducedMotion]);
 
@@ -285,7 +302,7 @@ const Explore = () => {
         }
         if (up) window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
     }, [params, setParams, reducedMotion, knowsTheWay, region]);
-    const reset = () => { setParams(new URLSearchParams()); setTrayTab(STEPS[0].id); };
+    const reset = () => { setParams(new URLSearchParams()); setTrayTab(STEPS[0].id); setTrayOpen(true); setReading(null); setDescribed(''); };
     // take a word off the board (the decades take a span of years with them)
     const drop = useCallback((id) => choose(id, '', id === 'decade' ? { also: { since: '', until: '' } } : {}), [choose]);
     // a picture in the tray adds its value to its word, or takes it back off. The tray stays on that
@@ -305,10 +322,12 @@ const Explore = () => {
     // checked against the atlas): it replaces the board, its feel words order the wall, and the slip
     // under the search says how it was read and what couldn't be placed. If it can't be read, it's
     // an ordinary search; if it isn't about films, nothing changes.
-    const [reading, setReading] = useState(null); // { q, state: 'reading' | 'done' | 'offTopic' | 'failed', answer, at }
+    const [reading, setReading] = useState(null); // { q, state: 'reading' | 'done' | 'offTopic' | 'failed' | 'plain', answer, at }
+    const [described, setDescribed] = useState(''); // the describe box's text
+    const [examples] = useState(pickExamples); // this visit's three
     const askBoard = useCallback((q) => {
         setReading({ q, state: 'reading' });
-        moviesAPI.understand(q)
+        moviesAPI.understand(q, region)
             .then((r) => {
                 const a = r.data;
                 if (a.offTopic) { setReading({ q, state: 'offTopic' }); return; }
@@ -318,13 +337,15 @@ const Explore = () => {
                 tidyOrder(next);
                 setParams(next);
                 setReading({ q, state: 'done', answer: a, at: next.toString() });
+                setTrayOpen(false);
                 setKnowsTheWay(true);
             })
-            .catch(() => { setReading({ q, state: 'failed' }); choose('q', q); });
-    }, [setParams, choose]);
+            .catch(() => { setReading({ q, state: 'failed' }); setTrayOpen(false); choose('q', q); });
+    }, [setParams, choose, setReading, region]);
     const picked = useMemo(() => ({
         country: listOf(sel.country), decade: listOf(sel.decade), director: listOf(sel.director), movement: listOf(sel.movement),
         mood: listOf(sel.mood), genre: listOf(sel.genre), lengths: listOf(sel.length),
+        actor: listOf(sel.actor), language: listOf(sel.language),
         span: spanWords(sel.since, sel.until), // a span of years, from a search
     }), [sel]);
     const { span } = picked;
@@ -368,8 +389,10 @@ const Explore = () => {
         mood: (m) => choose('mood', m),
         genre: (g) => choose('genre', g),
         movement: (tag) => choose('movement', tag),
-        ask: askBoard,
-    }), [choose, askBoard]);
+        actor: (name) => choose('actor', name),
+        // nothing in the lookup is called that: hand the words to the describe box, and read them
+        describe: (text) => { setDescribed(text); askBoard(text); },
+    }), [choose, askBoard, setDescribed]);
     const closeProjector = useCallback(() => setProjector(false), []);
     const decadeCounts = useMemo(() => new Map((facets.decade || []).map((d) => [d.value, d.n])), [facets.decade]);
     const movementTitles = useMemo(() => new Map((facets.movement || []).map((m) => [m.tag, m.value])), [facets.movement]);
@@ -377,9 +400,19 @@ const Explore = () => {
     // ---- the board's words: plain words in white, and what you can change in gold slots ----
     // (dashed while a blank to fill, lit once chosen)
     const ready = wall.key === key;
+    // a search's results heading, while the wall is the one it set (it goes when you change the board by hand)
+    const searchShown = reading && ((reading.state === 'done' && reading.at === params.toString()) || ((reading.state === 'failed' || reading.state === 'plain') && sel.q === reading.q));
+    const scrolledFor = useRef(null);
+    useEffect(() => {
+        if (!searchShown || !ready || scrolledFor.current === reading) return;
+        scrolledFor.current = reading;
+        document.getElementById('board')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'nearest' });
+    }, [searchShown, ready, reading, reducedMotion]);
     const changing = wall.key !== null && !ready;
     const movementText = orWords(picked.movement.map((tag) => movementTitles.get(tag) || (wall.selected.movement?.tag === tag && wall.selected.movement.title) || tag));
     const startTitle = wall.selected.start?.title;
+    const actorText = orWords(picked.actor);
+    const languageText = orWords(picked.language);
     const directorText = orWords(picked.director.length === 1 && wall.selected.director?.name ? [wall.selected.director.name] : picked.director);
     const countryText = orWords(picked.country.map(countryWords));
     const decadeText = decadeWords(picked.decade);
@@ -408,28 +441,56 @@ const Explore = () => {
                 : [word('decade-w', 'made'), blank('decade', 'any time', 'Decade: any time')]),
         word('director-w', 'by'),
         picked.director.length ? control('director', directorText, `Director: ${directorText}`) : blank('director', 'anyone', 'Director: anyone'),
+        // an actor or a language, once chosen (by name in the lookup, or from a sentence): no blanks for them
+        ...(picked.actor.length ? [word('actor-w', 'starring'), control('actor', actorText, `Starring: ${actorText}`, { onClick: focusSearch })] : []),
+        ...(picked.language.length ? [word('language-w', 'in'), control('language', languageText, `Language: ${languageText}`, { onClick: focusSearch })] : []),
     ];
     const list = [
         picked.movement.length ? control('movement', movementText, `Movement: ${movementText}`) : blank('movement', 'movement', 'Movement: any'),
         picked.mood.length ? control('mood', moodText, `Mood: ${moodText}`) : blank('mood', 'mood', 'Mood: any'),
         picked.genre.length ? control('genre', genreText, `Genre: ${genreText}`) : blank('genre', 'genre', 'Genre: any'),
         picked.lengths.length ? control('length', lengthText, `Length: ${lengthText}`) : blank('length', 'length', 'Length: any'),
+        // where you'll watch it: a blank like its neighbours until chosen, then its own line
+        ...(sel.screens ? [] : [blank('screens', 'streaming', 'Streaming: anywhere, or not streaming at all')]),
     ];
-    // where you'll watch it: "ON [ANY SCREEN]", or "STREAMING ON [MUBI OR NETFLIX] IN INDIA"
+    // where you'll watch it, once chosen: "STREAMING ON [MUBI OR NETFLIX] IN INDIA"
     const screensText = sel.screens ? screensWords(sel.screens, facets.screens) : '';
     const watchedIn = regionName(sel.in || region, { inSentence: true });
     const screensLine = sel.screens
         ? [word('screens-w', 'streaming on'), control('screens', screensText, `Streaming on ${screensText} in ${watchedIn}`), word('in-w', `in ${watchedIn}`)]
-        : [word('screens-w', 'on'), blank('screens', 'any screen', 'Streaming: any screen')];
+        : [];
     // how it should feel, from a sentence: "THAT FEEL [SLOW, SAD]" (it orders the wall; it isn't a filter)
     const feelText = listOf(sel.feel).join(', ');
+    // what it should be about, from a sentence: "ABOUT [A HEIST]" (it orders the wall too)
+    const aboutText = listOf(sel.about).join(', ');
+    // on a wall ordered by feel: where the films viewers described that way end, and the rest (in the
+    // canon's order) begin; with a way to keep only the first
+    const feelSaid = [...listOf(sel.feel), ...listOf(sel.about)].map((w) => `“${w}”`).join(' or ');
+    const aboutToo = listOf(sel.about).length > 0;
+    const sure = ready ? wall.notes?.feelSure || 0 : 0;
+    const feelSplit = sort === 'feel' && !sel.sure && sure > 0 && sure < total ? {
+        at: sure,
+        kicker: 'The rest',
+        title: aboutToo ? `Nothing tags these ${feelSaid}` : `No viewer called these ${feelSaid}`,
+        extra: (
+            <>
+                <p className="mt-4 text-gray-300">The {sure === 1 ? 'film' : `${sure} films`} above {sure === 1 ? 'is' : 'are'} the ones {aboutToo ? 'tagged or described' : 'viewers described'} that way. The rest follow, {aboutToo ? 'closest story first' : 'most acclaimed first'}.</p>
+                <button type="button" onClick={() => { choose('sure', '1'); toWall(); }} className="mt-6 inline-flex items-center gap-2 min-h-11 px-5 ring-1 ring-gold/60 text-gold-light font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase hover:bg-gold hover:text-black transition-colors">
+                    Only show {sure === 1 ? 'that film' : `these ${sure} films`}
+                </button>
+            </>
+        ),
+    } : null;
     const lines = [
         { size: 'small', phrases: [{ id: 'now', text: ready && !wall.failed && total === 0 ? 'Nothing showing' : 'Now showing' }] },
         { size: 'big', phrases: big },
         { size: 'medium', phrases: medium },
         { size: 'list', phrases: list },
         ...(feelText ? [{ size: 'list', phrases: [word('feel-w', 'that feel'), control('feel', feelText, `Feel: ${feelText}`, { onClick: focusSearch })] }] : []),
-        { size: 'list', phrases: screensLine },
+        ...(aboutText ? [{ size: 'list', phrases: [word('about-w', 'about'), control('about', aboutText, `About: ${aboutText}`, { onClick: focusSearch })] }] : []),
+        // lesser known (from "underrated", "hidden gems"): under 500 ratings on TMDB
+        ...(sel.known === 'less' ? [{ size: 'list', phrases: [word('known-w', 'that'), control('known', 'few have seen', 'Lesser known: fewer than 500 ratings on TMDB', { onClick: focusSearch })] }] : []),
+        ...(screensLine.length ? [{ size: 'list', phrases: screensLine }] : []),
         { size: 'sort', phrases: [control('sort', ORDER_WORDS[sort], `Order: ${ORDER_WORDS[sort]}`, { onRemove: null })] },
     ];
     // what's chosen, in words: the board's label for screen readers, and the empty wall's ways out
@@ -439,13 +500,16 @@ const Explore = () => {
         picked.country.length && { id: 'country', text: `from ${countryText}` },
         span ? { id: 'decade', text: `made ${span}` } : picked.decade.length && { id: 'decade', text: `made in the ${decadeText}` },
         picked.director.length && { id: 'director', text: `by ${directorText}` },
+        picked.actor.length && { id: 'actor', text: `starring ${actorText}` },
+        picked.language.length && { id: 'language', text: `in ${languageText}` },
+        sel.known === 'less' && { id: 'known', text: 'that few have seen' },
         picked.movement.length && { id: 'movement', text: movementText },
         picked.mood.length && { id: 'mood', text: moodText },
         picked.genre.length && { id: 'genre', text: genreText },
         picked.lengths.length && { id: 'length', text: lengthText },
         sel.screens && { id: 'screens', text: `streaming on ${screensText} in ${watchedIn}` },
     ].filter(Boolean);
-    const boardLabel = `Now showing: ${[countText, ...chosen.map((c) => c.text), feelText && `that feel ${feelText}`].filter(Boolean).join(', ')}, ${ORDER_WORDS[sort]}.`;
+    const boardLabel = `Now showing: ${[countText, ...chosen.map((c) => c.text), feelText && `that feel ${feelText}`, aboutText && `about ${aboutText}`].filter(Boolean).join(', ')}, ${ORDER_WORDS[sort]}.`;
 
     // the nearest decade that has films, for the end of a wall
     const nextDecade = oneDecade && facets.decade?.filter((d) => d.n > 0 && String(d.value) !== oneDecade)
@@ -467,23 +531,32 @@ const Explore = () => {
         <div className="relative min-h-screen pt-36 md:pt-32 pb-32">
             <h1 className="sr-only">Explore the atlas</h1>
             <div className="max-w-7xl mx-auto px-4 md:px-14">
-                <Letterboard lines={lines} label={boardLabel} version={`${key}|${total}`} reducedMotion={reducedMotion} chosen={any} onReset={reset} />
-                {/* ask for anything, right under the board, or let the projector choose; and, until you've
-                    chosen something once, a line for someone who knows no names yet */}
-                <div className="relative z-20 mt-7 md:mt-9 max-w-3xl mx-auto">
-                    <div className="flex items-stretch gap-2.5 md:gap-4">
-                        <div className="flex-1 min-w-0">
-                            <SearchBox value={sel.q} start={start} onSearch={(q) => choose('q', q)} on={searchOn} />
-                        </div>
-                        <button type="button" onClick={() => setProjector(true)} className="flex-shrink-0 inline-flex items-center gap-2 px-3 md:px-5 ring-1 ring-gold/50 text-gold font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase hover:bg-gold hover:text-black transition-colors">
-                            <MdMovieFilter aria-hidden="true" className="text-lg" /> <span className="hidden sm:inline">Pick one for me</span><span className="sm:hidden">Pick one</span>
-                        </button>
+                {/* first, what you'd like to watch, in your own words (read by the AI into the board's words);
+                    under it, the quick lookup of a title or name (the atlas's own data, never the AI) and the
+                    projector; until you've chosen something once, a line for someone who knows no names yet */}
+                <section aria-labelledby="ask" className="relative z-20 max-w-3xl mx-auto">
+                    <h2 id="ask" className="text-center font-serif font-light text-[30px] md:text-[44px] leading-tight text-white">What do you want to watch?</h2>
+                    <p className="mt-2.5 text-center text-[16px] md:text-[17px] text-gray-200">Describe it in your own words: a feeling, a place, a time, a person, what it’s about.</p>
+                    <div className="mt-6 md:mt-7">
+                        <DescribeBox value={described} onChange={setDescribed} onSubmit={askBoard} reading={reading?.state === 'reading'} examples={examples} quiet />
                     </div>
-                    {reading && (reading.state !== 'done' || reading.at === params.toString()) && (
-                        <ReadingSlip reading={reading} feelFailed={ready && wall.notes?.feelFailed} onPlain={(q) => { setReading(null); choose('q', q); }} onClose={() => setReading(null)} reducedMotion={reducedMotion} />
+                    {reading && (reading.state === 'reading' || reading.state === 'offTopic') && (
+                        <SearchNote reading={reading} onClose={() => setReading(null)} reducedMotion={reducedMotion} />
                     )}
+                    <div className="mt-5 flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-3">
+                        <span className="flex-shrink-0 font-label text-[12.5px] md:text-[13px] tracking-[0.14em] uppercase text-gray-200">Or look up a title or name</span>
+                        <div className="flex flex-1 min-w-0 items-stretch gap-2.5">
+                            <div className="flex-1 min-w-0">
+                                <SearchBox value={sel.q} start={start} onSearch={(q) => choose('q', q)} on={searchOn} compact />
+                            </div>
+                            {/* the projector picks a film at random (from what's showing) */}
+                            <button type="button" onClick={() => setProjector(true)} title="Let the projector pick a film at random" className="flex-shrink-0 inline-flex items-center justify-center gap-2 px-4 rounded-2xl ring-1 ring-gold/70 bg-gold/[0.1] text-gold-light font-label text-[12px] md:text-[12.5px] tracking-[0.14em] uppercase shadow-[0_0_18px_rgba(217,173,98,0.18)] hover:bg-gold hover:text-black hover:shadow-[0_0_30px_rgba(217,173,98,0.55)] transition-[background-color,color,box-shadow] duration-300">
+                                <MdCasino aria-hidden="true" className="text-[1.15rem]" /> Random pick
+                            </button>
+                        </div>
+                    </div>
                     {!any && !knowsTheWay && known.length > 0 && !reading && (
-                        <p className="mt-4 text-[16px] leading-relaxed text-gray-400">
+                        <p className="mt-4 text-[15.5px] md:text-[16px] leading-relaxed text-gray-300">
                             New here? Start from a film you know:{' '}
                             {known.map((f, i) => (
                                 <span key={f._id}>
@@ -493,16 +566,58 @@ const Explore = () => {
                             ))}
                         </p>
                     )}
+                </section>
+
+                {/* the board: what's showing, as the answer to a search (how it was read), every gold word changeable */}
+                <div id="board" className="mt-10 md:mt-12 scroll-mt-24">
+                    <Letterboard lines={lines} label={boardLabel} version={`${key}|${total}`} reducedMotion={reducedMotion} chosen={any} onReset={reset} />
                 </div>
+
+                {/* a search's note, right under the board: how it was read, what couldn't be used, the way out */}
+                {searchShown && (
+                    <SearchResults
+                        reading={reading}
+                        total={ready && !wall.failed ? total : null}
+                        feelFailed={ready && wall.notes?.feelFailed}
+                        sure={ready ? wall.notes?.feelSure || 0 : 0}
+                        basis={ready ? wall.notes?.feelBasis : null}
+                        onPlain={(q) => { setReading(null); choose('q', q); }}
+                        onRetry={askBoard}
+                        onClose={() => setReading(null)}
+                        reducedMotion={reducedMotion}
+                    />
+                )}
 
                 {/* the box of letters: the choices as pictures, open from the start */}
                 {wall.facets && (
                     <div id="ways-in" className="scroll-mt-24">
-                        <Tray sel={sel} tab={trayTab} onTab={setTrayTab} first={!any} total={ready && !wall.failed ? total : null} multi={MULTI} onShow={toWall} titles={PICKER_TITLES} picker={pickerFor} />
+                        {trayOpen ? (
+                            <Tray sel={sel} tab={trayTab} onTab={setTrayTab} first={!any} total={ready && !wall.failed ? total : null} multi={MULTI} onShow={toWall} onHide={() => setTrayOpen(false)} titles={PICKER_TITLES} picker={pickerFor} />
+                        ) : (
+                            // folded: one bar of the tray's tabs, each opening it on that tab
+                            <div className="mt-6 md:mt-8 flex flex-wrap items-center gap-2 px-4 md:px-5 py-3 rounded-2xl bg-[#0b0a09] ring-1 ring-white/10">
+                                <span className="mr-1.5 font-label text-[11.5px] md:text-[12px] tracking-[0.16em] uppercase text-gold">Choose by</span>
+                                {STEPS.map((s) => (
+                                    <button key={s.id} type="button" onClick={() => openPicker(s.id)} className="rounded-full px-3 py-1.5 ring-1 ring-white/15 font-label text-[12px] md:text-[12.5px] tracking-[0.12em] uppercase text-gray-200 hover:ring-gold/60 hover:text-white hover:bg-gold/10 transition-colors">
+                                        {s.tab}{sel[s.id] && <span aria-label=" (chosen)" className="ml-1.5 text-gold">•</span>}
+                                    </button>
+                                ))}
+                                <button type="button" onClick={() => setTrayOpen(true)} aria-expanded="false" className="ml-auto inline-flex items-center gap-1.5 min-h-9 font-label text-[12px] md:text-[12.5px] tracking-[0.14em] uppercase text-gray-400 hover:text-white transition-colors">
+                                    Show filters <span aria-hidden="true" className="text-gold">▾</span>
+                                </button>
+                            </div>
+                        )}
                     </div>
                 )}
 
                 {ready && <Banner selected={wall.selected} />}
+                {/* only the films viewers described that way: say so, and the way back to all of them */}
+                {ready && wall.notes?.sureOnly && (
+                    <p className="mt-10 text-center text-[15px] md:text-[16px] text-gray-300">
+                        Only the {total === 1 ? 'film' : `${total} films`} viewers called {feelSaid}.{' '}
+                        <button type="button" onClick={() => choose('sure', '')} className="font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase text-gold-light underline decoration-gold/40 underline-offset-4 hover:text-white">Show all of them again</button>
+                    </p>
+                )}
 
                 {/* the foyer wall */}
                 <div id="the-wall" className="scroll-mt-24" />
@@ -521,7 +636,13 @@ const Explore = () => {
                     </div>
                 ) : ready && total === 0 ? (
                     <div className="mt-16">
-                        <Intertitle still kicker="Nothing showing" title="Nothing fits all of that">
+                        <Intertitle still kicker="Nothing showing" title={sel.q && chosen.length <= 1 ? `No film or name matches “${sel.q}”` : 'Nothing fits all of that'}>
+                            {/* a word that names nothing may describe something: the board can read it */}
+                            {sel.q && (
+                                <button type="button" onClick={() => askBoard(sel.q)} className="mt-6 inline-flex items-center gap-2 min-h-11 px-5 bg-gold text-black font-label text-[12px] md:text-[13px] tracking-[0.14em] uppercase hover:bg-gold-light transition-colors">
+                                    Find films that are “{sel.q}” <span aria-hidden="true">→</span>
+                                </button>
+                            )}
                             {nearly.length ? <p className="mt-4 text-gray-300">But some films come close: they miss one word.</p> : (
                                 <>
                                     <p className="mt-4 text-gray-300">Take something down:</p>
@@ -549,6 +670,7 @@ const Explore = () => {
                             onDirector={onDirector}
                             onMovement={onMovement}
                             reducedMotion={reducedMotion}
+                            split={feelSplit}
                             end={ready && !hasMore ? (
                                 <Intertitle kicker={total === 1 ? 'That’s the one.' : `That’s all ${total}.`} title="The End">
                                     {nextDecade && (
