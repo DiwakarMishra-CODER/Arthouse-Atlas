@@ -12,3 +12,5 @@ scripts/reports/screen-*.json
 scripts/reports/provenance.json
 scripts/reports/provenance-report.md
 scripts/reports/canon-gaps.md
+# natural-language search: each model's calls per day (local bookkeeping for the evaluation)
+scripts/nlsearch/readings/budget-*.json

@@ -4,12 +4,12 @@ export const SORT_WORDS = { acclaimed: 'Most acclaimed first', oldest: 'Oldest f
 
 // the ways in, in the board's order, as the tray names them and asks for them in turn
 export const STEPS = [
-    { id: 'country', tab: 'Where', ask: 'Where from?' },
-    { id: 'decade', tab: 'When', ask: 'And when?' },
-    { id: 'director', tab: 'Who', ask: 'And by whom?' },
-    { id: 'movement', tab: 'Movement', ask: 'Which movement?' },
-    { id: 'mood', tab: 'Mood', ask: 'How should it feel?' },
-    { id: 'genre', tab: 'Genre', ask: 'What kind of film?' },
-    { id: 'length', tab: 'Length', ask: 'How long?' },
-    { id: 'screens', tab: 'Streaming', ask: 'Where will you watch it?' },
+    { id: 'country', tab: 'Where' },
+    { id: 'decade', tab: 'When' },
+    { id: 'director', tab: 'Who' },
+    { id: 'movement', tab: 'Movement' },
+    { id: 'mood', tab: 'Mood' },
+    { id: 'genre', tab: 'Genre' },
+    { id: 'length', tab: 'Length' },
+    { id: 'screens', tab: 'Streaming' },
 ];

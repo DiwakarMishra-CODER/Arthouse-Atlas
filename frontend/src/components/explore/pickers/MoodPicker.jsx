@@ -6,12 +6,12 @@ import { filmsWord } from './util';
  * How it feels: a mood board. Each mood is a frame from its most acclaimed film here, drained
  * of colour, with the word set over it; the one you choose comes back into colour.
  */
-const MoodPicker = ({ options = [], value, onPick, notes }) => (
+const MoodPicker = ({ options = [], value = [], onPick, notes }) => (
     <>
-        <Clear label="Any mood" active={!value} onClick={() => onPick('')} />
+        <Clear label="Any mood" active={!value.length} onClick={() => onPick('')} />
         <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
             {options.map((o) => {
-                const active = o.value === value;
+                const active = value.includes(o.value);
                 return (
                     <li key={o.value}>
                         <button type="button" disabled={!o.n && !active} onClick={() => onPick(o.value)} aria-pressed={active} className={`group relative block w-full aspect-[4/3] overflow-hidden text-left ring-1 disabled:opacity-30 ${active ? 'ring-gold' : 'ring-white/10 hover:ring-white/30'}`}>

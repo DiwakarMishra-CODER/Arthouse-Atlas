@@ -19,15 +19,15 @@ const Reel = ({ size }) => (
     </svg>
 );
 
-const LengthPicker = ({ options = [], value, onPick }) => {
+const LengthPicker = ({ options = [], value = [], onPick }) => {
     const count = new Map(options.map((o) => [o.value, o.n]));
     return (
         <>
-            <Clear label="Any length" active={!value} onClick={() => onPick('')} />
+            <Clear label="Any length" active={!value.length} onClick={() => onPick('')} />
             <ul className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                 {Object.entries(LENGTH_WORDS).map(([k, label]) => {
                     const n = count.get(k) || 0;
-                    const active = k === value;
+                    const active = value.includes(k);
                     return (
                         <li key={k}>
                             <button type="button" disabled={!n && !active} onClick={() => onPick(k)} aria-pressed={active} className={`group w-full h-full flex flex-col items-center justify-end gap-3 px-3 pt-5 pb-4 ring-1 disabled:opacity-30 ${active ? 'ring-gold text-gold' : 'ring-white/10 text-gray-300 hover:ring-white/30 hover:text-white'}`}>

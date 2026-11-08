@@ -11,12 +11,14 @@ import { sized, stillSrc } from '../movements/treatments';
  * for, a few moods and places. Typing searches all of it at once (accents and a typo per word
  * forgiven), best match first. Enter takes what you plainly named (a director, a country, a
  * film by its exact name: "stanley kubrick" puts BY STANLEY KUBRICK on the board); otherwise it
- * shows every film matching the words, as the last row says.
+ * shows every film matching the words, as the last row says. Typed as a sentence ("sad Japanese
+ * films from the 60s"), the first row (and Enter) asks the board to read it (natural-language search:
+ * see pages/Explore.jsx and the server's /movies/understand); a name or a title never calls the AI.
  *
  * Its placeholder runs once through a few examples, then rests (nothing moves forever).
  */
 
-const GROUPS = { films: 'Films', like: 'Or start from a film', directors: 'Directors', places: 'Countries', movements: 'Movements', studios: 'Studios', moods: 'Moods', genres: 'Genres', outside: 'Not in the atlas: start from it', all: 'Or' };
+const GROUPS = { ask: 'Ask in a sentence', films: 'Films', like: 'Or start from a film', directors: 'Directors', places: 'Countries', movements: 'Movements', studios: 'Studios', moods: 'Moods', genres: 'Genres', outside: 'Not in the atlas: start from it', all: 'Or' };
 const ORDER = Object.keys(GROUPS);
 
 // how plainly a row answers what was typed: its exact name (3), a whole word of it, like a
@@ -32,6 +34,14 @@ const strengthOf = (label, q) => {
     return a.includes(b) ? 1 : 0.5;
 };
 const RESTING = 'A film you love, a director, a place, a mood…';
+
+// typed like a sentence ("sad Japanese films from the 60s"), not a name: three words or more, or two
+// with a word a name rarely has. A name or a title stays the ordinary instant search, with no AI call.
+const LINKS = /^(from|by|in|of|like|with|about|before|after|since|under|over|or|and|not|no|set|made|films?|movies?|something|anything)$/;
+const looksLikeASentence = (q) => {
+    const w = plain(q).split(' ').filter(Boolean);
+    return w.length >= 4 || (w.length >= 2 && w.some((x) => LINKS.test(x)));
+};
 
 const Thumb = ({ src, round = false, wide = false }) => (
     <span className={`flex-shrink-0 overflow-hidden bg-[#141312] ring-1 ring-white/10 ${round ? 'w-9 h-9 rounded-full' : wide ? 'w-16 aspect-video' : 'w-9 h-12'}`}>
@@ -90,6 +100,8 @@ const SearchBox = ({ value, start, onSearch, on }) => {
     // everything the panel offers, in order, as rows: { group, key, label, sub, image, act }
     const typed = text.trim();
     const rows = [];
+    const sentence = on.ask && looksLikeASentence(typed);
+    if (sentence) rows.push({ group: 'ask', key: 'ask', label: `Ask the board: “${typed}”`, sub: 'It reads your sentence into the board’s words, and sorts by how it should feel', act: () => on.ask(typed) });
     if (typed.length < 2) {
         if (start) {
             start.known?.forEach((f) => rows.push({ group: 'like', key: `k${f._id}`, label: f.title, sub: f.year, image: f.still && sized(f.still, 'w300'), wide: true, act: () => on.like(f._id) }));
@@ -99,6 +111,7 @@ const SearchBox = ({ value, start, onSearch, on }) => {
             start.places?.forEach((p) => rows.push({ group: 'places', key: `p${p.value}`, label: p.value === 'United States of America' ? 'United States' : p.value, sub: `${p.n} films`, act: () => on.country(p.value) }));
         }
     } else if (results.q === typed) {
+        const asked = rows.splice(0); // the sentence row stays first
         results.films?.forEach((f) => rows.push({ group: 'films', key: `f${f._id}`, label: f.title, sub: [f.year, f.directors?.[0]].filter(Boolean).join(' · '), image: f.still ? sized(f.still, 'w300') : f.posterUrl && sized(f.posterUrl, 'w185'), wide: !!f.still, act: () => navigate(`/movie/${f._id}`) }));
         // the best match is also a place to start: the films like it
         if (results.films?.[0]) {
@@ -117,18 +130,20 @@ const SearchBox = ({ value, start, onSearch, on }) => {
         rows.forEach((r) => best.set(r.group, Math.max(best.get(r.group) || 0, strengthOf(r.name || r.label, typed))));
         rows.sort((a, b) => (best.get(b.group) - best.get(a.group)) || (ORDER.indexOf(a.group) - ORDER.indexOf(b.group)));
         rows.push({ group: 'all', key: 'all', label: `Show every film matching “${typed}”`, act: () => onSearch(typed) });
+        rows.unshift(...asked);
     }
 
     // what Enter takes: the one thing plainly named (a single row at the top that names it exactly
     // or by a whole word, like a surname), or else every film matching the words
-    const plainly = typed.length >= 2 ? rows.filter((r) => r.group !== 'all' && r.group !== 'like' && strengthOf(r.label, typed) >= 2.5) : [];
-    const enterIndex = plainly.length === 1 ? rows.indexOf(plainly[0]) : rows.findIndex((r) => r.group === 'all');
+    // (a sentence: asking the board, unless it plainly names one thing)
+    const plainly = typed.length >= 2 ? rows.filter((r) => r.group !== 'all' && r.group !== 'like' && r.group !== 'ask' && strengthOf(r.label, typed) >= 2.5) : [];
+    const enterIndex = plainly.length === 1 ? rows.indexOf(plainly[0]) : sentence ? 0 : rows.findIndex((r) => r.group === 'all');
     const lit = active >= 0 ? active : enterIndex;
 
     const choose = (row) => {
         setOpen(false);
         if (row) {
-            if (row.group !== 'films' && row.group !== 'all') setText('');
+            if (row.group !== 'films' && row.group !== 'all' && row.group !== 'ask') setText('');
             row.act();
         } else if (typed) onSearch(typed);
     };
@@ -183,7 +198,7 @@ const SearchBox = ({ value, start, onSearch, on }) => {
                             >
                                 {(row.image !== undefined || row.round) && <Thumb src={row.image} round={row.round} wide={row.wide} />}
                                 <span className="min-w-0">
-                                    <span className={`block text-[16px] truncate first-letter:uppercase ${row.group === 'all' ? 'text-gold-light' : 'text-gray-100'}`}>{row.label}</span>
+                                    <span className={`block text-[16px] truncate first-letter:uppercase ${row.group === 'all' || row.group === 'ask' ? 'text-gold-light' : 'text-gray-100'}`}>{row.label}</span>
                                     {row.sub && <span className={`block text-[13px] text-gray-400 truncate ${row.italic ? 'italic' : ''}`}>{row.sub}</span>}
                                 </span>
                             </button>

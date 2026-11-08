@@ -34,7 +34,7 @@ const loadWorld = () => {
     return world;
 };
 
-const PlacePicker = ({ options = [], value, onPick }) => {
+const PlacePicker = ({ options = [], value = [], onPick }) => {
     const [map, setMap] = useState(null);
     const [typed, setTyped] = useState('');
     const [asking, setAsking] = useState(null); // a land that made films under two names
@@ -59,7 +59,7 @@ const PlacePicker = ({ options = [], value, onPick }) => {
     const glow = (key) => {
         const n = countOf(key);
         if (!n) return { fill: '#191714', stroke: '#2a2622', width: 0.5 };
-        if (namesOf(key).includes(value)) return { fill: '#f0cf8e', stroke: '#fbe7b8', width: 1.1, lit: true };
+        if (namesOf(key).some((n) => value.includes(n))) return { fill: '#f0cf8e', stroke: '#fbe7b8', width: 1.1, lit: true };
         return { fill: `rgba(217, 173, 98, ${(0.14 + 0.62 * Math.sqrt(n / max)).toFixed(3)})`, stroke: 'rgba(240, 207, 142, 0.35)', width: 0.5 };
     };
 
@@ -68,7 +68,7 @@ const PlacePicker = ({ options = [], value, onPick }) => {
 
     return (
         <>
-            <Clear label="Everywhere" active={!value} onClick={() => onPick('')} />
+            <Clear label="Everywhere" active={!value.length} onClick={() => onPick('')} />
             {/* (no wider than a screen's worth of height, so the films below stay near) */}
             <div className="relative -mx-2 md:mx-auto md:max-w-[min(100%,calc(62svh*1.92))]">
                 <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto" aria-hidden="true">
@@ -100,7 +100,7 @@ const PlacePicker = ({ options = [], value, onPick }) => {
                         const key = `point:${p.name}`;
                         const n = countOf(key);
                         if (!n || !p.at) return null;
-                        const lit = namesOf(key).includes(value);
+                        const lit = namesOf(key).some((n) => value.includes(n));
                         return (
                             <circle key={key} cx={p.at[0]} cy={p.at[1]} r={lit ? 6 : 4.5} fill={lit ? '#f0cf8e' : 'rgba(217, 173, 98, 0.85)'} stroke="#050505" strokeWidth="1" className="cursor-pointer" onClick={() => pickLand(key)}>
                                 <title>{`${p.name}: ${filmsWord(n)}`}</title>
@@ -131,7 +131,7 @@ const PlacePicker = ({ options = [], value, onPick }) => {
                 <Filter value={typed} onChange={setTyped} placeholder="Type a country" />
                 <ul className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-10">
                     {listed.map((o) => {
-                        const active = o.value === value;
+                        const active = value.includes(o.value);
                         return (
                             <li key={o.value}>
                                 <button type="button" onClick={() => onPick(o.value)} aria-pressed={active} disabled={!o.n && !active} className={`w-full flex items-baseline gap-2 py-1.5 text-left text-[16px] disabled:opacity-30 ${active ? 'text-gold-light' : 'text-gray-200 hover:text-white'}`}>

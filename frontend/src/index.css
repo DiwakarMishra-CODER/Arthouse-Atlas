@@ -419,6 +419,16 @@
   transform: translateY(var(--dy, 0)) rotate(var(--tilt, 0deg));
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.7), 0 3px 5px rgba(0, 0, 0, 0.55);
 }
+/* "or" (and "+2 more") inside a slot holding several values: the board's own white letters, small and
+   lower case, so it reads as the word joining the gold values */
+.board-join {
+  color: #f3efe6;
+  font-size: 0.68em;
+  text-transform: lowercase;
+  letter-spacing: 0.1em;
+  vertical-align: 0.22em;
+  margin-inline: 0.12em 0.42em;
+}
 .board-letter.is-slotting {
   animation: letter-slot 360ms cubic-bezier(0.2, 0.9, 0.3, 1.25) both;
   animation-delay: calc(var(--i, 0) * 18ms);

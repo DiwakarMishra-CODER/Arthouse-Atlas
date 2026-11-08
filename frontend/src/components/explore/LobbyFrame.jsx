@@ -64,6 +64,12 @@ const Plaque = ({ film, large, compact, to, onDirector, onMovement }) => {
                     On {film.on.join(' · ')}
                 </div>
             )}
+            {/* on a wall ordered by feel: which of its viewers' own words matched */}
+            {film.matched?.length > 0 && (
+                <div className="mt-1.5 text-[14px] italic text-gray-300">
+                    <span className="not-italic font-label text-[11px] tracking-[0.14em] uppercase text-gray-500 mr-1.5">Viewers said</span>{film.matched.join(', ')}
+                </div>
+            )}
             {(film.movements?.[0] || film.why) && (
                 <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 font-label text-[12px] tracking-[0.14em] uppercase">
                     {film.movements?.[0] && <button type="button" onClick={() => onMovement(film.movements[0])} className="text-left text-gold hover:text-gold-light transition-colors">{film.movements[0]}</button>}

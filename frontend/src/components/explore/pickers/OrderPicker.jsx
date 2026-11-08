@@ -1,8 +1,10 @@
 /**
  * In what order: plates for each way of running the wall, with a line on what it means.
- * "Closest first" only exists when the wall starts from a film.
+ * "Closest first" only exists when the wall starts from a film; "closest to the feel" when a
+ * sentence search gave feel words.
  */
 const ORDERS = [
+    ['feel', 'Closest to the feel', 'Ranked by how well viewers’ words and the story fit how you described it'],
     ['closest', 'Closest first', 'The films most like the one you started from'],
     ['acclaimed', 'Most acclaimed first', 'The canon’s own order'],
     ['oldest', 'Oldest first', 'From the silents on'],
@@ -10,9 +12,9 @@ const ORDERS = [
     ['surprise', 'In a surprise order', 'Shuffled; choose it again to shuffle again'],
 ];
 
-const OrderPicker = ({ value, onPick, started }) => (
+const OrderPicker = ({ value, onPick, started, feeling = false }) => (
     <ul className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        {ORDERS.filter(([k]) => k !== 'closest' || started).map(([k, label, line]) => {
+        {ORDERS.filter(([k]) => (k !== 'closest' || started) && (k !== 'feel' || feeling)).map(([k, label, line]) => {
             const active = k === value;
             return (
                 <li key={k}>

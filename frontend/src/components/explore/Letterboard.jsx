@@ -6,7 +6,9 @@
  * fill ("FROM [ANYWHERE]", "BY [ANYONE]"), solid and lit once chosen. When the board is set
  * up, a light runs along the slots once, and a brass plate beneath says what to do.
  * A chosen slot carries its own × (the word changes it, the × takes it off), and "Clear all"
- * under the board starts again.
+ * under the board starts again. A slot holding several values ("JAPAN or SOUTH KOREA") sets its "or"
+ * (and a "+2 more") small, lower case and in the board's white, so it reads as the word joining the
+ * gold values, not as part of a name.
  *
  * Each letter sits a hair off true, the same way on every visit (a hash of where
  * it is). When a phrase changes, only its letters are re-set: they drop into the
@@ -31,11 +33,13 @@ const hash = (s) => {
 };
 
 // the letters of a phrase, word by word so the board wraps between words, never inside one
-// (the s of a decade stays small: THE 1950s, not THE 1950S)
-const Letters = ({ text, seed, animate }) => {
+// (the s of a decade stays small: THE 1950s, not THE 1950S). In a slot, "or" and "+2 more" join values.
+const joins = (words, w) => words[w] === 'or' || /^\+\d+$/.test(words[w]) || (words[w] === 'more' && /^\+\d+$/.test(words[w - 1] || ''));
+const Letters = ({ text, seed, animate, slot = false }) => {
     let n = 0;
-    return text.split(' ').map((word, w) => (
-        <span key={w} className="inline-block whitespace-nowrap mr-[0.32em] last:mr-0">
+    const words = text.split(' ');
+    return words.map((word, w) => (
+        <span key={w} className={`inline-block whitespace-nowrap mr-[0.32em] last:mr-0${slot && joins(words, w) ? ' board-join' : ''}`}>
             {[...word].map((ch, i) => {
                 const h = hash(`${seed}|${w}|${i}|${ch}`);
                 const tilt = ((h % 1000) / 1000 - 0.5) * 2.4;
@@ -72,7 +76,7 @@ const Phrase = ({ phrase, animate, n }) => {
                 <Letters text={phrase.tryout} seed={`${phrase.id}|${phrase.tryout}`} animate />
             </span>
         </span>
-    ) : <Letters text={phrase.text} seed={phrase.id} animate={animate} />;
+    ) : <Letters text={phrase.text} seed={phrase.id} animate={animate} slot={Boolean(phrase.control)} />;
     // the board's label reads the whole sentence, so plain words aren't spelt out letter by letter
     if (!phrase.control) return <span aria-hidden="true" className="text-[#f3efe6]">{letters}</span>;
     const ring = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light';

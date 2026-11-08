@@ -10,6 +10,9 @@ import Intertitle from '../components/explore/Intertitle';
 import SearchBox from '../components/explore/SearchBox';
 import ProjectorPick from '../components/explore/ProjectorPick';
 import Tray from '../components/explore/Tray';
+import Nearly from '../components/explore/Nearly';
+import { norm } from '../components/explore/pickers/util';
+import ReadingSlip from '../components/explore/ReadingSlip';
 import PlacePicker from '../components/explore/pickers/PlacePicker';
 import TimePicker from '../components/explore/pickers/TimePicker';
 import MakerPicker from '../components/explore/pickers/MakerPicker';
@@ -45,7 +48,24 @@ import { useRegion, setRegion, regionName } from '../hooks/region';
  */
 
 const PAGE = 24;
-const FILTERS = ['q', 'country', 'decade', 'director', 'movement', 'mood', 'genre', 'length', 'like', 'from', 'screens', 'in'];
+const FILTERS = ['q', 'country', 'decade', 'director', 'movement', 'mood', 'genre', 'length', 'since', 'until', 'like', 'from', 'screens', 'in', 'feel'];
+// the words that can hold several values ("from Japan or South Korea"), kept in the address split by
+// "|": a film needs only one of them. (Between words it's still "and".)
+const MULTI = ['country', 'decade', 'director', 'movement', 'mood', 'genre', 'length'];
+const listOf = (v) => (v ? String(v).split('|').filter(Boolean) : []);
+// "Japan", "Japan or Italy", "Japan, Italy or Iran", "Japan, Italy +2 more"
+const orWords = (names) => (names.length <= 1 ? names[0] || ''
+    : names.length === 2 ? `${names[0]} or ${names[1]}`
+        : names.length === 3 ? `${names[0]}, ${names[1]} or ${names[2]}`
+            : `${names[0]}, ${names[1]} +${names.length - 2} more`);
+// decades: "1960s", "1960s to 1980s" (a run of them), "1950s or 1970s"
+const decadeWords = (ds) => {
+    const sorted = ds.map(Number).sort((a, b) => a - b);
+    const run = sorted.length > 2 && sorted.every((d, i) => !i || d - sorted[i - 1] === 10);
+    return run ? `${sorted[0]}s to ${sorted.at(-1)}s` : orWords(sorted.map((d) => `${d}s`));
+};
+// a span of years from a search: "before 1950", "since 1975", "1950 to 1969"
+const spanWords = (since, until) => (since && until ? `${since} to ${until}` : until ? `before ${Number(until) + 1}` : since ? `since ${since}` : '');
 const MOODS = ['contemplative', 'melancholic', 'dreamlike', 'surreal', 'intimate', 'existential', 'psychological', 'minimalist', 'slow', 'austere', 'poetic', 'lyrical', 'enigmatic', 'fragmented', 'bleak', 'atmospheric', 'funny', 'whimsical', 'romantic', 'warm', 'tense'];
 const PICKER_TITLES = {
     country: 'From where', decade: 'When it was made', director: 'Who made it', movement: 'Which movement',
@@ -60,7 +80,7 @@ const screensWords = (v, facet) => {
     if (!names.length) return 'your services';
     return names.length <= 2 ? names.join(' or ') : `${names.slice(0, 2).join(', ')} +${names.length - 2}`;
 };
-const ORDER_WORDS = { acclaimed: 'most acclaimed first', oldest: 'oldest first', newest: 'newest first', surprise: 'in a surprise order', closest: 'closest first' };
+const ORDER_WORDS = { acclaimed: 'most acclaimed first', oldest: 'oldest first', newest: 'newest first', surprise: 'in a surprise order', closest: 'closest first', feel: 'closest to the feel first' };
 
 // links from before the foyer: ?search= became q, ?tags= becomes a mood when it is one
 const fromOldLink = (params) => {
@@ -96,11 +116,14 @@ const readNote = (key) => {
     try { return JSON.parse(sessionStorage.getItem(`explore:${key}`) || 'null'); } catch { return null; }
 };
 
-// the address keeps only what differs from the default order (closest when the wall starts from a film)
+// the address keeps only what differs from the default order (closest to the feel when a sentence
+// gave feel words, closest when the wall starts from a film), and no order the wall can't have
 const tidyOrder = (next) => {
     const started = next.has('like') || next.has('from');
+    const feeling = next.has('feel');
     const sort = next.get('sort');
-    if ((sort === 'closest' && started) || (sort === 'acclaimed' && !started) || (sort === 'closest' && !started)) next.delete('sort');
+    const natural = feeling ? 'feel' : started ? 'closest' : 'acclaimed';
+    if (sort === natural || (sort === 'closest' && !started) || (sort === 'feel' && !feeling)) next.delete('sort');
     if (sort !== 'surprise' && next.get('sort') !== 'surprise') next.delete('seed');
     return next;
 };
@@ -115,7 +138,8 @@ const Explore = () => {
 
     const sel = useMemo(() => Object.fromEntries([...FILTERS, 'sort', 'seed'].map((k) => [k, params.get(k) || ''])), [params]);
     const started = Boolean(sel.like || sel.from);
-    const sort = sel.sort || (started ? 'closest' : 'acclaimed');
+    const feeling = Boolean(sel.feel);
+    const sort = sel.sort || (feeling ? 'feel' : started ? 'closest' : 'acclaimed');
     const query = useMemo(() => Object.fromEntries(Object.entries(sel).filter(([, v]) => v)), [sel]);
     // every request says which country you watch in, so the Streaming tab counts what's on there
     // (the address only keeps it once streaming is chosen, so a shared wall shows the same country)
@@ -128,7 +152,7 @@ const Explore = () => {
         return rest;
     }, [ask]);
 
-    const [wall, setWall] = useState({ key: null, films: [], total: 0, facets: null, selected: {}, notes: null });
+    const [wall, setWall] = useState({ key: null, films: [], total: 0, facets: null, nearly: [], selected: {}, notes: null });
     const [loadingMore, setLoadingMore] = useState(false);
     const [attempt, setAttempt] = useState(0);
     const [start, setStart] = useState(null);
@@ -137,19 +161,15 @@ const Explore = () => {
     const [knowsTheWay, setKnowsTheWay] = useState(() => {
         try { return localStorage.getItem('explore:knows-the-way') === '1'; } catch { return false; }
     });
-    // the tray's open tab (one of the board's words, or the order), and whether it has
-    // started asking for the next word (after the first pick from it)
-    // (it opens where a pick would leave it: on the next word still blank after what's chosen, and
-    // with nothing chosen, on the first, the map)
+    // the tray's open tab (one of the board's words, or the order): it opens on the first word still
+    // blank (with nothing chosen, the map), and stays on a word while you pick from it
     const [trayTab, setTrayTab] = useState(() => nextBlank((k) => params.get(k)));
-    const [asked, setAsked] = useState(false);
     const restoreY = useRef(null);
     const sentinel = useRef(null);
     const restoring = navigation === 'POP';
     // a gold word opens its picker in the tray, and brings the tray into view if it's out of it
     const openPicker = useCallback((id) => {
         setTrayTab(id);
-        setAsked(false);
         setTimeout(() => document.getElementById('ways-in')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'nearest' }), 0);
     }, [reducedMotion]);
 
@@ -170,9 +190,9 @@ const Explore = () => {
             .then((r) => {
                 if (gone) return;
                 restoreY.current = note ? note.y : null;
-                setWall({ key, films: r.data.films, total: r.data.total, facets: r.data.facets, selected: r.data.selected || {}, notes: r.data.notes });
+                setWall({ key, films: r.data.films, total: r.data.total, facets: r.data.facets, nearly: r.data.nearly || [], selected: r.data.selected || {}, notes: r.data.notes });
             })
-            .catch(() => { if (!gone) setWall((w) => ({ ...w, key, films: [], total: 0, facets: w.facets, failed: true })); });
+            .catch(() => { if (!gone) setWall((w) => ({ ...w, key, films: [], total: 0, facets: w.facets, nearly: [], failed: true })); });
         return () => { gone = true; };
     }, [key, ask, restoring, oldLink, attempt]);
 
@@ -238,10 +258,12 @@ const Explore = () => {
 
 
     // change one word on the board (from a card, also go back up to the board to see it change)
-    const choose = useCallback((k, v, { up = false } = {}) => {
+    // (`also`: other words changed with it, as choosing decades takes off a span of years)
+    const choose = useCallback((k, v, { up = false, also = {} } = {}) => {
         const next = new URLSearchParams(params);
         if (v === '' || v === null || v === undefined) next.delete(k);
         else next.set(k, String(v));
+        Object.entries(also).forEach(([ak, av]) => (av ? next.set(ak, String(av)) : next.delete(ak)));
         if (k === 'sort' && v === 'surprise') next.set('seed', newSeed());
         // a film to start from replaces the search, the other film, and the order
         if ((k === 'like' || k === 'from') && v) {
@@ -254,7 +276,7 @@ const Explore = () => {
             else next.delete('in');
         }
         // choosing "most acclaimed" on a wall that starts from a film has to say so (its default is closest)
-        if (k === 'sort' && v === 'acclaimed' && (next.has('like') || next.has('from'))) { next.set('sort', 'acclaimed'); next.delete('seed'); }
+        if (k === 'sort' && v === 'acclaimed' && (next.has('like') || next.has('from') || next.has('feel'))) { next.set('sort', 'acclaimed'); next.delete('seed'); }
         else tidyOrder(next);
         setParams(next);
         if (!knowsTheWay) {
@@ -263,25 +285,59 @@ const Explore = () => {
         }
         if (up) window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
     }, [params, setParams, reducedMotion, knowsTheWay, region]);
-    const reset = () => { setParams(new URLSearchParams()); setTrayTab(STEPS[0].id); setAsked(false); };
+    const reset = () => { setParams(new URLSearchParams()); setTrayTab(STEPS[0].id); };
+    // take a word off the board (the decades take a span of years with them)
+    const drop = useCallback((id) => choose(id, '', id === 'decade' ? { also: { since: '', until: '' } } : {}), [choose]);
+    // a picture in the tray adds its value to its word, or takes it back off. The tray stays on that
+    // word, so you can pick more of it ("Japan or South Korea") or go and see the films; it no longer
+    // moves on to the next blank by itself, which nudged people to fill every word until little was left.
     const trayPick = (id, value) => {
-        if (value === '' || value == null) { choose(id, ''); return; }
-        const on = String(sel[id] || '') === String(value);
-        choose(id, on ? '' : value);
-        if (on) return;
-        const next = nextBlank((k) => sel[k], id);
-        if (next) { setTrayTab(next); setAsked(true); } else setAsked(false);
+        if (value === '' || value == null) { drop(id); return; }
+        if (!MULTI.includes(id)) { choose(id, String(sel[id] || '') === String(value) ? '' : value); return; }
+        const now = listOf(sel[id]);
+        const has = now.some((v) => norm(v) === norm(value));
+        const next = has ? now.filter((v) => norm(v) !== norm(value)) : [...now, String(value)];
+        choose(id, next.join('|'), id === 'decade' ? { also: { since: '', until: '' } } : {});
     };
+    // what each word holds, as lists (the length's list is `lengths`: a plain `length` key reads as an
+    // array's size), and a span of years, from a search
+    // a sentence typed into the search, read into the board's words by the server (a language model,
+    // checked against the atlas): it replaces the board, its feel words order the wall, and the slip
+    // under the search says how it was read and what couldn't be placed. If it can't be read, it's
+    // an ordinary search; if it isn't about films, nothing changes.
+    const [reading, setReading] = useState(null); // { q, state: 'reading' | 'done' | 'offTopic' | 'failed', answer, at }
+    const askBoard = useCallback((q) => {
+        setReading({ q, state: 'reading' });
+        moviesAPI.understand(q)
+            .then((r) => {
+                const a = r.data;
+                if (a.offTopic) { setReading({ q, state: 'offTopic' }); return; }
+                const next = new URLSearchParams();
+                Object.entries(a.params || {}).forEach(([k, v]) => next.set(k, v));
+                if (a.feel?.length) next.set('feel', a.feel.join('|'));
+                tidyOrder(next);
+                setParams(next);
+                setReading({ q, state: 'done', answer: a, at: next.toString() });
+                setKnowsTheWay(true);
+            })
+            .catch(() => { setReading({ q, state: 'failed' }); choose('q', q); });
+    }, [setParams, choose]);
+    const picked = useMemo(() => ({
+        country: listOf(sel.country), decade: listOf(sel.decade), director: listOf(sel.director), movement: listOf(sel.movement),
+        mood: listOf(sel.mood), genre: listOf(sel.genre), lengths: listOf(sel.length),
+        span: spanWords(sel.since, sel.until), // a span of years, from a search
+    }), [sel]);
+    const { span } = picked;
     // each way in's own picker, made of pictures, as the tray shows it
     const pickerFor = (id) => {
         const on = (v) => trayPick(id, v);
-        if (id === 'country') return <PlacePicker options={facets.country} value={sel.country} onPick={on} />;
-        if (id === 'decade') return <TimePicker options={facets.decade} value={sel.decade} onPick={on} />;
-        if (id === 'director') return <MakerPicker options={facets.director} value={sel.director} onPick={on} />;
-        if (id === 'movement') return <MovementPicker options={facets.movement} value={sel.movement} onPick={on} />;
-        if (id === 'mood') return <MoodPicker options={facets.mood} value={sel.mood} onPick={on} notes={wall.notes?.moodFilms} />;
-        if (id === 'genre') return <GenrePicker options={facets.genre} value={sel.genre} onPick={on} />;
-        if (id === 'length') return <LengthPicker options={facets.length} value={sel.length} onPick={on} />;
+        if (id === 'country') return <PlacePicker options={facets.country} value={picked.country} onPick={on} />;
+        if (id === 'decade') return <TimePicker options={facets.decade} value={picked.decade} range={span ? `made ${span}` : ''} onPick={on} />;
+        if (id === 'director') return <MakerPicker options={facets.director} value={picked.director} onPick={on} />;
+        if (id === 'movement') return <MovementPicker options={facets.movement} value={picked.movement} onPick={on} />;
+        if (id === 'mood') return <MoodPicker options={facets.mood} value={picked.mood} onPick={on} notes={wall.notes?.moodFilms} />;
+        if (id === 'genre') return <GenrePicker options={facets.genre} value={picked.genre} onPick={on} />;
+        if (id === 'length') return <LengthPicker options={facets.length} value={picked.lengths} onPick={on} />;
         // (several services at once, so a pick doesn't move the tray on to the next word)
         if (id === 'screens') {
             return (
@@ -295,7 +351,7 @@ const Explore = () => {
                 />
             );
         };
-        if (id === 'sort') return <OrderPicker value={sort} started={started} onPick={(v) => choose('sort', v)} />;
+        if (id === 'sort') return <OrderPicker value={sort} started={started} feeling={feeling} onPick={(v) => choose('sort', v)} />;
         return null;
     };
     const toWall = () => document.getElementById('the-wall')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
@@ -312,23 +368,31 @@ const Explore = () => {
         mood: (m) => choose('mood', m),
         genre: (g) => choose('genre', g),
         movement: (tag) => choose('movement', tag),
-    }), [choose]);
+        ask: askBoard,
+    }), [choose, askBoard]);
     const closeProjector = useCallback(() => setProjector(false), []);
     const decadeCounts = useMemo(() => new Map((facets.decade || []).map((d) => [d.value, d.n])), [facets.decade]);
+    const movementTitles = useMemo(() => new Map((facets.movement || []).map((m) => [m.tag, m.value])), [facets.movement]);
 
     // ---- the board's words: plain words in white, and what you can change in gold slots ----
     // (dashed while a blank to fill, lit once chosen)
     const ready = wall.key === key;
     const changing = wall.key !== null && !ready;
-    const movementTitle = wall.selected.movement?.title || facets.movement?.find((m) => m.tag === sel.movement)?.value || sel.movement;
+    const movementText = orWords(picked.movement.map((tag) => movementTitles.get(tag) || (wall.selected.movement?.tag === tag && wall.selected.movement.title) || tag));
     const startTitle = wall.selected.start?.title;
-    const directorName = wall.selected.director?.name || sel.director;
+    const directorText = orWords(picked.director.length === 1 && wall.selected.director?.name ? [wall.selected.director.name] : picked.director);
+    const countryText = orWords(picked.country.map(countryWords));
+    const decadeText = decadeWords(picked.decade);
+    const moodText = orWords(picked.mood);
+    const genreText = orWords(picked.genre);
+    const lengthText = orWords(picked.lengths.map((l) => LENGTH_WORDS[l] || l));
+    const oneDecade = picked.decade.length === 1 && !span ? picked.decade[0] : '';
     const any = FILTERS.some((k) => sel[k]);
     const total = wall.total;
     const word = (id, text) => ({ id, text });
-    const control = (id, text, label, extra = {}) => ({ id, text, control: true, label, onClick: () => openPicker(id), onRemove: () => choose(id, ''), ...extra });
+    const control = (id, text, label, extra = {}) => ({ id, text, control: true, label, onClick: () => openPicker(id), onRemove: () => drop(id), ...extra });
     // (the blank the tray is asking for is lit)
-    const blank = (id, text, label) => ({ id, text, control: true, blank: true, label, next: asked && trayTab === id, onClick: () => openPicker(id) });
+    const blank = (id, text, label) => ({ id, text, control: true, blank: true, label, onClick: () => openPicker(id) });
 
     const countText = wall.key === null || wall.failed ? '· · ·' : !any ? `all ${total} films` : `${total} ${total === 1 ? 'film' : 'films'}`;
     const big = [word('count', countText)];
@@ -336,18 +400,20 @@ const Explore = () => {
     if (started) big.push(word('like-w', 'like'), control(sel.like ? 'like' : 'from', startTitle || '…', `Starting from ${startTitle || 'a film'}`, { onClick: focusSearch }));
     const medium = [
         word('country-w', 'from'),
-        sel.country ? control('country', countryWords(sel.country), `Country: ${sel.country}`) : blank('country', 'anywhere', 'Country: anywhere'),
-        ...(sel.decade
-            ? [word('decade-w', 'made in the'), control('decade', `${sel.decade}s`, `Decade: the ${sel.decade}s`)]
-            : [word('decade-w', 'made'), blank('decade', 'any time', 'Decade: any time')]),
+        picked.country.length ? control('country', countryText, `Country: ${countryText}`) : blank('country', 'anywhere', 'Country: anywhere'),
+        ...(span
+            ? [word('decade-w', 'made'), control('decade', span, `Years: ${span}`)]
+            : picked.decade.length
+                ? [word('decade-w', 'made in the'), control('decade', decadeText, `Decade: the ${decadeText}`)]
+                : [word('decade-w', 'made'), blank('decade', 'any time', 'Decade: any time')]),
         word('director-w', 'by'),
-        sel.director ? control('director', directorName, `Director: ${directorName}`) : blank('director', 'anyone', 'Director: anyone'),
+        picked.director.length ? control('director', directorText, `Director: ${directorText}`) : blank('director', 'anyone', 'Director: anyone'),
     ];
     const list = [
-        sel.movement ? control('movement', movementTitle, `Movement: ${movementTitle}`) : blank('movement', 'movement', 'Movement: any'),
-        sel.mood ? control('mood', sel.mood, `Mood: ${sel.mood}`) : blank('mood', 'mood', 'Mood: any'),
-        sel.genre ? control('genre', sel.genre, `Genre: ${sel.genre}`) : blank('genre', 'genre', 'Genre: any'),
-        sel.length ? control('length', LENGTH_WORDS[sel.length] || sel.length, `Length: ${LENGTH_WORDS[sel.length]}`) : blank('length', 'length', 'Length: any'),
+        picked.movement.length ? control('movement', movementText, `Movement: ${movementText}`) : blank('movement', 'movement', 'Movement: any'),
+        picked.mood.length ? control('mood', moodText, `Mood: ${moodText}`) : blank('mood', 'mood', 'Mood: any'),
+        picked.genre.length ? control('genre', genreText, `Genre: ${genreText}`) : blank('genre', 'genre', 'Genre: any'),
+        picked.lengths.length ? control('length', lengthText, `Length: ${lengthText}`) : blank('length', 'length', 'Length: any'),
     ];
     // where you'll watch it: "ON [ANY SCREEN]", or "STREAMING ON [MUBI OR NETFLIX] IN INDIA"
     const screensText = sel.screens ? screensWords(sel.screens, facets.screens) : '';
@@ -355,11 +421,14 @@ const Explore = () => {
     const screensLine = sel.screens
         ? [word('screens-w', 'streaming on'), control('screens', screensText, `Streaming on ${screensText} in ${watchedIn}`), word('in-w', `in ${watchedIn}`)]
         : [word('screens-w', 'on'), blank('screens', 'any screen', 'Streaming: any screen')];
+    // how it should feel, from a sentence: "THAT FEEL [SLOW, SAD]" (it orders the wall; it isn't a filter)
+    const feelText = listOf(sel.feel).join(', ');
     const lines = [
         { size: 'small', phrases: [{ id: 'now', text: ready && !wall.failed && total === 0 ? 'Nothing showing' : 'Now showing' }] },
         { size: 'big', phrases: big },
         { size: 'medium', phrases: medium },
         { size: 'list', phrases: list },
+        ...(feelText ? [{ size: 'list', phrases: [word('feel-w', 'that feel'), control('feel', feelText, `Feel: ${feelText}`, { onClick: focusSearch })] }] : []),
         { size: 'list', phrases: screensLine },
         { size: 'sort', phrases: [control('sort', ORDER_WORDS[sort], `Order: ${ORDER_WORDS[sort]}`, { onRemove: null })] },
     ];
@@ -367,20 +436,29 @@ const Explore = () => {
     const chosen = [
         sel.q && { id: 'q', text: `matching “${sel.q}”` },
         started && { id: sel.like ? 'like' : 'from', text: `like ${startTitle || 'that film'}` },
-        sel.country && { id: 'country', text: `from ${countryWords(sel.country)}` },
-        sel.decade && { id: 'decade', text: `made in the ${sel.decade}s` },
-        sel.director && { id: 'director', text: `by ${directorName}` },
-        sel.movement && { id: 'movement', text: movementTitle },
-        sel.mood && { id: 'mood', text: sel.mood },
-        sel.genre && { id: 'genre', text: sel.genre },
-        sel.length && { id: 'length', text: LENGTH_WORDS[sel.length] },
+        picked.country.length && { id: 'country', text: `from ${countryText}` },
+        span ? { id: 'decade', text: `made ${span}` } : picked.decade.length && { id: 'decade', text: `made in the ${decadeText}` },
+        picked.director.length && { id: 'director', text: `by ${directorText}` },
+        picked.movement.length && { id: 'movement', text: movementText },
+        picked.mood.length && { id: 'mood', text: moodText },
+        picked.genre.length && { id: 'genre', text: genreText },
+        picked.lengths.length && { id: 'length', text: lengthText },
         sel.screens && { id: 'screens', text: `streaming on ${screensText} in ${watchedIn}` },
     ].filter(Boolean);
-    const boardLabel = `Now showing: ${[countText, ...chosen.map((c) => c.text)].join(', ')}, ${ORDER_WORDS[sort]}.`;
+    const boardLabel = `Now showing: ${[countText, ...chosen.map((c) => c.text), feelText && `that feel ${feelText}`].filter(Boolean).join(', ')}, ${ORDER_WORDS[sort]}.`;
 
     // the nearest decade that has films, for the end of a wall
-    const nextDecade = sel.decade && facets.decade?.filter((d) => d.n > 0 && String(d.value) !== sel.decade)
-        .sort((a, b) => Math.abs(a.value - sel.decade) - Math.abs(b.value - sel.decade) || b.value - a.value)[0];
+    const nextDecade = oneDecade && facets.decade?.filter((d) => d.n > 0 && String(d.value) !== oneDecade)
+        .sort((a, b) => Math.abs(a.value - oneDecade) - Math.abs(b.value - oneDecade) || b.value - a.value)[0];
+    // a small wall: for each word, the films that miss only it, and a way to take it off
+    // (the server's "years" is the board's span of years, on the decade's slot)
+    const nearly = ready && !wall.failed && total < 12 ? (wall.nearly || []).map((o) => {
+        const id = o.key === 'years' ? 'decade' : o.key;
+        const said = chosen.find((c) => c.id === id);
+        if (!said) return null;
+        const onDrop = o.key === 'years' ? () => choose('since', '', { also: { until: '' } }) : () => drop(id);
+        return { ...o, word: said.text, onDrop };
+    }).filter(Boolean) : [];
     const known = start?.known?.slice(0, 3) || [];
 
     if (oldLink) return <Navigate to={`/explore?${oldLink.toString()}`} replace />;
@@ -401,7 +479,10 @@ const Explore = () => {
                             <MdMovieFilter aria-hidden="true" className="text-lg" /> <span className="hidden sm:inline">Pick one for me</span><span className="sm:hidden">Pick one</span>
                         </button>
                     </div>
-                    {!any && !knowsTheWay && known.length > 0 && (
+                    {reading && (reading.state !== 'done' || reading.at === params.toString()) && (
+                        <ReadingSlip reading={reading} feelFailed={ready && wall.notes?.feelFailed} onPlain={(q) => { setReading(null); choose('q', q); }} onClose={() => setReading(null)} reducedMotion={reducedMotion} />
+                    )}
+                    {!any && !knowsTheWay && known.length > 0 && !reading && (
                         <p className="mt-4 text-[16px] leading-relaxed text-gray-400">
                             New here? Start from a film you know:{' '}
                             {known.map((f, i) => (
@@ -417,7 +498,7 @@ const Explore = () => {
                 {/* the box of letters: the choices as pictures, open from the start */}
                 {wall.facets && (
                     <div id="ways-in" className="scroll-mt-24">
-                        <Tray sel={sel} tab={trayTab} onTab={setTrayTab} asked={asked} first={!any} onShow={toWall} titles={PICKER_TITLES} picker={pickerFor} />
+                        <Tray sel={sel} tab={trayTab} onTab={setTrayTab} first={!any} total={ready && !wall.failed ? total : null} multi={MULTI} onShow={toWall} titles={PICKER_TITLES} picker={pickerFor} />
                     </div>
                 )}
 
@@ -441,15 +522,20 @@ const Explore = () => {
                 ) : ready && total === 0 ? (
                     <div className="mt-16">
                         <Intertitle still kicker="Nothing showing" title="Nothing fits all of that">
-                            <p className="mt-4 text-gray-300">Take something down:</p>
-                            <div className="mt-4 flex flex-wrap justify-center gap-2">
-                                {chosen.map((c) => (
-                                    <button key={c.id} type="button" onClick={() => choose(c.id, '')} className="px-3 py-2 font-label text-[12px] tracking-[0.14em] uppercase ring-1 ring-white/20 text-gray-200 hover:ring-white/50 hover:text-white">
-                                        − {c.text}
-                                    </button>
-                                ))}
-                            </div>
+                            {nearly.length ? <p className="mt-4 text-gray-300">But some films come close: they miss one word.</p> : (
+                                <>
+                                    <p className="mt-4 text-gray-300">Take something down:</p>
+                                    <div className="mt-4 flex flex-wrap justify-center gap-2">
+                                        {chosen.map((c) => (
+                                            <button key={c.id} type="button" onClick={() => drop(c.id)} className="px-3 py-2 font-label text-[12px] tracking-[0.14em] uppercase ring-1 ring-white/20 text-gray-200 hover:ring-white/50 hover:text-white">
+                                                − {c.text}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </>
+                            )}
                         </Intertitle>
+                        {nearly.length > 0 && <Nearly rows={nearly} empty reducedMotion={reducedMotion} />}
                     </div>
                 ) : (
                     <div className={`mt-16 md:mt-20 transition-opacity duration-200 ${changing ? 'opacity-25' : ''}`}>
@@ -458,7 +544,7 @@ const Explore = () => {
                             films={wall.films}
                             sort={sort}
                             plainCanon={sort === 'acclaimed' && !any}
-                            decadeRanked={sort === 'acclaimed' && !!sel.decade && !sel.q}
+                            decadeRanked={sort === 'acclaimed' && !!oneDecade && !sel.q}
                             decadeCounts={decadeCounts}
                             onDirector={onDirector}
                             onMovement={onMovement}
@@ -467,13 +553,14 @@ const Explore = () => {
                                 <Intertitle kicker={total === 1 ? 'That’s the one.' : `That’s all ${total}.`} title="The End">
                                     {nextDecade && (
                                         <button type="button" onClick={() => choose('decade', nextDecade.value, { up: true })} className="mt-5 font-label text-[13px] tracking-[0.14em] uppercase text-gray-200 hover:text-white">
-                                            The {nextDecade.value}s{sel.country ? ` in ${countryWords(sel.country)}` : ''}: {nextDecade.n} {nextDecade.n === 1 ? 'film' : 'films'} →
+                                            The {nextDecade.value}s{picked.country.length ? ` in ${countryText}` : ''}: {nextDecade.n} {nextDecade.n === 1 ? 'film' : 'films'} →
                                         </button>
                                     )}
                                 </Intertitle>
                             ) : null}
                         />
                         {hasMore && <div ref={sentinel} className="h-px" aria-hidden="true" />}
+                        {nearly.length > 0 && <Nearly rows={nearly} reducedMotion={reducedMotion} />}
                     </div>
                 )}
             </div>

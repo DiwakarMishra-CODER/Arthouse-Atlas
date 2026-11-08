@@ -8,12 +8,12 @@ import { Clear } from './parts';
 const BODY = notched('100%', 7);
 const STUB = notched('0', 7);
 
-const GenrePicker = ({ options = [], value, onPick }) => (
+const GenrePicker = ({ options = [], value = [], onPick }) => (
     <>
-        <Clear label="Any genre" active={!value} onClick={() => onPick('')} />
+        <Clear label="Any genre" active={!value.length} onClick={() => onPick('')} />
         <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-3 gap-y-4">
             {options.map((o) => {
-                const active = o.value === value;
+                const active = value.includes(o.value);
                 return (
                     <li key={o.value}>
                         <button type="button" disabled={!o.n && !active} onClick={() => onPick(o.value)} aria-pressed={active} aria-label={`${o.value}: ${o.n} films`} className={`group flex w-full h-[4.4rem] text-left transition-transform hover:-translate-y-0.5 disabled:opacity-30 ${active ? 'ticket-torn' : ''}`}>

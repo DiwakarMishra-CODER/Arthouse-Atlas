@@ -7,12 +7,12 @@ import { filmsWord } from './util';
  * Which movement: each one a title card in its own type (as on the Movements page), over the
  * still that stands for it, with its years and how many of its films are here.
  */
-const MovementPicker = ({ options = [], value, onPick }) => (
+const MovementPicker = ({ options = [], value = [], onPick }) => (
     <>
-        <Clear label="Any movement" active={!value} onClick={() => onPick('')} />
+        <Clear label="Any movement" active={!value.length} onClick={() => onPick('')} />
         <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {options.map((o) => {
-                const active = o.tag === value;
+                const active = value.includes(o.tag);
                 return (
                     <li key={o.value}>
                         <button type="button" disabled={!o.tag} onClick={() => onPick(o.tag)} aria-pressed={active} className={`group relative block w-full min-h-[9.5rem] overflow-hidden text-left ring-1 transition-shadow ${active ? 'ring-gold shadow-[0_0_30px_rgba(217,173,98,0.25)]' : 'ring-white/10 hover:ring-white/30'}`}>

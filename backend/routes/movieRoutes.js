@@ -15,6 +15,7 @@ import {
   exploreMovies,
   exploreSuggest
 } from '../controllers/movieController.js';
+import { understand, understandLimiter } from '../controllers/understandController.js';
 
 const router = express.Router();
 
@@ -23,6 +24,7 @@ router.get('/', getMovies);
 router.get('/titles', getAllTitles);
 router.get('/explore', exploreMovies);
 router.get('/explore/suggest', exploreSuggest);
+router.post('/understand', understandLimiter, understand); // a sentence, read into the board's words
 router.get('/tonight', getTonight); // these named routes come before /:id, or their names would be read as ids
 router.get('/canon', getCanonTop);
 router.get('/atlas', getAtlasFilms);

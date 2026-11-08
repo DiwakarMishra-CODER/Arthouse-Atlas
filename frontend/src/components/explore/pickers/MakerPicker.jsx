@@ -14,7 +14,7 @@ import { norm, filmsWord } from './util';
 const initials = (name) => name.split(/\s+/).filter(Boolean).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
 const FIRST = 48;
 
-const MakerPicker = ({ options = [], value, onPick }) => {
+const MakerPicker = ({ options = [], value = [], onPick }) => {
     const [typed, setTyped] = useState('');
     const [all, setAll] = useState(false);
     const matching = options.filter((o) => norm(o.value).includes(norm(typed)));
@@ -22,13 +22,13 @@ const MakerPicker = ({ options = [], value, onPick }) => {
     return (
         <>
             <div className="flex flex-wrap items-end gap-x-8">
-                <Clear label="Anyone" active={!value} onClick={() => onPick('')} />
+                <Clear label="Anyone" active={!value.length} onClick={() => onPick('')} />
                 <Filter value={typed} onChange={setTyped} placeholder="Type a name" />
             </div>
             <div className="bg-[#0a0909] ring-1 ring-white/10 px-3 py-4 md:px-5 md:py-6">
                 <ul className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-x-3 md:gap-x-4 gap-y-6">
                     {shown.map((o, i) => {
-                        const active = norm(o.value) === norm(value);
+                        const active = value.some((v) => norm(v) === norm(o.value));
                         const picture = o.portrait ? sized(o.portrait, 'w185') : o.top?.still ? sized(o.top.still, 'w300') : null;
                         return (
                             <li key={o.value}>

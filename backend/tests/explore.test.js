@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { toCard, applyFilters, sortCards, facetCounts, searchScore, lengthOf, publicCard, oneTypoApart, nameMatches, framesOf, withinStart, tally } from '../services/catalogue.js';
+import { toCard, applyFilters, sortCards, facetCounts, nearMisses, searchScore, lengthOf, publicCard, oneTypoApart, nameMatches, framesOf, withinStart, tally } from '../services/catalogue.js';
 import { makeIndex, similarTo } from '../services/recommender.js';
 
 const film = (id, extra = {}) => toCard({
@@ -39,6 +39,29 @@ test('every filter, and filters combined', () => {
   assert.deepEqual(ids(applyFilters(cards, { length: 'short' })), ['d']);
   assert.deepEqual(ids(applyFilters(cards, { country: 'Japan', decade: 1950 })), ['a']);
   assert.deepEqual(ids(applyFilters(cards, { country: '', decade: '', q: '' })), ids(cards)); // unset filters are ignored
+});
+
+test('a word can hold several values, any of which will do, and years can be a range', () => {
+  assert.deepEqual(ids(applyFilters(cards, { country: ['Japan', 'Italy'] })), ['a', 'b', 'd', 'e']);
+  assert.deepEqual(ids(applyFilters(cards, { decade: [1940, 1960] })), ['b', 'd']);
+  assert.deepEqual(ids(applyFilters(cards, { director: ['Yasujiro Ozu', 'Seijun Suzuki'] })), ['a', 'b', 'd']);
+  assert.deepEqual(ids(applyFilters(cards, { country: ['Japan', 'Italy'], length: ['short', 'standard'] })), ['b', 'd', 'e']); // "or" inside a word, "and" between words
+  assert.deepEqual(ids(applyFilters(cards, { country: [] })), ids(cards)); // an empty list is unset
+  assert.deepEqual(ids(applyFilters(cards, { years: { since: null, until: 1950 } })), ['b', 'e']); // both ends included
+  assert.deepEqual(ids(applyFilters(cards, { years: { since: 1953, until: null } })), ['a', 'c', 'd']);
+  assert.deepEqual(ids(applyFilters(cards, { years: { since: 1950, until: 1959 } })), ['a', 'c', 'e']);
+});
+
+test('a small wall says what each word is keeping out, and nothing for a single word', () => {
+  // Japan, 1950s, short: nothing. Dropping "short" brings Tokyo Story; dropping the 1950s, Tokyo Drifter;
+  // dropping Japan, nothing (no short film from the 1950s elsewhere)
+  const near = nearMisses(cards, { country: ['Japan'], decade: [1950], length: ['short'] });
+  assert.deepEqual(near.map((o) => [o.key, o.n, ids(o.films)]), [['decade', 1, ['d']], ['length', 1, ['a']]]);
+  // a near miss is never on the wall itself: Japan, any of the 1940s/50s, long (Tokyo Story fits)
+  const fits = nearMisses(cards, { country: ['Japan'], decade: [1940, 1950], length: ['long'] });
+  assert.ok(fits.every((o) => !ids(o.films).includes('a')));
+  assert.deepEqual(nearMisses(cards, { country: ['Japan'] }), []);
+  assert.deepEqual(nearMisses(cards, { country: ['Japan'], decade: '' }), []); // an unset word doesn't count
 });
 
 test('search: accents and punctuation ignored; title beats other titles beats director', () => {

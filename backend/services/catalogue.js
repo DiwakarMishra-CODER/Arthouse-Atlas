@@ -21,8 +21,8 @@ import { matchesScreens } from './watchIndex.js';
 export { MOODS, MOOD_MIN_FILMS };
 export const LENGTHS = ['short', 'standard', 'long', 'epic'];
 export const LENGTH_WORDS = { short: 'under 90 minutes', standard: '90 minutes to 2 hours', long: '2 to 3 hours', epic: 'over 3 hours' };
-export const SORTS = ['acclaimed', 'oldest', 'newest', 'surprise', 'closest'];
-export const FILTERS = ['q', 'country', 'decade', 'director', 'movement', 'mood', 'genre', 'length'];
+export const SORTS = ['acclaimed', 'oldest', 'newest', 'surprise', 'closest', 'feel']; // feel: only with a sentence search's feel words
+export const FILTERS = ['q', 'country', 'decade', 'director', 'movement', 'mood', 'genre', 'length', 'years'];
 const FACETS = ['country', 'decade', 'director', 'movement', 'mood', 'genre', 'length'];
 
 export const lengthOf = (runtime) => {
@@ -155,26 +155,46 @@ export const nameMatches = (name, q) => {
   return typed.length > 0 && typed.every((w) => mine.some((t) => t.startsWith(w) || oneTypoApart(w, t)));
 };
 
+// a word can hold several values, any of which will do ("from Japan or South Korea")
+const anyOf = (v, test) => (Array.isArray(v) ? v.some(test) : test(v));
+
 const MATCHES = {
   q: (c, v) => searchScore(c, v) > 0,
-  country: (c, v) => c.countries.includes(v),
-  decade: (c, v) => c.decade === Number(v),
-  director: (c, v) => c._directors.includes(normalizeName(v)),
-  movement: (c, v) => c.movements.includes(v),
-  mood: (c, v) => c.moods.includes(v),
-  genre: (c, v) => c.genres.includes(v),
-  length: (c, v) => c.length === v,
+  country: (c, v) => anyOf(v, (x) => c.countries.includes(x)),
+  decade: (c, v) => anyOf(v, (x) => c.decade === Number(x)),
+  director: (c, v) => anyOf(v, (x) => c._directors.includes(normalizeName(x))),
+  movement: (c, v) => anyOf(v, (x) => c.movements.includes(x)),
+  mood: (c, v) => anyOf(v, (x) => c.moods.includes(x)),
+  genre: (c, v) => anyOf(v, (x) => c.genres.includes(x)),
+  length: (c, v) => anyOf(v, (x) => c.length === x),
+  // made between two years, both included (either end may be open): { since, until }
+  years: (c, v) => c.year != null && (v.since == null || c.year >= v.since) && (v.until == null || c.year <= v.until),
   // streaming in a country: on anything, free, or on the services chosen (services/watchIndex.js)
   screens: (c, v) => matchesScreens(c._id, v),
 };
 
-const isSet = (v) => v !== undefined && v !== null && v !== '';
+export const isSet = (v) => v !== undefined && v !== null && v !== '' && !(Array.isArray(v) && v.length === 0);
 const accents = (s) => (s.normalize('NFD').match(/[\u0300-\u036f]/g) || []).length;
 
 // Cards matching every set filter (except `skip`, when counting that filter's own options)
 export const applyFilters = (cards, filters, skip = null) => {
   const active = Object.entries(filters).filter(([k, v]) => k !== skip && MATCHES[k] && isSet(v));
   return cards.filter((c) => active.every(([k, v]) => MATCHES[k](c, v)));
+};
+
+// A small wall's near misses: for each word chosen, the films that fit every other word but not
+// that one, so the page can say what dropping it would bring ("Drop 'under 90 minutes': 9 more").
+// Only with two words or more (dropping the only word is just the whole atlas).
+export const nearMisses = (cards, filters, { per = 6 } = {}) => {
+  const active = Object.keys(filters).filter((k) => MATCHES[k] && isSet(filters[k]));
+  if (active.length < 2) return [];
+  return active
+    .map((key) => {
+      const films = applyFilters(cards, filters, key).filter((c) => !MATCHES[key](c, filters[key]));
+      return { key, n: films.length, films: films.sort(byCanon).slice(0, per) };
+    })
+    .filter((o) => o.n > 0)
+    .sort((a, b) => b.n - a.n);
 };
 
 // The canon: ranked films in rank order, then the unranked by strength of evidence, then age

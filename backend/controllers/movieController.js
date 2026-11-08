@@ -2,13 +2,14 @@ import Movie from '../models/Movie.js';
 import { getErrorResponse } from '../utils/errorResponse.js';
 import { getIndex, similarTo, inRankedOrder, CARD_FIELDS, REASONS } from '../services/recommender.js';
 import { pickTonight, MARATHON } from '../services/tonight.js';
-import { loadCatalogue, applyFilters, sortCards, facetCounts, publicCard, searchScore, nameMatches, withinStart, tally, MOODS, MOOD_MIN_FILMS, LENGTHS, SORTS } from '../services/catalogue.js';
+import { loadCatalogue, applyFilters, sortCards, facetCounts, nearMisses, publicCard, searchScore, nameMatches, withinStart, tally, MOODS, MOOD_MIN_FILMS, LENGTHS, SORTS } from '../services/catalogue.js';
 import { normalizeName } from '../services/nameUtils.js';
 import { getBridge, outsideCard } from '../services/bridge.js';
 import { togetherOf, getTogether, sharedFacts } from '../services/forYou.js';
 import { audienceOf } from '../services/audience.js';
 import { housesOfFilm, studiosNamed } from '../services/studios.js';
 import { listingFor, listedRegions, streamingIn, screensFacet } from '../services/watchIndex.js';
+import { feelIndex, embedFeel, rankByFeel } from '../services/feel.js';
 
 // the moods viewers gave enough films to offer, most films first (fewer than MOOD_MIN_FILMS wait for more evidence)
 const offeredMoods = (cards) => tally(cards.flatMap((c) => c.moods)).filter((m) => m.n >= MOOD_MIN_FILMS);
@@ -622,22 +623,36 @@ const startingPoints = (cards, directors, bridge) => {
 // @desc    Explore: the catalogue filtered, sorted and counted (the logic is in services/catalogue.js)
 // @route   GET /api/movies/explore?q=&country=&decade=&director=&movement=&mood=&genre=&length=&sort=&seed=&page=&limit=&facets=
 // @access  Public
+// a wall smaller than this shows what each word is keeping out
+const NEARLY_UNDER = 12;
+
 export const exploreMovies = async (req, res) => {
   try {
     const catalogue = await loadCatalogue();
     const { cards, directors, movementsByTag, movementsByTitle } = catalogue;
     const q = req.query;
+    // a word may hold several values, split by "|" (country=Japan|South Korea), any of which will do;
+    // a value the atlas can't hold (a mood or length it doesn't have, a malformed decade) is dropped
+    const listOf = (v, keep, max = 8) => (typeof v === 'string'
+      ? [...new Set(v.split('|').map((x) => x.trim()).filter(Boolean))].map(keep).filter(Boolean).slice(0, max)
+      : []);
     // a movement arrives by its page's slug (or, from old links, by name)
-    const movement = q.movement ? movementsByTag.get(q.movement) || movementsByTitle.get(q.movement) || null : null;
+    const movements = listOf(q.movement, (x) => movementsByTag.get(x) || movementsByTitle.get(x) || null);
+    const movement = movements.length === 1 ? movements[0] : null; // the one a banner is about
+    // made between two years, both included, either end open (since=1975, until=1949)
+    const yearOf = (v) => (/^\d{4}$/.test(v || '') ? Number(v) : null);
+    const [since, until] = [yearOf(q.since), yearOf(q.until)];
     const filters = {
       q: typeof q.q === 'string' ? q.q.trim().slice(0, 80) : '',
-      country: typeof q.country === 'string' ? q.country : '',
-      decade: /^\d{4}$/.test(q.decade || '') ? Number(q.decade) : '',
-      director: typeof q.director === 'string' ? q.director : '',
-      movement: movement?.title || '',
-      mood: MOODS.includes(q.mood) ? q.mood : '',
-      genre: typeof q.genre === 'string' ? q.genre : '',
-      length: LENGTHS.includes(q.length) ? q.length : '',
+      country: listOf(q.country, (x) => x.slice(0, 60)),
+      decade: listOf(q.decade, yearOf),
+      director: listOf(q.director, (x) => x.slice(0, 80)),
+      movement: movements.map((m) => m.title),
+      mood: listOf(q.mood, (x) => (MOODS.includes(x) ? x : null)),
+      genre: listOf(q.genre, (x) => x.slice(0, 40)),
+      length: listOf(q.length, (x) => (LENGTHS.includes(x) ? x : null)),
+      years: since != null && until != null ? { since: Math.min(since, until), until: Math.max(since, until) }
+        : since != null || until != null ? { since, until } : '',
     };
     // streaming in a country (`in`): on anything (screens=all), free (screens=free), or on the
     // services chosen (screens=11,8: each a family, its channels and ad tiers included)
@@ -649,14 +664,33 @@ export const exploreMovies = async (req, res) => {
     // a wall that starts from a film holds only the films it leads to, closest first
     const started = startOf(q, catalogue);
     const pool = withinStart(cards, started?.near);
-    const sort = SORTS.includes(q.sort) && (q.sort !== 'closest' || started) ? q.sort : started ? 'closest' : 'acclaimed';
+    // feel words from a sentence search ("sad", "set in winter"): they order the wall, never filter it
+    const feelWords = typeof q.feel === 'string' ? [...new Set(q.feel.split('|').map((w) => w.trim().slice(0, 40)).filter(Boolean))].slice(0, 6) : [];
+    const feeling = feelWords.length > 0 && feelIndex() !== null;
+    const sort = SORTS.includes(q.sort) && (q.sort !== 'closest' || started) && (q.sort !== 'feel' || feeling) ? q.sort : feeling ? 'feel' : started ? 'closest' : 'acclaimed';
     const limit = Math.min(96, Math.max(1, parseInt(q.limit, 10) || 24));
     const page = Math.max(1, parseInt(q.page, 10) || 1);
 
-    const matched = sortCards(applyFilters(pool, filters), sort, { seed: q.seed, q: filters.q, near: started?.near, decade: filters.decade });
+    const oneDecade = filters.decade.length === 1 ? filters.decade[0] : '';
+    let matched = sortCards(applyFilters(pool, filters), sort === 'feel' ? 'acclaimed' : sort, { seed: q.seed, q: filters.q, near: started?.near, decade: oneDecade });
+    // closest to the feel first, each with which of its viewers' words matched (when the feel can't be
+    // reached, the wall stays in the canon's order and says so)
+    const matchedWords = new Map();
+    let feelFailed = false;
+    if (sort === 'feel') {
+      try {
+        const ranked = rankByFeel(matched, await embedFeel(feelWords, { timeoutMs: 4000 }), feelWords);
+        matched = ranked.map((r) => r.card);
+        ranked.forEach((r) => matchedWords.set(r.card._id, r.matched));
+      } catch (e) {
+        console.error('feel ranking unavailable:', e.message);
+        feelFailed = true;
+      }
+    }
     const films = matched.slice((page - 1) * limit, page * limit).map((c) => {
       const card = publicCard(c);
       if (started) card.why = WHY[started.near.get(c._tmdb)?.reason] || null;
+      if (matchedWords.get(c._id)?.length) card.matched = matchedWords.get(c._id);
       // on a streaming wall, the services it's on there (the ones chosen first)
       if (filters.screens) {
         const on = streamingIn(c._id, region);
@@ -682,7 +716,7 @@ export const exploreMovies = async (req, res) => {
       });
       // only moods with enough films across the atlas are offered (the one chosen always stays)
       const offered = new Set(offeredMoods(cards).map((m) => m.value));
-      facets.mood = facets.mood.filter((m) => offered.has(m.value) || m.value === filters.mood);
+      facets.mood = facets.mood.filter((m) => offered.has(m.value) || filters.mood.includes(m.value));
       facets.movement = facets.movement.map((m) => {
         const mv = movementsByTitle.get(m.value);
         return { ...m, tag: mv?.tag || null, era: mv?.era || null, hero: mv?.heroStill || m.top?.still || null, focus: mv?.heroFocus || null };
@@ -691,11 +725,12 @@ export const exploreMovies = async (req, res) => {
 
     // the artist (or the film) the wall is about, for its banner
     const selected = {};
-    if (filters.director) {
-      const person = directors.get(normalizeName(filters.director));
-      const theirs = sortCards(applyFilters(cards, { director: filters.director }));
+    if (filters.director.length === 1) {
+      const [one] = filters.director;
+      const person = directors.get(normalizeName(one));
+      const theirs = sortCards(applyFilters(cards, { director: one }));
       selected.director = {
-        name: person?.name || filters.director,
+        name: person?.name || one,
         id: person?._id || null,
         portrait: person?.profileUrl || null,
         born: person?.birthDate?.slice(0, 4) || null,
@@ -725,14 +760,24 @@ export const exploreMovies = async (req, res) => {
       page,
       pages: Math.ceil(matched.length / limit),
       facets,
+      // a small wall: what dropping each word would bring back (films that miss only that word)
+      nearly: q.facets !== '0' && matched.length < NEARLY_UNDER
+        ? nearMisses(pool, filters).map((o) => ({ key: o.key, n: o.n, films: o.films.map(publicCard) }))
+        : [],
       selected,
-      filters: { ...filters, screens: filters.screens ? q.screens : '', in: region, movement: movement?.tag || '', like: started?.start.kind === 'like' ? started.start.id : '', from: started?.start.kind === 'from' ? String(started.start.tmdbId) : '' },
+      filters: {
+        ...Object.fromEntries(Object.entries(filters).map(([k, v]) => [k, Array.isArray(v) ? v.join('|') : v])),
+        years: '', since: filters.years ? filters.years.since ?? '' : '', until: filters.years ? filters.years.until ?? '' : '',
+        screens: filters.screens ? q.screens : '', in: region, movement: movements.map((m) => m.tag).filter(Boolean).join('|'), like: started?.start.kind === 'like' ? started.start.id : '', from: started?.start.kind === 'from' ? String(started.start.tmdbId) : '' },
       sort,
       notes: {
         // how many films have moods (they come from our own notes, so not every film has them yet)
         moodFilms: cards.filter((c) => c.moods.length).length,
         // a film to start from that couldn't be found (an old link, a film since removed): the wall is everything
         startMissing: !started && Boolean(q.like || q.from),
+        // the feel words the wall is ordered by, and whether that ordering could be reached
+        feel: feeling ? feelWords : [],
+        feelFailed,
       }
     });
   } catch (error) {
