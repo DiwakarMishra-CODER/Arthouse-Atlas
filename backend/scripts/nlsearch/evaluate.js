@@ -92,6 +92,7 @@ const ask = async (model, set, cards, vocab) => {
   console.log(`${model}: ${todo.length} to ask, room for ${Math.max(0, room)} today`);
 
   let asked = 0;
+  let inARow = 0; // errors one after another: five means something is wrong with the run, not the model
   for (const r of todo) {
     if (asked >= room) { console.log(asked >= max ? `stopped at --max=${max}` : 'the daily cap is reached: run again tomorrow'); break; }
     if (asked) await wait(Number(arg('gap', GAPS[spec.provider])));
@@ -101,11 +102,13 @@ const ask = async (model, set, cards, vocab) => {
     try {
       const { raw, ms, tokens } = await askModel(model, r.text, vocab, { timeoutMs: 30000 });
       kept.answers[r.id] = { text: r.text, raw, ms, tokens, at: new Date().toISOString() };
+      inARow = 0;
       process.stdout.write(`${r.id} ${ms}ms  `);
     } catch (e) {
       if (e.limited) { console.log(`\nthe provider's limit (${e.status}): stopping. ${e.message}`); asked--; budget[today()][model]--; writeJson(BUDGET, budget); break; }
       kept.answers[r.id] = { text: r.text, raw: null, error: `${e.status || 'error'}: ${e.message}`, at: new Date().toISOString() };
       process.stdout.write(`${r.id} ERROR  `);
+      if (++inARow >= 5) { writeJson(file, kept); console.log(`\nfive errors in a row: stopping. The last: ${e.message}`); break; }
     }
     writeJson(file, kept);
   }

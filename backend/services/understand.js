@@ -213,7 +213,8 @@ export const askModel = async (model, text, vocab, { timeoutMs = 5000, env = pro
     body = await res.json().catch(() => ({}));
     if (!res.ok || body.error) {
       const status = body.error?.code || res.status;
-      throw new ModelError(String(body.error?.message || `HTTP ${res.status}`).slice(0, 200), { status, limited: status === 429 });
+      // a limit (per minute or per day) comes back as HTTP 429, whatever code the body gives it
+      throw new ModelError(String(body.error?.message || `HTTP ${res.status}`).slice(0, 200), { status, limited: res.status === 429 || status === 429 || /rate_limit/.test(String(status)) });
     }
     const out = body.choices?.[0]?.message?.content || '';
     return { raw: JSON.parse(out.replace(/^```(?:json)?\s*|\s*```$/g, '')), ms: Date.now() - started, tokens: body.usage?.total_tokens ?? null };

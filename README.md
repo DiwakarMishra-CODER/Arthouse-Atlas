@@ -17,6 +17,8 @@ Arthouse Atlas is a website for finding films worth your evening. 1,056 of its 1
 
 On top of that sits **For You**: recommendations learned from 32 million ratings by real viewers (the MovieLens dataset), explained in plain numbers ("Nearly half of the 1,963 people who loved Persona loved this too").
 
+And you can simply **describe what you want**: "feels like a warm hug", "a heist set in Paris", "hidden gems from Japan", "Wong Kar-wai with Tony Leung". A language model reads it into the site's own filters, and the server checks every word of its answer against the atlas, so it can't invent a film, a director or a filter. How that works, and how it was tested, is [below](#how-the-search-reads-a-description).
+
 Each page is designed as a room of a cinema. The home page is a picture house, a film's page plays the film's own opening titles, For You is a camera monitor pulling focus, Studios is a backlot seen from a crane. The motion is there to make the films feel like films, not to decorate.
 
 ## Why I made this
@@ -64,6 +66,8 @@ You arrive on the film's title card, over its own frames. Scroll, and the screen
 | **The trailer plays in place.** The little screen grows into the big one. For the 55 films with no trailer online, the film's own frames run instead. | **How the critics rank it:** the film's standing on a marquee, its strongest lists as laurels, and what MovieLens viewers made of it. |
 | ![](docs/screens/film-lists.jpg) | ![](docs/screens/film-double-bill.jpg) |
 | **When the lists placed it:** every list that names the film, in the decade it named it. Persona: Cahiers' #1 of 1967 through Sight and Sound's #18 in 2022. | **Films like it, as a double bill,** each pairing with its reason: "Only 1 in 95 people loved it, but 1 in 3 of those who loved Persona did." |
+| ![](docs/screens/film-viewers.jpg) | ![](docs/screens/film-watch.jpg) |
+| **How did it feel?** The words MovieLens viewers used for the film, as a preview screening's response cards, counted in tally marks. A mood is shown only when enough viewers said it (3 or more and 3% of those who tagged the film; 2 for a film few tagged). Each card leads to the other films viewers called that. | **Where to watch, tonight:** the box office's window, in your country (detected, and changeable). The big services open their own search for the film (on a phone, their app); "43 countries showing it" counts where it streams. |
 | ![](docs/screens/film-stills.jpg) | ![](docs/screens/film-retrospective.jpg) |
 | **Stills from the film,** as a contact sheet. Each opens full screen, and arrows, keys or a swipe step through them. | **Their retrospective:** an iris opens on the director's portrait, then their other films cut in inside it. |
 
@@ -78,7 +82,7 @@ Your taste is the lens. A film you loved stands sharp in the foreground, your pi
 | | |
 |---|---|
 | ![](docs/screens/explore.jpg) | ![](docs/screens/explore-foyer.jpg) |
-| **Explore: the foyer.** A cinema letterboard says what's showing, and every gold word is a choice: country, decade, director, movement, mood, genre, length, order. Under it, a search for anything (a film, a director, a place, a studio). The choices sit in a tray under the board, made with pictures. It opens on the next blank word (the map, to start) and moves on after each pick. | **The display cases.** Films in canon order (pick a decade and it's that decade's own ranking), lit as you reach them; hover one and its frames run. Start from a film you know, or let the projector pick. |
+| **Explore: the foyer.** "What do you want to watch?" Describe it in your own words, or look up a title, a director or an actor. Under it, a cinema letterboard says what's showing, and every gold word is a choice you can change: country, decade, director, movement, mood, genre, length, streaming, order. A word can hold several values ("from Japan *or* South Korea"), and years can be a span ("made before 1950"). The choices open in a tray of pictures (the night map, a strip of decades, a contact sheet of directors), which folds into a bar of its tabs. | **The display cases.** Films in canon order (pick a decade and it's that decade's own ranking), or, after a description, best match first, each saying what viewers called it ("Viewers said: humorous, witty"). Lit as you reach them; hover one and its frames run. When only a few films fit, each word on the board gets a row of the films it's keeping out, with a way to take it off. Or let the projector pick one at random. |
 | ![](docs/screens/directors.jpg) | ![](docs/screens/director.jpg) |
 | **Directors: "Directed by".** The scroll is the projector; each director's best film rolls into the gate, then everyone appears as end credits. It plays once, and "Skip to the list" goes straight to the credits. | **A director's page** is a retrospective: the career on a projector, a poster wall, the biography on an archive card, the circle they worked with. |
 | ![](docs/screens/movements.jpg) | ![](docs/screens/movement.jpg) |
@@ -148,6 +152,44 @@ The recommendations are learned from **MovieLens 32M**, a public research datase
 
 On film pages, the same data gives **what viewers made of it** ("On MovieLens, 1,963 people loved it, nearly three in four of those who rated it") for the 976 films that 30 or more people rated.
 
+## How the search reads a description
+
+![A description read into the board's words: "something that feels like a warm hug" became THAT FEEL WARM](docs/screens/explore-search.jpg)
+
+Explore has two searches: **describe what you want** (a language model reads it) and **look up a title or name** (the atlas's own data, instant, never a model). Nothing has to guess which one you meant. The code is [`backend/services/understand.js`](backend/services/understand.js) (the reading and its check) and [`backend/services/feel.js`](backend/services/feel.js) (the ordering).
+
+1. **The reading.** Gemini 3.5 Flash-Lite reads the sentence into the board's own words: country, decade or span of years, director, actor, language, movement, genre, length, streaming, lesser known, a film to start from. Describing words ("slow", "beautiful") and subjects ("a heist", "set in Tokyo") are kept apart: they order the films, they never filter them. When Gemini hasn't answered in 3 seconds, GPT-OSS 120B on Groq is asked; a model that fails three times in a row is skipped for five minutes. If both fail, the words go to the ordinary search.
+2. **The check: it can't make things up.**
+   - The answer is a fixed JSON shape at temperature 0, and the closed lists (countries, decades, genres, movements, lengths, languages) are enums in the schema itself.
+   - Every value must point at words actually in the request, and is checked against the catalogue again. A value with no words behind it is dropped: that's what stops a filter nobody asked for.
+   - People and films are matched by the site's own name matcher. One the atlas doesn't hold ("films by Michael Bay") is reported as "couldn't use", never swapped for someone close.
+   - A genre counts only when the request names it ("comedies"), so "something funny" doesn't hide every funny film not filed under Comedy.
+   - A feeling described through a reference ("like listening to Converge", "like a warm hug") may be translated, but only into a fixed list of 75 feelings that viewers actually use here, and the page says what it was read as.
+   - The request is passed as data, not instructions, and the model's own words never reach the page.
+3. **The ordering.** Films whose MovieLens viewers used the same words, or ones a mood table counts as the same feeling ("sad": melancholy, heartbreaking), come first, the films matching more of the words first; subjects are matched against TMDB's tags for each film. Then an embedding (Gemini's, built once for every film from what viewers called it and its synopsis; a search costs one cached call) breaks near-ties, and orders everything when no viewer used the words. The films no viewer described that way follow behind a title card, in the canon's order.
+
+**How it was tested.** Before any model was run, 108 requests in plain English were written with the reading a person would expect, and reviewed by me: single and combined filters, describing words, misspelled names, "like a film", "or" and spans of years, off-topic requests ("how do I make pizza") and guardrail traps (a director the atlas doesn't hold, a made-up country, an instruction hidden in the request). Every model reading went through the server's check and was scored against them. The full report is [`backend/scripts/nlsearch/EVALUATION.md`](backend/scripts/nlsearch/EVALUATION.md).
+
+| On the 108 requests (first version of the instructions) | Gemini 3.5 Flash-Lite | GPT-OSS 120B (Groq) |
+|---|---|---|
+| Read right | **95%** | 81% |
+| Guardrail traps passed | 8 of 8 | 7 of 8 |
+| Instruction hidden in a request | ignored | followed |
+| A value the check had to refuse | never | never |
+| Answer time, median | 1.7 s | 0.8 s |
+
+Gemini reads better but its free tier sometimes queues for 10 seconds; Groq is fast. Together, as the site runs them (Gemini, then Groq after 3 seconds), **92% were read right**, half the answers in under 2 seconds. A third model, Nemotron on OpenRouter, was tried on 48 and set aside for its answer time.
+
+**Does ordering by feeling find better films?** For the 24 requests with describing words, the top 5 by feel and the top 5 by acclaim were mixed and shuffled, and I rated each film as fitting the request or not, without knowing which order chose it (225 ratings; films I didn't know were left out):
+
+| Precision@5 | By feel | By acclaim |
+|---|---|---|
+| All rated requests | **89%** | 52% |
+| Describing words only ("I want to cry") | 98% | 43% |
+| With filters too ("a sad Soviet film") | 74% | 68% |
+
+One rater, and the acclaim order is an easy baseline for describing words alone; with filters the two are close. The instructions have since grown (actors, language, subjects, streaming, translated references): that version is being re-tested on the same requests plus 21 new ones, and the report will carry its numbers.
+
 ---
 
 ## Engineering notes
@@ -167,6 +209,9 @@ On film pages, the same data gives **what viewers made of it** ("On MovieLens, 1
   - There's a skip link, and a visible focus ring on every control.
   - The site follows the system's reduced-motion setting.
   - The scroll-driven scenes (a film's opening, the home page's arthouse scene, About's commentary, the Directors opening) carry their text for screen readers too.
+- **Moods from what viewers said** (`scripts/moods/`): the 2,000,072 tags MovieLens viewers wrote, matched to the atlas, counted per film by distinct viewers, and mapped through a synonym table to 21 moods. 496 films have one; a spot check of 61 film-mood pairs found all 61 right. They replaced 795 moods an AI had guessed for 159 films earlier: viewers confirmed 18% of those, and for 72% no viewer said anything like them.
+- **Where to watch** (`services/watchIndex.js`): TMDB's JustWatch data for every film in 139 countries, rebuilt daily and kept in MongoDB. A build that fails or suddenly loses most of its listings is thrown away and the last good one kept; channels and ad tiers fold into the service they belong to.
+- **Free tiers, used gently:** the same sentence is read once, each visitor gets 20 sentences in 10 minutes, the day has a cap, and the test runs are spaced out under each provider's limits and stop at the first sign of one.
 - **Data changes are careful.** The scripts that fix the catalogue (stills, credits, trailers, moods) do a dry run by default, back up what they'll change before `--apply`, and can restore from that backup.
 - **Every picture is screened.** Two models check every picture the site can show for nudity: NudeNet finds exposed bodies, and CLIP compares each picture with ordinary film frames, so it also catches covered scenes. Neither caught everything alone. A person checks every flag, and what's taken off goes on a blocklist that the stills script respects.
 
@@ -178,17 +223,19 @@ More detail, with the formulas: [TECHNICAL_OVERVIEW.md](TECHNICAL_OVERVIEW.md).
 |---|---|
 | **Frontend** | React 19, Vite 7, Tailwind CSS 4, framer-motion 12, React Router 7, d3-geo and topojson-client |
 | **Backend** | Node.js, Express 4, MongoDB with Mongoose 8, JWT and bcrypt, Google sign-in, rate limiting |
+| **AI** | Gemini 3.5 Flash-Lite and Gemini embeddings (Google AI Studio), GPT-OSS 120B on Groq, structured output with a server-side check |
 | **Data scripts** | sharp (image sprites), world-atlas (Natural Earth shapes), the TMDB API, MovieLens 32M |
 | **Hosting** | Vercel (the site, with its cookie-free Web Analytics), Render (the API, kept awake by an uptime monitor), MongoDB Atlas |
 
 ## Running it locally
 
-You'll need Node.js 20 or newer, a MongoDB database with the catalogue, and a [TMDB API key](https://www.themoviedb.org/settings/api). The database isn't in this repository. It was built from the public sources by the scripts in [`backend/scripts/`](backend/scripts/).
+You'll need Node.js 22 (see `.nvmrc`), a MongoDB database with the catalogue, and a [TMDB API key](https://www.themoviedb.org/settings/api). The database isn't in this repository. It was built from the public sources by the scripts in [`backend/scripts/`](backend/scripts/).
 
 ```bash
 # the API
 cd backend
-cp .env.example .env      # then fill in MONGODB_URI, JWT_SECRET, TMDB_API_KEY (and GOOGLE_CLIENT_ID for Google sign-in)
+cp .env.example .env      # then fill in MONGODB_URI, JWT_SECRET, TMDB_API_KEY (GOOGLE_CLIENT_ID for Google sign-in;
+                          # GEMINI_API_KEY and GROQ_API_KEY for describing a film: without them it's the ordinary search)
 npm install
 npm run dev               # http://localhost:5000
 
@@ -199,7 +246,7 @@ npm install
 npm run dev                   # http://localhost:5173
 ```
 
-**Tests:** `npm test` in `backend/` runs 96 tests. They cover the canon breakdown, the About lists, Explore's filters, For You's reasons, the studios, the director index, the profile awards (signed in and from the browser's marks), today's film, accounts (including the Google sign-in check), the Letterboxd import and the film-page data scripts. `npm test` in `frontend/` runs 11 tests of the link-preview and search middleware (including the first-frame preload) and the sitemap.
+**Tests:** `npm test` in `backend/` runs 129 tests. They cover the canon breakdown, the About lists, Explore's filters (lists, spans, near misses), the search's check and its scoring, the feel ordering, the viewer moods, the where-to-watch index, For You's reasons, the studios, the director index, the profile awards, today's film, accounts (including the Google sign-in check), the Letterboxd import and the film-page data scripts. None calls a model: the evaluation's answers are saved. `npm test` in `frontend/` runs 12 tests of the link-preview and search middleware and the sitemap. CI runs both, with the lint and the build, on every push.
 
 **The data scripts** (all in `backend/scripts/`; the media scripts only write when given `--apply`):
 
@@ -213,6 +260,8 @@ npm run dev                   # http://localhost:5173
 | `media/credits.js` | Cast, writers, editors, languages and taglines from TMDB |
 | `media/trailers.js` | Checks every trailer still plays and replaces dead ones |
 | `recs/` (`npm run recs:*`) | Downloads MovieLens, builds and evaluates the recommender, and counts the reasons and the viewer numbers |
+| `moods/fromTags.js`, `moods/applyViewerMoods.js` | The moods from viewers' tags: a dry-run report and spot-check sheet, then applied with a backup |
+| `nlsearch/` | The search's viewer words and feel index, the test set, the evaluation and the blind-rating sheet |
 | `buildMosaic.js` | The home page's sprite sheets |
 | `buildAtlasMap.js` | The map's shapes |
 | `exportMeta.js` | The link-preview titles and pictures, and the sitemap (run after the catalogue changes) |
@@ -222,9 +271,9 @@ npm run dev                   # http://localhost:5173
 ```
 backend/
   controllers/  routes/  models/  middleware/     the API (Express + Mongoose)
-  services/       the catalogue, today's film, For You, About, studios, directors
+  services/       the catalogue, the search (understand, feel), where to watch, today's film, For You, About, studios, directors
   scripts/        the canon engine, media, recommender and map pipelines
-  data/           the list sources, the recommender model and its evaluation
+  data/           the list sources, the recommender model and its evaluation, the moods' synonyms, the feel index
   tests/
 frontend/
   src/pages/      one file per room
