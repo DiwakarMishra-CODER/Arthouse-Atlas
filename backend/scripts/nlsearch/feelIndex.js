@@ -18,14 +18,13 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import { fileURLToPath } from 'url';
-import dotenv from 'dotenv';
+import './lib/env.js'; // .env, then .env.eval's test-only keys on top
 import mongoose from 'mongoose';
 import Movie from '../../models/Movie.js';
 import { normalizeName } from '../../services/nameUtils.js';
 import { EMBED_MODEL, EMBED_DIMS, embedBatch, toBytes } from '../../services/feel.js';
 
 const BACKEND = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
-dotenv.config({ path: path.join(BACKEND, '.env') });
 const TAGS = path.join(BACKEND, 'data/feel/tags.json');
 const OUT = path.join(BACKEND, 'data/feel/index.json');
 const PER_FILM = 15;

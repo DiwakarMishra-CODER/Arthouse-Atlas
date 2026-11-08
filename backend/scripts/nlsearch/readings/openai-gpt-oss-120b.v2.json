@@ -1,0 +1,1209 @@
+{
+  "model": "openai/gpt-oss-120b",
+  "promptVersion": 2,
+  "answers": {
+    "q001": {
+      "text": "Japanese films",
+      "raw": {
+        "offTopic": false,
+        "country": [
+          {
+            "value": "Japan",
+            "words": "Japanese"
+          }
+        ],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 871,
+      "tokens": 2099,
+      "at": "2026-11-08T11:38:41.695Z"
+    },
+    "q002": {
+      "text": "films from Iran",
+      "raw": {
+        "offTopic": false,
+        "country": [
+          {
+            "value": "Iran",
+            "words": "films from Iran"
+          }
+        ],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 797,
+      "tokens": 2113,
+      "at": "2026-11-08T11:39:00.496Z"
+    },
+    "q003": {
+      "text": "French cinema",
+      "raw": {
+        "offTopic": false,
+        "country": [
+          {
+            "value": "France",
+            "words": "French"
+          }
+        ],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 896,
+      "tokens": 2101,
+      "at": "2026-11-08T11:39:19.399Z"
+    },
+    "q004": {
+      "text": "movies from South Korea",
+      "raw": {
+        "offTopic": false,
+        "country": [
+          {
+            "value": "South Korea",
+            "words": "South Korea"
+          }
+        ],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 951,
+      "tokens": 2096,
+      "at": "2026-11-08T11:39:38.355Z"
+    },
+    "q005": {
+      "text": "Indian films",
+      "raw": {
+        "offTopic": false,
+        "country": [
+          {
+            "value": "India",
+            "words": "Indian"
+          }
+        ],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 905,
+      "tokens": 2099,
+      "at": "2026-11-08T11:39:57.263Z"
+    },
+    "q006": {
+      "text": "films from the 1970s",
+      "raw": {
+        "offTopic": false,
+        "country": [],
+        "decade": [
+          {
+            "value": "1970",
+            "words": "1970s"
+          }
+        ],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 725,
+      "tokens": 2128,
+      "at": "2026-11-08T11:40:15.993Z"
+    },
+    "q007": {
+      "text": "something from the 50s",
+      "raw": {
+        "offTopic": false,
+        "country": [],
+        "decade": [
+          {
+            "value": "1950",
+            "words": "something from the 50s"
+          }
+        ],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 954,
+      "tokens": 2131,
+      "at": "2026-11-08T11:40:34.959Z"
+    },
+    "q008": {
+      "text": "a movie made in 1994",
+      "raw": {
+        "offTopic": false,
+        "country": [],
+        "decade": [],
+        "since": [
+          {
+            "year": 1994,
+            "words": "made in 1994"
+          }
+        ],
+        "until": [
+          {
+            "year": 1994,
+            "words": "made in 1994"
+          }
+        ],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 911,
+      "tokens": 2163,
+      "at": "2026-11-08T11:40:53.875Z"
+    },
+    "q009": {
+      "text": "films from the 1920s",
+      "raw": {
+        "offTopic": false,
+        "country": [],
+        "decade": [
+          {
+            "value": "1920",
+            "words": "1920s"
+          }
+        ],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 740,
+      "tokens": 2130,
+      "at": "2026-11-08T11:41:12.621Z"
+    },
+    "q010": {
+      "text": "Kurosawa",
+      "raw": {
+        "offTopic": false,
+        "country": [],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [
+          {
+            "name": "Kurosawa",
+            "words": "Kurosawa"
+          }
+        ],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 856,
+      "tokens": 2117,
+      "at": "2026-11-08T11:41:31.480Z"
+    },
+    "q011": {
+      "text": "films by Agnès Varda",
+      "raw": {
+        "offTopic": false,
+        "country": [],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [
+          {
+            "name": "Agnès Varda",
+            "words": "Agnès Varda"
+          }
+        ],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 724,
+      "tokens": 2116,
+      "at": "2026-11-08T11:41:50.207Z"
+    },
+    "q012": {
+      "text": "Tarkovsky movies",
+      "raw": {
+        "offTopic": false,
+        "country": [],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 808,
+      "tokens": 2061,
+      "at": "2026-11-08T11:42:09.019Z"
+    },
+    "q013": {
+      "text": "anything by Wong Kar-wai",
+      "raw": {
+        "offTopic": false,
+        "country": [],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [
+          {
+            "name": "Wong Kar-wai",
+            "words": "Wong Kar-wai"
+          }
+        ],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 916,
+      "tokens": 2125,
+      "at": "2026-11-08T11:42:27.940Z"
+    },
+    "q014": {
+      "text": "French New Wave",
+      "raw": {
+        "offTopic": false,
+        "country": [],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [
+          {
+            "value": "French New Wave",
+            "words": "French New Wave"
+          }
+        ],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 845,
+      "tokens": 2109,
+      "at": "2026-11-08T11:42:46.789Z"
+    },
+    "q015": {
+      "text": "Italian neorealist films",
+      "raw": {
+        "offTopic": false,
+        "country": [
+          {
+            "value": "Italy",
+            "words": "Italian"
+          }
+        ],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [
+          {
+            "value": "Italian Neorealism",
+            "words": "neorealist"
+          }
+        ],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 1013,
+      "tokens": 2152,
+      "at": "2026-11-08T11:43:05.806Z"
+    },
+    "q016": {
+      "text": "slow cinema",
+      "raw": {
+        "offTopic": false,
+        "country": [],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [
+          {
+            "value": "Slow Cinema",
+            "words": "slow cinema"
+          }
+        ],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 930,
+      "tokens": 2132,
+      "at": "2026-11-08T11:43:24.742Z"
+    },
+    "q017": {
+      "text": "German Expressionism",
+      "raw": {
+        "offTopic": false,
+        "country": [],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [
+          {
+            "value": "German Expressionism",
+            "words": "German Expressionism"
+          }
+        ],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 663,
+      "tokens": 2112,
+      "at": "2026-11-08T11:43:43.410Z"
+    },
+    "q018": {
+      "text": "a documentary",
+      "raw": {
+        "offTopic": false,
+        "country": [],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [
+          {
+            "value": "Documentary",
+            "words": "documentary"
+          }
+        ],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 663,
+      "tokens": 2095,
+      "at": "2026-11-08T11:44:02.077Z"
+    },
+    "q019": {
+      "text": "horror films",
+      "raw": {
+        "offTopic": false,
+        "country": [],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 690,
+      "tokens": 2055,
+      "at": "2026-11-08T11:44:20.772Z"
+    },
+    "q020": {
+      "text": "something under 90 minutes",
+      "raw": {
+        "offTopic": false,
+        "country": [],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [
+          {
+            "value": "short",
+            "words": "under 90 minutes"
+          }
+        ],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 1004,
+      "tokens": 2115,
+      "at": "2026-11-08T11:44:39.781Z"
+    },
+    "q021": {
+      "text": "Japanese films from the 60s",
+      "raw": {
+        "offTopic": false,
+        "country": [
+          {
+            "value": "Japan",
+            "words": "Japanese"
+          }
+        ],
+        "decade": [
+          {
+            "value": "1960",
+            "words": "60s"
+          }
+        ],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 690,
+      "tokens": 2130,
+      "at": "2026-11-08T11:44:58.474Z"
+    },
+    "q022": {
+      "text": "French comedies from the 1990s",
+      "raw": {
+        "offTopic": false,
+        "country": [
+          {
+            "value": "France",
+            "words": "French"
+          }
+        ],
+        "decade": [
+          {
+            "value": "1990",
+            "words": "1990s"
+          }
+        ],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [
+          {
+            "value": "Comedy",
+            "words": "comedies"
+          }
+        ],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 900,
+      "tokens": 2157,
+      "at": "2026-11-08T11:45:17.379Z"
+    },
+    "q023": {
+      "text": "Bergman films from the 1950s",
+      "raw": {
+        "offTopic": false,
+        "country": [],
+        "decade": [
+          {
+            "value": "1950",
+            "words": "1950s"
+          }
+        ],
+        "since": [],
+        "until": [],
+        "director": [
+          {
+            "name": "Bergman",
+            "words": "Bergman"
+          }
+        ],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 829,
+      "tokens": 2178,
+      "at": "2026-11-08T11:45:36.212Z"
+    },
+    "q024": {
+      "text": "Iranian films under 90 minutes",
+      "raw": {
+        "offTopic": false,
+        "country": [
+          {
+            "value": "Iran",
+            "words": "Iranian"
+          }
+        ],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [
+          {
+            "value": "short",
+            "words": "under 90 minutes"
+          }
+        ],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 1143,
+      "tokens": 2121,
+      "at": "2026-11-08T11:45:55.359Z"
+    },
+    "q025": {
+      "text": "a Hong Kong crime film from the 80s",
+      "raw": {
+        "offTopic": false,
+        "country": [
+          {
+            "value": "Hong Kong",
+            "words": "Hong Kong"
+          }
+        ],
+        "decade": [
+          {
+            "value": "1980",
+            "words": "80s"
+          }
+        ],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [
+          {
+            "value": "Crime",
+            "words": "crime"
+          }
+        ],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 1052,
+      "tokens": 2201,
+      "at": "2026-11-08T11:46:14.418Z"
+    },
+    "q026": {
+      "text": "Hitchcock thrillers",
+      "raw": {
+        "offTopic": false,
+        "country": [],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [
+          {
+            "name": "Hitchcock",
+            "words": "Hitchcock"
+          }
+        ],
+        "like": [],
+        "movement": [],
+        "genre": [
+          {
+            "value": "Thriller",
+            "words": "thrillers"
+          }
+        ],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 1019,
+      "tokens": 2186,
+      "at": "2026-11-08T11:46:33.442Z"
+    },
+    "q027": {
+      "text": "Korean thrillers from the 2010s",
+      "raw": {
+        "offTopic": false,
+        "country": [
+          {
+            "value": "South Korea",
+            "words": "Korean"
+          }
+        ],
+        "decade": [
+          {
+            "value": "2010",
+            "words": "2010s"
+          }
+        ],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [
+          {
+            "value": "Thriller",
+            "words": "thrillers"
+          }
+        ],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 798,
+      "tokens": 2141,
+      "at": "2026-11-08T11:46:52.246Z"
+    },
+    "q028": {
+      "text": "Taiwanese films from the 1980s",
+      "raw": {
+        "offTopic": false,
+        "country": [
+          {
+            "value": "Taiwan",
+            "words": "Taiwanese"
+          }
+        ],
+        "decade": [
+          {
+            "value": "1980",
+            "words": "1980s"
+          }
+        ],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 664,
+      "tokens": 2138,
+      "at": "2026-11-08T11:47:10.915Z"
+    },
+    "q029": {
+      "text": "Soviet war films",
+      "raw": {
+        "offTopic": false,
+        "country": [
+          {
+            "value": "Soviet Union",
+            "words": "Soviet"
+          }
+        ],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [
+          {
+            "value": "War",
+            "words": "war"
+          }
+        ],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 866,
+      "tokens": 2133,
+      "at": "2026-11-08T11:47:29.786Z"
+    },
+    "q030": {
+      "text": "an Italian film over three hours",
+      "raw": {
+        "offTopic": false,
+        "country": [
+          {
+            "value": "Italy",
+            "words": "Italian"
+          }
+        ],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [
+          {
+            "value": "epic",
+            "words": "over three hours"
+          }
+        ],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 920,
+      "tokens": 2126,
+      "at": "2026-11-08T11:47:48.711Z"
+    },
+    "q031": {
+      "text": "American westerns from the 1950s",
+      "raw": {
+        "offTopic": false,
+        "country": [
+          {
+            "value": "United States of America",
+            "words": "American"
+          }
+        ],
+        "decade": [
+          {
+            "value": "1950",
+            "words": "1950s"
+          }
+        ],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [
+          {
+            "value": "Western",
+            "words": "western"
+          }
+        ],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 1143,
+      "tokens": 2230,
+      "at": "2026-11-08T11:48:07.859Z"
+    },
+    "q032": {
+      "text": "animated films from Japan",
+      "raw": {
+        "offTopic": false,
+        "country": [
+          {
+            "value": "Japan",
+            "words": "Japan"
+          }
+        ],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [
+          {
+            "value": "Animation",
+            "words": "animated"
+          }
+        ],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 721,
+      "tokens": 2165,
+      "at": "2026-11-08T11:48:26.584Z"
+    },
+    "q033": {
+      "text": "Ozu films from the 50s",
+      "raw": {
+        "offTopic": false,
+        "country": [
+          {
+            "value": "Japan",
+            "words": "Japanese"
+          }
+        ],
+        "decade": [
+          {
+            "value": "1950",
+            "words": "50s"
+          }
+        ],
+        "since": [],
+        "until": [],
+        "director": [
+          {
+            "name": "Ozu",
+            "words": "Ozu"
+          }
+        ],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 960,
+      "tokens": 2159,
+      "at": "2026-11-08T11:48:45.548Z"
+    },
+    "q034": {
+      "text": "Danish films from the 90s",
+      "raw": {
+        "offTopic": false,
+        "country": [
+          {
+            "value": "Denmark",
+            "words": "Danish"
+          }
+        ],
+        "decade": [
+          {
+            "value": "1990",
+            "words": "90s"
+          }
+        ],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 884,
+      "tokens": 2130,
+      "at": "2026-11-08T11:49:04.437Z"
+    },
+    "q035": {
+      "text": "French New Wave films from the 1960s",
+      "raw": {
+        "offTopic": false,
+        "country": [],
+        "decade": [
+          {
+            "value": "1960",
+            "words": "1960s"
+          }
+        ],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [
+          {
+            "value": "French New Wave",
+            "words": "French New Wave"
+          }
+        ],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 867,
+      "tokens": 2161,
+      "at": "2026-11-08T11:49:23.310Z"
+    },
+    "q036": {
+      "text": "Satyajit Ray films from the 1950s",
+      "raw": {
+        "offTopic": false,
+        "country": [],
+        "decade": [
+          {
+            "value": "1950",
+            "words": "1950s"
+          }
+        ],
+        "since": [],
+        "until": [],
+        "director": [
+          {
+            "name": "Satyajit Ray",
+            "words": "Satyajit Ray"
+          }
+        ],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 1180,
+      "tokens": 2192,
+      "at": "2026-11-08T11:49:42.495Z"
+    },
+    "q037": {
+      "text": "a Mexican drama from the 2000s",
+      "raw": {
+        "offTopic": false,
+        "country": [
+          {
+            "value": "Mexico",
+            "words": "Mexican"
+          }
+        ],
+        "decade": [
+          {
+            "value": "2000",
+            "words": "2000s"
+          }
+        ],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [
+          {
+            "value": "Drama",
+            "words": "drama"
+          }
+        ],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 935,
+      "tokens": 2168,
+      "at": "2026-11-08T11:50:01.435Z"
+    },
+    "q038": {
+      "text": "short Polish films",
+      "raw": {
+        "offTopic": false,
+        "country": [
+          {
+            "value": "Poland",
+            "words": "short Polish films"
+          }
+        ],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [
+          {
+            "value": "short",
+            "words": "short Polish films"
+          }
+        ],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 919,
+      "tokens": 2134,
+      "at": "2026-11-08T11:50:20.360Z"
+    },
+    "q039": {
+      "text": "science fiction from the 70s",
+      "raw": {
+        "offTopic": false,
+        "country": [],
+        "decade": [
+          {
+            "value": "1970",
+            "words": "70s"
+          }
+        ],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [
+          {
+            "value": "Science Fiction",
+            "words": "science fiction"
+          }
+        ],
+        "length": [],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 842,
+      "tokens": 2111,
+      "at": "2026-11-08T11:50:39.207Z"
+    },
+    "q040": {
+      "text": "German films from the 2000s that run over two hours",
+      "raw": {
+        "offTopic": false,
+        "country": [
+          {
+            "value": "Germany",
+            "words": "German"
+          }
+        ],
+        "decade": [
+          {
+            "value": "2000",
+            "words": "2000s"
+          }
+        ],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [
+          {
+            "value": "long",
+            "words": "over two hours"
+          },
+          {
+            "value": "epic",
+            "words": "over two hours"
+          }
+        ],
+        "feel": [],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 1217,
+      "tokens": 2219,
+      "at": "2026-11-08T11:50:58.429Z"
+    },
+    "q041": {
+      "text": "something slow and melancholic",
+      "raw": {
+        "offTopic": false,
+        "country": [],
+        "decade": [],
+        "since": [],
+        "until": [],
+        "director": [],
+        "like": [],
+        "movement": [],
+        "genre": [],
+        "length": [],
+        "feel": [
+          "slow",
+          "melancholic"
+        ],
+        "inferred": [],
+        "unplaced": []
+      },
+      "ms": 916,
+      "tokens": 2128,
+      "at": "2026-11-08T11:51:17.346Z"
+    }
+  }
+}

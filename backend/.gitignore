@@ -14,3 +14,6 @@ scripts/reports/provenance-report.md
 scripts/reports/canon-gaps.md
 # natural-language search: each model's calls per day (local bookkeeping for the evaluation)
 scripts/nlsearch/readings/budget-*.json
+
+# keys only the evaluation scripts use (scripts/nlsearch), so test runs never spend the live site's free allowance
+.env.eval

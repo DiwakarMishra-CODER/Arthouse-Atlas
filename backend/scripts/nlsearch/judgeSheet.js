@@ -16,7 +16,7 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import { fileURLToPath } from 'url';
-import dotenv from 'dotenv';
+import './lib/env.js'; // .env, then .env.eval's test-only keys on top
 import mongoose from 'mongoose';
 import { loadCatalogue, applyFilters, sortCards } from '../../services/catalogue.js';
 import { vocabularyOf, checkReading } from '../../services/understand.js';
@@ -24,7 +24,6 @@ import { embedFeel, rankByFeel } from '../../services/feel.js';
 import Movie from '../../models/Movie.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
-dotenv.config({ path: path.resolve(HERE, '../../.env') });
 const KEY = path.join(HERE, 'judging-key.json');
 const SHEET = path.resolve(HERE, '../../../../feel-judging.html');
 const TOP = 5;
