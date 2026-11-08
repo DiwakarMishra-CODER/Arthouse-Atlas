@@ -2,7 +2,7 @@
 
 **A curated atlas of arthouse cinema: 1,120 films, ordered by what critics' polls, year-end lists and festival juries have agreed on, not by an algorithm's guesses.**
 
-**Live:** [arthouse-atlas.vercel.app](https://arthouse-atlas.vercel.app) · **By** Diwakar Mishra · [GitHub](https://github.com/DiwakarMishra-CODER) · [LinkedIn](https://www.linkedin.com/in/diwakar-mishra-dev)
+**Live:** [arthouse-atlas.vercel.app](https://arthouse-atlas.vercel.app) · **By** Diwakar Mishra · [GitHub](https://github.com/DiwakarMishra-CODER) · [LinkedIn](https://www.linkedin.com/in/diwakar-mishra-dev) · **Also by me:** [Starweave](https://starweaves.vercel.app/), indie music
 
 ![The home page: the wall of every film's stills dives into today's film](docs/screens/clip-home.webp)
 
@@ -291,4 +291,4 @@ docs/screens/     the pictures in this README
 - **The lists:** each belongs to its publisher: Sight and Sound (BFI), They Shoot Pictures Don't They?, BBC Culture, The New York Times, CriticsTop10, Cahiers du Cinéma, Kinema Junpo, the Busan International Film Festival, the Cannes, Venice, Berlin and Locarno festivals and FIPRESCI, Jonathan Rosenbaum, Roger Ebert and The Criterion Collection.
 - **Map:** [Natural Earth](https://www.naturalearthdata.com/) (public domain), via world-atlas.
 
-Made by **Diwakar Mishra**.
+Made by **Diwakar Mishra**. Also by me: **[Starweave](https://starweaves.vercel.app/)** ([code](https://github.com/DiwakarMishra-CODER/starweave)), a map of who influenced whom in indie music: 312 artists and 1,024 links, every link backed by a source you can open and read.

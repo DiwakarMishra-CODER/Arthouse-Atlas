@@ -7,6 +7,9 @@ export const MAKER_LINKS = [
     ['The code', 'https://github.com/DiwakarMishra-CODER/Arthouse-Atlas'],
 ];
 
+// the maker's other site, under the end credits (their wording, 8 Nov 2026)
+export const MAKER_ALSO = { lead: 'Also by me:', name: 'Starweave', rest: ', a map of who influenced whom in indie music.', href: 'https://starweaves.vercel.app' };
+
 // the opening's picture: three of the maker's films, a frame each (where each is held: on a wide
 // screen, and on a tall one)
 export const MAKER_FILMS = [

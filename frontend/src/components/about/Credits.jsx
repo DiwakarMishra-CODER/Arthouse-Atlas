@@ -1,5 +1,5 @@
 import { MdArrowOutward } from 'react-icons/md';
-import { MAKER, MAKER_LINKS } from './maker';
+import { MAKER, MAKER_ALSO, MAKER_LINKS } from './maker';
 
 /**
  * The credits: who made the atlas, and where everything in it comes from, set like a film's last
@@ -19,6 +19,10 @@ const Credits = () => (
                     </a>
                 ))}
             </div>
+            <p className="mt-5 font-serif text-[1.1rem] md:text-[1.2rem] text-gray-300">
+                {MAKER_ALSO.lead}{' '}
+                <a href={MAKER_ALSO.href} target="_blank" rel="noreferrer" className="text-gold underline decoration-gold/40 underline-offset-4 hover:text-gold-light hover:decoration-gold-light">{MAKER_ALSO.name}</a>{MAKER_ALSO.rest}
+            </p>
 
             <dl className="mt-14 grid sm:grid-cols-2 gap-x-12 gap-y-6 text-left max-w-3xl mx-auto">
                 {[

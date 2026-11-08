@@ -1032,3 +1032,36 @@ html[data-cover] .projected-black { visibility: hidden; }
 .still-open { animation: still-open 260ms cubic-bezier(0.22, 1, 0.36, 1) both; }
 @keyframes still-open { from { opacity: 0; transform: scale(0.97); } }
 @media (prefers-reduced-motion: reduce) { .still-open { animation: none; } }
+
+/* ---- the footer's record of Starweave: the disc peeks out of its sleeve (Starweave's own map), slides
+   further out and turns when pointed at; its label is a wheel of Starweave's realm colours ---- */
+.also-record__slide { transform: translateX(28px); transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1); }
+/* the light on the vinyl stays put while the disc turns under it */
+.also-record__slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 20deg, transparent 0 6%, rgba(255, 240, 210, 0.16) 12%, transparent 19% 52%, rgba(255, 240, 210, 0.12) 60%, transparent 67%);
+  pointer-events: none;
+}
+.also-record__disc {
+  position: relative;
+  background: repeating-radial-gradient(circle, #0e0c0b 0 1.4px, #2a2521 1.4px 2.6px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14), 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+.also-record__disc::after {
+  content: '';
+  position: absolute;
+  inset: 31%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #0b0a09 0 2px, transparent 2.5px),
+    conic-gradient(#e8c87a, #5fd0c0, #e066c4, #a1bd6c, #d14a3a, #a87fd1, #e8834a, #e8c87a);
+}
+.also-record:hover .also-record__slide, .also-record:focus-visible .also-record__slide { transform: translateX(44px); }
+@media (prefers-reduced-motion: no-preference) {
+  .also-record:hover .also-record__disc, .also-record:focus-visible .also-record__disc { animation: also-record-spin 1.8s linear infinite; }
+}
+@keyframes also-record-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .also-record__slide { transition: none; } }
