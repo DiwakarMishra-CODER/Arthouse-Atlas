@@ -21,17 +21,28 @@
  *     the one mistake the model kept making was turning a describing word into a genre ("funny" into
  *     Comedy, "samurai" into Action), which would hide every funny film not filed under Comedy. Those
  *     words are moved to feel instead (rule added after the first results; EVALUATION.md shows both).
+ *  7. A feeling described only through a reference ("like listening to Dillinger Escape Plan", "like a
+ *     warm hug") may be translated, but only into feelings from a fixed list of words viewers use
+ *     (data/feel/feelings.json), each pointing at the request's words it translates, and only to order
+ *     the films (prompt version 2). The page says what it was read as.
  *
  * What was dropped, and why, is returned with every reading, so the evaluation can count how often
  * the model proposed something the check had to catch (scripts/nlsearch/evaluate.js).
  * checkReading is pure and tested (tests/understand.test.js); askModel is the only network call.
  */
 
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { LENGTHS, tally, nameMatches } from './catalogue.js';
 import { normalizeName } from './nameUtils.js';
 import { withGeminiKey } from './geminiKeys.js';
 
-export const PROMPT_VERSION = 1;
+// 2: feelings may be translated from a reference, from a fixed list
+// 3: actors, language, what it's about, where to stream it, lesser known; qualities ("beautiful") are feelings
+export const PROMPT_VERSION = 3;
+// the feelings a reference may be translated into (words viewers use for 3+ films, and the mood names)
+export const FEELINGS = JSON.parse(fs.readFileSync(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../data/feel/feelings.json'), 'utf8')).feelings;
 export const MAX_CHARS = 200;
 
 export const MODELS = {
@@ -52,6 +63,11 @@ export const vocabularyOf = ({ cards }) => ({
   movements: tally(cards.flatMap((c) => c.movements)).map((o) => o.value).sort(),
   genres: tally(cards.flatMap((c) => c.genres)).map((o) => o.value).sort(),
   lengths: [...LENGTHS],
+  feelings: [...FEELINGS],
+  // the languages films here were made in (two films or more)
+  languages: tally(cards.map((c) => c.language).filter(Boolean)).filter((o) => o.n >= 2).map((o) => o.value).sort(),
+  // where to stream: anything, free, or a service; the services are the visitor's country's (set by the caller)
+  services: [],
 });
 
 // ---------------------------------------------------------------------------
@@ -65,6 +81,10 @@ Filters (use only the values allowed, and only when the request asks for them):
 - decade: "the 60s" or "the 1960s" is 1960. List several when the request names several ("60s or 70s").
 - since / until: a span of years, both ends included. "before 1950" is until 1949; "after 1975" is since 1976; "since 1975" is since 1975; one year ("made in 1994") is since 1994 and until 1994.
 - director: the name as the request writes it (misspellings allowed: the server matches it).
+- actor: an actor the request names ("with Tony Leung", "starring Isabelle Huppert"), as it writes it.
+- language: the language a film is in, only when the request asks for one ("in French", "Spanish-language"). A nationality alone ("French films") is the country, not the language.
+- streaming: where to watch it: a service from the allowed list ("on MUBI"), "free" (free to watch), or "any" (streaming at all, "to stream tonight").
+- lesserKnown: when the request asks for lesser-known films ("underrated", "hidden gems", "lesser-known", "obscure"): its words.
 - like: the title of a film after "like" or "similar to", as the request writes it.
 - movement, genre: only when the request names one, or a plain synonym of one ("animated" is Animation, "sci-fi" is Science Fiction, "neorealist" is Italian Neorealism).
 - length: short is under 90 minutes, standard is 90 minutes to 2 hours, long is 2 to 3 hours, epic is over 3 hours. "under two hours" is short and standard; "over two hours" is long and epic.
@@ -72,9 +92,11 @@ Filters (use only the values allowed, and only when the request asks for them):
 For every value, "words" is the exact words of the request it comes from, copied letter for letter.
 
 Not filters:
-- feel: words describing how a film feels, its mood, subject or look ("slow", "sad", "set in winter", "black and white"), copied from the request. Never turn them into filters.
+- feel: words describing how a film feels or looks, and its qualities ("slow", "sad", "beautiful", "scary", "black and white"), copied from the request. Never turn them into filters.
+- about: what a film is about, or where and when its story is set ("grief", "a heist", "set in Tokyo", "a lighthouse keeper"), copied from the request. Never a filter.
 - unplaced: anything else the request asks for that the filters can't say: negations ("not American", "anything but horror"), or a place, decade or film that isn't among the allowed values. Copy those words. Never swap them for something close.
-- Opinions ("best", "good", "great") are neither: the board already puts the most acclaimed first.
+- inferred: when the request describes a feeling only through a comparison or reference (a band, a song, a book, a place, an experience: "like listening to Dillinger Escape Plan", "like a warm hug", "for a rainy Sunday"), translate it into up to 4 feelings from the allowed list; "from" is the request's words they translate. Leave it empty when the request says its feelings plainly ("sad", "dreamlike"): those go in feel.
+- Opinions of rank ("best", "greatest", "top", "good") are neither: the board already puts the most acclaimed first. But a quality ("the most beautiful", "really scary") is feel.
 - offTopic: true when the request isn't asking for films at all (recipes, weather, sport, poems, TV shows, nonsense); then leave everything else empty.
 A request for films with no conditions ("films") sets nothing.`;
 
@@ -98,11 +120,20 @@ export const schemaFor = (vocab) => {
     since: named('year'),
     until: named('year'),
     director: named('name'),
+    actor: named('name'),
+    language: valuesOf(vocab.languages || []),
+    streaming: valuesOf(['any', 'free', ...(vocab.services || [])]),
+    lesserKnown: { type: 'array', items: { type: 'object', properties: { words: { type: 'string' } }, required: ['words'], additionalProperties: false } },
     like: named('title'),
     movement: valuesOf(vocab.movements),
     genre: valuesOf(vocab.genres),
     length: valuesOf(vocab.lengths),
     feel: strings,
+    about: strings,
+    inferred: {
+      type: 'array',
+      items: { type: 'object', properties: { value: { type: 'string', enum: vocab.feelings || FEELINGS }, from: { type: 'string' } }, required: ['value', 'from'], additionalProperties: false },
+    },
     unplaced: strings,
   };
   return { type: 'object', properties, required: Object.keys(properties), additionalProperties: false };
@@ -230,6 +261,25 @@ export const directorFor = (name, cards) => {
   return hits.length > 1 && hits[0].films >= 2 * hits[1].films ? hits[0].name : null;
 };
 
+// An actor of the catalogue (the first six billed), by the same rule as directors
+export const actorFor = (name, cards) => {
+  const people = new Map();
+  for (const c of cards) {
+    c.cast.forEach((n, i) => {
+      const key = c._cast[i];
+      if (!key) return;
+      const p = people.get(key) || { name: n, films: 0 };
+      p.films++;
+      people.set(key, p);
+    });
+  }
+  const exact = people.get(normalizeName(name));
+  if (exact) return exact.name;
+  const hits = [...people.values()].filter((p) => nameMatches(p.name, name)).sort((a, b) => b.films - a.films);
+  if (hits.length === 1) return hits[0].name;
+  return hits.length > 1 && hits[0].films >= 2 * hits[1].films ? hits[0].name : null;
+};
+
 // A film in the catalogue by its title (or original or other title), exactly, a leading article aside
 const bare = (s) => normalizeName(String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/^\s*(the|a|an)\s+/i, ''));
 export const filmFor = (title, cards) => {
@@ -257,7 +307,7 @@ export const namesGenre = (genre, words) => {
   return (GENRE_WORDS[genre] || [fold(genre)]).some((alias) => w.includes(` ${fold(alias)} `));
 };
 
-export const EMPTY_FILTERS = () => ({ country: [], decade: [], years: '', director: [], movement: [], genre: [], length: [], like: null });
+export const EMPTY_FILTERS = () => ({ country: [], decade: [], years: '', director: [], actor: [], language: [], movement: [], genre: [], length: [], streaming: [], known: '', like: null });
 
 // `check`: 2 (the default, what the site runs) adds the genre rule; 1 is the check as first evaluated
 export const checkReading = (raw, text, { cards, vocab }, { check = 2 } = {}) => {
@@ -267,11 +317,11 @@ export const checkReading = (raw, text, { cards, vocab }, { check = 2 } = {}) =>
   const filters = EMPTY_FILTERS();
   const drop = (field, value, why) => dropped.push({ field, value: String(value), why });
 
-  if (raw.offTopic === true) return { offTopic: true, filters, feel: [], unplaced: [], dropped };
+  if (raw.offTopic === true) return { offTopic: true, filters, feel: [], about: [], inferred: [], unplaced: [], dropped };
 
   // closed lists: in the vocabulary, and pointing at the request's own words
   const describing = []; // words read as a genre that only describe (they go to feel)
-  const closed = { country: vocab.countries, decade: vocab.decades, movement: vocab.movements, genre: vocab.genres, length: vocab.lengths };
+  const closed = { country: vocab.countries, decade: vocab.decades, movement: vocab.movements, genre: vocab.genres, length: vocab.lengths, language: vocab.languages || [], streaming: ['any', 'free', ...(vocab.services || [])] };
   for (const [field, allowed] of Object.entries(closed)) {
     for (const item of list(raw[field])) {
       const value = String(item?.value ?? '');
@@ -305,6 +355,13 @@ export const checkReading = (raw, text, { cards, vocab }, { check = 2 } = {}) =>
     const who = directorFor(String(item.name || ''), cards);
     if (who) { if (!filters.director.includes(who)) filters.director.push(who); } else unplaced.push(String(item.words));
   }
+  for (const item of list(raw.actor)) {
+    if (!inRequest(item?.words, text)) { drop('actor', item?.name, 'no words in the request'); continue; }
+    const who = actorFor(String(item.name || ''), cards);
+    if (who) { if (!filters.actor.includes(who)) filters.actor.push(who); } else unplaced.push(String(item.words));
+  }
+  const gem = list(raw.lesserKnown)[0];
+  if (gem) { if (inRequest(gem.words, text)) filters.known = 'less'; else drop('lesserKnown', gem.words, 'no words in the request'); }
   const like = list(raw.like)[0];
   if (like) {
     if (!inRequest(like.words, text)) drop('like', like.title, 'no words in the request');
@@ -326,10 +383,21 @@ export const checkReading = (raw, text, { cards, vocab }, { check = 2 } = {}) =>
     return out.slice(0, max);
   };
   const feel = own('feel', 6);
+  const about = own('about', 4).filter((a) => !feel.some((f) => fold(f) === fold(a)));
   for (const d of describing) if (inRequest(d, text) && !feel.some((o) => fold(o) === fold(d))) feel.push(d);
+
+  // feelings translated from a reference: only from the fixed list, each pointing at the words it translates
+  const feelings = vocab.feelings || FEELINGS;
+  const inferred = [];
+  for (const item of list(raw.inferred)) {
+    const value = String(item?.value ?? '');
+    if (!feelings.includes(value)) { drop('inferred', value, 'not in the list of feelings'); continue; }
+    if (!inRequest(item.from, text)) { drop('inferred', value, 'no words in the request'); continue; }
+    if (inferred.length < 4 && !inferred.some((x) => x.value === value) && !feel.some((f) => fold(f) === fold(value))) inferred.push({ value, from: String(item.from) });
+  }
   for (const u of own('unplaced', 4)) if (!unplaced.some((o) => fold(o) === fold(u))) unplaced.push(u);
 
-  return { offTopic: false, filters, feel, unplaced: unplaced.slice(0, 4), dropped };
+  return { offTopic: false, filters, feel, about, inferred, unplaced: unplaced.slice(0, 4), dropped };
 };
 
 // does the reading set any filter at all?

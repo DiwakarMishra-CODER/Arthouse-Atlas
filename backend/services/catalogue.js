@@ -22,7 +22,9 @@ export { MOODS, MOOD_MIN_FILMS };
 export const LENGTHS = ['short', 'standard', 'long', 'epic'];
 export const LENGTH_WORDS = { short: 'under 90 minutes', standard: '90 minutes to 2 hours', long: '2 to 3 hours', epic: 'over 3 hours' };
 export const SORTS = ['acclaimed', 'oldest', 'newest', 'surprise', 'closest', 'feel']; // feel: only with a sentence search's feel words
-export const FILTERS = ['q', 'country', 'decade', 'director', 'movement', 'mood', 'genre', 'length', 'years'];
+export const FILTERS = ['q', 'country', 'decade', 'director', 'movement', 'mood', 'genre', 'length', 'years', 'actor', 'language', 'known'];
+// lesser known: fewer ratings on TMDB than this (about half the atlas), for "hidden gems", "underrated"
+export const LESSER_KNOWN = 500;
 const FACETS = ['country', 'decade', 'director', 'movement', 'mood', 'genre', 'length'];
 
 export const lengthOf = (runtime) => {
@@ -77,6 +79,9 @@ export const toCard = (m) => {
     year: m.year ?? null,
     decade: m.decade ?? (m.year ? Math.floor(m.year / 10) * 10 : null),
     directors: m.directors || [],
+    cast: (m.cast || []).map((c) => c.name).filter(Boolean), // the first six billed
+    // the language it was made in ("cn" is how TMDB writes Cantonese)
+    language: m.originalLanguage === 'cn' ? 'Cantonese' : m.originalLanguage || null,
     country: m.country || countries[0] || null,
     countries,
     runtime: m.runtime || null,
@@ -102,6 +107,9 @@ export const toCard = (m) => {
     _directors: (m.directors || []).map(normalizeName),
     _titleWords: [...new Set([m.title, ...others].flatMap(words))],
     _directorWords: [...new Set((m.directors || []).flatMap(words))],
+    _cast: (m.cast || []).map((c) => normalizeName(c.name || '')).filter(Boolean),
+    // what it's about, as TMDB tags it ("grief", "heist", "tokyo, japan"), for a search's subject words
+    _keywords: (m.keywords || []).map((k) => String(k).toLowerCase()),
     _companies: m.productionCompanies || [], // who made it, for the Studios room
     _criterion: (m.provenance || []).find((p) => p.source === 'criterion')?.detail || null, // its place in the Criterion Collection
     // every list that places it, as the canon counted it (About: the lists, and how a film is counted)
@@ -167,6 +175,9 @@ const MATCHES = {
   mood: (c, v) => anyOf(v, (x) => c.moods.includes(x)),
   genre: (c, v) => anyOf(v, (x) => c.genres.includes(x)),
   length: (c, v) => anyOf(v, (x) => c.length === x),
+  actor: (c, v) => anyOf(v, (x) => c._cast.includes(normalizeName(x))),
+  language: (c, v) => anyOf(v, (x) => c.language === x),
+  known: (c, v) => v !== 'less' || (c._votes || 0) < LESSER_KNOWN,
   // made between two years, both included (either end may be open): { since, until }
   years: (c, v) => c.year != null && (v.since == null || c.year >= v.since) && (v.until == null || c.year <= v.until),
   // streaming in a country: on anything, free, or on the services chosen (services/watchIndex.js)
@@ -303,7 +314,7 @@ export const facetCounts = (cards, filters) => {
 // ---------------------------------------------------------------------------
 // the catalogue, loaded and kept for ten minutes
 // ---------------------------------------------------------------------------
-const FIELDS = 'tmdbId vote_count title originalTitle altTitles year decade directors country countries runtime genres movements canonRank canonDecadeRank provenanceScore provenanceCount stills backdropUrl posterUrl editorial.hook viewerMoods productionCompanies provenance.source provenance.detail provenance.rank provenance.pollYear provenance.weight provenance.url';
+const FIELDS = 'tmdbId vote_count title originalTitle altTitles year decade directors cast originalLanguage keywords country countries runtime genres movements canonRank canonDecadeRank provenanceScore provenanceCount stills backdropUrl posterUrl editorial.hook viewerMoods productionCompanies provenance.source provenance.detail provenance.rank provenance.pollYear provenance.weight provenance.url';
 
 let cache = { at: 0, value: null };
 export const loadCatalogue = async () => {

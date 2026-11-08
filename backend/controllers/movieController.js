@@ -651,6 +651,9 @@ export const exploreMovies = async (req, res) => {
       mood: listOf(q.mood, (x) => (MOODS.includes(x) ? x : null)),
       genre: listOf(q.genre, (x) => x.slice(0, 40)),
       length: listOf(q.length, (x) => (LENGTHS.includes(x) ? x : null)),
+      actor: listOf(q.actor, (x) => x.slice(0, 80)),
+      language: listOf(q.language, (x) => x.slice(0, 40)),
+      known: q.known === 'less' ? 'less' : '', // lesser known: under LESSER_KNOWN ratings on TMDB
       years: since != null && until != null ? { since: Math.min(since, until), until: Math.max(since, until) }
         : since != null || until != null ? { since, until } : '',
     };
@@ -665,8 +668,11 @@ export const exploreMovies = async (req, res) => {
     const started = startOf(q, catalogue);
     const pool = withinStart(cards, started?.near);
     // feel words from a sentence search ("sad", "set in winter"): they order the wall, never filter it
-    const feelWords = typeof q.feel === 'string' ? [...new Set(q.feel.split('|').map((w) => w.trim().slice(0, 40)).filter(Boolean))].slice(0, 6) : [];
-    const feeling = feelWords.length > 0 && feelIndex() !== null;
+    const wordsOf = (v, max) => (typeof v === 'string' ? [...new Set(v.split('|').map((w) => w.trim().slice(0, 60)).filter(Boolean))].slice(0, max) : []);
+    const feelWords = wordsOf(q.feel, 6);
+    // and what it should be about ("grief", "a heist", "set in Tokyo"): it orders the wall too
+    const aboutWords = wordsOf(q.about, 4);
+    const feeling = (feelWords.length > 0 || aboutWords.length > 0) && feelIndex() !== null;
     const sort = SORTS.includes(q.sort) && (q.sort !== 'closest' || started) && (q.sort !== 'feel' || feeling) ? q.sort : feeling ? 'feel' : started ? 'closest' : 'acclaimed';
     const limit = Math.min(96, Math.max(1, parseInt(q.limit, 10) || 24));
     const page = Math.max(1, parseInt(q.page, 10) || 1);
@@ -675,22 +681,30 @@ export const exploreMovies = async (req, res) => {
     let matched = sortCards(applyFilters(pool, filters), sort === 'feel' ? 'acclaimed' : sort, { seed: q.seed, q: filters.q, near: started?.near, decade: oneDecade });
     // closest to the feel first, each with which of its viewers' words matched (when the feel can't be
     // reached, the wall stays in the canon's order and says so)
+    // first the films viewers described that way, then the rest in the canon's order (or, when no viewer
+    // used the words, all by how close the story is); `sure=1` keeps only the first
     const matchedWords = new Map();
     let feelFailed = false;
+    let feelSure = 0;
+    let feelBasis = null;
     if (sort === 'feel') {
-      try {
-        const ranked = rankByFeel(matched, await embedFeel(feelWords, { timeoutMs: 4000 }), feelWords);
-        matched = ranked.map((r) => r.card);
-        ranked.forEach((r) => matchedWords.set(r.card._id, r.matched));
-      } catch (e) {
-        console.error('feel ranking unavailable:', e.message);
-        feelFailed = true;
-      }
+      let query = null;
+      try { query = await embedFeel(feelWords, { timeoutMs: 4000, about: aboutWords }); } catch (e) { console.error('feel embedding unavailable:', e.message); }
+      const ranked = rankByFeel(matched, query, feelWords, undefined, aboutWords);
+      feelSure = ranked.filter((r) => r.sure).length;
+      feelBasis = feelSure ? 'viewers' : query ? 'story' : null;
+      feelFailed = !feelBasis;
+      const kept = q.sure === '1' && feelSure ? ranked.filter((r) => r.sure) : ranked;
+      matched = kept.map((r) => r.card);
+      kept.forEach((r) => matchedWords.set(r.card._id, r));
     }
     const films = matched.slice((page - 1) * limit, page * limit).map((c) => {
       const card = publicCard(c);
       if (started) card.why = WHY[started.near.get(c._tmdb)?.reason] || null;
-      if (matchedWords.get(c._id)?.length) card.matched = matchedWords.get(c._id);
+      // which of its viewers' words matched the feel, and which of its tags the subject
+      const m = matchedWords.get(c._id);
+      if (m?.matched.length) card.matched = m.matched;
+      if (m?.tagged?.length) card.tagged = m.tagged;
       // on a streaming wall, the services it's on there (the ones chosen first)
       if (filters.screens) {
         const on = streamingIn(c._id, region);
@@ -777,7 +791,12 @@ export const exploreMovies = async (req, res) => {
         startMissing: !started && Boolean(q.like || q.from),
         // the feel words the wall is ordered by, and whether that ordering could be reached
         feel: feeling ? feelWords : [],
+        about: feeling ? aboutWords : [],
         feelFailed,
+        // how many films viewers described that way (they come first), and what the order rests on
+        feelSure,
+        feelBasis,
+        sureOnly: sort === 'feel' && q.sure === '1' && feelSure > 0,
       }
     });
   } catch (error) {
@@ -828,6 +847,21 @@ export const exploreSuggest = async (req, res) => {
         return { name: person?.name || p.name, films: p.films, portrait: person?.profileUrl || null, best: p.best };
       });
 
+    // actors whose name matches (the first six billed), most films first, with their best film here
+    const cast = new Map();
+    if (normalizeName(q)) {
+      for (const c of sortCards(cards)) {
+        c.cast.forEach((name, i) => {
+          const key = c._cast[i];
+          if (!key || !nameMatches(name, q)) return;
+          const p = cast.get(key) || { name, films: 0, best: c.title };
+          p.films++;
+          cast.set(key, p);
+        });
+      }
+    }
+    const actors = [...cast.values()].sort((a, b) => (b.films - a.films) || a.name.localeCompare(b.name)).slice(0, 4);
+
     // the places, movements, moods and genres a search names
     const named = (list, limit = 3) => list.filter((o) => nameMatches(String(o.value), q)).slice(0, limit);
     const places = named(tally(cards.flatMap((c) => c.countries)));
@@ -845,7 +879,7 @@ export const exploreSuggest = async (req, res) => {
     // films that aren't here: start from them
     const outside = bridge ? bridge.search(q, 4).map(outsideCard) : [];
 
-    res.json({ films, directors: found, places, movements, studios, moods, genres, outside });
+    res.json({ films, directors: found, actors, places, movements, studios, moods, genres, outside });
   } catch (error) {
     console.error(error);
     const { status, message } = getErrorResponse(error);

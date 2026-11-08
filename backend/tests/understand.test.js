@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { toCard } from '../services/catalogue.js';
 import { checkReading, vocabularyOf, schemaFor, directorFor, filmFor, fold } from '../services/understand.js';
 import { scoreReading } from '../scripts/nlsearch/lib/score.js';
+import { rankByFeel, kinOf } from '../services/feel.js';
 
 const film = (id, extra = {}) => toCard({
   _id: id, title: `Film ${id}`, year: 1960, directors: ['Someone'], countries: ['France'], runtime: 100, genres: ['Drama'], movements: [], ...extra,
@@ -109,4 +110,37 @@ test('scoring: exact filters, any-of lists, all-of lists, time by the films it p
   assert.equal(scoreReading(req({ unplaced: true }), read({ unplaced: ['not American'] }, 'not American'), cards).right, true);
   assert.equal(scoreReading(req({ offTopic: true }), checkReading({ offTopic: true }, 'pizza', { cards, vocab }), cards).right, true);
   assert.equal(scoreReading(req({ country: 'Japan' }), checkReading({ offTopic: true }, 'Japanese films', { cards, vocab }), cards).right, false);
+});
+
+test('feel order: films viewers described that way first, the rest as given; the story only when no viewer did', () => {
+  const kin = kinOf({ melancholic: ['sad', 'melancholy'], funny: ['funny', 'hilarious'] });
+  const v = (x) => Float32Array.from([x, Math.sqrt(1 - x * x)]);
+  const index = {
+    films: new Map([['a', v(0.45)], ['b', v(0.9)], ['c', v(0.5)], ['d', v(0.99)]]),
+    countsOf: new Map([['a', [['melancholy', 10], ['slow', 4]]], ['c', [['war', 9], ['sad', 2]]], ['b', [['body horror', 20]]], ['d', [['creepy', 5]]]]),
+    tagsOf: new Map([['a', ['melancholy', 'slow']], ['c', ['war', 'sad']], ['b', ['body horror']], ['d', ['creepy']]]),
+    kin,
+  };
+  const cards = ['d', 'b', 'c', 'a'].map((id) => ({ _id: id }));
+  const query = Float32Array.from([1, 0]);
+  const sad = rankByFeel(cards, query, ['sad'], index);
+  // a and c have viewers' words for it; b and d don't, and keep the order given (not their closer stories)
+  assert.deepEqual(sad.map((x) => x.card._id), ['a', 'c', 'd', 'b']);
+  assert.deepEqual(sad.map((x) => x.sure), [true, true, false, false]);
+  assert.deepEqual(sad[0].matched, ['melancholy']);
+  // no viewer said it at all: the story orders everything
+  assert.deepEqual(rankByFeel(cards, query, ['set in winter'], index).map((x) => x.card._id), ['d', 'b', 'c', 'a']);
+  // the embedding unreachable: the viewers' evidence still orders what it can
+  assert.deepEqual(rankByFeel(cards, null, ['sad'], index).map((x) => x.card._id), ['a', 'c', 'd', 'b']);
+});
+
+test('a feeling described through a reference may be translated, only into the fixed list, pointing at its words', () => {
+  const text = 'a film that feels like listening to Dillinger Escape Plan';
+  const r = read({ inferred: [{ value: 'intense', from: 'listening to Dillinger Escape Plan' }, { value: 'violent', from: 'Dillinger Escape Plan' }] }, text);
+  assert.deepEqual(r.inferred.map((x) => x.value), ['intense', 'violent']);
+  // a word not in the list, or one translating words that aren't in the request, is refused
+  const bad = read({ inferred: [{ value: 'chaotic', from: 'Dillinger Escape Plan' }, { value: 'tense', from: 'a mosh pit' }] }, text);
+  assert.deepEqual(bad.inferred, []);
+  assert.deepEqual(bad.dropped.map((d) => d.why), ['not in the list of feelings', 'no words in the request']);
+  assert.ok(vocab.feelings.includes('intense') && !vocab.feelings.includes('chaotic'));
 });

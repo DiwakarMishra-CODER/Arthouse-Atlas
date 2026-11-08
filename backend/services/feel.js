@@ -3,13 +3,18 @@
  * well they fit its feel words ("slow", "sad", "set in winter"), never filtered by them. Two signals:
  *
  *  1. What viewers said, first: a film whose MovieLens viewers used the same word, or one the mood
- *     table counts as the same feeling ("sad": melancholy, heartbreaking; data/moods/synonyms.json),
- *     weighted by how many of them said it. Direct evidence, worked out here without the API, and
+ *     table counts as the same feeling ("sad": melancholy, heartbreaking; data/moods/synonyms.json):
+ *     films matching more of the feel words first, then by how many viewers said it. Direct evidence, worked out here without the API, and
  *     the words each result shows ("viewers said: melancholy, sad").
- *  2. The embedding, for what viewers' words don't cover ("set in winter"): the feel words against
- *     each film's own (what viewers called it, and its synopsis). On its own it mostly finds similar
- *     stories (the synopsis outweighs the feel), so it orders within the viewers' evidence and
- *     fills in where there is none.
+ *  2. The embedding: the feel words against each film's own (what viewers called it, and its
+ *     synopsis). On its own it mostly finds similar stories (the synopsis outweighs the feel: it put
+ *     Videodrome 14th for "funny"), so it only orders the films viewers described that way among
+ *     themselves. The films no viewer described that way follow in the order given (the canon's),
+ *     behind a divider on the page; only when no film at all has viewers' words for it does the
+ *     embedding order everything, and the page says so.
+ *  3. What it should be about ("grief", "a heist", "set in Tokyo"): the films TMDB tags with it (or
+ *     whose viewers name it) come first, and the rest by how close their story is, since a synopsis is
+ *     exactly what says what a film is about (where it says little about how it feels).
  *
  * The films are embedded once (scripts/nlsearch/feelIndex.js -> data/feel/index.json); a search costs
  * one call for its feel words, and the same words are never asked twice.
@@ -91,8 +96,14 @@ export const stem = (w) => {
 };
 const stemsOf = (phrase) => String(phrase).toLowerCase().split(/[^a-z\u00c0-\u024f]+/).filter((w) => w.length >= 3).map(stem);
 const phraseOf = (s) => stemsOf(s).join(' ');
-// words that say nothing about a feeling on their own ("set in winter" is about winter)
-const PLAIN = new Set(['set', 'film', 'movi', 'something', 'anyth', 'feel', 'about', 'with', 'very', 'kind', 'like', 'from', 'that', 'the', 'and', 'one', 'thing']);
+// words that say nothing about a feeling on their own ("set in winter" is about winter; "a movie that
+// feels like…" is about whatever follows), compared as stems so every form of them is caught
+const PLAIN = new Set(['set', 'film', 'films', 'movie', 'movies', 'cinema', 'something', 'anything', 'feel', 'feels', 'feeling',
+  'about', 'with', 'very', 'kind', 'like', 'from', 'that', 'this', 'the', 'and', 'one', 'thing', 'want', 'watch', 'watching',
+  'listening', 'listen', 'make', 'makes', 'makes', 'really', 'bit', 'some', 'kind', 'sort', 'type', 'story', 'stories'].map(stem));
+// a feel word is matched word by word only when it's short ("sad", "set in winter"): in a sentence
+// ("a movie that feels like listening to…"), single words match unrelated tags, so only whole feelings count
+const WORDS_MAX = 2;
 // a phrase -> every phrase the mood table counts as the same feeling, whole phrases only
 // ("sad": melancholy, heartbreaking; "slow": slow burn, but never "burned" on its own)
 export const kinOf = (moods) => {
@@ -106,12 +117,41 @@ export const kinOf = (moods) => {
 // what a feel word matches in viewers' words: the word itself anywhere in a tag ("winter" in "winter
 // landscape"), or a whole tag the mood table counts as the same feeling
 const wantedOf = (feelWords, kin) => {
-  const words = new Set(feelWords.flatMap(stemsOf).filter((w) => w.length >= 3 && !PLAIN.has(w)));
+  const words = new Set(feelWords.flatMap((f) => {
+    const content = stemsOf(f).filter((w) => w.length >= 3 && !PLAIN.has(w));
+    return content.length <= WORDS_MAX ? content : [];
+  }));
   const phrases = new Set(feelWords.flatMap((f) => [phraseOf(f), ...stemsOf(f)]).flatMap((p) => [...(kin.get(p) || [])]));
   return (tag) => stemsOf(tag).some((w) => words.has(w)) || phrases.has(phraseOf(tag));
 };
-// a film's viewers' words (most used first) that share a word, or a feeling, with the feel words
-export const matchedWords = (feelWords, filmTags, kin, max = 2) => filmTags.filter(wantedOf(feelWords, kin)).slice(0, max);
+// a film's viewers' words that match the feel words: one for each feeling it matches first (so a film
+// called both "disturbing" and "violent" shows both), then the rest, most used first
+export const matchedWords = (feelWords, filmTags, kin, max = 2) => {
+  const out = [];
+  for (const f of feelWords) {
+    const hit = filmTags.find(wantedOf([f], kin));
+    if (hit && !out.includes(hit)) out.push(hit);
+  }
+  for (const t of filmTags.filter(wantedOf(feelWords, kin))) if (!out.includes(t)) out.push(t);
+  return out.slice(0, max);
+};
+// what it's about: a subject's own words (its plain words aside) all in one of a film's TMDB tags or
+// viewers' words ("set in Tokyo": "tokyo, japan"; "a heist": "heist", "bank heist")
+const subjectIn = (subject, tags) => {
+  const want = stemsOf(subject).filter((w) => w.length >= 3 && !PLAIN.has(w) && !SUBJECT_PLAIN.has(w));
+  if (!want.length) return null;
+  return tags.find((t) => { const have = new Set(stemsOf(t)); return want.every((w) => have.has(w)); }) || null;
+};
+const SUBJECT_PLAIN = new Set(['about', 'set', 'place', 'takes', 'take', 'where', 'who', 'man', 'woman', 'people', 'person'].map(stem));
+export const subjectsMatched = (aboutWords, tags) => {
+  const out = [];
+  for (const a of aboutWords) { const t = subjectIn(a, tags); if (t && !out.includes(t)) out.push(t); }
+  return out;
+};
+
+// how many of the feel words a film's viewers used (a film matching "disturbing" and "violent" fits
+// "violent, intense, bleak, disturbing" better than one matching "bleak" alone, however strongly)
+export const feelingsMatched = (feelWords, filmTags, kin) => feelWords.filter((f) => filmTags.some(wantedOf([f], kin))).length;
 // how strongly a film's viewers said it: each matching word counts by how many said it, against the
 // film's most-used word (so a film tagged by few viewers isn't drowned out by a famous one), up to 1
 export const viewerEvidence = (feelWords, counts, kin) => {
@@ -123,13 +163,14 @@ export const viewerEvidence = (feelWords, counts, kin) => {
 // what viewers said outweighs a close story: full evidence is worth more than the whole spread of
 // embedding scores within a wall (about 0.05 to 0.1)
 const EVIDENCE_WEIGHT = 0.15;
-// the feel words put the way each film's own text begins, so the two are compared like for like
-export const queryText = (words) => `Viewers called it: ${words.join(', ')}.`;
+// the feel words put the way each film's own text begins, so the two are compared like for like; a
+// subject goes in plainly, as a synopsis would say it
+export const queryText = (words, about = []) => [words.length ? `Viewers called it: ${words.join(', ')}.` : '', about.length ? `A film about ${about.join(', ')}.` : ''].filter(Boolean).join(' ');
 
 // a search's feel words as one embedding; the same words are asked once (kept for the server's life)
 const asked = new Map();
-export const embedFeel = async (words, opts) => {
-  const phrase = queryText(words).toLowerCase();
+export const embedFeel = async (words, { about = [], ...opts } = {}) => {
+  const phrase = queryText(words, about).toLowerCase();
   if (asked.has(phrase)) return asked.get(phrase);
   const [v] = await embedBatch([phrase], { task: 'RETRIEVAL_QUERY', ...opts });
   const vec = unit(v);
@@ -138,19 +179,30 @@ export const embedFeel = async (words, opts) => {
   return vec;
 };
 
-// the cards in order of feel (a film with neither viewers' words nor an embedding goes after the rest,
-// in the order given), each with its score and which of its viewers' words matched
-export const rankByFeel = (cards, query, feelWords, index = feelIndex()) => {
+// The cards in order of feel: first the films viewers described that way (`sure`), strongest evidence
+// first (the embedding breaking near-ties), then the rest in the order given; when no film has viewers'
+// words for it, everything by the embedding instead. `query` may be null (the embedding couldn't be
+// reached): the viewers' evidence still orders what it can.
+export const rankByFeel = (cards, query, feelWords, index = feelIndex(), aboutWords = []) => {
   const scored = cards.map((c, i) => {
-    const v = index?.films.get(c._id);
-    const evidence = index ? viewerEvidence(feelWords, index.countsOf.get(c._id), index.kin) : 0;
-    const base = v ? cosine(query, v) : evidence ? 0 : -Infinity;
-    return { c, i, score: base + EVIDENCE_WEIGHT * evidence };
+    const v = query && index?.films.get(c._id);
+    const evidence = index && feelWords.length ? viewerEvidence(feelWords, index.countsOf.get(c._id), index.kin) : 0;
+    const breadth = evidence ? feelingsMatched(feelWords, index.tagsOf.get(c._id) || [], index.kin) : 0;
+    const tagged = aboutWords.length ? subjectsMatched(aboutWords, [...(c._keywords || []), ...(index?.tagsOf.get(c._id) || [])]) : [];
+    return { c, i, evidence, breadth: breadth + tagged.length, tagged, story: v ? cosine(query, v) : null };
   });
-  scored.sort((a, b) => (b.score - a.score) || (a.i - b.i));
-  return scored.map(({ c, score }) => ({
+  const sure = scored.filter((x) => x.evidence > 0 || x.tagged.length > 0);
+  const rest = scored.filter((x) => x.evidence === 0 && !x.tagged.length);
+  // more of the feelings and subjects first, then how strongly viewers said it (the story breaking near-ties)
+  sure.sort((a, b) => (b.breadth - a.breadth) || ((b.story ?? 0) + EVIDENCE_WEIGHT * b.evidence) - ((a.story ?? 0) + EVIDENCE_WEIGHT * a.evidence) || (a.i - b.i));
+  // the rest: by story when there's a subject (a synopsis says what a film is about) or no evidence at all;
+  // otherwise as given (the canon's order: a story says little about how a film feels)
+  if (!sure.length || aboutWords.length) rest.sort((a, b) => ((b.story ?? -Infinity) - (a.story ?? -Infinity)) || (a.i - b.i));
+  return [...sure, ...rest].map(({ c, evidence, tagged, story }) => ({
     card: c,
-    score: Number.isFinite(score) ? score : null,
-    matched: index ? matchedWords(feelWords, index.tagsOf.get(c._id) || [], index.kin) : [],
+    sure: evidence > 0 || tagged.length > 0,
+    score: story,
+    matched: index && feelWords.length ? matchedWords(feelWords, index.tagsOf.get(c._id) || [], index.kin) : [],
+    tagged,
   }));
 };
