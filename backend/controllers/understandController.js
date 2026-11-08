@@ -15,6 +15,7 @@ import rateLimit from 'express-rate-limit';
 import { loadCatalogue } from '../services/catalogue.js';
 import { MODELS, MAX_CHARS, vocabularyOf, askModel, checkReading, anyFilter, fold } from '../services/understand.js';
 import { screensFacet } from '../services/watchIndex.js';
+import { modelHealth } from '../services/modelHealth.js';
 
 // chosen by the evaluation (scripts/nlsearch/EVALUATION.md): Gemini reads best (95% on the test set)
 // but its free tier sometimes queues for 10 seconds or more; Groq is fast (under a second) but reads
@@ -25,6 +26,8 @@ const FIRST = process.env.NL_MODEL || 'gemini-3.5-flash-lite';
 const SECOND = process.env.NL_SECOND_MODEL || 'openai/gpt-oss-120b';
 const TIMEOUTS = [3000, 5000]; // the first model's wait, then the second's
 const DAILY = Number(process.env.NL_DAILY_CAP || 600);
+// a model failing three times in a row is skipped for five minutes (services/modelHealth.js)
+const health = modelHealth();
 
 export const understandLimiter = rateLimit({
   windowMs: 10 * 60 * 1000,
@@ -88,16 +91,19 @@ export const understand = async (req, res) => {
     const services = screensFacet(catalogue.cards, region).services; // what streams in their country
     vocab.services = services.slice(0, 40).map((s) => s.name);
     let reading = null; let by = null;
-    const order = [FIRST, SECOND].filter((m, i, all) => MODELS[m] && all.indexOf(m) === i);
-    for (const [i, model] of order.entries()) {
+    const models = [FIRST, SECOND].filter((m, i, all) => MODELS[m] && all.indexOf(m) === i);
+    // (a resting model is left out; the first one asked gets the first's wait, the next the longer one)
+    for (const [i, model] of health.order(models).entries()) {
       used++;
       try {
         const { raw } = await askModel(model, q, vocab, { timeoutMs: TIMEOUTS[i] ?? 5000 });
         reading = checkReading(raw, q, { cards: catalogue.cards, vocab });
         by = model;
+        health.answered(model);
         break;
       } catch (e) {
-        console.error(`understand: ${model} failed: ${e.message}`);
+        health.failed(model);
+        console.error(`understand: ${model} failed: ${e.message}${health.resting(model) ? ' (resting for five minutes)' : ''}`);
       }
     }
     if (!reading) return res.status(503).json({ message: 'The board couldn’t read that just now', fallback: true });

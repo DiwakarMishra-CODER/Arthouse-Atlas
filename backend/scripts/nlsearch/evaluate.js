@@ -47,14 +47,15 @@ const readingsFile = (model, version = PROMPT_VERSION) => path.join(READINGS, `$
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 const today = () => new Date().toISOString().slice(0, 10);
 
-const CAPS = { gemini: 400, openrouter: 50, groq: 300 }; // our own daily caps, under each provider's
+const CAPS = { gemini: 400, openrouter: 50, groq: 450 }; // our own daily caps, under each provider's
 const GAPS = { gemini: 4500, openrouter: 3500, groq: 18000 }; // ms between calls: under each one's per-minute limit (Groq's is 8,000 tokens a minute, about 4 readings)
 
 // the catalogue as the search sees it (from the database, or the kept copy)
 const loadCards = async (offline) => {
   if (!offline) {
     await mongoose.connect(process.env.MONGODB_URI);
-    const films = await Movie.find({}).select('title originalTitle altTitles year decade directors country countries runtime genres movements canonRank').lean();
+    // (every field the reading's check uses: a stale copy without cast, language or tags once broke a run)
+    const films = await Movie.find({}).select('title originalTitle altTitles year decade directors cast originalLanguage keywords vote_count country countries runtime genres movements canonRank').lean();
     await mongoose.disconnect();
     const lean = films.map((m) => ({ ...m, _id: String(m._id) }));
     writeJson(SNAPSHOT, { at: new Date().toISOString(), films: lean });
@@ -62,6 +63,7 @@ const loadCards = async (offline) => {
   }
   const kept = readJson(SNAPSHOT, null);
   if (!kept) throw new Error('no catalogue.json yet: run once without --offline');
+  if (!kept.films.some((f) => f.cast?.length)) throw new Error('catalogue.json predates actors and languages: run once without --offline to refresh it');
   return kept.films.map(toCard);
 };
 

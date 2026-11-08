@@ -4,6 +4,7 @@ import { toCard } from '../services/catalogue.js';
 import { checkReading, vocabularyOf, schemaFor, directorFor, filmFor, fold } from '../services/understand.js';
 import { scoreReading } from '../scripts/nlsearch/lib/score.js';
 import { rankByFeel, kinOf } from '../services/feel.js';
+import { modelHealth } from '../services/modelHealth.js';
 
 const film = (id, extra = {}) => toCard({
   _id: id, title: `Film ${id}`, year: 1960, directors: ['Someone'], countries: ['France'], runtime: 100, genres: ['Drama'], movements: [], ...extra,
@@ -143,4 +144,18 @@ test('a feeling described through a reference may be translated, only into the f
   assert.deepEqual(bad.inferred, []);
   assert.deepEqual(bad.dropped.map((d) => d.why), ['not in the list of feelings', 'no words in the request']);
   assert.ok(vocab.feelings.includes('intense') && !vocab.feelings.includes('chaotic'));
+});
+
+test('a model failing three times in a row rests five minutes; one answer clears it; all resting means all are tried', () => {
+  const h = modelHealth({ failsToRest: 3, restMs: 1000 });
+  const both = ['gemini', 'groq'];
+  h.failed('gemini', 0); h.failed('gemini', 0);
+  assert.deepEqual(h.order(both, 0), both); // two fails: still asked first
+  h.failed('gemini', 0);
+  assert.deepEqual(h.order(both, 10), ['groq']); // the third: set aside
+  assert.deepEqual(h.order(both, 1001), both); // after its rest, tried again
+  h.failed('gemini', 2000); h.answered('gemini'); h.failed('gemini', 2000); h.failed('gemini', 2000);
+  assert.deepEqual(h.order(both, 2001), both); // an answer between fails starts the count again
+  h.failed('gemini', 3000); h.failed('groq', 3000); h.failed('groq', 3000); h.failed('groq', 3000);
+  assert.deepEqual(h.order(both, 3001), both); // both resting: both tried, in order
 });
