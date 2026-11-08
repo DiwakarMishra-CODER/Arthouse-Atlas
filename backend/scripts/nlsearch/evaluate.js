@@ -24,6 +24,7 @@ import mongoose from 'mongoose';
 import { toCard } from '../../services/catalogue.js';
 import { MODELS, PROMPT_VERSION, vocabularyOf, askModel, checkReading } from '../../services/understand.js';
 import { scoreReading } from './lib/score.js';
+import { feelIndex, viewerEvidence } from '../../services/feel.js';
 import Movie from '../../models/Movie.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -40,11 +41,14 @@ const arg = (name, fallback = null) => {
 const readJson = (file, fallback) => (fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : fallback);
 const writeJson = (file, value) => { fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, `${JSON.stringify(value, null, 2)}\n`); };
 const slug = (model) => model.replace(/[^a-z0-9.]+/gi, '-');
+// each prompt version's answers are kept in their own file (version 1's under the plain name), so a new
+// version never overwrites what the last one was scored on
+const readingsFile = (model, version = PROMPT_VERSION) => path.join(READINGS, `${slug(model)}${version > 1 ? `.v${version}` : ''}.json`);
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 const today = () => new Date().toISOString().slice(0, 10);
 
-const CAPS = { gemini: 150, openrouter: 50, groq: 150 }; // our own daily caps, under each provider's
-const GAPS = { gemini: 4500, openrouter: 3500, groq: 15000 }; // ms between calls: under each one's per-minute limit (Groq's is 8,000 tokens a minute, about 4 readings)
+const CAPS = { gemini: 400, openrouter: 50, groq: 300 }; // our own daily caps, under each provider's
+const GAPS = { gemini: 4500, openrouter: 3500, groq: 18000 }; // ms between calls: under each one's per-minute limit (Groq's is 8,000 tokens a minute, about 4 readings)
 
 // the catalogue as the search sees it (from the database, or the kept copy)
 const loadCards = async (offline) => {
@@ -70,9 +74,8 @@ const openRouterLeft = async () => {
 const ask = async (model, set, cards, vocab) => {
   const spec = MODELS[model];
   if (!spec) throw new Error(`unknown model: ${model} (one of ${Object.keys(MODELS).join(', ')})`);
-  const file = path.join(READINGS, `${slug(model)}.json`);
+  const file = readingsFile(model);
   const kept = readJson(file, { model, promptVersion: PROMPT_VERSION, answers: {} });
-  if (kept.promptVersion !== PROMPT_VERSION) { kept.promptVersion = PROMPT_VERSION; kept.answers = {}; }
   const retry = arg('retry-errors');
   const todo = set.requests.filter((r) => {
     const a = kept.answers[r.id];
@@ -113,9 +116,9 @@ const ask = async (model, set, cards, vocab) => {
 const pct = (a, b) => (b ? `${Math.round((100 * a) / b)}%` : '–');
 const quantile = (xs, q) => { const s = [...xs].sort((a, b) => a - b); return s.length ? s[Math.min(s.length - 1, Math.floor(q * s.length))] : null; };
 
-const evaluateModel = (model, set, cards, vocab, check = 2) => {
-  const kept = readJson(path.join(READINGS, `${slug(model)}.json`), null);
-  if (!kept || kept.promptVersion !== PROMPT_VERSION) return null;
+const evaluateModel = (model, set, cards, vocab, check = 2, version = PROMPT_VERSION) => {
+  const kept = readJson(readingsFile(model, version), null);
+  if (!kept || kept.promptVersion !== version) return null;
   const rows = [];
   for (const r of set.requests) {
     const a = kept.answers[r.id];
@@ -129,9 +132,15 @@ const evaluateModel = (model, set, cards, vocab, check = 2) => {
 };
 
 // results: as the site checks now; first: the same saved answers through the check as first evaluated
-const report = (set, results, firstCheck = {}) => {
+const report = (set, allResults, allFirst = {}, allEarlier = {}) => {
   const lines = [];
-  const n = set.requests.length;
+  // the reviewed set's own numbers; sentences added later are scored apart, at the end
+  const reviewed = (rows) => rows && rows.filter((x) => !x.r.added);
+  const byModel = (res, keep) => Object.fromEntries(Object.entries(res).map(([m, rows]) => [m, keep(rows)]));
+  const results = byModel(allResults, reviewed);
+  const firstCheck = byModel(allFirst, reviewed);
+  const earlier = byModel(allEarlier, reviewed);
+  const n = set.requests.filter((r) => !r.added).length;
   lines.push('# Natural-language search: evaluation', '');
   lines.push(`The test set: ${n} requests in plain English (\`testset.json\`), each with the reading a person would expect, written and reviewed before any model was run (${set.reviewed?.on || 'not yet reviewed'}). Prompt version ${PROMPT_VERSION}. Every reading goes through the server's check (\`services/understand.js\`) before it's scored, as it would on the site.`, '');
   lines.push('The answers were scored twice from the same saved readings (no model was asked again): with the server\'s check as first written, and with one rule added after seeing those results, that a genre only counts when the request names it ("comedies", "sci-fi"), since the one mistake the models kept making was turning a describing word into a genre ("funny" into Comedy). A rule written after seeing the results flatters them a little, so both are shown; the second is what the site runs.', '');
@@ -146,7 +155,7 @@ const report = (set, results, firstCheck = {}) => {
   row('Requests read', col((rows) => `${rows.length} of ${n}`));
   row('Right, with the first check', models.map(([m]) => { const rows = firstCheck[m] || []; return `${pct(rows.filter((x) => x.right).length, rows.length)} (${rows.filter((x) => x.right).length})`; }));
   row('**Right**, with the genre rule (added after the first results)', col((rows) => `**${pct(rows.filter((x) => x.right).length, rows.length)}** (${rows.filter((x) => x.right).length})`));
-  const kinds = [...new Set(set.requests.map((r) => r.kind))];
+  const kinds = [...new Set(set.requests.filter((r) => !r.added).map((r) => r.kind))];
   for (const k of kinds) row(`&nbsp;&nbsp;${k}`, col((rows) => { const ks = rows.filter((x) => x.r.kind === k); return `${pct(ks.filter((x) => x.right).length, ks.length)} (${ks.filter((x) => x.right).length}/${ks.length})`; }));
   row('Dropped by the check', col((rows) => `${pct(rows.filter((x) => x.reading?.dropped.length).length, rows.length)} of readings (${rows.reduce((t, x) => t + (x.reading?.dropped.length || 0), 0)} values)`));
   row('Drift (a filter nobody asked for)', col((rows) => pct(rows.filter((x) => x.drift).length, rows.length)));
@@ -180,7 +189,37 @@ const report = (set, results, firstCheck = {}) => {
     lines.push(`| Precision@${judged.top} | By feel | Canon order |`, '|---|---|---|');
     for (const [name, x] of Object.entries(g)) lines.push(`| ${name === 'all' ? '**All rated requests**' : name} (${x.requests}) | ${name === 'all' ? `**${cell(x.feel)}**` : cell(x.feel)} | ${cell(x.canon)} |`);
     lines.push('', `Sentence by sentence, the feel order put more fitting films first in ${judged.bySentence.feel}, the canon order in ${judged.bySentence.canon}, and ${judged.bySentence.tie} were ties.`, '');
+    // the order changed after the rating: how much of what was rated is the part that stayed
+    const idx = feelIndex();
+    const key = readJson(path.join(HERE, 'judging-key.json'), null);
+    const marks = readJson(path.join(HERE, 'judgments', `${judged.rater}.json`), {});
+    if (idx && key) {
+      const t = { all: 0, ev: 0, fit: 0, known: 0 };
+      for (const r of key.requests.filter((x) => marks[x.id])) {
+        for (const id of r.feel) {
+          t.all++;
+          if (!(viewerEvidence(r.feelWords, idx.countsOf.get(id), idx.kin) > 0)) continue;
+          t.ev++;
+          const m = marks[r.id][id];
+          if (m === '1' || m === '0') { t.known++; t.fit += m === '1'; }
+        }
+      }
+      lines.push(`Changed after the rating: films no viewer described that way used to be ordered by how close their story was, and the story match put Videodrome 14th for "funny". They now follow the films viewers described that way in the canon's order, behind a divider on the page ("No viewer called these 'funny'"), with a way to show only the first. Of the ${t.all} rated films the feel order chose, ${t.ev} were films viewers had described that way, and they are unchanged; ${t.fit} of the ${t.known} of those the rater knew fit (${pct(t.fit, t.known)}). The other ${t.all - t.ev} would now be the canon's picks.`, '');
+    }
     lines.push(`Read with care: one rater, who built the site; for describing words alone the canon order shows the same five famous films for every request, an easy baseline (with filters the two are close: ${g['feel and filters'].feel.precision}% against ${g['feel and filters'].canon.precision}%); and the feel order surfaces less famous films, which the rater more often didn't know (${g.all.feel.unknown} unknown against ${g.all.canon.unknown}), so its precision is over fewer films. A second rater would give agreement (Cohen's kappa).`);
+  }
+
+  // the version before (prompt 1: describing words only in the request's own words)
+  const before = Object.entries(earlier).filter(([m, rows]) => rows?.length === n && !MODELS[m]?.retired);
+  if (before.length && PROMPT_VERSION > 1) {
+    lines.push('', `**Before this version** (prompt 1, the same test set and check, before feelings could be translated from a reference): ${before.map(([m, rows]) => `${MODELS[m].label} ${pct(rows.filter((x) => x.right).length, n)}`).join(', ')}.`);
+  }
+
+  // sentences added after the review, for what a new version adds
+  const added = Object.entries(allResults).filter(([m, rows]) => rows?.some((x) => x.r.added) && !MODELS[m]?.retired);
+  if (added.length) {
+    const extra = set.requests.filter((r) => r.added);
+    lines.push('', `**Added later** (${extra.length} sentences for what this version adds: actors, language, subjects, qualities, streaming, lesser known; written before the run, not reviewed by the owner, so kept out of the numbers above): ${added.map(([m, rows]) => { const a = rows.filter((x) => x.r.added); return `${MODELS[m].label} ${pct(a.filter((x) => x.right).length, a.length)} (${a.filter((x) => x.right).length} of ${a.length})`; }).join(', ')}.`);
   }
 
   for (const [model, rows] of retired) {
@@ -206,12 +245,16 @@ const main = async () => {
   const set = readJson(path.join(HERE, 'testset.json'));
   const cards = await loadCards(Boolean(arg('offline')) || Boolean(arg('score')));
   const vocab = vocabularyOf({ cards });
+  // streaming services as the site offers them in a country (fixed here, so the test doesn't depend on
+  // the day's listings): the ones the test set names, among the common others
+  vocab.services = ['Netflix', 'MUBI', 'Amazon Prime Video', 'Apple TV', 'Criterion Channel', 'Kanopy', 'Hulu', 'Max', 'Disney Plus', 'YouTube', 'Tubi TV', 'Pluto TV', 'JioHotstar', 'BFI Player', 'Curzon Home Cinema', 'Plex'];
   const model = arg('model');
   if (model) await ask(model, set, cards, vocab);
   if (model && arg('no-report')) return;
   const results = Object.fromEntries(Object.keys(MODELS).map((m) => [m, evaluateModel(m, set, cards, vocab, 2)]));
   const first = Object.fromEntries(Object.keys(MODELS).map((m) => [m, evaluateModel(m, set, cards, vocab, 1)]));
-  fs.writeFileSync(REPORT, report(set, results, first));
+  const earlier = Object.fromEntries(Object.keys(MODELS).map((m) => [m, evaluateModel(m, set, cards, vocab, 2, PROMPT_VERSION - 1)]));
+  fs.writeFileSync(REPORT, report(set, results, first, earlier));
   console.log(`wrote ${path.relative(process.cwd(), REPORT)}`);
   for (const [m, rows] of Object.entries(results)) if (rows?.length) console.log(`${m}: ${rows.filter((x) => x.right).length}/${rows.length} right`);
 };

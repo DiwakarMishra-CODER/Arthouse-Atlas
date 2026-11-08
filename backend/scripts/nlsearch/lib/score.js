@@ -13,7 +13,7 @@
 import { applyFilters } from '../../../services/catalogue.js';
 import { normalizeName } from '../../../services/nameUtils.js';
 
-export const FIELDS = ['country', 'director', 'movement', 'genre', 'length', 'like'];
+export const FIELDS = ['country', 'director', 'actor', 'language', 'movement', 'genre', 'length', 'streaming', 'like'];
 
 const shape = (g) => (g == null ? null : Array.isArray(g) ? { any: g } : typeof g === 'object' && g.each ? { each: g.each } : { each: [g] });
 const same = (field) => (a, b) => (field === 'director' || field === 'like' ? normalizeName(String(a)) === normalizeName(String(b)) : String(a) === String(b));
@@ -56,7 +56,11 @@ const against = (expect, allow, reading, cards) => {
     if (!gotTime || !sameFilms(want, got)) wrong.push(`time: wanted ${JSON.stringify({ decade: expect.decade, years: expect.years })}, got ${JSON.stringify({ decade: reading.filters.decade, years: reading.filters.years })}`);
   } else if (gotTime && !allow.includes('decade')) wrong.push(`time set but not asked (${JSON.stringify({ decade: reading.filters.decade, years: reading.filters.years })})`);
 
-  if (expect.feel && !reading.feel.length) wrong.push('no feel words');
+  if (expect.feel && !reading.feel.length && !reading.inferred?.length) wrong.push('no feel words');
+  if (expect.about && !reading.about?.length) wrong.push('no subject words');
+  // lesser known ("underrated", "hidden gems")
+  if (expect.lesserKnown && reading.filters.known !== 'less') wrong.push('lesser known not set');
+  if (!expect.lesserKnown && reading.filters.known && !allow.includes('known')) wrong.push('lesser known set but not asked');
   if (expect.unplaced && !reading.unplaced.length) wrong.push('nothing reported as unplaced');
   return { right: wrong.length === 0, wrong };
 };
@@ -69,7 +73,7 @@ export const scoreReading = (request, reading, cards) => {
     right: best.right,
     wrong: best.wrong,
     // not wrong, but worth counting: words reported that the answer didn't expect
-    extraFeel: !request.expect.feel && !allow.includes('feel') && reading.feel?.length > 0,
+    extraFeel: !request.expect.feel && !allow.includes('feel') && (reading.feel?.length > 0 || reading.inferred?.length > 0),
     extraUnplaced: !request.expect.unplaced && reading.unplaced?.length > 0,
     // a filter set that nobody asked for (drift)
     drift: best.wrong.some((w) => w.includes('set but not asked')),

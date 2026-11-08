@@ -1,5 +1,5 @@
 {
-  "_about": "The test set for natural-language search, written before any model was run. Each request has what a correct reading sets. Fields not listed must stay empty. A list means any one of those values is right; {\"each\": [...]} means the reading must hold exactly those values (\"Japanese or Korean films\" holds both). years is a span, both ends included ({\"until\": 1949} is \"before 1950\"). Two readings that pick exactly the same films are the same answer (\"before 1950\" as a span or as the decades 1910s to 1940s). feel: true means descriptive words should go to the feel ranking. unplaced: true means part of the request cannot be expressed on the board and the reading must say so instead of guessing. offTopic: nothing set, declined. allow: fields that may also be set without counting as wrong (a movement also naming its country).",
+  "_about": "The test set for natural-language search, written before any model was run. Each request has what a correct reading sets. Fields not listed must stay empty. A list means any one of those values is right; {\"each\": [...]} means the reading must hold exactly those values (\"Japanese or Korean films\" holds both). years is a span, both ends included ({\"until\": 1949} is \"before 1950\"). Two readings that pick exactly the same films are the same answer (\"before 1950\" as a span or as the decades 1910s to 1940s). feel: true means descriptive words should go to the feel ranking. unplaced: true means part of the request cannot be expressed on the board and the reading must say so instead of guessing. offTopic: nothing set, declined. allow: fields that may also be set without counting as wrong (a movement also naming its country). streaming: a service name, \"free\" or \"any\". about: true means subject words should go to the subject ranking. lesserKnown: true means the lesser-known filter is set.",
   "_rules": "Fixed before running: the reading may only use the catalogue vocabulary; a nationality word is that country; \"the 60s\" is 1960; a film named after \"like\" must be in the atlas; descriptive words (moods, topics, looks) are feel, never filters; negations are unplaced. Either/or choices and spans of years are filters (the board can say \"Japan or South Korea\" and \"before 1950\" since 2026-11-08). Guardrails: a name, place, decade or film the atlas doesn't hold is unplaced, never swapped for something close; instructions inside a request are ignored; a request that fits the vocabulary is read as asked even when it finds nothing.",
   "version": 2,
   "written": "2026-11-08",
@@ -966,6 +966,218 @@
         "director": "Christopher Nolan",
         "decade": 1950
       }
+    },
+    {
+      "id": "q109",
+      "kind": "actor",
+      "text": "films with Tony Leung",
+      "expect": {
+        "actor": "Tony Leung Chiu-wai"
+      },
+      "added": "2026-11-08"
+    },
+    {
+      "id": "q110",
+      "kind": "actor",
+      "text": "Isabelle Huppert films",
+      "expect": {
+        "actor": "Isabelle Huppert"
+      },
+      "added": "2026-11-08"
+    },
+    {
+      "id": "q111",
+      "kind": "actor",
+      "text": "Wong Kar-wai films with Maggie Cheung",
+      "expect": {
+        "director": "Wong Kar-wai",
+        "actor": "Maggie Cheung Man-yuk"
+      },
+      "added": "2026-11-08"
+    },
+    {
+      "id": "q112",
+      "kind": "actor",
+      "text": "Kurosawa films starring Mifune",
+      "expect": {
+        "director": "Akira Kurosawa",
+        "actor": "Toshirō Mifune"
+      },
+      "added": "2026-11-08"
+    },
+    {
+      "id": "q113",
+      "kind": "language",
+      "text": "films in French",
+      "expect": {
+        "language": "French"
+      },
+      "added": "2026-11-08"
+    },
+    {
+      "id": "q114",
+      "kind": "language",
+      "text": "a Spanish-language film from the 2000s",
+      "expect": {
+        "language": "Spanish",
+        "decade": 2000
+      },
+      "added": "2026-11-08"
+    },
+    {
+      "id": "q115",
+      "kind": "language",
+      "text": "a Japanese film in English",
+      "expect": {
+        "country": "Japan",
+        "language": "English"
+      },
+      "added": "2026-11-08"
+    },
+    {
+      "id": "q116",
+      "kind": "about",
+      "text": "a film about grief",
+      "expect": {
+        "about": true
+      },
+      "added": "2026-11-08"
+    },
+    {
+      "id": "q117",
+      "kind": "about",
+      "text": "a heist movie",
+      "expect": {
+        "about": true
+      },
+      "allow": [
+        "genre"
+      ],
+      "added": "2026-11-08"
+    },
+    {
+      "id": "q118",
+      "kind": "about",
+      "text": "films set in Tokyo",
+      "expect": {
+        "about": true
+      },
+      "allow": [
+        "country"
+      ],
+      "added": "2026-11-08"
+    },
+    {
+      "id": "q119",
+      "kind": "about",
+      "text": "a road trip film from the 70s",
+      "expect": {
+        "decade": 1970,
+        "about": true
+      },
+      "added": "2026-11-08"
+    },
+    {
+      "id": "q120",
+      "kind": "quality",
+      "text": "the most beautiful film ever made",
+      "expect": {
+        "feel": true
+      },
+      "added": "2026-11-08"
+    },
+    {
+      "id": "q121",
+      "kind": "quality",
+      "text": "something really scary",
+      "expect": {
+        "feel": true
+      },
+      "added": "2026-11-08"
+    },
+    {
+      "id": "q122",
+      "kind": "quality",
+      "text": "visually stunning films from Japan",
+      "expect": {
+        "country": "Japan",
+        "feel": true
+      },
+      "added": "2026-11-08"
+    },
+    {
+      "id": "q123",
+      "kind": "streaming",
+      "text": "something sad on MUBI",
+      "expect": {
+        "streaming": "MUBI",
+        "feel": true
+      },
+      "added": "2026-11-08"
+    },
+    {
+      "id": "q124",
+      "kind": "streaming",
+      "text": "anything free to watch",
+      "expect": {
+        "streaming": "free"
+      },
+      "added": "2026-11-08"
+    },
+    {
+      "id": "q125",
+      "kind": "streaming",
+      "text": "90s films on Netflix",
+      "expect": {
+        "streaming": "Netflix",
+        "decade": 1990
+      },
+      "added": "2026-11-08"
+    },
+    {
+      "id": "q126",
+      "kind": "gems",
+      "text": "underrated Japanese films",
+      "expect": {
+        "country": "Japan",
+        "lesserKnown": true
+      },
+      "added": "2026-11-08"
+    },
+    {
+      "id": "q127",
+      "kind": "gems",
+      "text": "hidden gems from the 70s",
+      "expect": {
+        "decade": 1970,
+        "lesserKnown": true
+      },
+      "added": "2026-11-08"
+    },
+    {
+      "id": "q128",
+      "kind": "guardrail",
+      "text": "films with Dwayne Johnson",
+      "expect": {
+        "unplaced": true
+      },
+      "added": "2026-11-08"
+    },
+    {
+      "id": "q129",
+      "kind": "reference",
+      "text": "a film that feels like listening to Joy Division",
+      "expect": {
+        "feel": true
+      },
+      "added": "2026-11-08"
+    }
+  ],
+  "additions": [
+    {
+      "ids": "q109-q129",
+      "on": "2026-11-08",
+      "note": "Written before the prompt 3 run to cover what it adds (actors, language, what a film is about, qualities, streaming, lesser known, a reference to translate), before any model read them. Not reviewed by the owner: reported apart from the 108."
     }
   ]
 }
