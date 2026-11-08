@@ -4,15 +4,17 @@
 // now" buttons go straight to the film.
 //
 // Each was checked by hand in November 2026 with a real title (the search ran, or the address held
-// through the service's sign-in). Left out because the address didn't search, or couldn't be
-// checked from India: MUBI, Kanopy, the Criterion Channel, JioHotstar, Plex, Hulu, Disney+, Max,
-// Peacock, Paramount+, Tubi, Pluto TV.
+// through the service's sign-in; MUBI's results page lists In the Mood for Love's own page). Left out
+// because the address didn't search, or couldn't be checked from India: Kanopy, the Criterion
+// Channel, JioHotstar, Plex, Hulu, Disney+, Max, Peacock, Paramount+, Tubi, Pluto TV.
 const SEARCH = [
     // Prime Video, Amazon Video, and the channels watched inside Prime Video (Curzon, Arthaus+…)
     [/amazon/i, 'https://www.primevideo.com/search/ref=atv_nb_sug?ie=UTF8&phrase='],
     // the Apple TV store, Apple TV+, and the channels watched inside the Apple TV app
     [/apple tv/i, 'https://tv.apple.com/search?term='],
     [/^netflix/i, 'https://www.netflix.com/search?q='],
+    // (MUBI itself; MUBI watched through Prime Video's channel is caught by "amazon" above)
+    [/^mubi/i, 'https://mubi.com/en/search/films?query='],
     [/^google play/i, 'https://play.google.com/store/search?c=movies&q='],
     [/^youtube/i, 'https://www.youtube.com/results?search_query='],
     [/^hoopla/i, 'https://www.hoopladigital.com/search?scope=everything&type=direct&q='],

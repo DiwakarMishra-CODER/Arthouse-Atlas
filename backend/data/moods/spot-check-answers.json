@@ -1,0 +1,226 @@
+{
+  "_about": "The owner's spot checks of the viewer-backed moods (8 Nov 2026), as exported from the two sheets, plus the romantic films checked from a list in conversation. Each mood: yes = fits, no = doesn't; missing = an obvious mood the film lacked.",
+  "first_sheet_16_moods": {
+    "6953c208df81e631d5708eba": {
+      "moods": {
+        "melancholic": "yes"
+      },
+      "missing": [
+        "intimate",
+        "existential",
+        "poetic"
+      ]
+    },
+    "6ada0a5a56e61902aecbe44e": {
+      "moods": {
+        "psychological": "yes"
+      },
+      "missing": []
+    },
+    "6953c75a5dc11e105e36f205": {
+      "moods": {
+        "psychological": "yes"
+      },
+      "missing": []
+    },
+    "6953c75a5dc11e105e36f1f8": {
+      "moods": {
+        "atmospheric": "yes",
+        "melancholic": "yes",
+        "lyrical": "yes"
+      },
+      "missing": []
+    },
+    "6953dd157dde5caa10224e09": {
+      "moods": {
+        "psychological": "yes"
+      },
+      "missing": [
+        "enigmatic"
+      ]
+    },
+    "6953c208df81e631d5708e39": {
+      "moods": {
+        "psychological": "yes",
+        "enigmatic": "yes",
+        "surreal": "yes",
+        "dreamlike": "yes",
+        "intimate": "yes",
+        "austere": "yes"
+      },
+      "missing": []
+    },
+    "6953c208df81e631d5708e77": {
+      "moods": {
+        "minimalist": "yes"
+      },
+      "missing": [
+        "melancholic",
+        "existential",
+        "bleak"
+      ]
+    },
+    "6953c208df81e631d5708e31": {
+      "moods": {
+        "enigmatic": "yes",
+        "slow": "yes",
+        "existential": "yes"
+      },
+      "missing": []
+    },
+    "698f6602c7ad0ae21f249680": {
+      "moods": {
+        "bleak": "yes"
+      },
+      "missing": []
+    },
+    "698d85e2ce51f929e439073e": {
+      "moods": {
+        "contemplative": "yes",
+        "surreal": "yes",
+        "slow": "yes",
+        "existential": "yes",
+        "bleak": "yes",
+        "psychological": "yes"
+      },
+      "missing": [
+        "poetic",
+        "dreamlike"
+      ]
+    },
+    "698f65efc7ad0ae21f249642": {
+      "moods": {
+        "bleak": "yes",
+        "intimate": "yes"
+      },
+      "missing": [
+        "existential"
+      ]
+    },
+    "698f65f8c7ad0ae21f24965d": {
+      "moods": {
+        "surreal": "yes",
+        "atmospheric": "yes"
+      },
+      "missing": []
+    },
+    "6953c208df81e631d5708e60": {
+      "moods": {
+        "surreal": "yes",
+        "fragmented": "yes",
+        "dreamlike": "yes",
+        "atmospheric": "yes",
+        "enigmatic": "yes"
+      },
+      "missing": [
+        "psychological"
+      ]
+    },
+    "698f2b2156cd5630f0f4f312": {
+      "moods": {
+        "atmospheric": "yes"
+      },
+      "missing": []
+    },
+    "6953dd1d7dde5caa10224e18": {
+      "moods": {
+        "bleak": "yes"
+      },
+      "missing": [
+        "melancholic"
+      ]
+    }
+  },
+  "second_sheet_new_moods": {
+    "6ada0a5056e61902aecbe41e": {
+      "moods": {
+        "funny": "yes"
+      },
+      "missing": []
+    },
+    "69917548ea5be1475e68723e": {
+      "moods": {
+        "tense": "yes"
+      },
+      "missing": []
+    },
+    "6953c75a5dc11e105e36f22e": {
+      "moods": {
+        "whimsical": "yes"
+      },
+      "missing": []
+    },
+    "6953c208df81e631d5708e2d": {
+      "moods": {
+        "tense": "yes"
+      },
+      "missing": []
+    },
+    "6953c208df81e631d5708e65": {
+      "moods": {
+        "tense": "yes"
+      },
+      "missing": []
+    },
+    "6ada0ad256e61902aecbe6c7": {
+      "moods": {
+        "warm": "yes",
+        "whimsical": "yes",
+        "funny": "yes"
+      },
+      "missing": []
+    },
+    "6953c75a5dc11e105e36f23e": {
+      "moods": {
+        "whimsical": "yes",
+        "funny": "yes"
+      },
+      "missing": []
+    },
+    "6953c75a5dc11e105e36f20a": {
+      "moods": {
+        "tense": "yes"
+      },
+      "missing": []
+    },
+    "6953c208df81e631d5708e30": {
+      "moods": {
+        "whimsical": "yes",
+        "funny": "yes"
+      },
+      "missing": []
+    },
+    "6953c75a5dc11e105e36f30d": {
+      "moods": {
+        "whimsical": "yes",
+        "funny": "yes"
+      },
+      "missing": []
+    },
+    "6953c208df81e631d5708e2e": {
+      "moods": {
+        "warm": "yes"
+      },
+      "missing": []
+    }
+  },
+  "romantic_from_list": {
+    "films": [
+      "Amélie",
+      "Before Sunrise",
+      "Before Sunset",
+      "Eternal Sunshine of the Spotless Mind",
+      "Sense and Sensibility",
+      "Annie Hall",
+      "Moonrise Kingdom",
+      "2046",
+      "The Piano",
+      "The Lovers on the Bridge"
+    ],
+    "answer": "all fit"
+  },
+  "third_sheet_new_calls": {
+    "sheet": "mood-spot-check-3.html: 14 films, 25 mood calls added by compound tags and the 2-viewer rule for thinly tagged films",
+    "answer": "all fit (the owner, in conversation, 8 Nov 2026; answers not exported film by film)"
+  }
+}

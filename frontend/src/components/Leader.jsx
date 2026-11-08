@@ -17,8 +17,8 @@ const Leader = ({ label = 'Loading', size = 84, className = '' }) => (
             {/* the count */}
             <span className="absolute inset-0 flex items-center justify-center font-label text-[1.6rem] leading-none text-[#f1ece2]">
                 <span className="leader-num absolute">3</span>
-                <span className="leader-num absolute [animation-delay:1s]">2</span>
-                <span className="leader-num absolute [animation-delay:2s]">1</span>
+                <span className="leader-num absolute">2</span>
+                <span className="leader-num absolute">1</span>
             </span>
         </div>
         <span className="font-label text-[12px] tracking-[0.14em] uppercase text-gray-300">{label}</span>

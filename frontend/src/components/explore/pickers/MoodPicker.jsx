@@ -26,7 +26,7 @@ const MoodPicker = ({ options = [], value, onPick, notes }) => (
                 );
             })}
         </ul>
-        {notes && <p className="mt-5 text-[15px] text-gray-400">Moods come from our own notes on {notes} films; more as we write them.</p>}
+        {notes && <p className="mt-5 text-[15px] text-gray-400">Moods are what viewers said: the words MovieLens viewers tagged {notes} films with. A film has a mood only when enough of them said it.</p>}
     </>
 );
 

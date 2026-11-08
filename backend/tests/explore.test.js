@@ -9,8 +9,8 @@ const film = (id, extra = {}) => toCard({
 });
 
 const cards = [
-  film('a', { title: 'Tokyo Story', originalTitle: '東京物語', year: 1953, directors: ['Yasujirō Ozu'], countries: ['Japan'], runtime: 136, movements: ['Japanese Golden Age'], editorial: { tags: ['melancholic', 'contemplative', 'not-a-mood'] }, canonRank: 2 }),
-  film('b', { title: 'Late Spring', year: 1949, directors: ['Yasujiro Ozu'], countries: ['Japan'], runtime: 108, movements: ['Japanese Golden Age'], editorial: { tags: ['intimate'] }, moods: { surreal: 1 }, canonRank: 30 }),
+  film('a', { title: 'Tokyo Story', originalTitle: '東京物語', year: 1953, directors: ['Yasujirō Ozu'], countries: ['Japan'], runtime: 136, movements: ['Japanese Golden Age'], viewerMoods: [{ mood: 'melancholic', viewers: 12 }, { mood: 'contemplative', viewers: 5 }, { mood: 'not-a-mood', viewers: 3 }], canonRank: 2 }),
+  film('b', { title: 'Late Spring', year: 1949, directors: ['Yasujiro Ozu'], countries: ['Japan'], runtime: 108, movements: ['Japanese Golden Age'], viewerMoods: [{ mood: 'intimate', viewers: 4 }], editorial: { tags: ['bleak'] }, moods: { surreal: 1 }, canonRank: 30 }),
   film('c', { title: 'The 400 Blows', originalTitle: 'Les Quatre Cents Coups', year: 1959, directors: ['François Truffaut'], countries: ['France'], runtime: 99, movements: ['French New Wave'], canonRank: 12 }),
   film('d', { title: 'Tokyo Drifter', year: 1966, directors: ['Seijun Suzuki'], countries: ['Japan'], runtime: 82, genres: ['Crime'], canonRank: null, provenanceScore: 5 }),
   film('e', { title: 'Story of a Love Affair', year: 1950, directors: ['Michelangelo Antonioni'], countries: ['Italy', 'France'], runtime: 98, canonRank: null, provenanceScore: 9 }),
@@ -20,8 +20,8 @@ const ids = (list) => list.map((c) => c._id);
 test('a card keeps what Explore shows and hides what it matches on', () => {
   const c = publicCard(cards[0]);
   assert.equal(c.originalTitle, '東京物語');
-  assert.deepEqual(c.moods, ['melancholic', 'contemplative']); // from our notes, in the mood vocabulary only
-  assert.deepEqual(publicCard(cards[1]).moods, ['intimate']); // never the keyword guesses
+  assert.deepEqual(c.moods, ['melancholic', 'contemplative']); // as viewers said them, in the mood vocabulary only
+  assert.deepEqual(publicCard(cards[1]).moods, ['intimate']); // never the keyword guesses, nor the old AI-assigned notes
   assert.equal(c.length, 'long');
   assert.equal(c._id, 'a'); // the link to the film
   assert.ok(!Object.keys(c).some((k) => k.startsWith('_') && k !== '_id'));

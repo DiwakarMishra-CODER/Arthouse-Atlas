@@ -46,7 +46,7 @@ import { useRegion, setRegion, regionName } from '../hooks/region';
 
 const PAGE = 24;
 const FILTERS = ['q', 'country', 'decade', 'director', 'movement', 'mood', 'genre', 'length', 'like', 'from', 'screens', 'in'];
-const MOODS = ['contemplative', 'melancholic', 'dreamlike', 'surreal', 'intimate', 'existential', 'psychological', 'minimalist', 'slow', 'austere', 'poetic', 'lyrical', 'enigmatic', 'fragmented', 'bleak'];
+const MOODS = ['contemplative', 'melancholic', 'dreamlike', 'surreal', 'intimate', 'existential', 'psychological', 'minimalist', 'slow', 'austere', 'poetic', 'lyrical', 'enigmatic', 'fragmented', 'bleak', 'atmospheric', 'funny', 'whimsical', 'romantic', 'warm', 'tense'];
 const PICKER_TITLES = {
     country: 'From where', decade: 'When it was made', director: 'Who made it', movement: 'Which movement',
     mood: 'How it feels', genre: 'What kind of film', length: 'How long', screens: 'Where you’ll watch it', sort: 'In what order',

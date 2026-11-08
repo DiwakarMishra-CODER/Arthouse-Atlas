@@ -16,6 +16,7 @@ import { treatmentFor, displayTitle, sized } from '../components/movements/treat
 import { usePageTitle } from '../hooks/usePageTitle';
 import { useRegion } from '../hooks/region';
 import WhereToWatch from '../components/film/WhereToWatch';
+import ResponseCards from '../components/film/ResponseCards';
 import NotFound from './NotFound';
 
 /**
@@ -87,8 +88,9 @@ const MovieDetail = () => {
 
     const backdrop = movie.backdropUrl || movie.posterUrl;
     const ties = (movie.movements || []).map((t) => movements.find((m) => m.title === t)).filter(Boolean);
-    const tags = [...(movie.genres || []).map((g) => ({ label: g, to: `/explore?genre=${encodeURIComponent(g)}` })),
-        ...(movie.derivedTags || []).map((t) => ({ label: t, to: `/explore?tags=${encodeURIComponent(t)}` }))];
+    // the opening's last card names its genres; how it feels has its own band under the opening
+    // (ResponseCards). The old keyword-guessed tags are no longer shown.
+    const tags = (movie.genres || []).map((g) => ({ label: g, to: `/explore?genre=${encodeURIComponent(g)}` }));
 
     const reveal = (delay = 0) => (reducedMotion ? {} : {
         initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: '-80px' },
@@ -111,6 +113,9 @@ const MovieDetail = () => {
                 <TheScreen movie={movie} light={light} reducedMotion={reducedMotion} watch={watch} region={region} tags={tags} />
 
                 <div className="max-w-7xl mx-auto px-4 md:px-10">
+                    {/* ===== HOW VIEWERS DESCRIBED IT: a preview screening's response cards, counted in tallies ===== */}
+                    <ResponseCards moods={movie.viewerMoods} reducedMotion={reducedMotion} />
+
                     {/* ===== WHERE TO WATCH IT, TONIGHT: the box office's window ===== */}
                     <WhereToWatch watch={watch} region={region} title={movie.title} reducedMotion={reducedMotion} />
 

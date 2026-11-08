@@ -8,7 +8,7 @@ import { sizeFor, useDecoded } from '../about/frames';
 import { ShelfSigns, TicketDock, TrailerScreen } from './Ticket';
 import BillingBlock from './BillingBlock';
 import { WatchTeaser } from './WhereToWatch';
-import { goToWatch } from './watchJump';
+import { goPastOpening } from './watchJump';
 import { directorPath } from './directorPath';
 import { framesOf } from './frames';
 
@@ -452,8 +452,8 @@ const TheScreen = ({ movie, light, reducedMotion, watch, region, tags }) => {
         const top = el.getBoundingClientRect().top + window.scrollY;
         window.scrollTo({ top: top + ((el.offsetHeight - window.innerHeight) * (i + 0.5)) / n, behavior: 'smooth' });
     };
-    // past the opening, the first thing is where to watch it tonight
-    const skip = goToWatch;
+    // past the opening, the first thing is how viewers described it (or, without that, where to watch)
+    const skip = goPastOpening;
     const projection = playing && <Projection movie={movie} stills={frames} start={playing.kind} shared={playing.from === 'title' ? 'trailer-screen' : undefined} onClose={stop} />;
     const onPlay = (from = 'dock') => setPlaying({ kind: trailer ? 'trailer' : 'frames', from });
     const dock = <TicketDock movie={movie} light={light} frames={frames} onPlay={canPlay ? () => onPlay('dock') : null} playLabel={trailer ? 'Play the trailer' : 'Play its frames'} />;

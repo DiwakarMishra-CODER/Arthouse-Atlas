@@ -1,0 +1,402 @@
+{
+  "_about": "Which viewer words (MovieLens tags) count as which mood, for scripts/moods/fromTags.js. 'moods' are counted. 'flagged' are left out unless moved into 'moods': each could mean more than one mood, or a topic rather than a feeling, so including it is the owner's call. Every other tag is ignored. The rule is in scripts/moods/lib/viewerMoods.js (RULE): 3 or more different viewers, and at least 3% of the film's taggers.",
+  "moods": {
+    "contemplative": [
+      "contemplative",
+      "meditative",
+      "reflective",
+      "introspective"
+    ],
+    "melancholic": [
+      "melancholy",
+      "melancholic",
+      "sad",
+      "sadness",
+      "wistful",
+      "heartbreaking",
+      "somber",
+      "sombre",
+      "bittersweet",
+      "wistful melancholia"
+    ],
+    "dreamlike": [
+      "dreamlike",
+      "dream-like",
+      "dreamy",
+      "oneiric"
+    ],
+    "surreal": [
+      "surreal",
+      "surrealism",
+      "surrealist",
+      "surrealistic",
+      "surrealist humor"
+    ],
+    "intimate": [
+      "intimate"
+    ],
+    "existential": [
+      "existential",
+      "existentialism",
+      "existentialist",
+      "philosophical",
+      "existential crisis"
+    ],
+    "psychological": [
+      "psychological",
+      "psychology",
+      "psychological drama",
+      "psychological thriller",
+      "psychological horror",
+      "psychological torment",
+      "psychological torture",
+      "psychological manipulation"
+    ],
+    "minimalist": [
+      "minimalist",
+      "minimalism",
+      "minimalistic"
+    ],
+    "slow": [
+      "slow",
+      "slow paced",
+      "slow-paced",
+      "slow pace",
+      "slow moving",
+      "slow-moving",
+      "slow burn",
+      "slow-burn",
+      "slow plot",
+      "too slow",
+      "slow pacing"
+    ],
+    "austere": [
+      "austere"
+    ],
+    "poetic": [
+      "poetic",
+      "visual poetry"
+    ],
+    "lyrical": [
+      "lyrical"
+    ],
+    "enigmatic": [
+      "enigmatic",
+      "cryptic",
+      "ambiguous",
+      "ambiguous ending",
+      "open ending",
+      "ambiguity",
+      "enigma",
+      "too ambiguous"
+    ],
+    "fragmented": [
+      "fragmented",
+      "nonlinear",
+      "non-linear",
+      "non linear",
+      "nonlinear narrative",
+      "nonlinear timeline",
+      "disjointed timeline"
+    ],
+    "bleak": [
+      "bleak",
+      "grim",
+      "nihilistic",
+      "pessimistic",
+      "unrelentingly bleak",
+      "depressing"
+    ],
+    "atmospheric": [
+      "atmospheric",
+      "atmospherically beautiful"
+    ],
+    "funny": [
+      "funny",
+      "hilarious",
+      "witty",
+      "humorous",
+      "very funny",
+      "funny as hell",
+      "darkly funny",
+      "funny moments"
+    ],
+    "whimsical": [
+      "whimsical",
+      "quirky",
+      "playful"
+    ],
+    "romantic": [
+      "romantic",
+      "romance",
+      "longing",
+      "gay romance",
+      "lesbian romance",
+      "quirky romantic",
+      "romantic but not cheesy",
+      "unconventional romance",
+      "romantic comedy",
+      "romantic drama",
+      "interracial romance",
+      "may-december romance",
+      "classic romance",
+      "self-destructive romance",
+      "age disparity romance"
+    ],
+    "warm": [
+      "heartwarming",
+      "feel-good",
+      "feel good",
+      "charming",
+      "warm",
+      "feel good movie",
+      "feel good film"
+    ],
+    "tense": [
+      "tense",
+      "suspense",
+      "suspenseful",
+      "gripping",
+      "thrilling"
+    ]
+  },
+  "flagged": [
+    {
+      "word": "depression",
+      "could_be": [
+        "melancholic",
+        "bleak"
+      ],
+      "why": "often the topic (a character's illness, the Great Depression), not the feeling"
+    },
+    {
+      "word": "philosophy",
+      "could_be": [
+        "existential",
+        "contemplative"
+      ],
+      "why": "as philosophical, and more often a topic"
+    },
+    {
+      "word": "loneliness",
+      "could_be": [
+        "melancholic"
+      ],
+      "why": "a theme more than a feeling"
+    },
+    {
+      "word": "hallucinatory",
+      "could_be": [
+        "dreamlike",
+        "surreal"
+      ],
+      "why": "either"
+    },
+    {
+      "word": "weird",
+      "could_be": [
+        "surreal"
+      ],
+      "why": "odd is not always surreal"
+    },
+    {
+      "word": "strange",
+      "could_be": [
+        "surreal"
+      ],
+      "why": "as weird"
+    },
+    {
+      "word": "absurd",
+      "could_be": [
+        "surreal"
+      ],
+      "why": "absurd comedy is not surreal"
+    },
+    {
+      "word": "dark",
+      "could_be": [
+        "bleak"
+      ],
+      "why": "too vague: dark comedy, dark lighting, dark themes"
+    },
+    {
+      "word": "nihilism",
+      "could_be": [
+        "bleak"
+      ],
+      "why": "often the topic (Everything Everywhere All at Once is about nihilism, and isn't bleak), not the feel"
+    },
+    {
+      "word": "gloomy",
+      "could_be": [
+        "bleak",
+        "melancholic"
+      ],
+      "why": "between the two"
+    },
+    {
+      "word": "mystery",
+      "could_be": [
+        "enigmatic"
+      ],
+      "why": "usually the genre (a whodunit), not an enigmatic film"
+    },
+    {
+      "word": "mysterious",
+      "could_be": [
+        "enigmatic"
+      ],
+      "why": "closer to enigmatic than 'mystery', still not the same"
+    },
+    {
+      "word": "poetry",
+      "could_be": [
+        "poetic"
+      ],
+      "why": "often a film about poets"
+    },
+    {
+      "word": "dreams",
+      "could_be": [
+        "dreamlike"
+      ],
+      "why": "often the topic, not the feel"
+    },
+    {
+      "word": "tragic",
+      "could_be": [
+        "melancholic"
+      ],
+      "why": "describes the story more than the mood"
+    },
+    {
+      "word": "disjointed",
+      "could_be": [
+        "fragmented"
+      ],
+      "why": "often a complaint about editing"
+    },
+    {
+      "word": "touching",
+      "could_be": [
+        "warm"
+      ],
+      "why": "moving is not warm: it put Schindler's List under warm"
+    },
+    {
+      "word": "sweet",
+      "could_be": [
+        "warm"
+      ],
+      "why": "often sarcastic, or about a character"
+    },
+    {
+      "word": "comedy",
+      "could_be": [
+        "funny"
+      ],
+      "why": "the genre, which the genre filter already covers"
+    },
+    {
+      "word": "love story",
+      "could_be": [
+        "romantic"
+      ],
+      "why": "the topic, not the feel"
+    },
+    {
+      "word": "fairy tale",
+      "could_be": [
+        "whimsical"
+      ],
+      "why": "the form of the story, not the feel"
+    },
+    {
+      "word": "magical",
+      "could_be": [
+        "whimsical"
+      ],
+      "why": "usually about magic in the story"
+    },
+    {
+      "word": "intense",
+      "could_be": [
+        "tense"
+      ],
+      "why": "often emotional intensity, not suspense"
+    },
+    {
+      "word": "passionate",
+      "could_be": [
+        "romantic"
+      ],
+      "why": "noisy: it put Yojimbo and The Passion of Joan of Arc under romantic"
+    },
+    {
+      "word": "not funny",
+      "could_be": [
+        "funny"
+      ],
+      "why": "says the opposite"
+    },
+    {
+      "word": "slow motion",
+      "could_be": [
+        "slow"
+      ],
+      "why": "a camera technique, not pacing"
+    },
+    {
+      "word": "group psychology",
+      "could_be": [
+        "psychological"
+      ],
+      "why": "a topic"
+    },
+    {
+      "word": "psychologist",
+      "could_be": [
+        "psychological"
+      ],
+      "why": "a character"
+    },
+    {
+      "word": "moral ambiguity",
+      "could_be": [
+        "enigmatic"
+      ],
+      "why": "a theme, not an enigmatic film"
+    }
+  ],
+  "_decided": "8 Nov 2026, by the owner: atmospheric is a 16th mood; bittersweet counts as melancholic, philosophical as existential, depressing as bleak. The other flagged words stay out. Also 8 Nov: five lighter moods added (funny, whimsical, romantic, warm, tense), with feel words only; genre and topic words flagged. Romantic also counts romance, longing and passionate (the owner found In the Mood for Love and Portrait of a Lady on Fire missing). Also: compound tags that contain a mood's own word count (gay romance, romantic comedy, feel good movie, existential crisis…), except those that mean something else (not funny, slow motion, group psychology).",
+  "overrides": {
+    "_about": "The owner's corrections on top of the rule: a mood the viewers' words gave a film that does not fit it. Each with who decided and when.",
+    "remove": [
+      {
+        "film": "6ada0a9156e61902aecbe56e",
+        "title": "Requiem for a Dream",
+        "mood": "romantic",
+        "why": "viewers tagged \"romance\" for its couple; nothing about it is romantic",
+        "by": "owner",
+        "on": "2026-11-08"
+      },
+      {
+        "film": "6953dd157dde5caa10224e09",
+        "title": "The Piano Teacher",
+        "mood": "romantic",
+        "why": "not romantic",
+        "by": "owner",
+        "on": "2026-11-08"
+      },
+      {
+        "film": "6ada0a7256e61902aecbe4c6",
+        "title": "Adaptation.",
+        "mood": "romantic",
+        "why": "a love story in it, not a romantic film",
+        "by": "owner",
+        "on": "2026-11-08"
+      }
+    ]
+  }
+}

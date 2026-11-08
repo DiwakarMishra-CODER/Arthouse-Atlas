@@ -982,6 +982,10 @@ html[data-cover] .projected-black { visibility: hidden; }
 .leader-spin.origin-bottom { animation-name: leader-hand; }
 @keyframes leader-hand { from { transform: translateX(-50%) rotate(0deg); } to { transform: translateX(-50%) rotate(360deg); } }
 .leader-num { opacity: 0; animation: leader-num 3s steps(1, end) infinite; }
+/* each number takes its turn: set here, beside the animation (a Tailwind delay class lost to this
+   unlayered rule's shorthand, so 3, 2 and 1 all showed at once, one over another) */
+.leader-num:nth-child(2) { animation-delay: 1s; }
+.leader-num:nth-child(3) { animation-delay: 2s; }
 @keyframes leader-num { 0% { opacity: 1; } 33.333% { opacity: 0; } 100% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
   .leader-spin { animation: none; }

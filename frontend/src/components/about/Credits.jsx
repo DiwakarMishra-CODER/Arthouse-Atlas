@@ -23,7 +23,7 @@ const Credits = () => (
             <dl className="mt-14 grid sm:grid-cols-2 gap-x-12 gap-y-6 text-left max-w-3xl mx-auto">
                 {[
                     ['Pictures and film data', 'TMDB. This product uses the TMDB API but is not endorsed or certified by TMDB.'],
-                    ['Ratings, for For You', 'MovieLens, from GroupLens at the University of Minnesota.'],
+                    ['Ratings and viewers’ tags, for For You and the moods', 'MovieLens, from GroupLens at the University of Minnesota.'],
                     ['The map', 'Natural Earth.'],
                     ['The ranking', 'The 20 lists above, from Sight and Sound to the Criterion Collection.'],
                     ['Type', 'Newsreader and Oswald.'],

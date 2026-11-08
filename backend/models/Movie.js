@@ -130,6 +130,11 @@ const movieSchema = new mongoose.Schema({
     writtenAt: { type: Date, default: null },
     reviewedAt: { type: Date, default: null }       // set when the curator has read it
   },
+  // How it feels, as viewers said: moods from the tags MovieLens viewers wrote, each with how many
+  // different viewers said it (scripts/moods/fromTags.js, applied by scripts/moods/applyViewerMoods.js).
+  // A film without enough evidence has none: nothing here is guessed.
+  viewerMoods: [{ _id: false, mood: String, viewers: Number, words: [String] }], // words: what they wrote, most-used first
+  viewerMoodsAt: { type: Date, default: null },
   // Discovery Engine Fields
   baseCanonScore: {
     type: Number,

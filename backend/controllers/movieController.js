@@ -2,13 +2,16 @@ import Movie from '../models/Movie.js';
 import { getErrorResponse } from '../utils/errorResponse.js';
 import { getIndex, similarTo, inRankedOrder, CARD_FIELDS, REASONS } from '../services/recommender.js';
 import { pickTonight, MARATHON } from '../services/tonight.js';
-import { loadCatalogue, applyFilters, sortCards, facetCounts, publicCard, searchScore, nameMatches, withinStart, tally, MOODS, LENGTHS, SORTS } from '../services/catalogue.js';
+import { loadCatalogue, applyFilters, sortCards, facetCounts, publicCard, searchScore, nameMatches, withinStart, tally, MOODS, MOOD_MIN_FILMS, LENGTHS, SORTS } from '../services/catalogue.js';
 import { normalizeName } from '../services/nameUtils.js';
 import { getBridge, outsideCard } from '../services/bridge.js';
 import { togetherOf, getTogether, sharedFacts } from '../services/forYou.js';
 import { audienceOf } from '../services/audience.js';
 import { housesOfFilm, studiosNamed } from '../services/studios.js';
 import { listingFor, listedRegions, streamingIn, screensFacet } from '../services/watchIndex.js';
+
+// the moods viewers gave enough films to offer, most films first (fewer than MOOD_MIN_FILMS wait for more evidence)
+const offeredMoods = (cards) => tally(cards.flatMap((c) => c.moods)).filter((m) => m.n >= MOOD_MIN_FILMS);
 
 const shuffleArray = (array) => {
   const shuffled = [...array]; // Create a copy to avoid mutating original
@@ -611,7 +614,7 @@ const startingPoints = (cards, directors, bridge) => {
     known,
     outside,
     directors: famous,
-    moods: tally(cards.flatMap((c) => c.moods)).slice(0, 4),
+    moods: offeredMoods(cards).slice(0, 4),
     places: tally(cards.flatMap((c) => c.countries)).slice(0, 6),
   };
 };
@@ -677,6 +680,9 @@ export const exploreMovies = async (req, res) => {
         // first 60 the contact sheet shows; the rest, behind "show all", carry their best film's title)
         return { value: person?.name || d.value, n: d.n, id: person?._id || null, portrait, top: portrait || i >= 60 ? { title: d.top.title } : d.top };
       });
+      // only moods with enough films across the atlas are offered (the one chosen always stays)
+      const offered = new Set(offeredMoods(cards).map((m) => m.value));
+      facets.mood = facets.mood.filter((m) => offered.has(m.value) || m.value === filters.mood);
       facets.movement = facets.movement.map((m) => {
         const mv = movementsByTitle.get(m.value);
         return { ...m, tag: mv?.tag || null, era: mv?.era || null, hero: mv?.heroStill || m.top?.still || null, focus: mv?.heroFocus || null };
@@ -780,7 +786,7 @@ export const exploreSuggest = async (req, res) => {
     // the places, movements, moods and genres a search names
     const named = (list, limit = 3) => list.filter((o) => nameMatches(String(o.value), q)).slice(0, limit);
     const places = named(tally(cards.flatMap((c) => c.countries)));
-    const moods = named(tally(cards.flatMap((c) => c.moods)));
+    const moods = named(offeredMoods(cards));
     const genres = named(tally(cards.flatMap((c) => c.genres)));
     const movements = named(tally(cards.flatMap((c) => c.movements)))
       .map((m) => ({ ...m, tag: movementsByTitle.get(m.value)?.tag || null }))

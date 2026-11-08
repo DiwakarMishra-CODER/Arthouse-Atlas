@@ -14,11 +14,11 @@
 import Movie from '../models/Movie.js';
 import Director from '../models/Director.js';
 import Movement from '../models/Movement.js';
-import { MOODS } from './moodService.js';
+import { MOODS, MOOD_MIN_FILMS } from './moodService.js';
 import { normalizeName } from './nameUtils.js';
 import { matchesScreens } from './watchIndex.js';
 
-export { MOODS };
+export { MOODS, MOOD_MIN_FILMS };
 export const LENGTHS = ['short', 'standard', 'long', 'epic'];
 export const LENGTH_WORDS = { short: 'under 90 minutes', standard: '90 minutes to 2 hours', long: '2 to 3 hours', epic: 'over 3 hours' };
 export const SORTS = ['acclaimed', 'oldest', 'newest', 'surprise', 'closest'];
@@ -83,8 +83,9 @@ export const toCard = (m) => {
     length: lengthOf(m.runtime),
     genres: m.genres || [],
     movements: m.movements || [],
-    // moods from our own notes only: the ones guessed from keywords put Tokyo Story down as "surreal"
-    moods: (m.editorial?.tags || []).filter((t) => MOODS.includes(t)),
+    // moods as viewers said them (MovieLens tags, with how many viewers), never guessed: the old
+    // keyword guesses put Tokyo Story down as "surreal", and the AI-assigned notes were mostly unsupported
+    moods: (m.viewerMoods || []).map((v) => v.mood).filter((t) => MOODS.includes(t)),
     canonRank: m.canonRank ?? null,
     canonDecadeRank: m.canonDecadeRank ?? null, // its place among the films of its own decade
     provenanceScore: m.provenanceScore || 0,
@@ -282,7 +283,7 @@ export const facetCounts = (cards, filters) => {
 // ---------------------------------------------------------------------------
 // the catalogue, loaded and kept for ten minutes
 // ---------------------------------------------------------------------------
-const FIELDS = 'tmdbId vote_count title originalTitle altTitles year decade directors country countries runtime genres movements canonRank canonDecadeRank provenanceScore provenanceCount stills backdropUrl posterUrl editorial.hook editorial.tags productionCompanies provenance.source provenance.detail provenance.rank provenance.pollYear provenance.weight provenance.url';
+const FIELDS = 'tmdbId vote_count title originalTitle altTitles year decade directors country countries runtime genres movements canonRank canonDecadeRank provenanceScore provenanceCount stills backdropUrl posterUrl editorial.hook viewerMoods productionCompanies provenance.source provenance.detail provenance.rank provenance.pollYear provenance.weight provenance.url';
 
 let cache = { at: 0, value: null };
 export const loadCatalogue = async () => {

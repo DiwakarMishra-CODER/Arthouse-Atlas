@@ -3,12 +3,17 @@
  * Maps derivedTags to mood weights for discovery engine
  */
 
-// Mood taxonomy
+// Mood taxonomy: the 15 the atlas began with, then the six viewers' own words added (8 Nov 2026):
+// atmospheric (the word viewers use most), and five lighter ones
 export const MOODS = [
   'contemplative', 'melancholic', 'dreamlike', 'surreal', 'intimate',
   'existential', 'psychological', 'minimalist', 'slow', 'austere',
-  'poetic', 'lyrical', 'enigmatic', 'fragmented', 'bleak'
+  'poetic', 'lyrical', 'enigmatic', 'fragmented', 'bleak',
+  'atmospheric', 'funny', 'whimsical', 'romantic', 'warm', 'tense'
 ];
+
+// a mood with fewer films than this is kept off Explore's picker until there's more evidence
+export const MOOD_MIN_FILMS = 10;
 
 // Tag to mood mapping with weights
 const TAG_TO_MOOD_MAPPING = {
