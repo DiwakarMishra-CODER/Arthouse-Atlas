@@ -275,7 +275,8 @@ const TitleBlock =({ movie, light, frames, canPlay, trailer, onPlay, playRef, pl
                 {facts.join('  ·  ')}
             </div>
             <div className="relative mt-3 md:mt-4">
-                <h1 className="focus-in font-serif font-light leading-[0.95] text-[2.9rem] sm:text-6xl md:text-7xl lg:text-[6.5rem] max-w-5xl">{movie.title}</h1>
+                {/* (the page's own heading is MovieDetail's: this card leaves once the opening is scrolled past) */}
+                <div aria-hidden="true" className="focus-in font-serif font-light leading-[0.95] text-[2.9rem] sm:text-6xl md:text-7xl lg:text-[6.5rem] max-w-5xl">{movie.title}</div>
                 {/* the title out of focus, given up as the lens finds it */}
                 <div aria-hidden="true" className="focus-out pointer-events-none absolute inset-0 font-serif font-light leading-[0.95] text-[2.9rem] sm:text-6xl md:text-7xl lg:text-[6.5rem] max-w-5xl blur-[7px]">{movie.title}</div>
             </div>

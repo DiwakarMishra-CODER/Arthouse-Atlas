@@ -108,6 +108,8 @@ const MovieDetail = () => {
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_50%_10%,rgba(5,5,5,0.2),rgba(5,5,5,0.75)_60%,#050505)]" />
             </div>
 
+            {/* the page's heading, there the whole way down (the title card that shows it leaves after the opening) */}
+            <h1 className="sr-only">{movie.title}{movie.year ? ` (${movie.year})` : ''}</h1>
             <div className="relative">
                 {/* ===== THE SCREEN ===== */}
                 <TheScreen movie={movie} light={light} reducedMotion={reducedMotion} watch={watch} region={region} tags={tags} />
